@@ -42,6 +42,7 @@ classifiers = [
 dependencies = [
     "mcp>=1.0.0",
     "httpx>=0.27.0",
+    "easyeda2kicad>=1.0.1",
 ]
 
 [project.urls]

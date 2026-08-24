@@ -158,12 +158,54 @@ def _empty_sch_skeleton(name: str) -> str:
     )
 
 
+def write_lib_tables(project: Project, lib_name: str = "jlcpcb") -> tuple[Path, Path]:
+    """Register the project-local symbol/footprint libraries with KiCad.
+
+    Without these two tables KiCad never looks inside ``libs/``, so parts
+    fetched by ``fetch_part_library`` would be invisible in the symbol
+    and footprint choosers — the user would have to add them by hand in
+    Preferences. Paths use ``${KIPRJMOD}`` so the project stays portable.
+
+    Idempotent: re-writing with the same ``lib_name`` is a no-op, and an
+    existing table gains the entry rather than being clobbered.
+    """
+    sym_table = project.root / "sym-lib-table"
+    fp_table = project.root / "fp-lib-table"
+
+    entries = {
+        sym_table: (
+            "sym_lib_table",
+            f'  (lib (name "{lib_name}")(type "KiCad")'
+            f'(uri "${{KIPRJMOD}}/libs/{lib_name}.kicad_sym")(options "")(descr "LCSC parts"))',
+        ),
+        fp_table: (
+            "fp_lib_table",
+            f'  (lib (name "{lib_name}")(type "KiCad")'
+            f'(uri "${{KIPRJMOD}}/libs/{lib_name}.pretty")(options "")(descr "LCSC footprints"))',
+        ),
+    }
+
+    for path, (root_tag, entry) in entries.items():
+        if path.exists():
+            current = path.read_text()
+            if f'(name "{lib_name}")' in current:
+                continue
+            close = current.rfind(")")
+            path.write_text(current[:close] + entry + "\n" + current[close:])
+        else:
+            path.write_text(f"({root_tag}\n{entry}\n)\n")
+
+    return sym_table, fp_table
+
+
 def create_project(parent_dir: str | Path, name: str) -> Project:
     """Create a new KiCad project under `parent_dir/name/`.
 
     Writes:
       - <name>.kicad_pro with JLCPCB-tuned default design rules
       - <name>.kicad_sch as a minimal valid empty schematic
+      - sym-lib-table / fp-lib-table registering the project-local
+        `jlcpcb` libraries so fetched parts show up in KiCad's choosers
       - libs/             empty (populated by fetch_part_library)
       - manufacturing/    empty (populated by package_for_jlcpcb)
 
@@ -188,6 +230,7 @@ def create_project(parent_dir: str | Path, name: str) -> Project:
 
     project.pro_path.write_text(json.dumps(_empty_pro_manifest(name), indent=2))
     project.sch_path.write_text(_empty_sch_skeleton(name))
+    write_lib_tables(project)
 
     return project
 
