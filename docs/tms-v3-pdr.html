@@ -1,0 +1,1417 @@
+<title>TMS V3 Preliminary Design Review</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+:root {
+  --bg: #F7F6F3;
+  --bg-surface: #EDECEA;
+  --bg-surface-alt: #E3E1DD;
+  --fg: #2C2E33;
+  --fg-dim: #6B6D72;
+  --fg-faint: #9B9D9F;
+  --accent: #2A7F7F;
+  --accent-dim: rgba(42,127,127,0.12);
+  --red: #C4443A;
+  --red-dim: rgba(196,68,58,0.10);
+  --amber: #B8892E;
+  --amber-dim: rgba(184,137,46,0.10);
+  --green: #4D8F56;
+  --green-dim: rgba(77,143,86,0.10);
+  --border: #D4D2CE;
+  --code-bg: #E8E6E2;
+  --font-mono: 'IBM Plex Mono', 'SF Mono', monospace;
+  --font-body: 'IBM Plex Sans', -apple-system, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1A1B1E;
+    --bg-surface: #242528;
+    --bg-surface-alt: #2E2F33;
+    --fg: #E0DDD8;
+    --fg-dim: #9B9893;
+    --fg-faint: #6B6864;
+    --accent: #4DB8B8;
+    --accent-dim: rgba(77,184,184,0.12);
+    --red: #E06B62;
+    --red-dim: rgba(224,107,98,0.10);
+    --amber: #D4A84A;
+    --amber-dim: rgba(212,168,74,0.10);
+    --green: #6BBF75;
+    --green-dim: rgba(107,191,117,0.10);
+    --border: #3A3B3F;
+    --code-bg: #2A2B2F;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1A1B1E;
+  --bg-surface: #242528;
+  --bg-surface-alt: #2E2F33;
+  --fg: #E0DDD8;
+  --fg-dim: #9B9893;
+  --fg-faint: #6B6864;
+  --accent: #4DB8B8;
+  --accent-dim: rgba(77,184,184,0.12);
+  --red: #E06B62;
+  --red-dim: rgba(224,107,98,0.10);
+  --amber: #D4A84A;
+  --amber-dim: rgba(212,168,74,0.10);
+  --green: #6BBF75;
+  --green-dim: rgba(107,191,117,0.10);
+  --border: #3A3B3F;
+  --code-bg: #2A2B2F;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.65;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+  font-variant-numeric: tabular-nums;
+}
+
+.doc-header {
+  border-bottom: 2px solid var(--fg);
+  padding-bottom: 24px;
+  margin-bottom: 48px;
+}
+.doc-header .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.doc-header h1 {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 8px;
+  text-wrap: balance;
+}
+.doc-header .subtitle {
+  color: var(--fg-dim);
+  font-size: 15px;
+  margin: 0;
+}
+.doc-meta {
+  display: flex;
+  gap: 24px;
+  margin-top: 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--fg-dim);
+  flex-wrap: wrap;
+}
+.doc-meta dt { font-weight: 500; color: var(--fg-faint); }
+.doc-meta dd { margin: 0; }
+
+h2 {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 56px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+h2 .section-num {
+  color: var(--accent);
+  margin-right: 8px;
+}
+h3 {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 600;
+  margin: 32px 0 10px;
+}
+h4 {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fg-dim);
+  margin: 24px 0 8px;
+}
+p { margin: 0 0 12px; max-width: 68ch; }
+
+.table-wrap { overflow-x: auto; margin: 16px 0 24px; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  line-height: 1.5;
+}
+th {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fg-dim);
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+}
+td {
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+tr:nth-child(even) td { background: var(--bg-surface); }
+td:first-child { font-family: var(--font-mono); font-weight: 500; font-size: 12px; }
+.val { font-family: var(--font-mono); font-size: 12px; }
+.unit { color: var(--fg-dim); font-size: 11px; }
+.src { font-family: var(--font-mono); font-size: 10px; color: var(--fg-faint); font-style: italic; }
+
+.callout {
+  padding: 14px 16px;
+  border-left: 3px solid var(--accent);
+  background: var(--accent-dim);
+  margin: 16px 0 24px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+.callout.critical {
+  border-left-color: var(--red);
+  background: var(--red-dim);
+}
+.callout.caution {
+  border-left-color: var(--amber);
+  background: var(--amber-dim);
+}
+.callout.ok {
+  border-left-color: var(--green);
+  background: var(--green-dim);
+}
+.callout .callout-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+.callout.critical .callout-label { color: var(--red); }
+.callout.caution .callout-label { color: var(--amber); }
+.callout.ok .callout-label { color: var(--green); }
+
+.finding {
+  display: grid;
+  grid-template-columns: 4px 1fr;
+  gap: 0 12px;
+  margin: 12px 0;
+  padding: 12px 0 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.finding .sev-stripe { border-radius: 2px; }
+.finding .sev-stripe.critical { background: var(--red); }
+.finding .sev-stripe.caution { background: var(--amber); }
+.finding .sev-stripe.info { background: var(--accent); }
+.finding .finding-title {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.finding .finding-desc { font-size: 13px; color: var(--fg-dim); }
+.finding .finding-sub {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--fg-faint);
+  margin-top: 4px;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  background: var(--code-bg);
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+figure {
+  margin: 24px 0;
+  text-align: center;
+}
+figure svg {
+  max-width: 100%;
+  height: auto;
+}
+figcaption {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--fg-dim);
+  margin-top: 8px;
+  text-align: center;
+}
+
+.toc {
+  background: var(--bg-surface);
+  padding: 20px 24px;
+  border-radius: 4px;
+  margin-bottom: 40px;
+}
+.toc h3 {
+  margin: 0 0 12px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fg-dim);
+}
+.toc ol {
+  margin: 0; padding: 0;
+  list-style: none;
+  counter-reset: toc;
+}
+.toc li {
+  counter-increment: toc;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 4px 0;
+}
+.toc li::before {
+  content: counter(toc, decimal-leading-zero);
+  color: var(--accent);
+  margin-right: 10px;
+  font-weight: 500;
+}
+.toc a { color: var(--fg); text-decoration: none; }
+.toc a:hover { color: var(--accent); }
+
+.decision-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 16px 0 24px;
+}
+.decision-option {
+  padding: 14px 16px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 13px;
+}
+.decision-option.recommended {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+.decision-option .option-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.decision-option.recommended .option-label { color: var(--accent); }
+.decision-option ul { margin: 4px 0 0; padding-left: 16px; font-size: 12px; color: var(--fg-dim); }
+.decision-option li { margin-bottom: 3px; }
+
+@media (max-width: 600px) {
+  body { padding: 24px 16px 60px; font-size: 14px; }
+  .doc-header h1 { font-size: 22px; }
+  .doc-meta { flex-direction: column; gap: 8px; }
+  .decision-box { grid-template-columns: 1fr; }
+  table { font-size: 12px; }
+}
+</style>
+
+<header class="doc-header">
+  <div class="eyebrow">PSI Rocketry &middot; TMS V3</div>
+  <h1>Thrust Measurement System<br>Preliminary Design Review</h1>
+  <p class="subtitle">Signal chain analysis, power architecture, ADC selection, and identified design issues for the integrated TMS V3 PCB. All specifications verified against manufacturer datasheets.</p>
+  <dl class="doc-meta">
+    <div><dt>Date</dt><dd>2026-08-24</dd></div>
+    <div><dt>Rev</dt><dd>B &mdash; datasheet-verified update</dd></div>
+    <div><dt>Phase</dt><dd>SDR / Preliminary Design</dd></div>
+    <div><dt>Status</dt><dd>Draft — open decisions remain</dd></div>
+    <div><dt>Target fab</dt><dd>JLCPCB 2-layer, SMT assembly</dd></div>
+  </dl>
+</header>
+
+<nav class="toc">
+  <h3>Contents</h3>
+  <ol>
+    <li><a href="#s1">System Overview &amp; Component Summary</a></li>
+    <li><a href="#s2">Signal Chain — Load Cell</a></li>
+    <li><a href="#s3">ADC Selection — SMT Comparison</a></li>
+    <li><a href="#s4">Signal Chain — Pressure Sensor</a></li>
+    <li><a href="#s5">Power Architecture</a></li>
+    <li><a href="#s6">Telemetry &amp; Data Budget</a></li>
+    <li><a href="#s7">Ignition Circuit</a></li>
+    <li><a href="#s8">Design Findings</a></li>
+    <li><a href="#s9">Open Design Decisions</a></li>
+    <li><a href="#s10">TBD Register</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<h2 id="s1"><span class="section-num">01</span>System Overview &amp; Component Summary</h2>
+
+<p>TMS V3 integrates sensors, ADCs, MCU, wireless telemetry, SD logging, and ignition onto a single PCB. Previous versions used breakout modules on a carrier board; V3 brings the critical analog front-end on-board as bare SMT ICs for better signal integrity and reliability. XBee and MCU remain as socketed modules.</p>
+
+<h3>Component Register</h3>
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Function</th><th>Part</th><th>Key Specs</th><th>Interface</th><th>Supply</th><th>Form</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>MCU</td>
+      <td>Teensy 4.1</td>
+      <td>Cortex-M7 600 MHz, SDIO microSD, 3&times;SPI, NOT 5V-tolerant</td>
+      <td>SPI, UART, I2C, USB</td>
+      <td><span class="val">3.3V</span> logic, <span class="val">5V</span> Vin</td>
+      <td>Module (socket)</td>
+    </tr>
+    <tr>
+      <td>Load Cell</td>
+      <td>BCA-100L</td>
+      <td><span class="val">100 kgf</span>, <span class="val">2 mV/V</span> R.O., 350&thinsp;&Omega; output, 400&thinsp;&Omega; input</td>
+      <td>4-wire Wheatstone bridge</td>
+      <td><span class="val">5–15V</span> excitation (rec. 10V)</td>
+      <td>External sensor</td>
+    </tr>
+    <tr>
+      <td>Pressure Sensor</td>
+      <td>IPSU-GP1K5-6</td>
+      <td><span class="val">0–1500 psi</span>, <span class="val">0–5V</span> output, &lt;&plusmn;0.25% FS</td>
+      <td>3-wire analog</td>
+      <td><span class="val">9–32V</span> DC</td>
+      <td>External sensor</td>
+    </tr>
+    <tr>
+      <td>ADC (thrust)</td>
+      <td>ADS1256IDBR</td>
+      <td>24-bit &Delta;&Sigma;, 30 kSPS, PGA 1–64, SSOP-28</td>
+      <td>SPI (DRDY, CS)</td>
+      <td>AVDD <span class="val">5V</span>, DVDD <span class="val">1.8–3.6V</span></td>
+      <td>SMT bare IC</td>
+    </tr>
+    <tr>
+      <td>ADC (pressure)</td>
+      <td>ADS1220IPWR</td>
+      <td>24-bit &Delta;&Sigma;, 2 kSPS, PGA 1–128, TSSOP-16</td>
+      <td>SPI (DRDY, CS)</td>
+      <td><span class="val">2.3–5.5V</span> (AVDD=DVDD or split)</td>
+      <td>SMT bare IC</td>
+    </tr>
+    <tr>
+      <td>Wireless</td>
+      <td>XBee 3 802.15.4</td>
+      <td>2.4 GHz, 250 kbps RF, <span class="val">40 mA</span> TX, <span class="val">15 mA</span> RX</td>
+      <td>UART</td>
+      <td><span class="val">2.1–3.6V</span> (3.3V nom.)</td>
+      <td>Module (socket)</td>
+    </tr>
+    <tr>
+      <td>Antenna</td>
+      <td>A24-HASM-450</td>
+      <td>2.4 GHz, SMA, half-wave dipole</td>
+      <td>SMA to XBee U.FL</td>
+      <td>—</td>
+      <td>External</td>
+    </tr>
+    <tr>
+      <td>Storage</td>
+      <td>SanDisk Extreme microSD</td>
+      <td>UHS-I, &ge;90 MB/s write</td>
+      <td>SDIO (Teensy built-in)</td>
+      <td><span class="val">3.3V</span></td>
+      <td>Card (Teensy slot)</td>
+    </tr>
+    <tr>
+      <td>5V Reg</td>
+      <td>LM7805 (TO-263)</td>
+      <td>1.5A max, dropout ~2V</td>
+      <td>—</td>
+      <td>V<sub>in</sub> &gt; 7V</td>
+      <td>SMT</td>
+    </tr>
+    <tr>
+      <td>Battery Conn. (electronics)</td>
+      <td>XT60U-F</td>
+      <td>60A continuous</td>
+      <td>—</td>
+      <td>Electronics battery</td>
+      <td>THT</td>
+    </tr>
+    <tr>
+      <td>Battery Conn. (igniter)</td>
+      <td>XT60U-F</td>
+      <td>60A continuous</td>
+      <td>—</td>
+      <td>Igniter battery (separate)</td>
+      <td>THT</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout">
+  <div class="callout-label">Rev B Changes from Rev A</div>
+  <ul style="margin:6px 0 0;padding-left:18px;font-size:13px;">
+    <li>All noise/current specs verified against TI datasheets (ADS1256 SBAS288, ADS1220 SBAS501D)</li>
+    <li>XBee TX current corrected: <strong>40 mA</strong> (standard module), not 100+ mA (that was the PRO variant)</li>
+    <li>ADC modules replaced with bare SMT ICs (ADS1256IDBR SSOP-28, ADS1220IPWR TSSOP-16)</li>
+    <li>Separate igniter battery added — electronics and ignition are fully independent power domains</li>
+    <li>ADS1256 buffer ON input range limitation documented (AVDD&minus;2V = 3.0V max)</li>
+    <li>Buffer OFF recommended for load cell (lower noise AND wider input range)</li>
+    <li>LM7810 removed — pressure sensor powered directly from 4S battery (within 9–32V spec)</li>
+    <li>New Section 03: SMT ADC comparison with LCSC availability</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="s2"><span class="section-num">02</span>Signal Chain — Load Cell</h2>
+
+<figure>
+  <svg viewBox="0 0 780 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Load cell signal chain: 5V excitation drives the bridge, differential output enters ADS1256 at PGA 64 buffer OFF">
+    <rect x="10" y="30" width="110" height="50" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <text x="65" y="50" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="currentColor">5V EXCIT.</text>
+    <text x="65" y="68" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">LM7805 rail</text>
+
+    <line x1="120" y1="55" x2="170" y2="55" stroke="currentColor" stroke-width="1.2"/>
+    <polygon points="170,51 178,55 170,59" fill="currentColor"/>
+    <text x="149" y="48" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="currentColor" opacity="0.5">12.5mA</text>
+
+    <rect x="180" y="20" width="130" height="70" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <text x="245" y="42" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="currentColor">BCA-100L</text>
+    <text x="245" y="57" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">100 kgf bridge</text>
+    <text x="245" y="72" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">400&Omega; in / 350&Omega; out</text>
+
+    <line x1="310" y1="42" x2="380" y2="42" stroke="currentColor" stroke-width="1.2"/>
+    <line x1="310" y1="62" x2="380" y2="62" stroke="currentColor" stroke-width="1.2"/>
+    <polygon points="380,38 388,42 380,46" fill="currentColor"/>
+    <polygon points="380,58 388,62 380,66" fill="currentColor"/>
+    <text x="345" y="34" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="currentColor" opacity="0.5">+SIG</text>
+    <text x="345" y="78" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="currentColor" opacity="0.5">&minus;SIG</text>
+
+    <rect x="390" y="10" width="170" height="90" rx="3" stroke="currentColor" stroke-width="1.5" fill="none"/>
+    <text x="475" y="30" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="currentColor">ADS1256IDBR</text>
+    <text x="475" y="45" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">PGA=64, Buffer OFF</text>
+    <text x="475" y="60" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">V<tspan baseline-shift="sub" font-size="8">REF</tspan>=2.5V int.</text>
+    <text x="475" y="75" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">FSR=&plusmn;78.1 mV</text>
+    <text x="475" y="90" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--accent)" font-weight="500">0.365 &mu;V<tspan baseline-shift="sub" font-size="8">RMS</tspan> @ 1kSPS</text>
+
+    <line x1="560" y1="55" x2="610" y2="55" stroke="currentColor" stroke-width="1.2"/>
+    <polygon points="610,51 618,55 610,59" fill="currentColor"/>
+    <text x="585" y="48" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="currentColor" opacity="0.5">SPI</text>
+
+    <rect x="620" y="30" width="110" height="50" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <text x="675" y="50" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="currentColor">TEENSY 4.1</text>
+    <text x="675" y="68" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">3.3V logic</text>
+
+    <line x1="245" y1="95" x2="245" y2="130" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3,3"/>
+    <text x="245" y="145" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">V<tspan baseline-shift="sub" font-size="8">diff</tspan> = 0–10 mV FS</text>
+    <text x="245" y="160" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">V<tspan baseline-shift="sub" font-size="8">CM</tspan> &asymp; 2.5V</text>
+
+    <line x1="475" y1="105" x2="475" y2="130" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3,3"/>
+    <text x="475" y="145" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">AVDD=5V, DVDD=3.3V</text>
+    <text x="475" y="160" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">Buffer OFF range: &minus;0.1V to 5.1V</text>
+    <text x="475" y="175" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">Signal uses 12.8% of FSR</text>
+  </svg>
+  <figcaption>Fig. 1 — Load cell signal chain. At 5V excitation the bridge produces 0–10 mV differential with 2.5V common-mode. ADS1256 at PGA=64 with buffer OFF gives best noise and widest input range.</figcaption>
+</figure>
+
+<h3>Buffer ON vs. Buffer OFF — Critical Design Choice</h3>
+
+<div class="callout critical">
+  <div class="callout-label">Critical — Buffer ON Input Range Limitation</div>
+  With buffer ON, the ADS1256 absolute input range is <strong>AGND to AVDD&minus;2.0V</strong>. At AVDD=5V this means <strong>0V to 3.0V</strong>. The load cell common-mode sits at 2.5V, leaving only <strong>0.5V headroom</strong> to the upper limit. Any excitation overshoot, cable-induced offset, or bridge asymmetry could push the input past 3.0V and cause clipping.
+  <br><br><span class="src">Source: ADS1256 datasheet SBAS288, Table 15 — Analog Input: Buffer ON range = AGND to AVDD&minus;2.0V</span>
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Parameter</th><th>Buffer ON</th><th>Buffer OFF</th><th>Winner</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Abs. input range (AVDD=5V)</td>
+      <td><span class="val">0V to 3.0V</span></td>
+      <td><span class="val">&minus;0.1V to 5.1V</span></td>
+      <td style="color:var(--green)">Buffer OFF</td>
+    </tr>
+    <tr>
+      <td>CM headroom (2.5V CM)</td>
+      <td style="color:var(--red)"><span class="val">0.5V</span> margin</td>
+      <td style="color:var(--green)"><span class="val">2.6V</span> margin</td>
+      <td style="color:var(--green)">Buffer OFF</td>
+    </tr>
+    <tr>
+      <td>Noise @ PGA=64, 1000 SPS</td>
+      <td><span class="val">0.486 &mu;V<sub>RMS</sub></span></td>
+      <td><span class="val">0.365 &mu;V<sub>RMS</sub></span></td>
+      <td style="color:var(--green)">Buffer OFF</td>
+    </tr>
+    <tr>
+      <td>Noise-free bits @ PGA=64, 1000 SPS</td>
+      <td><span class="val">15.6 bits</span></td>
+      <td><span class="val">16.1 bits</span></td>
+      <td style="color:var(--green)">Buffer OFF</td>
+    </tr>
+    <tr>
+      <td>Input impedance</td>
+      <td><span class="val">&ge;80 M&Omega;</span> (buffered)</td>
+      <td><span class="val">~few M&Omega;</span> (switched-cap)</td>
+      <td>Buffer ON</td>
+    </tr>
+    <tr>
+      <td>Source impedance tolerance</td>
+      <td>High-Z sources OK</td>
+      <td>Source &lt;1 k&Omega; recommended</td>
+      <td>Buffer ON</td>
+    </tr>
+    <tr>
+      <td>AVDD current @ PGA=64</td>
+      <td><span class="val">36–50 mA</span></td>
+      <td><span class="val">~10 mA</span></td>
+      <td style="color:var(--green)">Buffer OFF</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout ok">
+  <div class="callout-label">Recommendation — Use Buffer OFF</div>
+  For this application, buffer OFF wins on every metric except input impedance. The Wheatstone bridge output impedance is ~350&thinsp;&Omega; — well below the ~1&thinsp;k&Omega; maximum for reliable buffer-OFF operation. Buffer OFF gives <strong>lower noise</strong> (0.365 vs 0.486 &mu;V<sub>RMS</sub>), <strong>wider input range</strong> (full rail-to-rail vs. 3.0V ceiling), and <strong>lower power</strong> (10 mA vs 36–50 mA).
+  <br><br><span class="src">Source: ADS1256 datasheet SBAS288, Tables 1 &amp; 4 (noise), Table 15 (input range), Electrical Characteristics (supply current)</span>
+</div>
+
+<h3>Resolution &amp; Noise — Verified from Datasheet</h3>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Data Rate (SPS)</th><th>Noise &mu;V<sub>RMS</sub> (Buf OFF)</th><th>Noise &mu;V<sub>RMS</sub> (Buf ON)</th><th>Noise-Free Bits (Buf ON)</th></tr></thead>
+  <tbody>
+    <tr><td>2.5</td><td>—</td><td><span class="val">0.033</span></td><td><span class="val">19.7</span></td></tr>
+    <tr><td>100</td><td>—</td><td><span class="val">0.169</span></td><td>—</td></tr>
+    <tr><td>500</td><td><span class="val">0.259</span></td><td><span class="val">0.367</span></td><td><span class="val">16.3</span></td></tr>
+    <tr style="background:var(--accent-dim)"><td><strong>1000</strong></td><td><strong><span class="val">0.365</span></strong></td><td><span class="val">0.486</span></td><td><span class="val">15.6</span></td></tr>
+    <tr><td>2000</td><td><span class="val">0.461</span></td><td><span class="val">0.654</span></td><td><span class="val">15.3</span></td></tr>
+    <tr><td>7500</td><td>—</td><td><span class="val">1.187</span></td><td>—</td></tr>
+    <tr><td>30000</td><td>—</td><td><span class="val">1.742</span></td><td>—</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="src">Source: ADS1256 datasheet SBAS288, Table 1 (Buffer ON) and Table 4 (Buffer OFF), all at PGA=64</p>
+
+<p>At <code>PGA=64</code>, <code>1000 SPS</code>, buffer OFF, the input-referred noise is <strong>0.365&thinsp;&mu;V<sub>RMS</sub></strong>. For a 100&thinsp;kg load cell with 10&thinsp;mV full-scale output at 5V excitation:</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+  <tbody>
+    <tr><td>RMS force noise</td><td><span class="val">100 kg &times; 0.365 &mu;V / 10,000 &mu;V = 3.65 g</span></td></tr>
+    <tr><td>Peak-to-peak force noise</td><td><span class="val">3.65 g &times; 6.6 &asymp; 24 g</span></td></tr>
+    <tr><td>Effective resolution</td><td><span class="val">0.0037%</span> of full scale</td></tr>
+    <tr><td>Noise-free resolution</td><td><span class="val">~16.1 bits</span> (buffer OFF)</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout ok">
+  <div class="callout-label">Assessment</div>
+  3.65&thinsp;g RMS noise at 1&thinsp;kHz on a 100&thinsp;kg cell is excellent for motor thrust measurement. The 5V excitation halves the signal compared to 10V but the ADS1256's low noise compensates. If higher SNR is needed later, increasing excitation to 10V doubles the signal with no ADC changes.
+</div>
+
+<h3>Compatibility Check</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Parameter</th><th>Requirement</th><th>Actual</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Excitation voltage</td>
+      <td>5–15V (rec. 10V, max 15V)</td>
+      <td><span class="val">5V</span> (LM7805)</td>
+      <td style="color:var(--green)">OK — within range</td>
+    </tr>
+    <tr>
+      <td>Bridge current</td>
+      <td>—</td>
+      <td><span class="val">12.5 mA</span> (5V / 400&Omega;)</td>
+      <td style="color:var(--green)">OK — LM7805 can supply</td>
+    </tr>
+    <tr>
+      <td>Full-scale diff. output</td>
+      <td>—</td>
+      <td><span class="val">10 mV</span> (5V &times; 2mV/V)</td>
+      <td style="color:var(--green)">12.8% of &plusmn;78.1 mV FSR</td>
+    </tr>
+    <tr>
+      <td>Common-mode voltage (buf OFF)</td>
+      <td>AGND&minus;0.1V to AVDD+0.1V</td>
+      <td><span class="val">&asymp;2.5V</span></td>
+      <td style="color:var(--green)">OK — 2.6V margin to 5.1V limit</td>
+    </tr>
+    <tr>
+      <td>Source impedance (buf OFF)</td>
+      <td>&lt;1 k&Omega; recommended</td>
+      <td><span class="val">~350 &Omega;</span> (bridge output)</td>
+      <td style="color:var(--green)">OK</td>
+    </tr>
+    <tr>
+      <td>SPI logic level</td>
+      <td>DVDD level (1.8–3.6V)</td>
+      <td><span class="val">3.3V</span> (Teensy)</td>
+      <td style="color:var(--green)">OK — direct connection</td>
+    </tr>
+    <tr>
+      <td>AVDD current (buf OFF, PGA=64)</td>
+      <td>LM7805 budget</td>
+      <td><span class="val">~10 mA</span></td>
+      <td style="color:var(--green)">OK — vs 36–50 mA with buffer ON</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout caution">
+  <div class="callout-label">Caution — Excitation Stability</div>
+  The load cell output is ratiometric to excitation voltage. Using the ADS1256 internal 2.5V reference (non-ratiometric) means LM7805 output noise and ripple appear as measurement error. Consider: (a) using the excitation voltage as the ADC reference via a precision resistive divider (ratiometric — cancels excitation noise), or (b) adding LC filtering on the excitation rail.
+</div>
+
+<!-- ============================================================ -->
+<h2 id="s3"><span class="section-num">03</span>ADC Selection — SMT Comparison</h2>
+
+<p>Since V3 uses SMT assembly (except XBee and Teensy modules), we compared bare-IC ADCs available on LCSC for JLCPCB assembly. All specs are from manufacturer datasheets.</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Parameter</th><th>ADS1256IDBR</th><th>ADS1220IPWR</th><th>ADS1262IPW</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Resolution</td>
+      <td><span class="val">24-bit</span></td>
+      <td><span class="val">24-bit</span></td>
+      <td><span class="val">32-bit</span></td>
+    </tr>
+    <tr>
+      <td>Package</td>
+      <td><span class="val">SSOP-28</span></td>
+      <td><span class="val">TSSOP-16</span></td>
+      <td><span class="val">TSSOP-28</span></td>
+    </tr>
+    <tr>
+      <td>PGA range</td>
+      <td><span class="val">1–64</span></td>
+      <td><span class="val">1–128</span></td>
+      <td><span class="val">1–32</span></td>
+    </tr>
+    <tr>
+      <td>Max data rate</td>
+      <td><span class="val">30,000 SPS</span></td>
+      <td><span class="val">2,000 SPS</span></td>
+      <td><span class="val">38,400 SPS</span></td>
+    </tr>
+    <tr>
+      <td>Diff. channels</td>
+      <td><span class="val">4</span></td>
+      <td><span class="val">2</span></td>
+      <td><span class="val">5</span></td>
+    </tr>
+    <tr>
+      <td>Noise @ PGA max, 1 kSPS</td>
+      <td><span class="val">0.365 &mu;V<sub>RMS</sub></span> (PGA=64, buf OFF)</td>
+      <td><span class="val">1.03 &mu;V<sub>RMS</sub></span> (PGA=64, normal mode)</td>
+      <td><span class="val">TBD</span> (PGA=32)</td>
+    </tr>
+    <tr>
+      <td>AVDD range</td>
+      <td><span class="val">5V</span> (4.75–5.25)</td>
+      <td><span class="val">2.3–5.5V</span></td>
+      <td><span class="val">5V</span> (4.75–5.25)</td>
+    </tr>
+    <tr>
+      <td>DVDD range</td>
+      <td><span class="val">1.8–3.6V</span></td>
+      <td><span class="val">2.3–5.5V</span></td>
+      <td><span class="val">2.7–5.25V</span></td>
+    </tr>
+    <tr>
+      <td>Internal reference</td>
+      <td><span class="val">2.5V</span></td>
+      <td><span class="val">2.048V</span></td>
+      <td><span class="val">2.5V</span></td>
+    </tr>
+    <tr>
+      <td>Excitation current (iDAC)</td>
+      <td style="color:var(--red)">No</td>
+      <td style="color:var(--green)"><span class="val">10–1500 &mu;A</span> (2 sources)</td>
+      <td style="color:var(--green)">Yes</td>
+    </tr>
+    <tr>
+      <td>LCSC part #</td>
+      <td><span class="val">C28186</span></td>
+      <td><span class="val">C48263</span></td>
+      <td><span class="val">C122460</span></td>
+    </tr>
+    <tr>
+      <td>Price (LCSC)</td>
+      <td><span class="val">~$6.62</span></td>
+      <td><span class="val">~$1.54</span></td>
+      <td><span class="val">~$9.82</span></td>
+    </tr>
+    <tr>
+      <td>JLCPCB assembly</td>
+      <td style="color:var(--green)">Available</td>
+      <td style="color:var(--green)">Available</td>
+      <td style="color:var(--green)">Available</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p class="src">Sources: ADS1256 SBAS288 Table 4; ADS1220 SBAS501D Table 7-1; ADS1262 SBAS869. LCSC prices as of August 2026.</p>
+
+<h4>Candidates Ruled Out</h4>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Part</th><th>Why Eliminated</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>ADS1261</td>
+      <td>Excellent specs (30 nV<sub>RMS</sub> @ 20 SPS, PGA 1–128, 1 G&Omega; input, iDACs, 20 mW) but <strong>not available on LCSC/JLCPCB</strong>. Cannot use for JLCPCB SMT assembly.</td>
+    </tr>
+    <tr>
+      <td>ADS131M04</td>
+      <td>AVDD max 3.6V. TI documentation states not recommended for bridge sensor applications. Cannot operate at 5V needed for load cell CM compatibility.</td>
+    </tr>
+    <tr>
+      <td>ADS1220 (CJMCU-1220 module)</td>
+      <td>Module ties AVDD/DVDD together; module schematic unknown. Replaced with bare ADS1220IPWR IC for full supply control.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Recommendation</h3>
+
+<div class="decision-box">
+  <div class="decision-option recommended">
+    <div class="option-label">Thrust ADC — ADS1256IDBR (recommended)</div>
+    <ul>
+      <li>Best noise: 0.365 &mu;V<sub>RMS</sub> at PGA=64, 1 kSPS (buffer OFF)</li>
+      <li>4 differential MUX channels — can measure thrust + pressure on one chip</li>
+      <li>30 kSPS max — headroom to increase sample rate later</li>
+      <li>Well-documented, proven in precision bridge measurement</li>
+      <li>LCSC C28186, ~$6.62, JLCPCB assembly OK</li>
+    </ul>
+  </div>
+  <div class="decision-option">
+    <div class="option-label">Pressure ADC — ADS1220IPWR (recommended)</div>
+    <ul>
+      <li>At 5V AVDD: accepts 0–5V pressure sensor output directly (PGA bypassed)</li>
+      <li>2 kSPS max — sufficient for 1 kHz pressure sampling</li>
+      <li>iDACs available if barometer or RTD is added later</li>
+      <li>Tiny TSSOP-16 package, extremely low cost ($1.54)</li>
+      <li>LCSC C48263, JLCPCB assembly OK</li>
+    </ul>
+  </div>
+</div>
+
+<h3>ADS1220 Common-Mode Voltage Verification (for load cell backup use at 5V AVDD, PGA=64)</h3>
+
+<p>If the ADS1220 is also considered for load cell measurement (backup or alternative), CM compatibility check with PGA enabled:</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Constraint</th><th>Equation</th><th>Value (AVDD=5V, V<sub>INMAX</sub>=10 mV)</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>V<sub>CM,min</sub> (PGA limit)</td>
+      <td>AVSS + 0.2V + &frac12;&times;64&times;V<sub>INMAX</sub></td>
+      <td><span class="val">0 + 0.2 + 0.32 = 0.52V</span></td>
+    </tr>
+    <tr>
+      <td>V<sub>CM,min</sub> (design limit)</td>
+      <td>AVSS + &frac14;(AVDD&minus;AVSS)</td>
+      <td><span class="val">0 + 1.25 = 1.25V</span> (governs)</td>
+    </tr>
+    <tr>
+      <td>V<sub>CM,max</sub></td>
+      <td>AVDD &minus; 0.2V &minus; &frac12;&times;64&times;V<sub>INMAX</sub></td>
+      <td><span class="val">5.0 &minus; 0.2 &minus; 0.32 = 4.48V</span></td>
+    </tr>
+    <tr>
+      <td>Load cell V<sub>CM</sub></td>
+      <td>—</td>
+      <td><span class="val">2.5V</span> — within [1.25V, 4.48V] <span style="color:var(--green)">&check;</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p class="src">Source: ADS1220 datasheet SBAS501D, Equations 12–14 (Section 8.3.2.1)</p>
+
+<!-- ============================================================ -->
+<h2 id="s4"><span class="section-num">04</span>Signal Chain — Pressure Sensor</h2>
+
+<figure>
+  <svg viewBox="0 0 780 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pressure sensor signal chain: battery powers IPSU sensor, 0-5V output enters ADS1220 at 5V AVDD or ADS1256 MUX channel">
+    <rect x="10" y="30" width="110" height="50" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <text x="65" y="50" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="currentColor">V<tspan baseline-shift="sub" font-size="8">BAT</tspan> Direct</text>
+    <text x="65" y="68" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">4S: 12–16.8V</text>
+
+    <line x1="120" y1="55" x2="170" y2="55" stroke="currentColor" stroke-width="1.2"/>
+    <polygon points="170,51 178,55 170,59" fill="currentColor"/>
+    <text x="149" y="48" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="currentColor" opacity="0.5">~10mA</text>
+
+    <rect x="180" y="20" width="140" height="70" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <text x="250" y="42" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="currentColor">IPSU-GP1K5-6</text>
+    <text x="250" y="57" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">0–1500 psi</text>
+    <text x="250" y="72" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">3-wire, 0–5V out</text>
+
+    <line x1="320" y1="55" x2="388" y2="55" stroke="currentColor" stroke-width="1.2"/>
+    <polygon points="388,51 396,55 388,59" fill="currentColor"/>
+    <text x="354" y="48" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="currentColor" opacity="0.5">0–5V</text>
+
+    <rect x="398" y="15" width="170" height="80" rx="3" stroke="currentColor" stroke-width="1.5" fill="none"/>
+    <text x="483" y="35" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="currentColor">ADS1220IPWR</text>
+    <text x="483" y="52" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--accent)" font-weight="500">AVDD=5V, DVDD=3.3V</text>
+    <text x="483" y="67" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">PGA bypass, VREF=AVDD</text>
+    <text x="483" y="82" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">FSR = 0–5V</text>
+
+    <line x1="568" y1="55" x2="620" y2="55" stroke="currentColor" stroke-width="1.2"/>
+    <polygon points="620,51 628,55 620,59" fill="currentColor"/>
+    <text x="594" y="48" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="currentColor" opacity="0.5">SPI</text>
+
+    <rect x="630" y="30" width="110" height="50" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <text x="685" y="50" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="currentColor">TEENSY 4.1</text>
+    <text x="685" y="68" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">3.3V logic</text>
+
+    <line x1="250" y1="95" x2="250" y2="125" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3,3"/>
+    <text x="250" y="140" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">Sensor spec: 9–32V supply</text>
+    <text x="250" y="155" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--green)" font-weight="500">4S range (12–16.8V) OK</text>
+  </svg>
+  <figcaption>Fig. 2 — Pressure sensor signal chain. V<sub>BAT</sub> feeds sensor directly (within 9–32V spec at 4S). ADS1220 at 5V AVDD accepts full 0–5V output. DVDD=3.3V for direct SPI to Teensy.</figcaption>
+</figure>
+
+<!-- ============================================================ -->
+<h2 id="s5"><span class="section-num">05</span>Power Architecture</h2>
+
+<figure>
+  <svg viewBox="0 0 780 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Power tree: two separate batteries — electronics battery through 5V and 3.3V regulators, igniter battery through MOSFET switch">
+    <!-- Electronics battery -->
+    <rect x="20" y="80" width="130" height="60" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
+    <text x="85" y="100" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="currentColor">ELEC Battery</text>
+    <text x="85" y="115" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">4S LiPo 12–16.8V</text>
+    <text x="85" y="128" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">XT60 connector</text>
+
+    <line x1="150" y1="110" x2="210" y2="110" stroke="currentColor" stroke-width="2"/>
+    <line x1="210" y1="40" x2="210" y2="210" stroke="currentColor" stroke-width="2"/>
+
+    <!-- VBAT direct to pressure sensor -->
+    <line x1="210" y1="50" x2="280" y2="50" stroke="currentColor" stroke-width="1.2"/>
+    <polygon points="280,46 288,50 280,54" fill="currentColor"/>
+    <rect x="290" y="30" width="180" height="40" rx="3" fill="none" stroke="currentColor" stroke-width="1"/>
+    <text x="380" y="48" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.7">Pressure sensor (9–32V, ~10 mA)</text>
+    <text x="380" y="62" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="currentColor" opacity="0.5">Direct VBAT — no LM7810 needed</text>
+    <text x="248" y="38" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="600" fill="currentColor">V<tspan baseline-shift="sub" font-size="8">BAT</tspan></text>
+
+    <!-- 5V rail -->
+    <line x1="210" y1="120" x2="280" y2="120" stroke="currentColor" stroke-width="1.2"/>
+    <rect x="280" y="100" width="90" height="40" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <text x="325" y="117" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="600" fill="currentColor">LM7805</text>
+    <text x="325" y="130" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="currentColor" opacity="0.5">TO-263</text>
+    <line x1="370" y1="120" x2="440" y2="120" stroke="currentColor" stroke-width="1.2"/>
+    <polygon points="440,116 448,120 440,124" fill="currentColor"/>
+    <rect x="450" y="86" width="310" height="72" rx="3" fill="none" stroke="currentColor" stroke-width="1"/>
+    <text x="605" y="104" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.7">ADS1256 AVDD (~10 mA, buffer OFF)</text>
+    <text x="605" y="119" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.7">ADS1220 AVDD (~1 mA)</text>
+    <text x="605" y="134" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.7">Load cell excitation (12.5 mA)</text>
+    <text x="605" y="149" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.7">Teensy V<tspan baseline-shift="sub" font-size="8">IN</tspan> (onboard 3.3V reg)</text>
+    <text x="405" y="93" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="currentColor">5V</text>
+
+    <!-- 3.3V rail -->
+    <line x1="210" y1="200" x2="280" y2="200" stroke="currentColor" stroke-width="1.2"/>
+    <rect x="280" y="180" width="90" height="40" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <text x="325" y="197" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="600" fill="currentColor">Teensy</text>
+    <text x="325" y="210" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="currentColor" opacity="0.5">onboard LDO</text>
+    <line x1="370" y1="200" x2="440" y2="200" stroke="currentColor" stroke-width="1.2"/>
+    <polygon points="440,196 448,200 440,204" fill="currentColor"/>
+    <rect x="450" y="178" width="310" height="56" rx="3" fill="none" stroke="currentColor" stroke-width="1"/>
+    <text x="605" y="197" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.7">ADS1256 DVDD (~2.5 mA)</text>
+    <text x="605" y="212" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.7">ADS1220 DVDD (~0.3 mA)</text>
+    <text x="605" y="227" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.7">XBee 3.3V (40 mA TX, 15 mA RX)</text>
+    <text x="405" y="175" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="currentColor">3.3V</text>
+
+    <!-- ======= IGNITER DOMAIN (separate) ======= -->
+    <line x1="20" y1="270" x2="760" y2="270" stroke="var(--border)" stroke-width="1" stroke-dasharray="4,4"/>
+    <text x="390" y="262" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="600" fill="var(--red)">SEPARATE POWER DOMAIN — IGNITER</text>
+
+    <!-- Igniter battery -->
+    <rect x="20" y="295" width="130" height="60" rx="3" fill="none" stroke="var(--red)" stroke-width="2"/>
+    <text x="85" y="315" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="var(--red)">IGN Battery</text>
+    <text x="85" y="330" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">Separate LiPo</text>
+    <text x="85" y="343" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">XT60 connector</text>
+
+    <!-- ARM switch -->
+    <line x1="150" y1="325" x2="200" y2="325" stroke="var(--red)" stroke-width="1.5"/>
+    <rect x="200" y="305" width="100" height="40" rx="3" fill="none" stroke="var(--red)" stroke-width="2"/>
+    <text x="250" y="322" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="600" fill="var(--red)">ARM Switch</text>
+    <text x="250" y="337" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="currentColor" opacity="0.5">Physical key</text>
+
+    <!-- MOSFET -->
+    <line x1="300" y1="325" x2="360" y2="325" stroke="var(--red)" stroke-width="1.2"/>
+    <rect x="360" y="305" width="100" height="40" rx="3" fill="none" stroke="var(--red)" stroke-width="1.5"/>
+    <text x="410" y="322" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="600" fill="var(--red)">N-FET</text>
+    <text x="410" y="337" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="currentColor" opacity="0.5">GPIO-driven</text>
+
+    <!-- GPIO line from Teensy -->
+    <line x1="410" y1="305" x2="410" y2="240" stroke="var(--red)" stroke-width="0.8" stroke-dasharray="3,3"/>
+    <text x="425" y="275" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--red)" opacity="0.7">GPIO</text>
+
+    <!-- E-match -->
+    <line x1="460" y1="325" x2="520" y2="325" stroke="var(--red)" stroke-width="1.2"/>
+    <polygon points="520,321 528,325 520,329" fill="var(--red)"/>
+    <rect x="530" y="310" width="80" height="30" rx="3" fill="none" stroke="var(--red)" stroke-width="1.5"/>
+    <text x="570" y="329" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="600" fill="var(--red)">E-match</text>
+
+    <text x="480" y="363" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">1–3A pulse, separate from measurement system</text>
+  </svg>
+  <figcaption>Fig. 3 — Power tree with separate igniter battery. Electronics and ignition are independent power domains. The only connection between them is the GPIO line driving the N-FET gate (with pull-down resistor).</figcaption>
+</figure>
+
+<div class="callout ok">
+  <div class="callout-label">Separate Igniter Battery — Design Rationale</div>
+  Using a dedicated battery for the igniter provides complete electrical isolation between measurement and ignition. The igniter draws 1–3A pulses that would cause ground bounce and supply droops if shared with the ADC rail. With separate batteries, a short or igniter fault cannot brown-out the data acquisition system. The igniter circuit is simple: battery &rarr; physical ARM key switch &rarr; N-channel MOSFET (GPIO-controlled) &rarr; e-match.
+</div>
+
+<h3>3.3V Regulator — Revised Assessment</h3>
+
+<div class="callout ok">
+  <div class="callout-label">XBee Current Corrected — Teensy LDO Sufficient</div>
+  The XBee 3 standard module (non-PRO) draws <strong>40 mA during TX</strong> and <strong>15 mA during RX</strong> — not the 100+ mA previously estimated (that figure applies to the XBee 3 PRO variant at max TX power). The Teensy 4.1 onboard 3.3V LDO (250 mA capacity) has adequate margin:
+  <br><br>
+  <span class="val">Teensy core ~100 mA + XBee TX 40 mA + ADS1256 DVDD 2.5 mA + ADS1220 DVDD 0.3 mA + SD card ~20 mA &asymp; 163 mA peak</span>
+  <br><br>
+  This is 65% of the 250 mA rating. A dedicated 3.3V LDO is no longer required.
+  <br><br><span class="src">Source: XBee 3 802.15.4 datasheet (Digi), Table "DC Characteristics" — I<sub>TX</sub>=40 mA @ +5 dBm, I<sub>RX</sub>=15 mA</span>
+</div>
+
+<h3>Power Budget Summary (4S Electronics Battery)</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Rail</th><th>Source</th><th>Loads</th><th>Est. Current</th><th>Dissipation (16.8V worst)</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>V<sub>BAT</sub> direct</td>
+      <td>4S LiPo</td>
+      <td>Pressure sensor (12–16.8V)</td>
+      <td><span class="val">~10 mA</span></td>
+      <td>None (direct feed)</td>
+    </tr>
+    <tr>
+      <td>5V</td>
+      <td>LM7805</td>
+      <td>ADS1256 AVDD, ADS1220 AVDD, load cell excitation, Teensy Vin</td>
+      <td><span class="val">~30 mA</span></td>
+      <td><span class="val">0.35W</span> (TO-263 fine)</td>
+    </tr>
+    <tr>
+      <td>3.3V</td>
+      <td>Teensy onboard LDO</td>
+      <td>MCU, ADS DVDD, XBee, SD card</td>
+      <td><span class="val">~163 mA</span> peak TX</td>
+      <td><span class="val">0.28W</span> (in Teensy LDO)</td>
+    </tr>
+    <tr>
+      <td>Igniter</td>
+      <td>Separate LiPo</td>
+      <td>E-match (1–3A pulse)</td>
+      <td><span class="val">~2A</span> for &lt;1s</td>
+      <td>Through FET R<sub>DS(on)</sub></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout ok">
+  <div class="callout-label">Thermal — Much Improved vs Rev A</div>
+  With buffer OFF (10 mA vs 36–50 mA per ADS1256), no relay coil on 5V (igniter on separate battery), and no LM7810, the 5V rail draws only ~30 mA. LM7805 dissipation: (16.8&minus;5)&times;0.03 = <strong>0.35W</strong>. Buck pre-regulator no longer needed.
+</div>
+
+<!-- ============================================================ -->
+<h2 id="s6"><span class="section-num">06</span>Telemetry &amp; Data Budget</h2>
+
+<h3>Downlink Budget</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Parameter</th><th>Value</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>Frame size</td><td><span class="val">32 bytes</span></td><td>Timestamp + thrust + pressure + state + checksum</td></tr>
+    <tr><td>Target update rate</td><td><span class="val">60 Hz</span></td><td>Ground station display refresh</td></tr>
+    <tr><td>Data throughput</td><td><span class="val">1,920 B/s</span> = 15.4 kbps</td><td>32 &times; 60</td></tr>
+    <tr><td>XBee RF rate</td><td><span class="val">250 kbps</span></td><td>802.15.4 PHY</td></tr>
+    <tr><td>Effective throughput</td><td><span class="val">~80 kbps</span></td><td>After framing, ACK, backoff</td></tr>
+    <tr><td>Channel utilisation</td><td><span class="val">19%</span></td><td>Comfortable margin</td></tr>
+    <tr><td>UART baud</td><td><span class="val">115,200</span></td><td>Standard XBee default</td></tr>
+    <tr><td>XBee TX current</td><td><span class="val">40 mA</span></td><td>Standard module @ +5 dBm</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="src">Source: XBee 3 802.15.4 datasheet (Digi International)</p>
+
+<h3>SD Logging Budget</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Parameter</th><th>Value</th></tr></thead>
+  <tbody>
+    <tr><td>Target sample rate</td><td><span class="val">1,000 Hz</span> per channel</td></tr>
+    <tr><td>Channels</td><td><span class="val">2</span> (thrust + pressure)</td></tr>
+    <tr><td>Bytes per sample</td><td><span class="val">~16 bytes</span></td></tr>
+    <tr><td>Write throughput</td><td><span class="val">32 KB/s</span></td></tr>
+    <tr><td>SD sustained write</td><td><span class="val">&gt;10 MB/s</span> (SDIO)</td></tr>
+    <tr><td>30s burn data</td><td><span class="val">~1.0 MB</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout ok">
+  <div class="callout-label">Assessment</div>
+  32 KB/s is trivial for SDIO. Use double-buffering in firmware to prevent SD writes from blocking ADC sampling.
+</div>
+
+<!-- ============================================================ -->
+<h2 id="s7"><span class="section-num">07</span>Ignition Circuit</h2>
+
+<p>The ignition system uses a <strong>separate battery</strong>. The circuit is the simplest possible: battery &rarr; physical ARM switch &rarr; MOSFET switch &rarr; e-match.</p>
+
+<figure>
+  <svg viewBox="0 0 700 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ignition chain: separate battery through physical ARM key switch, then N-FET controlled by GPIO with pull-down, then e-match">
+    <rect x="10" y="35" width="100" height="50" rx="3" fill="none" stroke="var(--red)" stroke-width="2"/>
+    <text x="60" y="55" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="600" fill="var(--red)">IGN Batt</text>
+    <text x="60" y="70" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="currentColor" opacity="0.5">Separate LiPo</text>
+
+    <line x1="110" y1="60" x2="150" y2="60" stroke="var(--red)" stroke-width="1.5"/>
+
+    <rect x="150" y="30" width="100" height="60" rx="3" fill="none" stroke="var(--red)" stroke-width="2"/>
+    <text x="200" y="53" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="600" fill="var(--red)">ARM Key</text>
+    <text x="200" y="67" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="currentColor" opacity="0.5">Physical switch</text>
+    <text x="200" y="80" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="currentColor" opacity="0.5">Inhibit #1</text>
+
+    <line x1="250" y1="60" x2="300" y2="60" stroke="var(--red)" stroke-width="1.2"/>
+
+    <rect x="300" y="30" width="120" height="60" rx="3" fill="none" stroke="var(--red)" stroke-width="1.5"/>
+    <text x="360" y="50" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="600" fill="var(--red)">N-FET + Pull-down</text>
+    <text x="360" y="65" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="currentColor" opacity="0.5">GPIO w/ 10k&Omega; pull-down</text>
+    <text x="360" y="80" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="currentColor" opacity="0.5">Inhibit #2</text>
+
+    <line x1="420" y1="60" x2="470" y2="60" stroke="var(--red)" stroke-width="1.2"/>
+    <polygon points="470,56 478,60 470,64" fill="var(--red)"/>
+
+    <rect x="480" y="35" width="90" height="50" rx="3" fill="none" stroke="var(--red)" stroke-width="1.5"/>
+    <text x="525" y="58" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="600" fill="var(--red)">E-match</text>
+    <text x="525" y="72" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="currentColor" opacity="0.5">1–3A pulse</text>
+
+    <text x="350" y="115" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">Two inhibits: physical switch (hardware) + GPIO gate (firmware)</text>
+    <text x="350" y="128" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.6">Separate battery — igniter fault cannot affect measurement system</text>
+  </svg>
+  <figcaption>Fig. 4 — Ignition chain with separate battery and two inhibits.</figcaption>
+</figure>
+
+<h3>Igniter Components</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Component</th><th>Purpose</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>XT60U-F (2nd connector)</td>
+      <td>Igniter battery input</td>
+      <td>Separate from electronics battery. Clear silkscreen label.</td>
+    </tr>
+    <tr>
+      <td>Key switch / covered toggle</td>
+      <td>Physical ARM inhibit</td>
+      <td>Physically disconnects igniter power. Prevents accidental arming.</td>
+    </tr>
+    <tr>
+      <td>N-channel MOSFET (logic-level)</td>
+      <td>FIRE switch</td>
+      <td>R<sub>DS(on)</sub> &lt; 50 m&Omega;, V<sub>GS(th)</sub> &lt; 2V for 3.3V drive. e.g., AO3400A (SOT-23, SMT).</td>
+    </tr>
+    <tr>
+      <td>10 k&Omega; pull-down on gate</td>
+      <td>Default-off safety</td>
+      <td>Ensures FET stays OFF during Teensy boot when GPIO floats.</td>
+    </tr>
+    <tr>
+      <td>Screw terminal (2-pos)</td>
+      <td>E-match connection</td>
+      <td>Field-serviceable. Clearly labeled polarity.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout caution">
+  <div class="callout-label">Caution — GPIO Pull-down is Essential</div>
+  During Teensy boot, GPIO pins float for ~100 ms before firmware initializes them. Without the 10&thinsp;k&Omega; pull-down, the FET may conduct and fire the igniter during power-on. Non-negotiable safety hardware.
+</div>
+
+<!-- ============================================================ -->
+<h2 id="s8"><span class="section-num">08</span>Design Findings</h2>
+
+<p>Findings from preliminary review, sorted by severity. Rev B updates marked.</p>
+
+<div class="finding">
+  <div class="sev-stripe critical"></div>
+  <div class="finding-body">
+    <div class="finding-title">F-01 &mdash; ADS1256 Buffer ON limits input range to 3.0V (AVDD&minus;2V)</div>
+    <div class="finding-desc">With buffer ON and AVDD=5V, the absolute input range is 0V to 3.0V. Load cell CM at 2.5V has only 0.5V headroom. <strong>Buffer OFF is mandatory</strong> — also gives lower noise (0.365 vs 0.486 &mu;V<sub>RMS</sub>) and lower power (10 vs 36–50 mA).</div>
+    <div class="finding-sub">Source: ADS1256 SBAS288 Table 15 &bull; Status: <span style="color:var(--green)">RESOLVED — use buffer OFF</span></div>
+  </div>
+</div>
+
+<div class="finding">
+  <div class="sev-stripe critical"></div>
+  <div class="finding-body">
+    <div class="finding-title">F-02 &mdash; Pressure sensor 5V output exceeds 3.3V ADC input range</div>
+    <div class="finding-desc">ADS1220 at 3.3V AVDD: absolute max input = 3.6V. IPSU outputs 0–5V. Must power ADS1220 AVDD at 5V (split supply with DVDD=3.3V).</div>
+    <div class="finding-sub">Source: ADS1220 SBAS501D absolute max ratings &bull; Status: <span style="color:var(--green)">RESOLVED — ADS1220IPWR with AVDD=5V, DVDD=3.3V</span></div>
+  </div>
+</div>
+
+<div class="finding">
+  <div class="sev-stripe critical"></div>
+  <div class="finding-body">
+    <div class="finding-title">F-03 &mdash; 3S LiPo margins insufficient</div>
+    <div class="finding-desc">3S at low SOC delivers 9.0V — marginal for pressure sensor (min 9V) and insufficient for LM7810 (min 12V). With 4S, LM7810 is eliminated (pressure sensor fed directly from VBAT 12–16.8V).</div>
+    <div class="finding-sub">Status: <span style="color:var(--green)">RESOLVED — use 4S, remove LM7810</span></div>
+  </div>
+</div>
+
+<div class="finding">
+  <div class="sev-stripe critical"></div>
+  <div class="finding-body">
+    <div class="finding-title">F-04 &mdash; Teensy 4.1 is NOT 5V-tolerant <span style="color:var(--accent)">[NEW Rev B]</span></div>
+    <div class="finding-desc">NXP iMXRT1062 GPIOs are 3.3V only. If DVDD is accidentally connected to 5V, all SPI lines are at risk. Verify all signal level domains during schematic review.</div>
+    <div class="finding-sub">Status: <span style="color:var(--amber)">OPEN — verify in schematic</span></div>
+  </div>
+</div>
+
+<div class="finding">
+  <div class="sev-stripe caution"></div>
+  <div class="finding-body">
+    <div class="finding-title">F-05 &mdash; Load cell excitation noise affects measurement (non-ratiometric)</div>
+    <div class="finding-desc">Using ADS1256 internal 2.5V reference means LM7805 noise appears in measurement. Consider ratiometric reference (derive VREF from excitation via divider).</div>
+    <div class="finding-sub">Status: <span style="color:var(--amber)">OPEN — design decision D-04</span></div>
+  </div>
+</div>
+
+<div class="finding">
+  <div class="sev-stripe caution"></div>
+  <div class="finding-body">
+    <div class="finding-title">F-06 &mdash; No input protection on ADC analog inputs</div>
+    <div class="finding-desc">No TVS diodes or series resistors for ESD/transient protection. Load cell cables are several metres long. Add series 100&thinsp;&Omega; + TVS clamp (e.g., PESD5V0S2BT).</div>
+    <div class="finding-sub">Status: <span style="color:var(--amber)">OPEN — add to schematic</span></div>
+  </div>
+</div>
+
+<div class="finding">
+  <div class="sev-stripe caution"></div>
+  <div class="finding-body">
+    <div class="finding-title">F-07 &mdash; SPI bus contention risk</div>
+    <div class="finding-desc">ADS1256 + ADS1220 should be on separate SPI buses. Teensy 4.1 has SPI, SPI1, SPI2.</div>
+    <div class="finding-sub">Status: <span style="color:var(--green)">RESOLVED — ADS1256 on SPI0, ADS1220 on SPI1</span></div>
+  </div>
+</div>
+
+<div class="finding">
+  <div class="sev-stripe caution"></div>
+  <div class="finding-body">
+    <div class="finding-title">F-08 &mdash; GPIO pull-down on igniter MOSFET gate is safety-critical</div>
+    <div class="finding-desc">During Teensy boot (~100 ms) GPIO pins float. Without 10&thinsp;k&Omega; pull-down on FET gate, igniter may fire on power-up.</div>
+    <div class="finding-sub">Status: <span style="color:var(--amber)">OPEN — add to schematic</span></div>
+  </div>
+</div>
+
+<div class="finding">
+  <div class="sev-stripe info"></div>
+  <div class="finding-body">
+    <div class="finding-title">F-09 &mdash; Missing decoupling capacitors</div>
+    <div class="finding-desc">Each ADC needs 100 nF + 10 &mu;F at AVDD and DVDD. LM7805 needs input/output caps (10 &mu;F min). With buffer OFF, switched-cap input generates AVDD current spikes — local decoupling critical for noise performance.</div>
+    <div class="finding-sub">Status: <span style="color:var(--amber)">OPEN — add to BOM and schematic</span></div>
+  </div>
+</div>
+
+<div class="finding">
+  <div class="sev-stripe info"></div>
+  <div class="finding-body">
+    <div class="finding-title">F-10 &mdash; No test points defined</div>
+    <div class="finding-desc">Add labeled test points: VBAT, 5V, 3.3V, ADC AIN+/AIN&minus;, DRDY, igniter output.</div>
+    <div class="finding-sub">Status: <span style="color:var(--amber)">OPEN</span></div>
+  </div>
+</div>
+
+<div class="finding">
+  <div class="sev-stripe info"></div>
+  <div class="finding-body">
+    <div class="finding-title">F-11 &mdash; LED status indicators not specified</div>
+    <div class="finding-desc">Add LEDs: power (green), logging (blue), ARM (red), telemetry (amber).</div>
+    <div class="finding-sub">Status: <span style="color:var(--amber)">OPEN</span></div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="s9"><span class="section-num">09</span>Open Design Decisions</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>#</th><th>Decision</th><th>Options</th><th>Recommendation</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>D-01</td>
+      <td>Electronics battery</td>
+      <td>3S vs 4S LiPo</td>
+      <td><strong>4S</strong></td>
+      <td style="color:var(--green)">Decided</td>
+    </tr>
+    <tr>
+      <td>D-02</td>
+      <td>Pressure ADC</td>
+      <td>ADS1220IPWR @5V / ADS1256 MUX</td>
+      <td><strong>ADS1220IPWR</strong> — dedicated, $1.54</td>
+      <td style="color:var(--green)">Decided</td>
+    </tr>
+    <tr>
+      <td>D-03</td>
+      <td>3.3V supply</td>
+      <td>Teensy LDO / Dedicated LDO</td>
+      <td><strong>Teensy LDO</strong> — 163/250 mA OK</td>
+      <td style="color:var(--green)">Decided</td>
+    </tr>
+    <tr>
+      <td>D-04</td>
+      <td>Excitation reference</td>
+      <td>Internal 2.5V / Ratiometric / Filtered</td>
+      <td><strong>Ratiometric</strong> recommended</td>
+      <td style="color:var(--amber)">Open</td>
+    </tr>
+    <tr>
+      <td>D-05</td>
+      <td>SPI assignment</td>
+      <td>Shared / Split</td>
+      <td><strong>Split</strong> — SPI0 + SPI1</td>
+      <td style="color:var(--green)">Decided</td>
+    </tr>
+    <tr>
+      <td>D-06</td>
+      <td>Igniter battery</td>
+      <td>1S / 2S / 3S</td>
+      <td>2S or 3S — depends on e-match spec</td>
+      <td style="color:var(--amber)">Open</td>
+    </tr>
+    <tr>
+      <td>D-07</td>
+      <td>FIRE mechanism</td>
+      <td>Physical / Remote / Both</td>
+      <td><strong>Remote via XBee + physical backup</strong></td>
+      <td style="color:var(--amber)">Open</td>
+    </tr>
+    <tr>
+      <td>D-08</td>
+      <td>Sensor connectors</td>
+      <td>Screw terminals / Aviation / JST</td>
+      <td><strong>Screw terminals</strong></td>
+      <td style="color:var(--green)">Decided</td>
+    </tr>
+    <tr>
+      <td>D-09</td>
+      <td>Igniter MOSFET</td>
+      <td>IRLZ44N (THT) / AO3400A (SMT)</td>
+      <td><strong>AO3400A</strong> SOT-23 for SMT</td>
+      <td style="color:var(--amber)">Open</td>
+    </tr>
+    <tr>
+      <td>D-10</td>
+      <td>Continuity check</td>
+      <td>Add / Skip</td>
+      <td>Recommended</td>
+      <td style="color:var(--amber)">Open</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="s10"><span class="section-num">10</span>TBD Register</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>TBD</th><th>Parameter</th><th>Proposed</th><th>Rationale</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>T-01</td>
+      <td>Max thrust range</td>
+      <td><span class="val">100 kgf</span></td>
+      <td>BCA-100L capacity</td>
+    </tr>
+    <tr>
+      <td>T-02</td>
+      <td>Max pressure range</td>
+      <td><span class="val">1500 psi</span></td>
+      <td>IPSU-GP1K5-6 range</td>
+    </tr>
+    <tr>
+      <td>T-03</td>
+      <td>Target sampling rate</td>
+      <td><span class="val">1,000 Hz</span></td>
+      <td>ADS1256 supports 30 kSPS; 1 kHz conservative</td>
+    </tr>
+    <tr>
+      <td>T-04</td>
+      <td>Test duration</td>
+      <td><span class="val">30 s</span> burn + <span class="val">60 s</span> pre/post</td>
+      <td>Typical amateur motor burn</td>
+    </tr>
+    <tr>
+      <td>T-05</td>
+      <td>Packet loss allowance</td>
+      <td><span class="val">&le;5%</span></td>
+      <td>Telemetry is monitoring; SD is primary record</td>
+    </tr>
+    <tr>
+      <td>T-06</td>
+      <td>Dropped samples</td>
+      <td><span class="val">0</span> during burn</td>
+      <td>Gaps invalidate thrust curve</td>
+    </tr>
+    <tr>
+      <td>T-07</td>
+      <td>Electronics battery</td>
+      <td><span class="val">4S LiPo</span></td>
+      <td>Per F-03</td>
+    </tr>
+    <tr>
+      <td>T-08</td>
+      <td>Igniter battery</td>
+      <td><span class="val">2S or 3S</span></td>
+      <td>Depends on e-match requirements</td>
+    </tr>
+    <tr>
+      <td>T-09</td>
+      <td>Ignition sequence</td>
+      <td>Key ARM &rarr; FW ARM &rarr; FW FIRE &rarr; FET close</td>
+      <td>Two-inhibit chain</td>
+    </tr>
+    <tr>
+      <td>T-10</td>
+      <td>Structure interface</td>
+      <td>Pending</td>
+      <td>Define mounting holes, connector panel, antenna route</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div style="margin-top:56px;padding-top:24px;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:11px;color:var(--fg-faint);">
+  TMS V3 Preliminary Design Review &middot; PSI Rocketry &middot; Rev B 2026-08-24 &middot; All specs datasheet-verified
+</div>
