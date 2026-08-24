@@ -1,25 +1,26 @@
 """Fetch KiCad library files (symbol, footprint, 3D model) for an LCSC part.
 
-JLC2KiCad_lib (the historical tool for this) is unmaintained, so we roll
-a minimal fetcher that:
+Conversion is delegated to `easyeda2kicad`, which reads EasyEDA's
+component CAD data and emits fully-detailed KiCad libraries:
 
-  1. Looks up the LCSC component on EasyEDA's component endpoint (the
-     same backend EasyEDA's web app uses to load preview symbols).
-  2. Converts the EasyEDA symbol → a KiCad 8 .kicad_sym S-expression.
-  3. Converts the EasyEDA footprint → a KiCad 8 .kicad_mod S-expression.
-  4. Downloads the OBJ/STEP 3D model when present.
-  5. Installs everything into <project>/libs/ with predictable filenames.
+  1. `.kicad_sym` symbols with real pin names, numbers, positions, and
+     electrical types (not a generic numbered rectangle).
+  2. `.kicad_mod` footprints with per-package pad geometry, courtyards,
+     silkscreen, and thermal/exposed pads.
+  3. `.step` and `.wrl` 3D models, referenced from the footprint so the
+     board renders and exports to STEP for mechanical fit checks.
 
 EasyEDA's component data is the canonical source for JLCPCB-stocked
-parts because EasyEDA, LCSC, and JLCPCB share a parent company. The
-endpoint we use is intentionally narrow and version-pinned in
-`config.JLCSEARCH_BASE` so a single change of base URL recovers if it
-ever moves.
+parts because EasyEDA, LCSC, and JLCPCB share a parent company.
 
-This module deliberately produces *correct enough* KiCad files rather
-than perfect ones. KiCad will open them, the user can review/edit, and
-the schematic + footprint will route through ERC and DRC. Anything more
-ambitious (full pin metadata fidelity, parametric footprints) is Phase 2.
+Everything installs into <project>/libs/ under one library name
+(`jlcpcb`), so a project has exactly three things to register in KiCad:
+`jlcpcb.kicad_sym`, `jlcpcb.pretty/`, and `jlcpcb.3dshapes/`.
+
+If `easyeda2kicad` is unavailable or fails on a specific part, we fall
+back to the generic placeholder symbol/footprint generators below and
+flag it in `FetchResult.warnings` — the pipeline keeps moving, but the
+result needs manual review before fabrication.
 """
 
 from __future__ import annotations
@@ -111,13 +112,30 @@ _limiter = EasyEdaRateLimiter()
 
 @dataclass
 class FetchResult:
-    """What got installed for one LCSC part."""
+    """What got installed for one LCSC part.
+
+    ``symbol_name`` / ``footprint_name`` are the library-internal IDs
+    (e.g. ``ME6211C33M5G-N`` and ``SOT-23-5_L3.0-W1.7-P0.95-LS2.8-BL``),
+    which is what a schematic or PCB spec must reference — not the file
+    paths. ``fidelity`` is ``"real"`` when easyeda2kicad produced the
+    files and ``"placeholder"`` when we fell back to a generic outline.
+    """
 
     lcsc: str
     symbol_path: Path | None = None
     footprint_path: Path | None = None
     model_3d_path: Path | None = None
+    symbol_name: str | None = None
+    footprint_name: str | None = None
+    pin_count: int = 0
+    fidelity: str = "placeholder"
     warnings: list[str] = field(default_factory=list)
+    # Populated only by `fetch_part_library_verified` — plain
+    # `fetch_part_library` leaves these at their defaults.
+    requested_lcsc: str | None = None
+    substituted: bool = False
+    mpn_verified: bool | None = None
+    candidates_tried: list[str] = field(default_factory=list)
 
     def to_dict(self) -> dict:
         return {
@@ -125,7 +143,15 @@ class FetchResult:
             "symbol_path": str(self.symbol_path) if self.symbol_path else None,
             "footprint_path": str(self.footprint_path) if self.footprint_path else None,
             "model_3d_path": str(self.model_3d_path) if self.model_3d_path else None,
+            "symbol_name": self.symbol_name,
+            "footprint_name": self.footprint_name,
+            "pin_count": self.pin_count,
+            "fidelity": self.fidelity,
             "warnings": self.warnings,
+            "requested_lcsc": self.requested_lcsc,
+            "substituted": self.substituted,
+            "mpn_verified": self.mpn_verified,
+            "candidates_tried": self.candidates_tried,
         }
 
 
@@ -551,6 +577,122 @@ def _generate_pads_for_package(package: str, pin_count: int) -> str:
 
 
 # ---------------------------------------------------------------------------
+# easyeda2kicad conversion (the real symbol/footprint/3D-model path)
+# ---------------------------------------------------------------------------
+
+# One library name for everything a project pulls from LCSC, so KiCad
+# only needs three registrations: the .kicad_sym, the .pretty, the
+# .3dshapes. Changing this renames all three in lockstep.
+LIB_NAME = "jlcpcb"
+
+# .kicad_sym format version to seed new libraries with. 20251024 is the
+# KiCad 10 format; easyeda2kicad down-converts automatically when it
+# finds an older version already in the file, so an existing library
+# from an older KiCad keeps working.
+KICAD_SYM_VERSION = 20251024
+
+# Footprints reference their 3D model through this path, which KiCad
+# expands relative to the project file. Keeps the project relocatable.
+MODEL_3D_REF = "${KIPRJMOD}/libs/" + LIB_NAME + ".3dshapes"
+
+
+def _convert_with_easyeda2kicad(lcsc: str, libs: Path, *, want_3d: bool = True) -> dict:
+    """Convert one LCSC part to real KiCad libraries. Blocking — call via a thread.
+
+    Returns a dict with symbol/footprint/model paths and names. Raises
+    :class:`PartLibraryError` if the part has no EasyEDA CAD data or the
+    conversion fails, so the caller can fall back to a placeholder.
+
+    easyeda2kicad is imported lazily: it is an optional dependency, and a
+    missing install should degrade to the placeholder path rather than
+    breaking the whole MCP server at import time.
+    """
+    try:
+        from easyeda2kicad.easyeda.easyeda_api import EasyedaApi
+        from easyeda2kicad.easyeda.easyeda_importer import (
+            Easyeda3dModelImporter,
+            EasyedaFootprintImporter,
+            EasyedaSymbolImporter,
+        )
+        from easyeda2kicad.kicad.export_kicad_3d_model import Exporter3dModelKicad
+        from easyeda2kicad.kicad.export_kicad_footprint import ExporterFootprintKicad
+        from easyeda2kicad.kicad.export_kicad_symbol import ExporterSymbolKicad
+    except ImportError as e:  # pragma: no cover - depends on install state
+        raise PartLibraryError(
+            f"easyeda2kicad is not installed ({e}); cannot build real libraries"
+        ) from e
+
+    api = EasyedaApi()
+    try:
+        cad = api.get_cad_data_of_component(lcsc_id=lcsc)
+    except Exception as e:  # easyeda2kicad raises bare urllib/ssl errors
+        raise PartLibraryError(f"EasyEDA CAD fetch failed for {lcsc}: {e}") from e
+    if not cad:
+        raise PartLibraryError(f"EasyEDA has no CAD data for {lcsc}")
+
+    libs.mkdir(parents=True, exist_ok=True)
+    sym_path = libs / f"{LIB_NAME}.kicad_sym"
+    pretty = libs / f"{LIB_NAME}.pretty"
+    shapes = libs / f"{LIB_NAME}.3dshapes"
+
+    # Seed the symbol library at the newest format version. Once it
+    # exists, easyeda2kicad reads the version back out and matches it.
+    if not sym_path.exists():
+        sym_path.write_text(
+            f"(kicad_symbol_lib\n  (version {KICAD_SYM_VERSION})\n"
+            f"  (generator kicad_jlcpcb_mcp)\n)",
+            encoding="utf-8",
+        )
+
+    try:
+        ee_symbol = EasyedaSymbolImporter(easyeda_cp_cad_data=cad).get_symbol()
+        ExporterSymbolKicad(symbol=ee_symbol, lib_path=str(sym_path)).save_to_lib(
+            lib_path=str(sym_path), footprint_lib_name=LIB_NAME, overwrite=True
+        )
+
+        ee_footprint = EasyedaFootprintImporter(easyeda_cp_cad_data=cad).get_footprint()
+        pretty.mkdir(parents=True, exist_ok=True)
+        fp_path = pretty / f"{ee_footprint.info.name}.kicad_mod"
+        ExporterFootprintKicad(footprint=ee_footprint).export(
+            footprint_full_path=str(fp_path),
+            model_3d_path=MODEL_3D_REF,
+        )
+    except PartLibraryError:
+        raise
+    except Exception as e:
+        raise PartLibraryError(f"easyeda2kicad conversion failed for {lcsc}: {e}") from e
+
+    warnings: list[str] = []
+    model_path: Path | None = None
+    if want_3d:
+        try:
+            model = Easyeda3dModelImporter(
+                easyeda_cp_cad_data=cad, download_raw_3d_model=True, api=api
+            ).output
+            if model is not None and Exporter3dModelKicad(model_3d=model).export(
+                output_dir=str(shapes)
+            ):
+                # export() writes <name>.step and <name>.wrl; report the
+                # STEP since that is what mechanical CAD consumes.
+                candidate = shapes / f"{model.name}.step"
+                model_path = candidate if candidate.exists() else None
+            else:
+                warnings.append(f"No 3D model available on EasyEDA for {lcsc}")
+        except Exception as e:
+            warnings.append(f"3D model fetch failed for {lcsc}: {e}")
+
+    return {
+        "symbol_path": sym_path,
+        "footprint_path": fp_path,
+        "model_3d_path": model_path,
+        "symbol_name": ee_symbol.info.name,
+        "footprint_name": ee_footprint.info.name,
+        "pin_count": len(ee_footprint.pads),
+        "warnings": warnings,
+    }
+
+
+# ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
 
@@ -560,21 +702,51 @@ async def fetch_part_library(
     libs_dir: str | Path,
     *,
     client: httpx.AsyncClient | None = None,
+    want_3d: bool = True,
 ) -> FetchResult:
-    """Install symbol + footprint (+ 3D model when available) for `lcsc`
-    into `libs_dir`.
+    """Install symbol + footprint + 3D model for `lcsc` into `libs_dir`.
 
-    The Part metadata comes from `lcsc_client.get_part`. The structural
-    information (pin count, package) comes from EasyEDA when reachable;
-    when EasyEDA is unreachable we fall back to a 2-pin generic part with
-    a warning so the rest of the pipeline still proceeds.
+    The primary path converts EasyEDA's CAD data via easyeda2kicad,
+    producing pin-accurate symbols, per-package footprints, and STEP/WRL
+    3D models. If that fails for any reason — part not in EasyEDA,
+    network down, easyeda2kicad not installed — we fall back to a generic
+    placeholder symbol/footprint so the rest of the pipeline proceeds,
+    and set ``fidelity="placeholder"`` plus a warning. A placeholder
+    result must be reviewed in KiCad before the board is fabricated.
     """
+    if not lcsc.startswith("C") or not lcsc[1:].isdigit():
+        raise PartLibraryError(f"Invalid LCSC part number: {lcsc!r}")
+
     libs = Path(libs_dir).expanduser().resolve()
     libs.mkdir(parents=True, exist_ok=True)
 
-    # Always fetch the canonical Part metadata first; this also primes
-    # the LCSC cache and validates the C-number.
-    part = await get_part(lcsc, client=client)
+    # Real conversion first. easyeda2kicad is synchronous and does its
+    # own HTTP, so it runs in a thread and goes through our rate limiter
+    # to stay inside EasyEDA's per-IP quota.
+    #
+    # Note this deliberately does NOT depend on `get_part`: EasyEDA is
+    # the source of truth for CAD data, and the LCSC metadata index is a
+    # separate service that can be down or restructured without any
+    # bearing on whether we can build correct libraries.
+    await _limiter.acquire()
+    try:
+        converted = await asyncio.to_thread(
+            _convert_with_easyeda2kicad, lcsc, libs, want_3d=want_3d
+        )
+        return FetchResult(
+            lcsc=lcsc,
+            symbol_path=converted["symbol_path"],
+            footprint_path=converted["footprint_path"],
+            model_3d_path=converted["model_3d_path"],
+            symbol_name=converted["symbol_name"],
+            footprint_name=converted["footprint_name"],
+            pin_count=converted["pin_count"],
+            fidelity="real",
+            warnings=converted["warnings"],
+        )
+    except PartLibraryError as e:
+        logger.warning("easyeda2kicad failed for %s, using placeholder: %s", lcsc, e)
+        placeholder_reason = str(e)
 
     own_client = client is None
     if own_client:
@@ -583,7 +755,20 @@ async def fetch_part_library(
             headers={"User-Agent": "kicad-jlcpcb/0.1"},
         )
 
-    warnings: list[str] = []
+    warnings: list[str] = [
+        f"PLACEHOLDER LIBRARY — pins and pads are generic, not the real part. "
+        f"Verify in KiCad before fabricating. Reason: {placeholder_reason}"
+    ]
+
+    # Metadata is cosmetic here (symbol Value/Description fields), so a
+    # failing LCSC index must not turn a degraded result into no result.
+    try:
+        part = await get_part(lcsc, client=client)
+        mfr_part, description, package = part.mfr_part, part.description, part.package
+    except Exception as e:
+        warnings.append(f"LCSC metadata unavailable for {lcsc}: {e}")
+        mfr_part, description, package = "", "", ""
+
     pin_count = 2  # default for 2-terminal passives
     has_3d_model = False
     model_url = ""
@@ -613,25 +798,25 @@ async def fetch_part_library(
             )
 
         symbol_text = _build_kicad_symbol(
-            lcsc=part.lcsc,
-            mfr_part=part.mfr_part,
-            description=part.description,
+            lcsc=lcsc,
+            mfr_part=mfr_part,
+            description=description,
             pin_count=pin_count,
         )
         footprint_text = _build_kicad_footprint(
-            lcsc=part.lcsc,
-            mfr_part=part.mfr_part,
-            package=part.package,
+            lcsc=lcsc,
+            mfr_part=mfr_part,
+            package=package,
             pin_count=pin_count,
         )
 
-        sym_path = libs / f"{_safe_id(part.lcsc)}.kicad_sym"
+        sym_path = libs / f"{_safe_id(lcsc)}.kicad_sym"
         sym_path.write_text(symbol_text)
 
         # Footprints in KiCad live in .pretty directories.
         pretty = libs / "kicad_jlcpcb.pretty"
         pretty.mkdir(exist_ok=True)
-        fp_path = pretty / f"{_safe_id(part.lcsc)}_{_safe_id(part.package or 'GEN')}.kicad_mod"
+        fp_path = pretty / f"{_safe_id(lcsc)}_{_safe_id(package or 'GEN')}.kicad_mod"
         fp_path.write_text(footprint_text)
 
         model_path: Path | None = None
@@ -641,7 +826,7 @@ async def fetch_part_library(
                 if m.status_code == 200:
                     models_dir = libs / "3d"
                     models_dir.mkdir(exist_ok=True)
-                    model_path = models_dir / f"{_safe_id(part.lcsc)}.obj"
+                    model_path = models_dir / f"{_safe_id(lcsc)}.obj"
                     model_path.write_bytes(m.content)
                 else:
                     warnings.append(f"3D model fetch returned HTTP {m.status_code}")
@@ -649,12 +834,199 @@ async def fetch_part_library(
                 warnings.append(f"3D model fetch failed: {e}")
 
         return FetchResult(
-            lcsc=part.lcsc,
+            lcsc=lcsc,
             symbol_path=sym_path,
             footprint_path=fp_path,
             model_3d_path=model_path,
+            symbol_name=_safe_id(lcsc),
+            footprint_name=_safe_id(f"{lcsc}_{package}"),
+            pin_count=pin_count,
+            fidelity="placeholder",
             warnings=warnings,
         )
+    finally:
+        if own_client:
+            await client.aclose()
+
+
+# ---------------------------------------------------------------------------
+# MPN-verified fetch with automatic alternate-listing fallback
+# ---------------------------------------------------------------------------
+#
+# Two failure modes came up sourcing a real BOM (TMS V3) that plain
+# `fetch_part_library` can't recover from on its own:
+#
+#   1. The exact LCSC listing has no EasyEDA CAD data (delisted part, or
+#      just never got converted), but a *different* listing of the same
+#      manufacturer part number — a different reseller/batch under its
+#      own C-number — does. LCSC frequently carries several listings for
+#      one MPN.
+#   2. The caller's C-number is simply wrong (typo'd, stale, mismatched
+#      from a datasheet) and happens to resolve to a real but *unrelated*
+#      part. EasyEDA/LCSC's data is internally consistent — the symbol it
+#      returns really is what that C-number sells — so nothing about the
+#      "real" result looks broken; only a check against the part the
+#      caller actually meant to fetch catches it.
+#
+# `fetch_part_library_verified` wraps `fetch_part_library` with that
+# check: given the manufacturer part number the caller expects, it
+# fetches the requested C-number, and if the fidelity isn't "real" or the
+# fetched part doesn't match, searches LCSC by MPN and retries candidates
+# (highest stock first) until one converts cleanly and matches, or the
+# candidates are exhausted.
+
+
+def _normalize_mpn(s: str) -> str:
+    """Collapse an MPN/symbol name to bare alphanumerics for comparison.
+
+    Strips packaging/taping suffixes, punctuation, and case so
+    "PESD5V0S2BT,215" and "PESD5V0S2BT" compare equal, without needing a
+    manufacturer-specific suffix table.
+    """
+    return "".join(ch for ch in s.upper() if ch.isalnum())
+
+
+def _mpn_matches(expected: str, actual: str) -> bool:
+    """True if `actual` plausibly refers to the same part as `expected`.
+
+    Containment rather than equality in either direction: MPNs commonly
+    differ by a trailing taping/packaging code (`ADS1220IPWR` vs
+    `ADS1220IPWR.` or `PESD5V0S2BT` vs `PESD5V0S2BT,215`) without being a
+    different part. An empty side means there's nothing to check against,
+    so it passes rather than blocking the pipeline on missing metadata.
+    """
+    if not expected or not actual:
+        return True
+    e, a = _normalize_mpn(expected), _normalize_mpn(actual)
+    if not e or not a:
+        return True
+    return e in a or a in e
+
+
+async def _lookup_mfr_part(lcsc: str, client: httpx.AsyncClient) -> str | None:
+    """Best-effort MPN lookup for a C-number; None (not False) on failure."""
+    try:
+        part = await get_part(lcsc, client=client)
+    except Exception:
+        return None
+    return part.mfr_part
+
+
+async def fetch_part_library_verified(
+    lcsc: str,
+    libs_dir: str | Path,
+    *,
+    expected_mfr_part: str | None = None,
+    client: httpx.AsyncClient | None = None,
+    want_3d: bool = True,
+    max_candidates: int = 5,
+) -> FetchResult:
+    """`fetch_part_library` plus automatic MPN verification and fallback.
+
+    Pass the manufacturer part number you actually intend to source as
+    `expected_mfr_part` (e.g. from a BOM row or the user's request). The
+    result is checked against it; on a placeholder or a mismatch, LCSC is
+    searched for alternate listings of that MPN and each candidate (by
+    descending stock) is tried in turn via `fetch_part_library` until one
+    comes back `fidelity="real"` and MPN-matching.
+
+    Without `expected_mfr_part`, this behaves exactly like
+    `fetch_part_library` — there is nothing to verify against, so no
+    search fallback is attempted.
+
+    The returned `FetchResult` always reflects what actually got
+    installed (its `lcsc`/`symbol_name`/`footprint_name` may differ from
+    the requested `lcsc` if a substitution happened); `requested_lcsc`
+    and `substituted` record the original ask, and `candidates_tried`
+    lists every C-number attempted, for the caller to report back.
+    """
+    own_client = client is None
+    if own_client:
+        client = httpx.AsyncClient(timeout=httpx.Timeout(15.0), follow_redirects=True)
+    try:
+        tried: list[str] = [lcsc]
+        result = await fetch_part_library(lcsc, libs_dir, client=client, want_3d=want_3d)
+        result.requested_lcsc = lcsc
+
+        if not expected_mfr_part:
+            return result
+
+        # symbol_name from a placeholder result is just the sanitized C-number,
+        # not a real MPN — only trust it as an MPN when the fetch was real.
+        looked_up_mfr_part = await _lookup_mfr_part(lcsc, client)
+        actual_mfr_part = looked_up_mfr_part or (
+            result.symbol_name if result.fidelity == "real" else None
+        )
+        result.mpn_verified = _mpn_matches(expected_mfr_part, actual_mfr_part or "")
+
+        if result.fidelity == "real" and result.mpn_verified:
+            result.candidates_tried = tried
+            return result
+
+        fallback_reason = "unavailable"  # no real CAD data at this C-number
+        if result.fidelity != "real":
+            result.warnings.append(
+                f"No real CAD data for requested {lcsc}; searching LCSC for other "
+                f"listings of '{expected_mfr_part}'."
+            )
+        else:
+            fallback_reason = "a mismatch"  # real data, but the wrong part
+            result.warnings.append(
+                f"MISMATCH: requested {lcsc} resolved to '{actual_mfr_part}', not "
+                f"'{expected_mfr_part}'. Searching LCSC for the correct listing."
+            )
+
+        try:
+            from . import lcsc_client
+
+            candidates = await lcsc_client.search(
+                expected_mfr_part,
+                basic_only=False,
+                stock_min=1,
+                limit=max_candidates + 1,
+                client=client,
+            )
+        except Exception as e:
+            result.warnings.append(f"MPN fallback search failed: {e}")
+            result.candidates_tried = tried
+            return result
+
+        fallback_best = result
+        for part in candidates:
+            if part.lcsc in tried or len(tried) - 1 >= max_candidates:
+                continue
+            tried.append(part.lcsc)
+            try:
+                candidate = await fetch_part_library(
+                    part.lcsc, libs_dir, client=client, want_3d=want_3d
+                )
+            except PartLibraryError:
+                continue
+            candidate.requested_lcsc = lcsc
+            candidate.mpn_verified = _mpn_matches(expected_mfr_part, part.mfr_part)
+
+            if candidate.fidelity == "real" and candidate.mpn_verified:
+                candidate.substituted = candidate.lcsc != lcsc
+                candidate.warnings.insert(
+                    0,
+                    f"Substituted {part.lcsc} ({part.mfr_part}) for requested "
+                    f"{lcsc} ({actual_mfr_part or 'unknown'}) — requested part was "
+                    f"{fallback_reason}.",
+                )
+                candidate.candidates_tried = tried
+                return candidate
+
+            if fallback_best.fidelity != "real" and candidate.fidelity == "real":
+                fallback_best = candidate
+
+        fallback_best.candidates_tried = tried
+        if fallback_best is result:
+            fallback_best.warnings.append(
+                f"MPN fallback exhausted {len(tried) - 1} alternate LCSC listing(s) "
+                f"for '{expected_mfr_part}' without finding a real, verified match. "
+                f"Tried: {', '.join(tried)}. Manual sourcing required."
+            )
+        return fallback_best
     finally:
         if own_client:
             await client.aclose()

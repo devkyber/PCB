@@ -131,6 +131,19 @@ The plugin loads footprints from `/usr/share/kicad/footprints/<lib>.pretty/<fp>.
 
 If the user asks for a part you don't have in this reference, search `/usr/share/kicad/footprints/` directly via Bash (e.g. `ls /usr/share/kicad/footprints/Package_DFN_QFN.pretty/ | grep DFN-8`) and pick the closest match by dimensions.
 
+## Always verify `fetch_part_library` with `mfr_part`
+
+Every call to `fetch_part_library` must include `mfr_part` — the manufacturer part number you actually intend to source (e.g. `"ADS1220IPWR"`), not just the LCSC C-number. This isn't optional polish: a C-number can be wrong (typo, stale listing, copied from the wrong row) and still resolve to a *real* — just unrelated — part, so `fidelity: "real"` alone does not mean you got the right part.
+
+With `mfr_part` set, the fetch is self-verifying:
+
+- It checks the fetched part's actual MPN against `mfr_part`.
+- If the exact C-number has no CAD data (`fidelity: "placeholder"`), **or** the MPN doesn't match, it automatically searches LCSC for other listings of that MPN and retries each candidate (highest stock first) until one converts to a real, matching part.
+- The result carries `substituted` (true if the installed C-number differs from what you asked for) and `mpn_verified`. **Always check these and report a substitution to the user** — don't silently accept a different C-number than they gave you.
+- `candidates_tried` lists every C-number attempted, useful if it still comes back as a placeholder and you need to source manually.
+
+This caught two real cases building TMS V3: an LCSC number that had quietly become a different manufacturer's part (`FUSB301TMX` returned for a requested `ADS1220IPWR`), and a delisted C-number for a relay that had a working alternate listing under a different C-number. Neither would have been caught by `fidelity` alone.
+
 ## Common IC pinouts the user should double-check
 
 The EasyEDA pin-name extraction is accurate but uses datasheet nomenclature, which doesn't always match what humans call pins. Two examples that bit us during the SoilNode trial:
@@ -142,6 +155,7 @@ The EasyEDA pin-name extraction is accurate but uses datasheet nomenclature, whi
 
 - **`detect_kicad` returns `meets_min: false`** — pass the `install_hint` through verbatim.
 - **`lcsc_resolve_bom` unresolved rows** — show and ask for substitutions.
+- **`fetch_part_library` returns `fidelity: "placeholder"` or `mpn_verified: false` after exhausting candidates** — see "Always verify `fetch_part_library` with `mfr_part`" above; this means no LCSC listing of that MPN has usable CAD data. Report it to the user as a placeholder needing manual review, don't silently proceed to PCB generation with it.
 - **`part_pin_map` raises "no component data"** — that LCSC number isn't in EasyEDA's library. You'll need to hardcode the pinmap in the component spec (provide a `"pinmap": {...}` field).
 - **`pcb_generate` errors list non-empty** — check each error:
   - `"X: Footprint not found"` — wrong `lib`/`fp` name, look in `/usr/share/kicad/footprints/`

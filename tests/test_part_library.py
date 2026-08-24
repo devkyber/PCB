@@ -18,9 +18,11 @@ from kicad_jlcpcb_mcp.part_library import (
     _build_kicad_footprint,
     _build_kicad_symbol,
     _generate_pads_for_package,
+    _mpn_matches,
     _pinmap_to_cache,
     _safe_id,
     fetch_part_library,
+    fetch_part_library_verified,
     get_pin_map,
     get_pin_maps,
     parse_pinmap_from_shape,
@@ -117,97 +119,379 @@ class TestGeneratePads:
         assert pads.count("(pad ") == 8
 
 
+@pytest.fixture
+def no_rate_limit(monkeypatch):
+    """Drop the 12s EasyEDA throttle so fetch tests run instantly."""
+    monkeypatch.setattr(part_library, "EASYEDA_MIN_DELAY_SECONDS", 0.0)
+    part_library._limiter.last_request_time = 0.0
+
+
+def fake_conversion(tmp_path):
+    """Stand-in for `_convert_with_easyeda2kicad` that writes real files."""
+
+    def _convert(lcsc, libs, *, want_3d=True):
+        libs.mkdir(parents=True, exist_ok=True)
+        sym = libs / "jlcpcb.kicad_sym"
+        sym.write_text("(kicad_symbol_lib\n  (version 20251024)\n)")
+        pretty = libs / "jlcpcb.pretty"
+        pretty.mkdir(exist_ok=True)
+        fp = pretty / "SOT-23-5.kicad_mod"
+        fp.write_text('(footprint "SOT-23-5"\n)')
+        return {
+            "symbol_path": sym,
+            "footprint_path": fp,
+            "model_3d_path": libs / "jlcpcb.3dshapes" / "SOT-23-5.step",
+            "symbol_name": "ME6211C33M5G-N",
+            "footprint_name": "SOT-23-5",
+            "pin_count": 5,
+            "warnings": [],
+        }
+
+    return _convert
+
+
 class TestFetchPartLibraryHappyPath:
     @pytest.mark.asyncio
-    async def test_fetches_and_installs(self, tmp_path, monkeypatch):
-        # Mock lcsc_client.get_part so we don't hit the network
-        async def fake_get_part(lcsc, client=None):
-            return SAMPLE_PART
+    async def test_installs_real_library(self, tmp_path, monkeypatch, no_rate_limit):
+        monkeypatch.setattr(
+            part_library, "_convert_with_easyeda2kicad", fake_conversion(tmp_path)
+        )
 
-        monkeypatch.setattr(part_library, "get_part", fake_get_part)
-
-        # Mock the EasyEDA fetch with a 2-pin component
-        easyeda_payload = {
-            "success": True,
-            "result": {
-                "dataStr": {"shape": ["P~1~", "P~2~"]},
-                "packageDetail": {"dataStr": {"shape": [], "head": {}}},
-            },
-        }
-        client = MagicMock(spec=httpx.AsyncClient)
-        client.get = AsyncMock(return_value=make_response(200, easyeda_payload))
-        client.aclose = AsyncMock()
-
-        result = await fetch_part_library("C25804", tmp_path, client=client)
+        result = await fetch_part_library("C82942", tmp_path)
         assert isinstance(result, FetchResult)
-        assert result.lcsc == "C25804"
-        assert result.symbol_path is not None
-        assert result.symbol_path.exists()
-        assert result.footprint_path is not None
-        assert result.footprint_path.exists()
-        # 2-pin part on a 0603 package — no 3D model
-        assert result.model_3d_path is None
+        assert result.lcsc == "C82942"
+        assert result.fidelity == "real"
+        # Names, not paths, are what a schematic/PCB spec references.
+        assert result.symbol_name == "ME6211C33M5G-N"
+        assert result.footprint_name == "SOT-23-5"
+        assert result.pin_count == 5
         assert result.warnings == []
-
-        # Files actually contain valid sexpr heads
         assert result.symbol_path.read_text().startswith("(kicad_symbol_lib")
         assert result.footprint_path.read_text().startswith("(footprint")
 
-
-class TestFetchPartLibraryEasyEdaUnreachable:
     @pytest.mark.asyncio
-    async def test_falls_back_with_warning(self, tmp_path, monkeypatch):
+    async def test_does_not_need_lcsc_metadata(self, tmp_path, monkeypatch, no_rate_limit):
+        """EasyEDA is the source of truth; a down LCSC index must not matter."""
+        from kicad_jlcpcb_mcp.lcsc_client import LcscError
+
+        async def exploding_get_part(lcsc, client=None):
+            raise LcscError("jlcparts index returned HTTP 404")
+
+        monkeypatch.setattr(part_library, "get_part", exploding_get_part)
+        monkeypatch.setattr(
+            part_library, "_convert_with_easyeda2kicad", fake_conversion(tmp_path)
+        )
+
+        result = await fetch_part_library("C82942", tmp_path)
+        assert result.fidelity == "real"
+        assert result.warnings == []
+
+
+class TestFetchPartLibraryFallback:
+    @pytest.mark.asyncio
+    async def test_falls_back_when_conversion_fails(
+        self, tmp_path, monkeypatch, no_rate_limit
+    ):
+        def failing_convert(lcsc, libs, *, want_3d=True):
+            raise PartLibraryError("EasyEDA has no CAD data for C25804")
+
         async def fake_get_part(lcsc, client=None):
             return SAMPLE_PART
 
+        monkeypatch.setattr(part_library, "_convert_with_easyeda2kicad", failing_convert)
         monkeypatch.setattr(part_library, "get_part", fake_get_part)
 
-        # EasyEDA returns 404
         client = MagicMock(spec=httpx.AsyncClient)
         client.get = AsyncMock(return_value=make_response(404))
         client.aclose = AsyncMock()
 
         result = await fetch_part_library("C25804", tmp_path, client=client)
-        assert result.symbol_path is not None
+        assert result.fidelity == "placeholder"
         assert result.symbol_path.exists()
-        assert len(result.warnings) == 1
-        assert "EasyEDA" in result.warnings[0]
+        assert result.footprint_path.exists()
+        # The warning must be loud enough that nobody fabricates it blind.
+        assert "PLACEHOLDER" in result.warnings[0]
+        assert "no CAD data" in result.warnings[0]
 
-
-class TestFetchPartLibraryHttpError:
     @pytest.mark.asyncio
-    async def test_falls_back_on_connection_error(self, tmp_path, monkeypatch):
-        async def fake_get_part(lcsc, client=None):
-            return SAMPLE_PART
+    async def test_placeholder_survives_lcsc_metadata_failure(
+        self, tmp_path, monkeypatch, no_rate_limit
+    ):
+        from kicad_jlcpcb_mcp.lcsc_client import LcscError
 
-        monkeypatch.setattr(part_library, "get_part", fake_get_part)
+        def failing_convert(lcsc, libs, *, want_3d=True):
+            raise PartLibraryError("network down")
+
+        async def exploding_get_part(lcsc, client=None):
+            raise LcscError("jlcparts index returned HTTP 404")
+
+        monkeypatch.setattr(part_library, "_convert_with_easyeda2kicad", failing_convert)
+        monkeypatch.setattr(part_library, "get_part", exploding_get_part)
 
         client = MagicMock(spec=httpx.AsyncClient)
         client.get = AsyncMock(side_effect=httpx.ConnectError("boom"))
         client.aclose = AsyncMock()
 
         result = await fetch_part_library("C25804", tmp_path, client=client)
-        # Symbol still produced as a fallback placeholder
-        assert result.symbol_path is not None
-        assert any("EasyEDA" in w for w in result.warnings)
+        assert result.fidelity == "placeholder"
+        assert result.symbol_path.exists()
+        assert any("LCSC metadata unavailable" in w for w in result.warnings)
 
 
-class TestFetchPartLibraryUnknownPart:
+class TestFetchPartLibraryBadInput:
     @pytest.mark.asyncio
-    async def test_propagates_lcsc_error(self, tmp_path, monkeypatch):
-        from kicad_jlcpcb_mcp.lcsc_client import LcscError
+    async def test_rejects_malformed_part_number(self, tmp_path):
+        with pytest.raises(PartLibraryError, match="Invalid LCSC part number"):
+            await fetch_part_library("not-a-part", tmp_path)
+
+
+# ---------------------------------------------------------------------------
+# MPN normalization + verified fetch with alternate-listing fallback
+# ---------------------------------------------------------------------------
+
+
+class TestMpnMatches:
+    def test_exact_match(self):
+        assert _mpn_matches("ADS1220IPWR", "ADS1220IPWR")
+
+    def test_case_and_punctuation_insensitive(self):
+        assert _mpn_matches("ads1220ipwr", "ADS-1220-IPWR")
+
+    def test_taping_suffix_ignored(self):
+        assert _mpn_matches("PESD5V0S2BT", "PESD5V0S2BT,215")
+        assert _mpn_matches("PESD5V0S2BT,215", "PESD5V0S2BT")
+
+    def test_unrelated_parts_do_not_match(self):
+        assert not _mpn_matches("ADS1220IPWR", "FUSB301TMX")
+
+    def test_missing_side_passes(self):
+        # Nothing to compare against shouldn't block the pipeline.
+        assert _mpn_matches("", "ADS1220IPWR")
+        assert _mpn_matches("ADS1220IPWR", "")
+
+
+class TestFetchPartLibraryVerified:
+    @pytest.mark.asyncio
+    async def test_passthrough_without_expected_mfr_part(
+        self, tmp_path, monkeypatch, no_rate_limit
+    ):
+        """No expected MPN given => behaves exactly like fetch_part_library."""
+        monkeypatch.setattr(
+            part_library, "_convert_with_easyeda2kicad", fake_conversion(tmp_path)
+        )
+        result = await fetch_part_library_verified("C82942", tmp_path)
+        assert result.fidelity == "real"
+        assert result.requested_lcsc == "C82942"
+        assert result.substituted is False
+        assert result.mpn_verified is None
+
+    @pytest.mark.asyncio
+    async def test_accepts_matching_real_result_without_search(
+        self, tmp_path, monkeypatch, no_rate_limit
+    ):
+        monkeypatch.setattr(
+            part_library, "_convert_with_easyeda2kicad", fake_conversion(tmp_path)
+        )
 
         async def fake_get_part(lcsc, client=None):
-            raise LcscError("not found")
+            return Part(
+                lcsc="C82942",
+                mfr_part="ME6211C33M5G-N",
+                manufacturer="Microne",
+                description="LDO",
+                package="SOT-23-5",
+                basic=True,
+                stock=5000,
+                price_usd=0.05,
+            )
+
+        async def exploding_search(*args, **kwargs):
+            raise AssertionError("should not search when the direct fetch already matches")
 
         monkeypatch.setattr(part_library, "get_part", fake_get_part)
+        from kicad_jlcpcb_mcp import lcsc_client
+
+        monkeypatch.setattr(lcsc_client, "search", exploding_search)
+
+        result = await fetch_part_library_verified(
+            "C82942", tmp_path, expected_mfr_part="ME6211C33M5G-N"
+        )
+        assert result.fidelity == "real"
+        assert result.mpn_verified is True
+        assert result.substituted is False
+
+    @pytest.mark.asyncio
+    async def test_falls_back_on_mismatch(self, tmp_path, monkeypatch, no_rate_limit):
+        """Wrong C-number resolves to a real but unrelated part; a search
+        for the correct MPN finds C99999 which is the actual part."""
+
+        def convert(lcsc, libs, *, want_3d=True):
+            libs.mkdir(parents=True, exist_ok=True)
+            sym = libs / "jlcpcb.kicad_sym"
+            sym.write_text("(kicad_symbol_lib\n  (version 20251024)\n)")
+            pretty = libs / "jlcpcb.pretty"
+            pretty.mkdir(exist_ok=True)
+            name = "FUSB301TMX" if lcsc == "C132290" else "ADS1220IPWR"
+            fp = pretty / f"{name}.kicad_mod"
+            fp.write_text(f'(footprint "{name}"\n)')
+            return {
+                "symbol_path": sym,
+                "footprint_path": fp,
+                "model_3d_path": None,
+                "symbol_name": name,
+                "footprint_name": name,
+                "pin_count": 10 if lcsc == "C132290" else 16,
+                "warnings": [],
+            }
+
+        monkeypatch.setattr(part_library, "_convert_with_easyeda2kicad", convert)
+
+        async def fake_get_part(lcsc, client=None):
+            if lcsc == "C132290":
+                return Part(
+                    lcsc="C132290",
+                    mfr_part="FUSB301TMX",
+                    manufacturer="onsemi",
+                    description="USB controller",
+                    package="TMLP-10",
+                    basic=False,
+                    stock=6894,
+                    price_usd=0.87,
+                )
+            raise AssertionError(f"unexpected get_part({lcsc!r})")
+
+        async def fake_search(query, *, basic_only=True, stock_min=1, limit=20, client=None, **kw):
+            assert query == "ADS1220IPWR"
+            return [
+                Part(
+                    lcsc="C48263",
+                    mfr_part="ADS1220IPWR",
+                    manufacturer="Texas Instruments",
+                    description="ADC",
+                    package="TSSOP-16",
+                    basic=False,
+                    stock=27544,
+                    price_usd=2.6,
+                )
+            ]
+
+        monkeypatch.setattr(part_library, "get_part", fake_get_part)
+        from kicad_jlcpcb_mcp import lcsc_client
+
+        monkeypatch.setattr(lcsc_client, "search", fake_search)
+
+        result = await fetch_part_library_verified(
+            "C132290", tmp_path, expected_mfr_part="ADS1220IPWR"
+        )
+        assert result.lcsc == "C48263"
+        assert result.symbol_name == "ADS1220IPWR"
+        assert result.fidelity == "real"
+        assert result.mpn_verified is True
+        assert result.substituted is True
+        assert result.requested_lcsc == "C132290"
+        assert "C132290" in result.candidates_tried
+        assert "C48263" in result.candidates_tried
+        assert any("Substituted" in w for w in result.warnings)
+
+    @pytest.mark.asyncio
+    async def test_falls_back_on_missing_cad_data(self, tmp_path, monkeypatch, no_rate_limit):
+        """Requested C-number has no CAD data; an alternate listing does."""
+
+        def convert(lcsc, libs, *, want_3d=True):
+            if lcsc == "C65122":
+                raise PartLibraryError("EasyEDA has no CAD data for C65122")
+            libs.mkdir(parents=True, exist_ok=True)
+            sym = libs / "jlcpcb.kicad_sym"
+            sym.write_text("(kicad_symbol_lib\n  (version 20251024)\n)")
+            pretty = libs / "jlcpcb.pretty"
+            pretty.mkdir(exist_ok=True)
+            fp = pretty / "HF46F.kicad_mod"
+            fp.write_text('(footprint "HF46F"\n)')
+            return {
+                "symbol_path": sym,
+                "footprint_path": fp,
+                "model_3d_path": None,
+                "symbol_name": "HF46F-G/5-HS1T",
+                "footprint_name": "HF46F",
+                "pin_count": 4,
+                "warnings": [],
+            }
+
+        monkeypatch.setattr(part_library, "_convert_with_easyeda2kicad", convert)
+
+        async def failing_get_part(lcsc, client=None):
+            from kicad_jlcpcb_mcp.lcsc_client import LcscError
+
+            raise LcscError(f"LCSC part not found: {lcsc}")
+
+        async def fake_search(query, *, basic_only=True, stock_min=1, limit=20, client=None, **kw):
+            return [
+                Part(
+                    lcsc="C5274026",
+                    mfr_part="HF46F-G/5-HS1T",
+                    manufacturer="Hongfa",
+                    description="Relay",
+                    package="THT",
+                    basic=False,
+                    stock=2160,
+                    price_usd=1.43,
+                )
+            ]
+
+        monkeypatch.setattr(part_library, "get_part", failing_get_part)
+        from kicad_jlcpcb_mcp import lcsc_client
+
+        monkeypatch.setattr(lcsc_client, "search", fake_search)
+
+        result = await fetch_part_library_verified(
+            "C65122", tmp_path, expected_mfr_part="HF46F-G/5-HS1T"
+        )
+        assert result.lcsc == "C5274026"
+        assert result.fidelity == "real"
+        assert result.substituted is True
+        assert result.requested_lcsc == "C65122"
+
+    @pytest.mark.asyncio
+    async def test_reports_exhausted_fallback_as_placeholder(
+        self, tmp_path, monkeypatch, no_rate_limit
+    ):
+        def always_fails(lcsc, libs, *, want_3d=True):
+            raise PartLibraryError(f"EasyEDA has no CAD data for {lcsc}")
+
+        async def fake_get_part(lcsc, client=None):
+            return SAMPLE_PART
+
+        async def fake_search(query, *, basic_only=True, stock_min=1, limit=20, client=None, **kw):
+            return [
+                Part(
+                    lcsc="C11111",
+                    mfr_part="GHOST-PART",
+                    manufacturer="Nobody",
+                    description="",
+                    package="SOT-23",
+                    basic=False,
+                    stock=10,
+                    price_usd=0.1,
+                )
+            ]
+
+        monkeypatch.setattr(part_library, "_convert_with_easyeda2kicad", always_fails)
+        monkeypatch.setattr(part_library, "get_part", fake_get_part)
+        from kicad_jlcpcb_mcp import lcsc_client
+
+        monkeypatch.setattr(lcsc_client, "search", fake_search)
 
         client = MagicMock(spec=httpx.AsyncClient)
-        client.get = AsyncMock()
+        client.get = AsyncMock(return_value=make_response(404))
         client.aclose = AsyncMock()
 
-        with pytest.raises(LcscError):
-            await fetch_part_library("C99999", tmp_path, client=client)
+        result = await fetch_part_library_verified(
+            "C99999", tmp_path, expected_mfr_part="GHOST-PART", client=client
+        )
+        assert result.fidelity == "placeholder"
+        assert "C99999" in result.candidates_tried
+        assert "C11111" in result.candidates_tried
+        assert any("exhausted" in w for w in result.warnings)
 
 
 # ---------------------------------------------------------------------------

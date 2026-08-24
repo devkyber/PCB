@@ -145,7 +145,21 @@ class KicadJlcpcbServer:
             from . import part_library
 
             libs_dir = args.get("libs_dir") or self._require_active_libs_dir()
-            result = await part_library.fetch_part_library(args["lcsc"], libs_dir)
+            expected_mfr_part = args.get("mfr_part")
+            if expected_mfr_part:
+                result = await part_library.fetch_part_library_verified(
+                    args["lcsc"], libs_dir, expected_mfr_part=expected_mfr_part
+                )
+            else:
+                result = await part_library.fetch_part_library(args["lcsc"], libs_dir)
+
+            # Projects scaffolded before lib-table support (or with a
+            # custom libs_dir) still need the library registered, or the
+            # part never shows up in KiCad's chooser.
+            if self._active_project and not args.get("libs_dir"):
+                proj = project_mod.load_project(self._active_project["root"])
+                project_mod.write_lib_tables(proj)
+
             return result.to_dict()
 
         if name == "sch_generate":
@@ -499,11 +513,26 @@ def _tool_definitions() -> list[Tool]:
         Tool(
             name="fetch_part_library",
             description=(
-                "Download symbol + footprint (and 3D model when available) "
-                "for a single LCSC C-number and install them into the active "
-                "project's libs/ directory. EasyEDA component data is the "
-                "source of truth; if EasyEDA is unreachable, falls back to a "
-                "generic symbol/footprint with a warning."
+                "Download a real, pin-accurate symbol + footprint + 3D model "
+                "(STEP and WRL) for a single LCSC C-number and install them "
+                "into the active project's libs/ as the 'jlcpcb' library. "
+                "Converted from EasyEDA CAD data via easyeda2kicad. Returns "
+                "symbol_name and footprint_name — use those (not the file "
+                "paths) when referencing the part in a schematic or PCB spec. "
+                "Check 'fidelity': 'real' means the actual part geometry; "
+                "'placeholder' means conversion failed and a generic outline "
+                "was substituted, which must be reviewed before fabrication. "
+                "ALWAYS pass 'mfr_part' (the manufacturer part number you "
+                "actually intend to source, e.g. 'ADS1220IPWR') when you "
+                "know it. With it set, the fetch is self-verifying: if the "
+                "given C-number has no CAD data, OR resolves to a different "
+                "part than expected (wrong/stale C-number — LCSC has "
+                "listings that silently point at unrelated parts), it "
+                "automatically searches LCSC for other listings of that MPN "
+                "and retries until it finds a real, matching one. Check the "
+                "returned 'substituted' and 'mpn_verified' fields — a "
+                "substitution means the installed C-number differs from "
+                "what you asked for; report that to the user."
             ),
             inputSchema={
                 "type": "object",
@@ -511,6 +540,15 @@ def _tool_definitions() -> list[Tool]:
                     "lcsc": {
                         "type": "string",
                         "description": "LCSC C-number, e.g. 'C25804'.",
+                    },
+                    "mfr_part": {
+                        "type": "string",
+                        "description": (
+                            "Manufacturer part number you expect this C-number to be, "
+                            "e.g. 'ADS1220IPWR'. Strongly recommended: enables automatic "
+                            "verification and fallback to an alternate LCSC listing if this "
+                            "C-number has no CAD data or turns out to be the wrong part."
+                        ),
                     },
                     "libs_dir": {
                         "type": "string",
