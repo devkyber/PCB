@@ -38,12 +38,12 @@ LCSC_LIB_CACHE = "lcsc_libs"
 # ---------------------------------------------------------------------------
 
 # Base URL for the jlcparts community mirror. Real data layout is:
-#   /data/index.json                       — category manifest
-#   /data/<sourcename>.json.gz             — per-category component dump
-#   /data/<sourcename>.stock.json          — per-category stock map
-# lcsc_client.populate_cache() downloads all categories on first use
-# (~17 MB total, ~1300 files) into a local SQLite cache; subsequent
-# queries are pure local SQL.
+#   /data/manifest.json                    — catalog manifest
+#   /data/attributes-lut.json.gz           — attribute lookup table
+#   /data/components-<name>-NNN.jsonl.gz   — gzipped JSONL component shards
+#   /data/lookup-NNNNN.json.gz             — C-number → shard lookup buckets
+# lcsc_client.populate_cache() downloads all shards on first use
+# into a local SQLite cache; subsequent queries are pure local SQL.
 JLCSEARCH_BASE = "https://yaqwsx.github.io/jlcparts"
 
 # When sourcing parts, hard-prefer JLCPCB basic library (no setup fee).

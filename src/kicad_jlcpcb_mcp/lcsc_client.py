@@ -2,36 +2,37 @@
 
 The jlcparts project (https://github.com/yaqwsx/jlcparts) publishes a
 community-maintained mirror of JLCPCB's own parts catalog at
-https://yaqwsx.github.io/jlcparts/data/. There is **no per-part HTTP
-endpoint** — the mirror exposes:
+https://yaqwsx.github.io/jlcparts/data/. The mirror exposes:
 
-  - `/data/index.json`                            — category manifest
-  - `/data/<sourcename>.json.gz`                  — gzipped category dump
-  - `/data/<sourcename>.stock.json`               — per-C-number stock map
+  - ``/data/manifest.json``                          — catalog manifest
+  - ``/data/attributes-lut.json.gz``                  — attribute lookup table
+  - ``/data/components-<name>-NNN.jsonl.gz``          — gzipped JSONL shards
+  - ``/data/lookup-NNNNN.json.gz``                    — C-number → shard buckets
 
-Each category dump has the shape:
-    {
-      "schema": ["lcsc", "mfr", "joints", "description", "datasheet",
-                 "price", "img", "url", "attributes"],
-      "components": [ ["C25804", "RC0603FR-0710KL", 2, "...", "...",
-                       [{"price": ..., "qFrom": 1}], null, null,
-                       {"Basic/Extended": {..."values":{"default":["Basic","string"]}},
-                        "Manufacturer": {...}, "Package": {...}}],
-                     ... ]
-    }
+Each component shard is gzipped newline-delimited JSON (JSONL):
+  - Line 1 is a schema dict mapping field names to array indices::
 
-Stock files are plain `{lcsc_str: stock_int}` dicts.
+        {"lcsc":0,"mfr":1,...,"attributes":8,"stock":9,"subcategory":10}
 
-This module downloads the entire dataset on first use (~17 MB across ~1300
-category files, ~1 minute on a decent connection), normalizes every
-component into the local `Part` dataclass, and stores the whole catalog in
-a SQLite database under `config.CACHE_DIR / config.LCSC_CACHE_DB`. All
-subsequent queries are pure local SQL.
+  - Subsequent lines are JSON arrays with values at those indices.
 
-Re-population: the marker file `<cache_dir>/.populated_at` holds a unix
-timestamp. The cache is considered fresh for `CACHE_TTL_SECONDS`; after
-that, the next call to `get_part` / `search` / `resolve_bom` triggers a
-refresh. Pass `force_refresh=True` to any of those to rebuild now.
+Component attributes are stored as integer indices into the attributes
+LUT (a JSON array of ``[name, {format, primary, values}]`` entries).
+Stock is inline in each component record.  The manifest's ``categories``
+list maps subcategory IDs (referenced by component records) to
+human-readable category/subcategory names.
+
+This module downloads the entire dataset on first use (~1 400 shards +
+attributes LUT), normalizes every component into the local ``Part``
+dataclass, and stores the whole catalog in a SQLite database under
+``config.CACHE_DIR / config.LCSC_CACHE_DB``. All subsequent queries are
+pure local SQL.
+
+Re-population: the marker file ``<cache_dir>/.jlcparts_populated_at``
+holds a unix timestamp.  The cache is considered fresh for
+``CACHE_TTL_SECONDS``; after that, the next call to ``get_part`` /
+``search`` / ``resolve_bom`` triggers a refresh.  Pass
+``force_refresh=True`` to any of those to rebuild now.
 """
 
 from __future__ import annotations
@@ -53,22 +54,17 @@ from . import config
 
 logger = logging.getLogger(__name__)
 
-# Cache freshness for the populated catalog (in seconds). 7 days is a
-# sensible tradeoff: JLCPCB inventory moves slowly enough that weekly
-# refreshes are fine for BOM resolution, and it avoids re-downloading
-# 17 MB on every command invocation.
+# Cache freshness for the populated catalog (in seconds).
 CACHE_TTL_SECONDS = 7 * 24 * 3600
 
-# Parallelism for the bulk category fetch. The jlcparts mirror is on
-# GitHub Pages behind Fastly; 16 concurrent requests is polite and fast.
+# Parallelism for the bulk shard fetch.
 FETCH_CONCURRENCY = 16
 
-# Per-request timeouts (seconds). Category .json.gz files are small
-# individually but the index and a few big categories (chip resistors,
-# MLCC) can be 5 MB+.
-INDEX_TIMEOUT = 15.0
-CATEGORY_TIMEOUT = 60.0
-STOCK_TIMEOUT = 30.0
+# Per-request timeouts (seconds).
+MANIFEST_TIMEOUT = 30.0
+SHARD_TIMEOUT = 60.0
+ATTRIBUTES_LUT_TIMEOUT = 120.0
+LOOKUP_TIMEOUT = 30.0
 
 
 class LcscError(RuntimeError):
@@ -158,7 +154,7 @@ def _open_cache():
 
 
 def _row_to_part(row: tuple) -> Part:
-    """Reconstruct a Part from a SQLite row in the `parts` table column order."""
+    """Reconstruct a Part from a SQLite row in the ``parts`` table column order."""
     (
         lcsc,
         mfr_part,
@@ -198,12 +194,13 @@ _PARTS_COLUMNS = (
 
 
 def _extract_attr(attributes: dict, key: str) -> str:
-    """Extract a string attribute from the jlcparts attributes blob.
+    """Extract a string attribute from a jlcparts attributes blob.
 
-    Attributes look like:
-        {"Package": {"primary": "default",
-                      "values": {"default": ["0603", "string"]},
-                      "format": "${default}"}}
+    Attributes look like::
+
+        {"Package": {"primary": "identifier",
+                      "values": {"identifier": ["0603", "identifier"]},
+                      "format": "${identifier}"}}
     """
     if not isinstance(attributes, dict):
         return ""
@@ -243,13 +240,41 @@ def _extract_price(price_field) -> float:
     return float(first.get("price", 0) or 0)
 
 
+def _resolve_attributes(attr_indices: list | None, lut: list) -> dict:
+    """Resolve attribute index list to ``{name: value_obj}`` dict via the LUT.
+
+    Component records store attributes as a list of integer indices into
+    the attributes lookup table.  Each LUT entry is ``[name, value_obj]``
+    where *value_obj* has the same shape as the old per-component
+    attribute dicts (``{format, primary, values}``).
+
+    The returned dict is keyed by attribute name and compatible with
+    :func:`_extract_attr` / :func:`_extract_basic_flag`.
+    """
+    if not isinstance(attr_indices, list):
+        return {}
+    result: dict = {}
+    for idx in attr_indices:
+        if not isinstance(idx, int) or idx < 0 or idx >= len(lut):
+            continue
+        entry = lut[idx]
+        if isinstance(entry, list) and len(entry) >= 2:
+            result[entry[0]] = entry[1]
+    return result
+
+
 def _row_dict_to_part(
     row_dict: dict,
     stock: int,
     category: str,
     subcategory: str,
 ) -> Part:
-    """Convert one jlcparts components-row dict into a Part."""
+    """Convert one jlcparts component record dict into a Part.
+
+    Accepts both old-style attribute dicts (keys are attribute names
+    mapping to ``{format, primary, values}``) and pre-resolved dicts
+    produced by :func:`_resolve_attributes`.
+    """
     attributes = row_dict.get("attributes") or {}
     return Part(
         lcsc=str(row_dict.get("lcsc", "")),
@@ -274,7 +299,7 @@ def _make_client() -> httpx.AsyncClient:
     """Build the httpx client. Factored out so tests can patch."""
     return httpx.AsyncClient(
         base_url=config.JLCSEARCH_BASE,
-        timeout=httpx.Timeout(CATEGORY_TIMEOUT),
+        timeout=httpx.Timeout(SHARD_TIMEOUT),
         headers={
             "User-Agent": "kicad-jlcpcb/0.1 (+https://github.com/BeckhamLabsLLC/kicad-jlcpcb)",
             "Accept-Encoding": "gzip",
@@ -283,82 +308,147 @@ def _make_client() -> httpx.AsyncClient:
     )
 
 
-async def _fetch_index(client: httpx.AsyncClient) -> dict:
-    """Fetch /data/index.json. Returns the parsed manifest."""
+async def _fetch_manifest(client: httpx.AsyncClient) -> dict:
+    """Fetch ``/data/manifest.json``. Returns the parsed catalog manifest."""
     try:
-        resp = await client.get("/data/index.json", timeout=INDEX_TIMEOUT)
+        resp = await client.get("/data/manifest.json", timeout=MANIFEST_TIMEOUT)
     except httpx.HTTPError as e:
-        raise LcscError(f"jlcparts index fetch failed: {e}") from e
+        raise LcscError(f"jlcparts manifest fetch failed: {e}") from e
     if resp.status_code != 200:
-        raise LcscError(f"jlcparts index returned HTTP {resp.status_code}")
+        raise LcscError(f"jlcparts manifest returned HTTP {resp.status_code}")
     try:
         return resp.json()
     except ValueError as e:
-        raise LcscError(f"jlcparts index is not valid JSON: {e}") from e
+        raise LcscError(f"jlcparts manifest is not valid JSON: {e}") from e
 
 
-async def _fetch_category(client: httpx.AsyncClient, sourcename: str) -> dict | None:
-    """Fetch and gunzip one category's .json.gz. Returns the decoded
-    {schema, components} dict, or None on failure."""
+async def _fetch_gzipped_json(
+    client: httpx.AsyncClient,
+    path: str,
+    *,
+    timeout: float = SHARD_TIMEOUT,
+) -> bytes | None:
+    """Fetch a gzipped file and return decompressed bytes, or *None* on failure."""
     try:
-        resp = await client.get(f"/data/{sourcename}.json.gz", timeout=CATEGORY_TIMEOUT)
+        resp = await client.get(path, timeout=timeout)
     except httpx.HTTPError as e:
-        logger.warning(f"Category {sourcename}: fetch failed: {e}")
+        logger.warning("Fetch %s: %s", path, e)
         return None
     if resp.status_code != 200:
-        logger.warning(f"Category {sourcename}: HTTP {resp.status_code}")
+        logger.warning("Fetch %s: HTTP %s", path, resp.status_code)
         return None
-    # httpx auto-decompresses Content-Encoding: gzip, but these files are
-    # gzipped as *content* (not transport encoding), so we need to gunzip
-    # the raw body ourselves.
     raw = resp.content
     try:
-        body = gzip.decompress(raw)
+        return gzip.decompress(raw)
     except OSError:
-        # Some servers already decompress; treat raw bytes as JSON
-        body = raw
+        # Server may have already decompressed via Content-Encoding
+        return raw
+
+
+async def _fetch_attributes_lut(
+    client: httpx.AsyncClient, filename: str
+) -> list:
+    """Fetch the attributes lookup table (gzipped JSON array).
+
+    Returns a list of ``[name, value_obj]`` entries.
+    """
+    body = await _fetch_gzipped_json(
+        client, f"/data/{filename}", timeout=ATTRIBUTES_LUT_TIMEOUT
+    )
+    if body is None:
+        raise LcscError(f"Failed to fetch attributes LUT: {filename}")
+    try:
+        lut = json.loads(body.decode("utf-8"))
+    except (UnicodeDecodeError, ValueError) as e:
+        raise LcscError(f"Attributes LUT parse failed: {e}") from e
+    if not isinstance(lut, list):
+        raise LcscError(f"Attributes LUT is not a list (got {type(lut).__name__})")
+    return lut
+
+
+async def _fetch_shard(
+    client: httpx.AsyncClient, filename: str
+) -> dict | None:
+    """Fetch a component shard (``.jsonl.gz``).
+
+    Returns ``{"schema": {field: idx, ...}, "records": [[...], ...]}``
+    or *None* on failure.  The first JSONL line is the schema dict
+    mapping field names to array indices; subsequent lines are component
+    record arrays.
+    """
+    body = await _fetch_gzipped_json(client, f"/data/{filename}")
+    if body is None:
+        return None
+    try:
+        text = body.decode("utf-8")
+    except UnicodeDecodeError as e:
+        logger.warning("Shard %s: decode failed: %s", filename, e)
+        return None
+    lines = text.strip().split("\n")
+    if not lines:
+        return None
+    try:
+        schema = json.loads(lines[0])
+        records = [json.loads(line) for line in lines[1:] if line.strip()]
+    except (ValueError, json.JSONDecodeError) as e:
+        logger.warning("Shard %s: parse failed: %s", filename, e)
+        return None
+    return {"schema": schema, "records": records}
+
+
+async def _fetch_lookup_bucket(
+    client: httpx.AsyncClient, filename: str
+) -> dict | None:
+    """Fetch a C-number lookup bucket (``{C-number: shard_filename}`` dict)."""
+    body = await _fetch_gzipped_json(
+        client, f"/data/{filename}", timeout=LOOKUP_TIMEOUT
+    )
+    if body is None:
+        return None
     try:
         return json.loads(body.decode("utf-8"))
     except (UnicodeDecodeError, ValueError) as e:
-        logger.warning(f"Category {sourcename}: parse failed: {e}")
+        logger.warning("Lookup bucket %s: parse failed: %s", filename, e)
         return None
 
 
-async def _fetch_stock(client: httpx.AsyncClient, sourcename: str) -> dict:
-    """Fetch the stock map for one category. Returns an empty dict on failure."""
-    try:
-        resp = await client.get(f"/data/{sourcename}.stock.json", timeout=STOCK_TIMEOUT)
-    except httpx.HTTPError:
-        return {}
-    if resp.status_code != 200:
-        return {}
-    try:
-        return resp.json()
-    except ValueError:
-        return {}
-
-
-def _bulk_insert(
+def _bulk_insert_shard(
     conn: sqlite3.Connection,
-    category: str,
-    subcategory: str,
-    category_obj: dict,
-    stock_map: dict,
+    shard_data: dict,
+    lut: list,
+    category_map: dict[int, tuple[str, str]],
 ) -> int:
-    """Insert every component from a category dump into the parts table.
-    Returns the count of rows inserted."""
-    schema = category_obj.get("schema") or []
-    components = category_obj.get("components") or []
-    count = 0
-    rows = []
-    for row in components:
-        if not isinstance(row, list) or len(row) < len(schema):
+    """Insert every component from a shard into the parts table.
+
+    Returns the count of rows inserted.
+    """
+    schema = shard_data.get("schema") or {}
+    records = shard_data.get("records") or []
+    rows: list[tuple] = []
+    for record in records:
+        if not isinstance(record, list):
             continue
-        row_dict = dict(zip(schema, row))
+        row_dict: dict = {}
+        for key, idx in schema.items():
+            if isinstance(idx, int) and 0 <= idx < len(record):
+                row_dict[key] = record[idx]
+
         lcsc = str(row_dict.get("lcsc") or "")
         if not lcsc:
             continue
-        part = _row_dict_to_part(row_dict, stock_map.get(lcsc, 0), category, subcategory)
+
+        raw_attrs = row_dict.get("attributes")
+        if isinstance(raw_attrs, list):
+            row_dict["attributes"] = _resolve_attributes(raw_attrs, lut)
+
+        sub_id = row_dict.get("subcategory")
+        if isinstance(sub_id, int):
+            category, subcategory = category_map.get(sub_id, ("", ""))
+        else:
+            category, subcategory = "", ""
+
+        stock = int(row_dict.get("stock", 0) or 0)
+        part = _row_dict_to_part(row_dict, stock, category, subcategory)
         rows.append(
             (
                 part.lcsc,
@@ -374,13 +464,12 @@ def _bulk_insert(
                 subcategory,
             )
         )
-        count += 1
     if rows:
         conn.executemany(
             f"INSERT OR REPLACE INTO parts ({_PARTS_COLUMNS}) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
             rows,
         )
-    return count
+    return len(rows)
 
 
 async def populate_cache(
@@ -391,18 +480,17 @@ async def populate_cache(
 ) -> dict:
     """Ensure the local SQLite cache holds the full jlcparts catalog.
 
-    If the cache is fresh (populated within `CACHE_TTL_SECONDS`) and
-    `force` is False, this is a no-op. Otherwise fetches the index and
-    every category in parallel, normalizes into Parts, and inserts into
-    SQLite.
+    If the cache is fresh (populated within ``CACHE_TTL_SECONDS``) and
+    *force* is False, this is a no-op.  Otherwise fetches the manifest,
+    attributes LUT, and every component shard in parallel, normalizes
+    into Parts, and inserts into SQLite.
 
-    Returns a summary dict. Raises LcscError on index-fetch failure;
-    individual category fetch failures are logged and counted but don't
-    abort the populate.
+    Returns a summary dict.  Raises :class:`LcscError` on manifest or
+    LUT fetch failure; individual shard fetch failures are logged and
+    counted but don't abort the populate.
 
-    `progress_cb` is an optional callable `progress_cb(done, total)`
-    invoked after each category is written. Used by the trial driver
-    for progress reporting.
+    ``progress_cb`` is an optional callable ``progress_cb(done, total)``
+    invoked after each shard is written.
     """
     marker = _populated_marker()
     if not force and marker.exists():
@@ -421,47 +509,66 @@ async def populate_cache(
         client = _make_client()
 
     try:
-        index = await _fetch_index(client)
-        categories_flat: list[tuple[str, str, str]] = [
-            (cat, sub, attrs.get("sourcename", ""))
-            for cat, subs in index.get("categories", {}).items()
-            for sub, attrs in subs.items()
-            if isinstance(attrs, dict) and attrs.get("sourcename")
-        ]
-        total = len(categories_flat)
-        logger.info(f"jlcparts: populating cache ({total} categories)")
+        # 1. Fetch catalog manifest
+        manifest = await _fetch_manifest(client)
 
+        # 2. Build category map: subcategory ID → (category, subcategory)
+        category_map: dict[int, tuple[str, str]] = {}
+        for cat in manifest.get("categories", []):
+            cat_id = cat.get("id")
+            if cat_id is not None:
+                category_map[int(cat_id)] = (
+                    cat.get("category", ""),
+                    cat.get("subcategory", ""),
+                )
+
+        # 3. Fetch the attributes lookup table
+        lut_filename = manifest.get("attributesLut", "attributes-lut.json.gz")
+        lut = await _fetch_attributes_lut(client, lut_filename)
+
+        # 4. Collect all unique component shard filenames
+        shard_set: set[str] = set()
+        for cat in manifest.get("categories", []):
+            for shard_name in cat.get("shards", []):
+                shard_set.add(shard_name)
+        shards = sorted(shard_set)
+        total = len(shards)
+        logger.info(
+            "jlcparts: populating cache (%d shards, LUT has %d entries)",
+            total,
+            len(lut),
+        )
+
+        # 5. Fetch all shards in parallel
         sem = asyncio.Semaphore(FETCH_CONCURRENCY)
 
-        async def fetch_one(cat, sub, sourcename):
+        async def fetch_one(filename):
             async with sem:
-                obj = await _fetch_category(client, sourcename)
-                stock = await _fetch_stock(client, sourcename) if obj else {}
-                return cat, sub, sourcename, obj, stock
+                return filename, await _fetch_shard(client, filename)
 
-        results = await asyncio.gather(*(fetch_one(c, s, sn) for c, s, sn in categories_flat))
+        results = await asyncio.gather(*(fetch_one(fn) for fn in shards))
 
+        # 6. Insert into SQLite
         with _open_cache() as conn:
-            # Clear old rows on full re-populate. A partial populate
-            # would need a more sophisticated diff; for Phase 1 we
-            # just wipe and refill.
             conn.execute("DELETE FROM parts")
             conn.commit()
 
             rows_inserted = 0
             parse_failures = 0
             done = 0
-            for cat, sub, sourcename, obj, stock in results:
+            for filename, shard_data in results:
                 done += 1
-                if obj is None:
+                if shard_data is None:
                     parse_failures += 1
                     if progress_cb:
                         progress_cb(done, total)
                     continue
                 try:
-                    rows_inserted += _bulk_insert(conn, cat, sub, obj, stock)
+                    rows_inserted += _bulk_insert_shard(
+                        conn, shard_data, lut, category_map
+                    )
                 except sqlite3.Error as e:
-                    logger.warning(f"Category {sourcename}: insert failed: {e}")
+                    logger.warning("Shard %s: insert failed: %s", filename, e)
                     parse_failures += 1
                 if progress_cb:
                     progress_cb(done, total)
@@ -527,16 +634,12 @@ async def search(
 ) -> list[Part]:
     """Search the cached catalog by free-text query.
 
-    Matches `query` against description, mfr_part, and (package) if
-    provided. Sorts basic-first, then by descending stock. When
-    `basic_only=True`, extended parts are excluded entirely.
+    Matches ``query`` against description, mfr_part, and (package) if
+    provided.  Sorts basic-first, then by descending stock.  When
+    ``basic_only=True``, extended parts are excluded entirely.
     """
     await _ensure_cache(client, force_refresh)
 
-    # Tokenize the query: each whitespace-separated token must appear
-    # somewhere in description OR mfr_part. This gives reasonable
-    # results for queries like "10k 0603 1%" without needing a real
-    # full-text index.
     tokens = [t for t in query.strip().split() if t]
     if not tokens:
         return []
@@ -571,7 +674,7 @@ async def search(
 
 
 # ---------------------------------------------------------------------------
-# BOM resolution (unchanged logic, now reads from local SQLite)
+# BOM resolution (unchanged logic, reads from local SQLite)
 # ---------------------------------------------------------------------------
 
 
@@ -583,12 +686,14 @@ async def resolve_bom(
 ) -> dict:
     """Resolve a BOM into concrete parts with cost-impact warnings.
 
-    Each input row is one of:
-      {"lcsc": "C25804", "qty": 10}                  # known LCSC
-      {"query": "10k 0603 1%", "qty": 10}            # free-text spec
-      {"query": "...", "package": "0603", "qty": 5}  # spec with package
+    Each input row is one of::
 
-    Returns:
+      {"lcsc": "C25804", "qty": 10}
+      {"query": "10k 0603 1%", "qty": 10}
+      {"query": "...", "package": "0603", "qty": 5}
+
+    Returns::
+
       {
         "resolved": [ {row, part, warnings} ... ],
         "unresolved": [ {row, reason} ... ],
