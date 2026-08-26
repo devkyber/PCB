@@ -52,29 +52,81 @@ def test_find_java_present_in_environment():
 # ===== Stats parser ======================================================== #
 
 
-SAMPLE_LOG = """
-2026-05-09 21:00:00 INFO  Freerouting v2.1.0 starting
-2026-05-09 21:00:01 INFO  Loaded design: foo.dsn
-2026-05-09 21:00:05 INFO  pass 1 complete: 12% completed
-2026-05-09 21:00:30 INFO  pass 5 complete: 87% completed
-2026-05-09 21:00:35 INFO  Routing took 0:00:35 to complete
-2026-05-09 21:00:35 INFO  Total trace length: 287.5 mm
-2026-05-09 21:00:35 INFO  Total of 12 vias
+# Real captured output. The previous fixture here was invented ("pass 5
+# complete: 87% completed") and matched no Freerouting version, so the parser
+# was being validated against a format it would never see.
+
+SAMPLE_LOG_21 = """
+2026-08-25 13:19:50.797 INFO   Freerouting v2.1.0 (build-date: 2025-04-12)
+2026-08-25 13:19:59.003 INFO   [5963C7] Auto-router pass #1 on board 'a9cc' was completed in 0.23 seconds with the score of 987.51.
+2026-08-25 13:19:59.073 INFO   [5963C7] Auto-router pass #2 on board 'f4f9' was completed in 0.02 seconds with the score of 987.51.
+2026-08-25 13:19:59.088 INFO   [5963C7] Auto-routing was completed in 0.49 seconds with the score of 987.51.
+2026-08-25 13:19:59.194 INFO   [5963C7] Starting optimization on 7 threads...
+2026-08-25 13:19:59.196 WARN   [5963C7] Multi-threaded route optimization is broken and it is known to generate clearance violations.
+"""
+
+SAMPLE_LOG_23 = """
+2026-08-25 13:29:19.217 INFO   [C90315] Auto-routing pass #11 on board '466f' was completed in 0.49 seconds with the score of 983.98 (2 unrouted and 0 violations), using 6.83 CPU seconds.
+2026-08-25 13:29:23.377 INFO   [C90315] The router's score (983.98) has not improved by more than 0.5 points in the last 10 passes (2 items still unconnected). Stopping the auto-router.
+The following connections could not be routed -- please review your design:
+  Net '+3V3' (1 unrouted connection):
+    - via  ->  U3-13
+  Net 'LC_SIG_N' (1 unrouted connection):
+    - R4-1  ->  D2-2
+2026-08-25 13:29:24.406 INFO   [C90315] Job finished with state: COMPLETED.
 """
 
 
-def test_parse_stats_extracts_known_fields():
-    stats = freerouting._parse_stats(SAMPLE_LOG)
-    assert stats.get("via_count") == 12
-    assert stats.get("trace_length_mm") == 287.5
-    assert stats.get("duration") == "0:00:35"
-    # `passes_done` and `completion_pct` take the LAST match (final state).
-    assert stats.get("passes_done") == 5
-    assert stats.get("completion_pct") == 87.0
+def test_parse_stats_reads_21_log():
+    stats = freerouting._parse_stats(SAMPLE_LOG_21)
+    assert stats.get("version") == "2.1.0"
+    # `passes_done` and `score` take the LAST match (final state).
+    assert stats.get("passes_done") == 2
+    assert stats.get("score") == 987.51
+    # 2.1.x never reports unrouted counts; absence is not a clean route.
+    assert stats.get("reported_unrouted") is None
+    assert stats.get("optimizer_multithreaded_warning") is True
 
 
-def test_parse_stats_empty_when_no_matches():
-    assert freerouting._parse_stats("nothing relevant here") == {}
+def test_parse_stats_reads_23_log():
+    stats = freerouting._parse_stats(SAMPLE_LOG_23)
+    assert stats.get("reported_unrouted") == 2
+    assert stats.get("reported_violations") == 0
+    assert stats.get("stagnated") is True
+    assert stats.get("optimizer_multithreaded_warning") is False
+    assert {n["net"] for n in stats["unrouted_nets"]} == {"+3V3", "LC_SIG_N"}
+
+
+def test_parse_stats_reports_unknown_rather_than_clean():
+    """No output must never look like a clean route."""
+    stats = freerouting._parse_stats("nothing relevant here")
+    assert stats["reported_unrouted"] is None
+    assert stats["unrouted_nets"] == []
+    assert stats.get("via_count") is None
+
+
+def test_required_java_major_tracks_the_25_cutover():
+    assert freerouting.required_java_major((2, 1, 0)) == 21
+    assert freerouting.required_java_major((2, 2, 0)) == 25
+    assert freerouting.required_java_major((2, 3, 0)) == 25
+    assert freerouting.required_java_major(None) == 21
+
+
+def test_build_args_omits_modern_flags_on_21():
+    """A 2.1.x JAR rejects unknown arguments, so it must get none of them."""
+    profile = freerouting.RouteProfile(passes=7, threads=1)
+    args = freerouting.build_args((2, 1, 0), profile)
+    assert args[:4] == ["-mp", "7", "-mt", "1"]
+    assert not any(a.startswith("--") for a in args)
+
+
+def test_build_args_emits_modern_flags_on_23():
+    profile = freerouting.RouteProfile(passes=7, threads=1)
+    args = freerouting.build_args((2, 3, 0), profile)
+    assert "--gui.enabled=false" in args
+    assert "--feature_flags.multi_threading=false" in args
+    assert "--router.layers.preferred_direction_horizontal=true,false" in args
+    assert "--router.fanout.enabled=true" in args
 
 
 # ===== Full pipeline (slow) ================================================ #

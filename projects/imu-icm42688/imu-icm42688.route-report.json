@@ -1,0 +1,60 @@
+{
+  "pcb_path": "/Users/leetaeho/CODE/PCB/projects/imu-icm42688/imu-icm42688.kicad_pcb",
+  "steps": [
+    "export_dsn",
+    "freerouting",
+    "import_ses",
+    "fill_zones"
+  ],
+  "backup": "/Users/leetaeho/CODE/PCB/projects/imu-icm42688/.backups/20260825-200121_imu-icm42688.kicad_pcb",
+  "dsn_path": "/Users/leetaeho/CODE/PCB/projects/imu-icm42688/imu-icm42688.dsn",
+  "freerouting": {
+    "jar_version": "2.3.0",
+    "java": "/Users/leetaeho/Library/Java/JavaVirtualMachines/jdk-25.0.4.1+1/Contents/Home/bin/java",
+    "stats": {
+      "passes_done": 2,
+      "score": 999.99,
+      "version": "2.3.0",
+      "reported_unrouted": 0,
+      "reported_violations": 0,
+      "unrouted_nets": [],
+      "stagnated": false,
+      "optimizer_multithreaded_warning": false
+    },
+    "returncode": 0,
+    "args": [
+      "-de",
+      "/Users/leetaeho/CODE/PCB/projects/imu-icm42688/imu-icm42688.dsn",
+      "-do",
+      "/Users/leetaeho/CODE/PCB/projects/imu-icm42688/imu-icm42688.ses",
+      "-mp",
+      "50",
+      "-mt",
+      "1",
+      "-da",
+      "--gui.enabled=false",
+      "--feature_flags.multi_threading=false",
+      "--router.layers.preferred_direction_horizontal=true,false",
+      "--router.scoring.via_costs=50",
+      "--router.fanout.enabled=true",
+      "--router.automatic_neckdown=true"
+    ]
+  },
+  "pour_nets": [
+    "GND"
+  ],
+  "unconnected_after_route": 0,
+  "unconnected": 0,
+  "unconnected_resolved_by_bonding": 0,
+  "drc": {
+    "errors": 0,
+    "warnings": 9,
+    "total_violations": 9,
+    "unconnected_items_count": 0,
+    "raw_path": "/Users/leetaeho/CODE/PCB/projects/imu-icm42688/imu-icm42688.drc.json"
+  },
+  "remaining_pour_items": [],
+  "remaining_signal_items": [],
+  "passed": true,
+  "summary": "Freerouting 2.3.0; 0 unconnected after bonding (was 0 after routing)"
+}

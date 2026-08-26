@@ -1,0 +1,73 @@
+#!/bin/bash
+# SessionStart hook: put the operating rules and the real board state into
+# context before the first prompt, so no session begins by guessing.
+#
+# WHY
+# ---
+# Every recurring failure here started the same way: Claude began work without
+# the workflow in context, and the user had to say "look at the document".
+# Prose in docs/ does not load itself. This does.
+
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+cd "$REPO_ROOT" || exit 0
+
+cat <<'TXT'
+=== PCB WORKSPACE — OPERATING RULES (loaded automatically) ===
+
+ONE command builds a board. Do not hand-run generators:
+    python3 docs/pipeline.py projects/<board>
+    python3 docs/pipeline.py projects/<board> --check   # gates only
+    python3 docs/pipeline.py --status                   # all boards
+
+RULES THAT ARE NOT NEGOTIABLE
+ 1. A board is "done" only when run_gates.py exits 0. Paste the table.
+    A completion claim without it is not evidence.
+ 2. DRC answers "can JLCPCB build this?", never "is this a good layout?".
+    check_design_rules.py answers the second. TMS V3 passed DRC while
+    breaking 23 numbered rules.
+ 3. A rule you cannot meet is an engineering decision -> DEVIATIONS.md,
+    under its "## Declared" heading, as
+        <ref>.<pin> | <scope> | <reason>
+    Scope is MATCHED: a rule number waives that rule on that pin;
+    reference/basis/datasheet waive that research gate; nothing waives
+    anything else. No "## Declared" heading = nothing is waived.
+    Unlisted violations are hard failures.
+ 4. Routing quality is a PLACEMENT result, not a router setting.
+ 5. Convert coordinates ONLY via design_to_mcp / design_to_kicad /
+    kicad_to_design. The same sign bug appeared three times inline.
+ 6. A 1xN header footprint anchors on PIN 1, not its centre.
+ 7. RESEARCH BEFORE SCHEMATIC. Order: requirements -> parts -> datasheets
+    -> reference designs -> compare/justify -> schematic. A reference is
+    only real when it is a FILE ON DISK with a live source URL:
+        python3 docs/collect_references.py suggest <PART>
+        python3 docs/collect_references.py add <project> <PART> <URL>
+    Read exact values with fetch_reference_doc.py, never WebFetch.
+    Every key part gets a DESIGN_BASIS.md row: Match or Deviate: <reason>.
+    Advisory while designing; blocking at the gates; escape hatch is one
+    line in DEVIATIONS.md.
+ 8. DATASHEET OUTRANKS THE REFERENCE DESIGN. Both required, not equals:
+    datasheet (Tier 0) > reference design (practice, not correctness) >
+    teaching sources > numbered rules. Where they disagree the datasheet
+    wins AND the disagreement gets a DESIGN_BASIS.md row. A datasheet is
+    on file only if its BYTES are a PDF, with a source URL in INDEX.md.
+ 9. THREE TOOLS, THREE QUESTIONS. selftest_enforcement.py = is the
+    machinery wired? run_gates.py = is THIS board ready? audit_workflow.py
+    = was every documented step actually done, on every board? The audit
+    CALLS the gate functions; it must never re-implement and disagree.
+10. New lesson? Put it at the tier that fires: a gate (Tier 0), CLAUDE.md
+    (1), .claude/rules/ (2). docs/*.md alone (3) is a hope, not a rule.
+    Then FAULT-INJECT it: a check you have not seen fail is a check you
+    have not tested. Wiring is not strength -- the self-test was 68/68
+    green while six gates could not fail at all.
+11. Read docs/ARCHITECTURE.md before changing any check. It names the
+    recurring defect classes, all of which have come back at least twice.
+
+Full lessons: docs/pcb-design-workflow.md § The Gate Rule (81 rows). Wiring self-test: docs/selftest_enforcement.py
+TXT
+
+echo
+python3 docs/selftest_enforcement.py 2>/dev/null | tail -3
+echo
+echo "=== CURRENT BOARD STATE ==="
+python3 docs/pipeline.py --status 2>/dev/null || echo "(pipeline unavailable)"
+exit 0

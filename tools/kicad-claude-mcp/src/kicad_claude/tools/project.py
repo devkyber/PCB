@@ -60,7 +60,7 @@ def _summarize(proj: state.ActiveProject) -> dict:
         },
         "symbols": len(sch.symbol),
         "footprints": len(getattr(pcb, "footprint", [])),
-        "nets": len(pcb.net),
+        "nets": len(getattr(pcb, "net", [])),
     }
 
 

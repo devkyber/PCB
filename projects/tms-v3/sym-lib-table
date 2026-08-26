@@ -7,4 +7,5 @@
   (lib (name "Transistor_BJT")(type "KiCad")(uri "${KICAD8_SYMBOL_DIR}/Transistor_BJT.kicad_sym")(options "")(descr ""))
   (lib (name "Diode")(type "KiCad")(uri "${KICAD8_SYMBOL_DIR}/Diode.kicad_sym")(options "")(descr ""))
   (lib (name "Regulator_Linear")(type "KiCad")(uri "${KICAD8_SYMBOL_DIR}/Regulator_Linear.kicad_sym")(options "")(descr ""))
+  (lib (name "jlcpcb")(type "KiCad")(uri "${KIPRJMOD}/libs/jlcpcb.kicad_sym")(options "")(descr "Real LCSC parts via easyeda2kicad"))
 )

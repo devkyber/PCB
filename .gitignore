@@ -18,3 +18,15 @@ fp-info-cache
 .vscode/
 .idea/
 *.swp
+
+# Editor / tool artifacts (regenerable, never reviewed)
+.history/
+.backups/
+*.lck
+~*.lck
+.selftest-*.bak
+
+# KiCad intermediates the pipeline regenerates every run
+*.dsn
+*.ses
+erc-check.json

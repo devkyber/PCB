@@ -1,0 +1,78 @@
+{
+  "pcb_path": "/Users/leetaeho/CODE/PCB/projects/gnss-neom9n/gnss-neom9n.kicad_pcb",
+  "steps": [
+    "export_dsn",
+    "freerouting",
+    "import_ses",
+    "fill_zones",
+    "bond_ground"
+  ],
+  "backup": "/Users/leetaeho/CODE/PCB/projects/gnss-neom9n/.backups/20260825-202333_gnss-neom9n.kicad_pcb",
+  "dsn_path": "/Users/leetaeho/CODE/PCB/projects/gnss-neom9n/gnss-neom9n.dsn",
+  "freerouting": {
+    "jar_version": "2.3.0",
+    "java": "/Users/leetaeho/Library/Java/JavaVirtualMachines/jdk-25.0.4.1+1/Contents/Home/bin/java",
+    "stats": {
+      "passes_done": 3,
+      "score": 999.99,
+      "version": "2.3.0",
+      "reported_unrouted": 0,
+      "reported_violations": 0,
+      "unrouted_nets": [],
+      "stagnated": false,
+      "optimizer_multithreaded_warning": false
+    },
+    "returncode": 0,
+    "args": [
+      "-de",
+      "/Users/leetaeho/CODE/PCB/projects/gnss-neom9n/gnss-neom9n.dsn",
+      "-do",
+      "/Users/leetaeho/CODE/PCB/projects/gnss-neom9n/gnss-neom9n.ses",
+      "-mp",
+      "50",
+      "-mt",
+      "1",
+      "-da",
+      "--gui.enabled=false",
+      "--feature_flags.multi_threading=false",
+      "--router.layers.preferred_direction_horizontal=true,false",
+      "--router.scoring.via_costs=50",
+      "--router.fanout.enabled=true",
+      "--router.automatic_neckdown=true"
+    ]
+  },
+  "pour_nets": [
+    "GND"
+  ],
+  "unconnected_after_route": 1,
+  "ground_bond": {
+    "islands": {
+      "F.Cu": 3,
+      "B.Cu": 1
+    },
+    "stitch_vias": [
+      {
+        "layer": "F.Cu",
+        "x_mm": 20.182,
+        "y_mm": 184.011
+      }
+    ],
+    "unstitchable": [],
+    "escapes": [],
+    "unescapable": [],
+    "added_via_count": 1
+  },
+  "unconnected": 0,
+  "unconnected_resolved_by_bonding": 1,
+  "drc": {
+    "errors": 0,
+    "warnings": 26,
+    "total_violations": 26,
+    "unconnected_items_count": 0,
+    "raw_path": "/Users/leetaeho/CODE/PCB/projects/gnss-neom9n/gnss-neom9n.drc.json"
+  },
+  "remaining_pour_items": [],
+  "remaining_signal_items": [],
+  "passed": true,
+  "summary": "Freerouting 2.3.0; 0 unconnected after bonding (was 1 after routing)"
+}

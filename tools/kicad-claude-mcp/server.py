@@ -41,6 +41,10 @@ from mcp.server.fastmcp import FastMCP
 # Load .env early so adapters can read API credentials at import/use time.
 load_dotenv(Path(__file__).parent / ".env")
 
+from kicad_claude import _skip_compat  # noqa: E402
+
+_skip_compat.apply()
+
 from kicad_claude.tools.emc import register as register_emc_tools  # noqa: E402
 from kicad_claude.tools.library import register as register_library_tools  # noqa: E402
 from kicad_claude.tools.library_create import register as register_library_create_tools  # noqa: E402

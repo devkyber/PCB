@@ -121,3 +121,49 @@ Call `easyeda_handoff`. Relay the response verbatim to the user — specifically
 - The `alternative` KiCad-based flow if they'd rather not use EasyEDA
 
 Phase 1.6 stops here. The plugin has done everything it can automate: parts, pin maps, footprints, placement, connectivity. Routing and ordering are reliably automated by EasyEDA's web app, so the plugin hands off rather than trying to ship its own broken headless auto-router.
+
+---
+
+## MANDATORY FINAL STEP — do not report the board as done without this
+
+```bash
+python3 docs/run_gates.py --init projects/<board>   # first time only: scaffold gate artifacts
+python3 docs/pipeline.py projects/<board>
+```
+
+The pipeline runs `env → sch → erc → pcb → route → gates` in a fixed order and
+exits non-zero unless every gate passes. **Paste its output table.** A
+completion claim without it is not evidence — every defect this workspace has
+shipped was a documented step that nothing checked.
+
+Note in particular that DRC answers *"can JLCPCB build this?"*, never *"is this
+a good layout?"* — `check_design_rules.py` inside the gate runner answers the
+second. TMS V3 passed DRC while breaking 23 numbered rules in
+`docs/pcb-design-rules.md`.
+
+Anything you cannot fix goes in the board's `DEVIATIONS.md` with a reason, and
+the human steps go in `SIGNOFF.md`. See `docs/pcb-design-workflow.md`
+§ The Gate Rule.
+
+---
+
+## MANDATORY FINAL STEP — do not report the board as done without this
+
+```bash
+python3 docs/run_gates.py --init projects/<board>   # first time only: scaffold gate artifacts
+python3 docs/pipeline.py projects/<board>
+```
+
+The pipeline runs `env → sch → erc → pcb → route → gates` in a fixed order and
+exits non-zero unless every gate passes. **Paste its output table.** A
+completion claim without it is not evidence — every defect this workspace has
+shipped was a documented step that nothing checked.
+
+Note in particular that DRC answers *"can JLCPCB build this?"*, never *"is this
+a good layout?"* — `check_design_rules.py` inside the gate runner answers the
+second. TMS V3 passed DRC while breaking 23 numbered rules in
+`docs/pcb-design-rules.md`.
+
+Anything you cannot fix goes in the board's `DEVIATIONS.md` with a reason, and
+the human steps go in `SIGNOFF.md`. See `docs/pcb-design-workflow.md`
+§ The Gate Rule.

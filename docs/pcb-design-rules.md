@@ -299,7 +299,7 @@ For high-current loads (relay coil, igniter), route their ground return on a sep
 
 | Rule | Detail |
 |------|--------|
-| **Fiducial marks** | Add 3 fiducials (1 mm pad, 2 mm solder mask opening) for pick-and-place alignment. |
+| **Fiducial marks** | Not required — JLCPCB auto-adds its own fiducials for assembly if the board has none, so orders aren't rejected for missing them. Recommended (3, in an L-pattern, 1 mm pad / 2 mm solder mask opening) for boards with fine-pitch parts (<0.5 mm pitch) or when you want tighter placement accuracy than JLCPCB's default. |
 | **Component orientation** | Mark pin 1 clearly on silkscreen for every IC. |
 | **BOM format** | Comment, Designator, Footprint, LCSC Part Number. |
 | **CPL format** | Designator, Mid X (mm), Mid Y (mm), Rotation (°), Layer (top/bottom). |
@@ -496,7 +496,7 @@ Use this as a review checklist after completing layout.
 | 13 | Unused IC pins floating | Check every IC pin in schematic | Tie to VDD/GND/appropriate rail per datasheet |
 | 14 | No test points on critical signals | Check TP coverage | Add test points for power rails, DRDY, key analog signals |
 | 15 | Silkscreen overlaps pads | Run DRC | Adjust silkscreen placement |
-| 16 | Missing fiducials for assembly | Check board has ≥3 fiducials if using PCBA | Add 1 mm fiducial pads with 2 mm mask opening — **JLCPCB PCBA will reject boards without fiducials** |
+| 16 | No self-placed fiducials on a fine-pitch PCBA board | Check board has fiducials if using PCBA with <0.5 mm pitch parts | Optional: add 1 mm fiducial pads with 2 mm mask opening for tighter placement accuracy — JLCPCB auto-adds its own if you skip this, so it will not reject the order |
 | 17 | Thermocouple effect near ADC | Check for heat sources near ADC inputs | Move regulator/relay ≥15 mm away from ADC |
 | 18 | Antenna trace near ground pour edge | Check RF/antenna trace clearance | Pull back ground pour ≥2 mm from antenna |
 | 19 | Load cell traces not matched | Compare AINP/AINN trace lengths | Match lengths within 2 mm, route as parallel pair |
@@ -513,6 +513,25 @@ Use this as a review checklist after completing layout.
 
 Before declaring layout complete, run through these checks in order.
 
+### 15.7 Real-Part Symbol Verification (Mandatory for Fetched Parts)
+
+Real symbols fetched via `fetch_part_library` (EasyEDA → easyeda2kicad conversion) are geometrically accurate but carry two systematic gaps that placeholder-era designs never surface. Found while integrating real parts into TMS V3 — 184 pins were "connected" only by a label sitting near a guessed coordinate, and a relay's coil/COM/NO assignment was unverified.
+
+| Check | Why | How |
+|-------|-----|-----|
+| **Library auto-registration is not guaranteed** | `fetch_part_library` may not add the `jlcpcb` library to the project's `sym-lib-table`/`fp-lib-table` | After fetching, grep both tables for a `jlcpcb` entry; add it manually if missing before schematic work starts |
+| **Never trust a placeholder-era pin-map comment** | Rev D described ADS1256 as "1=AINP0,2=AINN0..." — invented, not the real pinout | Extract the actual `(pin (name...)(number...))` pairs from the fetched `.kicad_sym` and build the wiring plan from that, every time |
+| **Multi-function pins (relay COM/NO, TVS common) need the manufacturer datasheet, not the symbol** | EasyEDA-converted symbols often carry only generic numeric pin names ("1","2","3") with no functional label | Pull the real datasheet. If WebFetch's text extraction comes back empty/garbled (common on vector wiring diagrams), use `docs/fetch_reference_doc.py`'s `render_pdf_pages()` to render the relevant pages to PNG and read them visually — confirm the wiring diagram before connecting anything safety-critical (igniter, power switching) |
+| **WebFetch summarizes — it cannot answer "what exact value is on this exact pin"** | A GitHub-hosted Eagle `.sch` reference fetched via WebFetch truncated before the pin-level cap wiring survived; a manufacturer PDF returned empty text | Use `docs/fetch_reference_doc.py`: `fetch_raw()` + `parse_eagle_schematic()` for exact part values *and* pin-level net connections from a real `.sch`/`.brd` file (validated: recovered Adafruit's exact BMP390 decoupling and caught a 10kΩ-vs-4.7kΩ pull-up discrepancy a summary-based fetch missed); `render_pdf_pages()` for PDFs. Always `verify_url()` a link before citing it — report "verified dead, HTTP 404," never "couldn't fetch, unknown reason" |
+| **Wire every net to the symbol's real pin coordinate, never a guessed (x,y)** | A label near a pin *looks* connected in a screenshot but ERC will show it dangling | If the generation tooling exposes a pin-position lookup (e.g. `get_pin_position`), use it for 100% of connections — don't hand-place any label |
+| **Component placement should land on the schematic grid (1.27mm)** | Real symbol pins are grid-aligned; if the component's placed center isn't, every pin inherits the offset | Snap all placement coordinates to the nearest 1.27mm before placing |
+| **EasyEDA conversion drops KiCad electrical pin-type metadata** | Causes `pin_to_pin`/`power_pin_not_driven` ERC noise even on correctly-wired nets | Expected and harmless as warnings; if `power_pin_not_driven` shows as an **error**, add a `power:PWR_FLAG` symbol on that net rather than chasing the metadata |
+| **Run ERC after every section, not just at the end** | Catches naming bugs (e.g. two different nets accidentally reusing the same label) while the section is still fresh in context | `kicad-cli sch erc` is fast enough to run per section during script-based generation |
+| **Every genuinely unused pin gets an explicit no-connect flag** | Silence looks identical to "forgot this pin" in a diff | Use the no-connect marker, not just an absent label |
+| **Document generic-header substitutions as a known gap** | Modules without an LCSC listing (Teensy, XBee) can't go through `fetch_part_library` | State explicitly in the script/PDR which headers are placeholders and what pins are actually wired vs. left as approximate |
+| **Fetched `.kicad_mod` footprints may be in the legacy `(module ...)` format** | Some `fetch_part_library` output pre-dates KiCad 7's `(footprint ...)` format; PCB tooling built against the modern format rejects it outright | Round-trip each file through real `pcbnew` once: `kipython -c "import pcbnew; fp = pcbnew.FootprintLoad(dir, name); pcbnew.FootprintSave(dir, fp)"` upgrades it in place |
+| **PCB placement coordinates from a placeholder-footprint-era script don't transfer to real footprints** | Real IC/relay/connector bodies are frequently *much* larger than the crude 2-pad or generic-circle placeholders a hand-rolled S-expression generator used — inherited (x,y) positions collide the moment real geometry is substituted in | **Use `docs/pcb_layout_helpers.py` — don't hand-check this.** `get_courtyard_bbox()` extracts a footprint's real size before you pick a coordinate; `PlacementTracker.place()` raises immediately on a collision, with the exact overlap in mm, as you generate the board — not 40 DRC violations later with no indication which placement decision caused which one. Confirmed on the exact TMS V3 relay/header collision: caught instantly, `K1 overlaps J8 by 2.28mm x 6.98mm`, instead of a generic `pth_inside_courtyard` DRC line discovered after the whole board was built. A second instance recurred 2026-08-25 on the same board: crystal `Y1` (`jlcpcb:CRYSTAL-SMD_L11.4-W4.7-LS12.4`, a 12.4mm lead-span part) was centered in an ~11mm gap between `U2` and `R9/R10/R11`, colliding with both sides at once — a coordinate chosen when the crystal's real footprint size wasn't yet known. Fix pattern when a part is simply too big for its gap: check if rotating 90° trades its long axis for its short one against the tighter-constrained direction (worked here — freed ~7mm), then relocate to open board area if that's still not enough. This is not a one-off; budget real board area for any component whose real courtyard hasn't been checked yet. |
+
 ### Pass 0 — Pre-Layout Completeness (Run Before Starting Layout)
 - [ ] Every passive value verified against IC datasheet app circuit (§15.1)
 - [ ] Every IC pin accounted for — no floating config/address/debug pins (§15.2)
@@ -520,7 +539,7 @@ Before declaring layout complete, run through these checks in order.
 - [ ] Board dimensions justified against component density target (§15.4)
 - [ ] RF/high-speed traces have calculated impedance in net class (§15.5)
 - [ ] All footprints are real (fidelity = "real"), no placeholders
-- [ ] Fiducials included if using PCBA assembly
+- [ ] Fiducials considered for fine-pitch PCBA (optional — JLCPCB auto-adds its own if omitted)
 
 ### Pass 1 — Power Integrity
 - [ ] Every IC power pin has a decoupling cap ≤2 mm away
@@ -552,7 +571,7 @@ Before declaring layout complete, run through these checks in order.
 - [ ] Annular ring ≥ 0.15 mm
 - [ ] Solder mask dams ≥ 0.2 mm
 - [ ] Silkscreen readable (≥1 mm height, no pad overlaps)
-- [ ] 3 fiducials present (if using PCBA)
+- [ ] Fiducials present if fine-pitch (<0.5mm) PCBA — optional otherwise, JLCPCB auto-adds its own
 - [ ] Pin 1 marked on every IC
 
 ### Pass 6 — Mechanical
@@ -569,7 +588,7 @@ Before declaring layout complete, run through these checks in order.
 - [ ] **Silkscreen legibility** — no overlaps with pads, all text ≥1mm height
 - [ ] **Silkscreen content** — board name, revision, author, pin 1 marks, TP labels all present
 - [ ] **Edge clearance** — no copper within 0.5mm of board edge, no components within 1mm
-- [ ] **Fiducials** — ≥3 fiducials present if board will use PCBA (JLCPCB rejects without them)
+- [ ] **Fiducials** — optional; recommended (3, L-pattern) for fine-pitch (<0.5mm) PCBA boards. JLCPCB auto-adds its own fiducials for assembly if the board has none, so orders are not rejected for omitting them.
 - [ ] **Net class compliance** — power nets use Power/HighCurrent width, RF nets use impedance-controlled width
 
 ---

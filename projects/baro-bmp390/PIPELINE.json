@@ -1,0 +1,67 @@
+{
+  "board": "baro-bmp390",
+  "started_utc": "2026-08-26T13:09:58+00:00",
+  "finished_utc": "2026-08-26T13:10:04+00:00",
+  "git": "0ba6e1f+dirty",
+  "pcb_sha256_12": "0ef1914ca86f",
+  "sch_sha256_12": "238b8ba3bc5c",
+  "stages": [
+    {
+      "stage": "env",
+      "ok": true,
+      "skipped": true,
+      "detail": "not requested",
+      "seconds": 0.0
+    },
+    {
+      "stage": "research",
+      "ok": true,
+      "skipped": true,
+      "detail": "not requested",
+      "seconds": 0.0
+    },
+    {
+      "stage": "sch",
+      "ok": true,
+      "skipped": true,
+      "detail": "not requested",
+      "seconds": 0.0
+    },
+    {
+      "stage": "erc",
+      "ok": true,
+      "skipped": true,
+      "detail": "not requested",
+      "seconds": 0.0
+    },
+    {
+      "stage": "pcb",
+      "ok": true,
+      "skipped": true,
+      "detail": "not requested",
+      "seconds": 0.0
+    },
+    {
+      "stage": "route",
+      "ok": true,
+      "skipped": true,
+      "detail": "not requested",
+      "seconds": 0.0
+    },
+    {
+      "stage": "gates",
+      "ok": false,
+      "skipped": false,
+      "detail": "RESULT: 1 gate(s) FAILED \u2014 not ready for fabrication",
+      "seconds": 5.8
+    },
+    {
+      "stage": "fab",
+      "ok": true,
+      "skipped": true,
+      "detail": "not requested",
+      "seconds": 0.0
+    }
+  ],
+  "ready_for_fabrication": false
+}
