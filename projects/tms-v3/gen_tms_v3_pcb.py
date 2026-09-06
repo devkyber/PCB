@@ -38,8 +38,8 @@ import re
 import sys
 from pathlib import Path
 
-sys.path.insert(0, '/Users/leetaeho/CODE/PCB/tools/kicad-claude-mcp/src')
-sys.path.insert(0, '/Users/leetaeho/CODE/PCB/docs')
+sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parents[2] / 'tools/kicad-claude-mcp/src'))
+sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parents[2] / 'docs'))
 
 import json
 import os
@@ -48,10 +48,16 @@ import sexpdata
 from kicad_claude.adapters import pcb_editor as pe
 from kicad_claude.adapters import sch_io
 
-PROJECT_DIR = Path('/Users/leetaeho/CODE/PCB/projects/tms-v3')
+# Derived from this file's own location, never hardcoded. An absolute
+# project path means a copy of this script run from anywhere writes to the
+# ORIGINAL board: the enforcement self-test ran a generator inside a
+# throwaway sandbox and silently modified the live project, and the check
+# that was supposed to prove the ownership guard worked passed for that
+# reason rather than because the guard fired.
+PROJECT_DIR = Path(__file__).resolve().parent
 PCB_PATH = PROJECT_DIR / 'tms-v3.kicad_pcb'
 SCH_SCRIPT = PROJECT_DIR / 'gen_tms_v3_sch.py'
-BLANK_TEMPLATE = Path('/Users/leetaeho/CODE/PCB/tools/kicad-claude-mcp/src/kicad_claude/templates/blank/blank.kicad_pcb')
+BLANK_TEMPLATE = Path(__file__).resolve().parents[2] / 'tools/kicad-claude-mcp/src/kicad_claude/templates/blank/blank.kicad_pcb'
 
 REAL_FP_DIR = PROJECT_DIR / 'libs' / 'jlcpcb.pretty'
 STD_FP_ROOT = Path('/Applications/KiCad/KiCad.app/Contents/SharedSupport/footprints')
@@ -84,7 +90,6 @@ _nm = json.loads(NETMAP_PATH.read_text())
 NET_MAP = {(ref, pin): net
            for ref, pins in _nm['nets'].items()
            for pin, net in pins.items()}
-NO_CONNECT = {(ref, pin) for ref, pins in _nm['no_connect'].items() for pin in pins}
 
 print(f"  {len(NET_MAP)} pin-net assignments recovered")
 

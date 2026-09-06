@@ -150,6 +150,18 @@ def route_board(
     result["steps"].append("export_dsn")
     result["dsn_path"] = str(dsn_path)
 
+    # 1b. KiCad's DSN exporter writes ONE global clearance and silently drops
+    # every pad-local override, so the router lays copper through keepouts it
+    # was never told about and DRC reports violations it had no way to avoid.
+    # See adapters/dsn_keepouts.py — this is what cost imu-icm42688 7 DRC
+    # errors around a stock KiCad fiducial.
+    from . import dsn_keepouts
+    _ko = dsn_keepouts.inject(
+        dsn_path, dsn_keepouts.collect(pcb_path, kicad_python._run_pcbnew_script))
+    if _ko:
+        result["steps"].append(f"inject_keepouts({_ko})")
+    result["keepouts_injected"] = _ko
+
     # 2. Route.
     route_result = freerouting.route(
         dsn_path,

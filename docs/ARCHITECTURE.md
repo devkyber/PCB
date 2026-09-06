@@ -160,3 +160,20 @@ Convert only via `design_to_mcp` / `design_to_kicad` / `kicad_to_design` in
 written inline, because two flips cancel and the board still looks plausible.
 **Always measure the transform from the built board**, and remember a 1×N
 header footprint anchors on **pin 1**, not its centre.
+
+## Known format deviation: PCB net encoding
+
+Every pad in these boards is written `(net "NAME")` — a name with no numeric
+id, and no net table at the top of the file. KiCad's own writer emits
+`(net <id> "NAME")` plus the table. KiCad **accepts** the short form and
+resolves the nets correctly (verified through `pcbnew`: every board reports
+the expected net count), so nothing is broken today. Two consequences worth
+knowing before they surprise someone:
+
+* opening a board in the GUI and saving it renormalises the whole file, so
+  the next `git diff` is enormous and reviews nothing;
+* any external tool that expects the canonical form will read zero nets.
+
+`check_netlist_parity.py` reads the PCB through `pcbnew` rather than by
+parsing text for exactly this reason: what KiCad believes is what gets
+fabricated.

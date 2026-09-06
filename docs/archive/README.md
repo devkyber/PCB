@@ -24,3 +24,7 @@ elsewhere and two copies of one fact is worse than none:
   one build path; a prose copy of that sequence re-created the second one.
 - `projects/tms-v3/BLOCKERS.md` — hand-maintained status ("2 DRC errors, 5
   unconnected") next to machine-generated `STATUS.md`. It was already wrong.
+- `tms-v3-relay-and-adc-explained.md` — a walkthrough of TMS V3's relay and
+  ADC front end, written while that board was being designed. Board-specific
+  teaching material, referenced by nothing; kept because the reasoning about
+  the relay contact rating is still the clearest write-up of it.

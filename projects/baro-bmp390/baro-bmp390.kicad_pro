@@ -241,7 +241,7 @@
       "internal_id": "",
       "mfg": "",
       "mpn": "",
-      "sch_revision": ""
+      "sch_revision": "rev1"
     },
     "layer_pairs": [],
     "layer_presets": [],
@@ -688,13 +688,18 @@
       {
         "filename": "baro-bmp390.kicad_sch",
         "name": "baro-bmp390",
-        "uuid": "00000000-0000-0000-0000-000000000000"
+        "uuid": "36d7d214-3720-4052-bfed-181584ce9aa8"
       }
     ],
     "used_designators": "",
     "variants": []
   },
-  "sheets": [],
+  "sheets": [
+    [
+      "36d7d214-3720-4052-bfed-181584ce9aa8",
+      "baro-bmp390"
+    ]
+  ],
   "text_variables": {
     "AUTHOR": "Lee Taeho",
     "COMPANY": "",

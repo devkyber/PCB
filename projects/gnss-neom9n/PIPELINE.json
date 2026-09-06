@@ -1,66 +1,66 @@
 {
   "board": "gnss-neom9n",
-  "started_utc": "2026-08-26T13:10:04+00:00",
-  "finished_utc": "2026-08-26T13:10:10+00:00",
-  "git": "0ba6e1f+dirty",
-  "pcb_sha256_12": "2d0e9510e814",
-  "sch_sha256_12": "210c3b1ddcd6",
+  "started_utc": "2026-08-27T10:52:03+00:00",
+  "finished_utc": "2026-08-27T10:53:08+00:00",
+  "git": "60be646+dirty",
+  "pcb_sha256_12": "3c573da0e8df",
+  "sch_sha256_12": "226b488b4ca9",
   "stages": [
     {
       "stage": "env",
       "ok": true,
-      "skipped": true,
-      "detail": "not requested",
-      "seconds": 0.0
+      "skipped": false,
+      "detail": "kicad-cli, kipython, 2 router jar(s), lib tables OK",
+      "seconds": 17.3
     },
     {
       "stage": "research",
       "ok": true,
-      "skipped": true,
-      "detail": "not requested",
+      "skipped": false,
+      "detail": "0 blocking, 0 advisory",
       "seconds": 0.0
     },
     {
       "stage": "sch",
       "ok": true,
-      "skipped": true,
-      "detail": "not requested",
-      "seconds": 0.0
+      "skipped": false,
+      "detail": "Wrote netmap.json: 65 pin-net assignments, 8 explicit no-connects",
+      "seconds": 26.0
     },
     {
       "stage": "erc",
       "ok": true,
-      "skipped": true,
-      "detail": "not requested",
-      "seconds": 0.0
+      "skipped": false,
+      "detail": "0 violation(s), 21 waived",
+      "seconds": 1.6
     },
     {
       "stage": "pcb",
       "ok": true,
-      "skipped": true,
-      "detail": "not requested",
-      "seconds": 0.0
+      "skipped": false,
+      "detail": "Next: run DRC, then route manually in KiCad (GUI DSN export + Freerouting, or hand-route \u2014 kicad-cli 10 dropped CLI DSN export).",
+      "seconds": 0.1
     },
     {
       "stage": "route",
-      "ok": true,
+      "ok": false,
+      "skipped": false,
+      "detail": "4 error(s), 1 unconnected after post-route passes | 11 grid + 11 ground-pad stitching vias added post-route (pitch 8.0mm, 1.5mm edge gap)",
+      "seconds": 12.4
+    },
+    {
+      "stage": "fab",
+      "ok": false,
       "skipped": true,
-      "detail": "not requested",
+      "detail": "not reached",
       "seconds": 0.0
     },
     {
       "stage": "gates",
       "ok": false,
       "skipped": false,
-      "detail": "RESULT: 1 gate(s) FAILED \u2014 not ready for fabrication",
-      "seconds": 6.0
-    },
-    {
-      "stage": "fab",
-      "ok": true,
-      "skipped": true,
-      "detail": "not requested",
-      "seconds": 0.0
+      "detail": "RESULT: 2 gate(s) FAILED \u2014 not ready for fabrication",
+      "seconds": 6.7
     }
   ],
   "ready_for_fabrication": false

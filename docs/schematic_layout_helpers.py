@@ -59,6 +59,7 @@ text, which is what produced the doubled "GNONND" text.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from pathlib import Path
 
 GRID_MM = 1.27  # KiCad default schematic grid (50 mil)
 _STAGGER_STEPS = 4  # distinct stub lengths cycled across a pin column
@@ -1144,3 +1145,91 @@ class SymbolPlacer:
         return (f"{len(self._boxes)} symbols placed, no overlaps; "
                 f"sheet extent used: ({xs0:.1f}, {ys0:.1f}) - "
                 f"({xs1:.1f}, {ys1:.1f}) mm" + tail)
+
+
+def set_title_block(tree, title: str, rev: str, date: str = '',
+                    company: str = '', comments=None,
+                    paper: str | None = None) -> None:
+    """Give the sheet a title block, and optionally set the paper size.
+
+    Why this is here rather than in each generator
+    ----------------------------------------------
+    Until 2026-08-26 not one of the four boards had a `title_block` node at
+    all. TITLE / AUTHOR / REVISION were set as textvars in the `.kicad_pro`,
+    which do not render, so every schematic printed with Title, Date and Rev
+    blank — on boards whose own CLAUDE.md convention is "put your name and
+    rev on it". A printed schematic with no revision cannot be matched to the
+    board it describes, which is the whole point of the field.
+
+    Four copies of this would be four chances to drift (defect class #5:
+    the second build path). One implementation, called by every generator.
+
+    `paper` also lives here for the same reason: tms-v3 open-coded its A3
+    override by walking the tree, and any other board needing a bigger sheet
+    would have copied that loop.
+    """
+    import sexpdata
+
+    def sym(s):
+        return sexpdata.Symbol(s)
+
+    paper_idx = None
+    for i, node in enumerate(tree):
+        if isinstance(node, list) and node and str(node[0]) == 'paper':
+            paper_idx = i
+            if paper is not None:
+                node[1] = paper
+            break
+    if paper_idx is None:
+        raise ValueError('schematic has no (paper ...) node — not a schematic?')
+
+    # Replace an existing title_block rather than appending a second one.
+    for i, node in enumerate(list(tree)):
+        if isinstance(node, list) and node and str(node[0]) == 'title_block':
+            tree.pop(i)
+            break
+
+    tb = [sym('title_block'), [sym('title'), title], [sym('rev'), rev]]
+    if date:
+        tb.insert(2, [sym('date'), date])
+    if company:
+        tb.append([sym('company'), company])
+    for i, c in enumerate(comments or [], start=1):
+        tb.append([sym('comment'), i, c])
+    tree.insert(paper_idx + 1, tb)
+
+
+def set_title_block_from_project(tree, pro_path, paper: str | None = None) -> None:
+    """Fill the title block from the project's own text variables.
+
+    The `.kicad_pro` already carries TITLE / REVISION / DATE / AUTHOR /
+    COMPANY, set once per board. Re-typing them into the generator would make
+    two copies of one fact and guarantee they drift — the same defect as two
+    build paths for one board. So this reads them, and the `.kicad_pro` stays
+    the single place a board is named and revised.
+
+    AUTHOR has no dedicated KiCad title-block field; it goes in comment 1,
+    which is where a hand-drawn sheet puts it.
+    """
+    import json
+    pro_path = Path(pro_path)
+    tv = {}
+    if pro_path.is_file():
+        try:
+            tv = json.loads(pro_path.read_text()).get('text_variables', {}) or {}
+        except Exception:                                    # noqa: BLE001
+            tv = {}
+    if not tv.get('TITLE'):
+        raise ValueError(
+            f'{pro_path.name} has no TITLE text variable — set it there rather '
+            'than hard-coding a title in the generator.')
+    author = tv.get('AUTHOR', '').strip()
+    set_title_block(
+        tree,
+        title=tv.get('TITLE', ''),
+        rev=tv.get('REVISION', '') or 'rev1',
+        date=tv.get('DATE', ''),
+        company=tv.get('COMPANY', ''),
+        comments=[author] if author else None,
+        paper=paper,
+    )

@@ -128,3 +128,12 @@ and placement, and an audit that contradicts the gate is worse than no audit.
 | Design rules | Board Setup → Design Rules — but the generator owns netclasses; edit the generator, not the `.kicad_pro` |
 | Gerber export | The `fab` pipeline stage, never by hand |
 | EasyEDA autorouter | Freerouting, via `autoroute_pcb` or `docs/route_and_fill.py` — never `java -jar` directly |
+
+---
+
+## If something in the toolchain is broken
+
+`docs/SETUP.md` covers the install and the two traps that have actually cost
+time here: which Freerouting JAR needs which JDK, and the fact that
+`~/.claude/settings.json` contains an `mcpServers` block that this
+installation **does not read** (registration lives in `claude mcp list`).

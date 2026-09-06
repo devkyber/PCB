@@ -27,20 +27,27 @@ point); kicad-cli 10 also dropped Specctra DSN export from the CLI
 anyway.
 """
 
+import json
 import re
 import sys
 from pathlib import Path
 
-sys.path.insert(0, '/Users/leetaeho/CODE/PCB/tools/kicad-claude-mcp/src')
+sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parents[2] / 'tools/kicad-claude-mcp/src'))
 
 import sexpdata
 from kicad_claude.adapters import pcb_editor as pe
 from kicad_claude.adapters import sch_io
 
-PROJECT_DIR = Path('/Users/leetaeho/CODE/PCB/projects/imu-icm42688')
+# Derived from this file's own location, never hardcoded. An absolute
+# project path means a copy of this script run from anywhere writes to the
+# ORIGINAL board: the enforcement self-test ran a generator inside a
+# throwaway sandbox and silently modified the live project, and the check
+# that was supposed to prove the ownership guard worked passed for that
+# reason rather than because the guard fired.
+PROJECT_DIR = Path(__file__).resolve().parent
 PCB_PATH = PROJECT_DIR / 'imu-icm42688.kicad_pcb'
 SCH_SCRIPT = PROJECT_DIR / 'gen_imu_sch.py'
-BLANK_TEMPLATE = Path('/Users/leetaeho/CODE/PCB/tools/kicad-claude-mcp/src/kicad_claude/templates/blank/blank.kicad_pcb')
+BLANK_TEMPLATE = Path(__file__).resolve().parents[2] / 'tools/kicad-claude-mcp/src/kicad_claude/templates/blank/blank.kicad_pcb'
 
 REAL_FP_DIR = PROJECT_DIR / 'libs' / 'jlcpcb.pretty'
 STD_FP_ROOT = Path('/Applications/KiCad/KiCad.app/Contents/SharedSupport/footprints')
@@ -56,11 +63,23 @@ ORIGIN_Y = 3.0
 print("=== IMU ICM-42688-P PCB Generation (Rev 1 — real footprints) ===")
 print("Parsing net assignments from gen_imu_sch.py (verified via ERC, 0 errors)...")
 
-sch_src = SCH_SCRIPT.read_text()
 
-NET_MAP = {}  # (ref, pin_number) -> net_name
-for ref, pin, net in re.findall(r"pin_label\('([^']+)',\s*'([^']+)',\s*'([^']+)'", sch_src):
-    NET_MAP[(ref, pin)] = net
+NETMAP_PATH = SCH_SCRIPT.parent / 'netmap.json'
+if not NETMAP_PATH.exists():
+    raise SystemExit(
+        f"{NETMAP_PATH} not found. Run {SCH_SCRIPT.name} first — it writes the\n"
+        f"authoritative pin->net map. This script used to re-derive that map by\n"
+        f"running a regex over the schematic script's SOURCE TEXT, matching only\n"
+        f"literal pin_label('REF','PIN','NET') calls. Nets assigned from a LOOP\n"
+        f"were invisible to it, so the board silently got an incomplete netlist\n"
+        f"instead of an error — that is how this board's test points ended up\n"
+        f"with dead, netless pads while every gate passed."
+    )
+
+_nm = json.loads(NETMAP_PATH.read_text())
+NET_MAP = {(ref, pin): net
+           for ref, pins in _nm['nets'].items()
+           for pin, net in pins.items()}
 
 # PWR_FLAG symbols (#FLG01-02) and power symbols (#PWR01-02) have no
 # physical PCB footprint — drop them, they were schematic-only ERC
@@ -253,7 +272,13 @@ place_std('H1', 'M2', 'MountingHole', 'MountingHole_2.2mm_M2_Pad', 6.0, 18.0)
 place_std('H2', 'M2', 'MountingHole', 'MountingHole_2.2mm_M2_Pad', 24.0, 13.0)
 
 # ============================================================
-# SECTION 6: FIDUCIALS (>=3, JLCPCB PCBA requirement)
+# SECTION 6: FIDUCIALS (3, in an L-pattern — a RECOMMENDATION, not a
+# JLCPCB requirement. JLCPCB auto-adds its own fiducials for assembly,
+# so a board is never rejected for having none; these buy tighter
+# placement accuracy on the 0.5mm-pitch LGA. FID3 was at (20.0, 18.5),
+# 4.5mm from FID2 (not an L-pattern) and directly across the SPI_SDO
+# routing corridor, where its 1.1mm keepout cost 7 DRC errors once the
+# test points were given real nets and the router had to reach them.
 # ============================================================
 print("Section 6: Fiducials...")
 
@@ -263,7 +288,7 @@ print("Section 6: Fiducials...")
 # room than any other component.
 place_std('FID1', 'FIDUCIAL', 'Fiducial', 'Fiducial_1mm_Mask3mm', 4.5, 12.0)
 place_std('FID2', 'FIDUCIAL', 'Fiducial', 'Fiducial_1mm_Mask3mm', 24.5, 18.0)
-place_std('FID3', 'FIDUCIAL', 'Fiducial', 'Fiducial_1mm_Mask3mm', 20.0, 18.5)
+place_std('FID3', 'FIDUCIAL', 'Fiducial', 'Fiducial_1mm_Mask3mm', 5.0, 4.5)
 
 # ============================================================
 # SECTION 7: Ground plane, stitching vias, silkscreen

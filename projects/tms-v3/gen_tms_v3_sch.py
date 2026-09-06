@@ -60,15 +60,22 @@ fetched and rendered from source.hongfa.com/Uploads/Product/PDF/HF46F_en.pdf):
 """
 
 import sys
-sys.path.insert(0, '/Users/leetaeho/CODE/PCB/tools/kicad-claude-mcp/src')
-sys.path.insert(0, '/Users/leetaeho/CODE/PCB/docs')
+sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parents[2] / 'tools/kicad-claude-mcp/src'))
+sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parents[2] / 'docs'))
 
 from pathlib import Path
 from kicad_claude.tools.schematic import ed, write_blank_schematic, sch_io
 from kicad_claude.utils.kicad_paths import find_symbol_lib_dirs
-from schematic_layout_helpers import LabelPlacer, SymbolPlacer
+from schematic_layout_helpers import (LabelPlacer, SymbolPlacer,
+                                      set_title_block_from_project)
 
-PROJECT_DIR = Path('/Users/leetaeho/CODE/PCB/projects/tms-v3')
+# Derived from this file's own location, never hardcoded. An absolute
+# project path means a copy of this script run from anywhere writes to the
+# ORIGINAL board: the enforcement self-test ran a generator inside a
+# throwaway sandbox and silently modified the live project, and the check
+# that was supposed to prove the ownership guard worked passed for that
+# reason rather than because the guard fired.
+PROJECT_DIR = Path(__file__).resolve().parent
 SCH_PATH = PROJECT_DIR / 'tms-v3.kicad_sch'
 LIB_DIR = find_symbol_lib_dirs()[0]
 JLCPCB_LIB = PROJECT_DIR / 'libs' / 'jlcpcb.kicad_sym'
@@ -86,10 +93,8 @@ tree = sch_io.parse_file(SCH_PATH)
 # relocation search starts pushing parts under the title block. A3 is
 # double the area and is a completely standard schematic sheet size —
 # reach for it before compromising legibility.
-for _node in tree:
-    if isinstance(_node, list) and _node and str(_node[0]) == "paper":
-        _node[1] = "A3"
-        break
+set_title_block_from_project(tree, PROJECT_DIR / f'{PROJECT_NAME}.kicad_pro',
+                             paper='A3')
 
 
 def fetch_and_inject(lib_path, lib_name, sym_name):

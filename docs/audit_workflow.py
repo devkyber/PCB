@@ -91,6 +91,21 @@ def steps(proj: Path, pcb: Path):
     out.append(('Phase 3   schematic ERC', ok, detail.splitlines()[0][:78],
                 'kicad-cli sch erc'))
 
+    # Both of these CALL the gate. Re-deriving either here is how this file
+    # twice drifted into disagreeing with run_gates.py — the one thing an
+    # audit must never do.
+    ok, detail = run_gates.gate_schematic_ownership(Path(pcb))
+    out.append(('Phase 3   schematic provenance', ok, detail.splitlines()[0][:78],
+                'run_gates.gate_schematic_ownership'))
+
+    ok, detail = run_gates.gate_schematic_quality(Path(pcb))
+    out.append(('Phase 3   schematic readable', ok, detail.splitlines()[0][:78],
+                'check_schematic_quality.py'))
+
+    ok, detail = run_gates.gate_netlist_parity(Path(pcb))
+    out.append(('Phase 4B  schematic == PCB netlist', ok,
+                detail.splitlines()[0][:78], 'check_netlist_parity.py'))
+
     v = _run([sys.executable, DOCS / 'validate_pcb.py', pcb])
     vt = v.stdout or ''
     for label, frag in (('Phase 4A  placement geometry', 'Courtyard collisions'),

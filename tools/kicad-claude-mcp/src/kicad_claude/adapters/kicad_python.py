@@ -367,6 +367,38 @@ def circle_in(sps, x, y, r):
     return True
 
 
+# Pads whose own clearance rule is WIDER than the flat CLR this pass assumes.
+# CLR is a constant, and a constant is wrong the moment a footprint overrides
+# it: KiCad's stock Fiducial_1mm_Mask3mm carries a 1.1mm local pad clearance
+# so no copper creeps near the optical target — 5.5x the 0.2mm assumed here.
+# Filling a pour and then dropping a bonding via "inside the pour" is not
+# sufficient, because the pour's own knockout is computed from the ZONE's
+# clearance, not the pad's. That put two GND vias 1.0mm and 1.58mm from a
+# fiducial needing 1.9mm centre-to-centre, for 6 DRC errors on a board that
+# was otherwise clean. docs/stitch_vias.py fixed exactly this in its own
+# pass; this is the same defect in the bonding pass.
+keepaway = []
+for _fp in board.GetFootprints():
+    for _pad in _fp.Pads():
+        try:
+            _own = _pad.GetOwnClearance(_pad.GetLayer())
+        except Exception:
+            _own = 0
+        if not _own or _own <= int(CLR * IU):
+            continue
+        _pp = _pad.GetPosition()
+        _sz = max(_pad.GetSize().x, _pad.GetSize().y)
+        keepaway.append((_pp.x, _pp.y, int(_sz / 2 + _own + PAD / 2 * IU)))
+
+
+def clear_of_pads(x, y):
+    # True when a via at (x, y) respects every over-clearance pad.
+    for px, py, r in keepaway:
+        if (x - px) ** 2 + (y - py) ** 2 < r * r:
+            return False
+    return True
+
+
 existing = [(t.GetPosition().x, t.GetPosition().y)
             for t in board.GetTracks() if t.GetClass() == "PCB_VIA"]
 
@@ -413,6 +445,7 @@ for lid in lids:
             x = bb.GetLeft()
             while x <= bb.GetRight():
                 if (circle_in(one, x, y, R) and circle_in(opp, x, y, R)
+                        and clear_of_pads(x, y)
                         and all((x - px) ** 2 + (y - py) ** 2 >= MIN_SEP ** 2
                                 for px, py in existing)):
                     d = (x - cx) ** 2 + (y - cy) ** 2
@@ -478,6 +511,8 @@ if targets:
                 x = int(P.x + r * IU * math.cos(math.radians(a)))
                 y = int(P.y + r * IU * math.sin(math.radians(a)))
                 if not circle_in(opp, x, y, R):
+                    continue
+                if not clear_of_pads(x, y):
                     continue
                 if any((x - px) ** 2 + (y - py) ** 2 < MIN_SEP ** 2
                        for px, py in existing):

@@ -57,6 +57,12 @@ STAGE_ORDER = ['env', 'research', 'sch', 'erc', 'pcb', 'route', 'gates', 'fab']
 # every move is a gate people route around.
 ADVISORY = {'research'}
 
+# Who authors a board's schematic. `gen_*_sch.py` ends in an unconditional
+# write, so before this marker existed one routine pipeline run silently
+# destroyed any hand-editing done in Eeschema. See stage_sch().
+OWNER_FILE = 'SCHEMATIC_OWNER'
+OWNERS = ('generated', 'human')
+
 
 class StageResult:
     def __init__(self, name, ok, detail, secs, skipped=False):
@@ -73,7 +79,16 @@ def run(cmd, cwd=None, timeout=None):
                           text=True, timeout=timeout)
 
 
-UUID_RE = re.compile(rb'"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"')
+# Deliberately NOT anchored to surrounding quotes. The first version was
+# `"<uuid>"`, which missed every instance path — KiCad writes those as
+# `(path "/<root-uuid>")`, with a slash inside the quotes. 31 of baro-bmp390's
+# 148 UUIDs escaped masking that way, all of them the root sheet UUID, which
+# is minted fresh on every regeneration. So the "canonical" hash moved on
+# every run of an unchanged board: `--status` called fresh reports stale,
+# `--verify-repeatable` could never pass, and the schematic provenance
+# tripwire would have fired on every ordinary build. Recurring defect class
+# #8, the non-deterministic gate.
+UUID_RE = re.compile(rb'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}')
 
 
 def sha(path: Path) -> str:
@@ -90,7 +105,7 @@ def sha(path: Path) -> str:
     """
     if not path.is_file():
         return '-'
-    return hashlib.sha256(UUID_RE.sub(b'"UUID"', path.read_bytes())).hexdigest()[:12]
+    return hashlib.sha256(UUID_RE.sub(b'UUID', path.read_bytes())).hexdigest()[:12]
 
 
 def check_repeatable(b: 'Board') -> StageResult:
@@ -141,6 +156,27 @@ class Board:
 
     def has_generators(self):
         return bool(self.gen_sch and self.gen_pcb)
+
+    def owner(self) -> str:
+        """'generated', 'human', or 'invalid'. Absent file means 'generated',
+        so every board that existed before the marker keeps working."""
+        f = self.dir / OWNER_FILE
+        if not f.is_file():
+            return 'generated'
+        v = f.read_text().strip().lower()
+        return v if v in OWNERS else 'invalid'
+
+    def last_sch_sha(self):
+        """The schematic hash the previous run recorded, or None on a first
+        run. `sha()` masks UUIDs, so a cosmetic KiCad re-save does not move
+        it — only a real content change does."""
+        f = self.dir / 'PIPELINE.json'
+        if not f.is_file():
+            return None
+        try:
+            return json.loads(f.read_text()).get('sch_sha256_12')
+        except (json.JSONDecodeError, OSError):
+            return None
 
 
 # ---------------------------------------------------------------------------
@@ -218,8 +254,91 @@ def stage_research(b: Board) -> StageResult:
     return StageResult('research', r.returncode == 0, detail, time.time() - t)
 
 
-def stage_sch(b: Board) -> StageResult:
-    return _run_generator(b.gen_sch, 'sch', time.time())
+def stage_sch(b: Board, regenerate: bool = False) -> StageResult:
+    """Build the schematic — unless a human owns it.
+
+    WHY THIS IS NOT JUST `_run_generator`
+    -------------------------------------
+    Every `gen_<board>_sch.py` ends in an unconditional
+
+        sch_io.write_file(SCH_PATH, tree)
+
+    and this stage runs on every `pipeline.py projects/<board>` invocation.
+    So before the SCHEMATIC_OWNER marker, a routine pipeline run silently
+    destroyed hours of hand-editing in Eeschema. Not a hypothetical: the
+    generated sheets measure ZERO junctions on all four boards — every pin
+    terminates in a stub and a label, nothing reads as a circuit — so
+    hand-drawing them is the plan, and this stage was the thing that made
+    hand-drawing unsafe.
+
+    Three branches:
+
+      generated + hash matches   -> regenerate, exactly as before
+      generated + hash DIFFERS   -> STOP. The schematic was edited by hand
+                                    but never declared human-owned. Silently
+                                    overwriting it is the failure this whole
+                                    marker exists to prevent, so the run
+                                    refuses rather than guessing.
+      human                      -> do not generate at all. Derive
+                                    netmap.json FROM the schematic instead,
+                                    so the PCB is built from what was
+                                    actually drawn. ERC and the parity gate
+                                    then check that drawing as normal.
+
+    The middle branch is the one that matters. A guard that only protects
+    boards you remembered to mark protects nothing.
+    """
+    t = time.time()
+    owner = b.owner()
+
+    if owner == 'invalid':
+        got = (b.dir / OWNER_FILE).read_text().strip()[:40]
+        return StageResult('sch', False,
+                           f'{OWNER_FILE} says {got!r} — must be one of '
+                           + ', '.join(OWNERS), time.time() - t)
+
+    if owner == 'human':
+        # Refuse loudly rather than quietly ignoring the flag. A --regenerate
+        # that silently no-ops is how someone concludes the guard did not work
+        # and reaches for something blunter.
+        if regenerate:
+            return StageResult('sch', False,
+                               f'--regenerate refused: {b.dir.name} is human-owned. '
+                               f'To hand the schematic back to the generator, set '
+                               f'{OWNER_FILE} to `generated` first — that discards '
+                               f'the hand-drawn sheet, so do it deliberately.',
+                               time.time() - t)
+        if not b.sch.is_file():
+            return StageResult('sch', False,
+                               f'{OWNER_FILE} says human but {b.sch.name} does not '
+                               'exist — nothing to build the board from',
+                               time.time() - t)
+        r = run([sys.executable, DOCS / 'extract_netmap.py', b.sch])
+        if r.returncode != 0:
+            return StageResult('sch', False,
+                               'netmap extraction failed: '
+                               + (r.stderr or r.stdout).strip().splitlines()[-1][:200],
+                               time.time() - t)
+        detail = (r.stdout or '').strip().splitlines()
+        return StageResult('sch', True,
+                           'human-owned — not regenerated | '
+                           + (detail[-1] if detail else 'netmap.json derived'),
+                           time.time() - t, skipped=True)
+
+    baseline = b.last_sch_sha()
+    if (baseline is not None and b.sch.is_file() and sha(b.sch) != baseline
+            and not regenerate):
+        return StageResult('sch', False,
+                           f'{b.sch.name} is not what the last recorded run produced '
+                           f'({baseline} -> {sha(b.sch)}). Either it was hand-edited, '
+                           f'or a generator was run outside the pipeline (which '
+                           f'CLAUDE.md forbids for exactly this reason). Regenerating '
+                           f'now would discard whatever is there. KEEP it: '
+                           f'`echo human > {b.dir.name}/{OWNER_FILE}`. DISCARD it and '
+                           f'rebuild from the generator: re-run with --regenerate.',
+                           time.time() - t)
+
+    return _run_generator(b.gen_sch, 'sch', t)
 
 
 def stage_pcb(b: Board) -> StageResult:
@@ -440,6 +559,10 @@ def main():
     ap.add_argument('--from', dest='start', choices=STAGE_ORDER, default='env')
     ap.add_argument('--check', action='store_true', help='gates only; never rebuilds')
     ap.add_argument('--skip-route', action='store_true')
+    ap.add_argument('--regenerate', action='store_true',
+                    help='discard an out-of-sync schematic and rebuild it from the '
+                         'generator. Required to get past the sch provenance '
+                         'tripwire on a `generated` board; refuses on a `human` one.')
     ap.add_argument('--passes', type=int, default=int(os.environ.get('ROUTE_PASSES', 50)))
     ap.add_argument('--status', action='store_true')
     ap.add_argument('--verify-repeatable', action='store_true',
@@ -488,7 +611,7 @@ def main():
         elif name == 'research':
             res = stage_research(b)
         elif name == 'sch':
-            res = stage_sch(b)
+            res = stage_sch(b, regenerate=a.regenerate)
         elif name == 'erc':
             res = stage_erc(b)
         elif name == 'pcb':
@@ -524,7 +647,15 @@ def main():
 
     write_report(b, results, gate_table, started)
     ok = all(r.ok for r in results if not r.skipped)
-    print(f'\nreport: {(b.dir / "STATUS.md").relative_to(REPO)}  +  PIPELINE.json')
+    # The register of what is waiting on a person is regenerated here, so it
+    # can never be a stale hand-written list next to a fresh gate table --
+    # which is exactly what BLOCKERS.md was when it was deleted.
+    hw = DOCS / 'human_work.py'
+    if hw.is_file():
+        run([sys.executable, hw, '--write'], timeout=600)
+
+    print(f'\nreport: {(b.dir / "STATUS.md").relative_to(REPO)}  +  PIPELINE.json'
+          f'  +  HUMAN_WORK.md')
     print('RESULT: ' + ('all stages pass' if ok else 'PIPELINE FAILED — board is not ready'))
     return 0 if ok else 1
 

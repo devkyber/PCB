@@ -435,10 +435,117 @@ def init_project(proj: Path) -> int:
     return 0
 
 
+def gate_netlist_parity(pcb: Path) -> tuple[bool, str]:
+    """Does the board describe the same circuit as the schematic?
+
+    Nothing asked this until 2026-08-26, and three of four boards were
+    declaring connectivity twice — `pin_label()` in the schematic generator
+    and a separately-derived NET_MAP in the PCB generator. It shipped five
+    electrically dead test points that every other gate passed: DRC cannot
+    see a pad with no net, because a pad with no net has no ratsnest.
+    """
+    if not KIPYTHON.exists():
+        return False, 'kipython not found — cannot compare netlists'
+    r = _run([KIPYTHON, REPO / 'docs' / 'check_netlist_parity.py', pcb])
+    lines = [l for l in r.stdout.splitlines() if l.strip()]
+    head = next((l for l in lines if l.startswith('schematic:')), '')
+    bad = [l.strip() for l in lines if 'MISMATCH:' in l or 'NOT on the board' in l
+           or 'NOT in the schematic' in l]
+    detail = head or (lines[0] if lines else 'no output')
+    if bad:
+        detail += '\n  ' + '\n  '.join(b[:110] for b in bad[:6])
+    return r.returncode == 0, detail
+
+
+def gate_schematic_quality(pcb: Path) -> tuple[bool, str]:
+    """Is the schematic a document a human can read?
+
+    ERC checks connectivity and nothing else, so two rules this repo states
+    in writing went unenforced on every board: the ~25-components-per-A4
+    hierarchy rule, and having a title block at all.
+    """
+    r = _run([sys.executable, REPO / 'docs' / 'check_schematic_quality.py', pcb])
+    lines = [l for l in r.stdout.splitlines() if l.strip()]
+    head = lines[0] if lines else 'no output'
+    notes = [l.strip() for l in lines if l.strip().startswith(('FAIL:', 'advise:'))]
+    if notes:
+        head += '\n  ' + '\n  '.join(n[:110] for n in notes[:4])
+    return r.returncode == 0, head
+
+
+def gate_schematic_ownership(pcb: Path) -> tuple[bool, str]:
+    """Is `netmap.json` actually derived from the schematic on disk right now?
+
+    netmap.json is the ONE schematic->PCB connectivity contract (CLAUDE.md
+    rule 12) and the PCB generator builds the board from it. If it goes stale,
+    the board is built from a netlist describing a drawing that no longer
+    exists — and nothing else notices: ERC only reads the schematic, DRC only
+    reads the board, and parity compares those two without ever asking where
+    the netlist between them came from.
+
+    That matters much more now that a human draws these sheets. The contract
+    used to be *declared* by `gen_*_sch.py` alongside the schematic it was
+    describing; for a hand-drawn board it is *derived* from the schematic.
+    Deriving it is only trustworthy if something checks it was re-derived
+    after the last edit.
+
+    Deliberately NOT a comparison against PIPELINE.json. The first version of
+    this gate compared the schematic hash to the one recorded there — and
+    PIPELINE.json is written at the END of a run, so on any run that
+    regenerated the schematic the gate read the PREVIOUS run's hash and failed.
+    It failed baro-bmp390 on its first clean build. Recurring defect class #7,
+    "the gate that reads a stale artifact", inside a gate written to catch
+    stale artifacts.
+
+    Drift detection — a schematic hand-edited, or a generator run outside the
+    pipeline — lives in `pipeline.stage_sch` instead, where the baseline
+    genuinely is the previous run and the answer arrives BEFORE anything gets
+    overwritten. Two questions, two places, neither reading an artifact the
+    current run has not finished writing.
+    """
+    sys.path.insert(0, str(REPO / 'docs'))
+    import pipeline
+    import extract_netmap
+
+    b = pipeline.Board(pcb.parent)
+    owner = b.owner()
+
+    if owner == 'invalid':
+        got = (b.dir / pipeline.OWNER_FILE).read_text().strip()[:40]
+        return False, (f'{pipeline.OWNER_FILE} says {got!r} — must be one of '
+                       + ', '.join(pipeline.OWNERS))
+    if not b.sch.is_file():
+        return False, 'no schematic'
+
+    netmap = b.dir / 'netmap.json'
+    if not netmap.is_file():
+        return False, 'no netmap.json — no schematic->PCB contract to build the board from'
+
+    on_disk = json.loads(netmap.read_text()).get('nets', {})
+    # `#PWR`/`#FLG` pseudo-refs carry no footprint, so nothing derived from a
+    # netlist can name them and gen_*_pcb.py filters them out anyway.
+    on_disk = {r: v for r, v in on_disk.items() if not r.startswith('#')}
+    fresh = extract_netmap.extract(b.sch)['nets']
+
+    if on_disk != fresh:
+        differing = sorted(r for r in set(on_disk) | set(fresh)
+                           if on_disk.get(r) != fresh.get(r))
+        return False, (f'netmap.json disagrees with {b.sch.name} on '
+                       f'{len(differing)} reference(s): {", ".join(differing[:8])} — '
+                       f'the board was built from a stale netlist. Re-run the pipeline.')
+
+    n = sum(len(v) for v in fresh.values())
+    return True, (f'{owner}-owned; netmap.json matches {b.sch.name} '
+                  f'({n} pin-net assignments)')
+
+
 GATES = [
     ('Phase 1-2 research + references', gate_research, 'auto'),
     ('Step 2.1  datasheets on file', gate_datasheets, 'auto'),
     ('Phase 3   schematic ERC', gate_erc, 'auto'),
+    ('Phase 3   schematic provenance', gate_schematic_ownership, 'auto'),
+    ('Phase 3   schematic readable', gate_schematic_quality, 'auto'),
+    ('Phase 4B  schematic == PCB netlist', gate_netlist_parity, 'auto'),
     ('Phase 4A  placement geometry', gate_placement, 'auto'),
     ('Phase 4A  pcb-design-rules.md', gate_design_rules, 'auto'),
     ('Phase 4C  DRC + full routing', gate_drc, 'auto'),

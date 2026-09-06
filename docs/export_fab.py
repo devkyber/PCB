@@ -29,9 +29,11 @@ Usage:  python3 docs/export_fab.py <board.kicad_pcb>
 from __future__ import annotations
 
 import csv
+import json
 import re
 import subprocess
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 KICAD_CLI = Path('/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli')
@@ -174,7 +176,29 @@ def main() -> None:
               f'yours to fit by hand, and JLCPCB will not assemble them:')
         for u in unsourced:
             print(f'    - {u}')
+    # ---- provenance stamp -------------------------------------------------
+    # A fabrication folder is the one artifact in this repo that turns into
+    # physical hardware, and it is the one that was silently allowed to rot:
+    # baro-bmp390 carried 98 gerbers exported from a board revision that had
+    # since changed, on a board whose gates have never passed. Nothing said so.
+    # Zip that folder before a deadline and you order the wrong board.
+    #
+    # So every package records the board it came from. `SOURCE.json` is what
+    # makes "is this package current?" answerable by anything other than
+    # comparing timestamps by eye.
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import pipeline as _pl
+    (out / 'SOURCE.json').write_text(json.dumps({
+        'board': name,
+        'pcb_sha256_12': _pl.sha(pcb),
+        'git': _pl.git_sha(),
+        'exported_utc': datetime.now(timezone.utc).isoformat(timespec='seconds'),
+        'warning': 'If pcb_sha256_12 does not match the current board, this '
+                   'package is STALE — do not order it. Re-run the pipeline.',
+    }, indent=2) + '\n')
+
     print(f'\nOutput: {out}')
+    print(f'  stamped SOURCE.json  (board {_pl.sha(pcb)})')
     print('NOTE: this packages whatever is on disk. It does NOT check the '
           'gates — run `python3 docs/pipeline.py <project> --check` first.')
 

@@ -61,8 +61,44 @@ RULES THAT ARE NOT NEGOTIABLE
     green while six gates could not fail at all.
 11. Read docs/ARCHITECTURE.md before changing any check. It names the
     recurring defect classes, all of which have come back at least twice.
+12. THE SCHEMATIC IS GATED NOW. Two new gates, both blocking:
+    check_netlist_parity.py  -- the board must describe the same circuit
+      as the schematic (net sets AND per-net pin membership). This is what
+      caught 5 electrically dead test points that DRC is structurally blind
+      to: a pad with no net has no ratsnest, so it is not "unconnected".
+    check_schematic_quality.py -- components-per-sheet vs page size (the
+      documented ~25/A4 rule; count COMPONENTS, power symbols are 60-70%
+      of the symbols) and a real title block.
+    One netmap.json per board is the ONLY schematic->PCB contract. Never
+    re-derive a netlist by regexing a generator's source text.
+13. A CONSTANT CLEARANCE IS WRONG once a footprint overrides it. KiCad's
+    DSN export drops pad-local clearances, so the router cannot see a
+    fiducial's 1.1mm keepout. Read the rule off the pad. When a route
+    fails near a fiducial it is NOT a placement problem -- moving it just
+    makes the router follow.
 
-Full lessons: docs/pcb-design-workflow.md § The Gate Rule (81 rows). Wiring self-test: docs/selftest_enforcement.py
+14. THE SCHEMATIC MAY BE HUMAN-OWNED. projects/<board>/SCHEMATIC_OWNER is
+    one line: `generated` or `human`. On `human` the pipeline NEVER runs
+    the schematic generator -- it derives netmap.json from the sheet with
+    extract_netmap.py instead. On `generated`, a schematic that no longer
+    matches the last recorded run STOPS the build: it was hand-edited, or
+    a generator was run outside the pipeline. `--regenerate` discards and
+    rebuilds; it REFUSES on a human-owned board. Never hand-run a
+    generator -- that is one of the two things the tripwire is watching for.
+15. A SANDBOX MUST ACTUALLY CONTAIN. Generators derive PROJECT_DIR from
+    their own location. When they hardcoded an absolute path, the
+    self-test's throwaway copy wrote to the LIVE board and the check meant
+    to prove the ownership guard worked passed for the wrong reason. A
+    green fault-injection test proves nothing if the fault never reached
+    the thing under test.
+16. A GATE MUST NOT READ WHAT THIS RUN HAS NOT WRITTEN. PIPELINE.json is
+    written at the END of a run. The first provenance gate compared
+    against it and failed every run that regenerated the schematic. Drift
+    detection belongs in stage_sch (baseline = last run); the gate asks
+    "does netmap.json match the schematic on disk", which has no ordering
+    dependence.
+
+Full lessons: docs/pcb-design-workflow.md § The Gate Rule (95 rows). Wiring self-test: docs/selftest_enforcement.py
 TXT
 
 echo

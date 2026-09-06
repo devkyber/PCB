@@ -49,15 +49,22 @@ Design decisions (see EVALUATION.md for full reference-design comparison):
 """
 
 import sys
-sys.path.insert(0, '/Users/leetaeho/CODE/PCB/tools/kicad-claude-mcp/src')
-sys.path.insert(0, '/Users/leetaeho/CODE/PCB/docs')
+sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parents[2] / 'tools/kicad-claude-mcp/src'))
+sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parents[2] / 'docs'))
 
 from pathlib import Path
 from kicad_claude.tools.schematic import ed, write_blank_schematic, sch_io
 from kicad_claude.utils.kicad_paths import find_symbol_lib_dirs
-from schematic_layout_helpers import LabelPlacer, SymbolPlacer
+from schematic_layout_helpers import (LabelPlacer, SymbolPlacer,
+                                      set_title_block_from_project)
 
-PROJECT_DIR = Path('/Users/leetaeho/CODE/PCB/projects/gnss-neom9n')
+# Derived from this file's own location, never hardcoded. An absolute
+# project path means a copy of this script run from anywhere writes to the
+# ORIGINAL board: the enforcement self-test ran a generator inside a
+# throwaway sandbox and silently modified the live project, and the check
+# that was supposed to prove the ownership guard worked passed for that
+# reason rather than because the guard fired.
+PROJECT_DIR = Path(__file__).resolve().parent
 SCH_PATH = PROJECT_DIR / 'gnss-neom9n.kicad_sch'
 LIB_DIR = find_symbol_lib_dirs()[0]
 JLCPCB_LIB = PROJECT_DIR / 'libs' / 'jlcpcb.kicad_sym'
@@ -68,6 +75,11 @@ if SCH_PATH.exists():
 
 write_blank_schematic(SCH_PATH)
 tree = sch_io.parse_file(SCH_PATH)
+
+# Title, rev and date come from the .kicad_pro's text variables — one
+# place a board is named, not two. Without this the sheet prints with
+# Title/Date/Rev blank, as all four boards did until 2026-08-26.
+set_title_block_from_project(tree, PROJECT_DIR / f'{PROJECT_NAME}.kicad_pro')
 
 
 def fetch_and_inject(lib_path, lib_name, sym_name):
@@ -140,17 +152,32 @@ def place_real(sym_name, ref, value, x, y, rot, fp, desc):
 labels.place_symbol = place  # lets .auto() place `power:*` symbols
 
 
+# Authoritative pin -> net map, recorded as it is built and written to
+# netmap.json at the end of this script. The PCB generator reads that file.
+#
+# It used to be re-derived by running a regex over THIS FILE's source text,
+# matching literal `pin_label('REF', 'PIN', 'NET')` calls. Every net assigned
+# from a LOOP over a table was therefore invisible to it, and the PCB got a
+# silently incomplete netlist instead of an error. That is how the test
+# points on this board ended up with dead, netless pads while every gate
+# passed. Propagated from gen_tms_v3_sch.py, which hit this first.
+NETMAP: dict[str, dict[str, str]] = {}
+NOCONNECT: dict[str, list[str]] = {}
+
+
 def pin_label(ref, pin_number, net_name):
     """Attach a net label to a placed symbol's exact pin via a stub wire
     (see docs/schematic_layout_helpers.py) — still ERC-exact, but doesn't
     land on top of the pin's own auto-drawn name, and raises immediately
     if the stub would cross another net's stub (a silent-short defect
     class found on baro-bmp390 — see StubCrossingError)."""
+    NETMAP.setdefault(ref, {})[str(pin_number)] = net_name
     ox, oy = symbol_origin[ref]
     return labels.auto(ref, pin_number, net_name, ox, oy)
 
 
 def no_connect(ref, pin_number):
+    NOCONNECT.setdefault(ref, []).append(str(pin_number))
     px, py = ed.get_pin_position(tree, ref, pin_number)
     ed.add_no_connect(tree, px, py)
 
@@ -400,3 +427,14 @@ print(f"File size: {SCH_PATH.stat().st_size} bytes")
 print()
 print("=== Schematic generation complete (Rev1, real parts, pin-accurate) ===")
 print("Next: Run ERC with kicad-cli, then generate PCB.")
+
+
+# --- authoritative netmap for the PCB generator -----------------------------
+import json as _json
+_netmap_path = SCH_PATH.parent / 'netmap.json'
+_netmap_path.write_text(_json.dumps(
+    {'source': __file__.split('/')[-1], 'nets': NETMAP, 'no_connect': NOCONNECT},
+    indent=2) + '\n')
+_n = sum(len(v) for v in NETMAP.values())
+_nc = sum(len(v) for v in NOCONNECT.values())
+print(f"Wrote {_netmap_path.name}: {_n} pin-net assignments, {_nc} explicit no-connects")

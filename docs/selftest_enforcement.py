@@ -31,6 +31,7 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
+KIPYTHON = Path.home() / '.local' / 'bin' / 'kipython'
 results: list[tuple[bool, str, str]] = []
 
 
@@ -231,10 +232,19 @@ _src = REPO / 'projects' / 'baro-bmp390'
 _pcb_src = next(iter(_src.glob('*.kicad_pcb')), None)
 
 
-def _sandbox():
+def _sandbox(src: Path = None):
+    """A throwaway copy of a real board.
+
+    The copy KEEPS the project's own directory name. It used to be called
+    `board/`, which left the directory disagreeing with the `<name>.kicad_pcb`
+    files inside it — harmless for checks that only touch file paths, and an
+    immediate crash for any check that builds a `pipeline.Board` from the
+    directory, since that class derives every filename from the folder name.
+    """
+    src = src or _src
     d = Path(_tf.mkdtemp(prefix='selftest-'))
-    b = d / 'board'
-    _sh.copytree(_src, b, ignore=_sh.ignore_patterns('.history', '.backups'))
+    b = d / src.name
+    _sh.copytree(src, b, ignore=_sh.ignore_patterns('.history', '.backups'))
     return b, next(b.glob('*.kicad_pcb'))
 
 
@@ -374,6 +384,292 @@ if _aw.is_file():
         check('workflow audit agrees with run_gates on sign-off',
               ('[DONE] Phase 5' in _r.stdout) == ('[PASS] Phase 5' in _g.stdout),
               'audit and gate disagree about sign-off')
+
+# --- The two newest gates FAIL when they should ---------------------------
+#
+# Registered is not the same as working. Every check below breaks a real
+# board in one specific way and requires the gate to notice; without this a
+# gate only asserts its own existence, which is how this file stood at 68/68
+# green while six gates could not fail at all.
+
+def _parity(pcb):
+    return subprocess.run([str(KIPYTHON), str(REPO / 'docs/check_netlist_parity.py'),
+                           str(pcb)], capture_output=True, text=True)
+
+
+def _schqual(pcb):
+    return subprocess.run([sys.executable, str(REPO / 'docs/check_schematic_quality.py'),
+                           str(pcb)], capture_output=True, text=True)
+
+
+if _pcb_src and KIPYTHON.exists():
+    # 11. a pad silently stripped of its net must break parity. This is the
+    # exact shape of the defect that shipped: gnss TP1/TP2 and imu TP1/TP2/TP3
+    # were wired in the schematic and netless on the board, and every other
+    # gate passed them.
+    _b, _p = _sandbox()
+    _t = _p.read_text()
+    _m = re.search(r'\n(\s*)\(net "([^"]+)"\)', _t)
+    if _m:
+        _p.write_text(_t[:_m.start()] + _t[_m.end():])
+        _r = _parity(_p)
+        check('netlist parity FAILS when a pad loses its net',
+              _r.returncode != 0 and 'NOT on the board' in _r.stdout,
+              'a netless pad passed parity — the dead-test-point defect is back')
+    _sh.rmtree(_b.parent, ignore_errors=True)
+
+    # 12. a net renamed on the board only must break parity.
+    _b, _p = _sandbox()
+    _t = _p.read_text()
+    if '(net "GND")' in _t:
+        _p.write_text(_t.replace('(net "GND")', '(net "GNDX")', 1))
+        _r = _parity(_p)
+        check('netlist parity FAILS when a board net is renamed',
+              _r.returncode != 0, 'a renamed net passed parity')
+    _sh.rmtree(_b.parent, ignore_errors=True)
+
+    # 13. parity must not pass by finding nothing. A gate that reports "0
+    # nets, 0 nets, agreed" is the silent-pass failure mode.
+    _b, _p = _sandbox()
+    _r = _parity(_p)
+    _mm = re.search(r'schematic: (\d+) net', _r.stdout)
+    check('netlist parity actually reads nets (not a vacuous pass)',
+          bool(_mm) and int(_mm.group(1)) > 0,
+          'parity reported zero nets — it would agree with anything')
+    _sh.rmtree(_b.parent, ignore_errors=True)
+
+if _pcb_src:
+    # 14. stripping the title block must fail the readability gate.
+    _b, _p = _sandbox()
+    _s = _p.with_suffix('.kicad_sch')
+    if _s.is_file():
+        _txt = _s.read_text()
+        _tb = re.search(r'\n\t\(title_block\b.*?\n\t\)', _txt, re.S)
+        if _tb:
+            _s.write_text(_txt[:_tb.start()] + _txt[_tb.end():])
+            _r = _schqual(_p)
+            check('schematic quality FAILS with no title block',
+                  _r.returncode != 0 and 'title block' in _r.stdout,
+                  'a sheet with blank Title/Rev passed')
+    _sh.rmtree(_b.parent, ignore_errors=True)
+
+    # 15. the documented "~25 components per A4, then split into hierarchical
+    # sheets" rule must actually fire. Shrink the page under a real board
+    # rather than inventing components, so the count stays genuine — but pick
+    # a board that HAS more components than the smallest page holds. The
+    # first version of this check used baro-bmp390 (10 components) against
+    # A5 (capacity 12) and could not fail: an injection that cannot trigger
+    # tests nothing, which is the exact failure this section exists to catch.
+    _dense = None
+    for _cand in sorted((REPO / 'projects').glob('*/[a-z]*.kicad_sch')):
+        _n = len([i for i in re.findall(r'\(lib_id "([^"]+)"\)', _cand.read_text())
+                  if not i.startswith('power:')])
+        if _n > 12:
+            _dense = _cand.parent
+            break
+    if _dense:
+        _b2, _p2 = _sandbox(_dense)
+        _s2 = _p2.with_suffix('.kicad_sch')
+        _s2.write_text(re.sub(r'\(paper "[^"]+"\)', '(paper "A5")',
+                              _s2.read_text(), count=1))
+        _r = _schqual(_p2)
+        check('schematic quality FAILS on an over-full sheet with no hierarchy',
+              _r.returncode != 0 and 'hierarchical sheets' in _r.stdout,
+              'the documented page-density rule still does not fire')
+        _sh.rmtree(_b2.parent, ignore_errors=True)
+    else:
+        check('schematic quality FAILS on an over-full sheet with no hierarchy',
+              False, 'no board with >12 components to test against')
+
+    # 16. the component count must exclude power symbols. Counting all
+    # symbols fails baro-bmp390 at 31-on-A4 for a sheet that is 60% empty,
+    # and a gate that fires on a sheet you can see is not crowded gets
+    # switched off.
+    _b, _p = _sandbox()
+    _r = _schqual(_p)
+    _cm = re.search(r'(\d+) components \+ (\d+) power symbols', _r.stdout)
+    check('schematic quality separates components from power symbols',
+          bool(_cm) and int(_cm.group(2)) > 0,
+          'power symbols are being counted as components')
+    _sh.rmtree(_b.parent, ignore_errors=True)
+
+# 17. both gates must be REGISTERED, not merely present on disk.
+_rg = (REPO / 'docs/run_gates.py').read_text()
+check('netlist-parity gate is REGISTERED in run_gates.GATES',
+      'gate_netlist_parity' in _rg.split('GATES = [')[1])
+check('schematic-quality gate is REGISTERED in run_gates.GATES',
+      'gate_schematic_quality' in _rg.split('GATES = [')[1])
+_aw = (REPO / 'docs/audit_workflow.py').read_text()
+check('audit CALLS the parity gate rather than re-implementing it',
+      'run_gates.gate_netlist_parity' in _aw)
+check('audit CALLS the schematic-quality gate rather than re-implementing it',
+      'run_gates.gate_schematic_quality' in _aw)
+
+# --- Ownership guard: the seven-hours test --------------------------------
+#
+# `gen_*_sch.py` ends in an unconditional write and `stage_sch` runs on every
+# pipeline invocation, so before the SCHEMATIC_OWNER marker one routine build
+# silently destroyed any hand-drawing done in Eeschema. These require that it
+# cannot. Check 18 is the one that matters: it is the whole reason the marker
+# exists, and it is tested BEFORE anyone spends an evening in the editor.
+sys.path.insert(0, str(REPO / 'docs'))
+import pipeline as _pl  # noqa: E402
+import run_gates as _rgm  # noqa: E402
+
+if _pcb_src:
+    # 18. a human-owned schematic must never reach the generator at all.
+    #
+    # Asserted by recording whether `_run_generator` is called, NOT by
+    # comparing the sandbox schematic before and after. The first version did
+    # compare bytes and was VACUOUS: every `gen_*_sch.py` hardcodes
+    # `PROJECT_DIR = Path('/Users/.../projects/<board>')`, so a generator run
+    # from a sandbox writes to the REAL board and leaves the copy untouched.
+    # The check passed for the wrong reason — and, worse, running it modified
+    # a live board. Removing the guard entirely did not make it fail, which is
+    # the definition of a check that asserts nothing.
+    _b, _p = _sandbox()
+    _bd = _pl.Board(_b)
+    (_b / _pl.OWNER_FILE).write_text('human\n')
+    _called = []
+    _real_rg = _pl._run_generator
+    _pl._run_generator = lambda *a, **k: (_called.append(a[0]),
+                                          _pl.StageResult('sch', True, 'stub', 0.0))[1]
+    try:
+        _before = _bd.sch.read_bytes()
+        _res = _pl.stage_sch(_bd)
+    finally:
+        _pl._run_generator = _real_rg
+    check('a human-owned schematic never reaches the generator',
+          _res.ok and not _called and _bd.sch.read_bytes() == _before,
+          'the generator ran against a hand-drawn schematic — hours of work lost silently')
+    _sh.rmtree(_b.parent, ignore_errors=True)
+
+    # 19. a generated board whose schematic no longer matches the recorded run
+    # must STOP the build rather than quietly overwrite it. This is the branch
+    # that protects work nobody remembered to declare.
+    _b, _p = _sandbox()
+    _bd = _pl.Board(_b)
+    (_b / _pl.OWNER_FILE).write_text('generated\n')
+    _before = _bd.sch.read_bytes()
+    _bd.sch.write_bytes(_before.replace(b'(rev "', b'(rev "Z', 1))
+    _edited = _bd.sch.read_bytes()
+    _real_rg = _pl._run_generator
+    _pl._run_generator = lambda *a, **k: _pl.StageResult('sch', True, 'stub', 0.0)
+    try:
+        _res = _pl.stage_sch(_bd)
+    finally:
+        _pl._run_generator = _real_rg
+    check('an edited `generated` schematic STOPS the build',
+          not _res.ok and _bd.sch.read_bytes() == _edited,
+          'an out-of-sync schematic was silently regenerated')
+    _sh.rmtree(_b.parent, ignore_errors=True)
+
+    # 20. --regenerate must refuse on a human-owned board. A flag that quietly
+    # no-ops is how someone concludes the guard is broken and reaches for
+    # something blunter.
+    _b, _p = _sandbox()
+    _bd = _pl.Board(_b)
+    (_b / _pl.OWNER_FILE).write_text('human\n')
+    _before = _bd.sch.read_bytes()
+    _res = _pl.stage_sch(_bd, regenerate=True)
+    check('--regenerate REFUSES on a human-owned board',
+          not _res.ok and _bd.sch.read_bytes() == _before,
+          '--regenerate rebuilt over a hand-drawn schematic')
+    _sh.rmtree(_b.parent, ignore_errors=True)
+
+    # 21. an unreadable marker must fail rather than default to something.
+    _b, _p = _sandbox()
+    _bd = _pl.Board(_b)
+    (_b / _pl.OWNER_FILE).write_text('mostly generated\n')
+    _res = _pl.stage_sch(_bd)
+    check('an invalid SCHEMATIC_OWNER marker fails the build',
+          not _res.ok, 'a malformed ownership marker was silently accepted')
+    _sh.rmtree(_b.parent, ignore_errors=True)
+
+    # 22. editing the schematic's CONNECTIVITY after netmap.json was written
+    # must fail the provenance gate — that is the state in which the board is
+    # built from a netlist describing a drawing that no longer exists.
+    # Injected as a net rename, not a title-block edit: the gate compares
+    # netlists, so cosmetic edits are correctly invisible to it.
+    _b, _p = _sandbox()
+    _bd = _pl.Board(_b)
+    (_b / _pl.OWNER_FILE).write_text('generated\n')
+    _st = _bd.sch.read_text()
+    _lbl = re.search(r'\(label "([A-Za-z0-9_]+)"', _st)
+    if _lbl:
+        _bd.sch.write_text(_st.replace(f'"{_lbl.group(1)}"', f'"{_lbl.group(1)}_X"'))
+        _ok, _d = _rgm.gate_schematic_ownership(_p)
+        check('provenance gate FAILS when the schematic is edited past its netmap',
+              not _ok, 'a board built from a stale netlist passed the provenance gate')
+    else:
+        check('provenance gate FAILS when the schematic is edited past its netmap',
+              False, 'no label found to rename in the test board')
+    _sh.rmtree(_b.parent, ignore_errors=True)
+
+    # 23. a stale netmap.json on a human-owned board must fail. netmap.json is
+    # the one schematic->PCB contract; stale means the board was built from a
+    # netlist describing a drawing that no longer exists.
+    _b, _p = _sandbox()
+    _bd = _pl.Board(_b)
+    (_b / _pl.OWNER_FILE).write_text('human\n')
+    _nm = _b / 'netmap.json'
+    _nmd = json.loads(_nm.read_text())
+    _nmd['nets'] = {r: v for r, v in _nmd['nets'].items() if not r.startswith('#')}
+    _nmd['nets'].pop(next(iter(_nmd['nets'])), None)
+    _nm.write_text(json.dumps(_nmd, indent=2))
+    _ok, _d = _rgm.gate_schematic_ownership(_p)
+    check('provenance gate FAILS on a netmap missing a reference',
+          not _ok, 'a stale schematic->PCB contract passed the provenance gate')
+    _sh.rmtree(_b.parent, ignore_errors=True)
+
+    # 24. the canonical hash must be blind to UUID churn.
+    #
+    # `sha()` masks UUIDs so a board that regenerates identically hashes
+    # identically. The first mask was anchored to surrounding quotes —
+    # `"<uuid>"` — and KiCad writes instance paths as `(path "/<root-uuid>")`,
+    # with a slash inside the quotes. 31 of baro-bmp390's 148 UUIDs escaped,
+    # all of them the root sheet UUID, minted fresh on every regeneration. So
+    # the "canonical" hash moved on every build of an unchanged board:
+    # `--status` called fresh reports stale, `--verify-repeatable` could never
+    # pass, and the schematic drift tripwire would have fired on every run.
+    _b, _p = _sandbox()
+    _bd = _pl.Board(_b)
+    _h0 = _pl.sha(_bd.sch)
+    _seen = {}
+    _bd.sch.write_text(re.sub(
+        r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
+        lambda m: _seen.setdefault(m.group(0), '%08x-0000-4000-8000-%012x'
+                                   % (len(_seen) + 1, len(_seen) + 1)),
+        _bd.sch.read_text()))
+    check('the canonical hash ignores UUID churn',
+          _pl.sha(_bd.sch) == _h0,
+          'a re-UUIDed but otherwise identical schematic hashed differently — '
+          'every provenance check built on this hash is non-deterministic')
+    _sh.rmtree(_b.parent, ignore_errors=True)
+
+
+# 25. no generator may hardcode an absolute path.
+#
+# `PROJECT_DIR = Path('/Users/.../projects/<board>')` means a copy of the
+# script run from anywhere writes to the ORIGINAL board. The enforcement
+# self-test hit exactly that: it ran a generator inside a throwaway sandbox,
+# silently modified the live project, and the check meant to prove the
+# ownership guard worked passed because the sandbox copy was untouched — for
+# the wrong reason. A sandbox that is not actually a sandbox makes every
+# fault-injection test built on it meaningless.
+_abs = [str(f.relative_to(REPO)) for f in sorted((REPO / 'projects').glob('*/gen_*.py'))
+        if "'/Users/" in f.read_text()]
+check('no board generator hardcodes an absolute path',
+      not _abs,
+      'these write outside any sandbox: ' + ', '.join(_abs[:4]))
+
+
+# 26. registration, both places.
+check('provenance gate is REGISTERED in run_gates.GATES',
+      'gate_schematic_ownership' in _rg.split('GATES = [')[1])
+check('audit CALLS the provenance gate rather than re-implementing it',
+      'run_gates.gate_schematic_ownership' in _aw)
+
 
 # --- Report ---------------------------------------------------------------
 fails = [r for r in results if not r[0]]
