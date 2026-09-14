@@ -1,0 +1,95 @@
+schema_version: 1
+records:
+- id: sha256:13d78249c88f957e226dfe8ab9bb4bcc0bd736655d868327df11079679844074
+  manufacturer: null
+  part_numbers:
+  - RCLAMP0521P
+  title: RCLAMP0521P_8588899113072648192
+  revision: null
+  source_url: https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8588899113072648192
+  retrieved_on: '2026-08-25'
+  path: files/RCLAMP0521P_8588899113072648192.pdf
+  sha256: 13d78249c88f957e226dfe8ab9bb4bcc0bd736655d868327df11079679844074
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:8fda1e40ea3e7c17178353aceba9c9a9794e56a1960d02b105c576429ce418ed
+  manufacturer: null
+  part_numbers:
+  - XC6206P332MR
+  title: XC6206P332MR_8579707861620228096
+  revision: null
+  source_url: https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8579707861620228096
+  retrieved_on: '2026-08-25'
+  path: files/XC6206P332MR_8579707861620228096.pdf
+  sha256: 8fda1e40ea3e7c17178353aceba9c9a9794e56a1960d02b105c576429ce418ed
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:96e6ee489ccb7ec3e98d00ddf1b5c94fd2a4d400882d69c61a75482c2ac9be47
+  manufacturer: null
+  part_numbers:
+  - CR1220
+  title: CR1220_CR1220_Datasheet_EN
+  revision: null
+  source_url: https://energy.panasonic.com/dam/master/pdf/en/datasheet/lithium/CR1220_Datasheet_EN.pdf
+  retrieved_on: '2026-08-25'
+  path: files/CR1220_CR1220_Datasheet_EN.pdf
+  sha256: 96e6ee489ccb7ec3e98d00ddf1b5c94fd2a4d400882d69c61a75482c2ac9be47
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:abb75a2524e2457df42b3d197b2a7d8a04307ee0d4c85e3c70852c75c505b44a
+  manufacturer: null
+  part_numbers:
+  - B3U-1000P
+  - RESET
+  title: B3U-1000P_8588893394868953088
+  revision: null
+  source_url: https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8588893394868953088
+  retrieved_on: '2026-08-25'
+  path: files/B3U-1000P_8588893394868953088.pdf
+  sha256: abb75a2524e2457df42b3d197b2a7d8a04307ee0d4c85e3c70852c75c505b44a
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - SW1
+- id: sha256:e21b35c1a4fd04f353e298a3c3c411c08e683a318d87ad3af9f570da40a40150
+  manufacturer: null
+  part_numbers:
+  - NEO-M9N-00B
+  title: NEO-M9N-00B_NEO-M9N-00B_DataSheet_UBX-19014285
+  revision: null
+  source_url: https://content.u-blox.com/sites/default/files/NEO-M9N-00B_DataSheet_UBX-19014285.pdf
+  retrieved_on: '2026-08-25'
+  path: files/NEO-M9N-00B_NEO-M9N-00B_DataSheet_UBX-19014285.pdf
+  sha256: e21b35c1a4fd04f353e298a3c3c411c08e683a318d87ad3af9f570da40a40150
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:fd4fcb8e8db2da98515f168b21c7adb9e5b8869380ecc0aed430897ac2f91e4b
+  manufacturer: null
+  part_numbers:
+  - NEO-M9N-00B
+  title: NEO-M9N-00B_NEO-M9N_Integrationmanual_UBX-19014286
+  revision: null
+  source_url: https://content.u-blox.com/sites/default/files/NEO-M9N_Integrationmanual_UBX-19014286.pdf
+  retrieved_on: '2026-08-25'
+  path: files/NEO-M9N-00B_NEO-M9N_Integrationmanual_UBX-19014286.pdf
+  sha256: fd4fcb8e8db2da98515f168b21c7adb9e5b8869380ecc0aed430897ac2f91e4b
+  media_type: application/pdf
+  roles:
+  - integration_manual
+  - reference_design
+  trust_tier: manufacturer_evm
+  component_refs: []

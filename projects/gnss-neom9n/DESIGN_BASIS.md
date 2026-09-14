@@ -8,11 +8,11 @@ or `Deviate: <reason>`.
 | File | What it is | Trust tier |
 |---|---|---|
 | `datasheets/NEO-M9N-00B_..._UBX-19014285.pdf` | u-blox NEO-M9N-00B data sheet | Tier 0 |
-| `reference-designs/NEO-M9N-00B_NEO-M9N_Integrationmanual_UBX-19014286.pdf` | u-blox **Integration Manual R10** — §4.3 Figure 31 is the manufacturer's own minimal design, §4.9 is their design-in checklist | Tier 1 (the vendor's hardware design authority for this module) |
+| `evidence/files/NEO-M9N-00B_NEO-M9N_Integrationmanual_UBX-19014286.pdf` | u-blox **Integration Manual R10** — §4.3 Figure 31 is the manufacturer's own minimal design, §4.9 is their design-in checklist | Tier 1 (the vendor's hardware design authority for this module) |
 | `datasheets/XC6206P332MR_...pdf` | Torex XC6206P332MR-G LDO | Tier 0 |
 | `datasheets/RCLAMP0521P_...pdf` | Semtech RCLAMP0521PATCT ESD | Tier 0 |
 | `datasheets/B3U-1000P_...pdf` | Omron B3U-1000P switch | Tier 0 |
-| `datasheets/CR1220_CR1220_Datasheet_EN.pdf` | Panasonic CR1220 cell | Tier 0 |
+| `evidence/files/CR1220_CR1220_Datasheet_EN.pdf` | Panasonic CR1220 cell | Tier 0 |
 
 **A note on tiering for modules.** For a module, the *Integration Manual* —
 not the data sheet — is where the manufacturer states how to wire it. The data
