@@ -1,5 +1,8 @@
 # PCB Workspace Setup
 
+> **Superseded:** This records the legacy environment. Use
+> [WORKFLOW.md](WORKFLOW.md) for the current entry point and tool checks.
+
 ## What's Installed
 
 | Tool | Version | Path | Purpose |

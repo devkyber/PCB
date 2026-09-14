@@ -95,7 +95,7 @@ from the file that owns it (`SIGNOFF.md`, `REQUIREMENTS.md`,
 - **[decision (requirements)]** [OWNER] Trace width on the ignition path is unverified** against whatever
 - **[failing gate]** Phase 3   schematic readable — tms-v3.kicad_sch: 66 components + 72 power symbols on A3 (capacity ~50), 0 hierarchical sheet(s), 0 junction(s)
 - **[failing gate]** Phase 4C  DRC + full routing — 1 error(s), 15 warning(s), 4 unconnected — routing is complete only at zero unconnected
-- **[sign-off]** **DEVIATIONS.md reviewed** — 3 decoupling deviations from `pcb-design-rules.md` 2.2 are declared with reasons. Agree with each, or reject and rework.
+- **[sign-off]** **DEVIATIONS.md reviewed** — 3 decoupling deviations from `docs/DESIGN_RULES.md` 2.2 are declared with reasons. Agree with each, or reject and rework.
 - **[sign-off]** Opened in KiCad, 3D view checked for mechanical fit and part collisions
 - **[sign-off]** Silkscreen readable, pin-1 markers present and correct on every IC
 - **[sign-off]** Board outline and mounting holes checked against the enclosure

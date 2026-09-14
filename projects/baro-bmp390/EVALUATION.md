@@ -40,7 +40,7 @@ placeholder:
   models generated.
 
 Real pin map (extracted directly from the fetched `.kicad_sym`, per
-docs/pcb-design-rules.md §15.7 — never trust a remembered pinout):
+docs/DESIGN_RULES.md §15.7 — never trust a remembered pinout):
 `1=VDDIO 2=SCK 3=VSS 4=SDI 5=SDO 6=CSB 7=INT 8=VSS 9=VSS 10=VDD`.
 
 ## ERC
@@ -94,7 +94,7 @@ both consulted directly (not from memory).
    `JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horizontal` STEMMA QT footprint
    has a measured courtyard of ~7.8mm x 6.6mm (mounting tabs included) —
    far larger than the "4.5x6mm minimal" estimate in
-   `docs/pcb-design-rules.md` §15.6. A true 15x15mm board cannot fit this
+   `docs/DESIGN_RULES.md` §15.6. A true 15x15mm board cannot fit this
    connector plus 2 mounting holes plus 3 fiducials without violating
    courtyard/edge clearances. This is the same §15.7 lesson repeated on
    a new part family: measure real courtyards from the fetched footprint,

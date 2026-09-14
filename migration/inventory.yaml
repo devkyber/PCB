@@ -9,6 +9,9 @@ rules:
   - pattern: uv.lock
     action: KEEP
     rationale: Reproducible Python dependency lock.
+  - pattern: README.md
+    action: KEEP
+    rationale: Canonical repository purpose and entry point.
   - pattern: CLAUDE.md
     action: MERGE
     rationale: Preserve operational instructions in the canonical workflow index.

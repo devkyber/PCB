@@ -4,7 +4,7 @@ top of the pin name / power-symbol value text" defect class.
 
 Root cause (found on IMU, and structural to every board this workspace
 generates): `pin_label()` in every `gen_*_sch.py` places a net label at the
-pin's *exact* connection coordinate — deliberately, per pcb-design-rules.md
+pin's *exact* connection coordinate — deliberately, per docs/DESIGN_RULES.md
 §15.7 ("wire every net to the symbol's real pin coordinate, never a guessed
 (x,y)"), because a label placed *near* a pin but not exactly on it can look
 connected in a screenshot while ERC sees it as dangling. That rule is

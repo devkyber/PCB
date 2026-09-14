@@ -19,11 +19,11 @@ Fixes vs Rev D (raw-S-expression script):
     head; kicad-claude-mcp's fetch_footprint_def requires the modern
     `(footprint ...)` head. Fixed by round-tripping each file through
     real pcbnew (kipython) once — FootprintLoad + FootprintSave upgrades
-    the format in place. See docs/pcb-design-rules.md §15.7 (extend to
+    the format in place. See docs/DESIGN_RULES.md §15.7 (extend to
     footprints, not just symbols).
 
 Board: 100mm × 80mm, 2-layer, JLCPCB specs.
-Placement follows pcb-design-rules.md §1.1 sequence (mounting holes →
+Placement follows docs/DESIGN_RULES.md §1.1 sequence (mounting holes →
 connectors → power chain → precision analog → digital → decoupling →
 crystal → remaining passives → LEDs/test points).
 
@@ -339,7 +339,7 @@ _PLACED_AT: dict[str, tuple[float, float, float, str]] = {}   # ref -> (x, y, ro
 def place_near_pin(placer, part_ref, ic_ref, ic_pin, gap_mm=1.3, max_reach_mm=7.0):
     """Place a part as close as physically possible to a specific IC PIN.
 
-    pcb-design-rules.md 2.2 measures decoupling distance pad-to-pad from
+    docs/DESIGN_RULES.md 2.2 measures decoupling distance pad-to-pad from
     the POWER PIN, and an SSOP-28's power pins are ~10mm apart — so "next
     to U2" and "next to U2's AVDD pin" are different places. Rev E placed
     every cap on an arithmetic grid (x = 22/30/38), which looks tidy, has
@@ -786,7 +786,7 @@ def _solid_connect(zone_node):
     narrow, high-inductance path from a ground pad to the plane, on a board
     doing 24-bit measurements.
 
-    pcb-design-rules.md 12.1 asks for thermal relief on THROUGH-HOLE pads,
+    docs/DESIGN_RULES.md 12.1 asks for thermal relief on THROUGH-HOLE pads,
     for hand-solderability. This board HAS through-hole pads that matter
     (J1-J9, the Teensy and XBee sockets), so that trade is real here in a
     way it was not on the sensor boards — recorded in DEVIATIONS.md.
@@ -973,7 +973,7 @@ for child in tree:
     n_hidden += 1
 
 # Shrink the designators that remain to 0.8mm — JLCPCB's MINIMUM silkscreen
-# height per pcb-design-rules.md 10.1, not below it. 0.7mm was tried first
+# height per docs/DESIGN_RULES.md 10.1, not below it. 0.7mm was tried first
 # and produced 15 text_height DRC violations: the rules doc gives 0.8mm min
 # / 1.0mm recommended, and "smaller looks tidier" is not a licence to go
 # under a fab limit. 1.0mm (KiCad's default) was the main source of the

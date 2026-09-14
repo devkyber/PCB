@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Check a routed board against docs/pcb-design-rules.md, using real pad geometry.
+"""Check a routed board against docs/DESIGN_RULES.md, using real pad geometry.
 
 Why this exists
 ---------------
-CLAUDE.md calls pcb-design-rules.md MANDATORY. Nothing checked it. DRC
+CLAUDE.md calls docs/DESIGN_RULES.md MANDATORY. Nothing checked it. DRC
 does not: DRC answers "can JLCPCB build this?", not "is this a good
 layout?". So a board can pass DRC with zero violations while breaking the
 single rule the document calls "the #1 beginner mistake".
@@ -15,7 +15,7 @@ decouple, the 7.68MHz crystal sat 10mm from its oscillator pins, and the
 regulator's stability caps sat 12mm from the regulator. Every one of those
 is a numbered rule in the document, and the board still reported clean.
 
-Rules checked here (section numbers refer to pcb-design-rules.md):
+Rules checked here (section numbers refer to docs/DESIGN_RULES.md):
 
   2.2  decoupling cap within 2mm pad-to-pad of the power pin it serves
   2.4  bulk (>=1uF) caps allowed further out, but still on the same rail
@@ -74,7 +74,7 @@ def main() -> None:
 
     def dist(a, b):
         """Edge-to-edge gap between two pads, in mm — which is what
-        pcb-design-rules.md means by "2mm pad-to-pad". Measuring centre to
+        docs/DESIGN_RULES.md means by "2mm pad-to-pad". Measuring centre to
         centre instead reports a correctly-placed 0603 beside an SSOP pin
         as a violation, because it charges the design for half of each pad.
         0.0 means the copper touches or overlaps."""
@@ -216,7 +216,7 @@ def main() -> None:
             still.append((rule, line))
     fails = still
 
-    print(f'=== pcb-design-rules.md geometric checks: {sys.argv[1].split("/")[-1]} ===')
+    print(f'=== docs/DESIGN_RULES.md geometric checks: {sys.argv[1].split("/")[-1]} ===')
     if waived:
         print(f'\n{len(waived)} DECLARED DEVIATION(S) (DEVIATIONS.md):')
         for rule, line, why in waived:
@@ -234,7 +234,7 @@ def main() -> None:
         for rule, n in sorted(passed.items()):
             print(f'  [{rule}]  {n} ok')
     # Say what this actually covers. The gate is named after the whole of
-    # pcb-design-rules.md, which has 42 numbered subsections; FOUR of them
+    # docs/DESIGN_RULES.md, which has 42 numbered subsections; FOUR of them
     # are geometric enough to check from a .kicad_pcb. A gate whose name
     # promises a document and whose code delivers a tenth of it teaches
     # people to read "0 violations" as "the rules are met". They are not
@@ -243,7 +243,7 @@ def main() -> None:
     print(f'\nRESULT: {len(fails)} violation(s), {len(notes)} check(s) passed')
     print(f'SCOPE: geometric rules {", ".join(EXECUTABLE_RULES)} only '
           f'({len(EXECUTABLE_RULES)} of {DOC_RULE_COUNT} numbered subsections in '
-          'pcb-design-rules.md). The remainder are not machine-checkable from '
+          'docs/DESIGN_RULES.md). The remainder are not machine-checkable from '
           'the board file and are covered by the Phase 5 human review.')
     sys.exit(1 if fails else 0)
 

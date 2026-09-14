@@ -3,7 +3,7 @@
 
 Why this exists
 ---------------
-`pcb-design-workflow.md` Step 2.2 ("Collect Reference Designs") is the
+`docs/WORKFLOW.md` Step 2.2 ("Collect Reference Designs") is the
 richest section in the whole workflow: a three-tier vendor table, trust
 ordering, format notes. Step 2.3 labels itself "HARD GATE — Do Not Skip"
 and `.claude/rules/pcb-schematic.md` repeats that it is "a hard gate, not
@@ -66,7 +66,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 
 # Canonical per-vendor entry points, ordered by the trust tiers in
-# pcb-design-workflow.md Step 2.2. These are SEARCH SEEDS, not guaranteed
+# docs/WORKFLOW.md Step 2.2. These are SEARCH SEEDS, not guaranteed
 # links — `add` verifies whatever URL is actually chosen.
 SUGGEST = [
     ('Tier 1  mfr', 'TI',        'https://www.ti.com/product/{p}  -> Design & development -> Evaluation boards / Reference designs'),
@@ -96,7 +96,7 @@ Provenance record. `docs/collect_references.py verify` and
 Format:  PART[, PART...]  ->  filename  # source-url | fetched YYYY-MM-DD | note
 
 A reference that is not a file on this disk with a live-verified URL beside
-it does not count. See pcb-design-workflow.md Step 2.2.
+it does not count. See docs/WORKFLOW.md Step 2.2.
 
 """
 

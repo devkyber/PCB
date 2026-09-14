@@ -3,7 +3,7 @@
 
 Why this exists
 ---------------
-`pcb-design-workflow.md` Step 2.1 has always said "download the datasheet
+`docs/WORKFLOW.md` Step 2.1 has always said "download the datasheet
 for every IC, save to projects/<board>/datasheets/". On TMS V3 that folder
 was EMPTY at the point the board was considered ready for review — nine
 ICs, a relay and a crystal, no datasheets — and nothing anywhere noticed.

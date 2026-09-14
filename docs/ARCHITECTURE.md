@@ -1,179 +1,174 @@
-# How the enforcement works
+# PCB Copilot Architecture
 
-Written 2026-08-26, after an adversarial audit of the whole workspace. The
-knowledge here previously existed only as prose in `CLAUDE.md` plus whatever
-you could reconstruct by reading twenty scripts. This is the map.
+PCB Copilot is an evidence-backed assistant around human-owned KiCad designs.
+Its architecture follows one rule: a documented check is useful only when the
+workflow invokes it and a fault test proves that it can fail.
 
-## The premise
+## Authority and mutation boundary
 
-> A step described only in prose is not a gate — it is a hope.
+Accepted `.kicad_sch` and `.kicad_pcb` files are the electrical and physical
+sources of truth. Requirements and explicit owner decisions define intended
+behavior. Evidence supports design choices; generators and reports are derived
+artifacts.
 
-Every defect this workspace has shipped was a documented step that nothing
-checked. So the design principle is not "write good rules", it is **put each
-rule at a tier that fires, then prove it fires.**
+Read-only operations may inspect accepted files. Generators write separate
+drafts under `.pcb-copilot/drafts/`. Acceptance verifies the draft's recorded
+base hashes and atomically changes only the requested accepted artifact.
+Release requires current review and sign-off bound to both accepted hashes.
 
-## The tiers
-
-| Tier | Where | Fires when | Can it be skipped? |
-|---|---|---|---|
-| 0 | a gate in `run_gates.py` | on every `--check` | no — it decides "done" |
-| 1 | `CLAUDE.md` | always in context | it's advice, not a check |
-| 2 | `.claude/rules/*.md` | when a matching file is touched | advice, scoped |
-| 3 | `docs/*.md` | when someone reads it | **yes. this is a hope** |
-| 4 | `.claude/hooks/*.sh` | on tool events / session start | yes, silently, if miswired |
-
-A lesson recorded only at Tier 3 has not been learned. That is not rhetoric:
-"download the datasheet for every IC" lived at Tier 3 while eleven parts
-shipped with an empty `datasheets/` folder and nothing noticed.
-
-Tier 4 is the treacherous one, because a miswired hook looks identical to a
-working one. `docs/selftest_enforcement.py` fires each hook against a
-**synthetic event** rather than checking that the file exists — written after
-the `PostToolUse` hook advertised here as automatic turned out to have never
-run on a single board (it read `tool_input.file_path`, which `Bash` has not
-got).
-
-## The three tools, and their three different questions
-
-Confusing these is itself a failure mode, so they are named after the question
-they answer, not after what they inspect.
-
-```bash
-python3 docs/selftest_enforcement.py   # is the machinery wired AND firing?
-python3 docs/run_gates.py <board.pcb>  # is THIS board ready to fabricate?
-python3 docs/audit_workflow.py         # was every documented step actually done, on every board?
+```text
+requirements + evidence
+          |
+          v
+   typed design intent
+          |
+          v
+transactional draft --> preview + checks --> human acceptance
+                                                 |
+                                                 v
+                                      accepted KiCad design
+                                                 |
+                                                 v
+                                     full review + sign-off
+                                                 |
+                                                 v
+                                      fabrication package
 ```
 
-`audit_workflow.py` **calls the real gate functions** rather than
-re-implementing them. Its first version re-implemented two and disagreed with
-`run_gates` on both — ERC (it counted waived violations) and placement (it
-treated WARN as failure). An audit that contradicts the gate is worse than no
-audit, and the self-test now asserts they agree.
+## Preserved implementation
 
-`selftest_enforcement.py` tests two different things, and the distinction is
-worth keeping straight:
+The remake wraps proven behavior before relocating it:
 
-- **wiring** — the hook matchers, the entry points, the gate registry, the
-  per-board artifacts. "Is it plugged in?"
-- **strength** — fault injection. It breaks a throwaway copy of a real board
-  and requires the gate to fail.
+- `docs/pipeline.py`: fixed stage order, advisory research, fabrication
+  interlock, canonical hashes, repeatability, and ownership tripwire.
+- `docs/run_gates.py` and checks: evidence, datasheet, ERC, geometry,
+  design-rule, DRC, sign-off, and fabrication decisions.
+- `docs/selftest_enforcement.py`: wiring and fault-injection philosophy.
+- `docs/deviations.py`: the single scoped-waiver parser.
+- `docs/extract_netmap.py` and `docs/check_netlist_parity.py`: connectivity
+  derivation and schematic/PCB agreement.
+- `docs/schematic_layout_helpers.py`: symbol placement, pin coordinates,
+  power symbols, grid handling, and label congestion/crossing protection.
+- `docs/pcb_layout_helpers.py`: coordinate transforms, measured extents,
+  placement tracking, and collision checks.
+- Routing and fabrication scripts: best-of attempts, zone fill, ground
+  bonding, stitching, annular repair, fresh DRC, and manufacturing export.
+- `tools/kicad-claude-mcp`: tested KiCad editing, hierarchy, routing, sourcing,
+  rules, and manufacturing primitives.
 
-Wiring was at 68 checks and fully green on 2026-08-26 while six gates could not
-actually fail. Wiring is not strength. Every new check needs a fault-injection
-test, or it is only asserting its own existence.
+Characterization tests and the four-board baseline protect these behaviors.
+No compatibility path is removed until its package replacement has equivalent
+outputs and zero live callers.
 
-## The pipeline
+## Package boundaries
 
-```
-env → research → sch → erc → pcb → route → gates → fab
-```
+`src/pcb_copilot` becomes the stable API and CLI. Current foundation modules
+are:
 
-Fixed in code (`STAGE_ORDER`), not in prose, so the order cannot be got wrong
-by hand. Two properties matter:
+- `project`: safe manifest loading and path containment;
+- `models`: project and lifecycle types;
+- `state`: canonical hashes, effective lifecycle, ownership, and draft safety;
+- `toolchain`: portable KiCad/kipython/router discovery;
+- `migration`: preservation inventory and board baselines;
+- `status`: read-only operator status.
 
-- **`research` is advisory** (`ADVISORY = {'research'}`) — it reports, it never
-  halts a build. Research blocks at `gates`, where "done" is decided. You can
-  always keep designing.
-- **`fab` runs only when the gates pass.** A fabrication package that exists
-  for a board that failed its gates is an invitation to upload it.
+Later packages own evidence, schematic drafts, layout drafts, review, and
+fabrication. Legacy scripts become thin adapters during migration rather than
+independent implementations.
 
-Every run writes `STATUS.md` (human) and `PIPELINE.json` (machine): what ran,
-against which commit, and what the board hashed to.
+## Enforcement tiers
 
-## The gates
+| Tier | Mechanism | Role |
+| --- | --- | --- |
+| 0 | registered blocking checks | decides release readiness |
+| 1 | package invariants | prevents unsafe writes and invalid state |
+| 2 | contextual rules/hooks | timely advice and feedback |
+| 3 | human documentation | explanation and judgment support |
 
-| Gate | Question | Script |
-|---|---|---|
-| Phase 1–2 | requirements captured; a reference archived per key part; archive integrity; design basis; LCSC sourcing; **the escape hatch itself is well-formed** | `check_research.py` |
-| Step 2.1 | a datasheet per non-passive part, **and its bytes are a PDF** | `check_datasheets.py` |
-| Phase 3 | schematic ERC | `kicad-cli sch erc` |
-| Phase 4A | placement geometry, pads on board, symbol/footprint parity, connector class vs footprint | `validate_pcb.py` |
-| Phase 4A | four geometric rules from `pcb-design-rules.md` — see the honesty note below | `check_design_rules.py` |
-| Phase 4C | DRC **and zero unconnected**, refilled and run twice | `kicad-cli pcb drc` |
-| Phase 5 | human sign-off, with a dated signature | `SIGNOFF.md` |
-| Phase 6 | fabrication package | `export_fab.py` |
+Hooks are not trusted merely because files exist. Synthetic events must prove
+that matchers and entry points fire. Every new blocking check needs a fault
+case that mutates a temporary project and observes the expected failure.
 
-### Two things the gates do not claim
+## Three assurance questions
 
-**DRC answers "can JLCPCB build this?", never "is this a good layout?"**
-TMS V3 passed DRC while breaking 23 numbered design rules.
+The compatibility tools answer different questions:
 
-**`check_design_rules.py` covers 4 of 42 numbered subsections** — 1.2, 2.2, 5.1
-and 6.1, the only ones decidable from board geometry. It prints that scope on
-every run. A gate whose name promises a document and whose code delivers a
-tenth of it teaches people to read "0 violations" as "the rules are met". They
-are not met; they are un-contradicted. The remaining 38 are the Phase 5 human
-review.
-
-## The escape hatch
-
-Any rule you cannot meet is an engineering decision, declared in
-`DEVIATIONS.md` under a `## Declared` heading:
-
-```
-<ref>.<pin>  |  <scope>  |  <reason>
+```powershell
+uv run python docs/selftest_enforcement.py
+uv run python docs/run_gates.py projects/baro-bmp390/baro-bmp390.kicad_pcb
+uv run python docs/audit_workflow.py
 ```
 
-`docs/deviations.py` is the **only** parser. Two parsers for one file is the
-same defect as two build paths for one board — and the second copy, in
-`check_design_rules.py`, was the looser of the two.
+1. Is the enforcement machinery wired, and can it fail?
+2. Does this board pass the currently implemented checks?
+3. Were promised workflow controls actually exercised across boards?
 
-Two properties, each of which cost a real bug:
+The audit calls real gate functions. It must not reimplement their logic and
+produce a second answer.
 
-1. **Scope is matched, never ignored.** A numeric scope waives that numbered
-   rule on that pin. `reference` / `basis` / `datasheet` waive the
-   corresponding research gate. Nothing waives anything else. Before this,
-   `U1.5 | 2.2 | Pad 5 is SDO, not a supply pin` — a narrow, correct waiver of
-   one decoupling rule on one pin — silently excused baro-bmp390's only IC from
-   needing an archived reference design *and* a design-basis row. With every
-   reference file deleted, the gate still reported "every key part has an
-   archived reference".
+## Review model
 
-2. **Containment is mandatory.** Without a `## Declared` heading the parser used
-   to fall back to reading the whole file — the mode behind four separate
-   false-waiver bugs (a part value matched in the title; a rule number `U2.3`
-   read as a designator; a reason paragraph mentioning `U2's pads`; and the
-   scaffolded template's own `Example:` line). A file with no such heading now
-   waives nothing and says so.
+Findings are separated into machine failures, engineering warnings, and human
+decisions. Each check states what it proves and does not prove. Review runs the
+entire registry even after an early failure so one problem does not hide the
+rest of the work.
 
-Struck-out (`~~...~~`) rows are withdrawn and waive nothing.
+The current compatibility pipeline order is:
 
-## The recurring defect classes
+```text
+env -> research -> sch -> erc -> pcb -> route -> gates -> fab
+```
 
-Named because they keep coming back in new places, not as history.
+Research is advisory while work is exploratory and blocking at release.
+Fabrication runs only after all release conditions pass.
 
-| Class | What it looks like | Caught by |
-|---|---|---|
-| **The check that cannot fail** | green, forever, on anything | fault injection |
-| **The template that satisfies its own check** | a scaffold that passes the gate it scaffolds | fault injection on a fresh `--init` |
-| **The orphaned tool** | purpose-built, invoked by nothing. Found 3× | grep for callers; "a comment naming the caller is not a caller" |
-| **The escape hatch that is too wide** | a narrow waiver excusing unrelated gates | scope matching |
-| **The second parser / second build path** | two readers of one file, disagreeing | one implementation, imported |
-| **The fix that did not propagate** | fixed in the generator, stale in the artifact | audit both |
-| **The gate that reads a stale artifact** | tool failed, gate read last run's output | delete before write; check exit codes |
-| **The non-deterministic gate** | different answers on an unchanged file | run twice, report the worse |
+## Scoped deviations
 
-## Coordinates, briefly
+`docs/deviations.py` is the only waiver parser until moved intact. It reads
+only rows below `## Declared`, ignores withdrawn rows, and matches scope. A
+waiver of decoupling rule `2.2` on one pin cannot excuse missing evidence,
+parity, or another component.
 
-Convert only via `design_to_mcp` / `design_to_kicad` / `kicad_to_design` in
-`docs/pcb_layout_helpers.py`. The same sign error appeared three times when
-written inline, because two flips cancel and the board still looks plausible.
-**Always measure the transform from the built board**, and remember a 1×N
-header footprint anchors on **pin 1**, not its centre.
+## Connectivity and hashes
 
-## Known format deviation: PCB net encoding
+`netmap.json` remains versioned because a Git diff of it is a reviewable
+connectivity diff. It is not deleted until an equally reviewable semantic
+replacement exists. Parity asks whether schematic and PCB agree; it does not
+decide which side is correct.
 
-Every pad in these boards is written `(net "NAME")` — a name with no numeric
-id, and no net table at the top of the file. KiCad's own writer emits
-`(net <id> "NAME")` plus the table. KiCad **accepts** the short form and
-resolves the nets correctly (verified through `pcbnew`: every board reports
-the expected net count), so nothing is broken today. Two consequences worth
-knowing before they surprise someone:
+Canonical design hashes mask generated KiCad UUIDs before SHA-256. This avoids
+false staleness while retaining content drift detection. Hash equality does
+not replace semantic checks.
 
-* opening a board in the GUI and saving it renormalises the whole file, so
-  the next `git diff` is enormous and reviews nothing;
-* any external tool that expects the canonical form will read zero nets.
+## Coordinates and footprint geometry
 
-`check_netlist_parity.py` reads the PCB through `pcbnew` rather than by
-parsing text for exactly this reason: what KiCad believes is what gets
-fabricated.
+All design/MCP/KiCad conversion uses one helper implementation. Inline Y-axis
+conversion repeatedly caused plausible-looking but wrong placement. Actual
+footprint pads and courtyards are measured before coordinates are selected;
+notably, a 1xN header's origin is pin 1 rather than its center.
+
+## Known PCB encoding deviation
+
+Current boards contain short pad nets such as `(net "GND")` without a numeric
+net table. KiCad accepts and resolves them, but external parsers may not. A GUI
+save can normalize the entire file and create a large diff. Connectivity
+checks should use KiCad/pcbnew or the tested parser boundary rather than an
+unreviewed regex.
+
+## Recurring defect classes
+
+- check that cannot fail;
+- template that satisfies its own gate;
+- orphaned tool with no real caller;
+- waiver broader than its stated scope;
+- second parser or second build path that disagrees;
+- fix applied to one board but not propagated;
+- gate reading stale output after a failed tool;
+- nondeterministic result presented as stable.
+
+The controls are fault injection, non-empty scaffolds, caller inventory,
+single implementations, four-board regression, delete-before-generate output
+handling, and repeated measurements.
+
+See [Workflow](WORKFLOW.md), [Design rules](DESIGN_RULES.md),
+[Project format](PROJECT_FORMAT.md), and [Limitations](LIMITATIONS.md).

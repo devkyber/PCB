@@ -199,7 +199,7 @@ def stage_env(b: Board) -> StageResult:
     if not KICAD_CLI.exists():
         problems.append('kicad-cli missing')
     if not KIPYTHON.exists():
-        problems.append('kipython missing (pcb-design-rules.md gate cannot run)')
+        problems.append('kipython missing (docs/DESIGN_RULES.md gate cannot run)')
     if not b.dir.is_dir():
         problems.append(f'no project dir {b.dir}')
     if not b.has_generators():

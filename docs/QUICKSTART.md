@@ -1,5 +1,8 @@
 # Quick Start — a board, start to finish
 
+> **Superseded:** This is retained as migration history. Use
+> [WORKFLOW.md](WORKFLOW.md) for the current human-controlled workflow.
+
 This document was rewritten on 2026-08-26. The version it replaces described a
 workflow that no longer existed: describe a board, ask for a review, export
 Gerbers. No pipeline, no gates, no research phase, no `DEVIATIONS.md`. It was

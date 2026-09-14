@@ -20,7 +20,7 @@ The fetched IC symbol's pin map was extracted directly from
 of `gen_imu_sch.py` for the full 14-pin table. The fetched footprint was
 in the legacy `(module ...)` format and was round-tripped through real
 `pcbnew` (`kipython` `FootprintLoad`/`FootprintSave`) to upgrade it to
-the modern `(footprint ...)` head before use, per pcb-design-rules.md
+the modern `(footprint ...)` head before use, per docs/DESIGN_RULES.md
 §15.7.
 
 ## ERC (schematic)
@@ -106,7 +106,7 @@ fitting it plus the real LGA-14 IC with both decoupling caps ≤2mm from
 their pins, 2 M2 mounting holes (5.5mm keepout each), and 3 fiducials
 (1.1mm minimum copper clearance around each, well above the board's
 default 0.2mm rule) left no room for DRC-clean spacing on the original
-canvas. This is the same lesson pcb-design-rules.md §15.7 documents
+canvas. This is the same lesson docs/DESIGN_RULES.md §15.7 documents
 from TMS V3: placeholder-era dimensions don't survive contact with real
 part geometry.
 
@@ -144,7 +144,7 @@ README-level detail was retrievable and used directly.
    export, so headless Freerouting from this session wasn't possible.
    Route manually in KiCad, or via GUI DSN export + Freerouting.
 2. **STEMMA QT / Qwiic connector deliberately omitted.** Evaluated per
-   pcb-design-rules.md §15.6 and skipped this rev — the board is small,
+   docs/DESIGN_RULES.md §15.6 and skipped this rev — the board is small,
    and adding I2C would require re-wiring AP_AD0's address-select
    function and adding pull-ups, not just tapping the existing SPI net.
    Rather than guess an unverified LCSC part number for the JST-SH

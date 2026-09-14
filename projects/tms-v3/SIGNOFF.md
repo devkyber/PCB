@@ -28,7 +28,7 @@ flags the sockets and stops there.
 
 ## Declared deviations
 
-- [ ] **DEVIATIONS.md reviewed** — 3 decoupling deviations from `pcb-design-rules.md` 2.2 are declared with reasons. Agree with each, or reject and rework.
+- [ ] **DEVIATIONS.md reviewed** — 3 decoupling deviations from `docs/DESIGN_RULES.md` 2.2 are declared with reasons. Agree with each, or reject and rework.
 
 ## Final visual review (workflow Phase 5.2)
 

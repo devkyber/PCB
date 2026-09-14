@@ -44,7 +44,7 @@ board spec. INT1 is broken out separately to a test point (not the main
 header) to keep the header at exactly 6 pins as specified while still
 making the interrupt line probeable/accessible via a flying lead.
 
-STEMMA QT / Qwiic (JST-SH 4-pin, I2C) — evaluated per pcb-design-rules.md
+STEMMA QT / Qwiic (JST-SH 4-pin, I2C) — evaluated per docs/DESIGN_RULES.md
 §15.6 and DELIBERATELY OMITTED this rev: the board is very small
 (~20x15mm) and adding a second interface changes the wiring plan
 (I2C needs AP_AD0 address-select handling + pull-ups, not just an SDO

@@ -13,7 +13,7 @@ Board: nominally ~20mm x 15mm per spec; bumped to 22mm x 17mm once real
 footprint geometry was in hand — the 6-pin 2.54mm-pitch SPI header alone
 spans 12.7mm, and fitting it plus the real LGA-14 IC, both decoupling
 caps within 2mm of their pins, 2 M2 mounting holes (5.5mm keepout each
-per pcb-design-rules.md §15.6), and 3 fiducials on a strict 20x15mm
+per docs/DESIGN_RULES.md §15.6), and 3 fiducials on a strict 20x15mm
 canvas left no room for DRC-clean spacing. This mirrors the documented
 §15.7 lesson: placeholder-era dimensions don't survive contact with real
 part geometry — widen, don't force it. Documented as a deviation in
@@ -308,7 +308,7 @@ def _solid_connect(zone_node):
     high-inductance path from a decoupling cap's ground to the plane, on a
     board whose datasheet specifies 10 mVpp of allowable supply noise.
 
-    pcb-design-rules.md 12.1 asks for thermal relief on THROUGH-HOLE pads,
+    docs/DESIGN_RULES.md 12.1 asks for thermal relief on THROUGH-HOLE pads,
     for hand-solderability. The only THT part here is J1, whose pads carry
     GND on pin 2 — see DEVIATIONS.md.
     """
@@ -322,7 +322,7 @@ def _solid_connect(zone_node):
 # Fill clearance 0.2mm rather than the 0.5mm default: at 0.5mm the pour
 # cannot squeeze between a 0.5mm-pitch LGA's pads and the tracks leaving
 # them, and pinches off slivers that strand a ground pad. Same failure the
-# baro board hit. pcb-design-rules.md 12.1 floors this at 0.2mm.
+# baro board hit. docs/DESIGN_RULES.md 12.1 floors this at 0.2mm.
 _solid_connect(pe.add_zone(tree, net_name='GND', layer='B.Cu',
                            polygon_mcp=board_polygon, name='GND_BOTTOM',
                            fill_clearance_mm=0.2))

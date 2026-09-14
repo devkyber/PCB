@@ -11,12 +11,12 @@ Board: 18mm x 26mm, 2-layer, JLCPCB spec. Grew from the initial ~15x15mm
 target — see EVALUATION.md for the sizing rationale. The real
 JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horizontal STEMMA QT footprint's
 courtyard measures ~7.8mm x 6.6mm (mounting tabs included) — far bigger
-than the 4.5x6mm "minimal" estimate in pcb-design-rules.md §15.6, and by
+than the 4.5x6mm "minimal" estimate in docs/DESIGN_RULES.md §15.6, and by
 itself wider than a 15mm board minus edge margins. This is exactly the
 §15.7 lesson repeated: "real courtyards are often bigger than a doc
 estimate assumes" — measured from the fetched footprint, not guessed.
 
-Placement follows pcb-design-rules.md §1.1 order: mounting holes/
+Placement follows docs/DESIGN_RULES.md §1.1 order: mounting holes/
 fiducials -> connector -> IC -> decoupling (<=2mm from IC power pins,
 no via between cap and pin) -> pull-ups -> test point.
 
@@ -309,7 +309,7 @@ place_real('U1', 'BMP390', 'LGA-10_L2.0-W2.0-P0.50-BL', 9.0, 14.0)
 # pin2=SCK/SCL(+0.25,+0.78) pin4=SDI/SDA(+0.78,0) pin7=INT(-0.25,-0.78)
 # C1 (VDD decoupling) and C2 (VDDIO decoupling) placed just outside the
 # 2x2mm courtyard, <=2mm from their respective power pin, no via
-# between cap and pin (per pcb-design-rules.md §2).
+# between cap and pin (per docs/DESIGN_RULES.md §2).
 set_lcsc(place_std('C1', '100nF', 'Capacitor_SMD', 'C_0402_1005Metric', 6.3, 14.5),
          LCSC['100nF'])   # near VDD (pin10)
 # C2 was at (8.7, 17.5) — 2.26mm from VDDIO, failing rule 2.2. It was
@@ -380,7 +380,7 @@ def _solid_connect(zone_node):
     purpose is a low-noise rail (REQUIREMENTS.md: 50 mVpp, the datasheet's
     own limit).
 
-    pcb-design-rules.md 12.1 asks for thermal relief on THROUGH-HOLE pads,
+    docs/DESIGN_RULES.md 12.1 asks for thermal relief on THROUGH-HOLE pads,
     for solderability by hand. Every netted pad here is SMD on a
     reflow-assembled board; the mounting holes carry no net and are
     unaffected. So the rule's condition does not apply, and the direct
@@ -400,7 +400,7 @@ def _solid_connect(zone_node):
 # off from the main pour — reported as 'GND_TOP unconnected to GND_TOP'.
 # They are far too small to stitch: a 0.6mm via pad does not fit inside a
 # 0.45mm sliver. The cause is the clearance, so that is what changes.
-# pcb-design-rules.md 12.1 sets the floor at 0.2mm pour-to-signal; JLCPCB's
+# docs/DESIGN_RULES.md 12.1 sets the floor at 0.2mm pour-to-signal; JLCPCB's
 # own 2-layer minimum is 0.127mm. 0.3mm keeps comfortable margin over both.
 ZONE_CLEARANCE = 0.2
 _solid_connect(pe.add_zone(tree, net_name='GND', layer='B.Cu',

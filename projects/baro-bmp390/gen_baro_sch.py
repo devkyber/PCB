@@ -5,7 +5,7 @@ Rev 1 — real Bosch BMP390 part (LCSC C5124834, LGA-10 metal-lid), wired
 for I2C per Bosch's own application circuit (datasheet §6.3, Figure 25).
 
 Real pin map extracted directly from the fetched .kicad_sym (do NOT trust
-memory — see docs/pcb-design-rules.md §15.7):
+memory — see docs/DESIGN_RULES.md §15.7):
   1=VDDIO 2=SCK 3=VSS 4=SDI 5=SDO 6=CSB 7=INT 8=VSS 9=VSS 10=VDD
 (SCK/SDI double as I2C SCL/SDA per Bosch datasheet §5.2 "I2C interface".)
 
@@ -19,7 +19,7 @@ Circuit decisions, all sourced from the Bosch BMP390 datasheet
     rail, so it says nothing about board-level bulk. This board has no
     regulator — +3V3 arrives down a STEMMA-QT cable — so the bulk has to
     be here. Adafruit's reference puts 10uF (C5) + 0.1uF (C6) on the same
-    3.3V net that feeds IC1.VDD/VDDIO; pcb-design-rules.md 3.2 asks for
+    3.3V net that feeds IC1.VDD/VDDIO; docs/DESIGN_RULES.md 3.2 asks for
     bulk per rail. Added 2026-08-25 after the reference comparison caught
     its absence; see DESIGN_BASIS.md.
   - R1/R2 I2C pull-ups (SCK/SDI to VDDIO) = 4.7kOhm — datasheet Figure 25
@@ -44,7 +44,7 @@ Circuit decisions, all sourced from the Bosch BMP390 datasheet
     nothing, lets a host probe or wire an interrupt line later (§15.2).
 
 STEMMA QT / Qwiic connector (JST SH 4-pin, 1mm pitch, per
-pcb-design-rules.md §15.6): standard pinout GND, +3V3, SDA, SCL.
+docs/DESIGN_RULES.md §15.6): standard pinout GND, +3V3, SDA, SCL.
 Host supplies +3V3 — no onboard regulator (unlike Adafruit's reference,
 which regulates from 3-5V VIN + BSS138 level-shifts for 5V hosts). This
 board is 3.3V-only; document as a deviation, acceptable since STEMMA QT
@@ -201,7 +201,7 @@ pin_label('J1', '4', 'I2C_SCL')
 
 # PWR_FLAG: host supplies +3V3 via the STEMMA QT connector — ERC can't
 # see a driver on that net from a generic connector pin, so assert it
-# explicitly (same idiom as TMS V3, see docs/pcb-design-rules.md §15.7).
+# explicitly (same idiom as TMS V3, see docs/DESIGN_RULES.md §15.7).
 place('power', 'PWR_FLAG', '#FLG01', 'PWR_FLAG', 30, 170)
 pin_label('#FLG01', '1', '+3V3')
 labels.hide_reference('#FLG01')

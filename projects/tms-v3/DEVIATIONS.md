@@ -1,4 +1,4 @@
-# TMS V3 — declared deviations from docs/pcb-design-rules.md
+# TMS V3 — declared deviations from docs/DESIGN_RULES.md
 
 Read by `docs/check_design_rules.py`. Format, one per line:
 
@@ -17,7 +17,7 @@ parser silently fell back to reading the WHOLE file — the mode that
 produced four separate false-waiver bugs.
 
 The scope field (middle) must be a numbered rule from
-`docs/pcb-design-rules.md`, or one of `reference` / `basis` / `datasheet`
+`docs/DESIGN_RULES.md`, or one of `reference` / `basis` / `datasheet`
 to excuse a research gate. A waiver is only as wide as its scope.
 
 U2.3  | 2.2 | VREF_N. C7 is a single cap across VREF_P/VREF_N (pins 3-4) and can only hug one of them; it sits 2.4mm from VREF_P and 3.0mm from VREF_N. Splitting into two caps would need a schematic change. HUMAN: confirm against the TI ADS1256 EVM reference layout before fab.

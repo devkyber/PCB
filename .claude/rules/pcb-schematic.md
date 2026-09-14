@@ -5,7 +5,7 @@ paths:
 
 # Schematic Capture Rules (Triggered on .kicad_sch files)
 
-Full reference: `docs/pcb-design-workflow.md` Phase 3, `docs/pcb-design-rules.md` §15.
+Full reference: `docs/WORKFLOW.md` Phase 3, `docs/DESIGN_RULES.md` §15.
 
 ## Before adding any component
 - Fetch its real footprint via `fetch_part_library` — check `fidelity == "real"`, not `"placeholder"`.
@@ -52,7 +52,7 @@ Full reference: `docs/pcb-design-workflow.md` Phase 3, `docs/pcb-design-rules.md
 - Every IC power pin has a decoupling cap
 - Every address/config/mode pin is tied per datasheet — nothing floating (§15.2)
 - Every inter-IC connection has matching voltage levels, or a level shifter if not (§15.3)
-- Reference-design comparison table (`pcb-design-workflow.md` Phase 2.3) has every row filled — this is a hard gate, not optional. When fetching the reference source, use `docs/fetch_reference_doc.py` for anything you need an exact value from (GitHub Eagle `.sch`/`.brd`, PDFs) — WebFetch summarizes and will silently lose pin-level detail; a dead link goes through `verify_url()` first, never reported as just "unavailable."
+- Reference-design comparison table (`docs/WORKFLOW.md` Phase 2.3) has every row filled — this is a hard gate, not optional. When fetching the reference source, use `docs/fetch_reference_doc.py` for anything you need an exact value from (GitHub Eagle `.sch`/`.brd`, PDFs) — WebFetch summarizes and will silently lose pin-level detail; a dead link goes through `verify_url()` first, never reported as just "unavailable."
 - Run ERC — zero **errors**. `endpoint_off_grid`/`pin_to_pin` warnings on real fetched parts are an expected easyeda2kicad artifact; a `power_pin_not_driven` error gets a `power:PWR_FLAG` symbol on that net.
 
 

@@ -20,6 +20,6 @@ Verdict must be `Match` or `Deviate: <reason>`. "Deviate" with a real reason
 is a good outcome — this file is not here to make you copy the EVM, it is
 here to make the choice explicit and re-checkable.
 
-Rules and lectures count as sources too: a `pcb-design-rules.md` rule number,
+Rules and lectures count as sources too: a `docs/DESIGN_RULES.md` rule number,
 a manufacturer app note, Phil's Lab or Altium Academy layout guidance. Cite
 which one.

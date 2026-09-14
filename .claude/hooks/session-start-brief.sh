@@ -98,7 +98,7 @@ RULES THAT ARE NOT NEGOTIABLE
     "does netmap.json match the schematic on disk", which has no ordering
     dependence.
 
-Full lessons: docs/pcb-design-workflow.md § The Gate Rule (95 rows). Wiring self-test: docs/selftest_enforcement.py
+Enforcement model: docs/ARCHITECTURE.md § Enforcement tiers. Wiring self-test: docs/selftest_enforcement.py
 TXT
 
 echo

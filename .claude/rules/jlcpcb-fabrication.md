@@ -5,7 +5,7 @@ paths:
 
 # Fabrication Export Rules (Triggered when working in fabrication/)
 
-Full reference: `docs/pcb-design-rules.md` §11 (DFM), `docs/pcb-design-workflow.md` Phase 6.
+Full reference: `docs/DESIGN_RULES.md` §11 (DFM), `docs/WORKFLOW.md` Phase 6.
 
 ## Before exporting Gerbers
 - `python3 docs/validate_pcb.py <board>.kicad_pcb` must show zero FAIL

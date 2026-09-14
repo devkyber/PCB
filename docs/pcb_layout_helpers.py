@@ -245,7 +245,7 @@ def local_pad_positions(mod_text: str) -> dict[str, tuple[float, float]]:
 
     This is what makes pin-relative placement possible. Placing a
     decoupling cap "near U2" on an arithmetic grid is not the rule —
-    pcb-design-rules.md 2.2 asks for 2mm from the POWER PIN, and an
+    docs/DESIGN_RULES.md 2.2 asks for 2mm from the POWER PIN, and an
     SSOP-28's power pins are 10mm apart, so "near the part" and "near the
     pin" are different places. Grid placement is how TMS V3 ended up with
     every bypass cap 3-10mm from the pin it was bypassing while passing
@@ -364,7 +364,7 @@ class PlacementTracker:
     placement is bounds-checked and OffBoardError is raised on overhang.
 
     margin_mm: minimum clearance kept between parts (default matches the
-    JLCPCB ~0.5mm assembly clearance guidance in pcb-design-rules.md 1.2).
+    JLCPCB ~0.5mm assembly clearance guidance in docs/DESIGN_RULES.md 1.2).
     """
 
     def __init__(self, margin_mm: float = 0.5,
@@ -491,7 +491,7 @@ def shelf_pack(items: list[tuple[str, object]], zone_x: float, zone_y: float,
     footprint first, then call this once instead of picking (x, y) by eye.
     Good for a zone of same-ish-sized passives (decoupling caps, series
     resistors); for a board's overall floor plan, hand-placement by zone
-    (per pcb-design-rules.md §1.1) plus PlacementTracker for verification
+    (per docs/DESIGN_RULES.md §1.1) plus PlacementTracker for verification
     is usually more appropriate.
     """
     positions: dict[str, tuple[float, float]] = {}

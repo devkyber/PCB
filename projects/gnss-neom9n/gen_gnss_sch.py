@@ -10,7 +10,7 @@ Real parts fetched:
 
 Pin map extracted directly from the fetched NEO-M9N-00B .kicad_sym
 (regex over (name "...")(number "...") pairs — NOT from memory, per
-docs/pcb-design-rules.md §15.7):
+docs/DESIGN_RULES.md §15.7):
   1  SAFEBOOT_N        13 GND
   2  D_SEL             14 LNA_EN
   3  TIMEPULSE         15 Reserved
@@ -36,7 +36,7 @@ Design decisions (see EVALUATION.md for full reference-design comparison):
   - RESET_N: has an internal pull-up per datasheet, but an external 10k
     pull-up + reset button to GND is added for robustness/testability.
   - EXTINT, TIMEPULSE (PPS): broken out to a 1x2 header — cheap now,
-    per docs/pcb-design-rules.md §15.2 reasoning.
+    per docs/DESIGN_RULES.md §15.2 reasoning.
   - USB_DM/USB_DP/V_USB: left NC — USB interface unused in this design,
     datasheet permits leaving these open.
   - LNA_EN: left NC — no external LNA/bias-tee for an active antenna in

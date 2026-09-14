@@ -1,5 +1,9 @@
 # PCB Design Rules — Expert Knowledge Base
 
+> **Superseded:** This legacy rule collection is retained while executable
+> checks are migrated. Use [DESIGN_RULES.md](DESIGN_RULES.md) as the canonical
+> rule authority.
+
 **Purpose:** Mandatory reference for Claude during PCB layout and review.  
 **Sources:** TI app notes, Analog Devices mixed-signal guides, Rick Hartley (Sierra Circuits), Altium/Cadence design guides, JLCPCB DFM specs, IPC-2221.  
 **Applies to:** All boards in this workspace.

@@ -1,5 +1,8 @@
 # PCB Design Workflow
 
+> **Superseded:** This detailed legacy process is retained for migration
+> reference. Use [WORKFLOW.md](WORKFLOW.md) for the current workflow.
+
 **PSI Rocketry — Standard PCB Design Process**  
 **Date:** 2026-08-24  
 **Applies to:** All boards in this workspace

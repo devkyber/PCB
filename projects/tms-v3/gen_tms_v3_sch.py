@@ -38,7 +38,7 @@ rendered pages:
   - datasheets/xbee3_hardware_ref.pdf Digi 90001543, p.36 + p.45-46
 
 Rule this revision establishes: a header net map with no comment naming the
-document it came from is not finished work. See docs/pcb-design-workflow.md
+document it came from is not finished work. See docs/WORKFLOW.md
 Step 2.3b.
 
 Circuit architecture:

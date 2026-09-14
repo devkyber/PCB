@@ -139,10 +139,10 @@ shipped was a documented step that nothing checked.
 Note in particular that DRC answers *"can JLCPCB build this?"*, never *"is this
 a good layout?"* — `check_design_rules.py` inside the gate runner answers the
 second. TMS V3 passed DRC while breaking 23 numbered rules in
-`docs/pcb-design-rules.md`.
+`docs/DESIGN_RULES.md`.
 
 Anything you cannot fix goes in the board's `DEVIATIONS.md` with a reason, and
-the human steps go in `SIGNOFF.md`. See `docs/pcb-design-workflow.md`
+the human steps go in `SIGNOFF.md`. See `docs/WORKFLOW.md`
 § The Gate Rule.
 
 ---
@@ -162,8 +162,8 @@ shipped was a documented step that nothing checked.
 Note in particular that DRC answers *"can JLCPCB build this?"*, never *"is this
 a good layout?"* — `check_design_rules.py` inside the gate runner answers the
 second. TMS V3 passed DRC while breaking 23 numbered rules in
-`docs/pcb-design-rules.md`.
+`docs/DESIGN_RULES.md`.
 
 Anything you cannot fix goes in the board's `DEVIATIONS.md` with a reason, and
-the human steps go in `SIGNOFF.md`. See `docs/pcb-design-workflow.md`
+the human steps go in `SIGNOFF.md`. See `docs/WORKFLOW.md`
 § The Gate Rule.
