@@ -1,0 +1,14 @@
+schema_version: 1
+name: imu-icm42688
+lifecycle: DRAFT
+design:
+  schematic: imu-icm42688.kicad_sch
+  pcb: imu-icm42688.kicad_pcb
+  netmap: netmap.json
+evidence:
+  index: evidence/index.yaml
+manufacturing:
+  profile: jlcpcb_2layer_default
+safety_tags:
+  - inertial_sensor
+  - spi

@@ -1,0 +1,14 @@
+schema_version: 1
+name: gnss-neom9n
+lifecycle: DRAFT
+design:
+  schematic: gnss-neom9n.kicad_sch
+  pcb: gnss-neom9n.kicad_pcb
+  netmap: netmap.json
+evidence:
+  index: evidence/index.yaml
+manufacturing:
+  profile: jlcpcb_2layer_default
+safety_tags:
+  - rf
+  - battery_backup

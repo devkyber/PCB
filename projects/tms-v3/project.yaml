@@ -1,0 +1,14 @@
+schema_version: 1
+name: tms-v3
+lifecycle: DRAFT
+design:
+  schematic: tms-v3.kicad_sch
+  pcb: tms-v3.kicad_pcb
+  netmap: netmap.json
+evidence:
+  index: evidence/index.yaml
+manufacturing:
+  profile: jlcpcb_2layer_default
+safety_tags:
+  - pyrotechnic
+  - high_current

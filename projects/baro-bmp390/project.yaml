@@ -1,0 +1,14 @@
+schema_version: 1
+name: baro-bmp390
+lifecycle: DRAFT
+design:
+  schematic: baro-bmp390.kicad_sch
+  pcb: baro-bmp390.kicad_pcb
+  netmap: netmap.json
+evidence:
+  index: evidence/index.yaml
+manufacturing:
+  profile: jlcpcb_2layer_default
+safety_tags:
+  - pressure_sensor
+  - i2c

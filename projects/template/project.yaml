@@ -1,0 +1,12 @@
+schema_version: 1
+name: example-board
+lifecycle: DRAFT
+design:
+  schematic: example-board.kicad_sch
+  pcb: example-board.kicad_pcb
+  netmap: netmap.json
+evidence:
+  index: evidence/index.yaml
+manufacturing:
+  profile: jlcpcb_2layer_default
+safety_tags: []
