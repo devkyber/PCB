@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 .venv/
 venv/
+.pytest_cache/
+.pcb-copilot/
 
 # OS
 .DS_Store
