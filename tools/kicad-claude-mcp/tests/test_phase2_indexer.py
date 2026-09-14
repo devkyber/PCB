@@ -11,12 +11,32 @@ import shutil
 from pathlib import Path
 
 import pytest
-
 from kicad_claude.indexer import kicad_libs as klibs
 from kicad_claude.indexer.search import search_footprints, search_symbols
 from kicad_claude.tools import library as lib_tools
+from kicad_claude.utils import kicad_paths
 
 FIXTURES = Path(__file__).parent / "fixtures"
+
+
+def test_windows_version_directories_accept_dotted_names(tmp_path, monkeypatch):
+    root = tmp_path / "KiCad"
+    symbols = root / "10.0" / "share" / "kicad" / "symbols"
+    symbols.mkdir(parents=True)
+    monkeypatch.setattr(kicad_paths.platform, "system", lambda: "Windows")
+    monkeypatch.setattr(kicad_paths, "_windows_kicad_root", lambda: root)
+    assert symbols in kicad_paths.find_symbol_lib_dirs()
+
+
+def test_windows_cli_is_found_below_dotted_version(tmp_path, monkeypatch):
+    root = tmp_path / "KiCad"
+    cli = root / "10.0" / "bin" / "kicad-cli.exe"
+    cli.parent.mkdir(parents=True)
+    cli.touch()
+    monkeypatch.setattr(kicad_paths.platform, "system", lambda: "Windows")
+    monkeypatch.setattr(kicad_paths, "_windows_kicad_root", lambda: root)
+    monkeypatch.setattr(kicad_paths.shutil, "which", lambda _: None)
+    assert kicad_paths.find_kicad_cli() == cli
 
 
 # ----- Symbol lib parsing -------------------------------------------------- #
