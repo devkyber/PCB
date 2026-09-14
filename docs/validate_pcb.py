@@ -23,9 +23,14 @@ import re
 import sys
 import os
 
+# Hooks and piped commands on Windows can inherit a legacy console encoding.
+# Preserve the report instead of crashing on engineering symbols such as ≥.
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(errors="replace")
+
 
 def read_pcb(path):
-    with open(path, "r") as f:
+    with open(path, "r", encoding="utf-8") as f:
         return f.read()
 
 
@@ -648,7 +653,9 @@ def main():
 
     for name, fn in checks:
         status, msg = fn(text)
-        icon = {"PASS": "✓", "FAIL": "✗", "WARN": "!", "INFO": "·", "SKIP": "-"}[status]
+        # ASCII markers keep this report usable when Windows launches Python
+        # with a legacy console encoding (for example from hooks or pipes).
+        icon = {"PASS": "P", "FAIL": "X", "WARN": "!", "INFO": "i", "SKIP": "-"}[status]
         print(f"  [{icon}] {status:4s}  {name}")
         print(f"         {msg}\n")
         if status == "FAIL":

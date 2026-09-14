@@ -72,7 +72,11 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 REPO = Path(__file__).resolve().parent.parent
-KICAD_CLI = Path('/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli')
+sys.path.insert(0, str(REPO / 'src'))
+
+from pcb_copilot.toolchain import discover_toolchain  # noqa: E402
+
+KICAD_CLI = discover_toolchain(REPO).kicad_cli
 
 # Nets KiCad invents for a pin that is connected to nothing. They exist only
 # in the schematic netlist and have no PCB counterpart by construction.
@@ -101,7 +105,7 @@ def schematic_nets(sch: Path) -> dict:
             raise RuntimeError(
                 f'kicad-cli produced no netlist (exit {r.returncode}): '
                 + (r.stderr or r.stdout).strip()[:200])
-        text = out.read_text()
+        text = out.read_text(encoding='utf-8')
 
     nets: dict = collections.defaultdict(set)
     for m in re.finditer(r'\(net\b(.*?)\n\t\t\)', text, re.S):

@@ -117,19 +117,20 @@ def steps(proj: Path, pcb: Path):
         # WARN counts as done. validate_pcb.py distinguishes FAIL from WARN
         # (a sub-0.1mm bounding-box overlap on a rotated part is flagged
         # WARN, "confirm in KiCad"), and run_gates keys on FAIL only. The
-        # first version here accepted '✓' alone and so reported gnss-neom9n's
+        # The first version keyed on a Unicode icon and so reported
+        # gnss-neom9n's
         # placement as OPEN while the gate passed it — the audit contradicting
         # the gate is the one thing this file must never do.
-        ok = bool(blk) and ('✓' in blk[0] or '!' in blk[0])
+        ok = bool(blk) and (' PASS ' in blk[0] or ' WARN ' in blk[0])
         note = frag if ok else frag + ' — FAIL'
-        if ok and blk and '!' in blk[0]:
+        if ok and blk and ' WARN ' in blk[0]:
             note = frag + ' (WARN, verify in KiCad)'
         out.append((label, ok, note, 'validate_pcb.py'))
 
     if KIPYTHON.exists():
         r = _run([KIPYTHON, DOCS / 'check_design_rules.py', pcb])
         last = [l for l in (r.stdout or '').splitlines() if l.startswith('RESULT')]
-        out.append(('Phase 4A  pcb-design-rules.md numbered rules',
+        out.append(('Phase 4A  docs/DESIGN_RULES.md numbered rules',
                     r.returncode == 0, last[-1][:78] if last else 'no result',
                     'check_design_rules.py'))
 

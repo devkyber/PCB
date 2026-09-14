@@ -101,7 +101,7 @@ def _instances(text: str) -> str:
 
 
 def analyse(sch: Path) -> dict:
-    t = sch.read_text()
+    t = sch.read_text(encoding='utf-8')
     inst = _instances(t)
     ids = re.findall(r'\(lib_id "([^"]+)"\)', inst)
     paper_m = re.search(r'\(paper "([^"]+)"', t)

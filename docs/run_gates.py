@@ -9,7 +9,7 @@ hard way, repeatedly:
 
   * "Download the datasheet for every IC" (Step 2.1) — the folder was empty,
     for eleven parts, and nothing noticed.
-  * "Always consult pcb-design-rules.md" (CLAUDE.md) — nothing checked it,
+  * "Always consult docs/DESIGN_RULES.md" (CLAUDE.md) — nothing checked it,
     and the board broke 23 of its numbered rules while passing DRC.
   * "Every net must be routed" (Phase 4B) — the validator counted trace
     SEGMENTS, which is satisfied by any partially-routed board.
@@ -34,8 +34,13 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-KICAD_CLI = Path('/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli')
-KIPYTHON = Path.home() / '.local' / 'bin' / 'kipython'
+sys.path.insert(0, str(REPO / 'src'))
+
+from pcb_copilot.toolchain import discover_toolchain  # noqa: E402
+
+_TOOLCHAIN = discover_toolchain(REPO)
+KICAD_CLI = _TOOLCHAIN.kicad_cli
+KIPYTHON = _TOOLCHAIN.kipython or Path('kipython')
 
 # ERC classes that are known-benign for EasyEDA-converted symbols. These
 # carry no electrical pin-type metadata (see CLAUDE.md), so every connection
@@ -90,7 +95,7 @@ def gate_placement(pcb: Path) -> tuple[bool, str]:
 
 def gate_design_rules(pcb: Path) -> tuple[bool, str]:
     if not KIPYTHON.exists():
-        return False, 'kipython not found — cannot check pcb-design-rules.md'
+        return False, 'kipython not found — cannot check docs/DESIGN_RULES.md'
     r = _run([KIPYTHON, REPO / 'docs' / 'check_design_rules.py', pcb])
     line = next((l for l in r.stdout.splitlines() if l.startswith('RESULT:')), '')
     return r.returncode == 0, line or 'no result line'
@@ -383,7 +388,7 @@ Verdict must be `Match` or `Deviate: <reason>`. "Deviate" with a real reason
 is a good outcome — this file is not here to make you copy the EVM, it is
 here to make the choice explicit and re-checkable.
 
-Rules and lectures count as sources too: a `pcb-design-rules.md` rule number,
+Rules and lectures count as sources too: a `docs/DESIGN_RULES.md` rule number,
 a manufacturer app note, Phil's Lab or Altium Academy layout guidance. Cite
 which one.
 """
@@ -547,7 +552,7 @@ GATES = [
     ('Phase 3   schematic readable', gate_schematic_quality, 'auto'),
     ('Phase 4B  schematic == PCB netlist', gate_netlist_parity, 'auto'),
     ('Phase 4A  placement geometry', gate_placement, 'auto'),
-    ('Phase 4A  pcb-design-rules.md', gate_design_rules, 'auto'),
+    ('Phase 4A  docs/DESIGN_RULES.md', gate_design_rules, 'auto'),
     ('Phase 4C  DRC + full routing', gate_drc, 'auto'),
     ('Phase 5   human sign-off', gate_signoff, 'HUMAN'),
 ]

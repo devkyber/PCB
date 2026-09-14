@@ -40,7 +40,7 @@ def check(name: str, ok: bool, detail: str = '') -> None:
 
 
 def text(p: Path) -> str:
-    return p.read_text() if p.is_file() else ''
+    return p.read_text(encoding='utf-8') if p.is_file() else ''
 
 
 # --- Tier 1: CLAUDE.md is always loaded -----------------------------------
@@ -85,12 +85,15 @@ probe = REPO / 'projects'
 pcbs = sorted(probe.glob('*/*.kicad_pcb'))
 if pcbs:
     pcbs[0].touch()
-    r = subprocess.run(['bash', str(REPO / '.claude/hooks/validate-pcb-on-edit.sh')],
+    # Pass a POSIX-friendly relative path to Git Bash. A Windows absolute
+    # path is parsed as backslash escapes and the hook is never launched.
+    r = subprocess.run(['bash', '.claude/hooks/validate-pcb-on-edit.sh'],
                        input=json.dumps({'tool_name': 'Bash',
                                          'tool_input': {'command': 'python3 gen_x_pcb.py'}}),
-                       capture_output=True, text=True)
+                       capture_output=True, text=True, cwd=REPO)
     check('PostToolUse hook actually fires on a synthetic Bash event',
-          'validate_pcb.py result' in r.stdout, r.stdout[:80].replace('\n', ' '))
+          'validate_pcb.py result' in r.stdout,
+          f'rc={r.returncode}; stdout={r.stdout[:80]!r}; stderr={r.stderr[:120]!r}')
 else:
     check('PostToolUse hook actually fires on a synthetic Bash event', False, 'no boards to probe')
 
@@ -136,7 +139,7 @@ check('collect_references suggest runs', r.returncode == 0 and 'Tier 1' in r.std
 # The archiver must REFUSE an HTML error page saved as a document. This is
 # the silent failure that makes an archive worthless: the gate sees a file.
 _probe = REPO / 'docs' / '.selftest_probe.pdf'
-_probe.write_text('<!doctype html><html><body>Sign in</body></html>')
+_probe.write_text('<!doctype html><html><body>Sign in</body></html>', encoding='utf-8')
 try:
     sys.path.insert(0, str(REPO / 'docs'))
     from collect_references import sniff
@@ -177,7 +180,10 @@ if _ds.is_file():
     _bak = REPO / '.selftest-datasheet.bak'
     try:
         _sh.copy2(_ds, _bak)
-        _ds.write_text('<!doctype html><html><body>Sign in to download</body></html>')
+        _ds.write_text(
+            '<!doctype html><html><body>Sign in to download</body></html>',
+            encoding='utf-8',
+        )
         _r = subprocess.run([sys.executable, str(REPO / 'docs/check_datasheets.py'), 
                              str(next(_bd.glob('*.kicad_pcb')))],
                             capture_output=True, text=True)
@@ -193,9 +199,12 @@ if _ds.is_file():
     # recorded origin, so it cannot be re-fetched or revision-checked.
     # Integrity walked INDEX rows only, which made an unlisted file invisible.
     _idx = _bd / 'datasheets' / 'INDEX.md'
-    _orig = _idx.read_text()
+    _orig = _idx.read_text(encoding='utf-8')
     try:
-        _idx.write_text(_orig.replace('U1, BMP390, C5124834  ->', '# removed for selftest:'))
+        _idx.write_text(
+            _orig.replace('U1, BMP390, C5124834  ->', '# removed for selftest:'),
+            encoding='utf-8',
+        )
         _r = subprocess.run([sys.executable, str(REPO / 'docs/check_research.py'),
                              str(next(_bd.glob('*.kicad_pcb')))],
                             capture_output=True, text=True)
@@ -203,7 +212,7 @@ if _ds.is_file():
               'not in datasheets/INDEX.md' in _r.stdout,
               (_r.stdout or _r.stderr).strip()[-150:])
     finally:
-        _idx.write_text(_orig)
+        _idx.write_text(_orig, encoding='utf-8')
 
 # --- The gates FAIL when they should ------------------------------------
 # Everything above this line asks "is the machinery wired?". 68 checks said
@@ -260,7 +269,10 @@ if _pcb_src:
         if _f.name != 'INDEX.md':
             _f.unlink()
     _i = _b / 'reference-designs' / 'INDEX.md'
-    _i.write_text(re.sub(r'^.*->.*$', '', _i.read_text(), flags=re.M))
+    _i.write_text(
+        re.sub(r'^.*->.*$', '', _i.read_text(encoding='utf-8'), flags=re.M),
+        encoding='utf-8',
+    )
     _o = _research(_p)
     check('a rule-2.2 pin waiver does NOT excuse the reference-design gate',
           '[FAIL] Step 2.2  reference designs' in _o,
@@ -270,7 +282,10 @@ if _pcb_src:
     # 2. ...nor the design-basis gate
     _b, _p = _sandbox()
     _d = _b / 'DESIGN_BASIS.md'
-    _d.write_text(re.sub(r'^\|.*$', '', _d.read_text(), flags=re.M))
+    _d.write_text(
+        re.sub(r'^\|.*$', '', _d.read_text(encoding='utf-8'), flags=re.M),
+        encoding='utf-8',
+    )
     check('a rule-2.2 pin waiver does NOT excuse the design-basis gate',
           '[FAIL] Step 2.3  design basis' in _research(_p),
           'waiver scope is being ignored again')
@@ -279,7 +294,10 @@ if _pcb_src:
     # 3. a DEVIATIONS.md with no "## Declared" heading waives nothing, loudly
     _b, _p = _sandbox()
     _v = _b / 'DEVIATIONS.md'
-    _v.write_text(_v.read_text().replace('## Declared', '## Notes'))
+    _v.write_text(
+        _v.read_text(encoding='utf-8').replace('## Declared', '## Notes'),
+        encoding='utf-8',
+    )
     check('DEVIATIONS.md without "## Declared" is reported, not silently ignored',
           '[FAIL] Escape hatch' in _research(_p),
           'containment regressed to whole-file parsing')
@@ -289,7 +307,8 @@ if _pcb_src:
     _b, _p = _sandbox()
     _r_ = _b / 'REQUIREMENTS.md'
     _r_.write_text(re.sub(r'## Electrical.*?(?=\n## )', '## Electrical\n\n',
-                          _r_.read_text(), flags=re.S))
+                          _r_.read_text(encoding='utf-8'), flags=re.S),
+                   encoding='utf-8')
     check('an emptied REQUIREMENTS section fails Phase 1',
           '[FAIL] Phase 1' in _research(_p),
           'heading presence is being counted as content')
@@ -298,7 +317,10 @@ if _pcb_src:
     # 5. ticking every box without a date is not a sign-off
     _b, _p = _sandbox()
     _s = _b / 'SIGNOFF.md'
-    _s.write_text(re.sub(r'^- \[ \]', '- [x]', _s.read_text(), flags=re.M))
+    _s.write_text(
+        re.sub(r'^- \[ \]', '- [x]', _s.read_text(encoding='utf-8'), flags=re.M),
+        encoding='utf-8',
+    )
     sys.path.insert(0, str(REPO / 'docs'))
     import run_gates as _rg
     _ok, _det = _rg.gate_signoff(_p)
@@ -308,8 +330,14 @@ if _pcb_src:
 
     # 6. DRC must not read a stale report when kicad-cli fails
     _d2 = Path(_tf.mkdtemp(prefix='selftest-drc-'))
-    _sh.copy2(_src / 'drc-report.json', _d2 / 'drc-report.json')
-    (_d2 / 'fake.kicad_pcb').write_text('(not a board)')
+    # Build the tempting stale result in the sandbox.  Ignored reports are
+    # deliberately absent from a clean checkout, so copying a live project's
+    # report made this meta-test depend on untracked developer state.
+    (_d2 / 'drc-report.json').write_text(
+        json.dumps({'violations': [], 'unconnected_items': []}),
+        encoding='utf-8',
+    )
+    (_d2 / 'fake.kicad_pcb').write_text('(not a board)', encoding='utf-8')
     _ok, _det = _rg.gate_drc(_d2 / 'fake.kicad_pcb')
     check('gate_drc FAILS on an unloadable board instead of reading a stale report',
           not _ok, _det[:120])
@@ -408,10 +436,10 @@ if _pcb_src and KIPYTHON.exists():
     # were wired in the schematic and netless on the board, and every other
     # gate passed them.
     _b, _p = _sandbox()
-    _t = _p.read_text()
+    _t = _p.read_text(encoding='utf-8')
     _m = re.search(r'\n(\s*)\(net "([^"]+)"\)', _t)
     if _m:
-        _p.write_text(_t[:_m.start()] + _t[_m.end():])
+        _p.write_text(_t[:_m.start()] + _t[_m.end():], encoding='utf-8')
         _r = _parity(_p)
         check('netlist parity FAILS when a pad loses its net',
               _r.returncode != 0 and 'NOT on the board' in _r.stdout,
@@ -420,9 +448,12 @@ if _pcb_src and KIPYTHON.exists():
 
     # 12. a net renamed on the board only must break parity.
     _b, _p = _sandbox()
-    _t = _p.read_text()
+    _t = _p.read_text(encoding='utf-8')
     if '(net "GND")' in _t:
-        _p.write_text(_t.replace('(net "GND")', '(net "GNDX")', 1))
+        _p.write_text(
+            _t.replace('(net "GND")', '(net "GNDX")', 1),
+            encoding='utf-8',
+        )
         _r = _parity(_p)
         check('netlist parity FAILS when a board net is renamed',
               _r.returncode != 0, 'a renamed net passed parity')
@@ -443,10 +474,10 @@ if _pcb_src:
     _b, _p = _sandbox()
     _s = _p.with_suffix('.kicad_sch')
     if _s.is_file():
-        _txt = _s.read_text()
+        _txt = _s.read_text(encoding='utf-8')
         _tb = re.search(r'\n\t\(title_block\b.*?\n\t\)', _txt, re.S)
         if _tb:
-            _s.write_text(_txt[:_tb.start()] + _txt[_tb.end():])
+            _s.write_text(_txt[:_tb.start()] + _txt[_tb.end():], encoding='utf-8')
             _r = _schqual(_p)
             check('schematic quality FAILS with no title block',
                   _r.returncode != 0 and 'title block' in _r.stdout,
@@ -462,7 +493,7 @@ if _pcb_src:
     # tests nothing, which is the exact failure this section exists to catch.
     _dense = None
     for _cand in sorted((REPO / 'projects').glob('*/[a-z]*.kicad_sch')):
-        _n = len([i for i in re.findall(r'\(lib_id "([^"]+)"\)', _cand.read_text())
+        _n = len([i for i in re.findall(r'\(lib_id "([^"]+)"\)', _cand.read_text(encoding='utf-8'))
                   if not i.startswith('power:')])
         if _n > 12:
             _dense = _cand.parent
@@ -471,7 +502,8 @@ if _pcb_src:
         _b2, _p2 = _sandbox(_dense)
         _s2 = _p2.with_suffix('.kicad_sch')
         _s2.write_text(re.sub(r'\(paper "[^"]+"\)', '(paper "A5")',
-                              _s2.read_text(), count=1))
+                              _s2.read_text(encoding='utf-8'), count=1),
+                       encoding='utf-8')
         _r = _schqual(_p2)
         check('schematic quality FAILS on an over-full sheet with no hierarchy',
               _r.returncode != 0 and 'hierarchical sheets' in _r.stdout,
@@ -494,12 +526,12 @@ if _pcb_src:
     _sh.rmtree(_b.parent, ignore_errors=True)
 
 # 17. both gates must be REGISTERED, not merely present on disk.
-_rg = (REPO / 'docs/run_gates.py').read_text()
+_rg = (REPO / 'docs/run_gates.py').read_text(encoding='utf-8')
 check('netlist-parity gate is REGISTERED in run_gates.GATES',
       'gate_netlist_parity' in _rg.split('GATES = [')[1])
 check('schematic-quality gate is REGISTERED in run_gates.GATES',
       'gate_schematic_quality' in _rg.split('GATES = [')[1])
-_aw = (REPO / 'docs/audit_workflow.py').read_text()
+_aw = (REPO / 'docs/audit_workflow.py').read_text(encoding='utf-8')
 check('audit CALLS the parity gate rather than re-implementing it',
       'run_gates.gate_netlist_parity' in _aw)
 check('audit CALLS the schematic-quality gate rather than re-implementing it',
@@ -529,7 +561,7 @@ if _pcb_src:
     # the definition of a check that asserts nothing.
     _b, _p = _sandbox()
     _bd = _pl.Board(_b)
-    (_b / _pl.OWNER_FILE).write_text('human\n')
+    (_b / _pl.OWNER_FILE).write_text('human\n', encoding='utf-8')
     _called = []
     _real_rg = _pl._run_generator
     _pl._run_generator = lambda *a, **k: (_called.append(a[0]),
@@ -549,7 +581,7 @@ if _pcb_src:
     # that protects work nobody remembered to declare.
     _b, _p = _sandbox()
     _bd = _pl.Board(_b)
-    (_b / _pl.OWNER_FILE).write_text('generated\n')
+    (_b / _pl.OWNER_FILE).write_text('generated\n', encoding='utf-8')
     _before = _bd.sch.read_bytes()
     _bd.sch.write_bytes(_before.replace(b'(rev "', b'(rev "Z', 1))
     _edited = _bd.sch.read_bytes()
@@ -569,7 +601,7 @@ if _pcb_src:
     # something blunter.
     _b, _p = _sandbox()
     _bd = _pl.Board(_b)
-    (_b / _pl.OWNER_FILE).write_text('human\n')
+    (_b / _pl.OWNER_FILE).write_text('human\n', encoding='utf-8')
     _before = _bd.sch.read_bytes()
     _res = _pl.stage_sch(_bd, regenerate=True)
     check('--regenerate REFUSES on a human-owned board',
@@ -580,7 +612,7 @@ if _pcb_src:
     # 21. an unreadable marker must fail rather than default to something.
     _b, _p = _sandbox()
     _bd = _pl.Board(_b)
-    (_b / _pl.OWNER_FILE).write_text('mostly generated\n')
+    (_b / _pl.OWNER_FILE).write_text('mostly generated\n', encoding='utf-8')
     _res = _pl.stage_sch(_bd)
     check('an invalid SCHEMATIC_OWNER marker fails the build',
           not _res.ok, 'a malformed ownership marker was silently accepted')
@@ -593,11 +625,14 @@ if _pcb_src:
     # netlists, so cosmetic edits are correctly invisible to it.
     _b, _p = _sandbox()
     _bd = _pl.Board(_b)
-    (_b / _pl.OWNER_FILE).write_text('generated\n')
-    _st = _bd.sch.read_text()
+    (_b / _pl.OWNER_FILE).write_text('generated\n', encoding='utf-8')
+    _st = _bd.sch.read_text(encoding='utf-8')
     _lbl = re.search(r'\(label "([A-Za-z0-9_]+)"', _st)
     if _lbl:
-        _bd.sch.write_text(_st.replace(f'"{_lbl.group(1)}"', f'"{_lbl.group(1)}_X"'))
+        _bd.sch.write_text(
+            _st.replace(f'"{_lbl.group(1)}"', f'"{_lbl.group(1)}_X"'),
+            encoding='utf-8',
+        )
         _ok, _d = _rgm.gate_schematic_ownership(_p)
         check('provenance gate FAILS when the schematic is edited past its netmap',
               not _ok, 'a board built from a stale netlist passed the provenance gate')
@@ -611,12 +646,12 @@ if _pcb_src:
     # netlist describing a drawing that no longer exists.
     _b, _p = _sandbox()
     _bd = _pl.Board(_b)
-    (_b / _pl.OWNER_FILE).write_text('human\n')
+    (_b / _pl.OWNER_FILE).write_text('human\n', encoding='utf-8')
     _nm = _b / 'netmap.json'
-    _nmd = json.loads(_nm.read_text())
+    _nmd = json.loads(_nm.read_text(encoding='utf-8'))
     _nmd['nets'] = {r: v for r, v in _nmd['nets'].items() if not r.startswith('#')}
     _nmd['nets'].pop(next(iter(_nmd['nets'])), None)
-    _nm.write_text(json.dumps(_nmd, indent=2))
+    _nm.write_text(json.dumps(_nmd, indent=2), encoding='utf-8')
     _ok, _d = _rgm.gate_schematic_ownership(_p)
     check('provenance gate FAILS on a netmap missing a reference',
           not _ok, 'a stale schematic->PCB contract passed the provenance gate')
@@ -640,7 +675,7 @@ if _pcb_src:
         r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
         lambda m: _seen.setdefault(m.group(0), '%08x-0000-4000-8000-%012x'
                                    % (len(_seen) + 1, len(_seen) + 1)),
-        _bd.sch.read_text()))
+        _bd.sch.read_text(encoding='utf-8')), encoding='utf-8')
     check('the canonical hash ignores UUID churn',
           _pl.sha(_bd.sch) == _h0,
           'a re-UUIDed but otherwise identical schematic hashed differently — '
@@ -658,7 +693,7 @@ if _pcb_src:
 # the wrong reason. A sandbox that is not actually a sandbox makes every
 # fault-injection test built on it meaningless.
 _abs = [str(f.relative_to(REPO)) for f in sorted((REPO / 'projects').glob('*/gen_*.py'))
-        if "'/Users/" in f.read_text()]
+        if "'/Users/" in f.read_text(encoding='utf-8')]
 check('no board generator hardcodes an absolute path',
       not _abs,
       'these write outside any sandbox: ' + ', '.join(_abs[:4]))

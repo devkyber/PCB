@@ -32,7 +32,17 @@ if [[ "$FILE_PATH" == *.kicad_pcb ]]; then
     TARGETS+=("$FILE_PATH")
 elif [[ "$TOOL" == "Bash" ]]; then
     while IFS= read -r f; do TARGETS+=("$f"); done < <(
-        find "$REPO_ROOT/projects" -name '*.kicad_pcb' -newermt '-120 seconds' 2>/dev/null)
+        python3 - "$REPO_ROOT" <<'PY'
+from pathlib import Path
+import sys
+import time
+
+cutoff = time.time() - 120
+for board in sorted((Path(sys.argv[1]) / "projects").glob("*/*.kicad_pcb")):
+    if board.stat().st_mtime >= cutoff:
+        print(board)
+PY
+    )
 fi
 
 for f in "${TARGETS[@]}"; do
