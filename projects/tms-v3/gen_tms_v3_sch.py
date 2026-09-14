@@ -34,8 +34,8 @@ XBee's UART output to ground while leaving its actual ground pin floating.
 
 Both are now built from documents fetched into datasheets/ and read as
 rendered pages:
-  - datasheets/card11a_rev4_web.pdf   PJRC Teensy 4.1 pinout card rev4
-  - datasheets/xbee3_hardware_ref.pdf Digi 90001543, p.36 + p.45-46
+  - evidence/files/card11a_rev4_web.pdf   PJRC Teensy 4.1 pinout card rev4
+  - evidence/files/xbee3_hardware_ref.pdf Digi 90001543, p.36 + p.45-46
 
 Rule this revision establishes: a header net map with no comment naming the
 document it came from is not finished work. See docs/WORKFLOW.md
@@ -521,7 +521,7 @@ place('Connector_Generic', 'Conn_01x24', 'J8', 'TEENSY-R', 155, 140,
 # ------------------------------------------------------------------
 # Teensy 4.1 header net map.
 #
-# GROUND TRUTH: datasheets/card11a_rev4_web.pdf (PJRC "Welcome to Teensy
+# GROUND TRUTH: evidence/files/card11a_rev4_web.pdf (PJRC "Welcome to Teensy
 # 4.1" pinout card, rev4), read as a rendered page — not from memory and
 # not inferred. Both rows are indexed from the USB end.
 #
@@ -588,7 +588,7 @@ for _ref, _map in (('J7', TEENSY_ROW_A), ('J8', TEENSY_ROW_B)):
 # ============================================================
 print("Section 7: XBee 3 wireless (through-hole 20-pin socket)...")
 
-# GROUND TRUTH: datasheets/xbee3_hardware_ref.pdf (Digi 90001543),
+# GROUND TRUTH: evidence/files/xbee3_hardware_ref.pdf (Digi 90001543),
 # "Pin signals for the through-hole XBee 3 RF Module" (p.45-46) and the
 # through-hole mechanical drawing (p.36).
 #

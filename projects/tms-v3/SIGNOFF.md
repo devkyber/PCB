@@ -15,8 +15,8 @@ Sign by replacing `[ ]` with `[x]` and adding your initials and the date.
 No automated check in this workspace can verify these. `validate_pcb.py`
 flags the sockets and stops there.
 
-- [ ] **J7/J8 Teensy 4.1** — pin order checked against `datasheets/card11a_rev4_web.pdf`, with the physical module in hand. Confirm: pin 1 is the USB end on BOTH rows; J7 is the Vin/GND/3.3V row; no power rail lands on a GPIO. Teensy 4.x is **not 5V tolerant**.
-- [ ] **J9 XBee 3** — pin order checked against `datasheets/xbee3_hardware_ref.pdf` p.45. Confirm: pin 1 = VCC, pin 2 = DOUT → Teensy RX, pin 3 = DIN ← Teensy TX, pin 10 = GND.
+- [ ] **J7/J8 Teensy 4.1** — pin order checked against `evidence/files/card11a_rev4_web.pdf`, with the physical module in hand. Confirm: pin 1 is the USB end on BOTH rows; J7 is the Vin/GND/3.3V row; no power rail lands on a GPIO. Teensy 4.x is **not 5V tolerant**.
+- [ ] **J9 XBee 3** — pin order checked against `evidence/files/xbee3_hardware_ref.pdf` p.45. Confirm: pin 1 = VCC, pin 2 = DOUT → Teensy RX, pin 3 = DIN ← Teensy TX, pin 10 = GND.
 - [ ] **J9 footprint fit** — `libs/tms.pretty/XBee_THT_20pin_P2.00mm.kicad_mod` is HAND-AUTHORED from the vendor mechanical drawing. Offer a physical XBee (or a printed 1:1 plot) against it: 2.00mm pitch, rows 22.0mm apart, pins 1-10 down one side and 11-20 up the other.
 
 ## Parts and sourcing
