@@ -74,7 +74,90 @@ The lifecycle states are `DRAFT`, `HUMAN_REVIEWED`, and `RELEASED`.
 Fabrication export requires `RELEASED`. A machine check may block release,
 but it does not prevent work on an incomplete draft.
 
-## 4. Sources of truth and ownership
+## 4. Existing implementation baseline
+
+This is a migration of a working prototype, not a greenfield rewrite. The
+current repository has three valuable layers:
+
+1. `tools/kicad-claude-mcp` provides tested KiCad editing, hierarchy, routing,
+   validation, manufacturing, BOM, and project APIs.
+2. `docs/*.py` provides workspace-specific evidence, orchestration, ownership,
+   review, routing post-processing, and fabrication behavior.
+3. The four boards and their engineering records are case studies containing
+   real failures, corrections, and expected outputs.
+
+The remake treats these as architectural inputs. New package boundaries will
+first wrap or import working code. Logic moves only after characterization
+tests establish its current behavior; replacing a useful implementation with
+an unproven abstraction is not progress.
+
+### 4.1 Capability reuse map
+
+| Existing capability | Current implementation | Treatment in the remake |
+|---|---|---|
+| Fixed stage order and fabrication interlock | `docs/pipeline.py` | Keep the release-time enforcement. Split drafting into independent commands, but make `release` run every prerequisite check so a user cannot forget one. |
+| Research is advisory while designing and blocking at release | `pipeline.ADVISORY`, `check_research.py`, `run_gates.py` | Keep. This supports iteration without converting missing evidence into approval. |
+| Separate machinery, board, and workflow questions | `selftest_enforcement.py`, `run_gates.py`, `audit_workflow.py` | Keep these as distinct layers. The audit must continue calling the real gates rather than reimplementing them. |
+| Enforcement wiring plus strength testing | Synthetic hook events and fault injection in `selftest_enforcement.py` | Keep and expand. Every new blocking check needs a fault that proves it can fail, not only a registration test. |
+| Verified evidence acquisition | `collect_references.py` URL verification, content sniffing, local archive, and provenance rows | Keep the behavior; replace separate folder indexes with one structured multi-role evidence index. |
+| Exact source extraction | `fetch_reference_doc.py` Eagle parsing, raw download, PDF rendering, and page selection | Keep and expose through the evidence assistant. Add structured fact records rather than replacing the extraction path. |
+| Datasheet content validation | `check_datasheets.py` and research archive integrity checks reject HTML renamed as PDF | Keep and generalize to every evidence type. File extension alone never establishes evidence. |
+| Evidence priority and explicit disagreement | Datasheet/reference hierarchy and `DESIGN_BASIS.md` rows | Keep. Add the documented module exception: an integration manual may be the wiring authority while the datasheet remains the electrical-limit authority. |
+| Narrow, reviewable exceptions | `deviations.py` as the single parser; exact `## Declared` containment; ref and scope matching; struck-out rows disabled | Keep as one shared implementation. Do not create another waiver parser in the new package. |
+| Human-edit protection | `SCHEMATIC_OWNER`, canonicalized schematic hashes, drift tripwire, and `--regenerate` refusal | Keep and generalize from schematic ownership to accepted schematic and PCB revisions. |
+| One connectivity handoff | `extract_netmap.py` and versioned `netmap.json` | Keep during migration. The extractor already reproduced 283 declared pin assignments across all four boards with zero differences. |
+| Electrical parity beyond DRC | `check_netlist_parity.py` compares net sets and per-net pin membership through KiCad | Keep. It catches electrically absent pads that have no ratsnest and are therefore invisible to DRC. |
+| Schematic geometry protection | `LabelPlacer`, `SymbolPlacer`, grid conversion, crossing detection, title-block helpers, and sheet-density checks | Keep and extend. Use the existing collision/grid work while adding functional blocks, local wires, and actual hierarchy. |
+| Real-footprint placement geometry | `PlacementTracker`, union of courtyard and pad extents, coordinate conversion helpers, anchor handling, and near-pin placement | Keep as the basis of layout proposals. Preserve its fail-fast errors and measured-coordinate approach. |
+| Route completion pipeline | Shared DSN export, Freerouting, SES import, zone fill, ground bonding, DRC, `route_best_of.py`, `stitch_vias.py`, and `fix_via_annular.py` | Keep as an optional candidate-routing backend. Preserve version-specific behavior and post-route verification; do not promote it to final-layout authority. |
+| Pad-local routing keepouts | `dsn_keepouts.py` injection and pad-specific clearance handling in ground bonding | Keep. A board-wide clearance cannot replace footprint-local rules. Document Freerouting's remaining via limitation. |
+| Honest check scope | `check_design_rules.py` states that it covers 4 of 42 numbered rule sections | Keep this transparency. Every new check publishes what it proves and what remains human review. |
+| Physical and semantic PCB validation | `validate_pcb.py` checks placeholders, dimensions, routing presence, edges, pads, courtyards, symbol presence, module sockets, and connector class | Keep, split into testable checks, and retain exact failure details. |
+| Human work aggregation | Dated `SIGNOFF.md` enforcement and `human_work.py` aggregation | Keep the mechanism, replace generic checklists with project-relevant questions, and generate the aggregate report on demand. |
+| Fabrication correctness and provenance | `export_fab.py` reads LCSC data from the PCB, re-origins CPL coordinates to the board, and stamps design/check provenance | Keep. Generate only from an explicitly released design. |
+| Contextual feedback | `.claude/rules/` plus session-start, post-edit, and stop hooks | Keep the intent. Replace Bash/macOS assumptions with portable optional integrations and retain synthetic-event verification. |
+
+### 4.2 Board-derived engineering assets
+
+The current board records demonstrate an effective evidence-to-decision loop
+that the new workflow must preserve:
+
+- `baro-bmp390` caught missing board-level bulk decoupling and corrected a
+  reference-design conclusion by returning to the manufacturer specification.
+- `imu-icm42688` recovered the missing 2.2 uF capacitor, corrected the VDDIO
+  capacitor to 10 nF, and grounded pins that the datasheet did not permit to
+  float.
+- `gnss-neom9n` showed that a module integration manual can contain mandatory
+  wiring absent from the datasheet: grounded V_USB, 1 uF at VCC, and RF-input
+  ESD protection.
+- `tms-v3` caught invented module pin maps, an unverified crystal-load choice,
+  missing DVDD decoupling, connector-class mismatches, route post-processing
+  defects, and unresolved ignition-current and thermal questions.
+
+These are not historical decoration. Current facts remain in each project's
+requirements, design basis, deviations, evidence, and safety records. General
+failure patterns become checks or maintained limitations; only duplicated or
+superseded narrative is deleted.
+
+### 4.3 Recurring defect classes remain design constraints
+
+The categories already named in `docs/ARCHITECTURE.md` remain mandatory review
+questions during the remake:
+
+- Can the check actually fail under fault injection?
+- Does a fresh template accidentally satisfy its own check?
+- Is a useful tool invoked by a real path rather than mentioned only in prose?
+- Is an exception wider than the exact condition it waives?
+- Are two parsers or two build paths interpreting the same source differently?
+- Did a fix reach every generated and accepted artifact?
+- Is a gate reading output from the current run rather than stale state?
+- Is the result deterministic, or does it report repeated measurements and the
+  worse outcome?
+
+These constraints apply to the new CLI and package just as they apply to the
+existing scripts.
+
+## 5. Sources of truth and ownership
 
 Accepted `.kicad_sch` and `.kicad_pcb` files are the electrical and physical
 sources of truth. Project-specific generator scripts are not permanent
@@ -98,7 +181,7 @@ schematic-to-PCB connectivity contract. The target implementation generates
 and validates it from the accepted schematic. It may later become an internal
 serialized artifact only after equivalent reviewable diffs exist.
 
-## 5. Target repository structure
+## 6. Target repository structure
 
 ```text
 README.md
@@ -132,6 +215,12 @@ tools/
   kicad-claude-mcp/
 ```
 
+This is the target shape, not a big-bang directory move. During migration,
+the existing `docs/*.py` commands remain callable. When a capability moves,
+the old path first becomes a compatibility entry point that calls the new
+implementation. Hooks, board scripts, tests, and documentation are updated
+before that entry point is deleted.
+
 `tools/kicad-claude-mcp` stays initially because current project generators
 directly import its adapters and editing APIs. Its useful interfaces may be
 wrapped behind `pcb_copilot` boundaries, but it will not be removed merely to
@@ -143,9 +232,9 @@ library-fetch behavior will be evaluated before any file-level cleanup.
 Whole repositories are not deleted under this design solely because their
 runtime APIs are not currently imported.
 
-## 6. Components and responsibilities
+## 7. Components and responsibilities
 
-### 6.1 Project model
+### 7.1 Project model
 
 The project component loads `project.yaml` and resolves paths, accepted design
 files, ownership, lifecycle state, board constraints, and enabled checks. It
@@ -162,7 +251,7 @@ the engineering documents. It includes:
 - enabled manufacturing profile; and
 - safety classification flags that select additional review items.
 
-### 6.2 Evidence assistant
+### 7.2 Evidence assistant
 
 The evidence component searches for, downloads, hashes, and indexes source
 documents. One physical document can have several roles, such as datasheet,
@@ -184,7 +273,7 @@ Extracted facts retain document and page citations. Conflicting revisions or
 sources remain visible. The assistant never converts an unresolved conflict
 into an approved design fact.
 
-### 6.3 Schematic assistant
+### 7.3 Schematic assistant
 
 The schematic component creates an engineering draft from approved
 requirements and evidence. It reuses the working KiCad adapters, verified
@@ -212,7 +301,7 @@ parts, local wiring, meaningful labels, and manageable sheet density. It does
 not mean universally correct circuit judgment or publication-quality visual
 polish without human review.
 
-### 6.4 Layout assistant
+### 7.4 Layout assistant
 
 The layout component verifies real footprints and proposes:
 
@@ -232,7 +321,7 @@ Final placement and routing remain human-controlled. An autorouter result is
 a candidate, never evidence of good placement, return-current quality,
 thermal suitability, RF correctness, or safety.
 
-### 6.5 Review engine
+### 7.5 Review engine
 
 The review component separates findings into three categories:
 
@@ -250,7 +339,7 @@ Sign-off is project-specific. A simple barometer should not inherit irrelevant
 module-socket, high-current, and XT60 questions merely because another board
 uses them.
 
-### 6.6 Fabrication component
+### 7.6 Fabrication component
 
 The fabrication component generates Gerbers, drill files, BOM, CPL, and a
 release manifest from the accepted KiCad design. The release manifest records
@@ -261,7 +350,7 @@ The BOM is generated from the accepted design and evidence metadata. A
 hand-maintained BOM that can silently disagree with the schematic is not an
 authoritative artifact.
 
-## 7. Command behavior
+## 8. Command behavior
 
 The target CLI exposes independent commands rather than a mandatory cascade:
 
@@ -279,11 +368,20 @@ pcb-copilot release PROJECT_PATH
 write proposals. `accept` and `release` are the only normal commands that
 change ownership or lifecycle state.
 
+Independent drafting does not remove the current pipeline's strongest safety
+property. `release` is a strict orchestrator: it refreshes evidence status,
+derives and checks the netmap, runs ERC, schematic-quality, placement,
+design-rule, parity, DRC, and dated human-sign-off checks, and only then calls
+fabrication export. It always emits the complete review report even when an
+early prerequisite fails, while preventing later mutating stages from running.
+This preserves the useful parts of fixed stage order without forcing a full
+regeneration during ordinary design work.
+
 The exact CLI spelling may change during implementation planning if the
 existing command structure offers a simpler compatible transition. The
 behavioral boundaries above are fixed.
 
-## 8. Failure handling
+## 9. Failure handling
 
 - Missing or inaccessible evidence produces an unresolved item, not a guess.
 - Conflicting datasheet revisions are reported together.
@@ -298,7 +396,7 @@ behavioral boundaries above are fixed.
 - KiCad discovery, subprocess behavior, file encoding, and paths are tested
   on Windows. Hard-coded macOS paths are removed.
 
-## 9. Preservation-first migration contract
+## 10. Preservation-first migration contract
 
 Every implementation job begins by reading the current implementation, its
 callers, tests, generated artifacts, and relevant documentation.
@@ -322,7 +420,7 @@ The project-specific `gen_*_sch.py` and `gen_*_pcb.py` files survive the
 initial cleanup. They serve as behavioral references and regression fixtures.
 Reusable logic is extracted before a superseded generator is deleted.
 
-## 10. Documentation design and cleanup
+## 11. Documentation design and cleanup
 
 The maintained documentation set is intentionally small:
 
@@ -373,9 +471,9 @@ accepted KiCad files, real symbols, footprints, 3D models, current
 requirements, current design decisions, deviations, safety records, and
 working validation logic unless a verified canonical replacement exists.
 
-## 11. Verification strategy
+## 12. Verification strategy
 
-### 11.1 Unit tests
+### 12.1 Unit tests
 
 Unit coverage includes:
 
@@ -391,7 +489,7 @@ Unit coverage includes:
 - footprint and courtyard geometry; and
 - release-state invalidation after design changes.
 
-### 11.2 Regression fixtures
+### 12.2 Regression fixtures
 
 The four existing boards are regression fixtures:
 
@@ -408,7 +506,7 @@ no-connects, footprints, board nets, and critical constraints. Cosmetic
 format changes are allowed only when connectivity remains equivalent and the
 rendered result improves.
 
-### 11.3 Integration and visual checks
+### 12.3 Integration and visual checks
 
 - Run the installed KiCad CLI for ERC, DRC, rendering, and fabrication
   exports.
@@ -419,22 +517,32 @@ rendered result improves.
 - Verify that TMS V3 becomes a sensible multi-sheet schematic.
 - Confirm that no accepted file changes during a failed or read-only command.
 
-## 12. Migration sequence
+## 13. Migration sequence
 
-1. Baseline and dependency inventory
-2. Documentation truth and deletion of proven stale material
-3. Cross-platform package, CLI, and project model
-4. Unified evidence store
-5. Schematic assistant and board-by-board migration
-6. Layout assistant and board-by-board migration
-7. Review and release model
-8. Fabrication output
-9. Final deletion of superseded implementations and generated artifacts
-10. Full regression, KiCad-open, and documentation-consistency review
+1. Complete capability and dependency inventory across workspace docs,
+   scripts, tool APIs, hooks, tests, and all four boards
+2. Characterization tests for every capability classified `KEEP` or
+   `REFACTOR`, including fault injection for blocking checks
+3. Documentation truth and deletion of only proven stale narrative
+4. Cross-platform package, compatibility entry points, CLI, and project model
+5. Unified evidence store built on the existing collection and extraction
+   behavior
+6. Schematic assistant built on the existing KiCad and schematic-layout
+   helpers, followed by board-by-board migration
+7. Layout assistant built on the existing placement and route pipeline,
+   followed by board-by-board migration
+8. Review and release model built on the existing gates, audit, self-test,
+   sign-off, and fabrication interlock
+9. Fabrication output built on the existing BOM, CPL, Gerber, and provenance
+   behavior
+10. Final deletion of superseded implementations, generated artifacts,
+    duplicate evidence, and obsolete documentation
+11. Full regression, KiCad-open, fault-injection, and
+    documentation-consistency review
 
 The repository must remain usable after every numbered phase.
 
-## 13. Success criteria
+## 14. Success criteria
 
 The remake is successful when:
 
@@ -454,7 +562,7 @@ The remake is successful when:
 - fabrication output identifies the exact reviewed design revision; and
 - no deleted file contained unique current behavior or engineering evidence.
 
-## 14. Known limitations after the remake
+## 15. Known limitations after the remake
 
 Even when every success criterion is met, the copilot cannot prove:
 
@@ -472,7 +580,7 @@ Even when every success criterion is met, the copilot cannot prove:
 These are displayed as limitations or human-review requirements, never
 silently converted into automated passes.
 
-## 15. Future work
+## 16. Future work
 
 After the core remake is stable, future work may add:
 
