@@ -64,6 +64,15 @@ from datetime import date
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO / 'src'))
+
+from pcb_copilot.evidence.archive import (  # noqa: E402
+    InvalidEvidencePayload,
+    archive_document,
+    sniff_media_type,
+)
+from pcb_copilot.evidence.models import EvidenceRole, TrustTier  # noqa: E402
+from pcb_copilot.project import load_project  # noqa: E402
 
 # Canonical per-vendor entry points, ordered by the trust tiers in
 # docs/WORKFLOW.md Step 2.2. These are SEARCH SEEDS, not guaranteed
@@ -121,23 +130,31 @@ def verify_url(url: str) -> tuple[bool, str]:
 def sniff(path: Path) -> str:
     """What did we ACTUALLY download? A vendor login wall saved as .pdf is
     the classic silent failure — the gate then sees a file and passes."""
-    if not path.is_file() or path.stat().st_size == 0:
+    if not path.is_file():
         return 'empty'
-    head = path.read_bytes()[:2048]
-    if head[:4] == b'%PDF':
-        return 'pdf'
-    if head[:2] == b'PK':
-        return 'zip'
-    low = head.lower()
-    if b'<html' in low or b'<!doctype html' in low:
-        return 'html'
-    if b'<?xml' in low and b'eagle' in low:
-        return 'eagle'
-    if b'kicad_sch' in low or b'kicad_pcb' in low:
-        return 'kicad'
-    if b'<?xml' in low:
-        return 'xml'
-    return 'binary'
+    media_type = sniff_media_type(path.read_bytes())
+    return {
+        'application/x-empty': 'empty',
+        'application/pdf': 'pdf',
+        'application/zip': 'zip',
+        'text/html': 'html',
+        'application/vnd.eagle+xml': 'eagle',
+        'application/x-kicad-schematic': 'kicad',
+        'application/x-kicad-pcb': 'kicad',
+        'application/xml': 'xml',
+    }.get(media_type, 'binary')
+
+
+def _download_bytes(url: str) -> bytes:
+    result = subprocess.run(
+        ['curl', '-sSL', '--max-time', '120', url],
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        stderr = result.stderr.decode('utf-8', 'replace').strip()
+        raise RuntimeError(f'download failed: {stderr[:200]}')
+    return result.stdout
 
 
 def cmd_suggest(part: str) -> int:
@@ -158,55 +175,38 @@ def cmd_suggest(part: str) -> int:
 
 
 def cmd_add(proj: Path, part: str, url: str, kind: str, note: str) -> int:
-    out_dir = proj / KIND_DIR[kind]
-    out_dir.mkdir(parents=True, exist_ok=True)
-
     alive, code = verify_url(url)
     if not alive:
         print(f'[DEAD] HTTP {code}  {url}')
         print('Report it as "verified dead, HTTP %s" — never as "couldn\'t fetch".' % code)
         return 1
 
-    stem = re.sub(r'[^A-Za-z0-9._-]', '_', f'{part}_{Path(url).name or "doc"}')[:90]
-    if '.' not in stem[-6:]:
-        stem += '.pdf'
-    dest = out_dir / stem
-    r = _sh(['curl', '-sSL', '--max-time', '120', '-o', str(dest), url])
-    if r.returncode != 0:
-        print(f'[FAIL] download failed: {r.stderr.strip()[:200]}')
+    try:
+        payload = _download_bytes(url)
+    except RuntimeError as exc:
+        print(f'[FAIL] {exc}')
         return 1
-
-    fmt = sniff(dest)
-    if fmt in ('empty', 'html'):
-        dest.unlink(missing_ok=True)
-        print(f'[REJECT] URL returned {fmt}, not a document — this is a login '
-              f'wall or an error page, not a reference. Not archived.')
+    role = (EvidenceRole.DATASHEET if kind == 'datasheet'
+            else EvidenceRole.REFERENCE_DESIGN)
+    trust = (TrustTier.MANUFACTURER if kind == 'datasheet'
+             else TrustTier.PROVEN_OPEN_HARDWARE)
+    try:
+        record = archive_document(
+            load_project(proj),
+            part,
+            url,
+            {role},
+            payload,
+            date.today(),
+            title=note or None,
+            trust_tier=trust,
+        )
+    except InvalidEvidencePayload as exc:
+        print(f'[REJECT] {exc}. Not archived.')
         return 1
-
-    # Name the file after what it ACTUALLY is. The '.pdf' default above is a
-    # guess made before the bytes arrive, and it archived a KiCad schematic
-    # as `ICM-42688.kicad_sch.pdf` — a filename that contradicts its own
-    # contents. That is the exact mismatch `check_datasheets.py` now rejects,
-    # and there is no reason to create it here and detect it there.
-    EXT = {'pdf': '.pdf', 'zip': '.zip', 'eagle': '.sch',
-           'kicad': '.kicad_sch', 'xml': '.xml'}
-    want = EXT.get(fmt)
-    if want and dest.suffix != want:
-        fixed = dest.with_name(re.sub(r'\.(pdf|zip|xml)$', '', dest.name) + want)
-        if fixed != dest:
-            dest.rename(fixed)
-            dest = fixed
-
-    idx = out_dir / 'INDEX.md'
-    if not idx.is_file():
-        idx.write_text(INDEX_HEADER)
-    kb = dest.stat().st_size // 1024
-    line = (f'{part}  ->  {dest.name}  # {url} | fetched {date.today()} | '
-            f'{fmt} {kb}KB{" | " + note if note else ""}\n')
-    with idx.open('a') as fh:
-        fh.write(line)
-    print(f'[OK] {fmt} {kb}KB -> {dest.relative_to(REPO)}')
-    print(f'     provenance recorded in {idx.relative_to(REPO)}')
+    kb = len(payload) // 1024
+    print(f'[OK] {record.media_type} {kb}KB -> evidence/{record.path}')
+    print('     provenance recorded in evidence/index.yaml')
     return 0
 
 
