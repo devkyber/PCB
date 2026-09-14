@@ -220,7 +220,7 @@ print("Section 1: Mounting holes + fiducials...")
 # it that also keeps its pad 0.3mm off the board edge.
 #
 # Pattern taken from the archived reference: Adafruit's BMP390 breakout
-# (reference-designs/BMP390_Adafruit_20BMP390.brd, 25.40 x 17.78mm) puts both
+# (evidence/files/BMP390_Adafruit_20BMP390.brd, 25.40 x 17.78mm) puts both
 # M2.5 holes on one long edge at (2.54, 15.24) and (22.86, 15.24) — 2.54mm
 # inset, connectors on the perpendicular edges, no hole sharing an edge with
 # a connector. Same rule here, scaled to an 18mm-wide board: 2.8mm inset,

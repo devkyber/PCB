@@ -1,0 +1,49 @@
+schema_version: 1
+records:
+- id: sha256:8dcf0f74449cb1627e865c7f24d328b76c204d8b9621091ede8c6869fb393e48
+  manufacturer: null
+  part_numbers:
+  - BMP390
+  - C5124834
+  title: BMP390-datasheet
+  revision: null
+  source_url: https://www.lcsc.com/datasheet/lcsc_datasheet_2410121912_Bosch-Sensortec-BMP390_C5124834.pdf
+  retrieved_on: '2026-08-25'
+  path: files/BMP390-datasheet.pdf
+  sha256: 8dcf0f74449cb1627e865c7f24d328b76c204d8b9621091ede8c6869fb393e48
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - U1
+- id: sha256:d732c7e871d1739e18aeccb356b2ab8c0f3e08bc8d89565dc1896740f45c3a7a
+  manufacturer: null
+  part_numbers:
+  - BMP390
+  title: BMP390_Adafruit_20BMP390
+  revision: null
+  source_url: https://raw.githubusercontent.com/adafruit/Adafruit-BMP3xx-PCB/master/Adafruit%20BMP390.brd
+  retrieved_on: '2026-08-25'
+  path: files/BMP390_Adafruit_20BMP390.brd
+  sha256: d732c7e871d1739e18aeccb356b2ab8c0f3e08bc8d89565dc1896740f45c3a7a
+  media_type: application/vnd.eagle+xml
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs: []
+- id: sha256:e76e50bdad16f5cfc29cbe802ebddd36b849fdbe39417e3741ece62b21825229
+  manufacturer: null
+  part_numbers:
+  - BMP390
+  title: BMP390_Adafruit_20BMP390
+  revision: null
+  source_url: https://raw.githubusercontent.com/adafruit/Adafruit-BMP3xx-PCB/master/Adafruit%20BMP390.sch
+  retrieved_on: '2026-08-25'
+  path: files/BMP390_Adafruit_20BMP390.sch
+  sha256: e76e50bdad16f5cfc29cbe802ebddd36b849fdbe39417e3741ece62b21825229
+  media_type: application/vnd.eagle+xml
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs: []
