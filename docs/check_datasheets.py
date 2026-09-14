@@ -48,7 +48,11 @@ import re
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+REPO = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO / 'src'))
+sys.path.insert(0, str(REPO / 'docs'))
+from pcb_copilot.evidence.checks import Part, check_evidence  # noqa: E402
+from pcb_copilot.project import load_project  # noqa: E402
 from collect_references import sniff          # noqa: E402  (payload verification)
 
 EXEMPT_PREFIXES = ('R', 'C', 'L', 'TP', 'FID', 'H', 'LED')
@@ -140,11 +144,37 @@ def _matches(value: str, ref: str, files: list[str], index: dict[str, str]) -> s
 
 
 def check(pcb_path: Path) -> tuple[bool, str]:
-    text = pcb_path.read_text()
+    text = pcb_path.read_text(encoding='utf-8')
     ds_dir = pcb_path.parent / 'datasheets'
     files = [p.name for p in ds_dir.glob('*.pdf')] if ds_dir.is_dir() else []
     index = _load_index(ds_dir)
     needed = parts_needing_datasheets(text)
+
+    project = load_project(pcb_path.parent)
+    if project.evidence_index_path.is_file():
+        parts = [
+            Part(
+                reference=ref,
+                part_number=value,
+                requires_datasheet=True,
+                is_module=any(hint in value.lower() for hint in MODULE_HINTS),
+            )
+            for ref, value in needed
+        ]
+        findings = check_evidence(project, parts)
+        relevant = [
+            finding
+            for finding in findings
+            if finding.code.startswith('archive.')
+            or finding.code in {'index.invalid', 'index.missing',
+                                'part.missing_datasheet',
+                                'part.missing_module_document'}
+        ]
+        lines = [f'{len(needed)} part(s) require a datasheet; unified evidence index']
+        lines.extend(f'{finding.code}: {finding.message}' for finding in relevant)
+        if not relevant:
+            lines.append('every part accounted for in verified evidence')
+        return not relevant, '\n'.join(lines)
 
     missing, fake = [], []
     from deviations import waived as _waived

@@ -128,7 +128,7 @@ def archive_document(
 
     existing = next((item for item in index.records if item.id == evidence_id), None)
     if existing is not None:
-        if existing.source_url != url:
+        if existing.source_url and existing.source_url != url:
             raise EvidenceConflictError(
                 f"content {evidence_id} already has source URL {existing.source_url}"
             )

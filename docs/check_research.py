@@ -37,7 +37,11 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO / 'src'))
 sys.path.insert(0, str(REPO / 'docs'))
+
+from pcb_copilot.evidence.checks import Part, check_evidence  # noqa: E402
+from pcb_copilot.project import load_project  # noqa: E402
 
 PASSIVE = ('R', 'C', 'L', 'TP', 'FID', 'H', 'LED', 'D', 'SW', 'F', 'JP')
 MODULE_HINTS = ('teensy', 'xbee', 'arduino', 'esp', 'raspberry', 'pico',
@@ -149,6 +153,24 @@ def _deviation_problems(proj: Path) -> list:
     return parse(proj)[1]
 
 
+def _unified_findings(proj: Path, inv):
+    project = load_project(proj)
+    if not project.evidence_index_path.is_file():
+        return None
+    parts = [
+        Part(
+            reference=ref,
+            part_number=value,
+            requires_datasheet=False,
+            requires_reference=is_key,
+            is_module=any(hint in value.lower() for hint in MODULE_HINTS),
+        )
+        for ref, value, _pads, _lcsc_part, is_key in inv
+        if is_key
+    ]
+    return check_evidence(project, parts)
+
+
 # ---------------------------------------------------------------- checks
 
 def check_requirements(proj: Path, inv) -> tuple[bool, str]:
@@ -200,6 +222,18 @@ def _section(txt: str, name: str) -> str:
 
 
 def check_references(proj: Path, inv) -> tuple[bool, str]:
+    unified = _unified_findings(proj, inv)
+    if unified is not None:
+        problems = [
+            finding for finding in unified
+            if finding.code in {'part.missing_reference', 'part.untrusted_reference',
+                                'part.missing_module_document'}
+        ]
+        if problems:
+            return False, '\n'.join(finding.message for finding in problems)
+        key_count = sum(1 for *_rest, is_key in inv if is_key)
+        return True, f'{key_count} key part(s); every key part has verified reference evidence'
+
     from collect_references import read_index
     idx = proj / 'reference-designs' / 'INDEX.md'
     rows = read_index(idx)
@@ -244,6 +278,16 @@ def check_archive_integrity(proj: Path, inv) -> tuple[bool, str]:
     checked for a newer revision, and that is the whole reason the archive
     exists rather than a browser tab.
     """
+    unified = _unified_findings(proj, inv)
+    if unified is not None:
+        problems = [
+            finding for finding in unified
+            if finding.code.startswith('archive.') or finding.code.startswith('index.')
+        ]
+        if problems:
+            return False, '\n'.join(finding.message for finding in problems)
+        return True, 'all unified evidence bytes present, hashed, typed, and sourced'
+
     from collect_references import read_index, sniff
     bad, total = [], 0
     for sub in ('reference-designs', 'datasheets'):
@@ -284,6 +328,14 @@ def check_design_basis(proj: Path, inv) -> tuple[bool, str]:
     scaffolded template, whose example row literally reads `<U1>`. A check
     that a blank template satisfies is worse than no check: it certifies the
     thing it was written to catch."""
+    unified = _unified_findings(proj, inv)
+    if unified is not None:
+        problems = [finding for finding in unified if finding.code == 'part.missing_basis']
+        if problems:
+            return False, '\n'.join(finding.message for finding in problems)
+        key_count = sum(1 for *_rest, is_key in inv if is_key)
+        return True, f'{key_count} key part(s), each with a sourced basis row'
+
     f = proj / 'DESIGN_BASIS.md'
     key = [(r, v) for r, v, _, _, k in inv if k]
     if not key:

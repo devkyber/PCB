@@ -33,7 +33,7 @@ class EvidenceRecord(BaseModel):
     part_numbers: frozenset[str] = Field(min_length=1)
     title: str | None = None
     revision: str | None = None
-    source_url: str = Field(min_length=1)
+    source_url: str | None = None
     retrieved_on: date
     path: str = Field(min_length=1)
     sha256: str = Field(min_length=1, pattern=r"^[0-9a-fA-F]+$")
