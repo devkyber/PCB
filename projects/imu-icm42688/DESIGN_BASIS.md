@@ -8,9 +8,9 @@ wrote down is indistinguishable from an oversight. Verdicts are `Match` or
 
 | File | What it is | Trust tier |
 |---|---|---|
-| `datasheets/ICM-42688-P_ds-000347-icm-42688-p-v1.6.pdf` | TDK InvenSense DS-000347 **rev 1.6** — §4.2 Figure 6 is the manufacturer's own SPI application schematic | Tier 0 (the part's specification; outranks everything below) |
-| `datasheets/ICM-42688-P_ICM-42688-P_Datasheet.pdf` | DS-000347 **rev 1.2**, SparkFun CDN copy — kept as an independent cross-check | Tier 0 (older revision) |
-| `reference-designs/ICM-42688-P_ICM-42688.kicad_sch` | anyshake ICM-42688 breakout, **KiCad source** — exact values, not a summary | Tier 2 (open hardware) |
+| `evidence/files/ICM-42688-P_ds-000347-icm-42688-p-v1.6.pdf` | TDK InvenSense DS-000347 **rev 1.6** — §4.2 Figure 6 is the manufacturer's own SPI application schematic | Tier 0 (the part's specification; outranks everything below) |
+| `evidence/files/ICM-42688-P_ICM-42688-P_Datasheet.pdf` | DS-000347 **rev 1.2**, SparkFun CDN copy — kept as an independent cross-check | Tier 0 (older revision) |
+| `evidence/files/ICM-42688-P_ICM-42688.kicad_sch` | anyshake ICM-42688 breakout, **KiCad source** — exact values, not a summary | Tier 2 (open hardware) |
 
 **Revision note, stated because it matters:** TDK lists v1.9 as current. Their
 own host returns **HTTP 403 to curl** (verified, not "couldn't fetch"), so the

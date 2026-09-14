@@ -4,7 +4,7 @@
 > required.** Written backwards out of the schematic, the layout and the
 > archived datasheet, so it describes what exists rather than what was
 > wanted. Open questions are marked **[OWNER]**. Every number below is quoted
-> from `datasheets/ICM-42688-P_ds-000347-icm-42688-p-v1.6.pdf` or measured
+> from `evidence/files/ICM-42688-P_ds-000347-icm-42688-p-v1.6.pdf` or measured
 > from the board — none are recalled.
 
 ## Purpose

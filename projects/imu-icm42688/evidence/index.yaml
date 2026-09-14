@@ -1,0 +1,47 @@
+schema_version: 1
+records:
+- id: sha256:4d7c04e3e86f37defe27c20a82b9fcd9d4ddbd3b9d68a525c2d49595d52cf97a
+  manufacturer: null
+  part_numbers:
+  - ICM-42688-P
+  title: ICM-42688-P_ICM-42688-P_Datasheet
+  revision: null
+  source_url: https://cdn.sparkfun.com/assets/f/e/4/5/a/ICM-42688-P_Datasheet.pdf
+  retrieved_on: '2026-08-25'
+  path: files/ICM-42688-P_ICM-42688-P_Datasheet.pdf
+  sha256: 4d7c04e3e86f37defe27c20a82b9fcd9d4ddbd3b9d68a525c2d49595d52cf97a
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:5710af9388adbb311557e99203e5834e17fb0b6e16baf9c09a8bce18b2ce1b9c
+  manufacturer: null
+  part_numbers:
+  - ICM-42688-P
+  title: ICM-42688-P_ds-000347-icm-42688-p-v1.6
+  revision: null
+  source_url: https://raw.githubusercontent.com/anyshake/icm-42688-breakout/HEAD/hardware/datasheet/ds-000347-icm-42688-p-v1.6.pdf
+  retrieved_on: '2026-08-25'
+  path: files/ICM-42688-P_ds-000347-icm-42688-p-v1.6.pdf
+  sha256: 5710af9388adbb311557e99203e5834e17fb0b6e16baf9c09a8bce18b2ce1b9c
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:85528c2c2811b5eafe5bc8b88e6a3997c9d46f225bfc0471cb22a8c88a0e39a1
+  manufacturer: null
+  part_numbers:
+  - ICM-42688-P
+  title: ICM-42688-P_ICM-42688
+  revision: null
+  source_url: https://raw.githubusercontent.com/anyshake/icm-42688-breakout/HEAD/hardware/ICM-42688.kicad_sch
+  retrieved_on: '2026-08-25'
+  path: files/ICM-42688-P_ICM-42688.kicad_sch
+  sha256: 85528c2c2811b5eafe5bc8b88e6a3997c9d46f225bfc0471cb22a8c88a0e39a1
+  media_type: application/x-kicad-schematic
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs: []
