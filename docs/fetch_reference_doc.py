@@ -58,6 +58,9 @@ import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+REPO = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO / "src"))
+
 
 # --------------------------------------------------------------------------- #
 # Direct, unsummarized fetching
@@ -202,6 +205,19 @@ def render_pdf_pages(pdf_path: str | Path, pages: list[int], out_dir: str | Path
         pix.save(str(out_path))
         written.append(out_path)
     return written
+
+
+# The package implementation is now authoritative; these names remain the
+# compatibility surface used by existing scripts and command invocations.
+from pcb_copilot.evidence.extract import (  # noqa: E402
+    find_pins_for_part as _find_pins_for_part,
+    parse_eagle_schematic as _parse_eagle_schematic,
+    render_pdf_pages as _render_pdf_pages,
+)
+
+parse_eagle_schematic = _parse_eagle_schematic
+find_pins_for_part = _find_pins_for_part
+render_pdf_pages = _render_pdf_pages
 
 
 # --------------------------------------------------------------------------- #
