@@ -32,6 +32,7 @@ def _write_index(
     trust=TrustTier.PROVEN_OPEN_HARDWARE,
 ):
     evidence = project_copy / "evidence"
+    shutil.rmtree(evidence, ignore_errors=True)
     source = evidence / "files" / "BMP390.pdf"
     source.parent.mkdir(parents=True)
     payload = b"%PDF-1.7\nchecker fixture"
@@ -125,8 +126,8 @@ def test_numbered_rule_deviation_cannot_waive_missing_reference(project_copy):
 
 def test_legacy_gate_entry_points_consume_unified_index(project_copy, repo_root):
     _write_index(project_copy)
-    shutil.rmtree(project_copy / "datasheets")
-    shutil.rmtree(project_copy / "reference-designs")
+    shutil.rmtree(project_copy / "datasheets", ignore_errors=True)
+    shutil.rmtree(project_copy / "reference-designs", ignore_errors=True)
     sys.path.insert(0, str(repo_root / "docs"))
     datasheets = importlib.import_module("check_datasheets")
     research = importlib.import_module("check_research")

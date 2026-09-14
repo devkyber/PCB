@@ -14,7 +14,7 @@ Archive the source first so the citation points at a file you still have:
 
 | Ref | Part | Aspect | Ours | Reference says | Source | Verdict |
 |---|---|---|---|---|---|---|
-| <U1> | <PART> | decoupling | <100nF> | <10uF + 100nF> | <reference-designs/FILE + url> | <Match / Deviate: reason> |
+| <U1> | <PART> | decoupling | <100nF> | <10uF + 100nF> | <evidence/files/FILE + url> | <Match / Deviate: reason> |
 
 Verdict must be `Match` or `Deviate: <reason>`. "Deviate" with a real reason
 is a good outcome — this file is not here to make you copy the EVM, it is

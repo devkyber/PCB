@@ -1,4 +1,5 @@
 import importlib
+import shutil
 import sys
 from datetime import date
 
@@ -12,6 +13,11 @@ from pcb_copilot.evidence.archive import (
 from pcb_copilot.evidence.index import load_evidence_index
 from pcb_copilot.evidence.models import EvidenceRole
 from pcb_copilot.project import load_project
+
+
+def _without_unified_evidence(project_copy):
+    shutil.rmtree(project_copy / "evidence", ignore_errors=True)
+    return load_project(project_copy)
 
 
 @pytest.mark.parametrize(
@@ -35,7 +41,7 @@ def test_sniff_media_type_uses_payload_not_filename(payload, media_type):
     ],
 )
 def test_archive_rejects_html_named_pdf(project_copy, tree_hash, payload):
-    project = load_project(project_copy)
+    project = _without_unified_evidence(project_copy)
     before = tree_hash(project_copy)
 
     with pytest.raises(InvalidEvidencePayload, match="HTML"):
@@ -52,7 +58,7 @@ def test_archive_rejects_html_named_pdf(project_copy, tree_hash, payload):
 
 
 def test_pdf_claim_rejects_non_pdf_bytes_without_creating_evidence(project_copy):
-    project = load_project(project_copy)
+    project = _without_unified_evidence(project_copy)
 
     with pytest.raises(InvalidEvidencePayload, match="claims PDF"):
         archive_document(
@@ -68,7 +74,7 @@ def test_pdf_claim_rejects_non_pdf_bytes_without_creating_evidence(project_copy)
 
 
 def test_archive_writes_hashed_bytes_and_index(project_copy):
-    project = load_project(project_copy)
+    project = _without_unified_evidence(project_copy)
     payload = b"%PDF-1.7\nfixture"
 
     record = archive_document(
@@ -90,7 +96,7 @@ def test_archive_writes_hashed_bytes_and_index(project_copy):
 
 
 def test_same_bytes_merge_roles_parts_and_refs_without_duplicate_file(project_copy):
-    project = load_project(project_copy)
+    project = _without_unified_evidence(project_copy)
     payload = b"%PDF-1.7\nshared manual"
     first = archive_document(
         project,
@@ -125,6 +131,7 @@ def test_same_bytes_merge_roles_parts_and_refs_without_duplicate_file(project_co
 def test_legacy_add_command_archives_to_unified_index(
     project_copy, repo_root, monkeypatch
 ):
+    _without_unified_evidence(project_copy)
     sys.path.insert(0, str(repo_root / "docs"))
     collect = importlib.import_module("collect_references")
     monkeypatch.setattr(collect, "verify_url", lambda _url: (True, "200"))

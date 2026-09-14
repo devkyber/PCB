@@ -3,8 +3,9 @@
 > **Status: RECONSTRUCTED FROM THE AS-BUILT BOARD, 2026-08-25. Owner review
 > required.** Written backwards out of the schematic, the layout and the
 > archived u-blox documents. Open questions are marked **[OWNER]**. Numbers
-> are quoted from `datasheets/NEO-M9N-00B_..._UBX-19014285.pdf` or from
-> `reference-designs/..._Integrationmanual_UBX-19014286.pdf`, or measured.
+> are quoted from `evidence/files/NEO-M9N-00B_NEO-M9N-00B_DataSheet_UBX-19014285.pdf`
+> or `evidence/files/NEO-M9N-00B_NEO-M9N_Integrationmanual_UBX-19014286.pdf`,
+> or measured.
 
 ## Purpose
 A GNSS receiver breakout: u-blox NEO-M9N-00B with an onboard 3.3V LDO, a

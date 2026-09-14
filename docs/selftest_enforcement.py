@@ -161,8 +161,8 @@ for cmd in ['pcb-new.md', 'pcb-from-bom.md']:
 for proj in sorted((REPO / 'projects').iterdir()):
     if not proj.is_dir() or not list(proj.glob('*.kicad_pcb')):
         continue
-    for art in ['SIGNOFF.md', 'DEVIATIONS.md', 'build.sh', 'datasheets/INDEX.md',
-                'REQUIREMENTS.md', 'DESIGN_BASIS.md', 'reference-designs/INDEX.md']:
+    for art in ['SIGNOFF.md', 'DEVIATIONS.md', 'build.sh', 'evidence/index.yaml',
+                'REQUIREMENTS.md', 'DESIGN_BASIS.md']:
         check(f'{proj.name}: {art}', (proj / art).exists(),
               'run: python3 docs/run_gates.py --init projects/' + proj.name)
 
@@ -175,7 +175,8 @@ for proj in sorted((REPO / 'projects').iterdir()):
 # open. These two checks fault-inject that exact file.
 import shutil as _sh
 _bd = REPO / 'projects' / 'baro-bmp390'
-_ds = _bd / 'datasheets' / 'BMP390-datasheet.pdf'
+_ds = _bd / 'evidence' / 'files' / 'BMP390-datasheet.pdf'
+check('baro self-test evidence fixture exists', _ds.is_file(), str(_ds))
 if _ds.is_file():
     _bak = REPO / '.selftest-datasheet.bak'
     try:
@@ -188,31 +189,31 @@ if _ds.is_file():
                              str(next(_bd.glob('*.kicad_pcb')))],
                             capture_output=True, text=True)
         check('datasheet gate REJECTS an HTML login wall named .pdf',
-              _r.returncode != 0 and 'NOT A DATASHEET' in _r.stdout,
+              _r.returncode != 0 and 'archive.html_payload' in _r.stdout,
               (_r.stdout or _r.stderr).strip()[:150])
     finally:
         if _bak.is_file():
             _sh.copy2(_bak, _ds)
             _bak.unlink()
 
-    # And provenance: a document on disk with no INDEX.md row has no
-    # recorded origin, so it cannot be re-fetched or revision-checked.
-    # Integrity walked INDEX rows only, which made an unlisted file invisible.
-    _idx = _bd / 'datasheets' / 'INDEX.md'
-    _orig = _idx.read_text(encoding='utf-8')
+    # And provenance: a document on disk with no source_url has no recorded
+    # origin, so it cannot be re-fetched or revision-checked.
+    _idx = _bd / 'evidence' / 'index.yaml'
+    _original_index = _idx.read_bytes()
+    _orig = _original_index.decode('utf-8')
     try:
         _idx.write_text(
-            _orig.replace('U1, BMP390, C5124834  ->', '# removed for selftest:'),
+            re.sub(r'(?m)^(  source_url:) .+$', r'\1 null', _orig, count=1),
             encoding='utf-8',
         )
         _r = subprocess.run([sys.executable, str(REPO / 'docs/check_research.py'),
                              str(next(_bd.glob('*.kicad_pcb')))],
                             capture_output=True, text=True)
         check('archive integrity FLAGS a document with no source URL',
-              'not in datasheets/INDEX.md' in _r.stdout,
+              'archived evidence has no source URL' in _r.stdout,
               (_r.stdout or _r.stderr).strip()[-150:])
     finally:
-        _idx.write_text(_orig, encoding='utf-8')
+        _idx.write_bytes(_original_index)
 
 # --- The gates FAIL when they should ------------------------------------
 # Everything above this line asks "is the machinery wired?". 68 checks said
@@ -265,12 +266,11 @@ def _research(pcb):
 if _pcb_src:
     # 1. a rule waiver must not excuse the reference-design gate
     _b, _p = _sandbox()
-    for _f in (_b / 'reference-designs').glob('*'):
-        if _f.name != 'INDEX.md':
-            _f.unlink()
-    _i = _b / 'reference-designs' / 'INDEX.md'
+    _i = _b / 'evidence' / 'index.yaml'
     _i.write_text(
-        re.sub(r'^.*->.*$', '', _i.read_text(encoding='utf-8'), flags=re.M),
+        _i.read_text(encoding='utf-8').replace(
+            '  - reference_design', '  - application_note'
+        ),
         encoding='utf-8',
     )
     _o = _research(_p)
@@ -362,6 +362,11 @@ if _pcb_src:
     subprocess.run([sys.executable, str(REPO / 'docs/run_gates.py'), '--init', str(_fresh)],
                    capture_output=True, text=True)
     _sh.copy2(_pcb_src, _fresh / 'newboard.kicad_pcb')
+    check('a fresh scaffold uses only the unified evidence archive',
+          (_fresh / 'evidence' / 'index.yaml').is_file()
+          and not (_fresh / 'datasheets').exists()
+          and not (_fresh / 'reference-designs').exists(),
+          'run_gates --init still creates a retired evidence layout')
     _fo = _research(_fresh / 'newboard.kicad_pcb')
     check('a freshly scaffolded project FAILS its own research gates',
           '[FAIL] Phase 1' in _fo and '[FAIL] Step 2.3' in _fo,

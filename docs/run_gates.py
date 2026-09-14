@@ -36,6 +36,8 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / 'src'))
 
+from pcb_copilot.evidence.index import save_evidence_index  # noqa: E402
+from pcb_copilot.evidence.models import EvidenceIndex  # noqa: E402
 from pcb_copilot.toolchain import discover_toolchain  # noqa: E402
 
 _TOOLCHAIN = discover_toolchain(REPO)
@@ -223,7 +225,7 @@ def gate_signoff(pcb: Path) -> tuple[bool, str]:
     f = pcb.parent / 'SIGNOFF.md'
     if not f.is_file():
         return False, 'no SIGNOFF.md — human gates unrecorded'
-    lines = f.read_text().splitlines()
+    lines = f.read_text(encoding="utf-8").splitlines()
     todo, signed, unsigned = [], [], []
     for i, l in enumerate(lines):
         # A 4-space indent is a markdown code block, not a checklist item.
@@ -315,21 +317,6 @@ nothing above that heading waives anything.)
 ## Declared
 """
 
-INDEX_TEMPLATE = """# Datasheet Provenance — {board}
-
-Every non-passive part needs a datasheet on file. This index maps parts to the
-PDF that documents them, and records where each came from, so "verified"
-can be told apart from "not verified" — the distinction that was missing when
-eleven parts shipped with an empty datasheets/ folder and nothing noticed.
-
-Format:  `<keys> -> <file>`  (keys = comma-separated part/value substrings)
-
-## Known gaps
-
-_List any part with no obtainable datasheet, and say what you did instead._
-"""
-
-
 REQUIREMENTS_TEMPLATE = """# Requirements — {board}
 
 Phase 1 deliverable. Audited 2026-08-25: no board in this repo had one, so
@@ -377,12 +364,11 @@ exists.
 Fill one row per key part (any IC >=8 pins, or any plug-in module socket).
 Archive the source first so the citation points at a file you still have:
 
-    python3 docs/collect_references.py suggest <PART>
-    python3 docs/collect_references.py add {proj} <PART> <URL>
+    pcb-copilot research {proj} --add <PART> <URL> --role reference_design
 
 | Ref | Part | Aspect | Ours | Reference says | Source | Verdict |
 |---|---|---|---|---|---|---|
-| <U1> | <PART> | decoupling | <100nF> | <10uF + 100nF> | <reference-designs/FILE + url> | <Match / Deviate: reason> |
+| <U1> | <PART> | decoupling | <100nF> | <10uF + 100nF> | <evidence/files/FILE + url> | <Match / Deviate: reason> |
 
 Verdict must be `Match` or `Deviate: <reason>`. "Deviate" with a real reason
 is a good outcome — this file is not here to make you copy the EVM, it is
@@ -393,35 +379,21 @@ a manufacturer app note, Phil's Lab or Altium Academy layout guidance. Cite
 which one.
 """
 
-REF_INDEX_TEMPLATE = """# Reference Design Archive — {board}
-
-Provenance record for reference designs, EVM schematics, app notes and
-vendor source files. `docs/check_research.py` reads the `->` rows.
-
-Format:  PART[, PART...]  ->  filename  # source-url | fetched YYYY-MM-DD | note
-
-Nothing counts as a reference until it is a FILE ON THIS DISK with a live
-source URL beside it. A link read once and not saved cannot be re-checked,
-and a summary of a schematic is not a schematic.
-
-Add entries with:
-    python3 docs/collect_references.py add {proj} <PART> <URL>
-"""
-
-
 def init_project(proj: Path) -> int:
     if not proj.is_dir():
         print(f'no such project directory: {proj}')
         return 1
     board = proj.name
     made, kept = [], []
+
+    def display(path: Path) -> str:
+        return str(path.relative_to(REPO) if path.is_relative_to(REPO) else path)
+
     targets = [
         (proj / 'SIGNOFF.md', SIGNOFF_TEMPLATE),
         (proj / 'DEVIATIONS.md', DEVIATIONS_TEMPLATE),
-        (proj / 'datasheets' / 'INDEX.md', INDEX_TEMPLATE),
         (proj / 'REQUIREMENTS.md', REQUIREMENTS_TEMPLATE),
         (proj / 'DESIGN_BASIS.md', DESIGN_BASIS_TEMPLATE),
-        (proj / 'reference-designs' / 'INDEX.md', REF_INDEX_TEMPLATE),
     ]
     for path, tpl in targets:
         if path.exists():
@@ -429,8 +401,15 @@ def init_project(proj: Path) -> int:
             continue
         path.parent.mkdir(parents=True, exist_ok=True)
         rel = proj.relative_to(REPO) if proj.is_relative_to(REPO) else proj
-        path.write_text(tpl.format(board=board, proj=rel))
-        made.append(str(path.relative_to(REPO)))
+        path.write_text(tpl.format(board=board, proj=rel), encoding='utf-8')
+        made.append(display(path))
+    evidence_index = proj / 'evidence' / 'index.yaml'
+    if evidence_index.exists():
+        kept.append(str(evidence_index.relative_to(proj)))
+    else:
+        (evidence_index.parent / 'files').mkdir(parents=True, exist_ok=True)
+        save_evidence_index(EvidenceIndex(schema_version=1), evidence_index)
+        made.append(display(evidence_index))
     print(f'=== init: {board} ===')
     for m in made:
         print(f'  created  {m}')

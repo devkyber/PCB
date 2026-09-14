@@ -7,11 +7,11 @@ or `Deviate: <reason>`.
 
 | File | What it is | Trust tier |
 |---|---|---|
-| `datasheets/NEO-M9N-00B_..._UBX-19014285.pdf` | u-blox NEO-M9N-00B data sheet | Tier 0 |
+| `evidence/files/NEO-M9N-00B_NEO-M9N-00B_DataSheet_UBX-19014285.pdf` | u-blox NEO-M9N-00B data sheet | Tier 0 |
 | `evidence/files/NEO-M9N-00B_NEO-M9N_Integrationmanual_UBX-19014286.pdf` | u-blox **Integration Manual R10** — §4.3 Figure 31 is the manufacturer's own minimal design, §4.9 is their design-in checklist | Tier 1 (the vendor's hardware design authority for this module) |
-| `datasheets/XC6206P332MR_...pdf` | Torex XC6206P332MR-G LDO | Tier 0 |
-| `datasheets/RCLAMP0521P_...pdf` | Semtech RCLAMP0521PATCT ESD | Tier 0 |
-| `datasheets/B3U-1000P_...pdf` | Omron B3U-1000P switch | Tier 0 |
+| `evidence/files/XC6206P332MR_8579707861620228096.pdf` | Torex XC6206P332MR-G LDO | Tier 0 |
+| `evidence/files/RCLAMP0521P_8588899113072648192.pdf` | Semtech RCLAMP0521PATCT ESD | Tier 0 |
+| `evidence/files/B3U-1000P_8588893394868953088.pdf` | Omron B3U-1000P switch | Tier 0 |
 | `evidence/files/CR1220_CR1220_Datasheet_EN.pdf` | Panasonic CR1220 cell | Tier 0 |
 
 **A note on tiering for modules.** For a module, the *Integration Manual* —
@@ -45,7 +45,7 @@ with `fetch_reference_doc.py pdf`, because it is a vector diagram):
 | U2.5/6 | NEO-M9N | USB_DM / USB_DP | no-connect | Fig 31 leaves both open; only V_USB is grounded | Integration manual Fig 31 | Match |
 | U2.1 | NEO-M9N | SAFEBOOT_N | TP1 test point | Fig 31: "SAFEBOOT test point" | Integration manual Fig 31 | Match |
 | U2.10/12/13/24 | NEO-M9N | grounds | all tied to GND | §4.9.5 "Ensure the ground pads of the module are connected to ground" | Integration manual §4.9.5 | Match |
-| U1 | XC6206P332MR | LDO I/O caps | 1 µF in (C1), 1 µF out (C2) | Torex datasheet recommends 1 µF ceramic on both | datasheets/XC6206P332MR_...pdf | Match. **See REQUIREMENTS.md [OWNER]** on dropout: this regulator cannot make 3.3 V from a 3.3 V input, and the board's stated input range starts at 3.3 V. |
+| U1 | XC6206P332MR | LDO I/O caps | 1 µF in (C1), 1 µF out (C2) | Torex datasheet recommends 1 µF ceramic on both | evidence/files/XC6206P332MR_8579707861620228096.pdf | Match. **See REQUIREMENTS.md [OWNER]** on dropout: this regulator cannot make 3.3 V from a 3.3 V input, and the board's stated input range starts at 3.3 V. |
 | R4, R5 | 4.7k | I2C pull-ups | 4.7k to VCC | manual notes I2C needs pull-ups; value not specified for the module | Integration manual §3.3.2 | Deviate: value is ours, not u-blox's. 4.7k is standard for 400 kHz over short traces and matches the other boards in this stack. |
 
 ## What this comparison actually caught

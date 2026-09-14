@@ -6,18 +6,18 @@ from an oversight.
 
 ## Sources archived for this board
 
-Everything cited below is **a file on this disk**, with a live-verified
-source URL in the matching `INDEX.md`. Nothing here is cited from memory.
+Everything cited below is **a file on this disk**, with its source URL and
+content hash recorded in `evidence/index.yaml`. Nothing here is cited from memory.
 
-### `reference-designs/`
+### Reference designs in `evidence/files/`
 | File | What it is | Trust tier |
 |---|---|---|
 | `U2__ADS1256__ADS1256IDBR_sbau090e.pdf` | TI **ADS1256EVM** User's Guide SBAU090E — manufacturer's own evaluation-module schematic | Tier 1 |
 | `U3__ADS1220__ADS1220IPWR_sbau203.pdf` | TI **ADS1x20EVM** User's Guide SBAU203 — manufacturer's EVM schematic + BOM | Tier 1 |
-| `TEENSY_card11a_rev4_web.pdf` | PJRC Teensy 4.1 pinout card rev4 | Tier 1 — for a module socket the vendor pinout card **is** the reference design; it is the only authority on which net belongs on which pin |
-| `XBee_90001543.pdf` | Digi XBee 3 Hardware Reference | Tier 1 |
+| `card11a_rev4_web.pdf` | PJRC Teensy 4.1 pinout card rev4 | Tier 1 — for a module socket the vendor pinout card **is** the reference design; it is the only authority on which net belongs on which pin |
+| `xbee3_hardware_ref.pdf` | Digi XBee 3 Hardware Reference | Tier 1 |
 
-### `datasheets/`
+### Datasheets and pinout documents in `evidence/files/`
 `ADS1256_ti.pdf` · `ADS1220_ti.pdf` · `card11a_rev4_web.pdf` ·
 `card11b_rev4_web.pdf` (back side — the underside pads the front card omits) ·
 `xbee3_hardware_ref.pdf` · `HF46F_hongfa_en.pdf` + `HF46F_C5274026.pdf` ·
@@ -50,7 +50,7 @@ source URL in the matching `INDEX.md`. Nothing here is cited from memory.
 | **J3** | **JST B5B-XH-A** (C157991) | **load cell** | 1x05 polarised latching, 3A | PDR §2: 4-wire bridge + shield | PDR §2 signal chain | Match to the owner's "Molex-like" requirement. **JST XH rather than Molex KK**: same class (polarised, latching, crimp wire-to-board) but KK has *no* LCSC stock while XH has 36k, and KiCad ships the exact B5B-XH-A land pattern. Polarisation matters here — a load-cell bridge plugged in reversed reads backwards. |
 | **J4** | **JST B3B-XH-A** (C144394) | **pressure sensor** | 1x03 polarised latching | PDR §4: 3-wire 0–5V sensor on VBAT | PDR §4 | Match |
 | **J7, J8** | **1x24 female socket** (C2883741) | **Teensy 4.1** | **female sockets — the Teensy plugs in and lifts out** | PDR §1 register: "Module (socket)" | PDR §1 | Match. Previously `PinHeader` (male pins), which would have required soldering the Teensy down permanently, contradicting the register's own "socket". |
-| **J9** | 1x10 female 2.00mm ×2 (C2925557) | **XBee 3 socket** | two rows of ten at 2.00mm | Digi 90001543 mechanical | `XBee_90001543.pdf` | Match. **Order 2 pieces per board** — one footprint, two physical parts. |
+| **J9** | 1x10 female 2.00mm ×2 (C2925557) | **XBee 3 socket** | two rows of ten at 2.00mm | Digi 90001543 mechanical | `evidence/files/xbee3_hardware_ref.pdf` | Match. **Order 2 pieces per board** — one footprint, two physical parts. |
 
 ## Note on the XT60 rating
 

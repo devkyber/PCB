@@ -265,7 +265,7 @@ no_connect('U2', '6')   # USB_DP — USB interface unused
 # V_USB. This line previously read:
 #     no_connect('U2', '7')   # V_USB — USB interface unused, datasheet permits open
 # No u-blox document says that. The Integration Manual (UBX-19014286 R10,
-# archived in reference-designs/) says the opposite in three places:
+# archived in evidence/files/) says the opposite in three places:
 #   §4.2.3  "If the USB interface is not used, the V_USB pin must be
 #            connected to GND."
 #   §4.9.1  "If USB is not used, connect the V_USB pin to ground."

@@ -8,10 +8,17 @@ from pcb_copilot.evidence.extract import (
 )
 
 
+def _evidence_path(repo_root, project, legacy, unified):
+    old = repo_root / "projects" / project / legacy
+    return old if old.exists() else repo_root / "projects" / project / unified
+
+
 def test_bmp390_eagle_extraction_keeps_source_identity(repo_root):
-    source = (
-        repo_root
-        / "projects/baro-bmp390/reference-designs/BMP390_Adafruit_20BMP390.sch"
+    source = _evidence_path(
+        repo_root,
+        "baro-bmp390",
+        "reference-designs/BMP390_Adafruit_20BMP390.sch",
+        "evidence/files/BMP390_Adafruit_20BMP390.sch",
     )
     expected_id = f"sha256:{hashlib.sha256(source.read_bytes()).hexdigest()}"
 
@@ -33,7 +40,12 @@ def test_bmp390_eagle_extraction_keeps_source_identity(repo_root):
 
 
 def test_render_pdf_pages_returns_cited_page_images(repo_root, tmp_path):
-    source = repo_root / "projects/baro-bmp390/datasheets/BMP390-datasheet.pdf"
+    source = _evidence_path(
+        repo_root,
+        "baro-bmp390",
+        "datasheets/BMP390-datasheet.pdf",
+        "evidence/files/BMP390-datasheet.pdf",
+    )
 
     rendered = render_pdf_pages(source, [1], tmp_path)
 
@@ -42,9 +54,11 @@ def test_render_pdf_pages_returns_cited_page_images(repo_root, tmp_path):
 
 
 def test_legacy_eagle_command_keeps_component_and_net_output(repo_root):
-    source = (
-        repo_root
-        / "projects/baro-bmp390/reference-designs/BMP390_Adafruit_20BMP390.sch"
+    source = _evidence_path(
+        repo_root,
+        "baro-bmp390",
+        "reference-designs/BMP390_Adafruit_20BMP390.sch",
+        "evidence/files/BMP390_Adafruit_20BMP390.sch",
     )
     result = subprocess.run(
         [

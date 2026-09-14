@@ -32,7 +32,7 @@ rather than copied from the vendor's pinout. That put +5V on the Teensy's
 GND pin (a dead short of the 5V rail on first power-up) and tied the
 XBee's UART output to ground while leaving its actual ground pin floating.
 
-Both are now built from documents fetched into datasheets/ and read as
+Both are now built from documents archived in evidence/files/ and read as
 rendered pages:
   - evidence/files/card11a_rev4_web.pdf   PJRC Teensy 4.1 pinout card rev4
   - evidence/files/xbee3_hardware_ref.pdf Digi 90001543, p.36 + p.45-46
@@ -324,7 +324,7 @@ pin_label('Y1', '1', 'XTAL1'); pin_label('Y1', '2', 'XTAL2')
 
 # C8/C9 = 33pF, not the 22pF this board carried. The crystal's LOAD
 # CAPACITANCE is the spec that sets these, and it was unverified until
-# 2026-08-25 because no crystal datasheet was on file — datasheets/INDEX.md
+# 2026-08-25 because no crystal datasheet was on file — evidence/index.yaml
 # recorded it as a known gap.
 #
 # Resolved: the 7.68MHz HC-49S-SMD parts that fit this footprint specify
