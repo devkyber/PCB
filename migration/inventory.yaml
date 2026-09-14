@@ -1,0 +1,134 @@
+schema_version: 1
+rules:
+  - pattern: .gitignore
+    action: KEEP
+    rationale: Repository ignore policy remains authoritative.
+  - pattern: pyproject.toml
+    action: KEEP
+    rationale: Root Python workspace configuration.
+  - pattern: uv.lock
+    action: KEEP
+    rationale: Reproducible Python dependency lock.
+  - pattern: CLAUDE.md
+    action: MERGE
+    rationale: Preserve operational instructions in the canonical workflow index.
+    replacement: docs/WORKFLOW.md
+  - pattern: HUMAN_WORK.md
+    action: GENERATED
+    rationale: Recreate human work from project-specific review state.
+    replacement: pcb-copilot review
+  - pattern: .claude/**
+    action: REFACTOR
+    rationale: Preserve automation behavior while moving platform logic to portable hooks.
+    replacement: src/pcb_copilot/hooks.py
+  - pattern: docs/superpowers/**
+    action: KEEP
+    rationale: Approved design and implementation records.
+  - pattern: docs/archive/**
+    action: MERGE
+    rationale: Retain current facts in project design records before removing historical duplication.
+    replacement: projects/tms-v3/PDR.md
+  - pattern: docs/QUICKSTART.md
+    action: MERGE
+    rationale: Consolidate operator setup and commands.
+    replacement: docs/WORKFLOW.md
+  - pattern: docs/SETUP.md
+    action: MERGE
+    rationale: Consolidate environment setup.
+    replacement: docs/WORKFLOW.md
+  - pattern: docs/pcb-design-workflow.md
+    action: MERGE
+    rationale: Consolidate the lifecycle and gates.
+    replacement: docs/WORKFLOW.md
+  - pattern: docs/pcb-design-rules.md
+    action: MERGE
+    rationale: Consolidate enforced and human rules without overstating coverage.
+    replacement: docs/DESIGN_RULES.md
+  - pattern: docs/tms-v3-pdr.md
+    action: MERGE
+    rationale: Move board-specific review material beside the board.
+    replacement: projects/tms-v3/PDR.md
+  - pattern: docs/ARCHITECTURE.md
+    action: KEEP
+    rationale: Canonical architecture and recurring-defect record.
+  - pattern: docs/*.py
+    action: REFACTOR
+    rationale: Preserve tested workflow behavior behind package APIs and compatibility commands.
+    replacement: src/pcb_copilot
+  - pattern: docs/*.md
+    action: KEEP
+    rationale: Maintained documentation not yet assigned a narrower migration rule.
+  - pattern: projects/*/STATUS.md
+    action: GENERATED
+    rationale: Status is reproducible local state rather than design authority.
+    replacement: pcb-copilot status
+  - pattern: projects/*/PIPELINE.json
+    action: GENERATED
+    rationale: Preserve hashes and drift behavior in local lifecycle state.
+    replacement: projects/*/.pcb-copilot/state.json
+  - pattern: projects/*/EVALUATION.md
+    action: MERGE
+    rationale: Retain current findings in requirements, design basis, deviations, or limitations.
+    replacement: projects/*/DESIGN_BASIS.md
+  - pattern: projects/tms-v3/tms-v3-bom.md
+    action: GENERATED
+    rationale: Generate the BOM from the accepted PCB.
+    replacement: pcb-copilot release
+  - pattern: projects/*/build.sh
+    action: REFACTOR
+    rationale: Replace board-specific shell orchestration with portable commands.
+    replacement: pcb-copilot
+  - pattern: projects/*/gen_*_sch.py
+    action: REFACTOR
+    rationale: Preserve circuit intent and renderer behavior before retiring generators.
+    replacement: projects/*/schematic-intent.yaml
+  - pattern: projects/*/gen_*_pcb.py
+    action: REFACTOR
+    rationale: Preserve placement and routing intent before retiring generators.
+    replacement: projects/*/layout-intent.yaml
+  - pattern: projects/*/datasheets/**
+    action: MERGE
+    rationale: Move verified documents into the unified evidence archive.
+    replacement: projects/*/evidence/index.yaml
+  - pattern: projects/*/reference-designs/**
+    action: MERGE
+    rationale: Move cited reference designs into the unified evidence archive.
+    replacement: projects/*/evidence/index.yaml
+  - pattern: projects/*/*.kicad_sch
+    action: KEEP
+    rationale: Accepted electrical source of truth.
+  - pattern: projects/*/*.kicad_pcb
+    action: KEEP
+    rationale: Accepted physical source of truth.
+  - pattern: projects/*/*.kicad_pro
+    action: KEEP
+    rationale: KiCad project configuration.
+  - pattern: projects/*/netmap.json
+    action: KEEP
+    rationale: Reviewable schematic-to-PCB connectivity contract.
+  - pattern: projects/**
+    action: KEEP
+    rationale: Project evidence, libraries, requirements, decisions, and sign-off remain preserved.
+  - pattern: src/**
+    action: KEEP
+    rationale: Replacement package implementation.
+  - pattern: tests/**
+    action: KEEP
+    rationale: Characterization and regression protection.
+  - pattern: scripts/**
+    action: KEEP
+    rationale: Versioned migration and maintenance commands.
+  - pattern: migration/**
+    action: KEEP
+    rationale: Auditable preservation and cleanup inventory.
+  - pattern: tools/kicad-claude-mcp/**
+    action: KEEP
+    rationale: Proven KiCad editing, routing, hierarchy, sourcing, and manufacturing implementation.
+  - pattern: tools/kicad-jlcpcb/**
+    action: MERGE
+    rationale: Retain useful JLCPCB lookup and export behavior behind the copilot package.
+    replacement: src/pcb_copilot
+  - pattern: tools/kicad-happy/**
+    action: MERGE
+    rationale: Retain useful evidence and review guidance without maintaining a separate product tree.
+    replacement: docs/WORKFLOW.md
