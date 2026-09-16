@@ -214,7 +214,8 @@ def test_mid_review_edit_is_not_published_as_a_current_success(
 
     def edit_during_export(*args, **kwargs):
         nonlocal edited
-        if not edited:
+        argv = args[0]
+        if not edited and argv[1:4] == ['sch', 'export', 'pdf']:
             text = child.read_text(encoding='utf-8')
             child.write_text(text.replace(title, f'{title} concurrent edit', 1),
                              encoding='utf-8', newline='\n')
