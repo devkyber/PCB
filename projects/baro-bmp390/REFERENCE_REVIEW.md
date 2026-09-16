@@ -114,11 +114,14 @@ layers; any zone refill must be saved separately and labeled as approximate.
 
 ## Schematic draft checkpoint
 
-Draft `20260916T164445Z-schematic-7ad1be18` preserves the accepted circuit and
+Draft `20260916T181255Z-schematic-7ad1be18` preserves the accepted circuit and
 renders a dated, single-sheet PDF with functional headings and drawn passive
 banks. The assistant inspected the preview; there are no machine blockers.
 The new local-route text keepouts and multi-bend fallback separate the
 interrupt wire from CSB supply text. Known visual limitations remain at U1:
-ground/supply glyphs two pin rows apart touch. Those already-emitted stubs and
-glyphs still require refinement. Accepted schematic, PCB and
+ground/supply glyphs two pin rows apart touch. The preview report now identifies
+both contacts as non-blocking `power-glyph-collision` findings with U1 pin
+identities and bounds. The regenerated page is pixel-identical to the previously
+inspected preview: this is improved detection, not a graphical fix. Those stubs
+and glyphs still require refinement. Accepted schematic, PCB and
 netmap bytes remain unchanged; no human acceptance is recorded.

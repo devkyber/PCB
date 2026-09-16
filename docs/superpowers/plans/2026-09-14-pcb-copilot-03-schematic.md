@@ -87,13 +87,40 @@ and human review pending. All ten pages render pixel-identically to the
 visually inspected previews above; the project reference reviews identify the
 latest draft IDs. No accepted CAD, netmap or intent was modified.
 
-Final follow-up verification: `uv run pytest -q -m 'not network'` completed with
+Previous follow-up verification (fb9e379): `uv run pytest -q -m 'not network'` completed with
 402 passed, 49 skipped and 3 deselected in 327.89 seconds. Skipped and network
 tests are not claimed as executed. `uv run python docs/selftest_enforcement.py`
 passed 93/93 checks. Ruff and Git whitespace checks pass. All 40 indexed archive
 files match their recorded SHA-256 values in both the working tree and committed
 Git blobs. Integrity and connectivity checks do not certify engineering
 completeness or replace the pending human visual checkpoint.
+
+Further quality follow-up: serialized power-glyph contacts with other stock
+power glyphs or visible power Value/local/hierarchical text now appear as
+non-blocking review findings. Unsupported geometry, including mirrored glyphs,
+is explicitly unchecked. Direct connectivity between ordinary rail glyphs does
+not exempt them; only identified intentional flag/rail attachments are exempt.
+Regression-first fixes for both mirror handling and overbroad exemptions passed
+independent re-review. This is a bounded diagnostic, not an overlap-free claim.
+
+The earlier power-only placement experiment was not adopted: it improved BMP
+and GNSS but prevented IMU/TMS drafts from completing. Correcting that requires
+coordinating signal stubs/routes or placement; the working renderer remains
+unchanged. The current four draft reports identify 2/0/1/3 glyph/text contacts
+(BMP/IMU/GNSS/TMS), including TMS J3's GND/LC_SIG_P contact confirmed in an
+enlarged PDF view. Accepted CAD, netmaps, intents and sign-offs remain unchanged.
+Human preview acceptance and Plans 4/5 remain pending.
+
+Latest verification (d6fb643): `uv run pytest -q -m 'not network'` completed
+with 416 passed, 49 skipped and 3 deselected in 498.29 seconds. Skipped and
+network tests are not claimed as executed. The enforcement self-test passed
+93/93 checks; Ruff and whitespace checks passed. Four fresh CLI drafts all
+exit zero with human review pending, and all ten PDF pages render identically
+to the previously inspected previews. All 40 indexed archive records verify,
+including committed Git blob hashes. All 20 protected schematic, PCB, netmap,
+intent and sign-off file hashes match the pre-run snapshot. Independent code
+and documentation reviews are approved for this bounded follow-up, not for
+human acceptance of the designs or completion of Plan 3.
 
 The CLI tests live in `tests/schematic/test_schematic_cli.py` to avoid pytest
 module-name collisions with the evidence CLI tests.

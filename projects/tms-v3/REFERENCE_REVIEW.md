@@ -155,8 +155,8 @@ have not been changed.
 
 ### Latest hierarchical preview
 
-Latest checked draft: `20260916T164534Z-schematic-2b264620`, with PDF
-`.pcb-copilot/drafts/20260916T164534Z-schematic-2b264620/preview.pdf`.
+Latest checked draft: `20260916T181255Z-schematic-2b264620`, with PDF
+`.pcb-copilot/drafts/20260916T181255Z-schematic-2b264620/preview.pdf`.
 All seven pages were visually inspected. The draft command exits zero with
 no blocking findings, zero ERC errors, 38 ERC pin-type warnings, one
 sheet-qualified-net-name review and 58 unresolved pin-map evidence reviews.
@@ -176,11 +176,16 @@ ordinary/hierarchical labels, and netlist roundtrip connectivity.
 The follow-up local router protects generated power Value text and searches
 bounded multi-bend paths when simple lanes are blocked. The relay-control
 local route clears those keepouts without changing its electrical grouping.
-All seven regenerated pages were inspected; the findings below persist.
+All seven pages remain pixel-identical to the previously inspected previews;
+the findings below persist.
 
 Remaining visual limitations: J8's ground glyph near pin 1 intrudes into the
 ADS1220_CS label on pin 2, and its +3V3 arrow near pin 15 crowds SPI0_MISO on
 pin 14. Dense mixed power and signal annotation still needs visual refinement.
+The new diagnostic flags both contacts, plus J3.2's ground triangle overlapping
+`LC_SIG_P` on the external-connectors page. The assistant confirmed that third
+contact in an enlarged page-7 PDF view. These three `power-text-collision`
+findings are review advisories, not automatic repairs or electrical blockers.
 The A1 overview has excessive empty space, although corrected labels are now
 separate from sheet-pin text. These limitations and the unresolved engineering
 items above remain human-review findings. A successful structural command is

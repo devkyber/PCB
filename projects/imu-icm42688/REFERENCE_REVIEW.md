@@ -103,11 +103,14 @@ inspection, not complete PCB-layout validation.
 
 ## Latest draft inspection
 
-Draft `20260916T164513Z-schematic-b0464d86` has a one-page PDF, no machine
+Draft `20260916T181255Z-schematic-b0464d86` has a one-page PDF, no machine
 blockers, 10 ERC pin-type warnings and 11 unresolved pin-map evidence reviews.
 Assistant visual inspection confirms dated titles, functional headings, local
 wiring and four junctions. The INT1 vertical wire now clears U1.6 GND text;
 a real KiCad PDF regression checks that separation. Local routes avoid
 generated power Value text, but this is not a sheet-wide glyph-collision
-guarantee or human approval. Accepted schematic,
+guarantee or human approval. The new power-glyph/text diagnostic reports no
+collision here, but it does not inspect glyph-to-wire or general field/pin-name
+clearance. The page is pixel-identical to the previously inspected preview;
+no automatic re-placement was adopted. Accepted schematic,
 PCB and netmap bytes remain unchanged.

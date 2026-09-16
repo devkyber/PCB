@@ -194,6 +194,17 @@ Review the rendered page, not only ERC. Confirm flow, grouping, symbol and pin
 identity, values, power paths, labels, page boundaries, and readable spacing.
 ERC proves only the rule set that it implements.
 
+The preview also reports suspected stock power-glyph contacts with other power
+glyphs or visible power Value/local/hierarchical labels. These are conservative
+review advisories, not electrical blockers or automatic repairs. Each finding
+identifies its sheet and symbol/label (and directly attached component pin when
+available). Bounds use millimetres from the sheet's lower-left corner, unlike
+KiCad's top-left file coordinates: the checker preserves file X and transforms
+Y to `sheet_height - file_Y` before computing bounds. Unsupported geometry
+produces an explicit `power-clearance-unchecked` advisory. No findings does not
+establish complete graphical clearance: wires, pin names and ordinary component
+fields are outside this diagnostic's scope.
+
 ## 5. Draft placement and routing
 
 Resolve and measure the real footprint before choosing coordinates. Place

@@ -77,6 +77,18 @@ the new layout, unified review, and release interfaces remain planned.
   fields and pin-name text are outside that check; it is not a sheet-wide
   graphical collision solver. The existing `no_symbol_or_text_overlap` helper checks only
   duplicate symbol origins, not text or glyph extents. Inspect every PDF page.
+- Preview reports now separately measure supported stock power-library glyphs
+  against other power glyphs and visible power Value/local/hierarchical text. Contacts and
+  overlaps produce non-blocking review findings; unsupported geometry is
+  explicitly unchecked. This diagnostic does not move symbols, resolve
+  collisions, inspect wire/pin-name/ordinary-field clearance, or certify the
+  rest of a sheet when it reports no collision.
+- A bounded power-only spacing experiment cleared the observed BMP/GNSS
+  collisions but prevented IMU/TMS drafts from completing, so it was not
+  adopted. In IMU, the tested longer supply stub cleared nearby text but then
+  blocked the INT1 route. Further placement work must account for signal
+  stubs and local routes together; extending power stubs alone is not a
+  demonstrated general fix.
 - Circuit parity preserves old mistakes too. The TMS reference review found
   ADS1256 VREF_P/VREF_N connected only to U2 and C7. The former unsupported
   external-reference design-basis claim is now corrected, but the missing

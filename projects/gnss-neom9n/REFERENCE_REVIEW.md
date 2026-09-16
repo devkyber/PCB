@@ -86,7 +86,7 @@ Still required before relying on this research for layout or release:
 
 ## Latest draft inspection
 
-Draft `20260916T164519Z-schematic-c088e056` supersedes the earlier previews.
+Draft `20260916T181255Z-schematic-c088e056` supersedes the earlier previews.
 The assistant inspected the complete A3 PDF and enlarged receiver detail,
 including the battery, U.FL connector, module pin banks, and title block.
 The CLI returned exit 0 with no blocking findings or intent/netlist mismatch.
@@ -102,7 +102,10 @@ by boundary labels; this grouping preserves the same electrical net.
 
 Left labels now extend away from pin numbers. The V_BCKP and J2 RF_IN text
 proximity is improved. A remaining collision is explicit: U2 pin 12's ground
-triangle overlaps the RF_IN label on pin 11. The lower half of the A3 sheet
+triangle overlaps the RF_IN label on pin 11. The preview report now flags that
+specific contact as a non-blocking `power-text-collision`. The page remains
+pixel-identical to the previously inspected preview; detection did not alter
+placement. The lower half of the A3 sheet
 is mostly unused. These are visible review issues, not hidden by the passing
 connectivity check.
 
