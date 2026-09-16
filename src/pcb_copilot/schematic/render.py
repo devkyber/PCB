@@ -24,11 +24,12 @@ from kicad_claude.utils.kicad_paths import find_symbol_lib_dirs
 
 from pcb_copilot.drafts import publish_draft
 from pcb_copilot.models import DraftRecord, Project
-from pcb_copilot.schematic.fields import place_component_fields
+from pcb_copilot.schematic.fields import place_component_fields, text_field_envelope
 from pcb_copilot.schematic.models import SchematicIntent, validate_component_pins
 from pcb_copilot.schematic.power import power_stub_length
 from pcb_copilot.schematic.wiring import (
     PinRef,
+    VisualObstacle,
     WireCorridor,
     WireSegment,
     connect_local,
@@ -49,6 +50,7 @@ class _WireEditor:
     def __init__(self, tree):
         self.tree = tree
         self.segments: list[WireSegment] = []
+        self.obstacles: list[VisualObstacle] = []
         self.anchors: dict[PinRef, tuple[float, float]] = {}
 
     def pin_position(self, pin: PinRef) -> tuple[float, float]:
@@ -285,6 +287,11 @@ def _render_sheet_tree(
                           for _a, b, ref, pin, _net in labels._segments}
     wire_editor.segments.extend(
         WireSegment(a, b, net) for a, b, _ref, _pin, net in labels._segments
+    )
+    wire_editor.obstacles.extend(
+        envelope
+        for ref in sorted(labels._used_pwr_refs)
+        if (envelope := text_field_envelope(ed, tree, ref, 'Value')) is not None
     )
     for component in intent.components:
         if component.ref not in origins:

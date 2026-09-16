@@ -87,6 +87,19 @@ def test_field_placement_preserves_component_and_pin_positions(gnss_fields):
     assert ed.list_pins_for_symbol(tree, 'J2') == pins
 
 
+def test_text_field_envelope_rejects_rotated_text_outside_power_value_scope(gnss_fields):
+    from pcb_copilot.schematic.fields import text_field_envelope
+
+    tree, _symbols, _labels = gnss_fields
+    symbol = ed.find_symbol_by_reference(tree, 'U1')
+    value = next(prop for prop in ed.find_children(symbol, 'property')
+                 if prop[1] == 'Value')
+    ed.find_child(value, 'at')[3] = 90
+
+    with pytest.raises(ValueError, match='unrotated'):
+        text_field_envelope(ed, tree, 'U1', 'Value')
+
+
 def test_tvs_fields_clear_body_wider_than_pin_column(repo_root):
     from pcb_copilot.schematic.fields import place_component_fields
 

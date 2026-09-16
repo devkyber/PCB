@@ -2,8 +2,13 @@
 
 from __future__ import annotations
 
+import heapq
+import math
 from dataclasses import dataclass
 from itertools import pairwise
+
+GRID_MM = 1.27
+MAX_GRID_STATES = 250_000
 
 
 class StubCrossingError(RuntimeError):
@@ -34,6 +39,18 @@ class WireSegment:
     net: str
 
 
+@dataclass(frozen=True)
+class VisualObstacle:
+    """Inclusive rectangular keepout for non-electrical sheet graphics."""
+
+    x_min: float
+    y_min: float
+    x_max: float
+    y_max: float
+    kind: str
+    owner: str
+
+
 def _orientation(a: tuple[float, float], b: tuple[float, float], c: tuple[float, float]) -> float:
     return (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0])
 
@@ -55,6 +72,101 @@ def _touches(first: WireSegment, second: WireSegment) -> bool:
         and _orientation(a, b, c) * _orientation(a, b, d) <= 0
         and _orientation(c, d, a) * _orientation(c, d, b) <= 0
     )
+
+
+def _intersects_obstacle(segment: WireSegment, obstacle: VisualObstacle) -> bool:
+    """Return whether an orthogonal segment intersects an inclusive box."""
+    return not (
+        max(segment.start[0], segment.end[0]) < obstacle.x_min
+        or min(segment.start[0], segment.end[0]) > obstacle.x_max
+        or max(segment.start[1], segment.end[1]) < obstacle.y_min
+        or min(segment.start[1], segment.end[1]) > obstacle.y_max
+    )
+
+
+def _route_is_clear(editor, segments: tuple[WireSegment, ...], net: str) -> bool:
+    if any(_intersects_obstacle(segment, obstacle)
+           for segment in segments for obstacle in getattr(editor, "obstacles", ())):
+        return False
+    return not any(existing.net != net and _touches(existing, segment)
+                   for segment in segments for existing in editor.segments)
+
+
+def _grid_fallback(editor, start, end, corridor, net) -> tuple[WireSegment, ...] | None:
+    """Find a minimum-bend grid path after all one-lane routes are blocked."""
+    end_index = (
+        round((end[0] - start[0]) / GRID_MM),
+        round((end[1] - start[1]) / GRID_MM),
+    )
+    snapped_end = (
+        start[0] + end_index[0] * GRID_MM,
+        start[1] + end_index[1] * GRID_MM,
+    )
+    if any(abs(a - b) > 0.002 for a, b in zip(end, snapped_end)):
+        return None
+
+    ix_min = math.ceil((corridor.left - start[0]) / GRID_MM - 1e-9)
+    ix_max = math.floor((corridor.right - start[0]) / GRID_MM + 1e-9)
+    iy_min = math.ceil((corridor.top - start[1]) / GRID_MM - 1e-9)
+    iy_max = math.floor((corridor.bottom - start[1]) / GRID_MM + 1e-9)
+    possible_states = (ix_max - ix_min + 1) * (iy_max - iy_min + 1) * 4
+    if possible_states <= 0 or possible_states > MAX_GRID_STATES:
+        return None
+
+    directions = ((1, 0), (-1, 0), (0, 1), (0, -1))
+
+    def point(index):
+        return (
+            round(start[0] + index[0] * GRID_MM, 6),
+            round(start[1] + index[1] * GRID_MM, 6),
+        )
+
+    start_state = (0, 0, -1)
+    costs = {start_state: (0, 0)}
+    parents = {}
+    pending = [(0, 0, *start_state)]
+    goal = None
+    while pending:
+        turns, steps, ix, iy, direction = heapq.heappop(pending)
+        state = (ix, iy, direction)
+        if costs.get(state) != (turns, steps):
+            continue
+        if (ix, iy) == end_index:
+            goal = state
+            break
+        for next_direction, (dx, dy) in enumerate(directions):
+            nx, ny = ix + dx, iy + dy
+            if not (ix_min <= nx <= ix_max and iy_min <= ny <= iy_max):
+                continue
+            segment = WireSegment(point((ix, iy)), point((nx, ny)), net)
+            if not _route_is_clear(editor, (segment,), net):
+                continue
+            next_state = (nx, ny, next_direction)
+            next_cost = (turns + int(direction not in (-1, next_direction)), steps + 1)
+            if next_cost >= costs.get(next_state, (math.inf, math.inf)):
+                continue
+            costs[next_state] = next_cost
+            parents[next_state] = state
+            heapq.heappush(pending, (*next_cost, *next_state))
+    if goal is None:
+        return None
+
+    indexes = []
+    state = goal
+    while state != start_state:
+        indexes.append((state[0], state[1]))
+        state = parents[state]
+    indexes.append((0, 0))
+    points = [point(index) for index in reversed(indexes)]
+    compressed = [points[0]]
+    for candidate in points[1:]:
+        if (len(compressed) >= 2
+                and ((compressed[-2][0] == compressed[-1][0] == candidate[0])
+                     or (compressed[-2][1] == compressed[-1][1] == candidate[1]))):
+            compressed[-1] = candidate
+        else:
+            compressed.append(candidate)
+    return tuple(WireSegment(a, b, net) for a, b in pairwise(compressed))
 
 
 def connect_local(
@@ -85,9 +197,13 @@ def connect_local(
         if not all(corridor.contains(point) for point in points):
             continue
         segments = tuple(WireSegment(a, b, net) for a, b in pairwise(points) if a != b)
-        if any(existing.net != net and _touches(existing, segment)
-               for segment in segments for existing in editor.segments):
+        if not _route_is_clear(editor, segments, net):
             continue
+        for segment in segments:
+            editor.add_segment(segment)
+        return segments
+    segments = _grid_fallback(editor, start, end, corridor, net)
+    if segments is not None:
         for segment in segments:
             editor.add_segment(segment)
         return segments
