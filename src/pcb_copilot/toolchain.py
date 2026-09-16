@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import os
+import platform
 import shutil
+import subprocess
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
@@ -30,9 +32,34 @@ def discover_toolchain(
     kicad_cli = find_kicad_cli()
     if kicad_cli is None:
         raise ToolchainDiscoveryError("kicad-cli was not found")
+    resolved_kicad_cli = Path(kicad_cli).resolve()
 
     configured_kipython = environment.get("KIPYTHON")
-    found_kipython = configured_kipython or shutil.which("kipython")
+    if configured_kipython:
+        found_kipython = configured_kipython
+    elif environ is None:
+        found_kipython = shutil.which("kipython")
+    elif "PATH" in environment:
+        found_kipython = shutil.which("kipython", path=environment["PATH"])
+    else:
+        found_kipython = None
+
+    if found_kipython is None and platform.system() == "Windows":
+        candidate = resolved_kicad_cli.with_name("python.exe")
+        if candidate.is_file():
+            try:
+                probe = subprocess.run(
+                    [str(candidate), "-I", "-c", "import pcbnew"],
+                    capture_output=True,
+                    check=False,
+                    timeout=5,
+                )
+            except (OSError, subprocess.TimeoutExpired):
+                pass
+            else:
+                if probe.returncode == 0:
+                    found_kipython = candidate
+
     kipython = Path(found_kipython).expanduser().resolve() if found_kipython else None
 
     third_party = repo_root.resolve() / "tools" / "kicad-claude-mcp" / "third_party"
@@ -40,7 +67,7 @@ def discover_toolchain(
         sorted(path.resolve() for path in third_party.glob("freerouting*.jar"))
     )
     return ToolchainPaths(
-        kicad_cli=Path(kicad_cli).resolve(),
+        kicad_cli=resolved_kicad_cli,
         kipython=kipython,
         freerouting_jars=freerouting_jars,
     )
