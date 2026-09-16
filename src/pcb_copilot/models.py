@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime
 from enum import Enum
 from pathlib import Path
 
@@ -13,6 +14,11 @@ class Lifecycle(str, Enum):
     DRAFT = "DRAFT"
     HUMAN_REVIEWED = "HUMAN_REVIEWED"
     RELEASED = "RELEASED"
+
+
+class DraftKind(str, Enum):
+    SCHEMATIC = "schematic"
+    LAYOUT = "layout"
 
 
 class DesignFiles(BaseModel):
@@ -56,3 +62,14 @@ class Project:
     pcb_path: Path
     netmap_path: Path
     evidence_index_path: Path
+
+
+@dataclass(frozen=True)
+class DraftRecord:
+    id: str
+    kind: DraftKind
+    project: str
+    base_schematic_hash: str
+    base_pcb_hash: str
+    created_utc: datetime
+    root: Path

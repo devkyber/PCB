@@ -4,6 +4,7 @@ __pycache__/
 .venv/
 venv/
 .pytest_cache/
+# Transactional local drafts, reports, and state
 .pcb-copilot/
 
 # OS
