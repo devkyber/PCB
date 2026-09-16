@@ -82,7 +82,19 @@ def analyse_schematic(path: Path) -> SchematicMetrics:
     identifiers = re.findall(r'\(lib_id "([^"]+)"\)', instances)
     component_count = sum(not item.startswith("power:") for item in identifiers)
     power_count = sum(item.startswith("power:") for item in identifiers)
-    junction_count = len(re.findall(r"\(junction\s", text))
+    explicit_junctions = len(re.findall(r"\(junction\s", text))
+    wire_points = re.findall(
+        r"\(wire\b.*?\(pts\s+\(xy\s+([-0-9.]+)\s+([-0-9.]+)\)\s+"
+        r"\(xy\s+([-0-9.]+)\s+([-0-9.]+)\)",
+        text,
+        re.DOTALL,
+    )
+    endpoint_counts: dict[tuple[str, str], int] = {}
+    for x1, y1, x2, y2 in wire_points:
+        endpoint_counts[(x1, y1)] = endpoint_counts.get((x1, y1), 0) + 1
+        endpoint_counts[(x2, y2)] = endpoint_counts.get((x2, y2), 0) + 1
+    derived_junctions = sum(count >= 3 for count in endpoint_counts.values())
+    junction_count = max(explicit_junctions, derived_junctions)
     label_count = len(re.findall(r"\((?:global_)?label\s", text))
     hierarchy_count = len(re.findall(r"\(sheet\s*\n\s*\(at ", text))
     paper_match = re.search(r'\(paper "([^"]+)"', text)
@@ -92,11 +104,7 @@ def analyse_schematic(path: Path) -> SchematicMetrics:
     revision_match = re.search(r'\(rev "([^"]*)"', title_block)
     title = title_match.group(1) if title_match else ""
     revision = revision_match.group(1) if revision_match else ""
-    ratio = (
-        min(1.0, junction_count / max(component_count - 1, 1))
-        if junction_count
-        else 0.0
-    )
+    ratio = min(1.0, len(wire_points) / max(len(wire_points) + label_count, 1)) if junction_count else 0.0
     return SchematicMetrics(
         component_count=component_count,
         power_symbol_count=power_count,
@@ -111,3 +119,22 @@ def analyse_schematic(path: Path) -> SchematicMetrics:
         title=title,
         revision=revision,
     )
+
+
+def count_global_labels(path: Path, name: str) -> int:
+    text = path.read_text(encoding="utf-8")
+    return len(
+        re.findall(
+            rf'\((?:global_)?label\s+"?{re.escape(name)}"?(?:\s|\))', text
+        )
+    )
+
+
+def no_symbol_or_text_overlap(path: Path) -> bool:
+    text = _instances(path.read_text(encoding="utf-8"))
+    origins = re.findall(
+        r'\(symbol\b.*?\(lib_id\s+"[^"]+"\).*?\(at\s+([-0-9.]+)\s+([-0-9.]+)',
+        text,
+        re.DOTALL,
+    )
+    return len(origins) == len(set(origins))

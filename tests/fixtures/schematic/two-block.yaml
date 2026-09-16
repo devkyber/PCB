@@ -1,0 +1,79 @@
+schema_version: 1
+title: Two-block sensor fixture
+revision: T1
+sheets:
+  - id: main
+    title: Main
+    page: A4
+blocks:
+  - id: power-input
+    title: Power and input
+    sheet: main
+    flow_order: 1
+    placement_hint: left
+  - id: sensor-output
+    title: Sensor and output
+    sheet: main
+    flow_order: 2
+    placement_hint: right
+components:
+  - ref: J1
+    value: INPUT
+    symbol: Connector_Generic:Conn_01x02
+    footprint: Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical
+    block: power-input
+    evidence_part_number: FIXTURE-J1
+    pin_map_evidence_id: sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    pins:
+      '1': {net: INPUT, style: wire}
+      '2': {net: GND, style: power}
+    no_connects: []
+    pin_inventory: ['1', '2']
+  - ref: R1
+    value: 10k
+    symbol: Device:R
+    footprint: Resistor_SMD:R_0603_1608Metric
+    block: power-input
+    evidence_part_number: FIXTURE-R
+    pin_map_evidence_id: sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+    pins:
+      '1': {net: INPUT, style: wire}
+      '2': {net: SENSOR_OUT, style: label}
+    no_connects: []
+    pin_inventory: ['1', '2']
+  - ref: R3
+    value: 100k
+    symbol: Device:R
+    footprint: Resistor_SMD:R_0603_1608Metric
+    block: power-input
+    evidence_part_number: FIXTURE-R
+    pin_map_evidence_id: sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+    pins:
+      '1': {net: INPUT, style: wire}
+      '2': {net: GND, style: power}
+    no_connects: []
+    pin_inventory: ['1', '2']
+  - ref: R2
+    value: 10k
+    symbol: Device:R
+    footprint: Resistor_SMD:R_0603_1608Metric
+    block: sensor-output
+    evidence_part_number: FIXTURE-R
+    pin_map_evidence_id: sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+    pins:
+      '1': {net: SENSOR_OUT, style: label}
+      '2': {net: GND, style: power}
+    no_connects: []
+    pin_inventory: ['1', '2']
+  - ref: J2
+    value: OUTPUT
+    symbol: Connector_Generic:Conn_01x01
+    footprint: Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical
+    block: sensor-output
+    evidence_part_number: FIXTURE-J2
+    pin_map_evidence_id: sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+    pins:
+      '1': {net: SENSOR_OUT_LOCAL, style: wire}
+    no_connects: []
+    pin_inventory: ['1']
+boundary_nets: [SENSOR_OUT]

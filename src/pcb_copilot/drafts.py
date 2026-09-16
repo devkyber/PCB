@@ -68,7 +68,7 @@ def _copy_inputs(project_root: Path, destination: Path, project_name: str) -> No
         source = project_root / name
         if source.is_file():
             shutil.copy2(source, destination / name)
-    for name in ("symbols", "footprints", "jlcpcb"):
+    for name in ("symbols", "footprints", "jlcpcb", "libs"):
         source = project_root / name
         if source.is_dir():
             shutil.copytree(source, destination / name)
