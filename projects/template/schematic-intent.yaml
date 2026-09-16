@@ -1,0 +1,68 @@
+schema_version: 1
+title: Resistor divider example
+revision: A
+sheets:
+  - id: main
+    title: Resistor divider
+    page: A4
+blocks:
+  - id: interface
+    title: Input and output
+    sheet: main
+    flow_order: 1
+    placement_hint: left
+  - id: divider
+    title: Divider
+    sheet: main
+    flow_order: 2
+    placement_hint: center
+components:
+  - ref: J1
+    value: INPUT
+    symbol: Connector_Generic:Conn_01x02
+    footprint: Connector_PinHeader_1x02_P2.54mm_Vertical
+    block: interface
+    evidence_part_number: GENERIC-2PIN-INPUT
+    pin_map_evidence_id: sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    pins:
+      '1': {net: VIN, style: label}
+      '2': {net: GND, style: power}
+    no_connects: []
+    pin_inventory: ['1', '2']
+  - ref: R1
+    value: 10k
+    symbol: Device:R
+    footprint: Resistor_SMD:R_0603_1608Metric
+    block: divider
+    evidence_part_number: GENERIC-10K-0603
+    pin_map_evidence_id: sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+    pins:
+      '1': {net: VIN, style: label}
+      '2': {net: VOUT, style: wire}
+    no_connects: []
+    pin_inventory: ['1', '2']
+  - ref: R2
+    value: 10k
+    symbol: Device:R
+    footprint: Resistor_SMD:R_0603_1608Metric
+    block: divider
+    evidence_part_number: GENERIC-10K-0603
+    pin_map_evidence_id: sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+    pins:
+      '1': {net: VOUT, style: wire}
+      '2': {net: GND, style: power}
+    no_connects: []
+    pin_inventory: ['1', '2']
+  - ref: J2
+    value: OUTPUT
+    symbol: Connector_Generic:Conn_01x02
+    footprint: Connector_PinHeader_1x02_P2.54mm_Vertical
+    block: interface
+    evidence_part_number: GENERIC-2PIN-OUTPUT
+    pin_map_evidence_id: sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+    pins:
+      '1': {net: VOUT, style: label}
+      '2': {net: GND, style: power}
+    no_connects: []
+    pin_inventory: ['1', '2']
+boundary_nets: [VIN, VOUT]
