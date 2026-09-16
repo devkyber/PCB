@@ -21,6 +21,22 @@
 - Network tests are marked `network`; deterministic fixture tests run offline.
 - Finish each task with a focused commit.
 
+## Reference-research follow-up (2026-09-16)
+
+The user clarified that reference schematic and PCB research are as important
+as datasheet acquisition, inspection, and validation. The package now supplies
+separate search queries (not a live-search provider) and indexed Eagle
+schematic/board inspection: source-hash verification, pad-net comparison,
+package and explicit-value comparison, and descriptive layout metadata.
+Board XML is archived as `.brd`, not `.sch`.
+
+Actual BMP390 searches and their scoped findings are recorded in
+`projects/baro-bmp390/REFERENCE_REVIEW.md`. Manufacturer and open-hardware PDFs
+were archived and visually inspected; native copper review, exact revision
+matching, and comparison against our own PCB remain open. Other boards still
+need this research. Full research-coverage/release enforcement belongs to
+Plan 5; generic reference-file presence is not proof of completed research.
+
 ---
 
 ### Task 1: Evidence models and atomic YAML index

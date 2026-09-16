@@ -45,6 +45,8 @@ def main(
     operation.add_argument("--verify", action="store_true")
     operation.add_argument("--add", nargs=2, metavar=("PART", "URL"))
     operation.add_argument("--extract", metavar="PART")
+    operation.add_argument('--inspect-reference', nargs=2, metavar=('SCHEMATIC_ID', 'PCB_ID'))
+    operation.add_argument('--search-plan', metavar='PART')
     research_parser.add_argument(
         "--role", choices=[item.value for item in EvidenceRole]
     )
@@ -91,6 +93,20 @@ def main(
             project = load_project(args.project_path)
         except ProjectFormatError as exc:
             parser.error(str(exc))
+        if args.search_plan:
+            from pcb_copilot.evidence.references import reference_search_plan
+
+            print(json.dumps(reference_search_plan(args.search_plan), indent=2))
+            return 0
+        if args.inspect_reference:
+            from pcb_copilot.evidence.commands import inspect_reference_pair
+
+            try:
+                inspection = inspect_reference_pair(project, *args.inspect_reference)
+            except (ValueError, OSError) as exc:
+                parser.error(str(exc))
+            print(json.dumps(inspection, indent=2))
+            return int(bool(inspection['mismatches']))
         if args.add:
             if not args.role:
                 parser.error("--add requires --role")

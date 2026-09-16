@@ -67,6 +67,12 @@ autonomy.
 - Evidence archival is unified and hash-verified, but automatic fact extraction
   is currently narrow: exact Eagle schematic connectivity is supported, while
   PDFs and other CAD formats are queued for human review rather than guessed.
+- Reference research is a separate deliverable for schematics and PCB layouts.
+  The CLI can generate search queries but has no live web-search provider;
+  searches are performed by the assistant and recorded per project. Indexed
+  Eagle schematic/board pairs can now be compared for physical pad-net
+  membership, packages and explicit values. This does not validate layout
+  performance, finish PCB visual review, or run reference-board DRC.
 - `pcb-copilot research --verify` proves archive integrity, not that every
   needed part has been identified. The board-level evidence gates still own
   completeness checks during this migration.

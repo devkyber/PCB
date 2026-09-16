@@ -12,6 +12,13 @@
 
 ## Global Constraints
 
+- Before placement proposals, use the project's reference-layout research:
+  exact variant/revision, inspected copper views, native CAD when available,
+  decoupling/return paths, keepouts, mechanical constraints and stackup limits.
+  Record what is adopted and what differs in DESIGN_BASIS.md. A reference
+  schematic alone does not fulfill reference-PCB research; absent layout
+  sources must be explicit in the draft's review findings.
+
 - Read the four PCB generators, `pcb_layout_helpers.py`, `validate_pcb.py`, routing scripts, and MCP PCB/routing tests before changing them.
 - Never route or place directly into an accepted `.kicad_pcb`.
 - Resolve the real footprint before selecting coordinates.

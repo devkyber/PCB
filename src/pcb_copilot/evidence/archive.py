@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import os
 import re
+import xml.etree.ElementTree as ET
 from datetime import date
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -70,11 +71,17 @@ def _safe_stem(value: str) -> str:
     return cleaned[:90] or "document"
 
 
-def _archive_name(part_number: str, url: str, media_type: str, digest: str) -> str:
+def _archive_name(part_number: str, url: str, media_type: str, digest: str, payload: bytes) -> str:
     url_name = Path(unquote(urlsplit(url).path)).name
     base = _safe_stem(url_name or "document")
     expected_suffix = MEDIA_EXTENSIONS[media_type]
-    for suffix in (".kicad_sch", ".kicad_pcb", ".pdf", ".zip", ".xml", ".sch"):
+    if media_type == 'application/vnd.eagle+xml':
+        try:
+            if ET.fromstring(payload).find('drawing/board') is not None:
+                expected_suffix = '.brd'
+        except ET.ParseError as exc:
+            raise InvalidEvidencePayload('malformed Eagle XML') from exc
+    for suffix in (".kicad_sch", ".kicad_pcb", ".pdf", ".zip", ".xml", ".sch", '.brd'):
         if base.lower().endswith(suffix):
             base = base[: -len(suffix)]
             break
@@ -161,7 +168,7 @@ def archive_document(
             raise
         return merged
 
-    relative_path = Path("files") / _archive_name(part_number, url, media_type, digest)
+    relative_path = Path("files") / _archive_name(part_number, url, media_type, digest, payload)
     record = EvidenceRecord(
         id=evidence_id,
         manufacturer=manufacturer,

@@ -13,7 +13,11 @@ def repo_root() -> Path:
 @pytest.fixture
 def project_copy(tmp_path: Path, repo_root: Path) -> Path:
     destination = tmp_path / "baro-bmp390"
-    shutil.copytree(repo_root / "projects" / "baro-bmp390", destination)
+    # Local previews, drafts and approvals are not part of the source fixture.
+    shutil.copytree(
+        repo_root / "projects" / "baro-bmp390", destination,
+        ignore=shutil.ignore_patterns(".pcb-copilot"),
+    )
     return destination
 
 

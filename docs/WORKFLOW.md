@@ -37,6 +37,39 @@ assistant must report these as open decisions rather than inventing numbers.
 
 ## 3. Collect evidence
 
+Datasheets, reference schematics, and reference PCB layouts are three distinct
+research deliverables of equal workflow importance. Search manufacturer EVMs,
+evaluation kits and integration guides first, then credible open hardware.
+The datasheet remains the authority when a reference conflicts with device
+requirements. A downloaded schematic does not establish PCB-layout coverage.
+
+```powershell
+uv run pcb-copilot research projects/baro-bmp390 --search-plan BMP390
+uv run pcb-copilot research projects/baro-bmp390 --inspect-reference SCHEMATIC_EVIDENCE_ID PCB_EVIDENCE_ID
+```
+
+`--search-plan` prints queries; it does **not** perform a live web search or
+claim that research is complete. The assistant executes the searches and
+records query/date, candidates, source identity, variant/revision, rejected
+results and access failures in `REFERENCE_REVIEW.md`. Archive selected native
+CAD and supporting PDFs, inspect both circuit and copper views, and compare
+them with requirements and the datasheet. Record relevant choices and
+differences in `DESIGN_BASIS.md`, including layout choices.
+
+`--inspect-reference` takes two IDs from `evidence/index.yaml`. It verifies
+their bytes before comparing an Eagle schematic's mapped pads with its board,
+checks package names and explicit values, and reports routing/layer/polygon
+metadata. It is read-only and reports mismatches with a nonzero exit code.
+It does not run DRC, prove completion of routes, or certify layout suitability.
+KiCad reference-pair inspection and automatic live-search providers are not
+implemented in this command. Unsupported sources require explicit inspection;
+they must never silently count as inspected or validated.
+
+Keep four statuses separate in the review: **searched**, **archived**,
+**inspected**, and **compared/validated within a stated scope**. Missing
+reference designs or unavailable layout files remain visible findings during
+drafting; release review must address coverage and unresolved comparisons.
+
 Use this trust order:
 
 1. Manufacturer datasheet, integration manual, EVM, or application note.

@@ -15,6 +15,16 @@ from pcb_copilot.evidence.models import EvidenceRole
 from pcb_copilot.project import load_project
 
 
+def test_archived_eagle_board_keeps_board_extension(project_copy):
+    project = load_project(project_copy)
+    record = archive_document(
+        project, 'FIXTURE', 'https://example.test/reference.brd',
+        {EvidenceRole.REFERENCE_DESIGN}, b'<eagle><drawing><board/></drawing></eagle>',
+        date(2026, 9, 16),
+    )
+    assert record.path.endswith('.brd')
+
+
 def _without_unified_evidence(project_copy):
     shutil.rmtree(project_copy / "evidence", ignore_errors=True)
     return load_project(project_copy)

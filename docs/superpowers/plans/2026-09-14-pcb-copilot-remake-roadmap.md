@@ -12,6 +12,13 @@
 
 ## Global Constraints
 
+- User clarification (2026-09-16): reference schematic AND PCB-layout search,
+  acquisition, inspection and scoped validation are first-class requirements,
+  alongside datasheet research. Track those stages separately. Search seeds,
+  downloaded files and archive-integrity checks alone never mean research is
+  complete. Each board needs a source/variant-aware reference review and
+  design-basis comparisons; missing layout references remain explicit.
+
 - Accepted `.kicad_sch` and `.kicad_pcb` files are the electrical and physical sources of truth.
 - Analysis is read-only; generation writes a separate draft; acceptance and release are explicit.
 - Never silently overwrite a human-owned or accepted design.

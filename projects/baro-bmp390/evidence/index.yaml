@@ -1,5 +1,20 @@
 schema_version: 1
 records:
+- id: sha256:3bf3698620c7cb9789cdd57a8b0dc02d162d4670206b4fcf81ee7d6eeb6d2a91
+  manufacturer: Bosch Sensortec
+  part_numbers:
+  - BMP390
+  title: BMP390 shuttle board 3.0 flyer (BST-BMP390-SF000-01)
+  revision: '1.1, February 2024'
+  source_url: https://www.bosch-sensortec.com/media/boschsensortec/downloads/shuttle_board_flyer/application_board_3_1/bst-bmp390-sf000.pdf
+  retrieved_on: '2026-09-16'
+  path: files/BMP390_bst-bmp390-sf000_3bf3698620c7.pdf
+  sha256: 3bf3698620c7cb9789cdd57a8b0dc02d162d4670206b4fcf81ee7d6eeb6d2a91
+  media_type: application/pdf
+  roles:
+  - reference_design
+  trust_tier: manufacturer_evm
+  component_refs: []
 - id: sha256:8dcf0f74449cb1627e865c7f24d328b76c204d8b9621091ede8c6869fb393e48
   manufacturer: null
   part_numbers:
@@ -17,6 +32,21 @@ records:
   trust_tier: manufacturer
   component_refs:
   - U1
+- id: sha256:a12339be0afa2318778c7743ae1dda0bbd52ea30625c72166d6aa4db407360bd
+  manufacturer: null
+  part_numbers:
+  - BMP390
+  title: adafruit-bmp388-bmp390-bmp3xx.pdf
+  revision: null
+  source_url: https://cdn-learn.adafruit.com/downloads/pdf/adafruit-bmp388-bmp390-bmp3xx.pdf
+  retrieved_on: '2026-09-16'
+  path: files/BMP390_adafruit-bmp388-bmp390-bmp3xx_a12339be0afa.pdf
+  sha256: a12339be0afa2318778c7743ae1dda0bbd52ea30625c72166d6aa4db407360bd
+  media_type: application/pdf
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs: []
 - id: sha256:d732c7e871d1739e18aeccb356b2ab8c0f3e08bc8d89565dc1896740f45c3a7a
   manufacturer: null
   part_numbers:

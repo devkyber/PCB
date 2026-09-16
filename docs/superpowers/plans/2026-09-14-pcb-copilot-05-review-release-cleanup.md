@@ -20,6 +20,15 @@
 - Fabrication output is generated only from the accepted released revision.
 - Every deletion requires an inventory rule, verified replacement, zero inbound callers, and Git recoverability.
 - Do not weaken known board failures to obtain a green suite.
+- Reference schematic and PCB research have equal priority with datasheets.
+  The release review must distinguish search outcomes, archive integrity,
+  inspection, and applicability comparison for each required reference type;
+  a generic `reference_design` archive record alone is not completion.
+  Missing native CAD may be documented with the searches performed and an
+  explicit human disposition, never silently counted as validated layout.
+  Keep incomplete research advisory while drafting; require a recorded
+  disposition for unresolved research at release. This gate is planned here,
+  not yet implemented by the current research CLI.
 - Finish each task with a focused commit.
 
 ---

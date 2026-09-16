@@ -471,6 +471,15 @@ git commit -m "feat: accept schematic drafts without silent overwrite"
 
 ### Task 8: Four-board schematic migration and visual gate
 
+**Reference-research prerequisite (user clarification, 2026-09-16):** For each
+board, search both manufacturer and credible open-hardware references for
+schematics and PCB layouts. Record queries/outcomes and exact source identity
+in `REFERENCE_REVIEW.md`; archive the selected sources, inspect relevant
+schematic and layout views, and compare applicability against datasheets and
+our design basis. Pair-consistency checks supplement this review. Missing
+sources remain advisory findings in drafts, not invented successful research.
+The BMP390 review is the first worked example; the other boards are pending.
+
 **Files:**
 - Create: `projects/baro-bmp390/schematic-intent.yaml`
 - Create: `projects/imu-icm42688/schematic-intent.yaml`

@@ -14,6 +14,7 @@ from pcb_copilot.evidence.extract import extract_eagle_connections
 from pcb_copilot.evidence.facts import EvidenceFact
 from pcb_copilot.evidence.index import load_evidence_index
 from pcb_copilot.evidence.models import EvidenceRole, TrustTier
+from pcb_copilot.evidence.references import inspect_eagle_pair
 from pcb_copilot.models import Project
 
 Downloader = Callable[[str], bytes]
@@ -86,6 +87,30 @@ def add_evidence(
 
 def _normal(value: str) -> str:
     return re.sub(r"[^a-z0-9]", "", value.casefold())
+
+
+def inspect_reference_pair(project: Project, schematic_id: str, board_id: str) -> dict:
+    """Inspect two indexed sources only after checking their archived bytes."""
+    index = load_evidence_index(project.evidence_index_path)
+    selected = []
+    for evidence_id in (schematic_id, board_id):
+        record = next((r for r in index.records if r.id == evidence_id), None)
+        if record is None or EvidenceRole.REFERENCE_DESIGN not in record.roles:
+            raise ValueError(f'{evidence_id} is not an indexed reference design')
+        selected.append(record)
+    failures = [f for f in check_evidence(project, ())
+                if f.evidence_id in {schematic_id, board_id}]
+    if failures:
+        raise ValueError('; '.join(f.message for f in failures))
+    schematic, board = selected
+    if not {_normal(p) for p in schematic.part_numbers}.intersection(
+        _normal(p) for p in board.part_numbers
+    ):
+        raise ValueError('reference pair has no common indexed part identity')
+    result = inspect_eagle_pair(project.evidence_index_path.parent / schematic.path,
+                                project.evidence_index_path.parent / board.path)
+    result['provenance'] = [r.model_dump(mode='json') for r in selected]
+    return result
 
 
 def _conflicts(facts: list[tuple[EvidenceFact, str]]) -> tuple[str, ...]:
