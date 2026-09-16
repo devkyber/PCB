@@ -17,6 +17,39 @@ if str(DOCS) not in sys.path:
 _helpers = importlib.import_module('schematic_layout_helpers')
 
 
+def visible_text_envelope(
+    text: str,
+    x: float,
+    y: float,
+    font_width: float,
+    font_height: float,
+    *,
+    justification=(),
+    kind: str = 'text',
+    owner: str = '',
+) -> VisualObstacle:
+    """Conservatively bound horizontal KiCad stroke text in MCP space."""
+    width = max(font_width, len(text) * font_width * 1.1)
+    height = font_height * 1.55
+    tokens = {str(token) for token in justification}
+    if 'left' in tokens:
+        x_min, x_max = x, x + width
+    elif 'right' in tokens:
+        x_min, x_max = x - width, x
+    else:
+        x_min, x_max = x - width / 2, x + width / 2
+    if 'top' in tokens:
+        y_min, y_max = y - height, y
+    elif 'bottom' in tokens:
+        y_min, y_max = y, y + height
+    else:
+        y_min, y_max = y - height / 2, y + height / 2
+    return VisualObstacle(
+        round(x_min, 3), round(y_min, 3), round(x_max, 3), round(y_max, 3),
+        kind=kind, owner=owner,
+    )
+
+
 def text_field_envelope(ed, tree, ref: str, prop_name: str) -> VisualObstacle | None:
     """Bound one visible, unrotated field for local wire routing.
 
@@ -41,11 +74,6 @@ def text_field_envelope(ed, tree, ref: str, prop_name: str) -> VisualObstacle | 
         raise ValueError(f'{prop_name} property on {ref!r} has no position or font size')
 
     x, y = kicad_to_mcp_xy(float(at[1]), float(at[2]), ed.page_height_mm(tree))
-    # KiCad's stroke glyphs slightly exceed a one-font-size character cell,
-    # especially vertically. These factors enclose the real exported PDF
-    # bounds while leaving only a small routing clearance.
-    width = max(float(size[1]), len(str(prop[2])) * float(size[1]) * 1.1)
-    height = float(size[2]) * 1.55
     rotation = float(at[3]) % 360 if len(at) > 3 else 0.0
     if abs(rotation) > 1e-6:
         raise ValueError(
@@ -54,26 +82,14 @@ def text_field_envelope(ed, tree, ref: str, prop_name: str) -> VisualObstacle | 
         )
 
     justify = ed.find_child(effects, 'justify') if effects is not None else None
-    tokens = {str(token) for token in justify[1:]} if justify is not None else set()
-    if 'left' in tokens:
-        x_min, x_max = x, x + width
-    elif 'right' in tokens:
-        x_min, x_max = x - width, x
-    else:
-        x_min, x_max = x - width / 2, x + width / 2
-    if 'top' in tokens:
-        y_min, y_max = y - height, y
-    elif 'bottom' in tokens:
-        y_min, y_max = y, y + height
-    else:
-        y_min, y_max = y - height / 2, y + height / 2
-    return VisualObstacle(
-        round(x_min, 3), round(y_min, 3), round(x_max, 3), round(y_max, 3),
-        kind='text', owner=f'{ref}.{prop_name}',
+    return visible_text_envelope(
+        str(prop[2]), x, y, float(size[1]), float(size[2]),
+        justification=justify[1:] if justify is not None else (),
+        owner=f'{ref}.{prop_name}',
     )
 
 
-def _outline_points(ed, definition):
+def symbol_outline_points(ed, definition):
     """Include common body outlines that may extend beyond the pin box.
 
     This is not a complete font/curve bounds engine. Pin extents remain the
@@ -122,7 +138,7 @@ def place_component_fields(ed, tree, symbols, labels, ref: str) -> None:
     x0, y0, x1, y1 = min(x0, x), min(y0, y), max(x1, x), max(y1, y)
     definition = ed.find_lib_symbol_def(tree, lib_id[1])
     rotation = float(ed.find_child(symbol, 'at')[3])
-    for px, py in _outline_points(ed, definition):
+    for px, py in symbol_outline_points(ed, definition):
         dx, dy = rotate_xy(px, py, rotation)
         x0, y0 = min(x0, x + dx), min(y0, y + dy)
         x1, y1 = max(x1, x + dx), max(y1, y + dy)

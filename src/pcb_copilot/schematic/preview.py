@@ -10,6 +10,7 @@ from pathlib import Path
 from kicad_claude.adapters import sch_editor, sch_io
 
 from pcb_copilot.evidence.checks import Finding
+from pcb_copilot.schematic.power import power_clearance_findings_for_file
 from pcb_copilot.schematic.quality import analyse_schematic
 from pcb_copilot.toolchain import ToolchainPaths
 
@@ -52,6 +53,7 @@ def render_schematic_preview(
     for path in schematic_files(schematic):
         value = analyse_schematic(path)
         metrics.append({'path': path.relative_to(schematic.parent).as_posix(), **asdict(value)})
+        findings.extend(power_clearance_findings_for_file(path))
         if not value.title_complete or value.component_count > value.page_capacity:
             findings.append(Finding('schematic-quality', f'{path.name}: incomplete title or excessive density'))
     metrics_path.write_text(json.dumps({'sheets': metrics}, indent=2) + '\n', encoding='utf-8')
