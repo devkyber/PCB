@@ -69,23 +69,26 @@ def connect_local(
     end = editor.pin_position(target)
     if not corridor.contains(start) or not corridor.contains(end):
         raise ValueError("pin lies outside its functional-block wire corridor")
-    points = [start]
-    if start[0] != end[0] and start[1] != end[1]:
-        bend = (end[0], start[1])
-        if not corridor.contains(bend):
-            raise ValueError("orthogonal route leaves its functional-block corridor")
-        points.append(bend)
-    points.append(end)
-    segments = tuple(
-        WireSegment(a, b, net)
-        for a, b in pairwise(points)
-        if a != b
-    )
-    for segment in segments:
-        for existing in editor.segments:
-            if existing.net != segment.net and _touches(existing, segment):
-                raise StubCrossingError(
-                    f"{segment.net} wire crosses existing {existing.net} wire"
-                )
-        editor.add_segment(segment)
-    return segments
+    candidates = [
+        [start, (end[0], start[1]), end],
+        [start, (start[0], end[1]), end],
+    ]
+    # Search parallel grid lanes when either simple elbow would cross a pin
+    # or a prior wire. Validate the whole path before adding any segment.
+    for step in range(1, 220):
+        for sign in (-1, 1):
+            x = round(start[0] + sign * step * 1.27, 6)
+            y = round(start[1] + sign * step * 1.27, 6)
+            candidates.append([start, (x, start[1]), (x, end[1]), end])
+            candidates.append([start, (start[0], y), (end[0], y), end])
+    for points in candidates:
+        if not all(corridor.contains(point) for point in points):
+            continue
+        segments = tuple(WireSegment(a, b, net) for a, b in pairwise(points) if a != b)
+        if any(existing.net != net and _touches(existing, segment)
+               for segment in segments for existing in editor.segments):
+            continue
+        for segment in segments:
+            editor.add_segment(segment)
+        return segments
+    raise StubCrossingError(f"no clear local wire path for {net} inside its block")

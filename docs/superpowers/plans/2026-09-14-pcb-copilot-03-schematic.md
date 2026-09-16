@@ -12,6 +12,34 @@
 
 ## Global Constraints
 
+### Execution checkpoint — 2026-09-16
+
+Tasks 1–7 have implementation commits on `main`. The current command surface
+supports transactional drafts, intent validation, local wiring, hierarchy,
+PDF/ERC/metrics review artifacts, and explicit schematic acceptance with
+stale-file checks, backups, and rollback. Hierarchy connectivity is tested
+through KiCad netlist export, including sibling sheets with separate nets.
+Preview inspection exposed overlapping hierarchy labels; the renderer now
+uses the existing clearance helper and separated sheet-label stubs.
+An additional KiCad round-trip test exposed a local-wire short through an
+unrelated pin in the two-block fixture. Local routing now considers pin and
+label-stub obstacles, searches alternate grid lanes, and validates a complete
+route before drawing it. Draft reports also compare the extracted netlist
+against every declared intent assignment; acceptance repeats that check.
+
+Task 8 is pending. No real board has been regenerated or accepted. Board
+intent migration must preserve the existing circuits and expose missing
+pin-map citations for generic parts rather than assigning unrelated source
+IDs. Research findings remain advisory for draft creation and schematic
+acceptance, with release requirements enforced separately. Start Task 8 with
+the barometer as a complete practical example before expanding to the other
+three boards. Remaining layout, release, and cleanup work is in Plans 4 and 5.
+The product target is supplementary engineering assistance as stated in the
+design spec; autonomous human-level design is not an acceptance criterion.
+
+The CLI tests live in `tests/schematic/test_schematic_cli.py` to avoid pytest
+module-name collisions with the evidence CLI tests.
+
 - Accepted schematics remain byte-identical until an explicit `accept` command.
 - Read `docs/schematic_layout_helpers.py`, all four schematic generators, netmap extraction, quality checks, and MCP schematic tests before changing them.
 - Preserve verified symbol identity, pin coordinates, net membership, and explicit no-connects.

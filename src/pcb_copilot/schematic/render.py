@@ -198,7 +198,24 @@ def _render_sheet_tree(
             x, y = ed.get_pin_position(tree, component.ref, no_connect.pin)
             ed.add_no_connect(tree, x, y)
 
+    for (_block_id, net), pins in sorted(pins_by_block_net.items()):
+        declared = [c.pins[p.pin].style for p in pins for c in intent.components if c.ref == p.ref]
+        if all(style == 'wire' for style in declared):
+            pin = pins[0]
+            labels.place(pin.ref, pin.pin, net, *origins[pin.ref])
+
     wire_editor = _WireEditor(tree)
+    wire_editor.segments.extend(
+        WireSegment(a, b, net) for a, b, _ref, _pin, net in labels._segments
+    )
+    for component in intent.components:
+        if component.ref not in origins:
+            continue
+        for pin in ed.list_pins_for_symbol(tree, component.ref):
+            point = tuple(pin['position_mm'])
+            connection = component.pins.get(pin['number'])
+            net = connection.net if connection else f'NC:{component.ref}.{pin["number"]}'
+            wire_editor.segments.append(WireSegment(point, point, net))
     for (block_id, net), pins in sorted(pins_by_block_net.items()):
         if len(pins) < 2:
             continue

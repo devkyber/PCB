@@ -84,8 +84,7 @@ def accept_schematic(project: Project, draft: DraftRecord) -> AcceptanceResult:
         raise ValueError('review artifacts changed or are missing; regenerate the draft review')
     if report.get('exit_code') != 0 or any(f['severity'] == 'block' for f in report['findings']):
         raise ValueError('draft has blocking review findings')
-    if check_evidence(project, ()):
-        raise ValueError('project evidence no longer passes integrity checks')
+    evidence_findings = check_evidence(project, ())
 
     # Extract using KiCad before any accepted-file replacement. This import
     # follows the existing repository helper path established by the renderer.
@@ -141,6 +140,7 @@ def accept_schematic(project: Project, draft: DraftRecord) -> AcceptanceResult:
             'draft_id': draft.id, 'schematic_hash': canonical_design_hash(project.schematic_path),
             'pcb_hash': canonical_design_hash(project.pcb_path),
             'accepted_files': accepted_file_hashes(project),
+            'evidence_review_required': [f'{f.code}: {f.message}' for f in evidence_findings],
         }
         _replace_bytes(state_path, (json.dumps(review, indent=2) + '\n').encode())
         applied.append(state_path)

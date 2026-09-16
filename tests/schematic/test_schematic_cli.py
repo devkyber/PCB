@@ -10,7 +10,9 @@ def test_draft_command_preserves_accepted_files(project_copy, repo_root, capsys)
     code = main(['draft-schematic', str(project_copy), '--intent',
                  str(repo_root / 'tests/fixtures/schematic/parent-child.yaml')])
     result = json.loads(capsys.readouterr().out)
-    assert code == 1  # Fixture citations are deliberately absent from the archive.
+    assert code == 0  # Missing research is advisory during drafting, blocking at release.
+    assert any(f['code'] == 'intent-evidence-unresolved' and f['severity'] == 'review'
+               for f in result['findings'])
     root = project_copy / '.pcb-copilot/drafts' / result['draft_id']
     assert (root / 'preview.pdf').read_bytes().startswith(b'%PDF')
     assert json.loads((root / 'erc.json').read_text(encoding='utf-8'))['sheets']

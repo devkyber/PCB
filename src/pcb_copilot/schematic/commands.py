@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+import importlib
 import json
-from dataclasses import asdict
+from dataclasses import asdict, replace
 from pathlib import Path
 
 from pcb_copilot.drafts import create_draft
@@ -26,7 +27,18 @@ def draft_schematic(project: Project, intent_path: Path) -> dict:
     schematic = rendered.root_schematic if isinstance(rendered, HierarchyDraft) else rendered
     save_schematic_intent(intent, draft.root / 'schematic-intent.yaml')
     preview = render_schematic_preview(toolchain, schematic, draft.root)
-    findings = list(preview.findings) + list(check_evidence(project, ()))
+    findings = list(preview.findings) + [
+        replace(finding, severity='review') for finding in check_evidence(project, ())
+    ]
+    try:
+        extracted = importlib.import_module('extract_netmap').extract(schematic)
+        expected = {c.ref: {pin: connection.net for pin, connection in c.pins.items()}
+                    for c in intent.components if c.pins}
+        if extracted['nets'] != expected:
+            findings.append(Finding('intent-netlist-mismatch',
+                                    'KiCad connectivity differs from the declared intent'))
+    except (OSError, RuntimeError, ValueError) as exc:
+        findings.append(Finding('netlist-extraction-failed', str(exc)))
     try:
         records = {record.id: record for record in load_evidence_index(project.evidence_index_path).records}
     except EvidenceFormatError:
@@ -38,7 +50,7 @@ def draft_schematic(project: Project, intent_path: Path) -> dict:
         }:
             findings.append(Finding('intent-evidence-unresolved',
                                     'Pin-map citation is absent or does not identify this part',
-                                    component.ref, component.pin_map_evidence_id))
+                                    component.ref, component.pin_map_evidence_id, severity='review'))
     report = {
         'schema_version': 1,
         'draft_id': draft.id,

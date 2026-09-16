@@ -97,8 +97,9 @@ uv run pcb-copilot draft-schematic projects/baro-bmp390 --intent projects/baro-b
 The command prints a JSON report with the draft ID and artifact paths under
 `.pcb-copilot/drafts/`. It preserves the source intent beside `preview.pdf`,
 `erc.json`, `metrics.json`, and `review.json`. An exit code of 1 indicates
-blocking findings; the draft remains available for inspection. Missing or
-mismatched pin-map citations are reported explicitly. A failed PDF or ERC
+blocking machine findings; the draft remains available for inspection. Missing
+or mismatched pin-map citations are explicit review advisories during drafting
+and acceptance; evidence requirements remain blocking at release. A failed PDF or ERC
 export is recorded as a failure and does not discard the schematic.
 
 The draft must include functional blocks, local drawn wires, graphical power
@@ -151,10 +152,12 @@ uv run pcb-copilot accept projects/baro-bmp390 DRAFT_ID
 ```
 
 Replace `DRAFT_ID` with the ID printed by `draft-schematic`. Acceptance checks
-the original files, preview artifact hashes, evidence integrity, and intent
+the original files, preview artifact hashes, and intent
 versus KiCad netlist. It installs the root and child sheets, refreshes
 `netmap.json`, marks schematic ownership human, and records the reviewed file
 hashes. PCB bytes are unchanged. Changed child sheets invalidate review state.
+Acceptance records outstanding evidence findings without treating them as
+release approval.
 Backups and a transaction record remain under `.pcb-copilot/acceptances/ID`.
 Ordinary write failures roll back completed replacements. If the process is
 interrupted, a remaining `accept.lock` means the transaction needs recovery
