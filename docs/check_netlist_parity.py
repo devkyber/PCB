@@ -73,6 +73,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / 'src'))
+# KiCad's bundled Python provides pcbnew but cannot see workspace-installed
+# packages, so expose only the vendored pure-Python discovery helper source.
+sys.path.insert(0, str(REPO / 'tools' / 'kicad-claude-mcp' / 'src'))
 
 from pcb_copilot.toolchain import discover_toolchain  # noqa: E402
 
