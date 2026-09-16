@@ -55,75 +55,29 @@ Usage:  python3 check_schematic_quality.py <board.kicad_pcb | board.kicad_sch>
 """
 from __future__ import annotations
 
-import re
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+REPO = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO / 'src'))
+sys.path.insert(0, str(REPO / 'docs'))
 
-# Components per sheet. A4 anchors the documented "~25"; the rest scale with
-# sheet area (each step up the A series doubles it).
-PAGE_CAPACITY = {
-    'A5': 12, 'A4': 25, 'A3': 50, 'A2': 100, 'A1': 200, 'A0': 400,
-    'USLetter': 25, 'USLegal': 32, 'USLedger': 50,
-}
-DEFAULT_CAPACITY = 25
-
-
-def _instances(text: str) -> str:
-    """The symbol-instance region — everything after the `lib_symbols` block.
-
-    Definitions inside `lib_symbols` also carry `(lib_id ...)`-shaped content;
-    counting those would inflate every board by the size of its library.
-
-    The end of that block is found by counting parentheses, not by looking for
-    a `\n\t)\n` delimiter. The delimiter version returned the WHOLE FILE for
-    gnss-neom9n, whose library nests differently, and the check then reported
-    "0 components" for a 24-component board — a silent pass, which is the one
-    failure mode a gate must never have.
-    """
-    i = text.find('(lib_symbols')
-    if i < 0:
-        return text
-    depth, in_str = 0, False
-    for j in range(i, len(text)):
-        c = text[j]
-        if c == '"' and text[j - 1] != '\\':
-            in_str = not in_str
-        elif not in_str:
-            if c == '(':
-                depth += 1
-            elif c == ')':
-                depth -= 1
-                if depth == 0:
-                    return text[j + 1:]
-    return text[i:]
+from pcb_copilot.schematic.quality import analyse_schematic  # noqa: E402
 
 
 def analyse(sch: Path) -> dict:
-    t = sch.read_text(encoding='utf-8')
-    inst = _instances(t)
-    ids = re.findall(r'\(lib_id "([^"]+)"\)', inst)
-    paper_m = re.search(r'\(paper "([^"]+)"', t)
-    paper = paper_m.group(1) if paper_m else 'A4'
-
-    tb = re.search(r'\(title_block\b(.*?)\n\t\)', t, re.S)
-    tb_body = tb.group(1) if tb else ''
-    title = re.search(r'\(title "([^"]*)"', tb_body)
-    rev = re.search(r'\(rev "([^"]*)"', tb_body)
-
+    metrics = analyse_schematic(sch)
     return {
-        'paper': paper,
-        'capacity': PAGE_CAPACITY.get(paper, DEFAULT_CAPACITY),
-        'components': len([i for i in ids if not i.startswith('power:')]),
-        'power': len([i for i in ids if i.startswith('power:')]),
-        # `(sheet (at ...)` is a hierarchical sheet; `(sheet_instances` is not.
-        'sheets': len(re.findall(r'\(sheet\s*\n\s*\(at ', t)),
-        'junctions': len(re.findall(r'\(junction\s', t)),
-        'labels': len(re.findall(r'\(label\s', t)),
-        'has_title_block': bool(tb),
-        'title': title.group(1) if title else '',
-        'rev': rev.group(1) if rev else '',
+        'paper': metrics.paper,
+        'capacity': metrics.page_capacity,
+        'components': metrics.component_count,
+        'power': metrics.power_symbol_count,
+        'sheets': metrics.sheet_count - 1,
+        'junctions': metrics.junction_count,
+        'labels': metrics.label_count,
+        'has_title_block': metrics.has_title_block,
+        'title': metrics.title,
+        'rev': metrics.revision,
     }
 
 
