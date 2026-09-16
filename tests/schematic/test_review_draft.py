@@ -1,4 +1,6 @@
 import json
+import os
+import shlex
 import subprocess
 
 import pytest
@@ -28,9 +30,26 @@ def _reviewable_draft(project_copy, repo_root, tmp_path):
     return project, load_draft(project, report['draft_id']), intent.title
 
 
+def _move_under_spaced_parent(project_copy, tmp_path):
+    destination = tmp_path / "workspace with spaces $operator's" / project_copy.name
+    destination.parent.mkdir()
+    project_copy.replace(destination)
+    return destination
+
+
+def _expected_review_command(project, draft):
+    root = str(project.root)
+    if os.name == 'nt':
+        quoted_root = "'" + root.replace("'", "''") + "'"
+    else:
+        quoted_root = shlex.quote(root)
+    return f'pcb-copilot review-draft {quoted_root} {draft.id}'
+
+
 def test_review_preserves_manual_hierarchy_edits_and_refreshes_acceptance(
     project_copy, repo_root, tmp_path,
 ):
+    project_copy = _move_under_spaced_parent(project_copy, tmp_path)
     project, draft, title = _reviewable_draft(project_copy, repo_root, tmp_path)
     accepted_before = {
         path: path.read_bytes()
@@ -49,8 +68,9 @@ def test_review_preserves_manual_hierarchy_edits_and_refreshes_acceptance(
         path.write_text(changed, encoding='utf-8', newline='\n')
         edited[path] = path.read_bytes()
 
-    with pytest.raises(ValueError, match='review-draft'):
+    with pytest.raises(ValueError, match='review-draft') as error:
         accept_schematic(project, draft)
+    assert _expected_review_command(project, draft) in str(error.value)
 
     report = review_draft(project, draft.id)
 
@@ -182,6 +202,7 @@ def test_mid_review_edit_is_not_published_as_a_current_success(
 ):
     import pcb_copilot.schematic.preview as preview_module
 
+    project_copy = _move_under_spaced_parent(project_copy, tmp_path)
     project, draft, title = _reviewable_draft(project_copy, repo_root, tmp_path)
     child = draft.root / 'sensor.kicad_sch'
     outputs = tuple(draft.root / name for name in (
@@ -201,10 +222,11 @@ def test_mid_review_edit_is_not_published_as_a_current_success(
         return real_run(*args, **kwargs)
 
     monkeypatch.setattr(preview_module.subprocess, 'run', edit_during_export)
-    with pytest.raises(RuntimeError, match='changed during review'):
+    with pytest.raises(RuntimeError, match='changed during review') as error:
         review_draft(project, draft.id)
 
     assert edited
+    assert _expected_review_command(project, draft) in str(error.value)
     assert {path: path.read_bytes() for path in outputs} == output_bytes
     assert f'{title} concurrent edit' in child.read_text(encoding='utf-8')
     with pytest.raises(ValueError, match='review-draft'):

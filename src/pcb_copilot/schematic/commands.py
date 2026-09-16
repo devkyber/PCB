@@ -12,6 +12,7 @@ from pathlib import Path
 from pcb_copilot.accept import (
     assert_draft_base_current,
     load_draft,
+    review_draft_command,
     validate_schematic_draft,
 )
 from pcb_copilot.drafts import create_draft
@@ -131,7 +132,7 @@ def _assert_review_snapshot_current(
     if current_files != files or current_hashes != input_hashes:
         raise RuntimeError(
             'draft schematic or intent changed during review; rerun '
-            f'pcb-copilot review-draft {project.root} {draft.id}'
+            f'{review_draft_command(project, draft.id)}'
         )
 
 

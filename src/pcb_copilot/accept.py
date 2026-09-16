@@ -5,6 +5,7 @@ from __future__ import annotations
 import importlib
 import json
 import os
+import shlex
 import shutil
 from dataclasses import dataclass
 from datetime import datetime
@@ -30,6 +31,15 @@ class AcceptanceResult:
     accepted_hash: str
     netmap_path: Path
     lifecycle: Lifecycle
+
+
+def review_draft_command(project: Project, draft_id: str) -> str:
+    """Render a copyable review command for the current platform shell."""
+    arguments = ['pcb-copilot', 'review-draft', str(project.root), draft_id]
+    if os.name == 'nt':
+        root = "'" + str(project.root).replace("'", "''") + "'"
+        return f'pcb-copilot review-draft {root} {draft_id}'
+    return shlex.join(arguments)
 
 
 def load_draft(project: Project, draft_id: str) -> DraftRecord:
@@ -97,7 +107,7 @@ def accept_schematic(project: Project, draft: DraftRecord) -> AcceptanceResult:
     if report.get('artifact_hashes') != current_hashes or None in current_hashes.values():
         raise ValueError(
             f'review artifacts changed or are missing; run '
-            f'pcb-copilot review-draft {project.root} {draft.id}'
+            f'{review_draft_command(project, draft.id)}'
         )
     if report.get('exit_code') != 0 or any(f['severity'] == 'block' for f in report['findings']):
         raise ValueError('draft has blocking review findings')
