@@ -10,6 +10,40 @@
 
 **Spec:** `docs/superpowers/specs/2026-09-14-pcb-copilot-repository-remake-design.md`
 
+## Windows helper follow-up — 2026-09-17
+
+The original foundation tasks are implemented. A Task 2 follow-up corrects a
+remaining discovery gap: Windows KiCad provides a sibling `python.exe` with
+`pcbnew`, but no `kipython` executable. Preserve explicit `KIPYTHON`, then PATH
+`kipython`, before considering that sibling. Require an isolated, bounded
+`pcbnew` import probe; a missing or unusable optional interpreter must not hide
+an otherwise available KiCad CLI. An injected environment controls helper PATH
+lookup, while the shared CLI finder retains its existing environment contract.
+
+This is a toolchain correction, not the start of layout generation or an
+approval of any board. Legacy callers need individual verification under the
+bundled interpreter; discovering it does not make every wrapper portable.
+
+The parity checker also needs both repository `src` and vendored helper source
+on its import path when run by KiCad Python, which lacks the workspace's
+installed packages. Its bootstrap must not expose the workspace virtualenv's
+native extensions to a different Python ABI. An isolated no-site-packages
+regression covers that caller without requiring KiCad or opening a board.
+
+Fresh Windows exports also need an explicit LF policy for `.claude/hooks/*.sh`;
+`core.autocrlf=true` otherwise breaks Bash even when a developer's current
+copy happens to use LF. A temporary-Git checkout regression protects that
+boundary without changing hook logic or the exact-source evidence policy.
+
+Verified on the local Windows KiCad installation: shared discovery selects
+the bundled interpreter, and the existing read-only geometry and schematic/PCB
+parity checks run successfully on all four accepted boards. The enforcement
+self-test passes 93/93 in a fresh Git-exported snapshot with UTF-8 propagated
+to child processes. A snapshot is important because this legacy self-test
+temporarily replaces evidence files during fault injection. These results do
+not establish full board readiness; the combined test counts are recorded in
+the [schematic execution checkpoint](2026-09-14-pcb-copilot-03-schematic.md#execution-checkpoint--2026-09-17).
+
 ## Global Constraints
 
 - Read each current file, callers, tests, and documentation before changing it.

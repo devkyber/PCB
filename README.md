@@ -28,6 +28,10 @@ connectivity checks and explicit stale-safe acceptance. None of these new
 board drafts has been accepted. Reference research is recorded per board,
 with missing sources and unreviewed copper views stated explicitly.
 
+You can edit a generated draft in KiCad and refresh its checks with
+`pcb-copilot review-draft PROJECT_PATH DRAFT_ID`, preserving the edited CAD.
+See the [edit-and-review workflow](docs/WORKFLOW.md#edit-a-draft-and-refresh-its-review).
+
 Human visual review is the current Plan 3 checkpoint. The new layout assistant
 and unified review/release/cleanup remain Plans 4 and 5; they are not finished.
 Existing scripts remain available until replacement behavior is verified.

@@ -32,6 +32,8 @@ the new layout, unified review, and release interfaces remain planned.
 - Compare a proposed circuit with datasheets and reference designs.
 - Generate functional-block schematic drafts from explicit intent, with PDF,
   ERC, quality metrics, and stale-safe schematic acceptance.
+- Refresh checks and previews after editing a draft in KiCad, without
+  regenerating its schematic or accepting it automatically.
 - Use the legacy pipeline and board generators for PCB creation, candidate
   routing, DRC, and fabrication while replacement behavior is built.
 - Preserve netlists, check schematic/PCB parity, and detect stale artifacts.
@@ -59,9 +61,10 @@ the new layout, unified review, and release interfaces remain planned.
 - The legacy pipeline contains Unix/macOS assumptions. Foundation discovery
   now supports Windows and dotted KiCad versions, but remaining wrappers have
   not all migrated.
-- `kipython` is not currently discovered on this Windows host, although
-  KiCad’s bundled Python exists. PCB checks that import `pcbnew` need the
-  portable adapter work planned later.
+- Shared discovery can use Windows KiCad's sibling `python.exe` when no
+  explicit `KIPYTHON` or PATH `kipython` is available, after a bounded,
+  isolated `pcbnew` import succeeds. This does not install bindings into
+  the workspace Python or make legacy wrappers that bypass discovery portable.
 - Accepted schematics were generated with label-heavy stubs and measured zero
   junctions. Electrical connectivity may exist, but visual review quality is
   insufficient—especially for TMS V3. New drafts have measured row spacing,
@@ -70,6 +73,11 @@ the new layout, unified review, and release interfaces remain planned.
 - TMS V3 now has a seven-page draft (overview plus six functional sheets).
   Human review is pending. Its local net names gain sheet prefixes; acceptance
   preserves those names and will require explicit PCB net-name reconciliation.
+- `review-draft` supports manual draft edits but does not infer revised circuit
+  intent. Its intent comparison checks connected physical pin groups and net
+  names, not every part value, footprint, symbol identity or explicit
+  no-connect marker. Those still require inspection against the intended
+  design and evidence. Successful refresh is not human approval.
 - Schematic placement is heuristic. Body/pin obstacles and outward label
   alignment improve readability. Local wires now avoid conservative bounds
   around generated, unrotated power Value text, with bounded multi-bend grid

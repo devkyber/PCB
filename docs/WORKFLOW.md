@@ -15,6 +15,13 @@ Status is read-only. It reports the manifest, lifecycle, accepted design
 paths, evidence availability, toolchain, recorded hashes, and one next action.
 It does not run generators or rewrite tracked reports.
 
+Shared tool discovery reuses the KiCad CLI finder. For `pcbnew` helpers it
+prefers explicit `KIPYTHON`, then PATH `kipython`. On Windows, it can also use
+`python.exe` beside the selected KiCad CLI after a successful isolated import
+probe (five-second timeout). A failed optional probe leaves those helpers
+unavailable; it does not hide the KiCad CLI. Other legacy wrappers still need
+individual portability checks—discovery alone does not validate their behavior.
+
 The legacy all-board summary is also read-only. It reads stored pipeline
 reports and current board hashes without rebuilding a board:
 
@@ -34,6 +41,11 @@ uv run python docs/audit_workflow.py
 reports. The direct gate runner likewise writes ERC and DRC reports. Use the
 package `status` command or legacy `--status` when the operation must be
 read-only.
+
+`docs/selftest_enforcement.py` is a fault-injection tool, not a read-only
+status command: it temporarily replaces BMP390 evidence files and touches a
+board's modification time. Run it in a disposable repository copy so an
+interrupted test cannot leave the working archive modified.
 
 The full compatibility pipeline is mutating.
 
@@ -205,6 +217,37 @@ produces an explicit `power-clearance-unchecked` advisory. No findings does not
 establish complete graphical clearance: wires, pin names and ordinary component
 fields are outside this diagnostic's scope.
 
+### Edit a draft and refresh its review
+
+Open the root schematic inside `.pcb-copilot/drafts/DRAFT_ID/` in KiCad and
+make your edits there, not in the accepted project. Save any changed child
+sheets, then close or stop editing them while the review runs:
+
+```powershell
+uv run pcb-copilot review-draft projects/baro-bmp390 DRAFT_ID
+```
+
+Replace `DRAFT_ID` with the original draft ID. This command checks the existing
+root and child schematics and refreshes PDF, ERC, metrics and `review.json`.
+It does not rerun the schematic generator or overwrite your CAD edits. The
+original accepted-base hashes stay in force: if the accepted design has
+changed, review refuses the stale draft instead of silently rebasing it.
+
+The saved draft `schematic-intent.yaml` remains the connectivity contract.
+Changed pin/net membership or incompatible net names produce blocking findings;
+the command never updates intent to disguise a mismatch. This comparison does
+not validate every part value, footprint, symbol identity or no-connect marker.
+Inspect those explicitly, and reconcile deliberate circuit changes with the
+reviewed intent before acceptance. Generated reports are replaced on refresh;
+keep durable review notes in the project's review record, not only in generated
+JSON. Human review returns to `pending`, and accepted files and lifecycle state
+remain unchanged.
+
+An interrupted or failed refresh is not approval. Inspect the reported failures,
+correct the cause, and run `review-draft` again. Do not edit hashes or reuse an
+older PDF to bypass a changed-artifact check. Review the refreshed PDF before
+running the separate `accept` command.
+
 ## 5. Draft placement and routing
 
 Resolve and measure the real footprint before choosing coordinates. Place
@@ -262,6 +305,9 @@ retains KiCad's actual qualified names in `netmap.json`. It does not rename PCB
 nets: reconcile those explicitly and rerun schematic/PCB parity before release.
 Acceptance records outstanding evidence findings without treating them as
 release approval.
+If you edit a draft after its last review, run `review-draft` and inspect its
+new preview first; re-running `draft-schematic` creates a new generated draft
+and does not incorporate your manual CAD edits.
 Backups and a transaction record remain under `.pcb-copilot/acceptances/ID`.
 Ordinary write failures roll back completed replacements. If the process is
 interrupted, a remaining `accept.lock` means the transaction needs recovery

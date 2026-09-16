@@ -78,6 +78,13 @@ the file. Each draft records its kind, project, timestamp, and accepted
 base hashes. Acceptance checks those hashes again to prevent stale work from
 overwriting newer human edits.
 
+Edit the draft's root and child schematics in place, then use `review-draft`
+to refresh generated review artifacts without rerendering the design. It keeps
+the original draft identity and accepted-base metadata. The copied intent is
+the connectivity contract, not something the review command rewrites to match
+edits. Human review remains pending until explicit acceptance; see the
+[edit-and-review workflow](WORKFLOW.md#edit-a-draft-and-refresh-its-review).
+
 ## Canonical hashes
 
 KiCad regenerates UUIDs during semantically identical writes. The canonical
