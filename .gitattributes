@@ -1,3 +1,6 @@
+# Executable Bash hooks must remain runnable in fresh Windows checkouts.
+.claude/hooks/*.sh text eol=lf
+
 # Evidence hashes describe downloaded bytes, including original line endings.
 # Do not apply core.autocrlf or text normalization to the exact-source archive.
 projects/*/evidence/files/** -text
