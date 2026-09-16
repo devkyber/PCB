@@ -48,6 +48,26 @@ def load_draft(project: Project, draft_id: str) -> DraftRecord:
     )
 
 
+def validate_schematic_draft(project: Project, draft: DraftRecord) -> dict:
+    """Validate a loaded schematic draft and return its immutable metadata."""
+    if _project_root(draft) != project.root or draft != load_draft(project, draft.id):
+        raise ValueError('invalid draft root or metadata')
+    if draft.kind != DraftKind.SCHEMATIC:
+        raise ValueError('only schematic drafts can be reviewed or accepted here')
+    return json.loads((draft.root / 'draft.json').read_text(encoding='utf-8'))
+
+
+def assert_draft_base_current(
+    project: Project, draft: DraftRecord, metadata: dict | None = None,
+) -> None:
+    """Reject a draft whose accepted design snapshot is no longer current."""
+    metadata = metadata if metadata is not None else validate_schematic_draft(project, draft)
+    if (metadata.get('base_files') != accepted_file_hashes(project)
+            or draft.base_schematic_hash != canonical_design_hash(project.schematic_path)
+            or draft.base_pcb_hash != canonical_design_hash(project.pcb_path)):
+        raise StaleDraftError('accepted files changed since this draft was created')
+
+
 def _replace_bytes(target: Path, payload: bytes) -> None:
     target.parent.mkdir(parents=True, exist_ok=True)
     temporary = target.with_name('.' + target.name + '.accepting')
@@ -62,17 +82,10 @@ def _replace_bytes(target: Path, payload: bytes) -> None:
 
 
 def accept_schematic(project: Project, draft: DraftRecord) -> AcceptanceResult:
-    if _project_root(draft) != project.root or draft != load_draft(project, draft.id):
-        raise ValueError('invalid draft root or metadata')
-    if draft.kind != DraftKind.SCHEMATIC:
-        raise ValueError('only schematic drafts can be accepted here')
-    metadata = json.loads((draft.root / 'draft.json').read_text(encoding='utf-8'))
+    metadata = validate_schematic_draft(project, draft)
 
     def check_base():
-        if (metadata.get('base_files') != accepted_file_hashes(project)
-                or draft.base_schematic_hash != canonical_design_hash(project.schematic_path)
-                or draft.base_pcb_hash != canonical_design_hash(project.pcb_path)):
-            raise StaleDraftError('accepted files changed since this draft was created')
+        assert_draft_base_current(project, draft, metadata)
 
     check_base()
     report = json.loads((draft.root / 'review.json').read_text(encoding='utf-8'))
@@ -82,7 +95,10 @@ def accept_schematic(project: Project, draft: DraftRecord) -> AcceptanceResult:
                 draft.root / 'erc.json', draft.root / 'metrics.json'}
     current_hashes = {p.relative_to(draft.root).as_posix(): file_digest(p) for p in required}
     if report.get('artifact_hashes') != current_hashes or None in current_hashes.values():
-        raise ValueError('review artifacts changed or are missing; regenerate the draft review')
+        raise ValueError(
+            f'review artifacts changed or are missing; run '
+            f'pcb-copilot review-draft {project.root} {draft.id}'
+        )
     if report.get('exit_code') != 0 or any(f['severity'] == 'block' for f in report['findings']):
         raise ValueError('draft has blocking review findings')
     evidence_findings = check_evidence(project, ())

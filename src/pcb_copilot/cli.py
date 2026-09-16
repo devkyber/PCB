@@ -34,6 +34,11 @@ def main(
     draft_parser = subparsers.add_parser('draft-schematic', help='create a schematic draft and review artifacts')
     draft_parser.add_argument('project_path', type=Path)
     draft_parser.add_argument('--intent', required=True, type=Path)
+    review_parser = subparsers.add_parser(
+        'review-draft', help='refresh review artifacts for an edited schematic draft',
+    )
+    review_parser.add_argument('project_path', type=Path)
+    review_parser.add_argument('draft_id')
     accept_parser = subparsers.add_parser('accept', help='accept a reviewed schematic draft')
     accept_parser.add_argument('project_path', type=Path)
     accept_parser.add_argument('draft_id')
@@ -85,6 +90,16 @@ def main(
         try:
             result = draft_schematic(load_project(args.project_path), args.intent)
         except (ValueError, OSError, ToolchainDiscoveryError) as exc:
+            parser.error(str(exc))
+        print(json.dumps(result, indent=2))
+        return result['exit_code']
+    elif args.command == 'review-draft':
+        from pcb_copilot.schematic.commands import review_draft
+        from pcb_copilot.toolchain import ToolchainDiscoveryError
+
+        try:
+            result = review_draft(load_project(args.project_path), args.draft_id)
+        except (ValueError, OSError, RuntimeError, ToolchainDiscoveryError) as exc:
             parser.error(str(exc))
         print(json.dumps(result, indent=2))
         return result['exit_code']
