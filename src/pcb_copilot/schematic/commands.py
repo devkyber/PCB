@@ -13,6 +13,7 @@ from pcb_copilot.evidence.index import EvidenceFormatError, load_evidence_index
 from pcb_copilot.models import DraftKind, Project
 from pcb_copilot.schematic.hierarchy import HierarchyDraft
 from pcb_copilot.schematic.io import load_schematic_intent, save_schematic_intent
+from pcb_copilot.schematic.netlist import normalize_intent_netmap
 from pcb_copilot.schematic.preview import render_schematic_preview, schematic_files
 from pcb_copilot.schematic.render import render_schematic_draft
 from pcb_copilot.state import file_digest
@@ -32,11 +33,15 @@ def draft_schematic(project: Project, intent_path: Path) -> dict:
     ]
     try:
         extracted = importlib.import_module('extract_netmap').extract(schematic)
-        expected = {c.ref: {pin: connection.net for pin, connection in c.pins.items()}
-                    for c in intent.components if c.pins}
-        if extracted['nets'] != expected:
+        try:
+            normalized = normalize_intent_netmap(intent, extracted['nets'])
+            if normalized != extracted['nets']:
+                findings.append(Finding('sheet-qualified-net-names',
+                                        'Local net membership is preserved, but KiCad adds sheet paths. '
+                                        'PCB net names must be reconciled before release.', severity='review'))
+        except ValueError as exc:
             findings.append(Finding('intent-netlist-mismatch',
-                                    'KiCad connectivity differs from the declared intent'))
+                                    str(exc)))
     except (OSError, RuntimeError, ValueError) as exc:
         findings.append(Finding('netlist-extraction-failed', str(exc)))
     try:
@@ -49,6 +54,7 @@ def draft_schematic(project: Project, intent_path: Path) -> dict:
             part.casefold() for part in record.part_numbers
         }:
             findings.append(Finding('intent-evidence-unresolved',
+                                    component.pin_map_review_note or
                                     'Pin-map citation is absent or does not identify this part',
                                     component.ref, component.pin_map_evidence_id, severity='review'))
     report = {

@@ -1,0 +1,180 @@
+schema_version: 1
+title: ICM-42688-P SPI breakout - preserved circuit draft
+revision: rev1-draft
+sheets:
+  - id: main
+    title: Host interface, inertial sensor and mounting
+    page: A4
+blocks:
+  - id: host
+    title: Host SPI and supplied rails
+    sheet: main
+    flow_order: 1
+    placement_hint: left
+  - id: sensor
+    title: ICM-42688-P and decoupling
+    sheet: main
+    flow_order: 2
+    placement_hint: center
+  - id: mechanical
+    title: Mounting - owner orientation pending
+    sheet: main
+    flow_order: 3
+    placement_hint: right
+components:
+  - ref: J1
+    value: SPI-HDR
+    symbol: Connector_Generic:Conn_01x06
+    footprint: Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical
+    block: host
+    evidence_part_number: GENERIC-SPI-HEADER-1X06
+    pin_map_evidence_id: null
+    pin_map_review_note: Preserved accepted Conn_01x06 symbol and netmap; vendor connector numbering and mating orientation remain unverified.
+    pins:
+      '1': {net: '+3V3', style: power}
+      '2': {net: GND, style: power}
+      '3': {net: SPI_SCLK, style: label}
+      '4': {net: SPI_SDI, style: label}
+      '5': {net: SPI_SDO, style: label}
+      '6': {net: SPI_CS, style: label}
+    pin_inventory: ['1', '2', '3', '4', '5', '6']
+  - ref: TP1
+    value: '+3V3'
+    symbol: Connector_Generic:Conn_01x01
+    footprint: TestPoint:TestPoint_Pad_1.0x1.0mm
+    block: host
+    evidence_part_number: GENERIC-TEST-PAD-1MM
+    pin_map_evidence_id: null
+    pin_map_review_note: Preserved accepted Conn_01x01 symbol and single-pad footprint; no matching vendor drawing is archived, physical verification remains pending.
+    pins:
+      '1': {net: '+3V3', style: power}
+    pin_inventory: ['1']
+  - ref: TP2
+    value: GND
+    symbol: Connector_Generic:Conn_01x01
+    footprint: TestPoint:TestPoint_Pad_1.0x1.0mm
+    block: host
+    evidence_part_number: GENERIC-TEST-PAD-1MM
+    pin_map_evidence_id: null
+    pin_map_review_note: Preserved accepted Conn_01x01 symbol and single-pad footprint; no matching vendor drawing is archived, physical verification remains pending.
+    pins:
+      '1': {net: GND, style: power}
+    pin_inventory: ['1']
+  - ref: '#FLG01'
+    value: PWR_FLAG
+    symbol: power:PWR_FLAG
+    footprint: '~'
+    block: host
+    evidence_part_number: KICAD-PWR-FLAG
+    pin_map_evidence_id: null
+    pin_map_review_note: Preserved accepted KiCad power flag asserting the host-supplied rail; this is an ERC assertion without a vendor component or physical footprint.
+    pins:
+      '1': {net: '+3V3', style: power}
+    pin_inventory: ['1']
+  - ref: '#FLG02'
+    value: PWR_FLAG
+    symbol: power:PWR_FLAG
+    footprint: '~'
+    block: host
+    evidence_part_number: KICAD-PWR-FLAG
+    pin_map_evidence_id: null
+    pin_map_review_note: Preserved accepted KiCad power flag asserting the host ground; this is an ERC assertion without a vendor component or physical footprint.
+    pins:
+      '1': {net: GND, style: power}
+    pin_inventory: ['1']
+  - ref: U1
+    value: ICM-42688-P
+    symbol: jlcpcb:ICM-42688-P
+    footprint: jlcpcb:LGA-14_L3.0-W2.5-P0.50-TL
+    block: sensor
+    evidence_part_number: ICM-42688-P
+    pin_map_evidence_id: sha256:5710af9388adbb311557e99203e5834e17fb0b6e16baf9c09a8bce18b2ce1b9c
+    pins:
+      '1': {net: SPI_SDO, style: label}
+      '4': {net: INT1, style: wire}
+      '5': {net: '+3V3', style: power}
+      '6': {net: GND, style: power}
+      '7': {net: GND, style: power}
+      '8': {net: '+3V3', style: power}
+      '9': {net: GND, style: power}
+      '12': {net: SPI_CS, style: label}
+      '13': {net: SPI_SCLK, style: label}
+      '14': {net: SPI_SDI, style: label}
+    no_connects:
+      - {pin: '2', reason: Accepted schematic NC retained; DS-000347 rev 1.6 Table 10 page 20 permits NC or GND for this reserved pin.}
+      - {pin: '3', reason: Accepted schematic NC retained; DS-000347 rev 1.6 Table 10 page 20 permits NC or GND for this reserved pin.}
+      - {pin: '10', reason: Accepted schematic NC retained; DS-000347 rev 1.6 Table 10 page 20 permits NC or GND for this reserved pin.}
+      - {pin: '11', reason: Accepted schematic NC retained; DS-000347 rev 1.6 Table 10 page 20 permits NC or GND for this reserved pin.}
+    pin_inventory: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14']
+  - ref: TP3
+    value: INT1
+    symbol: Connector_Generic:Conn_01x01
+    footprint: TestPoint:TestPoint_Pad_1.0x1.0mm
+    block: sensor
+    evidence_part_number: GENERIC-TEST-PAD-1MM
+    pin_map_evidence_id: null
+    pin_map_review_note: Preserved accepted Conn_01x01 symbol and single-pad footprint; no matching vendor drawing is archived, physical verification remains pending.
+    pins:
+      '1': {net: INT1, style: wire}
+    pin_inventory: ['1']
+  - ref: C1
+    value: 100nF
+    symbol: Device:C
+    footprint: Capacitor_SMD:C_0402_1005Metric
+    block: sensor
+    evidence_part_number: GENERIC-100NF-0402
+    pin_map_evidence_id: null
+    pin_map_review_note: Preserved accepted Device:C pin numbering and 0402 footprint; sensor datasheet supports circuit value, not a specific purchased capacitor pin map. Vendor package verification remains pending.
+    pins:
+      '1': {net: '+3V3', style: power}
+      '2': {net: GND, style: power}
+    pin_inventory: ['1', '2']
+  - ref: C2
+    value: 2.2uF
+    symbol: Device:C
+    footprint: Capacitor_SMD:C_0603_1608Metric
+    block: sensor
+    evidence_part_number: GENERIC-2.2UF-0603
+    pin_map_evidence_id: null
+    pin_map_review_note: Preserved accepted Device:C pin numbering and 0603 footprint; sensor datasheet supports circuit value, not a specific purchased capacitor pin map. Vendor package verification remains pending.
+    pins:
+      '1': {net: '+3V3', style: power}
+      '2': {net: GND, style: power}
+    pin_inventory: ['1', '2']
+  - ref: C3
+    value: 10nF
+    symbol: Device:C
+    footprint: Capacitor_SMD:C_0402_1005Metric
+    block: sensor
+    evidence_part_number: GENERIC-10NF-0402
+    pin_map_evidence_id: null
+    pin_map_review_note: Preserved accepted Device:C pin numbering and 0402 footprint; sensor datasheet supports circuit value, not a specific purchased capacitor pin map. Vendor package verification remains pending.
+    pins:
+      '1': {net: '+3V3', style: power}
+      '2': {net: GND, style: power}
+    pin_inventory: ['1', '2']
+  - ref: H1
+    value: M2
+    symbol: Connector_Generic:Conn_01x01
+    footprint: MountingHole:MountingHole_2.2mm_M2_Pad
+    block: mechanical
+    evidence_part_number: GENERIC-M2-PLATED-MOUNTING-HOLE
+    pin_map_evidence_id: null
+    pin_map_review_note: Preserved accepted Conn_01x01 symbol and plated M2 hole footprint; mechanical drawing and assembly verification remain pending.
+    pins: {}
+    no_connects:
+      - {pin: '1', reason: Accepted schematic explicitly marks the mounting-hole pad NC; no ground connection is added.}
+    pin_inventory: ['1']
+  - ref: H2
+    value: M2
+    symbol: Connector_Generic:Conn_01x01
+    footprint: MountingHole:MountingHole_2.2mm_M2_Pad
+    block: mechanical
+    evidence_part_number: GENERIC-M2-PLATED-MOUNTING-HOLE
+    pin_map_evidence_id: null
+    pin_map_review_note: Preserved accepted Conn_01x01 symbol and plated M2 hole footprint; mechanical drawing and assembly verification remain pending.
+    pins: {}
+    no_connects:
+      - {pin: '1', reason: Accepted schematic explicitly marks the mounting-hole pad NC; no ground connection is added.}
+    pin_inventory: ['1']
+boundary_nets: [SPI_SCLK, SPI_SDI, SPI_SDO, SPI_CS]

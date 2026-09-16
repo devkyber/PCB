@@ -58,3 +58,13 @@ these questions; they do not prove that our proposed layout meets them.
 - Full manufacturer PCB CAD was not acquired in this search.
 - Human review of applicability remains pending; this is research evidence,
   not release sign-off.
+
+## Schematic draft checkpoint
+
+Draft `20260916T154236Z-schematic-7ad1be18` preserves the accepted circuit and
+renders a dated, single-sheet PDF with functional headings and drawn passive
+banks. The assistant inspected the preview; there are no machine blockers.
+Known visual limitations remain at U1: ground/supply glyphs two pin rows apart
+touch, and CSB supply text meets the interrupt wire. These require manual
+polish or a later text-aware layout improvement. Accepted schematic, PCB and
+netmap bytes remain unchanged; no human acceptance is recorded.

@@ -22,6 +22,10 @@ autonomy.
 
 ## What the system can help with
 
+This list describes the copilot's scope, not completion of every new command.
+Evidence and schematic assistance are implemented; the new layout and release
+interfaces remain planned, with legacy tools retained during migration.
+
 - Search, archive, hash, classify, and cite component documents.
 - Extract exact pins, values, and connections from supported source formats.
 - Compare a proposed circuit with datasheets and reference designs.
@@ -54,13 +58,22 @@ autonomy.
 - `kipython` is not currently discovered on this Windows host, although
   KiCad’s bundled Python exists. PCB checks that import `pcbnew` need the
   portable adapter work planned later.
-- The enforcement self-test currently assumes an ignored `drc-report.json`
-  exists in the source project; a clean checkout exposes that fixture bug.
-- Existing schematics were generated with label-heavy stubs and measured zero
+- Accepted schematics were generated with label-heavy stubs and measured zero
   junctions. Electrical connectivity may exist, but visual review quality is
-  insufficient—especially for TMS V3.
-- TMS V3 needs hierarchy. Crowding 69 components on one page is not repaired
-  by tighter spacing.
+  insufficient—especially for TMS V3. New drafts have measured row spacing,
+  local drawn wiring, power symbols, titles and functional blocks, but have
+  not replaced accepted files.
+- TMS V3 now has a seven-page draft (overview plus six functional sheets).
+  Human review is pending. Its local net names gain sheet prefixes; acceptance
+  preserves those names and will require explicit PCB net-name reconciliation.
+- Schematic placement is heuristic. Body/pin obstacles and outward label
+  alignment improve readability but do not constitute a sheet-wide graphical
+  collision solver. The existing `no_symbol_or_text_overlap` helper checks only
+  duplicate symbol origins, not text or glyph extents. Inspect every PDF page.
+- Circuit parity preserves old mistakes too. The TMS reference review found
+  ADS1256 VREF_P/VREF_N connected only to U2 and C7, contrary to the design-basis
+  external-reference claim. This requires engineering reconciliation, not a
+  silent renderer correction or a passing ERC result.
 - The design-rule checker covers 4 of 42 historical numbered subsections.
 - Current sign-off forms contain generic questions; project-specific,
   hash-bound review profiles are not implemented yet.
@@ -98,8 +111,8 @@ barometer port/environment design.
 
 1. Extend cited extraction to more CAD formats and conservative PDF tables,
    while retaining explicit human review for ambiguous diagrams.
-2. Add transactional schematic intents, functional blocks, hierarchy,
-   rendering metrics, previews, and stale-safe acceptance.
+2. Finish human review of all four schematic drafts and accept only explicitly
+   approved revisions; improve remaining label/power-glyph collision handling.
 3. Add real-footprint layout intents, measured placement, constraints, and
    optional candidate routing.
 4. Unify typed findings, fault coverage, relevant sign-off, transactional

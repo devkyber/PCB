@@ -2,10 +2,14 @@
 
 from __future__ import annotations
 
+import copy
 import importlib
 import sys
+import textwrap
+import uuid
 from collections import defaultdict
 from dataclasses import dataclass
+from itertools import pairwise
 from pathlib import Path
 from typing import TYPE_CHECKING
 
@@ -15,11 +19,14 @@ if TYPE_CHECKING:
 from kicad_claude.adapters import sch_editor as ed
 from kicad_claude.adapters import sch_io
 from kicad_claude.templates.blank import write_blank_schematic
+from kicad_claude.utils.geometry import mcp_to_kicad_xy
 from kicad_claude.utils.kicad_paths import find_symbol_lib_dirs
 
 from pcb_copilot.drafts import publish_draft
 from pcb_copilot.models import DraftRecord, Project
-from pcb_copilot.schematic.models import SchematicIntent
+from pcb_copilot.schematic.fields import place_component_fields
+from pcb_copilot.schematic.models import SchematicIntent, validate_component_pins
+from pcb_copilot.schematic.power import power_stub_length
 from pcb_copilot.schematic.wiring import (
     PinRef,
     WireCorridor,
@@ -42,8 +49,11 @@ class _WireEditor:
     def __init__(self, tree):
         self.tree = tree
         self.segments: list[WireSegment] = []
+        self.anchors: dict[PinRef, tuple[float, float]] = {}
 
     def pin_position(self, pin: PinRef) -> tuple[float, float]:
+        if pin in self.anchors:
+            return self.anchors[pin]
         return ed.get_pin_position(self.tree, pin.ref, pin.pin)
 
     def add_segment(self, segment: WireSegment) -> None:
@@ -67,11 +77,21 @@ class _LabelEditor:
 
     def add_label(self, tree, net, x, y, orientation):
         if self.hierarchical:
-            return ed.add_hierarchical_label(
+            node = ed.add_hierarchical_label(
                 tree, net_name=net, x_mm=x, y_mm=y,
                 shape='bidirectional', orientation=orientation,
             )
-        return ed.add_label(tree, net, x, y, orientation)
+        else:
+            node = ed.add_label(tree, net, x, y, orientation)
+        if orientation == 'left':
+            # KiCad normalizes horizontal text upright: 180 degrees alone
+            # still grows right with the adapter's default left justification.
+            # Keep the electrical anchor and glyph orientation, align text away
+            # from the pin, and preserve local labels' vertical justification.
+            effects = sch_io.find_child(node, 'effects')
+            justify = sch_io.find_child(effects, 'justify')
+            justify[1] = sch_io.sym('right')
+        return node
 
 
 @dataclass(frozen=True)
@@ -97,6 +117,7 @@ def _render_sheet_tree(
     *,
     instance_path: str | None = None,
     child_sheet: bool = False,
+    render_date: str = '',
 ) -> _RenderedSheet:
     sheet = next(item for item in intent.sheets if item.id == sheet_id)
     set_title_block(
@@ -104,6 +125,7 @@ def _render_sheet_tree(
         title=intent.title if not child_sheet else f"{intent.title} — {sheet.title}",
         rev=intent.revision,
         paper=sheet.page,
+        date=render_date,
     )
     symbols = SymbolPlacer(ed, tree)
     origins: dict[str, tuple[float, float]] = {}
@@ -111,9 +133,11 @@ def _render_sheet_tree(
         (item for item in intent.blocks if item.sheet == sheet_id),
         key=lambda item: item.flow_order,
     )
-    lane_width = 250.0 / max(len(blocks), 1)
+    page_width, page_height = symbols._page_size()
+    lane_width = (page_width - 40.0) / max(len(blocks), 1)
     corridor_by_block = {}
-    component_rows: defaultdict[str, int] = defaultdict(int)
+    passive_groups = []
+    definitions = {}
 
     def place_symbol(
         component,
@@ -122,7 +146,10 @@ def _render_sheet_tree(
         ref: str | None = None,
         value: str | None = None,
     ):
-        library, _name, definition = _symbol_definition(project, component.symbol)
+        if component.symbol not in definitions:
+            definitions[component.symbol] = _symbol_definition(project, component.symbol)
+        library, _name, cached_definition = definitions[component.symbol]
+        definition = copy.deepcopy(cached_definition)
         reference = ref or component.ref
         ed.add_symbol(
             tree,
@@ -141,22 +168,60 @@ def _render_sheet_tree(
                 f"{component.pin_map_evidence_id}"
             ),
         )
-        origins[reference] = symbols.register(reference) or (x, y)
+        symbols.register(reference)
+        origins[reference] = symbols._origin(reference)
         return library
 
     for block_index, block in enumerate(blocks):
         left = 20.0 + block_index * lane_width
         right = left + lane_width - 8.0
-        corridor_by_block[block.id] = WireCorridor(left - 12, 20, right + 12, 190)
+        heading = '\n'.join(textwrap.wrap(block.title, width=max(12, int(lane_width - 8))))
+        tree.append([sch_io.sym('text'), heading,
+                     [sch_io.sym('at'), *mcp_to_kicad_xy(left + lane_width / 2, page_height - 18, page_height), 0],
+                     [sch_io.sym('effects'), [sch_io.sym('font'), [sch_io.sym('size'), 1.5, 1.5]]],
+                     [sch_io.sym('uuid'), str(uuid.uuid4())]])
+        corridor_by_block[block.id] = WireCorridor(left - 12, 65, right + 12, page_height - 20)
+        rows = []
         for component in [
             item for item in intent.components if item.block == block.id
         ]:
-            row = component_rows[block.id]
-            component_rows[block.id] += 1
-            place_symbol(component, left + lane_width / 2, 45.0 + row * 28.0)
+            # Adjacent same-family passives form a compact bank, making local
+            # rail connections visible instead of a column of isolated labels.
+            if (rows and component.symbol in {'Device:C', 'Device:R'}
+                    and rows[-1][0].symbol == component.symbol and len(rows[-1]) < 2):
+                rows[-1].append(component)
+            else:
+                rows.append([component])
+        row_top = page_height - 38.0
+        for group in rows:
+            if len(group) > 1:
+                passive_groups.append(group)
+            for column, component in enumerate(group):
+                x = left + lane_width / 2 + (column - (len(group) - 1) / 2) * 25.4
+                place_symbol(component, x, row_top - 8.0)
+                validate_component_pins(component, {
+                    pin['number'] for pin in ed.list_pins_for_symbol(tree, component.ref)
+                })
+            boxes = [symbols.bbox(c.ref) for c in group]
+            shift = row_top - max(box[3] for box in boxes)
+            for component in group:
+                x, y = origins[component.ref]
+                ed.move_symbol(tree, component.ref, x, y + shift, 0)
+                symbols.register(component.ref)
+                origins[component.ref] = symbols._origin(component.ref)
+            row_bottom = min(symbols.bbox(c.ref)[1] for c in group)
+            if row_bottom < 65:
+                raise ValueError(f'{block.id}: block exceeds usable page height; split the sheet')
+            row_top = row_bottom - 18.0
 
     label_editor = _LabelEditor()
     labels = LabelPlacer(label_editor, tree, symbols=symbols)
+    for component in intent.components:
+        if component.ref in origins and component.ref.startswith('#'):
+            labels.hide_reference(component.ref)
+            labels.hide_property(component.ref, 'Value')
+        elif component.ref in origins:
+            place_component_fields(ed, tree, symbols, labels, component.ref)
     power_component = next((
         item
         for item in intent.components
@@ -187,7 +252,8 @@ def _render_sheet_tree(
             pin_ref = PinRef(component.ref, pin)
             pins_by_net[connection.net].append(pin_ref)
             if connection.style == "power":
-                labels.auto(component.ref, pin, connection.net, *origin)
+                labels.auto(component.ref, pin, connection.net, *origin,
+                            stub_mm=power_stub_length(ed, tree, component.ref, pin, origin))
             else:
                 pins_by_block_net[(component.block, connection.net)].append(pin_ref)
                 if connection.style in {"label", "hierarchical"}:
@@ -204,7 +270,19 @@ def _render_sheet_tree(
             pin = pins[0]
             labels.place(pin.ref, pin.pin, net, *origins[pin.ref])
 
+    # Local wires leave each real pin along its safe outward stub first.
+    # Routing directly from pin to pin could run through the symbol body.
+    stubbed = {(ref, pin) for _a, _b, ref, pin, _net in labels._segments}
+    for (_block_id, net), pins in pins_by_block_net.items():
+        for pin in pins:
+            if (pin.ref, pin.pin) not in stubbed:
+                _orientation, segment = labels._choose_stub(
+                    pin.ref, pin.pin, net, *origins[pin.ref], None)
+                labels._commit_stub(segment, pin.ref, pin.pin, net)
+
     wire_editor = _WireEditor(tree)
+    wire_editor.anchors = {PinRef(ref, pin): b
+                          for _a, b, ref, pin, _net in labels._segments}
     wire_editor.segments.extend(
         WireSegment(a, b, net) for a, b, _ref, _pin, net in labels._segments
     )
@@ -216,6 +294,13 @@ def _render_sheet_tree(
             connection = component.pins.get(pin['number'])
             net = connection.net if connection else f'NC:{component.ref}.{pin["number"]}'
             wire_editor.segments.append(WireSegment(point, point, net))
+        if not component.ref.startswith('#'):
+            box = symbols.bbox(component.ref)
+            if box:
+                x0, y0, x1, y1 = box
+                corners = [(x0, y0), (x1, y0), (x1, y1), (x0, y1), (x0, y0)]
+                wire_editor.segments.extend(WireSegment(a, b, f'body:{component.ref}')
+                                            for a, b in pairwise(corners))
     for (block_id, net), pins in sorted(pins_by_block_net.items()):
         if len(pins) < 2:
             continue
@@ -227,6 +312,23 @@ def _render_sheet_tree(
                 corridor_by_block[block_id],
                 net=net,
             )
+    for group in passive_groups:
+        rails: defaultdict[str, list[PinRef]] = defaultdict(list)
+        for component in group:
+            for pin, connection in component.pins.items():
+                if connection.style == 'power':
+                    rails[connection.net].append(PinRef(component.ref, pin))
+        for net, pins in rails.items():
+            for target in pins[1:]:
+                connect_local(wire_editor, pins[0], target,
+                              corridor_by_block[group[0].block], net=net)
+                # Each bank pin branches into its passive, power stub, and rail.
+                for pin in (pins[0], target):
+                    x, y = wire_editor.pin_position(pin)
+                    tree.append([sch_io.sym('junction'),
+                                 [sch_io.sym('at'), *mcp_to_kicad_xy(x, y, page_height)],
+                                 [sch_io.sym('diameter'), 0], [sch_io.sym('color'), 0, 0, 0, 0],
+                                 [sch_io.sym('uuid'), str(uuid.uuid4())]])
     return _RenderedSheet(
         pins_by_net={net: tuple(pins) for net, pins in pins_by_net.items()},
         origins=origins,
@@ -248,7 +350,8 @@ def render_schematic_draft(
         schematic.unlink(missing_ok=True)
         write_blank_schematic(schematic)
         tree = sch_io.parse_file(schematic)
-        _render_sheet_tree(project, intent, intent.sheets[0].id, tree)
+        _render_sheet_tree(project, intent, intent.sheets[0].id, tree,
+                           render_date=draft.created_utc.date().isoformat())
         sch_io.write_file(schematic, tree)
 
     published = publish_draft(draft, writer)

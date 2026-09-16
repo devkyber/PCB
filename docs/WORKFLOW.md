@@ -135,6 +135,12 @@ or mismatched pin-map citations are explicit review advisories during drafting
 and acceptance; evidence requirements remain blocking at release. A failed PDF or ERC
 export is recorded as a failure and does not discard the schematic.
 
+For a generic part without verified pin-map evidence, set
+`pin_map_evidence_id: null` and supply a substantive `pin_map_review_note`.
+Do not borrow an unrelated IC's citation to suppress the finding. The renderer
+still validates all actual library pins against connected and explicit NC
+assignments, even when the intent omits its optional pin inventory.
+
 The draft must include functional blocks, local drawn wires, graphical power
 symbols, boundary labels, complete titles, explicit no-connects, evidence
 references, ERC output, quality metrics, and a rendered PDF. Hierarchy is used
@@ -189,6 +195,11 @@ the original files, preview artifact hashes, and intent
 versus KiCad netlist. It installs the root and child sheets, refreshes
 `netmap.json`, marks schematic ownership human, and records the reviewed file
 hashes. PCB bytes are unchanged. Changed child sheets invalidate review state.
+Moving a flat local net into a child sheet can add a KiCad sheet-name prefix.
+Comparison permits that only when the entire physical pin group is identical;
+split nets, shorts, missing pins and unrelated renames still fail. Acceptance
+retains KiCad's actual qualified names in `netmap.json`. It does not rename PCB
+nets: reconcile those explicitly and rerun schematic/PCB parity before release.
 Acceptance records outstanding evidence findings without treating them as
 release approval.
 Backups and a transaction record remain under `.pcb-copilot/acceptances/ID`.
@@ -203,8 +214,10 @@ human conclusion was correct.
 
 ## 7. Release and fabricate
 
-Release runs the complete check registry even after one check fails, validates
-hash-bound sign-off, and generates fabrication output transactionally. Output
+The unified release command is planned in Plan 5, not implemented yet. Its
+required behavior is to run the complete check registry even after one check
+fails, validate hash-bound sign-off, and generate fabrication output
+transactionally. Output
 must record accepted design hashes, Git revision, tool versions, reviewer,
 review results, and hashes of all generated files.
 

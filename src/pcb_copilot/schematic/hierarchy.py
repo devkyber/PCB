@@ -41,6 +41,7 @@ def render_hierarchy(
     def writer(root: Path) -> None:
         from pcb_copilot.schematic.render import (
             _helpers,
+            _LabelEditor,
             _render_sheet_tree,
             set_title_block,
         )
@@ -50,7 +51,7 @@ def render_hierarchy(
         write_blank_schematic(root_path)
         root_tree = sch_io.parse_file(root_path)
         set_title_block(root_tree, title=intent.title, rev=intent.revision,
-                        paper=intent.sheets[0].page)
+                        paper=intent.sheets[0].page, date=draft.created_utc.date().isoformat())
         root_uuid = _schematic_uuid(root_tree)
         page_h = ed.page_height_mm(root_tree)
 
@@ -98,6 +99,7 @@ def render_hierarchy(
                 child_tree,
                 instance_path=instance_path,
                 child_sheet=True,
+                render_date=draft.created_utc.date().isoformat(),
             )
             sch_io.write_file(child_path, child_tree)
 
@@ -107,6 +109,7 @@ def render_hierarchy(
             intent.sheets[0].id,
             root_tree,
             instance_path=f"/{root_uuid}",
+            render_date=draft.created_utc.date().isoformat(),
         )
         for index, sheet in enumerate(intent.sheets[1:]):
             child_nets = sorted(
@@ -128,7 +131,7 @@ def render_hierarchy(
                 stub = _helpers._snap_to_grid(max(15.24, len(net) * 1.1 + 5.08))
                 ed.add_wire(root_tree, pin_x - stub, pin_y, pin_x, pin_y)
                 ed.add_wire(root_tree, pin_x - stub, pin_y, pin_x - stub, pin_y + 2.54)
-                ed.add_label(root_tree, net, pin_x - stub, pin_y + 2.54, 'left')
+                _LabelEditor().add_label(root_tree, net, pin_x - stub, pin_y + 2.54, 'left')
         sch_io.write_file(root_path, root_tree)
 
     published = publish_draft(draft, writer)

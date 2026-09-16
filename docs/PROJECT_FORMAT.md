@@ -47,7 +47,7 @@ projects/BOARD_NAME/
 ├── DESIGN_BASIS.md            evidence comparison and design decisions
 ├── DEVIATIONS.md              narrowly scoped waivers
 ├── SIGNOFF.md                 compatibility human-review record
-├── schematic-intent.yaml      planned reproducible schematic intent
+├── schematic-intent.yaml      reproducible schematic intent, not acceptance
 ├── layout-intent.yaml         planned reproducible layout intent
 ├── evidence/
 │   ├── index.yaml             structured provenance, roles, trust and hashes
@@ -56,9 +56,14 @@ projects/BOARD_NAME/
 ```
 
 The evidence migration is complete: `datasheets/` and `reference-designs/`
-have been replaced by the unified, hash-addressed archive. Intent files appear
-as their later migrations land. Legacy `STATUS.md`, `PIPELINE.json`, generators,
+have been replaced by the unified, hash-addressed archive. All four schematic
+intents are present; layout intents remain planned. Legacy `STATUS.md`, `PIPELINE.json`, generators,
 and build wrappers remain until their replacement gates pass.
+
+Evidence files retain their exact downloaded bytes. `.gitattributes` disables
+Git text/line-ending conversion under `evidence/files/`; do not format those
+sources, including upstream whitespace. Hash verification must work after a
+Windows checkout as well as in the acquisition workspace.
 
 ## Ownership and drafts
 
@@ -69,7 +74,7 @@ overwrite. Invalid values fail loudly.
 
 New generation writes only under `.pcb-copilot/drafts/`. A target equal to an
 accepted schematic/PCB or outside that directory is rejected before opening
-the file. Each draft will record its kind, project, timestamp, and accepted
+the file. Each draft records its kind, project, timestamp, and accepted
 base hashes. Acceptance checks those hashes again to prevent stale work from
 overwriting newer human edits.
 

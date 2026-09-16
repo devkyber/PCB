@@ -1,11 +1,11 @@
 schema_version: 1
 records:
 - id: sha256:4d7c04e3e86f37defe27c20a82b9fcd9d4ddbd3b9d68a525c2d49595d52cf97a
-  manufacturer: null
+  manufacturer: TDK InvenSense
   part_numbers:
   - ICM-42688-P
-  title: ICM-42688-P_ICM-42688-P_Datasheet
-  revision: null
+  title: TDK DS-000347 ICM-42688-P datasheet (SparkFun mirror)
+  revision: '1.2'
   source_url: https://cdn.sparkfun.com/assets/f/e/4/5/a/ICM-42688-P_Datasheet.pdf
   retrieved_on: '2026-08-25'
   path: files/ICM-42688-P_ICM-42688-P_Datasheet.pdf
@@ -14,13 +14,14 @@ records:
   roles:
   - datasheet
   trust_tier: manufacturer
-  component_refs: []
+  component_refs:
+  - U1
 - id: sha256:5710af9388adbb311557e99203e5834e17fb0b6e16baf9c09a8bce18b2ce1b9c
-  manufacturer: null
+  manufacturer: TDK InvenSense
   part_numbers:
   - ICM-42688-P
-  title: ICM-42688-P_ds-000347-icm-42688-p-v1.6
-  revision: null
+  title: TDK DS-000347 ICM-42688-P datasheet (AnyShake mirror)
+  revision: '1.6'
   source_url: https://raw.githubusercontent.com/anyshake/icm-42688-breakout/HEAD/hardware/datasheet/ds-000347-icm-42688-p-v1.6.pdf
   retrieved_on: '2026-08-25'
   path: files/ICM-42688-P_ds-000347-icm-42688-p-v1.6.pdf
@@ -29,7 +30,40 @@ records:
   roles:
   - datasheet
   trust_tier: manufacturer
-  component_refs: []
+  component_refs:
+  - U1
+- id: sha256:57a947b322177ba9cee23e5265cb029a6a13b0352bae5527c3acaa6c8ef2ef0c
+  manufacturer: null
+  part_numbers:
+  - ICM-42688-P
+  title: AnyShake ICM-42688 PCB
+  revision: b4f35e0759763c8e6bcaafed687799e2f0148c36
+  source_url: https://raw.githubusercontent.com/anyshake/icm-42688-breakout/b4f35e0759763c8e6bcaafed687799e2f0148c36/hardware/ICM-42688.kicad_pcb
+  retrieved_on: '2026-09-17'
+  path: files/ICM-42688-P_ICM-42688_57a947b32217.kicad_pcb
+  sha256: 57a947b322177ba9cee23e5265cb029a6a13b0352bae5527c3acaa6c8ef2ef0c
+  media_type: application/x-kicad-pcb
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs:
+  - U1
+- id: sha256:5b2b5ac9a5f0790f3bce0b0acc635cce32087a664b17739b7e44aa42d830e9cf
+  manufacturer: null
+  part_numbers:
+  - ICM-42688-P
+  title: AnyShake ICM-42688 schematic
+  revision: b4f35e0759763c8e6bcaafed687799e2f0148c36
+  source_url: https://raw.githubusercontent.com/anyshake/icm-42688-breakout/b4f35e0759763c8e6bcaafed687799e2f0148c36/hardware/ICM-42688.kicad_sch
+  retrieved_on: '2026-09-17'
+  path: files/ICM-42688-P_ICM-42688_5b2b5ac9a5f0.kicad_sch
+  sha256: 5b2b5ac9a5f0790f3bce0b0acc635cce32087a664b17739b7e44aa42d830e9cf
+  media_type: application/x-kicad-schematic
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs:
+  - U1
 - id: sha256:85528c2c2811b5eafe5bc8b88e6a3997c9d46f225bfc0471cb22a8c88a0e39a1
   manufacturer: null
   part_numbers:
@@ -45,3 +79,19 @@ records:
   - reference_design
   trust_tier: proven_open_hardware
   component_refs: []
+- id: sha256:8cdcc0d19fe369259a94ba436491a5dae384f81bbd222eb3436b001aef3f396a
+  manufacturer: null
+  part_numbers:
+  - ICM-42688-P
+  title: AnyShake ICM-42688 schematic PDF
+  revision: b4f35e0759763c8e6bcaafed687799e2f0148c36
+  source_url: https://raw.githubusercontent.com/anyshake/icm-42688-breakout/b4f35e0759763c8e6bcaafed687799e2f0148c36/hardware/ICM-42688.pdf
+  retrieved_on: '2026-09-17'
+  path: files/ICM-42688-P_ICM-42688_8cdcc0d19fe3.pdf
+  sha256: 8cdcc0d19fe369259a94ba436491a5dae384f81bbd222eb3436b001aef3f396a
+  media_type: application/pdf
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs:
+  - U1

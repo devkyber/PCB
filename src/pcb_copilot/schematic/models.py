@@ -44,13 +44,16 @@ class ComponentIntent(BaseModel):
     footprint: str = Field(min_length=1)
     block: str = Field(min_length=1)
     evidence_part_number: str = Field(min_length=1)
-    pin_map_evidence_id: str = Field(pattern=r"^sha256:[0-9a-fA-F]{64}$")
+    pin_map_evidence_id: str | None = Field(pattern=r"^sha256:[0-9a-fA-F]{64}$")
+    pin_map_review_note: str | None = None
     pins: dict[str, PinConnection]
     no_connects: tuple[NoConnectIntent, ...] = ()
     pin_inventory: frozenset[str] = frozenset()
 
     @model_validator(mode="after")
     def pins_are_declared_once(self) -> ComponentIntent:
+        if self.pin_map_evidence_id is None and not (self.pin_map_review_note or '').strip():
+            raise ValueError("missing pin-map citation requires a substantive review note")
         disconnected = [item.pin for item in self.no_connects]
         duplicates = sorted(set(self.pins).intersection(disconnected))
         if duplicates or len(disconnected) != len(set(disconnected)):

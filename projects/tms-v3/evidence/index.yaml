@@ -1,5 +1,21 @@
 schema_version: 1
 records:
+- id: sha256:06809c8c1335a3581d08cc29f73f9cbd5d76d59f864283c90997d73321750691
+  manufacturer: ProtoCentral
+  part_numbers:
+  - ADS1220
+  title: ProtoCentral ADS1220 breakout sch extracted verbatim from pinned ZIP
+  revision: 3db37824948f75e60ca93cc8aacef5c5abad9a48
+  source_url: https://raw.githubusercontent.com/Protocentral/Protocentral_ADS1220/3db37824948f75e60ca93cc8aacef5c5abad9a48/hardware/pc_ads1220_brk.zip#pc_ads1220_brk/pc_ads1220_brk.sch
+  retrieved_on: '2026-09-17'
+  path: files/ADS1220_pc_ads1220_brk_06809c8c1335.sch
+  sha256: 06809c8c1335a3581d08cc29f73f9cbd5d76d59f864283c90997d73321750691
+  media_type: application/vnd.eagle+xml
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs:
+  - U3
 - id: sha256:1d5a17540e48f0739cb56687babc7b62d1e2d5058bcbd7ce4cba4268a51385df
   manufacturer: null
   part_numbers:
@@ -33,6 +49,22 @@ records:
   trust_tier: manufacturer
   component_refs:
   - U4
+- id: sha256:30c7978775749e9178d67311229ada682460f87f777642532a6a854d5d07b790
+  manufacturer: ProtoCentral
+  part_numbers:
+  - ADS1220
+  title: ProtoCentral ADS1220 breakout brd extracted verbatim from pinned ZIP
+  revision: 3db37824948f75e60ca93cc8aacef5c5abad9a48
+  source_url: https://raw.githubusercontent.com/Protocentral/Protocentral_ADS1220/3db37824948f75e60ca93cc8aacef5c5abad9a48/hardware/pc_ads1220_brk.zip#pc_ads1220_brk/pc_ads1220_brk.brd
+  retrieved_on: '2026-09-17'
+  path: files/ADS1220_pc_ads1220_brk_30c797877574.brd
+  sha256: 30c7978775749e9178d67311229ada682460f87f777642532a6a854d5d07b790
+  media_type: application/vnd.eagle+xml
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs:
+  - U3
 - id: sha256:329a8a5fa56dd44d356d90e14e11a33b6936ee1ab193b6eb568df17e2443c54a
   manufacturer: null
   part_numbers:
@@ -130,6 +162,38 @@ records:
   trust_tier: manufacturer
   component_refs:
   - K1
+- id: sha256:83c75b67b2f7d4c6f46f65f6b7bfc7647ddf0220fb10479eeedf8d0f6f659a5e
+  manufacturer: ProtoCentral
+  part_numbers:
+  - ADS1220
+  title: ProtoCentral ADS1220 breakout native Eagle pair archive
+  revision: 3db37824948f75e60ca93cc8aacef5c5abad9a48
+  source_url: https://raw.githubusercontent.com/Protocentral/Protocentral_ADS1220/3db37824948f75e60ca93cc8aacef5c5abad9a48/hardware/pc_ads1220_brk.zip
+  retrieved_on: '2026-09-17'
+  path: files/ADS1220_pc_ads1220_brk_83c75b67b2f7.zip
+  sha256: 83c75b67b2f7d4c6f46f65f6b7bfc7647ddf0220fb10479eeedf8d0f6f659a5e
+  media_type: application/zip
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs:
+  - U3
+- id: sha256:891a4b71a749d574a93fa67d03564ae00f6d13abf8c555b03d877303707cfa3b
+  manufacturer: ProtoCentral
+  part_numbers:
+  - ADS1220
+  title: ProtoCentral ADS1220 breakout schematic PDF
+  revision: 3db37824948f75e60ca93cc8aacef5c5abad9a48
+  source_url: https://raw.githubusercontent.com/Protocentral/Protocentral_ADS1220/3db37824948f75e60ca93cc8aacef5c5abad9a48/hardware/pc_ads1220_brk.pdf
+  retrieved_on: '2026-09-17'
+  path: files/ADS1220_pc_ads1220_brk_891a4b71a749.pdf
+  sha256: 891a4b71a749d574a93fa67d03564ae00f6d13abf8c555b03d877303707cfa3b
+  media_type: application/pdf
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs:
+  - U3
 - id: sha256:9b258db98f6ef2a4afe21af4820fb599f1362adc1f600536955c3cd4f283c273
   manufacturer: null
   part_numbers:

@@ -46,6 +46,19 @@ def test_no_connect_requires_reason():
         NoConnectIntent(pin="2", reason="")
 
 
+def test_missing_pin_map_citation_requires_explicit_review_note():
+    with pytest.raises(ValueError, match="review note"):
+        component(pin_map_evidence_id=None)
+    item = component(pin_map_evidence_id=None,
+                     pin_map_review_note="Accepted symbol mapping retained; vendor pinout review pending.")
+    assert item.pin_map_evidence_id is None
+
+
+def test_blank_pin_map_review_note_is_not_a_resolution():
+    with pytest.raises(ValueError, match="review note"):
+        component(pin_map_evidence_id=None, pin_map_review_note="  ")
+
+
 @pytest.mark.parametrize("sheet_id", ["Bad Sheet", "../child", "", "sensor.kicad_sch"])
 def test_invalid_sheet_ids_fail(sheet_id):
     with pytest.raises(ValueError):

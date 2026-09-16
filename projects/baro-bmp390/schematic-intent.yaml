@@ -1,0 +1,164 @@
+# Connectivity transcribed from the accepted schematic/netmap, not a redesign.
+# Missing generic-part citations stay explicit until actual part selection/review.
+schema_version: 1
+title: BMP390 - 3.3V I2C barometer
+revision: '1-draft'
+sheets:
+  - {id: main, title: Barometer, page: A4}
+blocks:
+  - {id: host, title: Host supply and I2C, sheet: main, flow_order: 1}
+  - {id: sensor, title: BMP390 and decoupling, sheet: main, flow_order: 2}
+  - {id: bus, title: I2C pull-ups, sheet: main, flow_order: 3}
+  - {id: mechanical, title: Mounting holes, sheet: main, flow_order: 4}
+boundary_nets: [I2C_SDA, I2C_SCL]
+components:
+  - ref: J1
+    value: STEMMA-QT
+    symbol: Connector_Generic:Conn_01x04
+    footprint: Connector_JST:JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horizontal
+    block: host
+    evidence_part_number: SM04B-SRSS-TB
+    pin_map_evidence_id: null
+    pin_map_review_note: Accepted generic connector mapping retained; exact JST vendor pinout and mating orientation need review.
+    pin_inventory: ['1', '2', '3', '4']
+    pins:
+      '1': {net: GND, style: power}
+      '2': {net: +3V3, style: power}
+      '3': {net: I2C_SDA, style: label}
+      '4': {net: I2C_SCL, style: label}
+  - ref: C3
+    value: 10uF
+    symbol: Device:C
+    footprint: Capacitor_SMD:C_0603_1608Metric
+    block: host
+    evidence_part_number: Generic 10uF capacitor
+    pin_map_evidence_id: null
+    pin_map_review_note: Accepted Device:C pins retained; exact purchased capacitor voltage rating and footprint remain to verify.
+    pin_inventory: ['1', '2']
+    pins:
+      '1': {net: +3V3, style: power}
+      '2': {net: GND, style: power}
+  - ref: '#FLG01'
+    value: PWR_FLAG
+    symbol: power:PWR_FLAG
+    footprint: '~'
+    block: host
+    evidence_part_number: KiCad PWR_FLAG
+    pin_map_evidence_id: null
+    pin_map_review_note: Existing ERC assertion of host-supplied 3.3V, not a physical component or proof of supply quality.
+    pin_inventory: ['1']
+    pins:
+      '1': {net: +3V3, style: power}
+  - ref: '#FLG02'
+    value: PWR_FLAG
+    symbol: power:PWR_FLAG
+    footprint: '~'
+    block: host
+    evidence_part_number: KiCad PWR_FLAG
+    pin_map_evidence_id: null
+    pin_map_review_note: Existing ERC assertion of host ground, not a physical component or proof of return-path quality.
+    pin_inventory: ['1']
+    pins:
+      '1': {net: GND, style: power}
+  - ref: U1
+    value: BMP390
+    symbol: jlcpcb:BMP390_C5124834
+    footprint: jlcpcb:LGA-10_L2.0-W2.0-P0.50-BL
+    block: sensor
+    evidence_part_number: BMP390
+    pin_map_evidence_id: sha256:8dcf0f74449cb1627e865c7f24d328b76c204d8b9621091ede8c6869fb393e48
+    pin_inventory: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+    pins:
+      '1': {net: +3V3, style: power}
+      '2': {net: I2C_SCL, style: label}
+      '3': {net: GND, style: power}
+      '4': {net: I2C_SDA, style: label}
+      '5': {net: +3V3, style: power}
+      '6': {net: +3V3, style: power}
+      '7': {net: BMP_INT, style: wire}
+      '8': {net: GND, style: power}
+      '9': {net: GND, style: power}
+      '10': {net: +3V3, style: power}
+  - ref: TP1
+    value: INT
+    symbol: Connector_Generic:Conn_01x01
+    footprint: TestPoint:TestPoint_Pad_1.0x1.0mm
+    block: sensor
+    evidence_part_number: Generic test point
+    pin_map_evidence_id: null
+    pin_map_review_note: Accepted one-pin test-point symbol retained; physical probe access requires PCB review.
+    pin_inventory: ['1']
+    pins:
+      '1': {net: BMP_INT, style: wire}
+  - ref: C1
+    value: 100nF
+    symbol: Device:C
+    footprint: Capacitor_SMD:C_0402_1005Metric
+    block: sensor
+    evidence_part_number: Generic 100nF capacitor
+    pin_map_evidence_id: null
+    pin_map_review_note: Accepted Device:C mapping retained; exact purchased capacitor selection remains unverified.
+    pin_inventory: ['1', '2']
+    pins:
+      '1': {net: +3V3, style: power}
+      '2': {net: GND, style: power}
+  - ref: C2
+    value: 100nF
+    symbol: Device:C
+    footprint: Capacitor_SMD:C_0402_1005Metric
+    block: sensor
+    evidence_part_number: Generic 100nF capacitor
+    pin_map_evidence_id: null
+    pin_map_review_note: Accepted Device:C mapping retained; exact purchased capacitor selection remains unverified.
+    pin_inventory: ['1', '2']
+    pins:
+      '1': {net: +3V3, style: power}
+      '2': {net: GND, style: power}
+  - ref: R1
+    value: 4.7k
+    symbol: Device:R
+    footprint: Resistor_SMD:R_0402_1005Metric
+    block: bus
+    evidence_part_number: Generic 4.7k resistor
+    pin_map_evidence_id: null
+    pin_map_review_note: Accepted Device:R mapping retained; exact purchased resistor selection remains unverified.
+    pin_inventory: ['1', '2']
+    pins:
+      '1': {net: +3V3, style: power}
+      '2': {net: I2C_SCL, style: label}
+  - ref: R2
+    value: 4.7k
+    symbol: Device:R
+    footprint: Resistor_SMD:R_0402_1005Metric
+    block: bus
+    evidence_part_number: Generic 4.7k resistor
+    pin_map_evidence_id: null
+    pin_map_review_note: Accepted Device:R mapping retained; exact purchased resistor selection remains unverified.
+    pin_inventory: ['1', '2']
+    pins:
+      '1': {net: +3V3, style: power}
+      '2': {net: I2C_SDA, style: label}
+  - ref: H1
+    value: M2
+    symbol: Connector_Generic:Conn_01x01
+    footprint: MountingHole:MountingHole_2.2mm_M2_Pad
+    block: mechanical
+    evidence_part_number: M2 plated mounting hole
+    pin_map_evidence_id: null
+    pin_map_review_note: Existing plated-hole symbol retained; mounting pattern remains an owner decision.
+    pin_inventory: ['1']
+    pins: {}
+    no_connects:
+      - {pin: '1', reason: Isolated plated mounting hole as in the accepted schematic.}
+  - ref: H2
+    value: M2
+    symbol: Connector_Generic:Conn_01x01
+    footprint: MountingHole:MountingHole_2.2mm_M2_Pad
+    block: mechanical
+    evidence_part_number: M2 plated mounting hole
+    pin_map_evidence_id: null
+    pin_map_review_note: Existing plated-hole symbol retained; mounting pattern remains an owner decision.
+    pin_inventory: ['1']
+    pins: {}
+    no_connects:
+      - {pin: '1', reason: Isolated plated mounting hole as in the accepted schematic.}

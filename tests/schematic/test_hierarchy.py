@@ -59,6 +59,11 @@ def test_hierarchical_net_survives_round_trip(hierarchical_draft):
     assert hierarchical_draft.child_paths == (Path("sensor.kicad_sch"),)
 
     root = sch_io.parse_file(hierarchical_draft.root_schematic)
+    root_labels = ed.find_children(root, 'label')
+    assert root_labels
+    for label in root_labels:
+        effects = ed.find_child(label, 'effects')
+        assert ed.find_child(effects, 'justify')[1] == sch_io.sym('right')
     sheet = ed.find_sheet_by_filename(root, "sensor.kicad_sch")
     assert sheet is not None
     pins = [node for node in sheet[1:] if sch_io.is_call(node, "pin")]

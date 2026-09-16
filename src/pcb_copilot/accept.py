@@ -14,6 +14,7 @@ from pcb_copilot.drafts import _DRAFT_ID, _project_root
 from pcb_copilot.evidence.checks import check_evidence
 from pcb_copilot.models import DraftKind, DraftRecord, Lifecycle, Project
 from pcb_copilot.schematic.io import load_schematic_intent
+from pcb_copilot.schematic.netlist import normalize_intent_netmap
 from pcb_copilot.schematic.preview import schematic_files
 from pcb_copilot.state import accepted_file_hashes, canonical_design_hash, file_digest
 
@@ -92,10 +93,12 @@ def accept_schematic(project: Project, draft: DraftRecord) -> AcceptanceResult:
 
     netmap = importlib.import_module('extract_netmap').extract(schematic)
     intent = load_schematic_intent(draft.root / 'schematic-intent.yaml')
-    expected = {c.ref: {pin: connection.net for pin, connection in c.pins.items()}
-                for c in intent.components if c.pins}
-    if netmap['nets'] != expected:
-        raise ValueError('draft netlist differs from schematic intent')
+    try:
+        normalize_intent_netmap(intent, netmap['nets'])
+    except ValueError as exc:
+        raise ValueError(f'draft netlist differs from schematic intent: {exc}') from exc
+    # Retain KiCad's real qualified names in the accepted netmap. Normalizing
+    # comparison must not silently rename the PCB or merge local sheet nets.
 
     changes = {project.schematic_path.parent / p.relative_to(schematic.parent): p.read_bytes()
                for p in files}

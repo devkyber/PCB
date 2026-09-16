@@ -12,7 +12,7 @@
 
 ## Global Constraints
 
-### Execution checkpoint — 2026-09-16
+### Execution checkpoint — 2026-09-17
 
 Tasks 1–7 have implementation commits on `main`. The current command surface
 supports transactional drafts, intent validation, local wiring, hierarchy,
@@ -27,15 +27,38 @@ label-stub obstacles, searches alternate grid lanes, and validates a complete
 route before drawing it. Draft reports also compare the extracted netlist
 against every declared intent assignment; acceptance repeats that check.
 
-Task 8 is pending. No real board has been regenerated or accepted. Board
-intent migration must preserve the existing circuits and expose missing
-pin-map citations for generic parts rather than assigning unrelated source
-IDs. Research findings remain advisory for draft creation and schematic
-acceptance, with release requirements enforced separately. Start Task 8 with
-the barometer as a complete practical example before expanding to the other
-three boards. Remaining layout, release, and cleanup work is in Plans 4 and 5.
+Task 8 now has intents and source-parity tests for all four real boards,
+including component identities, full pin inventories and explicit no-connects.
+All four have separate rendered drafts; TMS has an overview plus the six
+required functional sheets. No accepted schematic, PCB or netmap was changed.
+Actual previews exposed and regression-tested pin-origin mistakes, tall-symbol
+row overlap, wires through symbol bodies, inward-facing left labels and fields
+inside a body wider than its pins. Remaining visual limitations require human
+review; structural metrics do not certify graphical polish.
+
+Generic parts may declare a null pin-map citation only with an explicit review
+note, rather than assigning unrelated source IDs. Research findings remain
+advisory for draft creation and schematic acceptance, with release requirements
+enforced separately. All four projects have reference-research records, but
+coverage and copper-view comparison are explicitly incomplete. In particular,
+TMS's reference-voltage circuit and design-basis claim need reconciliation.
+
+The next checkpoint is Task 8 Step 4: human review of specific draft previews.
+Do not accept drafts or start Plan 4 layout without that review. Remaining
+layout, release, and cleanup work is in Plans 4 and 5.
 The product target is supplementary engineering assistance as stated in the
 design spec; autonomous human-level design is not an acceptance criterion.
+
+Checkpoint verification: `uv run pytest -q -m 'not network'` completed with
+387 passed, 49 skipped and 3 deselected; skipped tests are
+not claimed as executed. The enforcement self-test passed 93/93. A subsequent
+31-test source-parity/field/power check and Ruff also passed. All four evidence
+indexes verify (5/6/8/20 records respectively). Reference integrity is not a
+claim of complete research. Accepted schematic/PCB/netmap Git diffs are empty.
+Two additional LF/CRLF Git round-trip tests pass. All 39 staged archive blobs
+match their indexed SHA-256 values. Three older text CAD archive blobs needed
+their existing hashed CRLF bytes restored in Git; no working-tree evidence
+bytes or accepted designs were changed. Upstream archive whitespace is retained.
 
 The CLI tests live in `tests/schematic/test_schematic_cli.py` to avoid pytest
 module-name collisions with the evidence CLI tests.
@@ -478,7 +501,8 @@ in `REFERENCE_REVIEW.md`; archive the selected sources, inspect relevant
 schematic and layout views, and compare applicability against datasheets and
 our design basis. Pair-consistency checks supplement this review. Missing
 sources remain advisory findings in drafts, not invented successful research.
-The BMP390 review is the first worked example; the other boards are pending.
+All four reviews now exist. Their stated gaps remain open; an archived or
+pair-consistent CAD source is not proof of completed PCB visual comparison.
 
 **Files:**
 - Create: `projects/baro-bmp390/schematic-intent.yaml`
@@ -493,7 +517,7 @@ The BMP390 review is the first worked example; the other boards are pending.
 - Produces: reproducible drafts for all four boards
 - Consumes: approved requirements, design bases, evidence indexes, existing generators, and baseline netmaps
 
-- [ ] **Step 1: Encode current circuit intent without inventing new design decisions**
+- [x] **Step 1: Encode current circuit intent without inventing new design decisions**
 
 For each board, transcribe components, pins, nets, and no-connects from the
 accepted schematic/netmap and verify part choices against its design basis.
@@ -508,13 +532,13 @@ Use these TMS V3 sheets:
 5. `ignition-control`
 6. `external-connectors-and-test`
 
-- [ ] **Step 2: Write board parity tests before rendering**
+- [x] **Step 2: Write board parity tests before rendering**
 
 For each intent, assert its ref/pin/net map equals the saved baseline except
 for `#PWR`/`#FLG` pseudo-references. Assert every physical component belongs to
 one block and every cross-sheet net is declared hierarchical.
 
-- [ ] **Step 3: Render all four drafts and run automated checks**
+- [x] **Step 3: Render all four drafts and run automated checks**
 
 Run:
 
@@ -526,9 +550,12 @@ uv run pcb-copilot draft-schematic projects/tms-v3 --intent projects/tms-v3/sche
 uv run pytest tests/schematic/test_board_migration.py -v
 ```
 
-Expected: every draft has netmap parity; the three small boards meet their
-single-sheet capacity; TMS uses six sheets; all have nonzero junctions and
-complete title blocks.
+Expected: every draft has physical-net-group parity; the three small boards
+meet their single-sheet capacity; TMS uses six functional child sheets plus an
+overview; each board has nonzero junctions and complete title blocks. A child
+containing only connectors need not invent junctions to satisfy a metric.
+KiCad-qualified local net names remain visible in review and must be reconciled
+with PCB names before release; equivalence requires exact complete pin groups.
 
 - [ ] **Step 4: Human visual review checkpoint**
 
@@ -556,8 +583,8 @@ Use these four literal commit messages, one after each approved acceptance:
 
 - [ ] `uv run pytest tests/schematic -q` exits `0`.
 - [ ] Existing MCP schematic and hierarchy tests pass.
-- [ ] `uv run python docs/selftest_enforcement.py` exits `0`.
+- [x] `uv run python docs/selftest_enforcement.py` exits `0`.
 - [ ] Every accepted schematic's extracted netmap matches its baseline or has a separately approved electrical change.
 - [ ] TMS V3 is hierarchical and all boards have nonzero drawn connectivity.
-- [ ] Accepted files change only through explicit acceptance.
+- [x] Accepted files change only through explicit acceptance.
 - [ ] Stop for human review before starting layout work.

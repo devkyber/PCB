@@ -1,0 +1,660 @@
+schema_version: 1
+title: NEO-M9N GNSS breakout - review draft
+revision: '1'
+sheets:
+- id: main
+  title: GNSS receiver breakout
+  page: A3
+blocks:
+- id: input
+  title: Input and 3.3 V regulation
+  sheet: main
+  flow_order: 0
+- id: receiver
+  title: GNSS receiver and bypass
+  sheet: main
+  flow_order: 1
+- id: backup
+  title: Backup and mounting
+  sheet: main
+  flow_order: 2
+- id: antenna
+  title: Antenna and RF protection
+  sheet: main
+  flow_order: 3
+- id: control
+  title: Interface mode reset and recovery
+  sheet: main
+  flow_order: 4
+- id: interfaces
+  title: UART I2C and timing
+  sheet: main
+  flow_order: 5
+boundary_nets:
+- D_SEL
+- EXTINT
+- I2C_SCL
+- I2C_SDA
+- RESET_N
+- RF_IN
+- SAFEBOOT_N
+- TIMEPULSE
+- UART_RXD
+- UART_TXD
+components:
+- ref: J1
+  value: PWR-IN
+  symbol: Connector_Generic:Conn_01x02
+  footprint: Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical
+  block: input
+  evidence_part_number: PWR-IN
+  pin_map_evidence_id: null
+  pin_map_review_note: Preserves the accepted KiCad Connector_Generic:Conn_01x02 pin
+    numbering and footprint. No exact purchased-part pin-map source is indexed; vendor
+    or physical-part review remains pending.
+  pins:
+    '1':
+      net: VIN
+      style: power
+    '2':
+      net: GND
+      style: power
+  no_connects: []
+  pin_inventory:
+  - '1'
+  - '2'
+- ref: C1
+  value: 1uF
+  symbol: Device:C
+  footprint: Capacitor_SMD:C_0603_1608Metric
+  block: input
+  evidence_part_number: 1uF
+  pin_map_evidence_id: null
+  pin_map_review_note: Preserves the accepted KiCad Device:C pin numbering and footprint.
+    No exact purchased-part pin-map source is indexed; vendor or physical-part review
+    remains pending.
+  pins:
+    '1':
+      net: VIN
+      style: power
+    '2':
+      net: GND
+      style: power
+  no_connects: []
+  pin_inventory:
+  - '1'
+  - '2'
+- ref: U1
+  value: XC6206P332MR
+  symbol: jlcpcb:XC6206P332MR
+  footprint: jlcpcb:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR
+  block: input
+  evidence_part_number: XC6206P332MR
+  pin_map_evidence_id: sha256:8fda1e40ea3e7c17178353aceba9c9a9794e56a1960d02b105c576429ce418ed
+  pins:
+    '3':
+      net: VIN
+      style: power
+    '1':
+      net: GND
+      style: power
+    '2':
+      net: VCC
+      style: power
+  no_connects: []
+  pin_inventory:
+  - '1'
+  - '2'
+  - '3'
+- ref: C2
+  value: 1uF
+  symbol: Device:C
+  footprint: Capacitor_SMD:C_0603_1608Metric
+  block: input
+  evidence_part_number: 1uF
+  pin_map_evidence_id: null
+  pin_map_review_note: Preserves the accepted KiCad Device:C pin numbering and footprint.
+    No exact purchased-part pin-map source is indexed; vendor or physical-part review
+    remains pending.
+  pins:
+    '1':
+      net: VCC
+      style: power
+    '2':
+      net: GND
+      style: power
+  no_connects: []
+  pin_inventory:
+  - '1'
+  - '2'
+- ref: '#FLG01'
+  value: PWR_FLAG
+  symbol: power:PWR_FLAG
+  footprint: '~'
+  block: input
+  evidence_part_number: PWR_FLAG
+  pin_map_evidence_id: null
+  pin_map_review_note: Preserves the accepted KiCad power:PWR_FLAG pin numbering and
+    footprint. Power assertion pseudo-component; no physical vendor pin map applies.
+  pins:
+    '1':
+      net: VCC
+      style: power
+  no_connects: []
+  pin_inventory:
+  - '1'
+- ref: U2
+  value: NEO-M9N-00B
+  symbol: jlcpcb:NEO-M9N-00B
+  footprint: jlcpcb:GPSM-SMD_24P-L16.0-W12.2-P1.10-BL
+  block: receiver
+  evidence_part_number: NEO-M9N-00B
+  pin_map_evidence_id: sha256:e21b35c1a4fd04f353e298a3c3c411c08e683a318d87ad3af9f570da40a40150
+  pins:
+    '1':
+      net: SAFEBOOT_N
+      style: label
+    '2':
+      net: D_SEL
+      style: label
+    '3':
+      net: TIMEPULSE
+      style: label
+    '4':
+      net: EXTINT
+      style: label
+    '7':
+      net: GND
+      style: power
+    '8':
+      net: RESET_N
+      style: label
+    '9':
+      net: VCC_RF
+      style: power
+    '10':
+      net: GND
+      style: power
+    '11':
+      net: RF_IN
+      style: label
+    '12':
+      net: GND
+      style: power
+    '13':
+      net: GND
+      style: power
+    '18':
+      net: I2C_SDA
+      style: label
+    '19':
+      net: I2C_SCL
+      style: label
+    '20':
+      net: UART_TXD
+      style: label
+    '21':
+      net: UART_RXD
+      style: label
+    '22':
+      net: V_BCKP
+      style: power
+    '23':
+      net: VCC
+      style: power
+    '24':
+      net: GND
+      style: power
+  no_connects:
+  - pin: '5'
+    reason: USB DM unused; preserved accepted no-connect; USB supply pin 7 remains
+      grounded.
+  - pin: '6'
+    reason: USB DP unused; preserved accepted no-connect; USB supply pin 7 remains
+      grounded.
+  - pin: '14'
+    reason: LNA enable unused in the accepted passive-antenna circuit; owner antenna
+      choice remains open.
+  - pin: '15'
+    reason: Reserved module pin; preserve accepted no-connect.
+  - pin: '16'
+    reason: Reserved module pin; preserve accepted no-connect.
+  - pin: '17'
+    reason: Reserved module pin; preserve accepted no-connect.
+  pin_inventory:
+  - '1'
+  - '2'
+  - '3'
+  - '4'
+  - '5'
+  - '6'
+  - '7'
+  - '8'
+  - '9'
+  - '10'
+  - '11'
+  - '12'
+  - '13'
+  - '14'
+  - '15'
+  - '16'
+  - '17'
+  - '18'
+  - '19'
+  - '20'
+  - '21'
+  - '22'
+  - '23'
+  - '24'
+- ref: C3
+  value: 1uF
+  symbol: Device:C
+  footprint: Capacitor_SMD:C_0603_1608Metric
+  block: receiver
+  evidence_part_number: 1uF
+  pin_map_evidence_id: null
+  pin_map_review_note: Preserves the accepted KiCad Device:C pin numbering and footprint.
+    No exact purchased-part pin-map source is indexed; vendor or physical-part review
+    remains pending.
+  pins:
+    '1':
+      net: VCC
+      style: power
+    '2':
+      net: GND
+      style: power
+  no_connects: []
+  pin_inventory:
+  - '1'
+  - '2'
+- ref: C4
+  value: 10uF
+  symbol: Device:C
+  footprint: Capacitor_SMD:C_0805_2012Metric
+  block: receiver
+  evidence_part_number: 10uF
+  pin_map_evidence_id: null
+  pin_map_review_note: Preserves the accepted KiCad Device:C pin numbering and footprint.
+    No exact purchased-part pin-map source is indexed; vendor or physical-part review
+    remains pending.
+  pins:
+    '1':
+      net: VCC
+      style: power
+    '2':
+      net: GND
+      style: power
+  no_connects: []
+  pin_inventory:
+  - '1'
+  - '2'
+- ref: C5
+  value: 100nF
+  symbol: Device:C
+  footprint: Capacitor_SMD:C_0603_1608Metric
+  block: receiver
+  evidence_part_number: 100nF
+  pin_map_evidence_id: null
+  pin_map_review_note: Preserves the accepted KiCad Device:C pin numbering and footprint.
+    No exact purchased-part pin-map source is indexed; vendor or physical-part review
+    remains pending.
+  pins:
+    '1':
+      net: VCC_RF
+      style: power
+    '2':
+      net: GND
+      style: power
+  no_connects: []
+  pin_inventory:
+  - '1'
+  - '2'
+- ref: R2
+  value: 10k
+  symbol: Device:R
+  footprint: Resistor_SMD:R_0402_1005Metric
+  block: control
+  evidence_part_number: 10k
+  pin_map_evidence_id: null
+  pin_map_review_note: Preserves the accepted KiCad Device:R pin numbering and footprint.
+    No exact purchased-part pin-map source is indexed; vendor or physical-part review
+    remains pending.
+  pins:
+    '1':
+      net: VCC
+      style: power
+    '2':
+      net: D_SEL
+      style: label
+  no_connects: []
+  pin_inventory:
+  - '1'
+  - '2'
+- ref: BT1
+  value: CR1220
+  symbol: Device:Battery_Cell
+  footprint: Battery:Battery_Panasonic_CR1220-VCN_Vertical_CircularHoles
+  block: backup
+  evidence_part_number: CR1220
+  pin_map_evidence_id: null
+  pin_map_review_note: Preserves the accepted KiCad Device:Battery_Cell pin numbering
+    and footprint. CR1220 cell data is archived, but the exact VCN tab-to-pad drawing
+    is not verified; vendor footprint review remains pending.
+  pins:
+    '1':
+      net: V_BCKP
+      style: power
+    '2':
+      net: GND
+      style: power
+  no_connects: []
+  pin_inventory:
+  - '1'
+  - '2'
+- ref: C6
+  value: 100nF
+  symbol: Device:C
+  footprint: Capacitor_SMD:C_0603_1608Metric
+  block: backup
+  evidence_part_number: 100nF
+  pin_map_evidence_id: null
+  pin_map_review_note: Preserves the accepted KiCad Device:C pin numbering and footprint.
+    No exact purchased-part pin-map source is indexed; vendor or physical-part review
+    remains pending.
+  pins:
+    '1':
+      net: V_BCKP
+      style: power
+    '2':
+      net: GND
+      style: power
+  no_connects: []
+  pin_inventory:
+  - '1'
+  - '2'
+- ref: '#FLG02'
+  value: PWR_FLAG
+  symbol: power:PWR_FLAG
+  footprint: '~'
+  block: backup
+  evidence_part_number: PWR_FLAG
+  pin_map_evidence_id: null
+  pin_map_review_note: Preserves the accepted KiCad power:PWR_FLAG pin numbering and
+    footprint. Power assertion pseudo-component; no physical vendor pin map applies.
+  pins:
+    '1':
+      net: GND
+      style: power
+  no_connects: []
+  pin_inventory:
+  - '1'
+- ref: H1
+  value: M2.5
+  symbol: Connector_Generic:Conn_01x01
+  footprint: MountingHole:MountingHole_2.7mm_M2.5_Pad
+  block: backup
+  evidence_part_number: M2.5
+  pin_map_evidence_id: null
+  pin_map_review_note: Preserves the accepted KiCad Connector_Generic:Conn_01x01 pin
+    numbering and footprint. No exact purchased-part pin-map source is indexed; vendor
+    or physical-part review remains pending.
+  pins: {}
+  no_connects:
+  - pin: '1'
+    reason: Mounting-hole pad intentionally isolated; preserve accepted schematic
+      no-connect.
+  pin_inventory:
+  - '1'
+- ref: H2
+  value: M2.5
+  symbol: Connector_Generic:Conn_01x01
+  footprint: MountingHole:MountingHole_2.7mm_M2.5_Pad
+  block: backup
+  evidence_part_number: M2.5
+  pin_map_evidence_id: null
+  pin_map_review_note: Preserves the accepted KiCad Connector_Generic:Conn_01x01 pin
+    numbering and footprint. No exact purchased-part pin-map source is indexed; vendor
+    or physical-part review remains pending.
+  pins: {}
+  no_connects:
+  - pin: '1'
+    reason: Mounting-hole pad intentionally isolated; preserve accepted schematic
+      no-connect.
+  pin_inventory:
+  - '1'
+- ref: J2
+  value: U.FL-ANT
+  symbol: Connector:Conn_Coaxial
+  footprint: Connector_Coaxial:U.FL_Hirose_U.FL-R-SMT-1_Vertical
+  block: antenna
+  evidence_part_number: U.FL-ANT
+  pin_map_evidence_id: null
+  pin_map_review_note: Preserves the accepted KiCad Connector:Conn_Coaxial pin numbering
+    and footprint. No exact purchased-part pin-map source is indexed; vendor or physical-part
+    review remains pending.
+  pins:
+    '1':
+      net: RF_IN
+      style: label
+    '2':
+      net: GND
+      style: power
+  no_connects: []
+  pin_inventory:
+  - '1'
+  - '2'
+- ref: D1
+  value: RCLAMP0521P
+  symbol: Device:D_TVS
+  footprint: Diode_SMD:D_0402_1005Metric
+  block: antenna
+  evidence_part_number: RCLAMP0521P
+  pin_map_evidence_id: sha256:13d78249c88f957e226dfe8ab9bb4bcc0bd736655d868327df11079679844074
+  pin_map_review_note: Indexed source identifies RClamp0521PA/SLP1006P2; accepted
+    value is RCLAMP0521P and footprint D_0402_1005Metric. Preserve these pending exact
+    ordered-package and polarity review.
+  pins:
+    '1':
+      net: RF_IN
+      style: wire
+    '2':
+      net: GND
+      style: power
+  no_connects: []
+  pin_inventory:
+  - '1'
+  - '2'
+- ref: R1
+  value: 10k
+  symbol: Device:R
+  footprint: Resistor_SMD:R_0402_1005Metric
+  block: control
+  evidence_part_number: 10k
+  pin_map_evidence_id: null
+  pin_map_review_note: Preserves the accepted KiCad Device:R pin numbering and footprint.
+    No exact purchased-part pin-map source is indexed; vendor or physical-part review
+    remains pending.
+  pins:
+    '1':
+      net: VCC
+      style: power
+    '2':
+      net: SAFEBOOT_N
+      style: label
+  no_connects: []
+  pin_inventory:
+  - '1'
+  - '2'
+- ref: TP1
+  value: SAFEBOOT_N
+  symbol: Connector_Generic:Conn_01x01
+  footprint: TestPoint:TestPoint_Pad_1.0x1.0mm
+  block: control
+  evidence_part_number: SAFEBOOT_N
+  pin_map_evidence_id: null
+  pin_map_review_note: Preserves the accepted KiCad Connector_Generic:Conn_01x01 pin
+    numbering and footprint. No exact purchased-part pin-map source is indexed; vendor
+    or physical-part review remains pending.
+  pins:
+    '1':
+      net: SAFEBOOT_N
+      style: wire
+  no_connects: []
+  pin_inventory:
+  - '1'
+- ref: R3
+  value: 10k
+  symbol: Device:R
+  footprint: Resistor_SMD:R_0402_1005Metric
+  block: control
+  evidence_part_number: 10k
+  pin_map_evidence_id: null
+  pin_map_review_note: Preserves the accepted KiCad Device:R pin numbering and footprint.
+    No exact purchased-part pin-map source is indexed; vendor or physical-part review
+    remains pending.
+  pins:
+    '1':
+      net: VCC
+      style: power
+    '2':
+      net: RESET_N
+      style: label
+  no_connects: []
+  pin_inventory:
+  - '1'
+  - '2'
+- ref: SW1
+  value: RESET
+  symbol: Switch:SW_Push
+  footprint: Button_Switch_SMD:SW_SPST_B3U-1000P
+  block: control
+  evidence_part_number: B3U-1000P
+  pin_map_evidence_id: sha256:abb75a2524e2457df42b3d197b2a7d8a04307ee0d4c85e3c70852c75c505b44a
+  pins:
+    '1':
+      net: RESET_N
+      style: wire
+    '2':
+      net: GND
+      style: power
+  no_connects: []
+  pin_inventory:
+  - '1'
+  - '2'
+- ref: TP2
+  value: RESET_N
+  symbol: Connector_Generic:Conn_01x01
+  footprint: TestPoint:TestPoint_Pad_1.0x1.0mm
+  block: control
+  evidence_part_number: RESET_N
+  pin_map_evidence_id: null
+  pin_map_review_note: Preserves the accepted KiCad Connector_Generic:Conn_01x01 pin
+    numbering and footprint. No exact purchased-part pin-map source is indexed; vendor
+    or physical-part review remains pending.
+  pins:
+    '1':
+      net: RESET_N
+      style: wire
+  no_connects: []
+  pin_inventory:
+  - '1'
+- ref: R4
+  value: 4.7k
+  symbol: Device:R
+  footprint: Resistor_SMD:R_0402_1005Metric
+  block: interfaces
+  evidence_part_number: 4.7k
+  pin_map_evidence_id: null
+  pin_map_review_note: Preserves the accepted KiCad Device:R pin numbering and footprint.
+    No exact purchased-part pin-map source is indexed; vendor or physical-part review
+    remains pending.
+  pins:
+    '1':
+      net: VCC
+      style: power
+    '2':
+      net: I2C_SDA
+      style: label
+  no_connects: []
+  pin_inventory:
+  - '1'
+  - '2'
+- ref: R5
+  value: 4.7k
+  symbol: Device:R
+  footprint: Resistor_SMD:R_0402_1005Metric
+  block: interfaces
+  evidence_part_number: 4.7k
+  pin_map_evidence_id: null
+  pin_map_review_note: Preserves the accepted KiCad Device:R pin numbering and footprint.
+    No exact purchased-part pin-map source is indexed; vendor or physical-part review
+    remains pending.
+  pins:
+    '1':
+      net: VCC
+      style: power
+    '2':
+      net: I2C_SCL
+      style: label
+  no_connects: []
+  pin_inventory:
+  - '1'
+  - '2'
+- ref: J3
+  value: UART-I2C
+  symbol: Connector_Generic:Conn_01x06
+  footprint: Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical
+  block: interfaces
+  evidence_part_number: UART-I2C
+  pin_map_evidence_id: null
+  pin_map_review_note: Preserves the accepted KiCad Connector_Generic:Conn_01x06 pin
+    numbering and footprint. No exact purchased-part pin-map source is indexed; vendor
+    or physical-part review remains pending.
+  pins:
+    '1':
+      net: VCC
+      style: power
+    '2':
+      net: GND
+      style: power
+    '3':
+      net: UART_TXD
+      style: label
+    '4':
+      net: UART_RXD
+      style: label
+    '5':
+      net: I2C_SDA
+      style: wire
+    '6':
+      net: I2C_SCL
+      style: wire
+  no_connects: []
+  pin_inventory:
+  - '1'
+  - '2'
+  - '3'
+  - '4'
+  - '5'
+  - '6'
+- ref: J4
+  value: PPS-INT
+  symbol: Connector_Generic:Conn_01x02
+  footprint: Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical
+  block: interfaces
+  evidence_part_number: PPS-INT
+  pin_map_evidence_id: null
+  pin_map_review_note: Preserves the accepted KiCad Connector_Generic:Conn_01x02 pin
+    numbering and footprint. No exact purchased-part pin-map source is indexed; vendor
+    or physical-part review remains pending.
+  pins:
+    '1':
+      net: TIMEPULSE
+      style: label
+    '2':
+      net: EXTINT
+      style: label
+  no_connects: []
+  pin_inventory:
+  - '1'
+  - '2'

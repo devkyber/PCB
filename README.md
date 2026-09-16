@@ -21,16 +21,22 @@ current evidence and sign-off.
 
 ## Current state
 
-The remake is being delivered incrementally. The foundation now provides a
-root Python workspace, Windows/KiCad 10 discovery, four-board preservation
-baselines, safe project manifests, lifecycle protection, and a read-only
-status command. Existing scripts remain available while their behavior is
-characterized and moved behind package APIs.
+The foundation, evidence archive and schematic-draft commands are implemented.
+All four boards now have circuit-preserving schematic intents; TMS V3 renders
+as an overview plus six functional sheets. Drafts include PDF previews, ERC,
+connectivity checks and explicit stale-safe acceptance. None of these new
+board drafts has been accepted. Reference research is recorded per board,
+with missing sources and unreviewed copper views stated explicitly.
+
+Human visual review is the current Plan 3 checkpoint. The new layout assistant
+and unified review/release/cleanup remain Plans 4 and 5; they are not finished.
+Existing scripts remain available until replacement behavior is verified.
 
 ```powershell
 uv sync
 uv run pcb-copilot --version
 uv run pcb-copilot status projects/baro-bmp390
+uv run pcb-copilot draft-schematic projects/baro-bmp390 --intent projects/baro-bmp390/schematic-intent.yaml
 uv run pytest -m "not slow and not network" -q
 ```
 

@@ -37,6 +37,12 @@
 
 ## Plan Set
 
+Current checkpoint (2026-09-17): Plans 1 and 2 package migrations are in place;
+Plan 3 Tasks 1–7 are implemented and Task 8 has four circuit-preserving intents
+and rendered drafts. No new board draft has been accepted. Human visual review
+is next. Reference coverage is partial and tracked per board. Plans 4 and 5
+are not complete; no compatibility code is deleted merely to shorten the tree.
+
 Execute these plans in order. Each plan ends in working, independently testable software and a reviewer checkpoint.
 
 1. [`2026-09-14-pcb-copilot-01-foundation-and-docs.md`](2026-09-14-pcb-copilot-01-foundation-and-docs.md)

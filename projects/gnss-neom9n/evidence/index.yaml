@@ -30,6 +30,22 @@ records:
   - datasheet
   trust_tier: manufacturer
   component_refs: []
+- id: sha256:963d63cb9c1d6d63123480ce3a4592504efa401d70e35f3a331b009f1f357717
+  manufacturer: SparkFun Electronics
+  part_numbers:
+  - NEO-M9N-00B
+  title: SparkFun NEO-M9N U.FL breakout native Eagle brd
+  revision: Paired V10 CAD; git c38db3261ddbcdcfee0c42a4aebe22bbd574111f; order suffix unconfirmed
+  source_url: https://raw.githubusercontent.com/sparkfun/SparkFun_u-Blox_NEO_M9N/c38db3261ddbcdcfee0c42a4aebe22bbd574111f/Hardware/SparkFun%20GPS%20NEO_M9N_uFL/SparkFun%20GPS%20NEO_M9N_uFL.brd
+  retrieved_on: '2026-09-17'
+  path: files/NEO-M9N-00B_SparkFun_GPS_NEO_M9N_uFL_963d63cb9c1d.brd
+  sha256: 963d63cb9c1d6d63123480ce3a4592504efa401d70e35f3a331b009f1f357717
+  media_type: application/vnd.eagle+xml
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs:
+  - U2
 - id: sha256:96e6ee489ccb7ec3e98d00ddf1b5c94fd2a4d400882d69c61a75482c2ac9be47
   manufacturer: null
   part_numbers:
@@ -62,12 +78,28 @@ records:
   trust_tier: manufacturer
   component_refs:
   - SW1
+- id: sha256:df70b2d67fa69442c915e113b492520368a9e87b6e08b6fe2fab53bebf63d3dd
+  manufacturer: SparkFun Electronics
+  part_numbers:
+  - NEO-M9N-00B
+  title: SparkFun NEO-M9N U.FL breakout native Eagle sch
+  revision: V10 sheet; git c38db3261ddbcdcfee0c42a4aebe22bbd574111f; order suffix unconfirmed
+  source_url: https://raw.githubusercontent.com/sparkfun/SparkFun_u-Blox_NEO_M9N/c38db3261ddbcdcfee0c42a4aebe22bbd574111f/Hardware/SparkFun%20GPS%20NEO_M9N_uFL/SparkFun%20GPS%20NEO_M9N_uFL.sch
+  retrieved_on: '2026-09-17'
+  path: files/NEO-M9N-00B_SparkFun_GPS_NEO_M9N_uFL_df70b2d67fa6.sch
+  sha256: df70b2d67fa69442c915e113b492520368a9e87b6e08b6fe2fab53bebf63d3dd
+  media_type: application/vnd.eagle+xml
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs:
+  - U2
 - id: sha256:e21b35c1a4fd04f353e298a3c3c411c08e683a318d87ad3af9f570da40a40150
   manufacturer: null
   part_numbers:
   - NEO-M9N-00B
   title: NEO-M9N-00B_NEO-M9N-00B_DataSheet_UBX-19014285
-  revision: null
+  revision: UBX-19014285 R08, 2025-10-09
   source_url: https://content.u-blox.com/sites/default/files/NEO-M9N-00B_DataSheet_UBX-19014285.pdf
   retrieved_on: '2026-08-25'
   path: files/NEO-M9N-00B_NEO-M9N-00B_DataSheet_UBX-19014285.pdf
@@ -82,7 +114,7 @@ records:
   part_numbers:
   - NEO-M9N-00B
   title: NEO-M9N-00B_NEO-M9N_Integrationmanual_UBX-19014286
-  revision: null
+  revision: UBX-19014286 R10, 2025-03-27
   source_url: https://content.u-blox.com/sites/default/files/NEO-M9N_Integrationmanual_UBX-19014286.pdf
   retrieved_on: '2026-08-25'
   path: files/NEO-M9N-00B_NEO-M9N_Integrationmanual_UBX-19014286.pdf
