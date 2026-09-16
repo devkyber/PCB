@@ -11,6 +11,7 @@ record; circuit acceptance, layout validation and release remain human owned.
 | `ICM-42688-P open hardware schematic PCB layout anyshake` | Found exact-part open hardware, including SUSTAINA-OP. Its own README calls the design untested, so it was not treated as a validated implementation. |
 | `site.github.com/anyshake/icm-42688-breakout ICM-42688.kicad_pcb` | Search did not itself resolve the file; opened the existing AnyShake source repository and enumerated its tree using the GitHub API. Acquired native schematic, PCB and rendered schematic at one pinned commit. |
 | `site.invensense.tdk.com QCIoT ICM42688P schematic AN PCB` | Found TDK AN-000493 rev 1.0, an exact-part Pmod evaluation manual containing schematic and top/bottom layout views. Direct download returned HTTP 404. The linked Mouser PDF mirror returned HTML to the downloader, rejected by the archive API. |
+| `site.tdk.com "AN-000493" pdf`; `site.invensense.tdk.com "AN-000493"` | Follow-up found a working ChipDip mirror; archived and inspected below. |
 
 Pages inspected for source identity:
 
@@ -30,6 +31,7 @@ does not establish that the PDF was regenerated from that commit's schematic.
 | Source | Archive file | Inspection and limits |
 | --- | --- | --- |
 | TDK DS-000347 rev 1.6, existing AnyShake mirror | `evidence/files/ICM-42688-P_ds-000347-icm-42688-p-v1.6.pdf` | Rendered and visually inspected pp.20-21 using the evidence PDF helper. Table 10 provides the pin definitions and allowed reserved-pin connections; Figure 7 is the SPI circuit with 100nF and 2.2uF on VDD and 10nF on VDDIO. This is the manufacturer circuit reference. |
+| TDK AN-000493 rev 1.0, ChipDip mirror | `evidence/files/ICM-42688-P_DOC056673507_44e5201b843b.pdf` | Inspected schematic p.12 Figure 4, BOM p.13 and layout p.14 Figures 5–6. The layout views show placement/pads, not routed copper or filled planes. |
 | AnyShake pinned native schematic | `evidence/files/ICM-42688-P_ICM-42688_5b2b5ac9a5f0.kicad_sch` | Acquired alongside PCB. Its hash differs from the older existing `ICM-42688-P_ICM-42688.kicad_sch`; the older bytes and original provenance are preserved. No claim of KiCad pair parity is made. |
 | AnyShake rendered schematic | `evidence/files/ICM-42688-P_ICM-42688_8cdcc0d19fe3.pdf` | Visually inspected page 1. Sensor U2 is ICM-42688-P; C3 is 2.2uF, C5 is 0.1uF and C7 is 0.01uF. It also contains a regulator, diodes, power-selection header and TXB0104 level translator absent from our circuit. |
 | AnyShake native PCB | `evidence/files/ICM-42688-P_ICM-42688_57a947b32217.kicad_pcb` | Inspected source pad nets and KiCad exports of F.Cu/B.Cu with Edge.Cuts and F.SilkS overlay. The two views show central sensor U2, nearby decoupling, peripheral header and mounting holes, and routes interrupting poured copper. Source counts: 25 footprints, 133 segments, 38 vias and 61 zone records (includes small filled/teardrop regions; not 61 independent ground planes). This is placement/routing reference coverage, not a reference-board DRC or return-current proof. |
@@ -46,13 +48,21 @@ Therefore pair consistency is **not verified**. The project archive integrity
 check passed for all six records; that check proves bytes/provenance consistency,
 not the design's electrical correctness.
 
-## Manufacturer coverage still missing
+## Manufacturer follow-up and remaining coverage
 
-AN-000493 rev 1.0 (2024-10-02) was discovered with schematic p.12 and layout
-p.14 in its indexed contents. Neither the manufacturer URL nor the Mouser
-mirror produced archiveable PDF bytes in this run; web screenshot attempts
-also timed out. Its diagrams were **not visually reviewed**, and it is not
-indexed as acquired evidence. Full manufacturer PCB CAD is not acquired.
+The original manufacturer/Mouser download attempts failed. The follow-up
+[ChipDip mirror](https://static.chipdip.ru/lib/673/DOC056673507.pdf) supplied
+AN-000493 rev 1.0 (2024-10-02), now archived with its actual retrieval URL.
+Python's default TLS trust store rejected the chain; a verified connection
+using the installed certifi CA bundle succeeded. TLS verification was not
+disabled. No byte identity with an unavailable manufacturer-hosted file is
+claimed.
+
+Figure 4 agrees on 2.2uF/100nF VDD and 10nF VDDIO bypass. It adds selectable
+SPI/I2C jumpers and pull-ups; its Pmod wiring is not our fixed-SPI interface.
+Figure 5 places bypass parts beside U1, unlike a schematic's separated power
+block. This informs physical review but supplies no trace/return-path proof.
+Full manufacturer PCB CAD and routed-copper views remain unacquired.
 The existing DS-000347 rev 1.6 archive remains the selected manufacturer
 application schematic; no newest-datasheet revision claim is made. A direct
 TDK Product Center attempt for that revision returned HTTP 403.
@@ -87,7 +97,9 @@ electrical/PCB changes are made by this transcription.
 Next review must compare our actual decoupling placement and return paths,
 sensor/mechanical stress and orientation, connector pinout and host behavior
 against the selected evidence. Native reference DRC, latest datasheet review,
-manufacturer layout acquisition and human suitability review remain open.
+manufacturer native/routed-copper acquisition and human suitability review
+remain open. The newly acquired manual closes schematic and placement-view
+inspection, not complete PCB-layout validation.
 
 ## Latest draft inspection
 

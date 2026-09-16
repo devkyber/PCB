@@ -1,5 +1,22 @@
 schema_version: 1
 records:
+- id: sha256:44e5201b843bbe440e40f6d20666f86928dbdad946a987934ec6f162b598b1e4
+  manufacturer: TDK InvenSense
+  part_numbers:
+  - ICM-42688-P
+  title: TDK AN-000493 QCIoT-ICM42688P Pmod evaluation manual (ChipDip mirror)
+  revision: '1.0'
+  source_url: https://static.chipdip.ru/lib/673/DOC056673507.pdf
+  retrieved_on: '2026-09-17'
+  path: files/ICM-42688-P_DOC056673507_44e5201b843b.pdf
+  sha256: 44e5201b843bbe440e40f6d20666f86928dbdad946a987934ec6f162b598b1e4
+  media_type: application/pdf
+  roles:
+  - integration_manual
+  - reference_design
+  trust_tier: manufacturer_evm
+  component_refs:
+  - U1
 - id: sha256:4d7c04e3e86f37defe27c20a82b9fcd9d4ddbd3b9d68a525c2d49595d52cf97a
   manufacturer: TDK InvenSense
   part_numbers:

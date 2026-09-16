@@ -10,6 +10,7 @@ wrote down is indistinguishable from an oversight. Verdicts are `Match` or
 |---|---|---|
 | `evidence/files/ICM-42688-P_ds-000347-icm-42688-p-v1.6.pdf` | TDK InvenSense DS-000347 **rev 1.6** — §4.2 Figure 7 is the manufacturer's own SPI application schematic | Tier 0 (the part's specification; outranks everything below) |
 | `evidence/files/ICM-42688-P_ICM-42688-P_Datasheet.pdf` | DS-000347 **rev 1.2**, SparkFun CDN copy — kept as an independent cross-check | Tier 0 (older revision) |
+| `evidence/files/ICM-42688-P_DOC056673507_44e5201b843b.pdf` | TDK AN-000493 rev 1.0, ChipDip mirror: schematic p.12 and placement views p.14; no routed-copper proof | Tier 1 (manufacturer EVM) |
 | `evidence/files/ICM-42688-P_ICM-42688.kicad_sch` | anyshake ICM-42688 breakout, **KiCad source** — exact values, not a summary | Tier 2 (open hardware) |
 
 **Revision scope:** these rows cite the archived rev 1.6, not a claim about
@@ -45,7 +46,7 @@ exactly on all three decoupling values.
 | U1 | ICM-42688-P | interface | 4-wire SPI, CS on pin 12 | Fig 7 (SPI) is one of the two circuits offered | evidence/files/ICM-42688-P_ds-000347-icm-42688-p-v1.6.pdf §4.2 Fig 7 | Match |
 | U1.1 | ICM-42688-P | AP_SDO | broken out to header | Fig 7 breaks it out | evidence/files/ICM-42688-P_ds-000347-icm-42688-p-v1.6.pdf §4.2 Fig 7 | Match |
 | U1.4 | ICM-42688-P | INT1 | broken out to TP3 | Fig 7 breaks it out | evidence/files/ICM-42688-P_ds-000347-icm-42688-p-v1.6.pdf §4.2 Fig 7 | Match |
-| — | rail | I2C pull-ups | none fitted | "I2C lines are open drain and pull-up resistors (e.g. 10 kΩ) are required" | evidence/files/ICM-42688-P_ds-000347-icm-42688-p-v1.6.pdf §4.2 p.21 note under Fig 6 | Deviate: correctly omitted. That note applies to Figure 6 (I2C/I3C). This board is SPI (Figure 7), where SCLK/SDI/SDO/CS are push-pull and pull-ups are not wanted. Recorded because the note is easy to apply to the wrong figure. |
+| — | rail | Interface pull-ups | none fitted | The I2C pull-up note belongs to Figure 6, not SPI Figure 7; the selectable-interface EVM includes pull-ups | DS-000347 rev 1.6 §4.2 p.21; AN-000493 rev 1.0 p.12 Fig 4 (archives above) | Deviate: fixed SPI rather than the EVM's selectable interface. Absence of I2C does not prove every pull-up is unwanted; review CS startup and configured interrupt output mode with the host. No resistor change is made here. |
 
 ## What this comparison actually caught
 
