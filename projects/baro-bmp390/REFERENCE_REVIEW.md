@@ -55,6 +55,10 @@ these questions; they do not prove that our proposed layout meets them.
 - Inspect native copper in an EDA viewer and check reference revision identity
   before relying on exact routing or dimensions. The rendered fab view alone
   is insufficient for stackup, return-current, or manufacturing conclusions.
+  A 2026-09-17 KiCad 10 Eagle-import attempt preserved all 66 mapped contacts
+  in memory, but the disposable saved copy contained undefined layers and
+  failed PDF export. No copper visual review is claimed from that attempt;
+  the original Eagle archive was not changed.
 - Full manufacturer PCB CAD was not acquired in this search.
 - Human review of applicability remains pending; this is research evidence,
   not release sign-off.
