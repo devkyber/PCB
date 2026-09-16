@@ -155,8 +155,8 @@ have not been changed.
 
 ### Latest hierarchical preview
 
-Latest checked draft: `20260916T154502Z-schematic-2b264620`, with PDF
-`.pcb-copilot/drafts/20260916T154502Z-schematic-2b264620/preview.pdf`.
+Latest checked draft: `20260916T162351Z-schematic-2b264620`, with PDF
+`.pcb-copilot/drafts/20260916T162351Z-schematic-2b264620/preview.pdf`.
 All seven pages were visually inspected. The draft command exits zero with
 no blocking findings, zero ERC errors, 38 ERC pin-type warnings, one
 sheet-qualified-net-name review and 58 unresolved pin-map evidence reviews.
@@ -172,6 +172,11 @@ justification resolves text over connector pins, and D2 fields now clear its
 body and the neighboring ADC labels. The label-direction regression was
 verified with real KiCad PDF text rectangles on left/right connector pins,
 ordinary/hierarchical labels, and netlist roundtrip connectivity.
+
+The follow-up local router protects generated power Value text and searches
+bounded multi-bend paths when simple lanes are blocked. The relay-control
+local route clears those keepouts without changing its electrical grouping.
+All seven regenerated pages were inspected; the findings below persist.
 
 Remaining visual limitations: J8's ground glyph near pin 1 intrudes into the
 ADS1220_CS label on pin 2, and its +3V3 arrow near pin 15 crowds SPI0_MISO on

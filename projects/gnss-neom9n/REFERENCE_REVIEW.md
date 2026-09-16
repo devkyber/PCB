@@ -86,7 +86,7 @@ Still required before relying on this research for layout or release:
 
 ## Latest draft inspection
 
-Draft `20260916T154402Z-schematic-c088e056` supersedes the earlier previews.
+Draft `20260916T162351Z-schematic-c088e056` supersedes the earlier previews.
 The assistant inspected the complete A3 PDF and enlarged receiver detail,
 including the battery, U.FL connector, module pin banks, and title block.
 The CLI returned exit 0 with no blocking findings or intent/netlist mismatch.

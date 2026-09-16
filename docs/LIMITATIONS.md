@@ -71,8 +71,11 @@ the new layout, unified review, and release interfaces remain planned.
   Human review is pending. Its local net names gain sheet prefixes; acceptance
   preserves those names and will require explicit PCB net-name reconciliation.
 - Schematic placement is heuristic. Body/pin obstacles and outward label
-  alignment improve readability but do not constitute a sheet-wide graphical
-  collision solver. The existing `no_symbol_or_text_overlap` helper checks only
+  alignment improve readability. Local wires now avoid conservative bounds
+  around generated, unrotated power Value text, with bounded multi-bend grid
+  routing when simple paths fail. Already-emitted stubs, power glyphs, ordinary
+  fields and pin-name text are outside that check; it is not a sheet-wide
+  graphical collision solver. The existing `no_symbol_or_text_overlap` helper checks only
   duplicate symbol origins, not text or glyph extents. Inspect every PDF page.
 - Circuit parity preserves old mistakes too. The TMS reference review found
   ADS1256 VREF_P/VREF_N connected only to U2 and C7. The former unsupported

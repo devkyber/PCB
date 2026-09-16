@@ -103,10 +103,11 @@ inspection, not complete PCB-layout validation.
 
 ## Latest draft inspection
 
-Draft `20260916T154236Z-schematic-b0464d86` has a one-page PDF, no machine
+Draft `20260916T162351Z-schematic-b0464d86` has a one-page PDF, no machine
 blockers, 10 ERC pin-type warnings and 11 unresolved pin-map evidence reviews.
 Assistant visual inspection confirms dated titles, functional headings, local
-wiring and four junctions. Adjacent power-symbol/value collisions were fixed;
-U1.6 GND text still touches the INT1 vertical wire. This is a known visual
-limitation, not an electrical change or human approval. Accepted schematic,
+wiring and four junctions. The INT1 vertical wire now clears U1.6 GND text;
+a real KiCad PDF regression checks that separation. Local routes avoid
+generated power Value text, but this is not a sheet-wide glyph-collision
+guarantee or human approval. Accepted schematic,
 PCB and netmap bytes remain unchanged.
