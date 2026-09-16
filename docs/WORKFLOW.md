@@ -15,15 +15,58 @@ Status is read-only. It reports the manifest, lifecycle, accepted design
 paths, evidence availability, toolchain, recorded hashes, and one next action.
 It does not run generators or rewrite tracked reports.
 
-For current legacy behavior, these commands remain valid during migration:
+The legacy all-board summary is also read-only. It reads stored pipeline
+reports and current board hashes without rebuilding a board:
 
 ```powershell
-uv run python docs/pipeline.py projects/baro-bmp390 --check
-uv run python docs/run_gates.py projects/baro-bmp390/baro-bmp390.kicad_pcb
+uv run python docs/pipeline.py --status
+```
+
+These legacy checking commands remain valid during migration:
+
+```powershell
+uv run python docs/pipeline.py projects/<board> --check
+uv run python docs/run_gates.py projects/<board>/<board>.kicad_pcb
 uv run python docs/audit_workflow.py
 ```
 
+`--check` does not rebuild design files, but it still rewrites check and status
+reports. The direct gate runner likewise writes ERC and DRC reports. Use the
+package `status` command or legacy `--status` when the operation must be
+read-only.
+
+The full compatibility pipeline is mutating.
+
+```powershell
+uv run python docs/pipeline.py projects/<board>
+```
+
+It runs `env → research → sch → erc → pcb → route → gates → fab`. On a legacy
+project it can regenerate the accepted schematic and PCB, route, refill and
+ground-bond the PCB, export fabrication files when all gates pass, and rewrite
+pipeline, check, and human-work reports. `SCHEMATIC_OWNER` defaults to
+`generated` when the marker is absent; a changed generated schematic stops at
+the ownership tripwire unless `--regenerate` is supplied to discard it
+deliberately. Setting the owner to `human` prevents schematic regeneration and
+makes the pipeline derive `netmap.json` from that schematic, but it does not
+protect the PCB from its legacy generator or routing stages. Do not run the
+full command on an accepted board unless those mutations are intended and
+reviewed.
+
 ## 2. Define the board before choosing parts
+
+For a new legacy project, create its directory first, then scaffold the gate
+records:
+
+```powershell
+uv run python docs/run_gates.py --init projects/<board>
+```
+
+The project directory must already exist. `--init` creates missing
+`REQUIREMENTS.md`, `DESIGN_BASIS.md`, `DEVIATIONS.md`, `SIGNOFF.md`, and
+`evidence/index.yaml` records plus the evidence files directory.
+It never overwrites an existing file. It does not create KiCad design files or
+a PCB Copilot project manifest.
 
 Write measurable requirements in the project’s `REQUIREMENTS.md`: purpose,
 supply range, worst-case current, interfaces, outline, mounting, operating

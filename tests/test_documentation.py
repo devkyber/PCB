@@ -51,3 +51,23 @@ def test_canonical_rules_preserve_legacy_ids_and_exact_checker_scope(repo_root):
     assert len(rows) == constants['DOC_RULE_COUNT']
     assert {rule for rule, _topic, scope in rows if scope == 'Partial'} == set(
         constants['EXECUTABLE_RULES'])
+
+
+def test_workflow_preserves_legacy_entry_points_and_mutation_caveats(repo_root):
+    workflow = (repo_root / 'docs/WORKFLOW.md').read_text(encoding='utf-8')
+    normalized = ' '.join(workflow.split())
+    commands = {
+        'uv run python docs/pipeline.py --status',
+        'uv run python docs/pipeline.py projects/<board>',
+        'uv run python docs/run_gates.py --init projects/<board>',
+    }
+    assert commands <= set(workflow.splitlines())
+    for required_warning in (
+        'The full compatibility pipeline is mutating.',
+        '`SCHEMATIC_OWNER` defaults to `generated`',
+        'does not protect the PCB',
+        '`--check` does not rebuild design files, but it still rewrites check and status reports.',
+        'The project directory must already exist.',
+        'never overwrites an existing file',
+    ):
+        assert required_warning in normalized
