@@ -1,7 +1,7 @@
 # Design Basis — TMS V3 (Thrust Measurement System)
 
-Every key part's circuit names what it was learned from. Verdicts are `Match`
-or `Deviate: <reason>`. A departure nobody wrote down is indistinguishable
+Every key part's circuit names what it was learned from. Verdicts are `Match`,
+`Deviate: <reason>`, or `Unresolved: <missing proof>`. A departure nobody wrote down is indistinguishable
 from an oversight.
 
 ## Sources archived for this board
@@ -32,9 +32,9 @@ content hash recorded in `evidence/index.yaml`. Nothing here is cited from memor
 | U3.12 | ADS1220 | AVDD decoupling | C10 100nF 0402 at 2.0mm | "AVDD, AVSS ... and DVDD **must** be decoupled with at least a 0.1µF capacitor ... as close to the power-supply pins of the device as possible" | ADS1220_ti.pdf §9.3.3 | Match |
 | U3.13 | ADS1220 | **DVDD decoupling** | **C11 100nF 0402 on +3V3 at the pin (fixed 2026-08-26)** | same clause — DVDD needs its own | ADS1220_ti.pdf §9.3.3 | Match. **Was absent.** C10 *and* C11 were both on AVDD (pin 12) and nothing decoupled DVDD; the gap had been logged as a rule-2.2 *distance* deviation, which explained away the symptom and stopped anyone looking for the cause. |
 | U3 | ADS1220 | package decoupling geometry | both caps 0402, not 0603 | — | measured | Deviate from house habit: AVDD/DVDD are adjacent 0.65mm-pitch pins; two 0603s cannot both sit inside 2mm of their own pin, two 0402s can. Smaller package is also lower ESL. |
-| U3 | ADS1220 | reference | internal 2.048V | EVM exposes both internal and external | sbau203.pdf | Deviate: internal reference. Adequate for a pressure channel; the load cell gets the external reference on U2. |
-| U2 | ADS1256 | VREF | external VREF_P/VREF_N | EVM uses an external reference for full performance | sbau090e.pdf | Match |
-| U2.3/U2.15 | ADS1256 | decoupling distance | 2.4–3.0mm | "as close as possible" | ADS1256_ti.pdf | Deviate — declared in DEVIATIONS.md with package-geometry reasoning |
+| U3 | ADS1220 | reference | internal 2.048V intended | EVM exposes both internal and external | sbau203.pdf | Deviate: internal reference. Suitability needs the pressure-channel error budget; U2's external reference is unresolved, not established by this choice. |
+| U2 | ADS1256 | VREF | VREF_P/VREF_N connect only U2 and C7 in the accepted netmap; no reference source is present | EVM has an external reference source and buffer | evidence/files/U2__ADS1256__ADS1256IDBR_sbau090e.pdf p.40 Fig 41; netmap.json | Unresolved: the former external-reference Match claim was unsupported. Owner must specify and review the reference circuit; drawing parity does not fix it. |
+| U2.3/U2.16 | ADS1256 | reference / DVDD bypass distance | Historical 2.4–3.0mm claim; remeasurement required at the correctly identified pads | VREFN is pin 3, DVDD is pin 16; pin 15 is RESET | evidence/files/ADS1256_ti.pdf p.5 Terminal Functions | Unresolved: DEVIATIONS.md's existing U2.15 row misidentifies RESET as DVDD. It does not waive U2.16, and no waiver is transferred by this correction. |
 | U2 | ADS1256 | RESET / SYNCPDWN | tied to DVDD | must not float | ADS1256_ti.pdf | Match — was floating in Rev D |
 | Y1 | 7.68MHz | **crystal load caps** | **C8/C9 = 33pF (fixed 2026-08-26)** | every 7.68MHz HC-49S-SMD part in this footprint specifies **C_L = 20pF** | `7.68MHz_...pdf` (Huiyuan C5265772) | Match. **Was 22pF**, giving `(22·22)/44 + C_stray ≈ 15pF` — under-loaded, so the crystal ran fast. The crystal **is** the ADS1256 conversion clock, so that was a sample-rate error in every thrust and pressure reading: a board that works and quietly produces wrong numbers. |
 | J7, J8 | Teensy 4.1 socket | pin map | rebuilt from the vendor card | PJRC card rev4 front + back | `card11a/b_rev4_web.pdf` | Match. Rev E had **invented** the pin assignments, putting +5V on the Teensy's GND pin — a dead short of the 5V rail on first power-up. |

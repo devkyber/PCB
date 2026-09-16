@@ -11,6 +11,12 @@ should be reviewed like any other change, and a human should agree with it.
 
 ## Declared
 
+Review warning (2026-09-17): the historical U2.15 row below calls the pin DVDD.
+The archived `evidence/files/ADS1256_ti.pdf` p.5 identifies pin 15 as RESET and
+pin 16 as DVDD. The existing waiver text/scope is retained for owner review;
+it does **not** cover U2.16. Remeasure the actual DVDD bypass before proposing
+any replacement waiver. This annotation grants no new exception.
+
 Only lines under this heading waive anything. Text above it is
 documentation. Before 2026-08-26 this file had no such heading, and the
 parser silently fell back to reading the WHOLE file — the mode that

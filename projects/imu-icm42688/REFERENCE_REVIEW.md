@@ -71,9 +71,11 @@ The archived rev 1.6 PDF exposes citation errors in the existing
 `DESIGN_BASIS.md`: the signal table is **Table 10, p.20**, the pin/axis drawing
 is **Figure 5**, and the SPI circuit is **Figure 7, p.21**. Figure 6 is I2C/I3C.
 Its cited capacitor values and reserved-pin text agree, but the figure/table
-locators need correction in a separately scoped documentation change.
-The prior absolute claim that capacitance alone proves failure to meet 10mVpp
-was not established by this research; actual supply performance needs measurement.
+locators were corrected in the 2026-09-17 documentation follow-up. The prior
+absolute claim that capacitance alone proves failure to meet 10mVpp was not
+established by this research and was removed; actual supply performance needs
+measurement. The archival revision is now distinguished from any current/latest
+revision claim. These documentation corrections do not validate the circuit.
 
 The new intent preserves all ten accepted physical components plus the two
 existing power flags, exact physical symbol IDs/footprints/values, netmap

@@ -100,13 +100,16 @@ or applicability to TMS.
   entry and digital headers around the ADC. These are useful review examples,
   not evidence that TMS meets its decoupling-distance deviations. In the
   accepted TMS netmap, `VREF_P` and `VREF_N` each connect only U2 and C7: an
-  active reference source is absent. The existing DESIGN_BASIS external-
-  reference `Match` row therefore needs reconciliation by the owner. The
+  active reference source is absent. The DESIGN_BASIS external-reference row
+  was corrected from `Match` to `Unresolved` in the 2026-09-17 documentation
+  follow-up. Reference-source selection still needs an owner decision. The
   source-preserving intent deliberately leaves these nets unchanged.
 - U2 pin identity: accepted symbol and the inspected TI schematic identify
-  pin 15 as RESET and pin 16 as DVDD. Existing DESIGN_BASIS/DEVIATIONS wording
-  calls U2.15 DVDD. Citation and distance-waiver scope need human correction;
-  this migration has not rewritten those records or accepted the deviation.
+  pin 15 as RESET and pin 16 as DVDD; TI's archived datasheet p.5 independently
+  confirms this. DESIGN_BASIS was corrected in the 2026-09-17 follow-up and
+  DEVIATIONS now warns about the historical U2.15 misidentification. The old
+  waiver row remains unchanged and does not cover U2.16. Bypass distance must
+  be remeasured before proposing any replacement waiver; none was granted.
 - ADS1220: TI's schematic shows independent AVDD/DVDD bypass. TMS has C10 on
   +5V and C11 on +3V3; the archived ADS1220 datasheet page 64, section 9.3.3,
   calls for bypass at each relevant supply. This is a connectivity comparison,
