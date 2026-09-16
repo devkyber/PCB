@@ -39,6 +39,8 @@ collection, drafting, consistency checks, and repeatable packaging.
 ```powershell
 uv sync
 uv run pcb-copilot status projects/baro-bmp390
+uv run pcb-copilot research projects/baro-bmp390 --verify
+uv run pcb-copilot research projects/baro-bmp390 --extract BMP390
 uv run python docs/run_gates.py projects/baro-bmp390/baro-bmp390.kicad_pcb
 uv run python docs/audit_workflow.py
 uv run python docs/selftest_enforcement.py
@@ -52,10 +54,11 @@ or factual loss.
 
 ## Gate Rule during migration
 
-`docs/pipeline.py` remains the legacy end-to-end entry point, and
-`docs/collect_references.py` remains the reference-design archiver until their
-behavior has moved behind `pcb-copilot`. A file existing, a command returning
-zero, or a generated report from an older run is not evidence. Every gate must
+`docs/pipeline.py` remains the legacy end-to-end entry point. Evidence archive,
+verification, and supported exact extraction now live behind
+`pcb-copilot research`; the old research scripts remain compatibility wrappers.
+A file existing, a command returning zero, or a generated report from an older
+run is not evidence. Every gate must
 prove it ran against the current design and must have a fault-injection test
 showing that the failure path fires.
 

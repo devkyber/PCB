@@ -40,8 +40,9 @@ RULES THAT ARE NOT NEGOTIABLE
     -> reference designs -> compare/justify -> schematic. A reference is
     only real when it is a FILE ON DISK with a live source URL:
         python3 docs/collect_references.py suggest <PART>
-        python3 docs/collect_references.py add <project> <PART> <URL>
-    Read exact values with fetch_reference_doc.py, never WebFetch.
+        uv run pcb-copilot research <project> --add <PART> <URL> --role <ROLE>
+    Extract supported exact values with pcb-copilot research --extract; flag
+    unsupported formats for human review rather than inferring pin-level facts.
     Every key part gets a DESIGN_BASIS.md row: Match or Deviate: <reason>.
     Advisory while designing; blocking at the gates; escape hatch is one
     line in DEVIATIONS.md.
@@ -49,7 +50,8 @@ RULES THAT ARE NOT NEGOTIABLE
     datasheet (Tier 0) > reference design (practice, not correctness) >
     teaching sources > numbered rules. Where they disagree the datasheet
     wins AND the disagreement gets a DESIGN_BASIS.md row. A datasheet is
-    on file only if its BYTES are a PDF, with a source URL in INDEX.md.
+    on file only if its BYTES match its indexed media type, with a source URL
+    and SHA-256 identity in evidence/index.yaml.
  9. THREE TOOLS, THREE QUESTIONS. selftest_enforcement.py = is the
     machinery wired? run_gates.py = is THIS board ready? audit_workflow.py
     = was every documented step actually done, on every board? The audit

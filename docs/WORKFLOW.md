@@ -51,17 +51,35 @@ datasheet and an integration or socket pinout manual. Archive the exact bytes,
 source URL, retrieval date, part identity, and document role before citing a
 fact. Reject HTML login or error pages masquerading as PDFs.
 
-Current compatibility commands are:
+Use the unified research command for archive verification, collection, and
+exact extraction from supported CAD sources:
+
+```powershell
+uv run pcb-copilot research projects/baro-bmp390 --verify
+uv run pcb-copilot research projects/baro-bmp390 --add BMP390 https://example.invalid/manufacturer-document.pdf --role datasheet
+uv run pcb-copilot research projects/baro-bmp390 --extract BMP390
+```
+
+The example URL illustrates syntax only and must not be archived. `--verify`
+is read-only and verifies the indexed bytes, hashes, media types, and source
+URLs; board-level coverage remains enforced by `check_research.py` and
+`check_datasheets.py`. `--extract` prints cited exact facts when a supported
+Eagle schematic is present, lists PDFs and other sources that still need human
+review, surfaces conflicts, and proposes `DESIGN_BASIS.md` rows without editing
+that file. Use `--trust-tier` when the default `manufacturer` classification is
+not accurate.
+
+Compatibility commands remain available during migration:
 
 ```powershell
 uv run python docs/collect_references.py suggest BMP390
 uv run python docs/collect_references.py add projects/baro-bmp390 BMP390 https://example.invalid/manufacturer-document.pdf
-uv run python docs/fetch_reference_doc.py eagle projects/baro-bmp390/reference-designs/BMP390_Adafruit_20BMP390.sch BMP390
+uv run python docs/fetch_reference_doc.py eagle projects/baro-bmp390/evidence/files/BMP390_Adafruit_20BMP390.sch BMP390
 uv run python docs/check_research.py projects/baro-bmp390/baro-bmp390.kicad_pcb
 ```
 
-The example URL illustrates syntax only and must not be archived. Research is
-advisory while drafting and blocking when release readiness is evaluated.
+Research is advisory while drafting and blocking when release readiness is
+evaluated.
 
 Record key comparisons in `DESIGN_BASIS.md`: our choice, reference choice,
 source, and `Match` or `Deviate: reason`. A reasoned deviation is valid; an

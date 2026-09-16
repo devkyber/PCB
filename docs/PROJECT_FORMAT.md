@@ -50,14 +50,15 @@ projects/BOARD_NAME/
 ├── schematic-intent.yaml      planned reproducible schematic intent
 ├── layout-intent.yaml         planned reproducible layout intent
 ├── evidence/
-│   ├── index.yaml             planned structured evidence index
+│   ├── index.yaml             structured provenance, roles, trust and hashes
 │   └── files/                 archived exact source bytes
 └── .pcb-copilot/              ignored local drafts, reports, and state
 ```
 
-The intent and evidence paths appear as the corresponding migrations land.
-Legacy `datasheets/`, `reference-designs/`, `STATUS.md`, `PIPELINE.json`,
-generators, and build wrappers remain until their replacement gates pass.
+The evidence migration is complete: `datasheets/` and `reference-designs/`
+have been replaced by the unified, hash-addressed archive. Intent files appear
+as their later migrations land. Legacy `STATUS.md`, `PIPELINE.json`, generators,
+and build wrappers remain until their replacement gates pass.
 
 ## Ownership and drafts
 

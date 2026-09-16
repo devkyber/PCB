@@ -64,8 +64,12 @@ autonomy.
 - The design-rule checker covers 4 of 42 historical numbered subsections.
 - Current sign-off forms contain generic questions; project-specific,
   hash-bound review profiles are not implemented yet.
-- Evidence is split between datasheet and reference-design indexes until the
-  structured evidence migration is complete.
+- Evidence archival is unified and hash-verified, but automatic fact extraction
+  is currently narrow: exact Eagle schematic connectivity is supported, while
+  PDFs and other CAD formats are queued for human review rather than guessed.
+- `pcb-copilot research --verify` proves archive integrity, not that every
+  needed part has been identified. The board-level evidence gates still own
+  completeness checks during this migration.
 - Freerouting is nondeterministic and has known keepout/via limitations. Its
   result remains a candidate.
 - Existing PCB files use a short `(net "NAME")` encoding accepted by KiCad but
@@ -86,7 +90,8 @@ barometer port/environment design.
 
 ## Planned work
 
-1. Unify evidence records, exact-document verification, and cited extraction.
+1. Extend cited extraction to more CAD formats and conservative PDF tables,
+   while retaining explicit human review for ambiguous diagrams.
 2. Add transactional schematic intents, functional blocks, hierarchy,
    rendering metrics, previews, and stale-safe acceptance.
 3. Add real-footprint layout intents, measured placement, constraints, and

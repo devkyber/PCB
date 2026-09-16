@@ -64,8 +64,9 @@ rule was true and unenforced, which is the same as absent.
 
 ```bash
 python3 docs/collect_references.py suggest <PARTNO>
-python3 docs/collect_references.py add <project> <PART> <URL>
-python3 docs/fetch_reference_doc.py eagle <archived.sch> <PART>
+uv run pcb-copilot research <project> --add <PART> <URL> --role <ROLE>
+uv run pcb-copilot research <project> --extract <PART>
+uv run pcb-copilot research <project> --verify
 python3 docs/check_research.py <board.kicad_pcb>
 ```
 

@@ -127,10 +127,10 @@ check('research stage runs in pipeline.py',
       "'research'" in text(REPO / 'docs/pipeline.py'))
 check('research stage is advisory (does not block a build)',
       'ADVISORY' in text(REPO / 'docs/pipeline.py'))
-check('CLAUDE.md names the reference-design archive rule',
-      'collect_references' in text(REPO / 'CLAUDE.md'))
-check('.claude/rules/pcb-schematic.md names the archiver',
-      'collect_references' in text(REPO / '.claude/rules/pcb-schematic.md'))
+check('CLAUDE.md names the unified research command',
+      'pcb-copilot research' in text(REPO / 'CLAUDE.md'))
+check('.claude/rules/pcb-schematic.md names the unified research command',
+      'pcb-copilot research' in text(REPO / '.claude/rules/pcb-schematic.md'))
 
 r = subprocess.run([sys.executable, REPO / 'docs/collect_references.py',
                     'suggest', 'SELFTEST'], capture_output=True, text=True)
