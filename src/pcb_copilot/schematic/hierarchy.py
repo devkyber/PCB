@@ -101,7 +101,7 @@ def render_hierarchy(
             )
             sch_io.write_file(child_path, child_tree)
 
-        root_rendered = _render_sheet_tree(
+        _render_sheet_tree(
             project,
             intent,
             intent.sheets[0].id,
@@ -125,13 +125,10 @@ def render_hierarchy(
                 )
                 # Sheet boundaries use named local nets. Separate short stubs
                 # avoid overlapping vertical trunks shorting unrelated signals.
-                ed.add_wire(root_tree, pin_x - 5.08, pin_y, pin_x, pin_y)
-                ed.add_label(root_tree, net, pin_x - 5.08, pin_y)
-                for pin in root_rendered.pins_by_net.get(net, ()):
-                    source_x, source_y = ed.get_pin_position(
-                        root_tree, pin.ref, pin.pin
-                    )
-                    ed.add_label(root_tree, net, source_x, source_y)
+                stub = _helpers._snap_to_grid(max(15.24, len(net) * 1.1 + 5.08))
+                ed.add_wire(root_tree, pin_x - stub, pin_y, pin_x, pin_y)
+                ed.add_wire(root_tree, pin_x - stub, pin_y, pin_x - stub, pin_y + 2.54)
+                ed.add_label(root_tree, net, pin_x - stub, pin_y + 2.54, 'left')
         sch_io.write_file(root_path, root_tree)
 
     published = publish_draft(draft, writer)

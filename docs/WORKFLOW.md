@@ -88,11 +88,18 @@ implicit difference is not.
 ## 4. Draft the schematic
 
 During the remake, accepted schematics stay untouched until explicit
-acceptance. The intended command surface is:
+acceptance. Generate a draft from a reviewed intent file with:
 
 ```powershell
 uv run pcb-copilot draft-schematic projects/baro-bmp390 --intent projects/baro-bmp390/schematic-intent.yaml
 ```
+
+The command prints a JSON report with the draft ID and artifact paths under
+`.pcb-copilot/drafts/`. It preserves the source intent beside `preview.pdf`,
+`erc.json`, `metrics.json`, and `review.json`. An exit code of 1 indicates
+blocking findings; the draft remains available for inspection. Missing or
+mismatched pin-map citations are reported explicitly. A failed PDF or ERC
+export is recorded as a failure and does not discard the schematic.
 
 The draft must include functional blocks, local drawn wires, graphical power
 symbols, boundary labels, complete titles, explicit no-connects, evidence

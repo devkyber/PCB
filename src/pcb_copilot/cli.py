@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 from collections.abc import Sequence
 from pathlib import Path
 
@@ -30,6 +31,9 @@ def main(
     subparsers = parser.add_subparsers(dest="command")
     status_parser = subparsers.add_parser("status", help="show read-only project status")
     status_parser.add_argument("project_path", type=Path)
+    draft_parser = subparsers.add_parser('draft-schematic', help='create a schematic draft and review artifacts')
+    draft_parser.add_argument('project_path', type=Path)
+    draft_parser.add_argument('--intent', required=True, type=Path)
     research_parser = subparsers.add_parser(
         "research", help="verify, archive, or extract cited project evidence"
     )
@@ -56,6 +60,16 @@ def main(
         except ProjectFormatError as exc:
             parser.error(str(exc))
         print(render_status(collect_status(project)))
+    elif args.command == 'draft-schematic':
+        from pcb_copilot.schematic.commands import draft_schematic
+        from pcb_copilot.toolchain import ToolchainDiscoveryError
+
+        try:
+            result = draft_schematic(load_project(args.project_path), args.intent)
+        except (ValueError, OSError, ToolchainDiscoveryError) as exc:
+            parser.error(str(exc))
+        print(json.dumps(result, indent=2))
+        return result['exit_code']
     elif args.command == "research":
         try:
             project = load_project(args.project_path)

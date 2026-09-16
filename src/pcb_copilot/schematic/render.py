@@ -57,6 +57,23 @@ class _WireEditor:
         self.segments.append(segment)
 
 
+class _LabelEditor:
+    """Reuse the existing clearance/stub logic for hierarchical labels."""
+
+    hierarchical = False
+
+    def __getattr__(self, name):
+        return getattr(ed, name)
+
+    def add_label(self, tree, net, x, y, orientation):
+        if self.hierarchical:
+            return ed.add_hierarchical_label(
+                tree, net_name=net, x_mm=x, y_mm=y,
+                shape='bidirectional', orientation=orientation,
+            )
+        return ed.add_label(tree, net, x, y, orientation)
+
+
 @dataclass(frozen=True)
 class _RenderedSheet:
     pins_by_net: dict[str, tuple[PinRef, ...]]
@@ -138,7 +155,8 @@ def _render_sheet_tree(
             component_rows[block.id] += 1
             place_symbol(component, left + lane_width / 2, 45.0 + row * 28.0)
 
-    labels = LabelPlacer(ed, tree, symbols=symbols)
+    label_editor = _LabelEditor()
+    labels = LabelPlacer(label_editor, tree, symbols=symbols)
     power_component = next((
         item
         for item in intent.components
@@ -172,8 +190,10 @@ def _render_sheet_tree(
                 labels.auto(component.ref, pin, connection.net, *origin)
             else:
                 pins_by_block_net[(component.block, connection.net)].append(pin_ref)
-                if connection.style == "label":
+                if connection.style in {"label", "hierarchical"}:
+                    label_editor.hierarchical = child_sheet and connection.style == 'hierarchical'
                     labels.place(component.ref, pin, connection.net, *origin)
+                    label_editor.hierarchical = False
         for no_connect in component.no_connects:
             x, y = ed.get_pin_position(tree, component.ref, no_connect.pin)
             ed.add_no_connect(tree, x, y)
@@ -190,22 +210,6 @@ def _render_sheet_tree(
                 corridor_by_block[block_id],
                 net=net,
             )
-    if child_sheet:
-        for net in sorted(
-            name
-            for name, pins in pins_by_net.items()
-            if any(
-                component.pins[pin.pin].style == "hierarchical"
-                for pin in pins
-                for component in intent.components
-                if component.ref == pin.ref
-            )
-        ):
-            for pin in pins_by_net[net]:
-                x, y = ed.get_pin_position(tree, pin.ref, pin.pin)
-                ed.add_hierarchical_label(
-                    tree, net_name=net, x_mm=x, y_mm=y, shape="bidirectional",
-                )
     return _RenderedSheet(
         pins_by_net={net: tuple(pins) for net, pins in pins_by_net.items()},
         origins=origins,
