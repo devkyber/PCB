@@ -1,5 +1,8 @@
 schema_version: 1
 rules:
+  - pattern: .gitattributes
+    action: KEEP
+    rationale: Preserve exact evidence archive bytes without line-ending normalization.
   - pattern: .gitignore
     action: KEEP
     rationale: Repository ignore policy remains authoritative.
@@ -32,12 +35,12 @@ rules:
     rationale: Retain current facts in project design records before removing historical duplication.
     replacement: projects/tms-v3/PDR.md
   - pattern: docs/QUICKSTART.md
-    action: MERGE
-    rationale: Consolidate operator setup and commands.
+    action: DELETE
+    rationale: Superseded operator guidance was consolidated into the canonical workflow.
     replacement: docs/WORKFLOW.md
   - pattern: docs/SETUP.md
-    action: MERGE
-    rationale: Consolidate environment setup.
+    action: DELETE
+    rationale: Durable routing safety was consolidated into the canonical workflow; host-specific setup was stale.
     replacement: docs/WORKFLOW.md
   - pattern: docs/pcb-design-workflow.md
     action: MERGE

@@ -22,18 +22,22 @@ autonomy.
 
 ## What the system can help with
 
-This list describes the copilot's scope, not completion of every new command.
-Evidence and schematic assistance are implemented; the new layout and release
-interfaces remain planned, with legacy tools retained during migration.
+This list separates current package behavior from the broader workflow. The
+evidence archive and schematic-draft interface are implemented. PCB generation,
+routing, DRC, and fabrication are available only through retained legacy tools;
+the new layout, unified review, and release interfaces remain planned.
 
 - Search, archive, hash, classify, and cite component documents.
 - Extract exact pins, values, and connections from supported source formats.
 - Compare a proposed circuit with datasheets and reference designs.
-- Generate functional-block schematic and PCB drafts from explicit intent.
-- Preserve netlists, run ERC/DRC, check parity, and detect stale artifacts.
+- Generate functional-block schematic drafts from explicit intent, with PDF,
+  ERC, quality metrics, and stale-safe schematic acceptance.
+- Use the legacy pipeline and board generators for PCB creation, candidate
+  routing, DRC, and fabrication while replacement behavior is built.
+- Preserve netlists, check schematic/PCB parity, and detect stale artifacts.
 - Measure known geometric relationships such as placement clearance.
-- Prepare candidate routing and fabrication packages for inspection.
-- Maintain a review trail tied to exact accepted design hashes.
+- Maintain current schematic review records tied to accepted design hashes;
+  unified PCB review and hash-bound release records are not implemented.
 
 ## What it cannot establish
 
@@ -71,9 +75,10 @@ interfaces remain planned, with legacy tools retained during migration.
   collision solver. The existing `no_symbol_or_text_overlap` helper checks only
   duplicate symbol origins, not text or glyph extents. Inspect every PDF page.
 - Circuit parity preserves old mistakes too. The TMS reference review found
-  ADS1256 VREF_P/VREF_N connected only to U2 and C7, contrary to the design-basis
-  external-reference claim. This requires engineering reconciliation, not a
-  silent renderer correction or a passing ERC result.
+  ADS1256 VREF_P/VREF_N connected only to U2 and C7. The former unsupported
+  external-reference design-basis claim is now corrected, but the missing
+  reference circuit remains open and requires engineering reconciliation—not
+  a silent renderer correction or a passing ERC result.
 - The design-rule checker covers 4 of 42 historical numbered subsections.
 - Current sign-off forms contain generic questions; project-specific,
   hash-bound review profiles are not implemented yet.

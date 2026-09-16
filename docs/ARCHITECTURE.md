@@ -62,19 +62,41 @@ outputs and zero live callers.
 
 ## Package boundaries
 
-`src/pcb_copilot` becomes the stable API and CLI. Current foundation modules
-are:
+`src/pcb_copilot` is the stable API and CLI boundary. Three package areas
+exist today:
+
+**Foundation**
 
 - `project`: safe manifest loading and path containment;
 - `models`: project and lifecycle types;
 - `state`: canonical hashes, effective lifecycle, ownership, and draft safety;
 - `toolchain`: portable KiCad/kipython/router discovery;
 - `migration`: preservation inventory and board baselines;
-- `status`: read-only operator status.
+- `status`: read-only operator status;
+- `drafts`: deterministic draft records and atomic publication;
+- `accept`: stale-safe schematic acceptance and rollback.
 
-Later packages own evidence, schematic drafts, layout drafts, review, and
-fabrication. Legacy scripts become thin adapters during migration rather than
-independent implementations.
+**Evidence** (`evidence`)
+
+- archive and index: byte-sniffed, hashed evidence storage;
+- checks and models: typed roles, trust tiers, coverage findings, and scoped
+  evidence waivers;
+- commands and extraction: verification, collection, cited Eagle extraction,
+  PDF page rendering, and explicit unsupported-source findings;
+- references and migration: search plans, Eagle schematic/board comparison,
+  and legacy archive migration.
+
+**Schematic drafts** (`schematic`)
+
+- typed YAML intent and pin-coverage validation;
+- hierarchy, local wiring, power-symbol and field placement;
+- KiCad rendering, PDF/ERC preview, quality metrics, and intent/netlist
+  comparison.
+
+Layout drafting, unified review, and release/fabrication packages remain
+planned. There is no package or CLI command for them yet. Legacy PCB, routing,
+gate, and fabrication scripts remain the available compatibility path while
+their behavior is migrated behind package APIs.
 
 ## Enforcement tiers
 

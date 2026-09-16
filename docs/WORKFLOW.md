@@ -159,17 +159,23 @@ connectors, and remaining passives. Evaluate placement before blaming an
 autorouter: moving a major module can improve completion more than extra route
 passes.
 
-The planned layout command writes a separate draft:
+The separate layout-draft interface is a future workflow concept. No
+`pcb-copilot draft-layout` command exists today. Until it is implemented and
+verified, use the compatibility pipeline and board-specific legacy generators
+without treating them as the new draft/accept interface.
 
-```powershell
-uv run pcb-copilot draft-layout projects/baro-bmp390 --intent projects/baro-bmp390/layout-intent.yaml --route human
-```
-
-`human` is the default routing policy. `critical_only` and `candidate_all`
-produce candidates, never automatically accepted boards. Inspect the board in
+The future interface is intended to default to human routing, with
+critical-only and candidate-all modes producing candidates rather than
+automatically accepted boards. Regardless of entry point, inspect the board in
 KiCad and 3D view. Check connector access, mounting, return paths, decoupling,
 crystal/RF geometry, high-current paths, copper pours, silkscreen, assembly,
 and mechanical fit.
+
+Legacy routing entry points must use the shared routing pipeline: DSN export,
+route, SES import, zone fill, ground bonding, and final DRC. The MCP
+`autoroute_pcb` route and `docs/route_and_fill.py` provide that behavior. A raw
+Freerouting JAR invocation bypasses the fill and bonding steps, so its output
+is not a valid finished board.
 
 ## 6. Review and accept
 
