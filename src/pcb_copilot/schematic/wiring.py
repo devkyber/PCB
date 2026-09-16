@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from itertools import pairwise
 
 GRID_MM = 1.27
-GRID_EPSILON_MM = 1e-6
+WIRE_PRECISION_DIGITS = 4
 MAX_GRID_STATES = 250_000
 
 
@@ -85,25 +85,39 @@ def _intersects_obstacle(segment: WireSegment, obstacle: VisualObstacle) -> bool
     )
 
 
+def _serialized_segment(segment: WireSegment) -> WireSegment:
+    """Match the coordinates sch_editor.add_wire writes to KiCad."""
+    return WireSegment(
+        tuple(round(value, WIRE_PRECISION_DIGITS) for value in segment.start),
+        tuple(round(value, WIRE_PRECISION_DIGITS) for value in segment.end),
+        segment.net,
+    )
+
+
 def _route_is_clear(editor, segments: tuple[WireSegment, ...], net: str) -> bool:
+    serialized = tuple(_serialized_segment(segment) for segment in segments)
     if any(_intersects_obstacle(segment, obstacle)
-           for segment in segments for obstacle in getattr(editor, "obstacles", ())):
+           for segment in serialized for obstacle in getattr(editor, "obstacles", ())):
         return False
-    return not any(existing.net != net and _touches(existing, segment)
-                   for segment in segments for existing in editor.segments)
+    return not any(existing.net != net and _touches(_serialized_segment(existing), segment)
+                   for segment in serialized for existing in editor.segments)
 
 
 def _grid_fallback(editor, start, end, corridor, net) -> tuple[WireSegment, ...] | None:
     """Find a minimum-bend grid path after all one-lane routes are blocked."""
+    serialized_start = tuple(round(value, WIRE_PRECISION_DIGITS) for value in start)
+    serialized_end = tuple(round(value, WIRE_PRECISION_DIGITS) for value in end)
+    if serialized_start != start or serialized_end != end:
+        return None
     end_index = (
         round((end[0] - start[0]) / GRID_MM),
         round((end[1] - start[1]) / GRID_MM),
     )
     snapped_end = (
-        start[0] + end_index[0] * GRID_MM,
-        start[1] + end_index[1] * GRID_MM,
+        round(start[0] + end_index[0] * GRID_MM, WIRE_PRECISION_DIGITS),
+        round(start[1] + end_index[1] * GRID_MM, WIRE_PRECISION_DIGITS),
     )
-    if any(abs(a - b) > GRID_EPSILON_MM for a, b in zip(end, snapped_end)):
+    if snapped_end != end:
         return None
     if any(index == 0 and source != target
            for index, source, target in zip(end_index, start, end)):
@@ -124,7 +138,7 @@ def _grid_fallback(editor, start, end, corridor, net) -> tuple[WireSegment, ...]
             return source
         if index == target_index:
             return target
-        return source + index * GRID_MM
+        return round(source + index * GRID_MM, WIRE_PRECISION_DIGITS)
 
     def point(index):
         return (

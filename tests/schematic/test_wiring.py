@@ -39,6 +39,14 @@ def _segment_hits(segment, obstacle):
     )
 
 
+def _serialized_segment(segment):
+    return wiring.WireSegment(
+        tuple(round(value, 4) for value in segment.start),
+        tuple(round(value, 4) for value in segment.end),
+        segment.net,
+    )
+
+
 @pytest.mark.parametrize(
     "obstacle",
     [
@@ -122,6 +130,7 @@ def test_local_connection_uses_bounded_multi_bend_fallback_when_one_lane_is_trap
         wiring.WireSegment((6.35, 8.89), (6.35, 11.43), "body:A"),
         wiring.WireSegment((5.08, 1.27), (5.08, 3.81), "body:B"),
     ]
+    foreign_segments = list(editor.segments)
 
     route = wiring.connect_local(
         editor,
@@ -134,8 +143,15 @@ def test_local_connection_uses_bounded_multi_bend_fallback_when_one_lane_is_trap
     assert len(route) >= 4
     assert route[0].start == (10.16, 10.16)
     assert route[-1].end == (2.54, 2.54)
+    assert all(first.end == second.start for first, second in pairwise(route))
+    assert all(segment.start[0] == segment.end[0]
+               or segment.start[1] == segment.end[1]
+               for segment in route)
     assert not any(_segment_hits(segment, obstacle)
                    for segment in route for obstacle in editor.obstacles)
+    assert not any(wiring._touches(_serialized_segment(segment),
+                                   _serialized_segment(existing))
+                   for segment in route for existing in foreign_segments)
 
 
 def test_multi_bend_fallback_rejects_off_lattice_target_without_partial_mutation():
@@ -165,7 +181,7 @@ def test_multi_bend_fallback_rejects_off_lattice_target_without_partial_mutation
     assert editor.segments == before
 
 
-def test_multi_bend_fallback_preserves_high_precision_grid_endpoints():
+def test_multi_bend_fallback_rejects_endpoints_backend_cannot_preserve():
     editor = ObstacleEditor(obstacles=[
         _obstacle(9.5, 5.0, 10.8, 8.0, owner="source-column-text"),
         _obstacle(2.0, 5.0, 3.0, 7.0, owner="target-column-text"),
@@ -177,18 +193,15 @@ def test_multi_bend_fallback_preserves_high_precision_grid_endpoints():
         wiring.WireSegment((6.35, 8.89), (6.35, 11.43), "body:A"),
         wiring.WireSegment((5.08, 1.27), (5.08, 3.81), "body:B"),
     ]
+    before = list(editor.segments)
 
-    route = wiring.connect_local(
-        editor,
-        wiring.PinRef("A", "1"),
-        wiring.PinRef("B", "1"),
-        wiring.WireCorridor(0.0, 0.0, 15.24, 15.24),
-        net="DATA",
-    )
+    with pytest.raises(wiring.StubCrossingError, match="no clear local wire path"):
+        wiring.connect_local(
+            editor,
+            wiring.PinRef("A", "1"),
+            wiring.PinRef("B", "1"),
+            wiring.WireCorridor(0.0, 0.0, 15.24, 15.24),
+            net="DATA",
+        )
 
-    assert route[0].start == source
-    assert route[-1].end == target
-    assert all(first.end == second.start for first, second in pairwise(route))
-    assert all(segment.start[0] == segment.end[0]
-               or segment.start[1] == segment.end[1]
-               for segment in route)
+    assert editor.segments == before
