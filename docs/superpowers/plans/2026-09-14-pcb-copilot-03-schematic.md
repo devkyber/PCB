@@ -66,9 +66,13 @@ parity constitutes human approval or a sheet-wide graphical clearance check.
 
 The IMU evidence archive now includes TDK AN-000493 rev1.0. Its schematic, BOM
 and placement views were inspected, but the placement images do not show routed
-copper. All four evidence indexes verify (5/7/8/20 records). An attempted BMP
-Eagle-to-KiCad derived PCB view failed on undefined layers; no copper inspection
-is claimed from that attempt. Original reference archives remain unchanged.
+copper. All four evidence indexes verify (5/7/8/20 records). The initial BMP
+Eagle-to-KiCad view failed on undefined layers. A later source-specific derived
+copy omitted only 14 invalid dimension/fiducial-restriction objects, preserved
+pad/net/track/via/placement/outline geometry through reload, and enabled visual
+inspection of explicit front/back copper. Its separate KiCad-refilled view is
+an approximation, not Eagle fill or reference DRC validation; the full method
+and limits are in the BMP `REFERENCE_REVIEW.md`. Reference archives are unchanged.
 The two superseded setup/quick-start guides were removed only after preserving
 their useful commands and mutation warnings in WORKFLOW. All 42 stable rule
 IDs are retained, with only four explicitly marked as partially automated.

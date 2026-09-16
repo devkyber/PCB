@@ -61,7 +61,9 @@ both identify revision B, but exact revision equivalence remains unproven.
 KiCad 10.0.6 initially could not reload its own Eagle import: six dimensions
 from Eagle layer 47 (`Measures`) and eight fiducial arcs from layer 41
 (`tRestrict`, four each on FID3/FID4) became `UNDEFINED`. A disposable imported
-copy omitting only those 14 objects successfully reloads and exports. This is
+copy omitting only those 14 imported items successfully reloads and exports
+(ten source XML elements: six dimensions plus four arc definitions instantiated
+on two fiducials). This is
 a source-specific diagnostic workaround, not a general import repair feature.
 The archived Eagle file is unchanged (SHA-256
 `d732c7e871d1739e18aeccb356b2ab8c0f3e08bc8d89565dc1896740f45c3a7a`).
@@ -73,7 +75,7 @@ connected Eagle contacts still match their expected nets. This checks the
 derived copy against the import; it does not prove the import reproduces
 every Eagle rule or that the source board is DRC-clean.
 
-Local diagnostic outputs (ignored and regenerable) are under
+Local diagnostic outputs (ignored, not shipped with the package) are under
 `.pcb-copilot/reference-review/eagle-import/`:
 
 - `reference-import-sanitized.kicad_pcb` and `reference-copper.pdf`: explicit
@@ -87,12 +89,15 @@ Local diagnostic outputs (ignored and regenerable) are under
   elsewhere. Do not use these for manufacturing, exact clearance approval,
   reference DRC sign-off, or claims of Eagle-native polygon-fill equivalence.
 
-To reproduce, import the original with `PCB_IO_MGR.EAGLE`; require the invalid
-items to match the exact type/reference/count whitelist above before omitting
-them in memory. Save only a derived copy, reload and compare all geometry/net
-invariants above, and recheck the source hash. Abort on any additional invalid
-item or mismatch. Export F.Cu/B.Cu with Edge.Cuts/F.SilkS as common layers; any
-zone refill must be saved separately and labeled as approximate.
+Manual reproduction outline (not a packaged import command): import the
+original with `PCB_IO_MGR.EAGLE` and require the invalid
+items to match the exact type/reference/count whitelist above. In a disposable
+Eagle XML copy only, omit the six layer-47 dimensions and four layer-41 arc
+definitions from the `microbuilder:FIDUCIAL_1MM` package (instantiated twice).
+Import that copy, save/reload the derived KiCad board and compare the geometry/net
+invariants above; recheck the original source hash. Abort on any additional
+invalid item or mismatch. Export F.Cu/B.Cu with Edge.Cuts/F.SilkS as common
+layers; any zone refill must be saved separately and labeled as approximate.
 
 ## Still open
 
