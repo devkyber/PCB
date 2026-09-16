@@ -12,5 +12,7 @@ def test_status_does_not_modify_project(project_copy, tree_hash, capsys):
 
 
 def test_status_reports_missing_evidence_index(project_copy, capsys):
+    (project_copy / "evidence" / "index.yaml").unlink()
+
     assert main(["status", str(project_copy)]) == 0
     assert "Evidence index: missing" in capsys.readouterr().out
