@@ -144,7 +144,23 @@ hashes it started from; acceptance refuses it if either accepted design changed
 in the meantime. Acceptance updates only the requested artifact and derived
 connectivity record.
 
-Until the new commands land, use the existing gate runner and sign-off files.
+After inspecting the preview, explicitly accept its ID:
+
+```powershell
+uv run pcb-copilot accept projects/baro-bmp390 DRAFT_ID
+```
+
+Replace `DRAFT_ID` with the ID printed by `draft-schematic`. Acceptance checks
+the original files, preview artifact hashes, evidence integrity, and intent
+versus KiCad netlist. It installs the root and child sheets, refreshes
+`netmap.json`, marks schematic ownership human, and records the reviewed file
+hashes. PCB bytes are unchanged. Changed child sheets invalidate review state.
+Backups and a transaction record remain under `.pcb-copilot/acceptances/ID`.
+Ordinary write failures roll back completed replacements. If the process is
+interrupted, a remaining `accept.lock` means the transaction needs recovery
+from that backup before retrying; do not simply delete the lock.
+
+Use the existing gate runner and sign-off files for release review.
 A checked box requires reviewer identity and date. Never bulk-check a review
 form. The review is evidence that an activity happened, not proof that the
 human conclusion was correct.

@@ -34,6 +34,9 @@ def main(
     draft_parser = subparsers.add_parser('draft-schematic', help='create a schematic draft and review artifacts')
     draft_parser.add_argument('project_path', type=Path)
     draft_parser.add_argument('--intent', required=True, type=Path)
+    accept_parser = subparsers.add_parser('accept', help='accept a reviewed schematic draft')
+    accept_parser.add_argument('project_path', type=Path)
+    accept_parser.add_argument('draft_id')
     research_parser = subparsers.add_parser(
         "research", help="verify, archive, or extract cited project evidence"
     )
@@ -60,6 +63,19 @@ def main(
         except ProjectFormatError as exc:
             parser.error(str(exc))
         print(render_status(collect_status(project)))
+    elif args.command == 'accept':
+        from pcb_copilot.accept import accept_schematic, load_draft
+
+        try:
+            project = load_project(args.project_path)
+            draft = load_draft(project, args.draft_id)
+            print(f'Accepting {draft.root} into {project.schematic_path}; '
+                  f'base schematic {draft.base_schematic_hash}; base PCB {draft.base_pcb_hash}')
+            result = accept_schematic(project, draft)
+        except (ValueError, OSError, RuntimeError) as exc:
+            parser.error(str(exc))
+        print(f'Accepted {result.accepted_path} ({result.accepted_hash}); '
+              f'{result.lifecycle.value}')
     elif args.command == 'draft-schematic':
         from pcb_copilot.schematic.commands import draft_schematic
         from pcb_copilot.toolchain import ToolchainDiscoveryError

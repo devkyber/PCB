@@ -75,6 +75,9 @@ def _copy_inputs(project_root: Path, destination: Path, project_name: str) -> No
 
 
 def _write_metadata(record: DraftRecord, path: Path) -> None:
+    from pcb_copilot.project import load_project
+    from pcb_copilot.state import accepted_file_hashes
+
     document = {
         "schema_version": 1,
         "id": record.id,
@@ -83,6 +86,7 @@ def _write_metadata(record: DraftRecord, path: Path) -> None:
         "base_schematic_hash": record.base_schematic_hash,
         "base_pcb_hash": record.base_pcb_hash,
         "created_utc": record.created_utc.isoformat().replace("+00:00", "Z"),
+        "base_files": accepted_file_hashes(load_project(_project_root(record))),
     }
     with path.open("w", encoding="utf-8", newline="\n") as stream:
         json.dump(document, stream, indent=2)

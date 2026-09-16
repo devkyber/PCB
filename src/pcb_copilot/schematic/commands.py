@@ -12,8 +12,9 @@ from pcb_copilot.evidence.index import EvidenceFormatError, load_evidence_index
 from pcb_copilot.models import DraftKind, Project
 from pcb_copilot.schematic.hierarchy import HierarchyDraft
 from pcb_copilot.schematic.io import load_schematic_intent, save_schematic_intent
-from pcb_copilot.schematic.preview import render_schematic_preview
+from pcb_copilot.schematic.preview import render_schematic_preview, schematic_files
 from pcb_copilot.schematic.render import render_schematic_draft
+from pcb_copilot.state import file_digest
 from pcb_copilot.toolchain import discover_toolchain
 
 
@@ -48,6 +49,12 @@ def draft_schematic(project: Project, intent_path: Path) -> dict:
         'findings': [asdict(f) for f in findings],
         'human_review': 'pending',
         'exit_code': int(any(f.severity == 'block' for f in findings)),
+        'artifact_hashes': {
+            path.relative_to(draft.root).as_posix(): file_digest(path)
+            for path in (*schematic_files(schematic), draft.root / 'schematic-intent.yaml',
+                         preview.erc_report_path, preview.metrics_path,
+                         draft.root / 'preview.pdf')
+        },
     }
     (draft.root / 'review.json').write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
     return report

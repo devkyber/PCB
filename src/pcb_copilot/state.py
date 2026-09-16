@@ -30,6 +30,19 @@ def canonical_design_hash(path: Path) -> str:
     return hashlib.sha256(canonical).hexdigest()[:12]
 
 
+def file_digest(path: Path) -> str | None:
+    return hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None
+
+
+def accepted_file_hashes(project: Project) -> dict[str, str | None]:
+    from pcb_copilot.schematic.preview import schematic_files
+
+    files = list(schematic_files(project.schematic_path))
+    files.extend([project.pcb_path, project.netmap_path, project.manifest_path,
+                  project.root / 'SCHEMATIC_OWNER'])
+    return {p.relative_to(project.root).as_posix(): file_digest(p) for p in files}
+
+
 def _read_json(path: Path) -> dict[str, Any] | None:
     try:
         value = json.loads(path.read_text(encoding="utf-8"))
@@ -39,6 +52,12 @@ def _read_json(path: Path) -> dict[str, Any] | None:
 
 
 def _matches_accepted_design(project: Project, record: dict[str, Any]) -> bool:
+    if 'accepted_files' in record:
+        try:
+            if record['accepted_files'] != accepted_file_hashes(project):
+                return False
+        except (OSError, ValueError):
+            return False
     return (
         record.get("schematic_hash") == canonical_design_hash(project.schematic_path)
         and record.get("pcb_hash") == canonical_design_hash(project.pcb_path)
