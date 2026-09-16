@@ -34,7 +34,7 @@ Our pin map is from `libs/jlcpcb.kicad_sym`, not assumed:
 | Ref | Part | Aspect | Ours | Reference says | Source | Verdict |
 |---|---|---|---|---|---|---|
 | U1 | BMP390 | pin decoupling | C1 100nF + C2 100nF at VDD/VDDIO | "recommended value for C1, C2 is 100 nF" | evidence/files/BMP390-datasheet.pdf §6.3 Fig 25 note | Match |
-| — | +3V3 rail | bulk decoupling at board entry | **C3 10uF at J1** (added rev1, 2026-08-25) | 10uF (C5) + 0.1uF (C6) on the 3.3V net that feeds IC1.VDD/VDDIO | evidence/files/BMP390_Adafruit_20BMP390.sch (C5/C6 net `3.3V`); docs/DESIGN_RULES.md 3.2 | Match. Was missing. The datasheet is silent here because it specifies the *sensor*, not the *board*: it assumes a stiff local rail. This board has no regulator — 3V3 arrives over a QT cable whose inductance the datasheet never contemplates — so the rail needs the bulk the reference puts on it. |
+| — | +3V3 rail | bulk decoupling at board entry | **C3 10uF at J1** (added rev1, 2026-08-25) | 10uF (C5) + 0.1uF (C6) on the 3.3V net that feeds IC1.VDD/VDDIO | evidence/files/BMP390_Adafruit_20BMP390.sch (C5/C6 net `3.3V`); evidence/files/BMP390-datasheet.pdf p.7 Table 2 | Match in bulk-capacitance value/function, not in supply topology. C3 is retained to support the host-fed rail. The reference includes local regulation; our host/cable impedance differs. Neither this comparison nor the selected capacitance proves the 50mVpp condition is met; measurement at U1 remains required. |
 | U1 | BMP390 | VDD / VDDIO | both on +3V3 (pads 1, 10) | both on 3.3V | evidence/files/BMP390_Adafruit_20BMP390.sch (IC1) | Match |
 | U1 | BMP390 | CSB (interface select) | hard-tied +3V3 (pad 6) | 10K pull-up to 3.3V | evidence/files/BMP390-datasheet.pdf §6.3 Fig 25 (`VDDIO*`); evidence/files/BMP390_Adafruit_20BMP390.sch (R1) | Deviate: hard tie, accepting the datasheet's `*` caveat. Fig 25 shows CSB at VDDIO but notes a programmable pin driving VDDIO at POR is preferred. This board has no MCU — compute lives on the QT host — so there is no pin to drive it with. Adafruit reach the same conclusion via a 10K pull-up; a direct tie is equivalent for an I2C-only board and saves a part. |
 | U1 | BMP390 | SDO (I2C address) | hard-tied +3V3 (pad 5) = 0x77 | 10K pull-up + SJ1 jumper to GND, 0x77/0x76 selectable | evidence/files/BMP390-datasheet.pdf §6.3 Fig 25; evidence/files/BMP390_Adafruit_20BMP390.sch (R4, SJ1) | Match to datasheet — Fig 25 offers exactly two options, "Connect to VDDIO, X='1'" or VSS; we took one. Deviate vs Adafruit, who make it jumper-selectable: single baro per bus in this stack, revisit if a second is ever added. |
@@ -43,11 +43,12 @@ Our pin map is from `libs/jlcpcb.kicad_sym`, not assumed:
 
 ## What this comparison actually caught
 
-**1. The missing bulk capacitor.** Invisible to ERC, to DRC, and to
-`check_design_rules.py` — the board would have fabricated and mostly worked,
-with worse noise on a pressure sensor whose entire value is low noise. One
-archived reference schematic and one `fetch_reference_doc.py` call found it.
-Now fixed: C3, 10uF, at the J1 rail entry.
+**1. A missing board-entry bulk capacitor relative to the reference's rail
+decoupling strategy.** The archived schematic motivated adding C3, 10uF, at
+the J1 rail entry. ERC, DRC and the geometric checker do not establish supply
+ripple or sensor noise. No before/after measurement is recorded here, so this
+is a documented design improvement, not proof of a former specification
+violation or of current compliance.
 
 **2. Two of this file's own verdicts were wrong**, caught only by opening the
 datasheet instead of trusting the summary of it. The 4.7k pull-ups were logged
@@ -63,7 +64,8 @@ they disagree, the datasheet wins and the disagreement itself gets a row.
 **3. `EVALUATION.md` contradicted this file** on the bulk cap — it argued the
 10uF was "for Adafruit's regulator, not applicable here." The Eagle netlist
 says C5/C6 sit on the `3.3V` net alongside `IC1.VDD` and `IC1.VDDIO`, so they
-decouple the rail the sensor actually runs on. And the argument inverts: no
-onboard regulator means a *longer, softer* feed, which needs bulk more, not
-less. Two documents on one board reached opposite conclusions and nothing
-noticed — the resolution is recorded in `EVALUATION.md` as well.
+decouple the rail the sensor actually runs on. A host-fed rail has a different
+source/cable impedance from the regulated reference, so neither blanket
+conclusion establishes the needed capacitance or achievable ripple. C3 remains
+the current design choice, with bench verification open. `EVALUATION.md` is a
+historical decision record, not evidence of measured supply performance.

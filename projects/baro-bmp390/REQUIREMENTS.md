@@ -6,8 +6,9 @@
 > schematic, the layout, the datasheet and the archived reference. That makes
 > it an accurate description of what exists, not a statement of what was
 > wanted, and those differ exactly where a requirement was never articulated.
-> Four open questions are marked **[OWNER]**. Everything else is measured from
-> the files or quoted from the datasheet on disk.
+> Four open questions are marked **[OWNER]**. Other statements include cited
+> values and reconstructed design assumptions, not completed bench or
+> environmental validation.
 
 ## Purpose
 A minimal barometric-pressure breakout: a Bosch BMP390 on a 4-wire STEMMA-QT /
@@ -18,30 +19,31 @@ one job, so it can be swapped or duplicated without touching the stack.
 
 ## Electrical
 - Supply: **+3V3 nominal, supplied by the host over the QT cable.** Datasheet
-  VDD range 1.65–3.6V, VDDIO 1.2–3.6V (BST-BMP390-DS002-07 §4.1), so the 3V3
-  rail sits mid-range with margin at both ends.
+  VDD range 1.65–3.6V, VDDIO 1.2–3.6V (BST-BMP390-DS002-07 p.7 Table 2).
+  The nominal rail is within both ranges, near their upper limit; host-supply
+  tolerance and transients still need checking at the sensor.
 - Rails generated: **none.** No regulator on this board — that is the reason
-  C3 (10uF bulk) exists at the connector: the rail arrives down a cable with
-  no local source impedance to stiffen it.
+  C3 (10uF bulk) is retained at the connector: the rail arrives down a cable
+  without a local regulator. Host/cable impedance still needs evaluation.
 - Current (datasheet §1, values read from the table, not recalled): sleep
   `IDDSL` 1.4µA at 1.8V / 1.5µA at 3.6V; peak `Ipeak` **660–730µA during a
   pressure measurement**; `IDDT` 240–320µA during a temperature measurement.
   Bus pull-ups R1/R2 4.7k draw ~0.7mA each worst case while a line is held
-  low. Board total is under 3mA — no thermal or trace-width considerations
-  apply anywhere on this board.
+  low. The listed operating loads total under 3mA. This estimate does not
+  eliminate fabrication trace-width limits, fault-current checks or thermal
+  review of the actual assembly.
 - **Supply ripple: the datasheet specifies `VDD ripple max. 50 mVpp`** (§1,
-  sensor supply voltage row). This is a *requirement on the board*, not a
-  guideline, and it is the specification C1/C2/C3 exist to meet. It is also
-  the one number that makes the missing bulk capacitor a spec violation
-  rather than a preference: a 730µA conversion transient arriving down a QT
-  cable, decoupled only by 2 x 100nF, is not a rail this board could show
-  compliance on.
+  p.7 Table 2, sensor supply voltage row). C1/C2/C3 support that requirement,
+  but their nominal capacitances alone prove neither compliance nor a prior
+  violation. Verify ripple at U1 with the intended host, cable and operating
+  conditions; supply impedance, capacitor characteristics and layout matter.
 - Signal levels: 3.3V logic throughout, no level shifting. SDA/SCL pulled to
   VDDIO by R1/R2 = 4.7k, the datasheet's own recommended value (§6.3 Fig 25).
 - I2C address: **0x77 fixed** (SDO tied to VDDIO). Not selectable — see
   DESIGN_BASIS.md. One BMP390 per bus.
-- Worst-case transient: none generated on-board. The board is a load, not a
-  source; there are no inductive loads, no switching, no ignition path.
+- No inductive actuator or ignition path is present. Sensor conversion and
+  bus activity still produce changing load current; host/cable transients
+  and hot-plug behavior have not been characterized.
 
 ## Mechanical
 - Board outline: **18.0 x 26.0 mm**, 1.6mm FR4, 2 layers, 1oz copper (JLCPCB
@@ -92,8 +94,8 @@ one job, so it can be swapped or duplicated without touching the stack.
 - Sustains **50 Hz** sampling over the QT cable with no bus errors across a
   30-minute run.
 - Rail ripple at U1's VDD pad stays under the datasheet's **50 mVpp** limit
-  while sampling at 50Hz, measured at the pad and not at the connector. This
-  is what C1/C2/C3 are for, and the criterion that would have failed quietly
-  before C3 was added.
+  while sampling at 50Hz, measured at the pad and not at the connector.
+  This remains an unverified measurement criterion; adding C3 does not itself
+  establish a pass or prove what the earlier circuit would have measured.
 - Survives a vibration profile representative of the intended flight without
   a reading dropout or a cracked solder joint.

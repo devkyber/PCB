@@ -48,17 +48,61 @@ return paths, connector-entry bulk capacitance, access to the sensor pressure
 port, and separation from mounting/mechanical stress. Reference views inform
 these questions; they do not prove that our proposed layout meets them.
 
+## Derived copper inspection — 2026-09-17
+
+The assistant inspected separate front/back copper PDF pages derived from the
+archived Adafruit Eagle board, alongside the guide's page 40. The views expose
+the explicit pads, traces and vias. C6 (0.1uF) is beside IC1, the sensor is near
+the board centre, the QT connectors are on opposite edges, and mounting holes
+are at the upper corners. These are reference placement observations, not
+approved constraints or measurements of our board. The guide and native CAD
+both identify revision B, but exact revision equivalence remains unproven.
+
+KiCad 10.0.6 initially could not reload its own Eagle import: six dimensions
+from Eagle layer 47 (`Measures`) and eight fiducial arcs from layer 41
+(`tRestrict`, four each on FID3/FID4) became `UNDEFINED`. A disposable imported
+copy omitting only those 14 objects successfully reloads and exports. This is
+a source-specific diagnostic workaround, not a general import repair feature.
+The archived Eagle file is unchanged (SHA-256
+`d732c7e871d1739e18aeccb356b2ab8c0f3e08bc8d89565dc1896740f45c3a7a`).
+
+Import-to-reload checks found exact agreement for all 25 footprint placements,
+71 pads and their geometry/net membership, 178 routed segments, 17 vias, the
+two four-corner GND zone outlines and eight board-outline graphics. All 66
+connected Eagle contacts still match their expected nets. This checks the
+derived copy against the import; it does not prove the import reproduces
+every Eagle rule or that the source board is DRC-clean.
+
+Local diagnostic outputs (ignored and regenerable) are under
+`.pcb-copilot/reference-review/eagle-import/`:
+
+- `reference-import-sanitized.kicad_pcb` and `reference-copper.pdf`: explicit
+  copper without filled polygons. Use these for pad/trace/via inspection,
+  not pour-continuity claims. Both pages use a top-view coordinate frame and
+  front-silkscreen overlay; the back layer is not a mirrored underside view.
+- `reference-import-kicad-refilled.kicad_pcb` and
+  `reference-copper-kicad-refilled.pdf`: **KiCad-refilled approximations**.
+  The assistant inspected both pages, but dropped `tRestrict` arcs and
+  differences between fill engines may change copper around fiducials or
+  elsewhere. Do not use these for manufacturing, exact clearance approval,
+  reference DRC sign-off, or claims of Eagle-native polygon-fill equivalence.
+
+To reproduce, import the original with `PCB_IO_MGR.EAGLE`; require the invalid
+items to match the exact type/reference/count whitelist above before omitting
+them in memory. Save only a derived copy, reload and compare all geometry/net
+invariants above, and recheck the source hash. Abort on any additional invalid
+item or mismatch. Export F.Cu/B.Cu with Edge.Cuts/F.SilkS as common layers; any
+zone refill must be saved separately and labeled as approximate.
+
 ## Still open
 
 - Compare our actual placement/routing with these references and record each
   adopted rule or justified difference in the design basis.
-- Inspect native copper in an EDA viewer and check reference revision identity
-  before relying on exact routing or dimensions. The rendered fab view alone
-  is insufficient for stackup, return-current, or manufacturing conclusions.
-  A 2026-09-17 KiCad 10 Eagle-import attempt preserved all 66 mapped contacts
-  in memory, but the disposable saved copy contained undefined layers and
-  failed PDF export. No copper visual review is claimed from that attempt;
-  the original Eagle archive was not changed.
+- Confirm polygon fill and routing-restriction behavior in a native
+  Eagle-compatible viewer or matching Gerber set, and establish reference
+  revision identity before relying on exact routing or dimensions. The
+  derived explicit-copper inspection above advances the review but does not
+  close stackup, return-current, clearance or manufacturing validation.
 - Full manufacturer PCB CAD was not acquired in this search.
 - Human review of applicability remains pending; this is research evidence,
   not release sign-off.
