@@ -40,8 +40,9 @@ Generic parts may declare a null pin-map citation only with an explicit review
 note, rather than assigning unrelated source IDs. Research findings remain
 advisory for draft creation and schematic acceptance, with release requirements
 enforced separately. All four projects have reference-research records, but
-coverage and copper-view comparison are explicitly incomplete. In particular,
-TMS's reference-voltage circuit and design-basis claim need reconciliation.
+coverage and copper-view comparison are explicitly incomplete. TMS's
+unsupported external-reference claim has been corrected in its design basis;
+the ADS1256 reference-voltage circuit itself still needs reconciliation.
 
 The next checkpoint is Task 8 Step 4: human review of specific draft previews.
 Do not accept drafts or start Plan 4 layout without that review. Remaining
@@ -49,16 +50,46 @@ layout, release, and cleanup work is in Plans 4 and 5.
 The product target is supplementary engineering assistance as stated in the
 design spec; autonomous human-level design is not an acceptance criterion.
 
-Checkpoint verification: `uv run pytest -q -m 'not network'` completed with
-387 passed, 49 skipped and 3 deselected; skipped tests are
-not claimed as executed. The enforcement self-test passed 93/93. A subsequent
-31-test source-parity/field/power check and Ruff also passed. All four evidence
-indexes verify (5/6/8/20 records respectively). Reference integrity is not a
-claim of complete research. Accepted schematic/PCB/netmap Git diffs are empty.
-Two additional LF/CRLF Git round-trip tests pass. All 39 staged archive blobs
-match their indexed SHA-256 values. Three older text CAD archive blobs needed
-their existing hashed CRLF bytes restored in Git; no working-tree evidence
-bytes or accepted designs were changed. Upstream archive whitespace is retained.
+The earlier archive migration restored three text CAD blobs' existing hashed
+CRLF bytes in Git, without changing working-tree evidence or accepted designs.
+LF/CRLF Git round-trip tests protect that exact-byte policy; upstream archive
+whitespace is retained.
+
+Follow-up improvements (2026-09-17): local routes now avoid conservative bounds
+around generated power Value text. A bounded, multi-bend fallback handles paths
+that cannot use a single alternate lane; existing component placement, stubs,
+circuit intent and page boundaries are unchanged. All four drafts were
+regenerated and all ten preview pages inspected. The IMU interrupt/GND text and
+BMP interrupt/supply text overlaps are corrected. Existing power-glyph/stub
+crowding on BMP, GNSS and TMS remains open; neither this inspection nor netlist
+parity constitutes human approval or a sheet-wide graphical clearance check.
+
+The IMU evidence archive now includes TDK AN-000493 rev1.0. Its schematic, BOM
+and placement views were inspected, but the placement images do not show routed
+copper. All four evidence indexes verify (5/7/8/20 records). An attempted BMP
+Eagle-to-KiCad derived PCB view failed on undefined layers; no copper inspection
+is claimed from that attempt. Original reference archives remain unchanged.
+The two superseded setup/quick-start guides were removed only after preserving
+their useful commands and mutation warnings in WORKFLOW. All 42 stable rule
+IDs are retained, with only four explicitly marked as partially automated.
+
+Independent review exposed and regression-tested two fallback precision cases:
+slightly off-grid targets could leave a gap, and floating-point noise could
+bypass an obstacle before KiCad rounded the saved wire. The final fix checks
+the backend's four-decimal geometry and rejects unrepresentable fallback
+endpoints without partial drawing. The reviewer approved both corrections.
+Fresh CLI drafts again pass all four board checks, with unchanged advisories
+and human review pending. All ten pages render pixel-identically to the
+visually inspected previews above; the project reference reviews identify the
+latest draft IDs. No accepted CAD, netmap or intent was modified.
+
+Final follow-up verification: `uv run pytest -q -m 'not network'` completed with
+402 passed, 49 skipped and 3 deselected in 327.89 seconds. Skipped and network
+tests are not claimed as executed. `uv run python docs/selftest_enforcement.py`
+passed 93/93 checks. Ruff and Git whitespace checks pass. All 40 indexed archive
+files match their recorded SHA-256 values in both the working tree and committed
+Git blobs. Integrity and connectivity checks do not certify engineering
+completeness or replace the pending human visual checkpoint.
 
 The CLI tests live in `tests/schematic/test_schematic_cli.py` to avoid pytest
 module-name collisions with the evidence CLI tests.

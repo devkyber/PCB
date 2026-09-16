@@ -103,7 +103,7 @@ inspection, not complete PCB-layout validation.
 
 ## Latest draft inspection
 
-Draft `20260916T162351Z-schematic-b0464d86` has a one-page PDF, no machine
+Draft `20260916T164513Z-schematic-b0464d86` has a one-page PDF, no machine
 blockers, 10 ERC pin-type warnings and 11 unresolved pin-map evidence reviews.
 Assistant visual inspection confirms dated titles, functional headings, local
 wiring and four junctions. The INT1 vertical wire now clears U1.6 GND text;

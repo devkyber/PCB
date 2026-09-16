@@ -65,7 +65,7 @@ these questions; they do not prove that our proposed layout meets them.
 
 ## Schematic draft checkpoint
 
-Draft `20260916T162351Z-schematic-7ad1be18` preserves the accepted circuit and
+Draft `20260916T164445Z-schematic-7ad1be18` preserves the accepted circuit and
 renders a dated, single-sheet PDF with functional headings and drawn passive
 banks. The assistant inspected the preview; there are no machine blockers.
 The new local-route text keepouts and multi-bend fallback separate the

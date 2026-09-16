@@ -155,8 +155,8 @@ have not been changed.
 
 ### Latest hierarchical preview
 
-Latest checked draft: `20260916T162351Z-schematic-2b264620`, with PDF
-`.pcb-copilot/drafts/20260916T162351Z-schematic-2b264620/preview.pdf`.
+Latest checked draft: `20260916T164534Z-schematic-2b264620`, with PDF
+`.pcb-copilot/drafts/20260916T164534Z-schematic-2b264620/preview.pdf`.
 All seven pages were visually inspected. The draft command exits zero with
 no blocking findings, zero ERC errors, 38 ERC pin-type warnings, one
 sheet-qualified-net-name review and 58 unresolved pin-map evidence reviews.
