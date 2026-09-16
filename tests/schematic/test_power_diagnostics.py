@@ -8,6 +8,7 @@ from pathlib import Path
 import pytest
 from kicad_claude.adapters import sch_editor as ed
 from kicad_claude.adapters import sch_io
+from kicad_claude.utils.geometry import mcp_to_kicad_xy
 
 from pcb_copilot.drafts import create_draft
 from pcb_copilot.evidence.checks import Finding
@@ -109,6 +110,34 @@ def test_same_net_power_glyph_pair_is_not_exempt(rendered_boards):
                for finding in findings)
 
 
+def test_direct_wired_same_net_non_flag_glyphs_are_not_exempt(rendered_boards):
+    tree = _rendered_tree(rendered_boards, 'baro-bmp390')
+    refs = ('#PWR108', '#PWR109')
+    for ref in refs:
+        symbol = ed.find_symbol_by_reference(tree, ref)
+        value = next(prop for prop in ed.find_children(symbol, 'property')
+                     if prop[1] == 'Value')
+        value[2] = 'GND'
+    page_height = ed.page_height_mm(tree)
+    first = mcp_to_kicad_xy(*ed.get_pin_position(tree, refs[0], '1'), page_height)
+    second = mcp_to_kicad_xy(*ed.get_pin_position(tree, refs[1], '1'), page_height)
+    tree.append([
+        sch_io.sym('wire'),
+        [sch_io.sym('pts'),
+         [sch_io.sym('xy'), *first],
+         [sch_io.sym('xy'), *second]],
+    ])
+    before = deepcopy(tree)
+
+    findings = power_clearance_findings(tree, 'direct-wired-same-net.kicad_sch')
+
+    assert any(finding.code == 'power-glyph-collision'
+               and '#PWR108/GND' in finding.message
+               and '#PWR109/GND' in finding.message
+               for finding in findings)
+    assert tree == before
+
+
 def test_exact_power_attachment_and_own_value_do_not_generate_noise(rendered_boards):
     tree = _rendered_tree(rendered_boards, 'gnss-neom9n')
 
@@ -151,6 +180,29 @@ def test_unsupported_rotation_is_advisory_and_tree_is_unchanged(rendered_boards)
     assert any(finding.code == 'power-clearance-unchecked'
                and finding.reference == '#PWR101'
                and finding.severity == 'review'
+               for finding in findings)
+    assert not any(finding.code.endswith('-collision') for finding in findings)
+    assert tree == before
+
+
+@pytest.mark.parametrize('axis', ['x', 'y'])
+def test_mirrored_power_glyph_is_unchecked_and_tree_is_unchanged(
+    rendered_boards, axis
+):
+    tree = _rendered_tree(rendered_boards, 'baro-bmp390')
+    for symbol in list(ed.iter_instance_symbols(tree)):
+        ref = ed.get_symbol_property(symbol, 'Reference') or ''
+        if ref.startswith('#') and ref != '#PWR101':
+            tree.remove(symbol)
+    symbol = ed.find_symbol_by_reference(tree, '#PWR101')
+    symbol.append([sch_io.sym('mirror'), sch_io.sym(axis)])
+    before = deepcopy(tree)
+
+    findings = power_clearance_findings(tree, f'mirrored-{axis}.kicad_sch')
+
+    assert any(finding.code == 'power-clearance-unchecked'
+               and finding.reference == '#PWR101'
+               and f'mirror {axis}' in finding.message
                for finding in findings)
     assert not any(finding.code.endswith('-collision') for finding in findings)
     assert tree == before

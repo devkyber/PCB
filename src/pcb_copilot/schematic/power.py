@@ -162,7 +162,18 @@ def _power_glyphs(ed, tree: list, sheet: str):
         if lib_id is None or not str(lib_id[1]).startswith('power:'):
             continue
         at = ed.find_child(symbol, 'at')
+        mirror = ed.find_child(symbol, 'mirror')
         rotation = float(at[3]) % 360 if at is not None and len(at) > 3 else 0.0
+        if mirror is not None:
+            axis = str(mirror[1]) if len(mirror) > 1 else 'unknown'
+            advisories.append(Finding(
+                'power-clearance-unchecked',
+                f'{sheet}: {ref or lib_id[1]} uses unsupported mirror {axis}; '
+                'clearance was not checked',
+                ref or None,
+                severity='review',
+            ))
+            continue
         if at is None or abs(rotation) > 1e-6:
             advisories.append(Finding(
                 'power-clearance-unchecked',
@@ -279,13 +290,15 @@ def power_clearance_findings(tree: list, sheet: str) -> tuple[Finding, ...]:
     findings = [*advisories, *text_advisories]
 
     for first, second in combinations(sorted(glyphs, key=lambda item: item.ref), 2):
-        # Two stock glyphs sharing their exact connection port are intentional;
-        # same-net glyphs anywhere else remain subject to review.
         exact_attachment = (
             first.pin == second.pin
             or frozenset((first.pin, second.pin)) in direct_connections
         )
-        if exact_attachment or not _overlaps(first.box, second.box):
+        intentional_flag_attachment = (
+            exact_attachment
+            and ((first.net == 'PWR_FLAG') != (second.net == 'PWR_FLAG'))
+        )
+        if intentional_flag_attachment or not _overlaps(first.box, second.box):
             continue
         findings.append(Finding(
             'power-glyph-collision',
