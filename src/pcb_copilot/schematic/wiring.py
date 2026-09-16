@@ -8,6 +8,7 @@ from dataclasses import dataclass
 from itertools import pairwise
 
 GRID_MM = 1.27
+GRID_EPSILON_MM = 1e-6
 MAX_GRID_STATES = 250_000
 
 
@@ -102,7 +103,10 @@ def _grid_fallback(editor, start, end, corridor, net) -> tuple[WireSegment, ...]
         start[0] + end_index[0] * GRID_MM,
         start[1] + end_index[1] * GRID_MM,
     )
-    if any(abs(a - b) > 0.002 for a, b in zip(end, snapped_end)):
+    if any(abs(a - b) > GRID_EPSILON_MM for a, b in zip(end, snapped_end)):
+        return None
+    if any(index == 0 and source != target
+           for index, source, target in zip(end_index, start, end)):
         return None
 
     ix_min = math.ceil((corridor.left - start[0]) / GRID_MM - 1e-9)
@@ -115,10 +119,17 @@ def _grid_fallback(editor, start, end, corridor, net) -> tuple[WireSegment, ...]
 
     directions = ((1, 0), (-1, 0), (0, 1), (0, -1))
 
+    def coordinate(source, target, index, target_index):
+        if index == 0:
+            return source
+        if index == target_index:
+            return target
+        return source + index * GRID_MM
+
     def point(index):
         return (
-            round(start[0] + index[0] * GRID_MM, 6),
-            round(start[1] + index[1] * GRID_MM, 6),
+            coordinate(start[0], end[0], index[0], end_index[0]),
+            coordinate(start[1], end[1], index[1], end_index[1]),
         )
 
     start_state = (0, 0, -1)

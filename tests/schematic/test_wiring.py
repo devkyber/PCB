@@ -1,5 +1,7 @@
 """Local wire routing must avoid non-electrical visual obstacles."""
 
+from itertools import pairwise
+
 import pytest
 
 from pcb_copilot.schematic import wiring
@@ -134,3 +136,59 @@ def test_local_connection_uses_bounded_multi_bend_fallback_when_one_lane_is_trap
     assert route[-1].end == (2.54, 2.54)
     assert not any(_segment_hits(segment, obstacle)
                    for segment in route for obstacle in editor.obstacles)
+
+
+def test_multi_bend_fallback_rejects_off_lattice_target_without_partial_mutation():
+    editor = ObstacleEditor(obstacles=[
+        _obstacle(9.5, 5.0, 10.8, 8.0, owner="source-column-text"),
+        _obstacle(2.0, 5.0, 3.0, 7.0, owner="target-column-text"),
+    ])
+    editor.positions = {
+        ("A", "1"): (10.16, 10.16),
+        ("B", "1"): (2.541, 2.54),
+    }
+    editor.segments = [
+        wiring.WireSegment((6.35, 8.89), (6.35, 11.43), "body:A"),
+        wiring.WireSegment((5.08, 1.27), (5.08, 3.81), "body:B"),
+    ]
+    before = list(editor.segments)
+
+    with pytest.raises(wiring.StubCrossingError, match="no clear local wire path"):
+        wiring.connect_local(
+            editor,
+            wiring.PinRef("A", "1"),
+            wiring.PinRef("B", "1"),
+            wiring.WireCorridor(0.0, 0.0, 15.24, 15.24),
+            net="DATA",
+        )
+
+    assert editor.segments == before
+
+
+def test_multi_bend_fallback_preserves_high_precision_grid_endpoints():
+    editor = ObstacleEditor(obstacles=[
+        _obstacle(9.5, 5.0, 10.8, 8.0, owner="source-column-text"),
+        _obstacle(2.0, 5.0, 3.0, 7.0, owner="target-column-text"),
+    ])
+    source = (10.1600004, 10.1600004)
+    target = (2.5400004, 2.5400004)
+    editor.positions = {("A", "1"): source, ("B", "1"): target}
+    editor.segments = [
+        wiring.WireSegment((6.35, 8.89), (6.35, 11.43), "body:A"),
+        wiring.WireSegment((5.08, 1.27), (5.08, 3.81), "body:B"),
+    ]
+
+    route = wiring.connect_local(
+        editor,
+        wiring.PinRef("A", "1"),
+        wiring.PinRef("B", "1"),
+        wiring.WireCorridor(0.0, 0.0, 15.24, 15.24),
+        net="DATA",
+    )
+
+    assert route[0].start == source
+    assert route[-1].end == target
+    assert all(first.end == second.start for first, second in pairwise(route))
+    assert all(segment.start[0] == segment.end[0]
+               or segment.start[1] == segment.end[1]
+               for segment in route)
