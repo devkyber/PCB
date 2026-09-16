@@ -1,0 +1,52 @@
+schema_version: 1
+title: Parent-child hierarchy fixture
+revision: T1
+sheets:
+  - id: main
+    title: Main
+    page: A4
+  - id: sensor
+    title: Sensor
+    page: A4
+blocks:
+  - id: controller
+    title: Controller interface
+    sheet: main
+    flow_order: 1
+    placement_hint: left
+  - id: sensor-io
+    title: Sensor interface
+    sheet: sensor
+    flow_order: 1
+    placement_hint: left
+components:
+  - ref: J1
+    value: HOST
+    symbol: Connector_Generic:Conn_01x01
+    footprint: Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical
+    block: controller
+    evidence_part_number: FIXTURE-J1
+    pin_map_evidence_id: sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    pins:
+      '1': {net: DATA_READY, style: hierarchical}
+    no_connects: []
+    pin_inventory: ['1']
+  - ref: U1
+    value: SENSOR
+    symbol: Connector_Generic:Conn_01x08
+    footprint: Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical
+    block: sensor-io
+    evidence_part_number: FIXTURE-U1
+    pin_map_evidence_id: sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+    pins:
+      '7': {net: DATA_READY, style: hierarchical}
+    no_connects:
+      - {pin: '1', reason: Fixture pin is intentionally unused}
+      - {pin: '2', reason: Fixture pin is intentionally unused}
+      - {pin: '3', reason: Fixture pin is intentionally unused}
+      - {pin: '4', reason: Fixture pin is intentionally unused}
+      - {pin: '5', reason: Fixture pin is intentionally unused}
+      - {pin: '6', reason: Fixture pin is intentionally unused}
+      - {pin: '8', reason: Fixture pin is intentionally unused}
+    pin_inventory: ['1', '2', '3', '4', '5', '6', '7', '8']
+boundary_nets: [DATA_READY]

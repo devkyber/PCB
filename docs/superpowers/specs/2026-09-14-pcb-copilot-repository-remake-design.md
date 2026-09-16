@@ -295,11 +295,11 @@ The present label-at-every-pin generator style is not an acceptable final
 draft for a complex board. ERC-clean connectivity is necessary but does not
 establish readability.
 
-“Human-level schematic” has a deliberately limited definition here: a
-readable engineering draft organized into functional blocks, with verified
-parts, local wiring, meaningful labels, and manageable sheet density. It does
-not mean universally correct circuit judgment or publication-quality visual
-polish without human review.
+The target is a useful supplementary engineering draft: functional blocks,
+traceable part evidence, local wiring, meaningful labels, and manageable
+sheet density that help the engineer build faster. The engineer supplies
+circuit judgment and reviews and edits the result. Human-level autonomy is
+not a goal or an acceptance criterion.
 
 ### 7.4 Layout assistant
 

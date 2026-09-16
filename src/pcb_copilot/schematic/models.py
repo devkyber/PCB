@@ -7,6 +7,8 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
+from pcb_copilot.schematic.quality import PAGE_CAPACITY
+
 
 class IntentValidationError(ValueError):
     """Raised when a schematic intent is incomplete or internally inconsistent."""
@@ -118,11 +120,32 @@ class SchematicIntent(BaseModel):
         if unknown_blocks:
             raise ValueError(f"unknown block: {', '.join(unknown_blocks)}")
 
+        block_sheets = {block.id: block.sheet for block in self.blocks}
+        component_counts = {sheet.id: 0 for sheet in self.sheets}
+        for component in self.components:
+            component_counts[block_sheets[component.block]] += 1
+        over_capacity = [
+            f"{sheet.id} ({component_counts[sheet.id]} > {PAGE_CAPACITY[sheet.page]})"
+            for sheet in self.sheets
+            if component_counts[sheet.id] > PAGE_CAPACITY[sheet.page]
+        ]
+        if over_capacity:
+            raise ValueError(
+                "sheet capacity exceeded; move functional blocks to another sheet: "
+                + ", ".join(over_capacity)
+            )
+
         net_blocks: dict[str, set[str]] = {}
+        net_sheets: dict[str, set[str]] = {}
+        net_styles: dict[str, set[str]] = {}
         power_nets = set()
         for component in self.components:
             for connection in component.pins.values():
                 net_blocks.setdefault(connection.net, set()).add(component.block)
+                net_sheets.setdefault(connection.net, set()).add(
+                    block_sheets[component.block]
+                )
+                net_styles.setdefault(connection.net, set()).add(connection.style)
                 if connection.style == "power":
                     power_nets.add(connection.net)
         undeclared = sorted(
@@ -136,6 +159,36 @@ class SchematicIntent(BaseModel):
             raise ValueError(
                 "net crosses a block-boundary without declaration: "
                 + ", ".join(undeclared)
+            )
+
+        cross_sheet = {
+            net for net, sheets in net_sheets.items() if len(sheets) > 1
+        }
+        wrong_style = sorted(
+            net
+            for net in cross_sheet
+            if net not in power_nets and net_styles[net] != {"hierarchical"}
+        )
+        if wrong_style:
+            raise ValueError(
+                "cross-sheet signal must use hierarchical style on every connection: "
+                + ", ".join(wrong_style)
+            )
+        orphan_hierarchical = sorted(
+            net
+            for net, styles in net_styles.items()
+            if "hierarchical" in styles and net not in cross_sheet
+        )
+        if orphan_hierarchical:
+            raise ValueError(
+                "hierarchical net requires a matching connection on another sheet: "
+                + ", ".join(orphan_hierarchical)
+            )
+        undeclared_sheet_nets = sorted(cross_sheet - set(self.boundary_nets) - power_nets)
+        if undeclared_sheet_nets:
+            raise ValueError(
+                "net crosses a sheet boundary without declaration: "
+                + ", ".join(undeclared_sheet_nets)
             )
         return self
 
