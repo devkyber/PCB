@@ -131,8 +131,82 @@ Review in passes: completeness, power integrity, signal integrity, thermal,
 EMC, fabrication/assembly, mechanical, then post-route verification. ERC and
 DRC are inputs to these passes, not substitutes.
 
-The current geometric checker implements only 4 of the former knowledge
-base’s 42 numbered subsections: placement clearance, decoupling proximity,
-crystal proximity, and regulator-cap placement. The remaining rules require
-human review or future typed checks. This limitation must stay visible in
-reports; see [Limitations](LIMITATIONS.md).
+The current geometric checker implements parts of only 4 of the former
+knowledge base’s 42 numbered subsections: heat-source separation, decoupling
+proximity, crystal proximity, and regulator-cap placement. A partial check
+does not establish that the whole subsection is satisfied. This limitation
+must stay visible in reports; see [Limitations](LIMITATIONS.md).
+
+## Stable rule identifiers
+
+Reports and `DEVIATIONS.md` still use these historical IDs. They are retained
+here so consolidation does not silently change what a waiver or finding means.
+The [legacy rule collection](pcb-design-rules.md) remains the provenance for
+the detailed subsections pending fact-level migration; its generic values and
+absolute prescriptions are not promoted into current engineering requirements.
+Use the authority order above and the board's cited design basis.
+
+The scope column describes **only `docs/check_design_rules.py`**. `Partial`
+means a geometric proxy exists, not full coverage. `Human` means this checker
+does not decide that subsection; another gate may check a related fact.
+
+| ID | Preserved topic | Checker scope |
+| --- | --- | --- |
+| `1.1` | Placement order | Human |
+| `1.2` | Placement rules, including heat-source separation | Partial |
+| `1.3` | Functional grouping | Human |
+| `2.1` | Decoupling proximity rationale | Human |
+| `2.2` | Decoupling placement | Partial |
+| `2.3` | Bypass loop area | Human |
+| `2.4` | Part-specific decoupling examples | Human |
+| `3.1` | Ground-plane principle | Human |
+| `3.2` | Ground-plane rules | Human |
+| `3.3` | Mixed-signal ground connections | Human |
+| `3.4` | High-current/star returns | Human |
+| `4.1` | General routing | Human |
+| `4.2` | Trace width and current | Human |
+| `4.3` | Analog routing | Human |
+| `4.4` | Digital routing | Human |
+| `5.1` | Crystal and load-cap layout | Partial |
+| `6.1` | Linear-regulator layout | Partial |
+| `6.2` | Switching-regulator layout | Human |
+| `6.3` | LDO regulators | Human |
+| `6.4` | Power trace routing | Human |
+| `6.5` | Voltage-reference layout | Human |
+| `7.1` | Relay and high-current layout | Human |
+| `8.1` | Via geometry | Human |
+| `8.2` | Ground stitching | Human |
+| `9.1` | Thermal management | Human |
+| `10.1` | Fabrication constraints | Human |
+| `10.2` | Assembly constraints | Human |
+| `11.1` | Connector ESD protection | Human |
+| `11.2` | ADC input protection | Human |
+| `12.1` | Copper pour rules | Human |
+| `12.2` | Two-layer pour strategy | Human |
+| `13.1` | Layer-count choice | Human |
+| `13.2` | Four-layer stackup | Human |
+| `13.3` | Two-layer strategy | Human |
+| `14.1` | EMC/EMI | Human |
+| `15.1` | Datasheet value comparison | Human |
+| `15.2` | Pin completeness | Human |
+| `15.3` | Voltage compatibility | Human |
+| `15.4` | Board-area justification | Human |
+| `15.5` | Controlled impedance | Human |
+| `15.6` | Interface choices | Human |
+| `15.7` | Real-part symbol and footprint verification | Human |
+
+Current executable scope, recorded from the checker rather than offered as
+universal design advice:
+
+- `1.2`: pad-gap proxy between selected heat sources and named analog nets;
+  not an assembly-clearance or thermal-performance analysis.
+- `2.2`: nearest small capacitor on a heuristically identified power net;
+  not proof of its return path, pin function, effective capacitance or noise.
+- `5.1`: crystal/IC and small-cap/crystal proximity; not an oscillator model
+  or proof that every nearby small capacitor is the correct load capacitor.
+- `6.1`: nearest capacitor on a recognized regulator supply net; not proof
+  of correct value, stability, headroom or thermal suitability.
+
+The bulk-cap exclusion historically labeled `2.4` is part of the `2.2`
+implementation, not a fifth independently validated subsection. This index
+does not add checks, change thresholds, or broaden any declared waiver.

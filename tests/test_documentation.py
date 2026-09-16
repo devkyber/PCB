@@ -1,3 +1,4 @@
+import ast
 import re
 from pathlib import Path
 
@@ -32,3 +33,21 @@ def test_canonical_local_markdown_links_resolve(repo_root, document):
             continue
         target_path = (source.parent / path_text).resolve()
         assert target_path.exists(), f"{document} links to missing {target}"
+
+
+def test_canonical_rules_preserve_legacy_ids_and_exact_checker_scope(repo_root):
+    legacy = (repo_root / 'docs/pcb-design-rules.md').read_text(encoding='utf-8')
+    canonical = (repo_root / 'docs/DESIGN_RULES.md').read_text(encoding='utf-8')
+    legacy_ids = set(re.findall(r'^### (\d+\.\d+) ', legacy, re.MULTILINE))
+    rows = re.findall(r'^\| `(\d+\.\d+)` \| ([^|]+) \| (Partial|Human) \|$',
+                      canonical, re.MULTILINE)
+    assert len(rows) == len(legacy_ids), 'preserve each historical rule ID exactly once'
+    assert {rule for rule, _topic, _scope in rows} == legacy_ids
+    checker = ast.parse((repo_root / 'docs/check_design_rules.py').read_text(encoding='utf-8'))
+    constants = {node.targets[0].id: ast.literal_eval(node.value)
+                 for node in checker.body if isinstance(node, ast.Assign)
+                 and isinstance(node.targets[0], ast.Name)
+                 and node.targets[0].id in {'EXECUTABLE_RULES', 'DOC_RULE_COUNT'}}
+    assert len(rows) == constants['DOC_RULE_COUNT']
+    assert {rule for rule, _topic, scope in rows if scope == 'Partial'} == set(
+        constants['EXECUTABLE_RULES'])
