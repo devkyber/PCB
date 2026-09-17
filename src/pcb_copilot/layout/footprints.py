@@ -265,16 +265,16 @@ def _validate_courtyard(tree: list[Any], text: str) -> None:
             )
     for head, expected in expected_by_head.items():
         measured = 0
-        for index, block in enumerate(
-            _layout_helpers._iter_top_level_elements(text, head)
-        ):
+        for block in _layout_helpers._iter_top_level_elements(text, head):
+            if _layout_helpers._courtyard_local_extents(block) is None:
+                continue
             if head == "fp_poly":
-                if index >= len(polygon_point_counts):
+                if measured >= len(polygon_point_counts):
                     raise ValueError(
                         "fp_poly courtyard geometry was not fully measured"
                     )
-                _validate_raw_polygon_points(block, polygon_point_counts[index])
-            measured += _layout_helpers._courtyard_local_extents(block) is not None
+                _validate_raw_polygon_points(block, polygon_point_counts[measured])
+            measured += 1
         if measured != expected:
             raise ValueError(
                 f"{head} courtyard geometry was not measured by the shared extent helper"

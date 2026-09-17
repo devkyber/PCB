@@ -50,6 +50,52 @@ def test_placeholder_is_blocking(tmp_path: Path):
     )
 
 
+def test_tms_sod323_resolves_with_silkscreen_polygons(repo_root: Path):
+    result = resolve_footprint(
+        load_project(repo_root / "projects/tms-v3"),
+        "D1",
+        "jlcpcb:SOD-323_L1.8-W1.3-LS2.5-RD-1",
+    )
+
+    assert result.fidelity == "real"
+    assert result.extents_mm == pytest.approx((-1.67, -0.65, 1.67, 0.65))
+    assert verify_pin_pad_map(result, {"1", "2"}) == []
+
+
+@pytest.mark.parametrize("last_point", ["(xy 3 4)", "(xy 1e-3 4)", "( xy 3 4)", "(xy nan 4)"])
+def test_courtyard_polygons_interleaved_with_other_layers(
+    project_copy: Path, last_point: str
+):
+    library = project_copy / "libs/vendor.pretty"
+    library.mkdir(parents=True)
+    (library / "Mixed.kicad_mod").write_text(
+        '(footprint "Mixed" '
+        '(fp_poly (pts (xy -20 -20) (xy 20 -20) (xy 20 20)) (layer "F.SilkS")) '
+        '(fp_poly (pts (xy -2 -1) (xy 0 -1) (xy 0 1) (xy -2 1)) (layer "F.CrtYd")) '
+        '(fp_poly (pts (xy -30 -30) (xy 30 -30) (xy 30 30)) (layer "F.Fab")) '
+        f'(fp_poly (pts (xy 1 2) (xy 3 2) {last_point}) (layer "B.CrtYd")) '
+        '(pad "1" smd rect (at 0 0) (size 1 1) (layers "F.Cu")))',
+        encoding="utf-8",
+    )
+    (project_copy / "fp-lib-table").write_text(
+        '(fp_lib_table (version 7) '
+        '(lib (name "vendor") (type "KiCad") '
+        '(uri "${KIPRJMOD}/libs/vendor.pretty") (options "") '
+        '(descr "Real LCSC footprints via easyeda2kicad")))',
+        encoding="utf-8",
+    )
+
+    project = load_project(project_copy)
+    if last_point != "(xy 3 4)":
+        with pytest.raises(ValueError, match="courtyard"):
+            resolve_footprint(project, "U1", "vendor:Mixed")
+        return
+
+    result = resolve_footprint(project, "U1", "vendor:Mixed")
+    assert result.extents_mm == pytest.approx((-2, -1, 3, 4))
+    assert verify_pin_pad_map(result, {"1"}) == []
+
+
 def test_pin_pad_map_reports_missing_and_unexpected_numbered_pads(tmp_path: Path):
     footprint = tmp_path / "part.kicad_mod"
     footprint.write_text(
