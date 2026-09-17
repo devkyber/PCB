@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
 from pathlib import Path
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -62,6 +63,16 @@ class Project:
     pcb_path: Path
     netmap_path: Path
     evidence_index_path: Path
+
+
+@dataclass(frozen=True)
+class FootprintCandidate:
+    lib_id: str
+    path: Path
+    source: str
+    fidelity: Literal["real", "standard", "placeholder"]
+    extents_mm: tuple[float, float, float, float]
+    evidence_id: str | None
 
 
 @dataclass(frozen=True)

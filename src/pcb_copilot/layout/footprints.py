@@ -1,0 +1,233 @@
+"""Resolve footprint files and verify the geometry used for layout."""
+
+from __future__ import annotations
+
+import importlib
+import os
+import re
+import sys
+from pathlib import Path
+from typing import Any
+
+from kicad_claude.adapters import sch_io
+from kicad_claude.utils.kicad_paths import find_footprint_lib_dirs
+
+from pcb_copilot.evidence.checks import Finding
+from pcb_copilot.models import FootprintCandidate, Project
+
+_DOCS = Path(__file__).resolve().parents[3] / "docs"
+if str(_DOCS) not in sys.path:
+    sys.path.insert(0, str(_DOCS))
+_layout_helpers = importlib.import_module("pcb_layout_helpers")
+
+
+def _value(node: list[Any], head: str) -> str | None:
+    child = sch_io.find_child(node, head)
+    if child is None or len(child) < 2:
+        return None
+    return str(child[1])
+
+
+def _library_entry(project: Project, library: str) -> tuple[str, str] | None:
+    table_path = project.root / "fp-lib-table"
+    if not table_path.is_file():
+        return None
+    try:
+        table = sch_io.parse_file(table_path)
+    except Exception as exc:  # sexpdata exposes several parse exception types
+        raise ValueError(f"malformed explicit footprint table {table_path}: {exc}") from exc
+    if sch_io.head_of(table) != "fp_lib_table":
+        raise ValueError(f"malformed explicit footprint table {table_path}")
+
+    matches: list[tuple[str, str]] = []
+    for entry in sch_io.find_children(table, "lib"):
+        if _value(entry, "name") != library:
+            continue
+        uri = _value(entry, "uri")
+        if not uri:
+            raise ValueError(
+                f"explicit footprint library {library!r} has no URI in {table_path}"
+            )
+        matches.append((uri, _value(entry, "descr") or ""))
+    if len(matches) > 1:
+        raise ValueError(f"explicit footprint library {library!r} is declared more than once")
+    return matches[0] if matches else None
+
+
+def _expand_table_uri(
+    project: Project, library: str, uri: str
+) -> tuple[Path, str]:
+    variables = re.findall(r"\$\{([A-Za-z_][A-Za-z0-9_]*)\}", uri)
+    expanded = uri
+    source_bits: list[str] = []
+    for variable in variables:
+        if variable == "KIPRJMOD":
+            replacement = str(project.root)
+            source_bits.append("KIPRJMOD")
+        elif variable in os.environ:
+            replacement = os.environ[variable]
+            source_bits.append(f"{variable} override")
+        elif re.fullmatch(r"KICAD\d+_FOOTPRINT_DIR", variable):
+            suffix = uri.split(f"${{{variable}}}", 1)[1].lstrip("/\\")
+            for root in find_footprint_lib_dirs():
+                candidate = (root / suffix).resolve()
+                if candidate.is_dir():
+                    return candidate, f"{variable} version alias via {root}"
+            raise ValueError(
+                f"explicit footprint library {library!r} cannot resolve unset {variable}"
+            )
+        else:
+            raise ValueError(
+                f"explicit footprint library {library!r} uses unset variable {variable}"
+            )
+        expanded = expanded.replace(f"${{{variable}}}", replacement)
+    if "${" in expanded:
+        raise ValueError(f"explicit footprint library {library!r} has malformed URI {uri!r}")
+    return Path(expanded).expanduser().resolve(), ", ".join(source_bits) or "literal URI"
+
+
+def _resolve_path(
+    project: Project, library: str, footprint: str
+) -> tuple[Path, str, str]:
+    entry = _library_entry(project, library)
+    if entry is not None:
+        uri, description = entry
+        directory, expansion = _expand_table_uri(project, library, uri)
+        path = directory / f"{footprint}.kicad_mod"
+        if not path.is_file():
+            raise ValueError(
+                f"explicit footprint library {library!r} entry does not exist: {path}"
+            )
+        source = f"project fp-lib-table ({expansion})"
+        if description:
+            source += f": {description}"
+        return path, source, description
+
+    local_libraries = sorted(
+        path for path in project.root.rglob(f"{library}.pretty") if path.is_dir()
+    )
+    if local_libraries:
+        raise ValueError(
+            f"project-local footprint library {local_libraries[0]} is not registered "
+            "in fp-lib-table"
+        )
+
+    for root in find_footprint_lib_dirs():
+        path = root / f"{library}.pretty" / f"{footprint}.kicad_mod"
+        if path.is_file():
+            return path.resolve(), f"configured KiCad library: {root}", ""
+    raise ValueError(f"footprint {library}:{footprint} could not be resolved")
+
+
+def _reject_off_axis_pad(node: list[Any]) -> None:
+    at = sch_io.find_child(node, "at")
+    if at is None or len(at) < 3:
+        return
+    angle = float(at[3]) % 360.0 if len(at) > 3 else 0.0
+    if abs(angle % 90.0) >= 0.01:
+        raise ValueError(f"off-axis pad rotation {angle:g} is not safely supported")
+
+
+def _footprint_data(path: Path) -> tuple[list[Any], tuple[float, float, float, float]]:
+    try:
+        tree = sch_io.parse_file(path)
+    except Exception as exc:  # sexpdata exposes several parse exception types
+        raise ValueError(f"malformed footprint {path}: {exc}") from exc
+    if sch_io.head_of(tree) != "footprint":
+        raise ValueError(f"malformed footprint {path}: root is not footprint")
+
+    for pad in sch_io.find_children(tree, "pad"):
+        _reject_off_axis_pad(pad)
+    extents = _layout_helpers.get_extents_from_file(path)
+    if extents is None:
+        raise ValueError(f"footprint {path} has no courtyard or pad geometry")
+    return tree, extents
+
+
+def _fidelity(project: Project, path: Path, description: str) -> str:
+    provenance = description.casefold()
+    markers = f"{path.name} {description}".casefold()
+    if any(word in markers for word in ("placeholder", "generated", "generic")):
+        return "placeholder"
+    try:
+        path.relative_to(project.root)
+    except ValueError:
+        return "standard"
+    if any(
+        word in provenance
+        for word in ("easyeda", "lcsc", "imported", "fetched")
+    ):
+        return "real"
+    raise ValueError(
+        f"project-local footprint {path} has no declared provenance; "
+        "it cannot be classified as real"
+    )
+
+
+def resolve_footprint(project: Project, ref: str, lib_id: str) -> FootprintCandidate:
+    """Resolve a declared footprint and measure its real local-frame geometry."""
+    if lib_id.count(":") != 1 or not all(lib_id.split(":")):
+        raise ValueError(f"{ref}: invalid footprint library id {lib_id!r}")
+    library, footprint = lib_id.split(":", 1)
+    path, source, description = _resolve_path(project, library, footprint)
+    _, extents = _footprint_data(path)
+    return FootprintCandidate(
+        lib_id=lib_id,
+        path=path,
+        source=source,
+        fidelity=_fidelity(project, path, description),
+        extents_mm=extents,
+        # No current project stores a receipt or integrity record for footprint bytes.
+        evidence_id=None,
+    )
+
+
+def verify_pin_pad_map(
+    candidate: FootprintCandidate, expected_pins: set[str]
+) -> list[Finding]:
+    """Return blocking findings for placeholder or mismatched electrical pads."""
+    findings: list[Finding] = []
+    if candidate.fidelity == "placeholder":
+        findings.append(
+            Finding(
+                "footprint.placeholder",
+                f"{candidate.lib_id} is placeholder geometry and cannot be accepted",
+                reference=candidate.lib_id,
+                evidence_id=candidate.evidence_id,
+            )
+        )
+    try:
+        tree, _ = _footprint_data(candidate.path)
+    except (OSError, ValueError) as exc:
+        findings.append(
+            Finding(
+                "footprint.geometry_unreadable",
+                str(exc),
+                reference=candidate.lib_id,
+                evidence_id=candidate.evidence_id,
+            )
+        )
+        return findings
+
+    pads = {
+        str(pad[1])
+        for pad in sch_io.find_children(tree, "pad")
+        if len(pad) > 1 and str(pad[1]).strip()
+    }
+    missing = sorted(expected_pins - pads)
+    unexpected = sorted(pads - expected_pins)
+    if missing or unexpected:
+        details = []
+        if missing:
+            details.append(f"missing pads: {', '.join(missing)}")
+        if unexpected:
+            details.append(f"unexpected pads: {', '.join(unexpected)}")
+        findings.append(
+            Finding(
+                "footprint.pad_map_mismatch",
+                f"{candidate.lib_id} pin/pad mismatch ({'; '.join(details)})",
+                reference=candidate.lib_id,
+                evidence_id=candidate.evidence_id,
+            )
+        )
+    return findings
