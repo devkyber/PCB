@@ -172,6 +172,15 @@ def _validate_pad(node: list[Any]) -> None:
         "chamfered_rect",
     }:
         raise ValueError(f"unsupported pad shape {shape or '<missing>'}")
+    if shape == "trapezoid":
+        rect_delta = sch_io.find_child(node, "rect_delta")
+        if rect_delta is not None:
+            if len(rect_delta) != 3:
+                raise ValueError("trapezoid pad rect_delta is not safely supported")
+            delta_x = _finite_number(rect_delta[1], "trapezoid pad rect_delta")
+            delta_y = _finite_number(rect_delta[2], "trapezoid pad rect_delta")
+            if delta_x != 0.0 or delta_y != 0.0:
+                raise ValueError("trapezoid pad rect_delta is not safely supported")
     at = sch_io.find_child(node, "at")
     size = sch_io.find_child(node, "size")
     if at is None or len(at) < 3 or size is None or len(size) < 3:
@@ -189,6 +198,44 @@ def _validate_pad(node: list[Any]) -> None:
         raise ValueError("pad geometry was not measured by the shared extent helper")
 
 
+def _validate_courtyard_point(point: list[Any]) -> None:
+    if len(point) != 3:
+        raise ValueError("courtyard geometry was not fully measured")
+    _finite_number(point[1], "courtyard coordinate")
+    _finite_number(point[2], "courtyard coordinate")
+
+
+def _validate_courtyard_coordinates(node: list[Any], head: str) -> None:
+    coordinate_heads = {
+        "fp_line": ("start", "end"),
+        "fp_rect": ("start", "end"),
+        "fp_circle": ("center", "end"),
+    }
+    if head in coordinate_heads:
+        for coordinate_head in coordinate_heads[head]:
+            coordinates = sch_io.find_children(node, coordinate_head)
+            if len(coordinates) != 1:
+                raise ValueError(f"{head} courtyard geometry was not fully measured")
+            _validate_courtyard_point(coordinates[0])
+        return
+
+    point_sets = sch_io.find_children(node, "pts")
+    if len(point_sets) != 1:
+        raise ValueError("fp_poly courtyard geometry was not fully measured")
+    points = sch_io.find_children(point_sets[0], "xy")
+    if not points:
+        raise ValueError("fp_poly courtyard geometry was not fully measured")
+    for point in points:
+        _validate_courtyard_point(point)
+
+
+def _validate_raw_polygon_points(block: str) -> None:
+    for point in _layout_helpers._iter_top_level_elements(block, "xy"):
+        probe = f'(fp_poly (pts {point}) (layer "F.CrtYd"))'
+        if _layout_helpers._courtyard_local_extents(probe) is None:
+            raise ValueError("fp_poly courtyard geometry was not fully measured")
+
+
 def _validate_courtyard(tree: list[Any], text: str) -> None:
     supported = {"fp_line", "fp_rect", "fp_circle", "fp_poly"}
     expected_by_head = {head: 0 for head in supported}
@@ -203,16 +250,18 @@ def _validate_courtyard(tree: list[Any], text: str) -> None:
             continue
         if head not in supported:
             raise ValueError(f"unsupported courtyard primitive {head}")
+        _validate_courtyard_coordinates(node, head)
         expected_by_head[head] += 1
         if _layout_helpers._courtyard_local_extents(sch_io.dumps(node)) is None:
             raise ValueError(
                 f"{head} courtyard geometry was not measured by the shared extent helper"
             )
     for head, expected in expected_by_head.items():
-        measured = sum(
-            _layout_helpers._courtyard_local_extents(block) is not None
-            for block in _layout_helpers._iter_top_level_elements(text, head)
-        )
+        measured = 0
+        for block in _layout_helpers._iter_top_level_elements(text, head):
+            if head == "fp_poly":
+                _validate_raw_polygon_points(block)
+            measured += _layout_helpers._courtyard_local_extents(block) is not None
         if measured != expected:
             raise ValueError(
                 f"{head} courtyard geometry was not measured by the shared extent helper"
