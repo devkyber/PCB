@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib
+import math
 import os
 import re
 import sys
@@ -19,6 +20,13 @@ _DOCS = Path(__file__).resolve().parents[3] / "docs"
 if str(_DOCS) not in sys.path:
     sys.path.insert(0, str(_DOCS))
 _layout_helpers = importlib.import_module("pcb_layout_helpers")
+
+_REAL_LOCAL_DESCRIPTIONS = {
+    "real lcsc footprints via easyeda2kicad",
+}
+_PLACEHOLDER_LOCAL_DESCRIPTIONS = {
+    "generated placeholder footprints",
+}
 
 
 def _value(node: list[Any], head: str) -> str | None:
@@ -83,7 +91,29 @@ def _expand_table_uri(
         expanded = expanded.replace(f"${{{variable}}}", replacement)
     if "${" in expanded:
         raise ValueError(f"explicit footprint library {library!r} has malformed URI {uri!r}")
-    return Path(expanded).expanduser().resolve(), ", ".join(source_bits) or "literal URI"
+    path = Path(expanded).expanduser()
+    if not path.is_absolute():
+        path = project.root / path
+    return path.resolve(), ", ".join(source_bits) or "literal URI"
+
+
+def _safe_lib_id_component(value: str, kind: str) -> None:
+    if (
+        value in {".", ".."}
+        or "/" in value
+        or "\\" in value
+        or "\0" in value
+        or Path(value).name != value
+    ):
+        raise ValueError(f"unsafe {kind} name in footprint library id: {value!r}")
+
+
+def _contained_footprint(directory: Path, footprint: str) -> Path:
+    declared = directory.resolve()
+    path = (declared / f"{footprint}.kicad_mod").resolve()
+    if path.parent != declared:
+        raise ValueError(f"footprint {footprint!r} escapes declared library {declared}")
+    return path
 
 
 def _resolve_path(
@@ -93,7 +123,7 @@ def _resolve_path(
     if entry is not None:
         uri, description = entry
         directory, expansion = _expand_table_uri(project, library, uri)
-        path = directory / f"{footprint}.kicad_mod"
+        path = _contained_footprint(directory, footprint)
         if not path.is_file():
             raise ValueError(
                 f"explicit footprint library {library!r} entry does not exist: {path}"
@@ -113,50 +143,114 @@ def _resolve_path(
         )
 
     for root in find_footprint_lib_dirs():
-        path = root / f"{library}.pretty" / f"{footprint}.kicad_mod"
+        path = _contained_footprint(root / f"{library}.pretty", footprint)
         if path.is_file():
-            return path.resolve(), f"configured KiCad library: {root}", ""
+            return path, f"configured KiCad library: {root}", ""
     raise ValueError(f"footprint {library}:{footprint} could not be resolved")
 
 
-def _reject_off_axis_pad(node: list[Any]) -> None:
+def _finite_number(value: Any, detail: str) -> float:
+    try:
+        number = float(str(value))
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"malformed {detail}") from exc
+    if not math.isfinite(number):
+        raise ValueError(f"non-finite {detail}")
+    return number
+
+
+def _validate_pad(node: list[Any]) -> None:
+    shape = str(node[3]) if len(node) > 3 else ""
+    if shape == "custom":
+        raise ValueError("custom pad geometry is not safely supported")
+    if shape not in {
+        "circle",
+        "rect",
+        "oval",
+        "trapezoid",
+        "roundrect",
+        "chamfered_rect",
+    }:
+        raise ValueError(f"unsupported pad shape {shape or '<missing>'}")
     at = sch_io.find_child(node, "at")
-    if at is None or len(at) < 3:
-        return
-    angle = float(at[3]) % 360.0 if len(at) > 3 else 0.0
+    size = sch_io.find_child(node, "size")
+    if at is None or len(at) < 3 or size is None or len(size) < 3:
+        raise ValueError("pad geometry was not measured")
+    _finite_number(at[1], "pad coordinate")
+    _finite_number(at[2], "pad coordinate")
+    width = _finite_number(size[1], "pad coordinate")
+    height = _finite_number(size[2], "pad coordinate")
+    if width <= 0.0 or height <= 0.0:
+        raise ValueError("pad geometry was not measured")
+    angle = _finite_number(at[3], "pad rotation") % 360.0 if len(at) > 3 else 0.0
     if abs(angle % 90.0) >= 0.01:
         raise ValueError(f"off-axis pad rotation {angle:g} is not safely supported")
+    if len(_layout_helpers._pad_local_extents(sch_io.dumps(node))) != 1:
+        raise ValueError("pad geometry was not measured by the shared extent helper")
+
+
+def _validate_courtyard(tree: list[Any], text: str) -> None:
+    supported = {"fp_line", "fp_rect", "fp_circle", "fp_poly"}
+    expected_by_head = {head: 0 for head in supported}
+    for node in tree[1:]:
+        if not isinstance(node, list):
+            continue
+        head = sch_io.head_of(node)
+        if not head or not head.startswith("fp_") or _value(node, "layer") not in {
+            "F.CrtYd",
+            "B.CrtYd",
+        }:
+            continue
+        if head not in supported:
+            raise ValueError(f"unsupported courtyard primitive {head}")
+        expected_by_head[head] += 1
+        if _layout_helpers._courtyard_local_extents(sch_io.dumps(node)) is None:
+            raise ValueError(
+                f"{head} courtyard geometry was not measured by the shared extent helper"
+            )
+    for head, expected in expected_by_head.items():
+        measured = sum(
+            _layout_helpers._courtyard_local_extents(block) is not None
+            for block in _layout_helpers._iter_top_level_elements(text, head)
+        )
+        if measured != expected:
+            raise ValueError(
+                f"{head} courtyard geometry was not measured by the shared extent helper"
+            )
 
 
 def _footprint_data(path: Path) -> tuple[list[Any], tuple[float, float, float, float]]:
     try:
+        text = path.read_text(encoding="utf-8")
         tree = sch_io.parse_file(path)
     except Exception as exc:  # sexpdata exposes several parse exception types
         raise ValueError(f"malformed footprint {path}: {exc}") from exc
     if sch_io.head_of(tree) != "footprint":
         raise ValueError(f"malformed footprint {path}: root is not footprint")
 
-    for pad in sch_io.find_children(tree, "pad"):
-        _reject_off_axis_pad(pad)
+    pads = sch_io.find_children(tree, "pad")
+    for pad in pads:
+        _validate_pad(pad)
+    if len(_layout_helpers._pad_local_extents(text)) != len(pads):
+        raise ValueError("pad geometry was not measured by the shared extent helper")
+    _validate_courtyard(tree, text)
     extents = _layout_helpers.get_extents_from_file(path)
     if extents is None:
         raise ValueError(f"footprint {path} has no courtyard or pad geometry")
+    if not all(math.isfinite(value) for value in extents):
+        raise ValueError(f"footprint {path} produced non-finite extents")
     return tree, extents
 
 
 def _fidelity(project: Project, path: Path, description: str) -> str:
-    provenance = description.casefold()
-    markers = f"{path.name} {description}".casefold()
-    if any(word in markers for word in ("placeholder", "generated", "generic")):
-        return "placeholder"
     try:
         path.relative_to(project.root)
     except ValueError:
         return "standard"
-    if any(
-        word in provenance
-        for word in ("easyeda", "lcsc", "imported", "fetched")
-    ):
+    provenance = " ".join(description.casefold().split())
+    if provenance in _PLACEHOLDER_LOCAL_DESCRIPTIONS:
+        return "placeholder"
+    if provenance in _REAL_LOCAL_DESCRIPTIONS:
         return "real"
     raise ValueError(
         f"project-local footprint {path} has no declared provenance; "
@@ -169,6 +263,8 @@ def resolve_footprint(project: Project, ref: str, lib_id: str) -> FootprintCandi
     if lib_id.count(":") != 1 or not all(lib_id.split(":")):
         raise ValueError(f"{ref}: invalid footprint library id {lib_id!r}")
     library, footprint = lib_id.split(":", 1)
+    _safe_lib_id_component(library, "library")
+    _safe_lib_id_component(footprint, "footprint")
     path, source, description = _resolve_path(project, library, footprint)
     _, extents = _footprint_data(path)
     return FootprintCandidate(

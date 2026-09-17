@@ -106,6 +106,32 @@ def test_explicit_environment_override_resolves_standard_footprint(
     assert "KICAD8_FOOTPRINT_DIR" in result.source
 
 
+def test_literal_relative_uri_resolves_from_project_root(
+    project_copy: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+):
+    library = project_copy / "libs/vendor.pretty"
+    library.mkdir(parents=True)
+    footprint = library / "Part.kicad_mod"
+    footprint.write_text(
+        '(footprint "Part" '
+        '(pad "1" smd rect (at 0 0) (size 1 1) (layers "F.Cu")))',
+        encoding="utf-8",
+    )
+    (project_copy / "fp-lib-table").write_text(
+        '(fp_lib_table (version 7) '
+        '(lib (name "vendor") (type "KiCad") '
+        '(uri "libs/vendor.pretty") (options "") '
+        '(descr "Real LCSC footprints via easyeda2kicad")))',
+        encoding="utf-8",
+    )
+    monkeypatch.chdir(tmp_path)
+
+    result = resolve_footprint(load_project(project_copy), "U1", "vendor:Part")
+
+    assert result.path == footprint
+    assert result.fidelity == "real"
+
+
 def test_broken_explicit_project_entry_does_not_fall_back(
     project_copy: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ):
@@ -130,6 +156,56 @@ def test_broken_explicit_project_entry_does_not_fall_back(
 
     with pytest.raises(ValueError, match="explicit.*Broken.*does not exist"):
         resolve_footprint(load_project(project_copy), "U1", "Broken:Part")
+
+
+def test_footprint_name_cannot_escape_declared_library(project_copy: Path):
+    declared = project_copy / "libs/vendor.pretty"
+    escaped = project_copy / "libs/Other.pretty"
+    declared.mkdir(parents=True)
+    escaped.mkdir(parents=True)
+    (escaped / "Part.kicad_mod").write_text(
+        '(footprint "Part" '
+        '(pad "1" smd rect (at 0 0) (size 1 1) (layers "F.Cu")))',
+        encoding="utf-8",
+    )
+    (project_copy / "fp-lib-table").write_text(
+        '(fp_lib_table (version 7) '
+        '(lib (name "vendor") (type "KiCad") '
+        '(uri "${KIPRJMOD}/libs/vendor.pretty") (options "") '
+        '(descr "Real LCSC footprints via easyeda2kicad")))',
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="unsafe footprint"):
+        resolve_footprint(
+            load_project(project_copy), "U1", "vendor:../Other.pretty/Part"
+        )
+
+
+def test_symlinked_footprint_cannot_escape_declared_library(project_copy: Path):
+    declared = project_copy / "libs/vendor.pretty"
+    declared.mkdir(parents=True)
+    outside = project_copy / "libs/outside.kicad_mod"
+    outside.write_text(
+        '(footprint "Outside" '
+        '(pad "1" smd rect (at 0 0) (size 1 1) (layers "F.Cu")))',
+        encoding="utf-8",
+    )
+    link = declared / "Part.kicad_mod"
+    try:
+        link.symlink_to(outside)
+    except OSError as exc:
+        pytest.skip(f"file symlinks unavailable: {exc}")
+    (project_copy / "fp-lib-table").write_text(
+        '(fp_lib_table (version 7) '
+        '(lib (name "vendor") (type "KiCad") '
+        '(uri "${KIPRJMOD}/libs/vendor.pretty") (options "") '
+        '(descr "Real LCSC footprints via easyeda2kicad")))',
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="escapes declared library"):
+        resolve_footprint(load_project(project_copy), "U1", "vendor:Part")
 
 
 def test_unregistered_project_library_does_not_fall_back_to_same_named_global(
@@ -202,6 +278,73 @@ def test_resolution_rejects_off_axis_pad_geometry(project_copy: Path):
         resolve_footprint(load_project(project_copy), "U1", "vendor:Angled")
 
 
+@pytest.mark.parametrize(
+    ("body", "message"),
+    [
+        (
+            (
+                '(fp_arc (start 0 0) (mid 1 1) (end 2 0) (layer "F.CrtYd")) '
+                '(pad "1" smd rect (at 0 0) (size 1 1) (layers "F.Cu"))'
+            ),
+            "unsupported courtyard primitive fp_arc",
+        ),
+        (
+            (
+                '(fp_rect (start -1 -1) (end 1 1) (layer "F.CrtYd")) '
+                '(pad "1" smd rect (at 0 0) (layers "F.Cu"))'
+            ),
+            "pad geometry was not measured",
+        ),
+        (
+            (
+                '(pad "1" smd custom (at 0 0) (size 1 1) (layers "F.Cu") '
+                '(options (clearance outline) (anchor rect)) '
+                '(primitives (gr_rect (start -2 -2) (end 2 2) (fill yes))))'
+            ),
+            "custom pad geometry",
+        ),
+        (
+            '(pad "1" smd mystery (at 0 0) (size 1 1) (layers "F.Cu"))',
+            "unsupported pad shape mystery",
+        ),
+        (
+            (
+                '(fp_rect (start -1 -1) (end 1 1) (layer "F.CrtYd")) '
+                '(pad "1" smd rect (at nan 0) (size 1 1) (layers "F.Cu"))'
+            ),
+            "non-finite pad coordinate",
+        ),
+        (
+            (
+                '(fp_rect (start -1 -1) (end 1 1) (layer "F.CrtYd")) '
+                '(pad "1" smd rect (at 1e-3 0) (size 1 1) (layers "F.Cu"))'
+            ),
+            "pad geometry was not measured",
+        ),
+    ],
+)
+def test_resolution_rejects_geometry_the_shared_helper_cannot_fully_measure(
+    project_copy: Path, body: str, message: str
+):
+    library = project_copy / "libs/vendor.pretty"
+    library.mkdir(parents=True)
+    (library / "Unsupported.kicad_mod").write_text(
+        f'(footprint "Unsupported" {body})', encoding="utf-8"
+    )
+    (project_copy / "fp-lib-table").write_text(
+        '(fp_lib_table (version 7) '
+        '(lib (name "vendor") (type "KiCad") '
+        '(uri "${KIPRJMOD}/libs/vendor.pretty") (options "") '
+        '(descr "Real LCSC footprints via easyeda2kicad")))',
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match=message):
+        resolve_footprint(
+            load_project(project_copy), "U1", "vendor:Unsupported"
+        )
+
+
 def test_unknown_project_local_lineage_is_not_called_real(project_copy: Path):
     library = project_copy / "libs/unknown.pretty"
     library.mkdir(parents=True)
@@ -220,6 +363,52 @@ def test_unknown_project_local_lineage_is_not_called_real(project_copy: Path):
 
     with pytest.raises(ValueError, match="has no declared provenance"):
         resolve_footprint(load_project(project_copy), "U1", "unknown:Part")
+
+
+def test_negative_lineage_prose_is_not_promoted_to_real(project_copy: Path):
+    library = project_copy / "libs/vendor.pretty"
+    library.mkdir(parents=True)
+    (library / "Part.kicad_mod").write_text(
+        '(footprint "Part" '
+        '(pad "1" smd rect (at 0 0) (size 1 1) (layers "F.Cu")))',
+        encoding="utf-8",
+    )
+    (project_copy / "fp-lib-table").write_text(
+        '(fp_lib_table (version 7) '
+        '(lib (name "vendor") (type "KiCad") '
+        '(uri "${KIPRJMOD}/libs/vendor.pretty") (options "") '
+        '(descr "not imported; unfetched draft")))',
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="has no declared provenance"):
+        resolve_footprint(load_project(project_copy), "U1", "vendor:Part")
+
+
+def test_external_generic_named_footprint_is_standard(
+    project_copy: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+):
+    root = tmp_path / "footprints"
+    library = root / "Device.pretty"
+    library.mkdir(parents=True)
+    footprint = library / "Generic_Device.kicad_mod"
+    footprint.write_text(
+        '(footprint "Generic_Device" '
+        '(pad "1" smd rect (at 0 0) (size 1 1) (layers "F.Cu")))',
+        encoding="utf-8",
+    )
+    (project_copy / "fp-lib-table").write_text(
+        "(fp_lib_table (version 7))", encoding="utf-8"
+    )
+    monkeypatch.setattr(
+        "pcb_copilot.layout.footprints.find_footprint_lib_dirs", lambda: [root]
+    )
+
+    result = resolve_footprint(
+        load_project(project_copy), "U1", "Device:Generic_Device"
+    )
+
+    assert result.fidelity == "standard"
 
 
 def test_hand_authored_library_pointer_does_not_verify_each_footprint(repo_root: Path):
