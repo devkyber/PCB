@@ -3,9 +3,11 @@ from __future__ import annotations
 import json
 import math
 import os
+import subprocess
 from pathlib import Path
 
 import pytest
+from kicad_claude.adapters import pcb_editor, sch_io
 
 
 def center_of(points):
@@ -26,6 +28,72 @@ def test_design_kicad_round_trip(coordinate_helpers, point):
 def test_design_coordinates_use_the_existing_mcp_and_kicad_frames(coordinate_helpers):
     assert coordinate_helpers["design_to_mcp"](12.7, 25.4) == pytest.approx((22.7, 84.6))
     assert coordinate_helpers["design_to_kicad"](12.7, 25.4) == pytest.approx((22.7, 125.4))
+
+
+@pytest.mark.slow
+def test_design_coordinate_lands_at_expected_pcbnew_board_position(
+    tmp_path: Path,
+    repo_root: Path,
+    header_mod: Path,
+    coordinate_helpers,
+    kipython: Path,
+):
+    design_point = (12.7, 25.4)
+    mcp_point = coordinate_helpers["design_to_mcp"](*design_point)
+    pcb = tmp_path / "coordinate-check.kicad_pcb"
+    tree = sch_io.parse_file(
+        repo_root
+        / "tools/kicad-claude-mcp/src/kicad_claude/templates/blank/blank.kicad_pcb"
+    )
+    pcb_editor.set_board_outline(
+        tree, 100.0, 100.0, origin_x_mcp=10.0, origin_y_mcp=10.0
+    )
+    pcb_editor.add_footprint(
+        tree,
+        qualified_lib_id="Fixture:PinHeader_1x04_P2.54mm_Vertical",
+        reference="J1",
+        value="HEADER",
+        x_mm=mcp_point[0],
+        y_mm=mcp_point[1],
+        fp_def_node=pcb_editor.fetch_footprint_def(header_mod),
+    )
+    sch_io.write_file(pcb, tree)
+
+    script = r'''
+import json
+import pcbnew
+import sys
+
+board = pcbnew.LoadBoard(sys.argv[1])
+footprint = board.FindFootprintByReference("J1")
+position = footprint.GetPosition()
+edge = next(item for item in board.GetDrawings() if item.GetLayerName() == "Edge.Cuts")
+start, end = edge.GetStart(), edge.GetEnd()
+print(json.dumps({
+    "position_mm": [pcbnew.ToMM(position.x), pcbnew.ToMM(position.y)],
+    "top_left_mm": [
+        min(pcbnew.ToMM(start.x), pcbnew.ToMM(end.x)),
+        min(pcbnew.ToMM(start.y), pcbnew.ToMM(end.y)),
+    ],
+}))
+'''
+    result = subprocess.run(
+        [str(kipython), "-I", "-c", script, str(pcb)],
+        capture_output=True,
+        check=True,
+        text=True,
+        timeout=30,
+    )
+    observed = json.loads(result.stdout)
+    assert observed["position_mm"] == pytest.approx(
+        coordinate_helpers["design_to_kicad"](*design_point)
+    )
+    assert observed["position_mm"] == pytest.approx((22.7, 125.4))
+    assert observed["top_left_mm"] == pytest.approx((10.0, 100.0))
+    assert (
+        observed["position_mm"][0] - observed["top_left_mm"][0],
+        observed["position_mm"][1] - observed["top_left_mm"][1],
+    ) == pytest.approx(design_point)
 
 
 def test_one_by_n_header_extent_is_measured_from_pin_one(pcb_helpers, header_mod):
@@ -154,6 +222,7 @@ def test_validator_off_axis_pad_extents_enclose_the_rotated_rectangle(validator)
 
 
 @pytest.mark.parametrize("board_name", ["baro-bmp390", "imu-icm42688", "gnss-neom9n", "tms-v3"])
+@pytest.mark.slow
 def test_accepted_board_layout_metrics_match_baseline(
     repo_root: Path, capture_layout_metrics_fn, board_name: str
 ):

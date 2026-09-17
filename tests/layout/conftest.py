@@ -9,7 +9,7 @@ from pathlib import Path
 
 import pytest
 
-from pcb_copilot.toolchain import discover_toolchain
+from pcb_copilot.toolchain import ToolchainDiscoveryError, discover_toolchain
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -65,11 +65,24 @@ def coordinate_helpers(repo_root: Path) -> dict[str, object]:
     return namespace
 
 
+def _kipython_or_skip() -> Path:
+    try:
+        toolchain = discover_toolchain(REPO_ROOT)
+    except ToolchainDiscoveryError as exc:
+        pytest.skip(f"KiCad integration unavailable: {exc}")
+    if toolchain.kipython is None:
+        pytest.skip("KiCad integration unavailable: no Python runtime can import pcbnew")
+    return toolchain.kipython
+
+
+@pytest.fixture(scope="session")
+def kipython() -> Path:
+    return _kipython_or_skip()
+
+
 def capture_layout_metrics(pcb: Path) -> dict[str, object]:
     """Capture a read-only, deterministic summary through KiCad's pcbnew API."""
-    toolchain = discover_toolchain(REPO_ROOT)
-    if toolchain.kipython is None:
-        raise RuntimeError("KiCad Python with pcbnew is required for layout characterization")
+    kipython = _kipython_or_skip()
     script = r'''
 import json
 import pcbnew
@@ -89,7 +102,7 @@ print(json.dumps({
 }, sort_keys=True))
 '''
     result = subprocess.run(
-        [str(toolchain.kipython), "-I", "-c", script, str(pcb.resolve())],
+        [str(kipython), "-I", "-c", script, str(pcb.resolve())],
         capture_output=True,
         check=True,
         text=True,
@@ -117,13 +130,14 @@ print(json.dumps({
         "module_socket_pinouts": VALIDATOR.check_module_socket_pinouts(text),
         "symbol_footprint_parity": VALIDATOR.check_symbol_footprint_parity(str(pcb)),
         "connector_class": VALIDATOR.check_connector_class(str(pcb)),
-        "drc_report": VALIDATOR.check_drc_freshness(str(pcb)),
     }
     metrics["validator_statuses"] = {name: result[0] for name, result in checks.items()}
 
     reports = sorted(pcb.parent.glob("*drc*.json"))
     if reports:
-        report = reports[-1]
+        # Match validate_pcb's report choice, while keeping its mtime-sensitive
+        # freshness verdict out of this checkout-stable historical snapshot.
+        report = max(reports, key=lambda path: path.stat().st_mtime)
         document = json.loads(report.read_text(encoding="utf-8"))
         violations = document.get("violations", [])
         unconnected = document.get("unconnected_items", [])
