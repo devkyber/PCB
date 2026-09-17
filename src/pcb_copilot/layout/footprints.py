@@ -205,7 +205,7 @@ def _validate_courtyard_point(point: list[Any]) -> None:
     _finite_number(point[2], "courtyard coordinate")
 
 
-def _validate_courtyard_coordinates(node: list[Any], head: str) -> None:
+def _validate_courtyard_coordinates(node: list[Any], head: str) -> int:
     coordinate_heads = {
         "fp_line": ("start", "end"),
         "fp_rect": ("start", "end"),
@@ -217,7 +217,7 @@ def _validate_courtyard_coordinates(node: list[Any], head: str) -> None:
             if len(coordinates) != 1:
                 raise ValueError(f"{head} courtyard geometry was not fully measured")
             _validate_courtyard_point(coordinates[0])
-        return
+        return 0
 
     point_sets = sch_io.find_children(node, "pts")
     if len(point_sets) != 1:
@@ -227,10 +227,14 @@ def _validate_courtyard_coordinates(node: list[Any], head: str) -> None:
         raise ValueError("fp_poly courtyard geometry was not fully measured")
     for point in points:
         _validate_courtyard_point(point)
+    return len(points)
 
 
-def _validate_raw_polygon_points(block: str) -> None:
-    for point in _layout_helpers._iter_top_level_elements(block, "xy"):
+def _validate_raw_polygon_points(block: str, expected: int) -> None:
+    points = list(_layout_helpers._iter_top_level_elements(block, "xy"))
+    if len(points) != expected:
+        raise ValueError("fp_poly courtyard geometry was not fully measured")
+    for point in points:
         probe = f'(fp_poly (pts {point}) (layer "F.CrtYd"))'
         if _layout_helpers._courtyard_local_extents(probe) is None:
             raise ValueError("fp_poly courtyard geometry was not fully measured")
@@ -239,6 +243,7 @@ def _validate_raw_polygon_points(block: str) -> None:
 def _validate_courtyard(tree: list[Any], text: str) -> None:
     supported = {"fp_line", "fp_rect", "fp_circle", "fp_poly"}
     expected_by_head = {head: 0 for head in supported}
+    polygon_point_counts: list[int] = []
     for node in tree[1:]:
         if not isinstance(node, list):
             continue
@@ -250,7 +255,9 @@ def _validate_courtyard(tree: list[Any], text: str) -> None:
             continue
         if head not in supported:
             raise ValueError(f"unsupported courtyard primitive {head}")
-        _validate_courtyard_coordinates(node, head)
+        point_count = _validate_courtyard_coordinates(node, head)
+        if head == "fp_poly":
+            polygon_point_counts.append(point_count)
         expected_by_head[head] += 1
         if _layout_helpers._courtyard_local_extents(sch_io.dumps(node)) is None:
             raise ValueError(
@@ -258,9 +265,15 @@ def _validate_courtyard(tree: list[Any], text: str) -> None:
             )
     for head, expected in expected_by_head.items():
         measured = 0
-        for block in _layout_helpers._iter_top_level_elements(text, head):
+        for index, block in enumerate(
+            _layout_helpers._iter_top_level_elements(text, head)
+        ):
             if head == "fp_poly":
-                _validate_raw_polygon_points(block)
+                if index >= len(polygon_point_counts):
+                    raise ValueError(
+                        "fp_poly courtyard geometry was not fully measured"
+                    )
+                _validate_raw_polygon_points(block, polygon_point_counts[index])
             measured += _layout_helpers._courtyard_local_extents(block) is not None
         if measured != expected:
             raise ValueError(

@@ -337,6 +337,13 @@ def test_resolution_rejects_off_axis_pad_geometry(project_copy: Path):
         ),
         (
             (
+                '(fp_poly (pts (xy 0 0) ( xy 1e-3 1)) (layer "F.CrtYd")) '
+                '(pad "1" smd rect (at 0 0) (size 1 1) (layers "F.Cu"))'
+            ),
+            "fp_poly courtyard geometry was not fully measured",
+        ),
+        (
+            (
                 '(pad "1" smd trapezoid (at 0 0) (size 4 2) '
                 '(rect_delta 1 0) (layers "F.Cu"))'
             ),
