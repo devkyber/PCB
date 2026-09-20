@@ -350,6 +350,50 @@ def test_dsn_connected_pad_is_not_made_unconnectable(tmp_path):
     assert path.read_text() == DSN
 
 
+def test_dsn_typed_clearance_cannot_bypass_netless_pad_envelope(tmp_path):
+    path = tmp_path / "typed.dsn"
+    path.write_text(
+        DSN.replace(
+            "(clearance 127)",
+            "(clearance 200) (clearance 50 (type smd_smd))",
+        )
+    )
+    # 150 um is below the untyped 200 um, but above the SMD rule's 50 um.
+    local = pad(clearance_nm=150000, layers=["F.Cu"])
+    assert dsn_keepouts.inject(path, [local]) == 3
+    assert "(circle F.Cu 5300 0 0)" in path.read_text()
+    first = path.read_bytes()
+    assert dsn_keepouts.inject(path, [local]) == 0
+    assert path.read_bytes() == first
+
+
+def test_dsn_typed_clearance_cannot_bypass_connected_pad_rejection(tmp_path):
+    path = tmp_path / "typed.dsn"
+    path.write_text(
+        DSN.replace(
+            "(clearance 127)",
+            "(clearance 200) (clearance 50 (type smd_smd))",
+        )
+    )
+    before = path.read_bytes()
+    with pytest.raises(ValueError, match="connected"):
+        # The first pad would generate envelopes; rejecting the second must
+        # leave the whole file unchanged, not publish partial protection.
+        dsn_keepouts.inject(
+            path,
+            [
+                pad(),
+                pad(
+                    ref="U1",
+                    clearance_nm=150000,
+                    layers=["F.Cu"],
+                    net="GND",
+                ),
+            ],
+        )
+    assert path.read_bytes() == before
+
+
 @pytest.mark.parametrize("raw", ["garbage", "{}"])
 def test_dsn_inspection_failures_are_not_empty_success(raw):
     with pytest.raises(ValueError, match="inspect"):

@@ -83,7 +83,9 @@ def inject(dsn_path: Path, pads: list) -> int:
     Only KiCad's micrometre DSN dialect is supported. Rectangular/custom pad
     bounds use the diagonal so rotated corners cannot escape the envelope.
     Managed IDs include geometry and are idempotent per pad/layer/kind; existing
-    unrelated keepouts do not suppress required envelopes.
+    unrelated keepouts do not suppress required envelopes. Typed clearance
+    applicability is not inferred: every declared numeric clearance is used
+    conservatively when deciding whether a local override needs protection.
     """
     if not pads:
         return 0
@@ -102,7 +104,12 @@ def inject(dsn_path: Path, pads: list) -> int:
     match = _RULE_RE.search(structure)
     if match is None:
         raise ValueError("Cannot inspect DSN: global clearance rule missing")
-    clearance = float(match.group(2))
+    # A typed rule (e.g. smd_smd) or a net-class rule can be weaker than the
+    # untyped structure rule. Use the lowest declared clearance as a lower
+    # bound for every pad instead of claiming to resolve rule applicability.
+    clearance = min(
+        float(value) for value in re.findall(r"\(clearance\s+([\d.]+)(?=\s|\))", text)
+    )
     layers = set(re.findall(r'\(layer\s+"?([A-Za-z0-9_.]+)"?\s+\(type\s+', structure))
     lines = []
     for pad in pads:
