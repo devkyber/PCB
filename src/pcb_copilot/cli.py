@@ -34,12 +34,21 @@ def main(
     draft_parser = subparsers.add_parser('draft-schematic', help='create a schematic draft and review artifacts')
     draft_parser.add_argument('project_path', type=Path)
     draft_parser.add_argument('--intent', required=True, type=Path)
+    layout_parser = subparsers.add_parser('draft-layout', help='create a layout proposal and previews')
+    layout_parser.add_argument('project_path', type=Path)
+    layout_parser.add_argument('--intent', required=True, type=Path)
+    layout_parser.add_argument('--route', choices=['human', 'critical_only', 'candidate_all'])
+    approval_parser = subparsers.add_parser('approve-layout-preview', help='record the human operator preview attestation')
+    approval_parser.add_argument('project_path', type=Path)
+    approval_parser.add_argument('draft_id')
+    approval_parser.add_argument('--reviewer', required=True)
+    approval_parser.add_argument('--confirm-preview', action='store_true', required=True)
     review_parser = subparsers.add_parser(
-        'review-draft', help='refresh review artifacts for an edited schematic draft',
+        'review-draft', help='refresh review artifacts for edited schematic or layout CAD',
     )
     review_parser.add_argument('project_path', type=Path)
     review_parser.add_argument('draft_id')
-    accept_parser = subparsers.add_parser('accept', help='accept a reviewed schematic draft')
+    accept_parser = subparsers.add_parser('accept', help='accept a reviewed schematic or layout draft')
     accept_parser.add_argument('project_path', type=Path)
     accept_parser.add_argument('draft_id')
     research_parser = subparsers.add_parser(
@@ -71,18 +80,32 @@ def main(
             parser.error(str(exc))
         print(render_status(collect_status(project)))
     elif args.command == 'accept':
-        from pcb_copilot.accept import accept_schematic, load_draft
+        from pcb_copilot.accept import accept_layout, accept_schematic, load_draft
+        from pcb_copilot.models import DraftKind
 
         try:
             project = load_project(args.project_path)
             draft = load_draft(project, args.draft_id)
-            print(f'Accepting {draft.root} into {project.schematic_path}; '
+            target = project.pcb_path if draft.kind == DraftKind.LAYOUT else project.schematic_path
+            print(f'Accepting {draft.root} into {target}; '
                   f'base schematic {draft.base_schematic_hash}; base PCB {draft.base_pcb_hash}')
-            result = accept_schematic(project, draft)
+            result = (accept_layout if draft.kind == DraftKind.LAYOUT else accept_schematic)(project, draft)
         except (ValueError, OSError, RuntimeError) as exc:
             parser.error(str(exc))
         print(f'Accepted {result.accepted_path} ({result.accepted_hash}); '
               f'{result.lifecycle.value}')
+    elif args.command in {'draft-layout', 'approve-layout-preview'}:
+        from pcb_copilot.layout.commands import approve_layout_preview, draft_layout
+        from pcb_copilot.toolchain import ToolchainDiscoveryError
+
+        try:
+            project = load_project(args.project_path)
+            result = (draft_layout(project, args.intent, args.route) if args.command == 'draft-layout'
+                      else approve_layout_preview(project, args.draft_id, args.reviewer, confirm_preview=args.confirm_preview))
+        except (ValueError, OSError, RuntimeError, ToolchainDiscoveryError) as exc:
+            parser.error(str(exc))
+        print(json.dumps(result, indent=2))
+        return result.get('exit_code', 0)
     elif args.command == 'draft-schematic':
         from pcb_copilot.schematic.commands import draft_schematic
         from pcb_copilot.toolchain import ToolchainDiscoveryError
@@ -94,11 +117,16 @@ def main(
         print(json.dumps(result, indent=2))
         return result['exit_code']
     elif args.command == 'review-draft':
+        from pcb_copilot.accept import load_draft
+        from pcb_copilot.layout.commands import review_layout_draft
+        from pcb_copilot.models import DraftKind
         from pcb_copilot.schematic.commands import review_draft
         from pcb_copilot.toolchain import ToolchainDiscoveryError
 
         try:
-            result = review_draft(load_project(args.project_path), args.draft_id)
+            project = load_project(args.project_path)
+            draft = load_draft(project, args.draft_id)
+            result = (review_layout_draft if draft.kind == DraftKind.LAYOUT else review_draft)(project, args.draft_id)
         except (ValueError, OSError, RuntimeError, ToolchainDiscoveryError) as exc:
             parser.error(str(exc))
         print(json.dumps(result, indent=2))

@@ -54,6 +54,9 @@ def _project_root(record: DraftRecord) -> Path:
 
 
 def _copy_inputs(project_root: Path, destination: Path, project_name: str) -> None:
+    from pcb_copilot.project import load_project
+    from pcb_copilot.state import accepted_file_hashes
+
     names = {
         "project.yaml",
         "netmap.json",
@@ -72,6 +75,14 @@ def _copy_inputs(project_root: Path, destination: Path, project_name: str) -> No
         source = project_root / name
         if source.is_dir():
             shutil.copytree(source, destination / name)
+    # Manifest paths and every hierarchical schematic dependency belong to the
+    # same byte snapshot as the metadata, even when CAD is in subdirectories.
+    for name in accepted_file_hashes(load_project(project_root)):
+        source = project_root / name
+        if source.is_file():
+            target = destination / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, target)
 
 
 def _write_metadata(record: DraftRecord, path: Path) -> None:

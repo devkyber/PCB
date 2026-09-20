@@ -136,6 +136,40 @@ def accept_schematic(project: Project, draft: DraftRecord) -> AcceptanceResult:
             raise ValueError(f'new child would overwrite an unrelated file: {relative}')
     changes[project.netmap_path] = (json.dumps(netmap, indent=2) + '\n').encode()
     changes[project.root / 'SCHEMATIC_OWNER'] = b'human\n'
+    _accept_changes(project, draft, changes, check_base, evidence_findings)
+    return AcceptanceResult(DraftKind.SCHEMATIC, project.schematic_path,
+                            canonical_design_hash(project.schematic_path),
+                            project.netmap_path, Lifecycle.HUMAN_REVIEWED)
+
+
+def accept_layout(project: Project, draft: DraftRecord) -> AcceptanceResult:
+    from pcb_copilot.layout.commands import checked_layout_review
+
+    def check_base():
+        report = checked_layout_review(project, draft)
+        try:
+            approval = json.loads((draft.root / 'preview-approval.json').read_text(encoding='utf-8'))
+        except FileNotFoundError as exc:
+            raise ValueError('recorded human preview approval required; run approve-layout-preview') from exc
+        if (approval.get('confirmed_preview') is not True or not approval.get('reviewer')
+                or approval.get('draft_id') != draft.id
+                or approval.get('review_sha256') != file_digest(draft.root / 'review.json')
+                or approval.get('artifact_hashes') != report['artifact_hashes']):
+            raise ValueError('human preview approval is stale; review and approve current artifacts')
+
+    check_base()
+    source = draft.root / project.pcb_path.relative_to(project.root)
+    changes = {project.pcb_path: source.read_bytes(),
+               project.pcb_path.with_suffix('.kicad_pro'): source.with_suffix('.kicad_pro').read_bytes()}
+    if source.with_suffix('.kicad_dru').exists():
+        changes[project.pcb_path.with_suffix('.kicad_dru')] = source.with_suffix('.kicad_dru').read_bytes()
+    _accept_changes(project, draft, changes, check_base, check_evidence(project, ()))
+    return AcceptanceResult(DraftKind.LAYOUT, project.pcb_path, file_digest(project.pcb_path),
+                            project.netmap_path, Lifecycle.HUMAN_REVIEWED)
+
+
+def _accept_changes(project, draft, changes, check_base, evidence_findings):
+    """Shared backup/journal/rollback transaction for explicitly accepted CAD."""
     state_path = project.root / '.pcb-copilot/review.json'
     backup = project.root / '.pcb-copilot/acceptances' / draft.id
     lock = project.root / '.pcb-copilot/accept.lock'
@@ -188,6 +222,3 @@ def accept_schematic(project: Project, draft: DraftRecord) -> AcceptanceResult:
     finally:
         if recoverable:
             lock.unlink(missing_ok=True)
-    return AcceptanceResult(DraftKind.SCHEMATIC, project.schematic_path,
-                            canonical_design_hash(project.schematic_path),
-                            project.netmap_path, Lifecycle.HUMAN_REVIEWED)

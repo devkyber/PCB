@@ -25,9 +25,10 @@ The foundation, evidence archive and schematic-draft commands are implemented.
 All four boards now have circuit-preserving schematic intents; TMS V3 renders
 as an overview plus six functional sheets. Drafts include PDF previews, ERC,
 connectivity checks and explicit stale-safe acceptance. None of these new
-board drafts has been accepted. Layout foundations now include footprint
-resolution and a reviewable intent/constraint schema, but there is no
-`draft-layout` CLI yet. Reference research is recorded per board, with missing
+board drafts has been accepted. `draft-layout` now prepares placement, constraints,
+optional routing candidates, SVG/STEP previews and fresh DRC. Layout acceptance
+requires current schematic/PCB/settings snapshots and explicit human preview
+approval. Reference research is recorded per board, with missing
 sources and unreviewed copper views stated explicitly.
 
 You can edit a generated draft in KiCad and refresh its checks with

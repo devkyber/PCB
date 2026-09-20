@@ -47,23 +47,12 @@ status command: it temporarily replaces BMP390 evidence files and touches a
 board's modification time. Run it in a disposable repository copy so an
 interrupted test cannot leave the working archive modified.
 
-The full compatibility pipeline is mutating.
-
-```powershell
-uv run python docs/pipeline.py projects/<board>
-```
-
-It runs `env → research → sch → erc → pcb → route → gates → fab`. On a legacy
-project it can regenerate the accepted schematic and PCB, route, refill and
-ground-bond the PCB, export fabrication files when all gates pass, and rewrite
-pipeline, check, and human-work reports. `SCHEMATIC_OWNER` defaults to
-`generated` when the marker is absent; a changed generated schematic stops at
-the ownership tripwire unless `--regenerate` is supplied to discard it
-deliberately. Setting the owner to `human` prevents schematic regeneration and
-makes the pipeline derive `netmap.json` from that schematic, but it does not
-protect the PCB from its legacy generator or routing stages. Do not run the
-full command on an accepted board unless those mutations are intended and
-reviewed.
+The full legacy pipeline remains mutating and is not the supported layout
+workflow. Its schematic/PCB generator stages can overwrite accepted CAD before
+its route stage reaches the draft-only routing boundary. The routing wrappers
+now reject accepted PCB paths, while `docs/pipeline.py` still passes its accepted
+project PCB to them. Consequently the full legacy pipeline is not a working
+end-to-end replacement for `draft-layout`; use the separate draft commands below.
 
 ## 2. Define the board before choosing parts
 
@@ -256,23 +245,48 @@ connectors, and remaining passives. Evaluate placement before blaming an
 autorouter: moving a major module can improve completion more than extra route
 passes.
 
-The separate layout-draft interface is a future workflow concept. No
-`pcb-copilot draft-layout` command exists today. Until it is implemented and
-verified, use the compatibility pipeline and board-specific legacy generators
-without treating them as the new draft/accept interface.
+Create a layout proposal from a reviewed layout intent:
 
-The future interface is intended to default to human routing, with
-critical-only and candidate-all modes producing candidates rather than
-automatically accepted boards. Regardless of entry point, inspect the board in
+```powershell
+uv run pcb-copilot draft-layout projects/baro-bmp390 --intent projects/baro-bmp390/layout-intent.yaml --route human
+```
+
+The command publishes an isolated PCB, companion project settings, complete
+schematic snapshot, placement/constraint/route reports, fresh DRC, SVG plot and
+STEP when available. Accepted CAD is untouched. The intent file must already
+exist; board-specific layout intent preparation and actual human review remain
+separate checkpoints.
+
+The routing policy comes from intent (`human` by default). Human routing starts
+no router; its route metrics are `unknown` until measured. `critical_only`
+currently reports unsupported selective routing without running it.
+`candidate_all` runs optional attempts and copies the selected measured attempt
+and its companion settings into the review board, retaining attempts for
+comparison. Missing Java/Freerouting and failed attempts remain explicit limits.
+Selection does not approve a board.
+
+Edit the draft PCB in KiCad and run `review-draft PROJECT_PATH DRAFT_ID` to
+re-measure current geometry and refresh exports without replacing positions
+or copper. It preserves the original accepted-base snapshot and invalidates any
+previous preview approval. Historical placement search failures are separated
+from current measurements; unresolved identity/provenance constraints remain
+visible. Changes to intent, companion rules or authored zone boundaries require
+a new constraint proposal; do not edit generated hashes to bypass this check.
+
+Machine failures are separate from engineering warnings. Unconnected airwires
+are review findings at placement acceptance; physical DRC errors, parity failures,
+placeholders, missing required previews and stale inputs block acceptance.
+Routing must be completed before release. STEP exporter logs are retained in
+`export-report.json`; nonzero export with a usable file is partial output.
+Even a successful STEP export does not prove complete component models or fit.
+Inspect the board in
 KiCad and 3D view. Check connector access, mounting, return paths, decoupling,
 crystal/RF geometry, high-current paths, copper pours, silkscreen, assembly,
 and mechanical fit.
 
-Legacy routing entry points must use the shared routing pipeline: DSN export,
-route, SES import, zone fill, ground bonding, and final DRC. The MCP
-`autoroute_pcb` route and `docs/route_and_fill.py` provide that behavior. A raw
-Freerouting JAR invocation bypasses the fill and bonding steps, so its output
-is not a valid finished board.
+The legacy `docs/route_and_fill.py` and `docs/route_best_of.py` wrappers accept
+only published layout-draft PCB paths. They use the shared candidate pipeline;
+zero DRC/unconnected counts still require engineering and human preview review.
 
 ## 6. Review and accept
 
@@ -284,10 +298,24 @@ The final command surface separates three categories:
 
 Acceptance is explicit and stale-safe. A draft records the schematic and PCB
 hashes it started from; acceptance refuses it if either accepted design changed
-in the meantime. Acceptance updates only the requested artifact and derived
-connectivity record.
+in the meantime. Layout snapshots also cover companion project settings and
+custom rules. Schematic acceptance updates schematic CAD and derived
+connectivity; layout acceptance updates PCB CAD and reviewed companion settings.
 
-After inspecting the preview, explicitly accept its ID:
+For a layout draft, the human operator first inspects SVG, KiCad/3D and reports,
+then records their own preview attestation:
+
+```powershell
+uv run pcb-copilot approve-layout-preview projects/baro-bmp390 DRAFT_ID --reviewer "Your name" --confirm-preview
+```
+
+This attestation is bound to current artifacts and review bytes. It is a
+separate action from machine checks and is never issued automatically by an
+assistant. Refreshing the review or changing any reviewed input invalidates it.
+Acceptance retains recoverable backups and records the accepted PCB SHA256.
+It does not establish release, manufacturing approval or routing completion.
+
+After inspecting the preview (and recording approval for layouts), accept its ID:
 
 ```powershell
 uv run pcb-copilot accept projects/baro-bmp390 DRAFT_ID

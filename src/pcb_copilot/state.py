@@ -39,7 +39,9 @@ def accepted_file_hashes(project: Project) -> dict[str, str | None]:
 
     files = list(schematic_files(project.schematic_path))
     files.extend([project.pcb_path, project.netmap_path, project.manifest_path,
-                  project.root / 'SCHEMATIC_OWNER'])
+                  project.root / 'SCHEMATIC_OWNER',
+                  project.pcb_path.with_suffix('.kicad_pro'),
+                  project.pcb_path.with_suffix('.kicad_dru')])
     return {p.relative_to(project.root).as_posix(): file_digest(p) for p in files}
 
 
