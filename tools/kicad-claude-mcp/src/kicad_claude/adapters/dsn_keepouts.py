@@ -1,144 +1,141 @@
-"""Teach Freerouting about pad clearances that KiCad's DSN export drops.
+"""Conservative DSN clearance envelopes for netless pads such as fiducials.
 
-The defect
-----------
-`pcbnew.ExportSpecctraDSN` writes ONE global clearance rule:
+KiCad's exporter can omit pad/footprint-local clearances. Collect the native
+copper bounding geometry and insert circumscribed envelopes on actual pad
+copper layers. All-net solid keepouts cannot represent a connected pad's
+same-net exception: reject those rather than blocking its intended connection.
 
-    (rule (width 254) (clearance 200) (clearance 50 (type smd_smd)))
-
-and nothing else. A pad that overrides that clearance locally is exported as
-a plain pad, so the router happily lays copper 0.2mm from it. KiCad's DRC
-then applies the pad's REAL local clearance afterwards and reports a
-violation the router was never given a chance to avoid.
-
-The case that found it: KiCad's own stock `Fiducial_1mm_Mask3mm` footprint
-carries `(clearance 1.1)` — a fiducial needs a copper-free ring so the
-pick-and-place camera can resolve it. On imu-icm42688 (24 x 19 mm, with a
-6-pin header across the middle) Freerouting routed SPI_SDO straight through
-FID3's keepout, producing 7 DRC errors: 3 clearance, 1 hole_clearance and 3
-solder_mask_bridge, all naming FID3.
-
-Chasing it as a placement problem is what it looks like from the outside and
-is a trap — moving FID3 to three different corners produced 6, 6 and 1
-errors, because the router simply followed it. The board was not too full;
-the router was working from a specification that omitted the constraint.
-
-This affects every board with a fiducial, and any footprint carrying a local
-clearance override — thermal pads and high-voltage pads most often.
-
-The fix
--------
-After exporting the DSN and before routing, inject an explicit Specctra
-`keepout` circle for every pad whose local clearance exceeds the global rule.
-The circle's diameter is the pad's largest dimension plus twice its local
-clearance, so the router treats the whole forbidden ring as solid.
-
-This does NOT relax any DRC rule; it tells the router the rule that already
-existed. A board that passed before still passes.
-
-Measured limit
---------------
-Freerouting honours these for WIRING but not for VIAS. On imu-icm42688 the
-injection removed every track violation (3 of 7 errors) and the router then
-placed GND vias inside the same ring anyway; `via_keepout` and `wire_keepout`
-alongside the plain `keepout` made no difference to that. So a board with a
-tight fiducial can still need two vias nudged by hand. Do not read a clean
-track result as proof the whole ring is respected.
+Freerouting has been observed to ignore these envelopes for vias, even with
+via_keepout syntax. Exported syntax is not proof of enforcement; native DRC and
+human review remain necessary. This adapter is shared with route_pipeline.
 """
+
 from __future__ import annotations
 
+import hashlib
 import json
+import math
 import re
 from pathlib import Path
 
-# Emitted by KiCad's exporter; matched to find where to insert and to read
-# the global clearance the local ones are compared against.
-_RULE_RE = re.compile(r'\(rule\s*\n?\s*\(width\s+([\d.]+)\)\s*\n?\s*'
-                      r'\(clearance\s+([\d.]+)\)')
+_RULE_RE = re.compile(
+    r"(?m)^    \(rule\s*\(width\s+([\d.]+)\)\s*\(clearance\s+([\d.]+)\)"
+)
 
 _COLLECT_SCRIPT = r"""
 import sys, json, pcbnew
 board = pcbnew.LoadBoard(sys.argv[1])
+if board is None:
+    raise ValueError('Cannot load board')
 out = []
 for fp in board.GetFootprints():
     for pad in fp.Pads():
-        c = pad.GetLocalClearance()
-        # KiCad returns None (or an unset optional) when the pad simply
-        # inherits the board rule — that is the common case, not a defect.
-        try:
-            c = 0 if c is None else int(c)
-        except Exception:
-            c = 0
+        c = max(int(pad.GetLocalClearance() or 0), int(fp.GetLocalClearance() or 0))
         if c <= 0 or not pad.IsOnCopperLayer():
             continue
-        pos = pad.GetPosition()
-        size = pad.GetSize()
-        out.append({
-            "ref": fp.GetReference(),
-            "pad": str(pad.GetPadName()),
-            "x_nm": int(pos.x), "y_nm": int(pos.y),
-            "w_nm": int(size.x), "h_nm": int(size.y),
-            "clearance_nm": c,
-        })
+        box = pad.GetBoundingBox()
+        layers = [board.GetLayerName(i) for i in range(pcbnew.PCB_LAYER_ID_COUNT)
+                  if pcbnew.IsCopperLayer(i) and board.IsLayerEnabled(i) and pad.IsOnLayer(i)]
+        out.append(dict(ref=fp.GetReference(), pad=pad.GetNumber(),
+            x_nm=(box.GetLeft()+box.GetRight())/2, y_nm=(box.GetTop()+box.GetBottom())/2,
+            w_nm=box.GetWidth(), h_nm=box.GetHeight(), clearance_nm=c,
+            layers=layers, net=pad.GetNetname(),
+            shape='circle' if pad.GetShape()==pcbnew.PAD_SHAPE_CIRCLE else 'bounds'))
 print(json.dumps(out))
 """
 
 
 def collect(pcb_path: Path, runner) -> list:
-    """Pads carrying a local clearance override. `runner` is the module's
-    `_run_pcbnew_script`, passed in so this file stays import-cycle free."""
+    """Inspect native local rules. A failed inspection is never an empty success."""
     try:
         raw = runner(_COLLECT_SCRIPT, str(pcb_path))
-    except Exception:                                        # noqa: BLE001
-        # Never let this optional hardening break a route that used to work.
-        return []
-    try:
-        return json.loads(raw.strip().splitlines()[-1])
-    except Exception:                                        # noqa: BLE001
-        return []
+        pads = json.loads(raw.strip().splitlines()[-1])
+        if not isinstance(pads, list):
+            raise TypeError("collector did not return a pad list")
+        for pad in pads:
+            _validate_pad(pad)
+        return pads
+    except Exception as exc:
+        raise ValueError(f"Cannot inspect DSN local-clearance pads: {exc}") from exc
+
+
+def _validate_pad(pad):
+    for key in ("x_nm", "y_nm", "w_nm", "h_nm", "clearance_nm"):
+        value = pad[key]
+        if not isinstance(value, (int, float)) or not math.isfinite(value):
+            raise ValueError(f"invalid pad geometry: {key}")
+        if key in ("w_nm", "h_nm", "clearance_nm") and value <= 0:
+            raise ValueError(f"nonpositive pad geometry: {key}")
+    for key in ("ref", "pad", "net", "shape"):
+        if not isinstance(pad[key], str):
+            raise TypeError(f"invalid pad field: {key}")
+    if (
+        not isinstance(pad["layers"], list)
+        or not pad["layers"]
+        or not all(isinstance(x, str) for x in pad["layers"])
+    ):
+        raise ValueError("missing actual pad copper layers")
 
 
 def inject(dsn_path: Path, pads: list) -> int:
-    """Add a keepout circle per over-clearance pad. Returns the count added.
+    """Inject conservative netless-pad envelopes; errors leave DSN unchanged.
 
-    DSN coordinates here are micrometres with Y negated, matching what
-    KiCad's own exporter writes (`(place FID1 4500 -198000 ...)`), so the
-    conversion is nm -> um with the sign flip.
+    Only KiCad's micrometre DSN dialect is supported. Rectangular/custom pad
+    bounds use the diagonal so rotated corners cannot escape the envelope.
+    Managed IDs include geometry and are idempotent per pad/layer/kind; existing
+    unrelated keepouts do not suppress required envelopes.
     """
     if not pads:
         return 0
-    dsn_path = Path(dsn_path)
-    text = dsn_path.read_text()
-    if '(keepout' in text:            # already injected; do not double up
-        return 0
-    m = _RULE_RE.search(text)
-    if not m:
-        return 0
-    global_clearance_um = float(m.group(2))
-
+    path = Path(dsn_path)
+    text = path.read_text(encoding="utf-8")
+    if not re.search(r"\(resolution\s+um\s+[\d.]+\)", text):
+        raise ValueError(
+            "Cannot inspect DSN: unsupported or missing micrometre resolution"
+        )
+    try:
+        start = text.index("\n  (structure")
+        end = text.index("\n  )", start)
+    except ValueError as exc:
+        raise ValueError("Cannot inspect DSN: unsupported structure layout") from exc
+    structure = text[start:end]
+    match = _RULE_RE.search(structure)
+    if match is None:
+        raise ValueError("Cannot inspect DSN: global clearance rule missing")
+    clearance = float(match.group(2))
+    layers = set(re.findall(r'\(layer\s+"?([A-Za-z0-9_.]+)"?\s+\(type\s+', structure))
     lines = []
-    for p in pads:
-        clear_um = p['clearance_nm'] / 1000.0
-        if clear_um <= global_clearance_um:
+    for pad in pads:
+        _validate_pad(pad)
+        if pad["clearance_nm"] / 1000 <= clearance:
             continue
-        dia_um = max(p['w_nm'], p['h_nm']) / 1000.0 + 2 * clear_um
-        x_um = p['x_nm'] / 1000.0
-        y_um = -p['y_nm'] / 1000.0
-        for layer in ('F.Cu', 'B.Cu'):
-            # All three kinds, deliberately. Freerouting honours `keepout`
-            # for wiring but kept dropping GND stitching vias inside the
-            # ring until `via_keepout` was named explicitly — a plain
-            # `keepout` was not enough to keep a VIA out of it.
-            for kind in ('keepout', 'via_keepout', 'wire_keepout'):
-                lines.append(f'    ({kind} "{p["ref"]}.{p["pad"]}" '
-                             f'(circle {layer} {dia_um:.0f} {x_um:.0f} {y_um:.0f}))')
-    if not lines:
-        return 0
-
-    # Insert just before the closing paren of the (structure ...) block, which
-    # is the line following the global rule KiCad writes last in it.
-    end = text.index(')', m.end())            # close of (clearance ...)
-    end = text.index('\n  )', end)            # close of (structure ...)
-    text = text[:end] + '\n' + '\n'.join(lines) + text[end:]
-    dsn_path.write_text(text)
+        if pad["net"]:
+            raise ValueError(
+                f"Cannot represent connected pad {pad['ref']}.{pad['pad']} local clearance as an all-net keepout"
+            )
+        if not set(pad["layers"]) <= layers:
+            raise ValueError(
+                "Cannot inspect DSN: pad copper layer missing from structure"
+            )
+        diameter = (
+            max(pad["w_nm"], pad["h_nm"])
+            if pad["shape"] == "circle"
+            else math.hypot(pad["w_nm"], pad["h_nm"])
+        )
+        diameter = math.ceil((diameter + 2 * pad["clearance_nm"]) / 1000)
+        x, y = pad["x_nm"] / 1000, -pad["y_nm"] / 1000
+        digest = hashlib.sha256(json.dumps(pad, sort_keys=True).encode()).hexdigest()[
+            :16
+        ]
+        for layer in pad["layers"]:
+            for kind in ("keepout", "via_keepout", "wire_keepout"):
+                label = f"pcb-copilot-{digest}-{layer}-{kind}"
+                if f'({kind} "{label}"' not in text:
+                    lines.append(
+                        f'    ({kind} "{label}" (circle {layer} {diameter} {x:.12g} {y:.12g}))'
+                    )
+    if lines:
+        path.write_text(
+            text[:end] + "\n" + "\n".join(lines) + text[end:], encoding="utf-8"
+        )
     return len(lines)
