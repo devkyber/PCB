@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 
 from pcb_copilot.layout.footprints import resolve_footprint, verify_pin_pad_map
+from pcb_copilot.layout.models import PlacementItem
 from pcb_copilot.models import FootprintCandidate
 from pcb_copilot.project import load_project
 
@@ -48,6 +49,46 @@ def test_placeholder_is_blocking(tmp_path: Path):
         item.severity == "block" and "placeholder" in item.message
         for item in findings
     )
+
+
+def test_model_and_resolver_accept_safe_interior_spaces(project_copy: Path):
+    library = project_copy / "libs/Vendor Parts.pretty"
+    library.mkdir(parents=True)
+    footprint = library / "Part Name.kicad_mod"
+    footprint.write_text(
+        '(footprint "Part Name" '
+        '(pad "1" smd rect (at 0 0) (size 1 1) (layers "F.Cu")))',
+        encoding="utf-8",
+    )
+    (project_copy / "fp-lib-table").write_text(
+        '(fp_lib_table (version 7) '
+        '(lib (name "Vendor Parts") (type "KiCad") '
+        '(uri "${KIPRJMOD}/libs/Vendor Parts.pretty") (options "") '
+        '(descr "Real LCSC footprints via easyeda2kicad")))',
+        encoding="utf-8",
+    )
+    lib_id = "Vendor Parts:Part Name"
+
+    assert PlacementItem(ref="U1", region="sensor", footprint=lib_id).footprint == lib_id
+    assert resolve_footprint(load_project(project_copy), "U1", lib_id).path == footprint
+
+
+@pytest.mark.parametrize(
+    "lib_id",
+    [
+        "Vendor/Parts:Part",
+        r"Vendor\\Parts:Part",
+        "Vendor:../Part",
+        "Vendor:Part/Name",
+        "Vendor:Part:Name",
+        "Vendor:\0Part",
+    ],
+)
+def test_model_and_resolver_reject_the_same_unsafe_ids(project_copy: Path, lib_id: str):
+    with pytest.raises(ValueError):
+        PlacementItem(ref="U1", region="sensor", footprint=lib_id)
+    with pytest.raises(ValueError):
+        resolve_footprint(load_project(project_copy), "U1", lib_id)
 
 
 def test_tms_sod323_resolves_with_silkscreen_polygons(repo_root: Path):

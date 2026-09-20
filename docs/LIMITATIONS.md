@@ -23,9 +23,8 @@ autonomy.
 ## What the system can help with
 
 This list separates current package behavior from the broader workflow. The
-evidence archive and schematic-draft interface are implemented. PCB generation,
-routing, DRC, and fabrication are available only through retained legacy tools;
-the new layout, unified review, and release interfaces remain planned.
+evidence archive, schematic drafts, and draft-only layout workflow are
+implemented. Unified release and fabrication remain planned.
 
 - Search, archive, hash, classify, and cite component documents.
 - Extract exact pins, values, and connections from supported source formats.
@@ -34,12 +33,15 @@ the new layout, unified review, and release interfaces remain planned.
   ERC, quality metrics, and stale-safe schematic acceptance.
 - Refresh checks and previews after editing a draft in KiCad, without
   regenerating its schematic or accepting it automatically.
-- Use the legacy pipeline and board generators for PCB creation, candidate
-  routing, DRC, and fabrication while replacement behavior is built.
+- Create measured placement and constraint proposals in isolated layout drafts,
+  optionally produce routing candidates, and refresh DRC/preview artifacts after
+  manual draft edits without accepting them automatically.
+- Retain legacy generators only as explicitly mutating compatibility tools; the
+  full legacy pipeline is not a supported end-to-end layout command.
 - Preserve netlists, check schematic/PCB parity, and detect stale artifacts.
 - Measure known geometric relationships such as placement clearance.
-- Maintain current schematic review records tied to accepted design hashes;
-  unified PCB review and hash-bound release records are not implemented.
+- Maintain current schematic and layout review records tied to accepted design
+  hashes; hash-bound release records are not implemented.
 
 ## What it cannot establish
 
@@ -118,7 +120,20 @@ the new layout, unified review, and release interfaces remain planned.
   needed part has been identified. The board-level evidence gates still own
   completeness checks during this migration.
 - Freerouting is nondeterministic and has known keepout/via limitations. Its
-  result remains a candidate.
+  result remains a candidate; an optional router path existing does not establish
+  that a usable route was actually verified.
+- Layout placement is greedy and conservative. Unsupported embedded pad or
+  courtyard geometry fails closed, and a reported infeasibility is not proof
+  that no valid arrangement exists.
+- Manual constraint, project-rule, or authored-zone edits require a new proposal;
+  review refresh does not adopt them into an existing proposal.
+- GNSS rule areas/board notch support, the TMS J9 physical socket decision, and
+  clean-placement review for GNSS/TMS remain open. Human layout checkpoints are
+  pending for all boards.
+- STEP export may be partial or board-only when component models are missing; it
+  does not establish enclosure fit or model completeness.
+- Standalone packaging of `pcb_layout_helpers` and routing subprocess helpers is
+  Plan 5 debt; supported layout use is currently repository-local.
 - Existing PCB files use a short `(net "NAME")` encoding accepted by KiCad but
   noncanonical for external text consumers.
 
@@ -141,8 +156,8 @@ barometer port/environment design.
    while retaining explicit human review for ambiguous diagrams.
 2. Finish human review of all four schematic drafts and accept only explicitly
    approved revisions; improve remaining label/power-glyph collision handling.
-3. Add real-footprint layout intents, measured placement, constraints, and
-   optional candidate routing.
+3. Complete human review of draft-only layouts and resolve the documented GNSS,
+   TMS, mechanical, and optional-routing gaps without bypassing new proposals.
 4. Unify typed findings, fault coverage, relevant sign-off, transactional
    fabrication, and hash-bound release.
 5. Remove superseded files only after replacement, caller, fact, and behavior

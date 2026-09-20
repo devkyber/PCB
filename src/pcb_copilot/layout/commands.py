@@ -28,6 +28,18 @@ def _write(path, value):
     _replace_bytes(path, (json.dumps(value, indent=2, default=str) + "\n").encode())
 
 
+def _deduplicate_inherited_findings(findings):
+    """Drop exact inherited repeats while retaining their first occurrence."""
+    unique, seen = [], set()
+    for finding in findings:
+        key = json.dumps(finding, sort_keys=True, default=str)
+        if key in seen:
+            continue
+        seen.add(key)
+        unique.append(finding)
+    return unique
+
+
 def _zone_constraints(pcb):
     """Compare authored zone boundaries/rules while allowing fill regeneration."""
     signatures = []
@@ -230,6 +242,7 @@ def review_layout_draft(project, draft_id):
             "placement.not_applied",
         }
         findings.extend(f for f in proposal["findings"] if f["code"] not in historical)
+        findings = _deduplicate_inherited_findings(findings)
         findings.extend(render_layout_preview(toolchain, pcb, staging))
         assert_draft_base_current(project, draft, metadata)
         if before != {p: file_digest(p) for p in inputs}:

@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-import re
 from enum import Enum
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from pcb_copilot.evidence.checks import Finding
+from pcb_copilot.layout.lib_ids import split_footprint_lib_id
 
 
 class LayoutIntentError(ValueError):
@@ -71,8 +71,11 @@ class PlacementItem(_FrozenModel):
         if value is None:
             return None
         value = value.strip()
-        if not re.fullmatch(r"[^\s:/\\]+:[^\s:/\\]+", value):
-            raise ValueError("footprint must use Library:Name syntax")
+        try:
+            split_footprint_lib_id(value)
+        except ValueError as exc:
+            raise ValueError("footprint must use Library:Name syntax") from exc
+
         return value
 
     @model_validator(mode="after")

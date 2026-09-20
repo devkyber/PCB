@@ -47,12 +47,17 @@ status command: it temporarily replaces BMP390 evidence files and touches a
 board's modification time. Run it in a disposable repository copy so an
 interrupted test cannot leave the working archive modified.
 
-The full legacy pipeline remains mutating and is not the supported layout
+The full compatibility pipeline is mutating. It is not the supported layout
 workflow. Its schematic/PCB generator stages can overwrite accepted CAD before
 its route stage reaches the draft-only routing boundary. The routing wrappers
 now reject accepted PCB paths, while `docs/pipeline.py` still passes its accepted
 project PCB to them. Consequently the full legacy pipeline is not a working
 end-to-end replacement for `draft-layout`; use the separate draft commands below.
+
+`SCHEMATIC_OWNER` defaults to `generated` when the file is missing. Setting it
+to `manual` protects the schematic generator path, but it does not protect the PCB
+generator stages in the compatibility pipeline. Use draft commands for either
+kind of accepted CAD.
 
 ## 2. Define the board before choosing parts
 

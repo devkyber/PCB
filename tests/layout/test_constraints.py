@@ -198,6 +198,27 @@ def test_calculation_inputs_and_limitations_are_serialized(draft):
     assert data["calculations"]["+3V3"]["inputs"]["duration_s"] == 0.01
     assert data["calculations"]["+3V3"]["source"].startswith("https://")
     assert any("pulse" in f.message and "nominal" in f.message for f in report.findings)
+    assert not any(
+        f.code == "constraints.project_snapshot_unverified" for f in report.findings
+    )
+
+
+def test_legacy_metadata_without_project_snapshot_retains_warning(draft, monkeypatch):
+    from pcb_copilot import accept
+
+    metadata_path = draft.pcb.parent / "draft.json"
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    companion = (
+        draft.project.pcb_path.with_suffix(".kicad_pro")
+        .relative_to(draft.project.root)
+        .as_posix()
+    )
+    metadata["base_files"].pop(companion)
+    metadata_path.write_text(json.dumps(metadata), encoding="utf-8")
+    monkeypatch.setattr(accept, "accepted_file_hashes", lambda project: metadata["base_files"])
+
+    report = apply_constraints(draft.pcb, draft.intent)
+
     assert any(
         f.code == "constraints.project_snapshot_unverified" for f in report.findings
     )

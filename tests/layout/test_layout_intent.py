@@ -358,6 +358,14 @@ def test_footprint_id_must_use_library_name_syntax(footprint):
         PlacementItem(ref="C1", region="support", footprint=footprint)
 
 
+def test_footprint_id_accepts_safe_interior_spaces():
+    placement = PlacementItem(
+        ref="C1", region="support", footprint="Vendor Parts:Part Name"
+    )
+
+    assert placement.footprint == "Vendor Parts:Part Name"
+
+
 def test_fixed_anchor_must_be_inside_its_assigned_region():
     with pytest.raises(ValueError, match="anchor outside placement region"):
         minimal_layout_intent(

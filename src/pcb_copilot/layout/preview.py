@@ -12,8 +12,8 @@ from kicad_claude.adapters import sch_io
 from kicad_claude.utils.geometry import kicad_to_mcp_xy
 
 from pcb_copilot.evidence.checks import Finding
+from pcb_copilot.layout.footprints import _footprint_text_data, resolve_footprint
 from pcb_copilot.layout.footprints import _layout_helpers as helpers
-from pcb_copilot.layout.footprints import resolve_footprint
 from pcb_copilot.layout.models import validate_layout_intent
 from pcb_copilot.layout.place import _board_nets, _local_embedded
 from pcb_copilot.layout.render import native_board, schematic_inventory
@@ -105,6 +105,7 @@ def inspect_layout(project, intent, pcb, toolchain):
             px, py = float(at[1]), float(at[2])
             angle = float(at[3]) if len(at) > 3 else 0
             text = _local_embedded(fp)
+            _footprint_text_data(text, f"{ref} embedded footprint")
             box = tracker.place(ref, text, px, py, angle)
             left, top = kicad_to_mcp_xy(box[0], box[1], page_height_mm=y1)
             right, bottom = kicad_to_mcp_xy(box[2], box[3], page_height_mm=y1)
@@ -141,6 +142,24 @@ def inspect_layout(project, intent, pcb, toolchain):
             findings.append(Finding("layout.geometry", f"{ref}: {exc}", reference=ref))
     for item in intent.placements:
         if item.near_ref:
+            if item.near_ref not in pads:
+                findings.append(
+                    Finding(
+                        "layout.near_pad",
+                        f"{item.ref}: target measurement unavailable for {item.near_ref} after geometry validation failure",
+                        reference=item.ref,
+                    )
+                )
+                continue
+            if item.ref not in pads:
+                findings.append(
+                    Finding(
+                        "layout.near_pad",
+                        f"{item.ref}: source measurement unavailable after geometry validation failure; target is {item.near_ref}.{item.near_pin}",
+                        reference=item.ref,
+                    )
+                )
+                continue
             source_pins = (
                 [item.source_pin]
                 if item.source_pin
@@ -153,6 +172,10 @@ def inspect_layout(project, intent, pcb, toolchain):
                 ]
             )
             try:
+                if item.near_pin not in pads[item.near_ref]:
+                    raise ValueError(
+                        f"target pad {item.near_ref}.{item.near_pin} is absent"
+                    )
                 target = pads[item.near_ref][item.near_pin]
                 if not source_pins or any(
                     not any(
@@ -165,12 +188,17 @@ def inspect_layout(project, intent, pcb, toolchain):
                     raise ValueError(
                         "near-pad relationship does not share the accepted net"
                     )
+                missing_sources = [pin for pin in source_pins if pin not in pads[item.ref]]
+                if missing_sources:
+                    raise ValueError(
+                        f"source pad {item.ref}.{', '.join(missing_sources)} is absent"
+                    )
                 if (
                     min(math.dist(pads[item.ref][pin], target) for pin in source_pins)
                     > item.max_distance_mm + 1e-6
                 ):
                     raise ValueError("pad-to-pad maximum distance exceeded")
-            except (KeyError, ValueError) as exc:
+            except ValueError as exc:
                 findings.append(
                     Finding("layout.near_pad", f"{item.ref}: {exc}", reference=item.ref)
                 )

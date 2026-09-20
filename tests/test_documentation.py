@@ -58,8 +58,9 @@ def test_workflow_preserves_legacy_entry_points_and_mutation_caveats(repo_root):
     normalized = ' '.join(workflow.split())
     commands = {
         'uv run python docs/pipeline.py --status',
-        'uv run python docs/pipeline.py projects/<board>',
+        'uv run python docs/pipeline.py projects/<board> --check',
         'uv run python docs/run_gates.py --init projects/<board>',
+        'uv run pcb-copilot draft-layout projects/baro-bmp390 --intent projects/baro-bmp390/layout-intent.yaml --route human',
     }
     assert commands <= set(workflow.splitlines())
     for required_warning in (
@@ -71,3 +72,14 @@ def test_workflow_preserves_legacy_entry_points_and_mutation_caveats(repo_root):
         'never overwrites an existing file',
     ):
         assert required_warning in normalized
+
+
+def test_limitations_describe_current_draft_layout_capability(repo_root):
+    limitations = (repo_root / 'docs/LIMITATIONS.md').read_text(encoding='utf-8')
+    normalized = ' '.join(limitations.split())
+    assert 'draft-only layout' in normalized
+    assert 'Plan 5' in normalized and 'pcb_layout_helpers' in normalized
+    assert 'Manual constraint' in normalized and 'new proposal' in normalized
+    assert 'STEP' in normalized and 'partial' in normalized
+    assert 'the new layout, unified review, and release interfaces remain planned' not in normalized
+    assert 'Add real-footprint layout intents, measured placement, constraints' not in normalized

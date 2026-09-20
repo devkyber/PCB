@@ -168,6 +168,131 @@ def test_refresh_preserves_manual_copper_and_invalidates_approval(reviewed):
     assert not (draft.root / "preview-approval.json").exists()
 
 
+@pytest.mark.parametrize(
+    ("mutation", "message"),
+    [
+        ("trapezoid", "trapezoid pad rect_delta is not safely supported"),
+        ("custom", "custom pad geometry is not safely supported"),
+        ("courtyard_arc", "unsupported courtyard primitive fp_arc"),
+    ],
+)
+def test_refresh_rejects_unsupported_embedded_geometry_without_mutating_cad(
+    reviewed, mutation, message
+):
+    import sexpdata
+    from kicad_claude.adapters import sch_io
+
+    from pcb_copilot.layout.commands import approve_layout_preview, review_layout_draft
+
+    project, draft, _ = reviewed
+    pcb = draft.root / project.pcb_path.name
+    tree = sch_io.parse_file(pcb)
+    footprint = next(
+        fp
+        for fp in sch_io.find_children(tree, "footprint")
+        if any(
+            str(prop[1]) == "Reference" and str(prop[2]) == "C3"
+            for prop in sch_io.find_children(fp, "property")
+        )
+    )
+    if mutation == "courtyard_arc":
+        footprint.append(
+            sexpdata.loads(
+                '(fp_arc (start -2 0) (mid 0 2) (end 2 0) (layer "F.CrtYd"))'
+            )
+        )
+    else:
+        pad = sch_io.find_children(footprint, "pad")[0]
+        pad[3] = sexpdata.Symbol(mutation)
+        if mutation == "trapezoid":
+            pad.append(sexpdata.loads("(rect_delta 1 0)"))
+    sch_io.write_file(pcb, tree)
+    before = pcb.read_bytes()
+
+    report = review_layout_draft(project, draft.id)
+
+    assert pcb.read_bytes() == before
+    assert any(
+        f["code"] == "layout.geometry" and f.get("reference") == "C3" and message in f["message"]
+        for f in report["machine_failures"]
+    )
+    assert not (draft.root / "preview-approval.json").exists()
+    with pytest.raises(ValueError, match="blocking review findings"):
+        approve_layout_preview(
+            project, draft.id, "fixture reviewer", confirm_preview=True
+        )
+
+
+def test_refresh_names_unavailable_near_pad_target_after_geometry_failure(reviewed):
+    import sexpdata
+    from kicad_claude.adapters import sch_io
+
+    from pcb_copilot.layout.commands import review_layout_draft
+
+    project, draft, _ = reviewed
+    pcb = draft.root / project.pcb_path.name
+    tree = sch_io.parse_file(pcb)
+    footprint = next(
+        fp
+        for fp in sch_io.find_children(tree, "footprint")
+        if any(
+            str(prop[1]) == "Reference" and str(prop[2]) == "U1"
+            for prop in sch_io.find_children(fp, "property")
+        )
+    )
+    sch_io.find_children(footprint, "pad")[0][3] = sexpdata.Symbol("custom")
+    sch_io.write_file(pcb, tree)
+
+    report = review_layout_draft(project, draft.id)
+
+    diagnostics = [f for f in report["machine_failures"] if f["code"] == "layout.near_pad"]
+    assert {f.get("reference") for f in diagnostics} >= {"C1", "C2"}
+    assert all(
+        "target measurement unavailable for U1 after geometry validation failure"
+        in f["message"]
+        for f in diagnostics
+        if f.get("reference") in {"C1", "C2"}
+    )
+
+
+def test_refresh_deduplicates_inherited_findings_but_retains_drc_instances(
+    reviewed, monkeypatch
+):
+    from pcb_copilot.layout import commands
+
+    project, draft, _ = reviewed
+    proposal_path = draft.root / "placement-proposal.json"
+    proposal = json.loads(proposal_path.read_text(encoding="utf-8"))
+    inherited = {
+        "code": "layout.synthetic_inherited",
+        "message": "same inherited finding",
+        "severity": "review",
+        "reference": "C3",
+        "evidence_id": None,
+    }
+    proposal["findings"].extend([inherited, inherited.copy()])
+    proposal_path.write_text(json.dumps(proposal), encoding="utf-8")
+    original = commands.render_layout_preview
+
+    def duplicate_native_findings(toolchain, pcb, output):
+        findings = original(toolchain, pcb, output)
+        drc = {
+            "code": "drc.synthetic_duplicate",
+            "message": "two native DRC instances",
+            "severity": "block",
+            "reference": None,
+            "evidence_id": None,
+        }
+        return [*findings, drc, drc.copy()]
+
+    monkeypatch.setattr(commands, "render_layout_preview", duplicate_native_findings)
+
+    report = commands.review_layout_draft(project, draft.id)
+
+    assert sum(f["code"] == inherited["code"] for f in report["findings"]) == 1
+    assert sum(f["code"] == "drc.synthetic_duplicate" for f in report["findings"]) == 2
+
+
 def test_refresh_rejects_dropped_constraints(sensor_layout_draft, tmp_path):
     from pcb_copilot.accept import load_draft
     from pcb_copilot.layout.commands import draft_layout, review_layout_draft

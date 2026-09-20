@@ -10,10 +10,12 @@ import sys
 from pathlib import Path
 from typing import Any
 
+import sexpdata
 from kicad_claude.adapters import sch_io
 from kicad_claude.utils.kicad_paths import find_footprint_lib_dirs
 
 from pcb_copilot.evidence.checks import Finding
+from pcb_copilot.layout.lib_ids import split_footprint_lib_id
 from pcb_copilot.models import FootprintCandidate, Project
 
 _DOCS = Path(__file__).resolve().parents[3] / "docs"
@@ -95,17 +97,6 @@ def _expand_table_uri(
     if not path.is_absolute():
         path = project.root / path
     return path.resolve(), ", ".join(source_bits) or "literal URI"
-
-
-def _safe_lib_id_component(value: str, kind: str) -> None:
-    if (
-        value in {".", ".."}
-        or "/" in value
-        or "\\" in value
-        or "\0" in value
-        or Path(value).name != value
-    ):
-        raise ValueError(f"unsafe {kind} name in footprint library id: {value!r}")
 
 
 def _contained_footprint(directory: Path, footprint: str) -> Path:
@@ -280,14 +271,15 @@ def _validate_courtyard(tree: list[Any], text: str) -> None:
             )
 
 
-def _footprint_data(path: Path) -> tuple[list[Any], tuple[float, float, float, float]]:
+def _footprint_text_data(
+    text: str, source: object
+) -> tuple[list[Any], tuple[float, float, float, float]]:
     try:
-        text = path.read_text(encoding="utf-8")
-        tree = sch_io.parse_file(path)
+        tree = sexpdata.loads(text)
     except Exception as exc:  # sexpdata exposes several parse exception types
-        raise ValueError(f"malformed footprint {path}: {exc}") from exc
+        raise ValueError(f"malformed footprint {source}: {exc}") from exc
     if sch_io.head_of(tree) != "footprint":
-        raise ValueError(f"malformed footprint {path}: root is not footprint")
+        raise ValueError(f"malformed footprint {source}: root is not footprint")
 
     pads = sch_io.find_children(tree, "pad")
     for pad in pads:
@@ -303,12 +295,20 @@ def _footprint_data(path: Path) -> tuple[list[Any], tuple[float, float, float, f
     if len(_layout_helpers._pad_local_extents(text)) != len(pads):
         raise ValueError("pad geometry was not measured by the shared extent helper")
     _validate_courtyard(tree, text)
-    extents = _layout_helpers.get_extents_from_file(path)
+    extents = _layout_helpers.get_extents_from_text(text)
     if extents is None:
-        raise ValueError(f"footprint {path} has no courtyard or pad geometry")
+        raise ValueError(f"footprint {source} has no courtyard or pad geometry")
     if not all(math.isfinite(value) for value in extents):
-        raise ValueError(f"footprint {path} produced non-finite extents")
+        raise ValueError(f"footprint {source} produced non-finite extents")
     return tree, extents
+
+
+def _footprint_data(path: Path) -> tuple[list[Any], tuple[float, float, float, float]]:
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError as exc:
+        raise ValueError(f"malformed footprint {path}: {exc}") from exc
+    return _footprint_text_data(text, path)
 
 
 def _fidelity(project: Project, path: Path, description: str) -> str:
@@ -329,11 +329,13 @@ def _fidelity(project: Project, path: Path, description: str) -> str:
 
 def resolve_footprint(project: Project, ref: str, lib_id: str) -> FootprintCandidate:
     """Resolve a declared footprint and measure its real local-frame geometry."""
-    if lib_id.count(":") != 1 or not all(lib_id.split(":")):
-        raise ValueError(f"{ref}: invalid footprint library id {lib_id!r}")
-    library, footprint = lib_id.split(":", 1)
-    _safe_lib_id_component(library, "library")
-    _safe_lib_id_component(footprint, "footprint")
+    try:
+        library, footprint = split_footprint_lib_id(lib_id)
+    except ValueError as exc:
+        raise ValueError(
+            f"{ref}: invalid footprint library id {lib_id!r}: {exc}"
+        ) from exc
+
     path, source, description = _resolve_path(project, library, footprint)
     _, extents = _footprint_data(path)
     return FootprintCandidate(
