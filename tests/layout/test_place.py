@@ -4,6 +4,7 @@ import json
 import math
 import subprocess
 from dataclasses import replace
+from pathlib import Path
 
 import pytest
 from kicad_claude.adapters import sch_io
@@ -312,3 +313,341 @@ def test_outline_cutout_is_blocked_instead_of_treated_as_solid_rectangle(
     report = propose(sensor_layout_draft)
     assert any(f.code == "placement.outline_unsupported" for f in report.findings)
     assert report.placed == {}
+
+
+_FOOTPRINT_KEEPOUT = """(zone (net 0) (net_name "") (layer "F.Cu")
+    (hatch edge 0.5)
+    (keepout (tracks allowed) (vias allowed) (pads allowed)
+             (copperpour allowed) (footprints not_allowed))
+    (polygon (pts (xy -5 -5) (xy 5 -5) (xy 5 5) (xy -5 5))))"""
+
+
+def test_accepted_footprint_keepout_blocks_placement(sensor_layout_draft):
+    import sexpdata
+
+    tree = sch_io.parse_file(sensor_layout_draft.project.pcb_path)
+    for fp in sch_io.find_children(tree, "footprint"):
+        if any(
+            str(p[1]) == "Reference" and p[2] == "U1"
+            for p in sch_io.find_children(fp, "property")
+        ):
+            fp.append(sexpdata.loads(_FOOTPRINT_KEEPOUT))
+    sch_io.write_file(sensor_layout_draft.project.pcb_path, tree)
+    sensor_layout_draft.record = create_draft(
+        sensor_layout_draft.project, DraftKind.LAYOUT
+    )
+    assert native(
+        sensor_layout_draft.project.pcb_path,
+        """
+fp=b.FindFootprintByReference('U1')
+print(json.dumps([sum(z.GetIsRuleArea() for z in b.Zones()),
+                  sum(z.GetIsRuleArea() for z in fp.Zones())]))
+""",
+    ) == [0, 1]
+    report = propose(sensor_layout_draft)
+    assert any(
+        f.code == "placement.rule_areas" and f.reference == "U1"
+        for f in report.findings
+    )
+    assert report.placed == {}
+    assert (
+        native(
+            report.pcb_path,
+            "print(json.dumps(sum(z.GetIsRuleArea() for z in b.FindFootprintByReference('U1').Zones())))",
+        )
+        == 1
+    )
+
+
+def test_new_pcb_only_footprint_keepout_blocks_placement(sensor_layout_draft, tmp_path):
+    import sexpdata
+
+    library = tmp_path / "Keepouts.pretty"
+    library.mkdir()
+    (library / "Antenna.kicad_mod").write_text(
+        '(footprint "Antenna" (layer "F.Cu") '
+        '(pad "1" smd rect (at 0 0) (size 1 1) (layers "F.Cu" "F.Mask")) '
+        + _FOOTPRINT_KEEPOUT
+        + ")",
+        encoding="utf-8",
+    )
+    table = sch_io.parse_file(sensor_layout_draft.project.root / "fp-lib-table")
+    table.append(
+        [
+            sexpdata.Symbol("lib"),
+            [sexpdata.Symbol("name"), "Keepouts"],
+            [sexpdata.Symbol("type"), "KiCad"],
+            [sexpdata.Symbol("uri"), library.as_posix()],
+        ]
+    )
+    sch_io.write_file(sensor_layout_draft.project.root / "fp-lib-table", table)
+    data = sensor_layout_draft.intent.model_dump(mode="json")
+    data["placements"].append(
+        {
+            "ref": "AE1",
+            "region": "sensor",
+            "pcb_only": True,
+            "footprint": "Keepouts:Antenna",
+        }
+    )
+    sensor_layout_draft.intent = LayoutIntent.model_validate(data)
+    report = propose(sensor_layout_draft)
+    assert any(
+        f.code == "placement.rule_areas" and f.reference == "AE1"
+        for f in report.findings
+    )
+    assert report.placed == {}
+    assert native(
+        report.pcb_path, "print(json.dumps(b.FindFootprintByReference('AE1') is None))"
+    )
+
+
+def test_proposal_carries_research_and_authoritative_basis(sensor_layout_draft):
+    project = sensor_layout_draft.project
+    basis = (project.root / "DESIGN_BASIS.md").read_bytes()
+    review = (project.root / "REFERENCE_REVIEW.md").read_bytes()
+    evidence = project.evidence_index_path.read_bytes()
+    report = propose(sensor_layout_draft)
+    assert report.placed, report.findings
+    root = report.pcb_path.parent
+    assert (root / "DESIGN_BASIS.md").read_bytes().startswith(basis)
+    assert (root / "REFERENCE_REVIEW.md").read_bytes() == review
+    assert (root / "evidence/index.yaml").read_bytes() == evidence
+    assert (project.root / "DESIGN_BASIS.md").read_bytes() == basis
+    assert (project.root / "REFERENCE_REVIEW.md").read_bytes() == review
+    assert project.evidence_index_path.read_bytes() == evidence
+    assert (root / "evidence/files/BMP390_Adafruit_20BMP390.brd").read_bytes() == (
+        project.root / "evidence/files/BMP390_Adafruit_20BMP390.brd"
+    ).read_bytes()
+    text = (root / "DESIGN_BASIS.md").read_text(encoding="utf-8")
+    assert "Placement research checkpoint" in text
+    assert "No new adopted choices or justified differences" in text
+    assert any(
+        f.code == "layout.research.comparison_required" and f.severity == "review"
+        for f in report.findings
+    )
+
+
+def test_schematic_only_research_reports_missing_pcb_source_as_advisory(
+    sensor_layout_draft,
+):
+    from pcb_copilot.evidence.index import load_evidence_index, save_evidence_index
+    from pcb_copilot.evidence.models import EvidenceRole
+
+    path = sensor_layout_draft.project.evidence_index_path
+    index = load_evidence_index(path)
+    save_evidence_index(
+        index.model_copy(
+            update={
+                "records": tuple(
+                    r
+                    for r in index.records
+                    if EvidenceRole.REFERENCE_DESIGN not in r.roles
+                    or r.path.endswith(".sch")
+                )
+            }
+        ),
+        path,
+    )
+    report = propose(sensor_layout_draft)
+    assert report.placed, report.findings
+    assert any(
+        f.code == "layout.research.pcb_source_missing"
+        and f.reference == "U1"
+        and f.severity == "review"
+        for f in report.findings
+    )
+
+
+def test_missing_research_does_not_block_draft_or_invent_decisions(sensor_layout_draft):
+    project = sensor_layout_draft.project
+    project.evidence_index_path.unlink()
+    (project.root / "DESIGN_BASIS.md").unlink()
+    (project.root / "REFERENCE_REVIEW.md").unlink()
+    report = propose(sensor_layout_draft)
+    assert report.placed, report.findings
+    expected = {
+        "layout.research.index.missing",
+        "layout.research.review_missing",
+        "layout.research.basis_missing",
+    }
+    assert expected <= {f.code for f in report.findings if f.severity == "review"}
+    text = (report.pcb_path.parent / "DESIGN_BASIS.md").read_text(encoding="utf-8")
+    assert "No authoritative DESIGN_BASIS.md was available" in text
+    assert "| Match |" not in text
+
+
+def test_corrupted_board_research_is_not_verified_pcb_coverage(sensor_layout_draft):
+    source = (
+        sensor_layout_draft.project.root / "evidence/files/BMP390_Adafruit_20BMP390.brd"
+    )
+    source.write_bytes(source.read_bytes() + b"\n")
+    report = propose(sensor_layout_draft)
+    assert report.placed, report.findings
+    assert any(
+        f.code == "layout.research.archive.hash_mismatch" and f.severity == "review"
+        for f in report.findings
+    )
+    # PDFs remain candidates for visual classification; neither prove a PCB
+    # inspection nor justify claiming that every PCB reference is absent.
+    assert any(
+        f.code == "layout.research.pcb_source_unconfirmed" and f.reference == "U1"
+        for f in report.findings
+    )
+    text = (report.pcb_path.parent / "DESIGN_BASIS.md").read_text(encoding="utf-8")
+    assert "unverified" in text.lower()
+
+
+def test_pcb_archive_without_inspection_record_requires_review(sensor_layout_draft):
+    (sensor_layout_draft.project.root / "REFERENCE_REVIEW.md").unlink()
+    report = propose(sensor_layout_draft)
+    assert report.placed, report.findings
+    assert any(f.code == "layout.research.review_missing" for f in report.findings)
+    assert not any(
+        f.code == "layout.research.pcb_source_missing" for f in report.findings
+    )
+    text = (report.pcb_path.parent / "DESIGN_BASIS.md").read_text(encoding="utf-8")
+    assert "does not establish inspection or applicability" in text
+
+
+@pytest.mark.parametrize("problem", ["untrusted", "nonmatching", "missing"])
+def test_research_source_coverage_excludes_unusable_records(
+    sensor_layout_draft, problem
+):
+    from pcb_copilot.evidence.index import load_evidence_index, save_evidence_index
+    from pcb_copilot.evidence.models import EvidenceRole, TrustTier
+    from pcb_copilot.layout.research import prepare_layout_research
+
+    project = sensor_layout_draft.project
+    index = load_evidence_index(project.evidence_index_path)
+    records = []
+    for record in index.records:
+        if EvidenceRole.REFERENCE_DESIGN in record.roles and record.path.endswith(
+            ".pdf"
+        ):
+            continue
+        if record.path.endswith(".brd"):
+            if problem == "untrusted":
+                record = record.model_copy(
+                    update={"trust_tier": TrustTier.TEACHING_REFERENCE}
+                )
+            elif problem == "nonmatching":
+                record = record.model_copy(
+                    update={
+                        "part_numbers": frozenset({"OTHER_IC"}),
+                        "component_refs": frozenset(),
+                    }
+                )
+            else:
+                (project.evidence_index_path.parent / record.path).unlink()
+        records.append(record)
+    save_evidence_index(
+        index.model_copy(update={"records": tuple(records)}),
+        project.evidence_index_path,
+    )
+    snapshot = prepare_layout_research(project)
+    assert any(
+        f.code == "layout.research.pcb_source_missing" and f.reference == "U1"
+        for f in snapshot.findings
+    )
+
+
+def test_research_snapshot_preserves_manifest_evidence_location(
+    sensor_layout_draft, tmp_path
+):
+    import shutil
+    from dataclasses import replace
+
+    from pcb_copilot.layout.research import prepare_layout_research
+
+    project = sensor_layout_draft.project
+    nested = project.root / "research/reference-archive"
+    shutil.copytree(project.evidence_index_path.parent, nested)
+    project = replace(project, evidence_index_path=nested / "index.yaml")
+    snapshot = prepare_layout_research(project)
+    destination = tmp_path / "draft-snapshot"
+    snapshot.write(destination)
+    assert (
+        destination / "research/reference-archive/index.yaml"
+    ).read_bytes() == project.evidence_index_path.read_bytes()
+    assert (
+        destination / "research/reference-archive/files/BMP390_Adafruit_20BMP390.brd"
+    ).is_file()
+    assert not (destination / "evidence/index.yaml").exists()
+
+
+def test_research_snapshot_excludes_payload_symlink_outside_archive(
+    sensor_layout_draft, tmp_path
+):
+    from pcb_copilot.layout.research import prepare_layout_research
+
+    project = sensor_layout_draft.project
+    source = project.root / "evidence/files/BMP390_Adafruit_20BMP390.brd"
+    outside = tmp_path / "outside.brd"
+    outside.write_bytes(source.read_bytes())
+    source.unlink()
+    source.symlink_to(outside)
+    snapshot = prepare_layout_research(project)
+    assert Path("evidence/files/BMP390_Adafruit_20BMP390.brd") not in snapshot.files
+    assert any(
+        f.code == "layout.research.snapshot_unavailable" for f in snapshot.findings
+    )
+
+
+def test_research_snapshot_rechecks_bytes_after_evidence_check(
+    sensor_layout_draft, monkeypatch
+):
+    from pcb_copilot.layout import research
+
+    project = sensor_layout_draft.project
+    source = project.root / "evidence/files/BMP390_Adafruit_20BMP390.brd"
+    original = research.check_evidence
+
+    def change_after_check(project, parts):
+        results = original(project, parts)
+        source.write_bytes(source.read_bytes() + b"\n")
+        return results
+
+    monkeypatch.setattr(research, "check_evidence", change_after_check)
+    snapshot = research.prepare_layout_research(project)
+    assert any(
+        f.code == "layout.research.archive.hash_mismatch" for f in snapshot.findings
+    )
+    assert any(
+        f.code == "layout.research.pcb_source_unconfirmed" for f in snapshot.findings
+    )
+
+
+def test_malformed_native_reference_remains_advisory(sensor_layout_draft):
+    import hashlib
+
+    from pcb_copilot.evidence.archive import sniff_media_type
+    from pcb_copilot.evidence.index import load_evidence_index, save_evidence_index
+    from pcb_copilot.layout.research import prepare_layout_research
+
+    project = sensor_layout_draft.project
+    index = load_evidence_index(project.evidence_index_path)
+    payload = b"(kicad_pcb ("
+    records = []
+    for record in index.records:
+        if record.path.endswith(".brd"):
+            (project.evidence_index_path.parent / record.path).write_bytes(payload)
+            record = record.model_copy(
+                update={
+                    "id": f"sha256:{hashlib.sha256(payload).hexdigest()}",
+                    "sha256": hashlib.sha256(payload).hexdigest(),
+                    "media_type": sniff_media_type(payload),
+                }
+            )
+        records.append(record)
+    save_evidence_index(
+        index.model_copy(update={"records": tuple(records)}),
+        project.evidence_index_path,
+    )
+    snapshot = prepare_layout_research(project)
+    assert any(
+        f.code == "layout.research.pcb_source_unconfirmed"
+        and f.severity == "review"
+        for f in snapshot.findings
+    )
+    assert "unclassified document" in snapshot.appendix

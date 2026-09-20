@@ -46,6 +46,7 @@ for fp in board.GetFootprints():
         raise RuntimeError('Duplicate footprint reference ' + ref)
     fps[ref] = {'lib_id': fp.GetFPIDAsString(), 'value': fp.GetValue(),
         'layer': fp.GetLayerName(),
+        'rule_areas': sum(z.GetIsRuleArea() for z in fp.Zones()),
         'pads': [[p.GetNumber(), p.GetNetname()] for p in fp.Pads()]}
 outline = pcbnew.SHAPE_POLY_SET()
 if not board.GetBoardPolygonOutlines(outline, False):
@@ -57,7 +58,8 @@ print('PCB_COPILOT_RESULT=' + json.dumps({'footprints': fps,
                     and abs(abs(outline.COutline(0).Area()) - box.GetWidth()*box.GetHeight()) < 1),
     'tracks': len(list(board.GetTracks())),
     'zones': sum(not z.GetIsRuleArea() for z in board.Zones()),
-    'rule_areas': sum(z.GetIsRuleArea() for z in board.Zones())}))
+    'rule_areas': (sum(z.GetIsRuleArea() for z in board.Zones())
+                   + sum(fp['rule_areas'] for fp in fps.values()))}))
 """
 
 

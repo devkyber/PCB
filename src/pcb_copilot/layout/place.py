@@ -27,6 +27,7 @@ from pcb_copilot.layout.models import (
     validate_layout_intent,
 )
 from pcb_copilot.layout.render import native_board, schematic_inventory
+from pcb_copilot.layout.research import prepare_layout_research
 from pcb_copilot.models import DraftKind, DraftRecord, Project
 from pcb_copilot.state import canonical_design_hash
 from pcb_copilot.toolchain import discover_toolchain
@@ -133,6 +134,8 @@ def propose_placement(
     toolchain = discover_toolchain(project.root)
     pcb_path = draft.root / project.pcb_path.relative_to(project.root)
     findings = list(intent.unresolved_decisions)
+    research = prepare_layout_research(project)
+    findings.extend(research.findings)
     placed: dict[str, Placement] = {}
     operations: dict[str, dict] = {}
     board = native_board(toolchain, project.pcb_path)
@@ -180,6 +183,15 @@ def propose_placement(
                 "Native rule areas need explicit placement constraint support",
             )
         )
+        for ref, footprint in board["footprints"].items():
+            if footprint["rule_areas"]:
+                findings.append(
+                    Finding(
+                        "placement.rule_areas",
+                        f"{ref}: accepted footprint contains unsupported placement/routing rule areas",
+                        reference=ref,
+                    )
+                )
 
     # One established boundary conversion. Board-local origin is its bottom-left.
     def to_native(x, y):
@@ -231,6 +243,19 @@ def propose_placement(
                     "identity_mismatch: physical part is missing from accepted PCB"
                 )
             candidate = resolve_footprint(project, item.ref, lib_id or "")
+            candidate_tree = sch_io.parse_file(candidate.path)
+            if any(
+                sch_io.find_child(zone, "keepout") is not None
+                for zone in sch_io.find_children(candidate_tree, "zone")
+            ):
+                findings.append(
+                    Finding(
+                        "placement.rule_areas",
+                        f"{item.ref}: resolved footprint contains unsupported placement/routing rule areas",
+                        reference=item.ref,
+                    )
+                )
+                continue
             if item.ref in parts:
                 expected_pins = parts[item.ref]["pins"]
                 actual_pins = {pin for pin, _ in accepted["pads"] if pin}
@@ -490,6 +515,7 @@ def propose_placement(
         # be present at their declared relative paths in the isolated workspace.
         import shutil
 
+        research.write(root)
         for source in (project.pcb_path, project.schematic_path):
             destination = root / source.relative_to(project.root)
             destination.parent.mkdir(parents=True, exist_ok=True)
