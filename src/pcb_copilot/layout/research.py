@@ -7,8 +7,6 @@ It does not search the web, inspect copper visually, or decide applicability.
 from __future__ import annotations
 
 import hashlib
-import importlib
-import sys
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass, replace
 from pathlib import Path
@@ -24,6 +22,7 @@ from pcb_copilot.evidence.checks import (
     check_evidence,
 )
 from pcb_copilot.evidence.index import EvidenceFormatError, load_evidence_index
+from pcb_copilot.evidence.inventory import MODULE_HINTS, inventory
 from pcb_copilot.evidence.models import EvidenceRole
 from pcb_copilot.models import Project
 
@@ -75,22 +74,16 @@ def _native_kind(payload: bytes) -> str:
 
 
 def prepare_layout_research(project: Project) -> ResearchSnapshot:
-    # Reuse the legacy research inventory's key-part criteria, including its
-    # module detection and legacy footprint reference spelling support.
-    docs = str(Path(__file__).resolve().parents[3] / "docs")
-    if docs not in sys.path:
-        sys.path.insert(0, docs)
-    legacy = importlib.import_module("check_research")
-    inventory = legacy.inventory(project.pcb_path.read_text(encoding="utf-8"))
+    rows = inventory(project.pcb_path.read_text(encoding="utf-8"))
     parts = [
         Part(
             reference=ref,
             part_number=value,
             requires_datasheet=False,
             requires_reference=True,
-            is_module=any(hint in value.lower() for hint in legacy.MODULE_HINTS),
+            is_module=any(hint in value.lower() for hint in MODULE_HINTS),
         )
-        for ref, value, _pads, _lcsc, key in inventory
+        for ref, value, _pads, _lcsc, key in rows
         if key
     ]
     try:

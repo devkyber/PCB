@@ -41,91 +41,19 @@ sys.path.insert(0, str(REPO / 'src'))
 sys.path.insert(0, str(REPO / 'docs'))
 
 from pcb_copilot.evidence.checks import Part, check_evidence  # noqa: E402
+from pcb_copilot.evidence.inventory import (  # noqa: F401
+    MODULE_HINTS,
+    PASSIVE,
+    inventory,
+)
 from pcb_copilot.project import load_project  # noqa: E402
 
-PASSIVE = ('R', 'C', 'L', 'TP', 'FID', 'H', 'LED', 'D', 'SW', 'F', 'JP')
-MODULE_HINTS = ('teensy', 'xbee', 'arduino', 'esp', 'raspberry', 'pico',
-                'feather', 'nucleo', 'module', 'socket')
 REQUIRED_SECTIONS = ['Purpose', 'Electrical', 'Mechanical', 'Interfaces',
                      'Environment', 'Success criteria']
 # `<[a-z ]+>` missed every multi-word placeholder in our own template
 # ("<X x Y mm>", "<What the board does, in one paragraph...>") — so a
 # freshly scaffolded, entirely unfilled spec passed 4 of 6 sections.
 PLACEHOLDER = re.compile(r'\b(TBD|TODO|FILL ?ME)\b|<[^>\n]{2,120}>', re.I)
-
-
-def _blocks(text: str):
-    i = 0
-    while True:
-        i = text.find('(footprint "', i)
-        if i < 0:
-            return
-        depth, j = 0, i
-        while j < len(text):
-            if text[j] == '(':
-                depth += 1
-            elif text[j] == ')':
-                depth -= 1
-                if depth == 0:
-                    break
-            j += 1
-        yield text[i:j + 1]
-        i = j
-
-
-def _prop(block: str, name: str) -> str:
-    """Read a footprint property, in EITHER of KiCad's two spellings.
-
-    Modern footprints carry `(property "Reference" "J9")`. Footprints that
-    came from an older library — or that a tool wrote in the legacy form —
-    carry `(fp_text reference "J9")` instead. This only understood the
-    first, and the consequence was not a missing field but a MISSING PART:
-    tms-v3's XBee socket J9 uses the legacy form, so `inventory()` never
-    returned it at all. It was invisible to the sourcing gate (which
-    therefore reported "every part sourced" while J9 had no part number),
-    invisible to key-part detection, and invisible to the reference-design
-    gate. A part the gates cannot see is worse than a part they fail on.
-    """
-    m = re.search(r'\(property\s+"%s"\s+"([^"]*)"' % re.escape(name), block)
-    if m:
-        return m.group(1)
-    legacy = {'Reference': 'reference', 'Value': 'value'}.get(name)
-    if legacy:
-        m = re.search(r'\(fp_text\s+%s\s+"([^"]*)"' % legacy, block)
-        if m:
-            return m.group(1)
-    return ''
-
-
-def _lcsc(block: str) -> str:
-    for key in ('LCSC', 'LCSC Part #', 'LCSC Part', 'JLCPCB', 'JLCPCB Part'):
-        v = _prop(block, key)
-        if v.strip():
-            return v.strip()
-    m = re.search(r'"(C\d{4,})"', block)
-    return m.group(1) if m else ''
-
-
-def inventory(pcb_text: str):
-    """-> [(ref, value, pads, lcsc, is_key)]
-
-    A KEY part is one whose circuit you are supposed to have learned from
-    somebody: an IC of >=8 pins, or any plug-in module socket. A 3-pin LDO
-    or a 2-pin passive is not worth a reference hunt, and demanding one is
-    how a gate gets ignored."""
-    out = []
-    for blk in _blocks(pcb_text):
-        ref = _prop(blk, 'Reference')
-        if not ref:
-            continue
-        val = _prop(blk, 'Value')
-        pads = blk.count('(pad "')
-        base = (re.match(r'[A-Za-z]+', ref) or re.match(r'.*', ref)).group(0)
-        is_module = any(h in val.lower() for h in MODULE_HINTS)
-        is_passive = base in PASSIVE and not is_module
-        is_key = is_module or (not is_passive and pads >= 8)
-        out.append((ref, val, pads, _lcsc(blk), is_key))
-    return out
 
 
 def _waived(proj: Path, ref: str, scope: str) -> bool:

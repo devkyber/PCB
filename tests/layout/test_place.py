@@ -646,8 +646,59 @@ def test_malformed_native_reference_remains_advisory(sensor_layout_draft):
     )
     snapshot = prepare_layout_research(project)
     assert any(
-        f.code == "layout.research.pcb_source_unconfirmed"
-        and f.severity == "review"
+        f.code == "layout.research.pcb_source_unconfirmed" and f.severity == "review"
         for f in snapshot.findings
     )
     assert "unclassified document" in snapshot.appendix
+
+
+def test_research_preflight_from_package_without_checkout_docs(
+    project_copy, repo_root, tmp_path
+):
+    import shutil
+    import subprocess
+    import sys
+
+    installed = tmp_path / "installed"
+    shutil.copytree(repo_root / "src/pcb_copilot", installed / "pcb_copilot")
+    # Supply only the two known pre-existing compatibility dependencies. This
+    # tests the new research boundary, not full wheel portability.
+    compatibility = tmp_path / "compatibility"
+    compatibility.mkdir()
+    for name in ("pcb_layout_helpers.py", "deviations.py"):
+        shutil.copy2(repo_root / "docs" / name, compatibility / name)
+    # Fresh isolated process: no test-loaded check_research or docs path can
+    # mask a checkout-only import. Keep installed third-party dependencies.
+    script = """
+import sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+sys.path.insert(0, sys.argv[3])
+from pcb_copilot.layout.research import prepare_layout_research
+from pcb_copilot.project import load_project
+import pcb_copilot
+assert Path(pcb_copilot.__file__).is_relative_to(Path(sys.argv[1]))
+snapshot = prepare_layout_research(load_project(Path(sys.argv[2])))
+assert any(f.code == 'layout.research.comparison_required' for f in snapshot.findings)
+assert not any(f.code == 'layout.research.pcb_source_missing' for f in snapshot.findings)
+assert 'PCB native source' in snapshot.appendix
+assert 'check_research' not in sys.modules
+print('isolated packaged research preflight passed')
+"""
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-I",
+            "-c",
+            script,
+            str(installed),
+            str(project_copy),
+            str(compatibility),
+        ],
+        cwd=tmp_path,
+        capture_output=True,
+        check=False,
+        text=True,
+        timeout=30,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
