@@ -1,0 +1,51 @@
+# Proposal only. Native accepted geometry/rules transcribed 2026-09-20.
+# See DESIGN_BASIS.md for source facts, functional choices and open decisions.
+schema_version: 1
+title: "gnss-neom9n assisted layout proposal"
+revision: "layout-proposal-1"
+coordinate_frame: "board-origin-bottom-left-x-right-y-up-mm"
+outline: {"width_mm":34,"height_mm":40}
+regions:
+  - {"id":"interface-backup","x_mm":0,"y_mm":0,"width_mm":34,"height_mm":12}
+  - {"id":"receiver-power-rf","x_mm":0,"y_mm":12,"width_mm":34,"height_mm":28}
+placements:
+  - {"ref":"BT1","region":"interface-backup","footprint":"Battery:Battery_Panasonic_CR1220-VCN_Vertical_CircularHoles","rotation_deg":0,"anchor_x_mm":8,"anchor_y_mm":7}
+  - {"ref":"C1","region":"receiver-power-rf","footprint":"Capacitor_SMD:C_0603_1608Metric","rotation_deg":0,"near_ref":"U1","near_pin":"3","source_pin":"1","max_distance_mm":5}
+  - {"ref":"C2","region":"receiver-power-rf","footprint":"Capacitor_SMD:C_0603_1608Metric","rotation_deg":0,"near_ref":"U1","near_pin":"2","source_pin":"1","max_distance_mm":5}
+  - {"ref":"C3","region":"receiver-power-rf","footprint":"Capacitor_SMD:C_0603_1608Metric","rotation_deg":0,"near_ref":"U2","near_pin":"23","source_pin":"1","max_distance_mm":2}
+  - {"ref":"C4","region":"receiver-power-rf","footprint":"Capacitor_SMD:C_0805_2012Metric","rotation_deg":0,"near_ref":"U2","near_pin":"23","source_pin":"1","max_distance_mm":5}
+  - {"ref":"C5","region":"receiver-power-rf","footprint":"Capacitor_SMD:C_0603_1608Metric","rotation_deg":0,"near_ref":"U2","near_pin":"9","source_pin":"1","max_distance_mm":3}
+  - {"ref":"C6","region":"receiver-power-rf","footprint":"Capacitor_SMD:C_0603_1608Metric","rotation_deg":0,"near_ref":"U2","near_pin":"22","source_pin":"1","max_distance_mm":3}
+  - {"ref":"D1","region":"receiver-power-rf","footprint":"Diode_SMD:D_0402_1005Metric","rotation_deg":0,"near_ref":"J2","near_pin":"1","source_pin":"1","max_distance_mm":5}
+  - {"ref":"FID1","region":"receiver-power-rf","footprint":"Fiducial:Fiducial_1mm_Mask3mm","rotation_deg":0,"pcb_only":true,"anchor_x_mm":17,"anchor_y_mm":36}
+  - {"ref":"FID2","region":"interface-backup","footprint":"Fiducial:Fiducial_1mm_Mask3mm","rotation_deg":0,"pcb_only":true,"anchor_x_mm":4,"anchor_y_mm":4}
+  - {"ref":"FID3","region":"interface-backup","footprint":"Fiducial:Fiducial_1mm_Mask3mm","rotation_deg":0,"pcb_only":true,"anchor_x_mm":31,"anchor_y_mm":10}
+  - {"ref":"H1","region":"receiver-power-rf","footprint":"MountingHole:MountingHole_2.7mm_M2.5_Pad","rotation_deg":0,"anchor_x_mm":4,"anchor_y_mm":36}
+  - {"ref":"H2","region":"receiver-power-rf","footprint":"MountingHole:MountingHole_2.7mm_M2.5_Pad","rotation_deg":0,"anchor_x_mm":30,"anchor_y_mm":36}
+  - {"ref":"J1","region":"receiver-power-rf","footprint":"Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical","rotation_deg":0,"anchor_x_mm":9,"anchor_y_mm":32}
+  - {"ref":"J2","region":"receiver-power-rf","footprint":"Connector_Coaxial:U.FL_Hirose_U.FL-R-SMT-1_Vertical","rotation_deg":0,"anchor_x_mm":31,"anchor_y_mm":29}
+  - {"ref":"J3","region":"interface-backup","footprint":"Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical","rotation_deg":90,"anchor_x_mm":17,"anchor_y_mm":4}
+  - {"ref":"J4","region":"receiver-power-rf","footprint":"Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical","rotation_deg":90,"anchor_x_mm":28,"anchor_y_mm":19}
+  - {"ref":"R1","region":"receiver-power-rf","footprint":"Resistor_SMD:R_0402_1005Metric","rotation_deg":0}
+  - {"ref":"R2","region":"receiver-power-rf","footprint":"Resistor_SMD:R_0402_1005Metric","rotation_deg":0}
+  - {"ref":"R3","region":"receiver-power-rf","footprint":"Resistor_SMD:R_0402_1005Metric","rotation_deg":0}
+  - {"ref":"R4","region":"receiver-power-rf","footprint":"Resistor_SMD:R_0402_1005Metric","rotation_deg":0}
+  - {"ref":"R5","region":"receiver-power-rf","footprint":"Resistor_SMD:R_0402_1005Metric","rotation_deg":0}
+  - {"ref":"SW1","region":"interface-backup","footprint":"Button_Switch_SMD:SW_SPST_B3U-1000P","rotation_deg":0,"anchor_x_mm":19.5,"anchor_y_mm":9.5}
+  - {"ref":"TP1","region":"receiver-power-rf","footprint":"TestPoint:TestPoint_Pad_1.0x1.0mm","rotation_deg":0}
+  - {"ref":"TP2","region":"receiver-power-rf","footprint":"TestPoint:TestPoint_Pad_1.0x1.0mm","rotation_deg":0}
+  - {"ref":"U1","region":"receiver-power-rf","footprint":"jlcpcb:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR","rotation_deg":0,"anchor_x_mm":18,"anchor_y_mm":32}
+  - {"ref":"U2","region":"receiver-power-rf","footprint":"jlcpcb:GPSM-SMD_24P-L16.0-W12.2-P1.10-BL","rotation_deg":0,"anchor_x_mm":18,"anchor_y_mm":22}
+net_classes:
+  - {"name":"Default","nets":["D_SEL","EXTINT","GND","I2C_SCL","I2C_SDA","RESET_N","SAFEBOOT_N","TIMEPULSE","UART_RXD","UART_TXD","VCC_RF"],"width_mm":0.2,"clearance_mm":0.127,"via_diameter_mm":0.6,"via_drill_mm":0.3}
+  - {"name":"RF_50ohm","nets":["RF_IN"],"width_mm":0.3,"clearance_mm":0.2,"via_diameter_mm":0.6,"via_drill_mm":0.3}
+  - {"name":"Power","nets":["VCC","VIN","V_BCKP"],"width_mm":0.3,"clearance_mm":0.15,"via_diameter_mm":0.6,"via_drill_mm":0.3}
+critical_nets: []
+zones: []
+route_policy: "human"
+unresolved_decisions:
+  - {"code":"owner.rf-stackup","message":"RF_IN retains historical RF_50ohm class width 0.3mm, not a verified 50-ohm geometry. Dielectric thickness, er, copper thickness and manufacturer stackup unresolved.","severity":"review"}
+  - {"code":"owner.antenna","message":"Passive/active antenna, bias feed, ground plane and siting unresolved; accepted circuit has no bias tee.","severity":"review"}
+  - {"code":"owner.rf-zone-shape","message":"Accepted GND_TOP/GND_BOTTOM have an RF notch; schema v1 cannot express polygon shape. zones is intentionally empty; manually reconstruct and review the sourced boundaries in the draft before routing/approval. No rectangle replacement or fill equivalence.","severity":"review"}
+  - {"code":"owner.supply-headroom","message":"VIN minimum versus XC6206 dropout unresolved; verify backup cell and thermal environment.","severity":"review"}
+  - {"code":"owner.rf-esd-package","message":"D1 RCLAMP0521P / D_0402 accepted identity differs from indexed RClamp0521PA SLP1006P2; exact ordered package/polarity remains unresolved.","severity":"review"}

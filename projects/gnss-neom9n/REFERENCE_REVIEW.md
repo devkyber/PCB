@@ -26,7 +26,7 @@ Full source URLs, acquisition dates, and SHA-256 identities are in
 | u-blox NEO-M9N-00B data sheet, UBX-19014285 R08, 2025-10-09 | `files/NEO-M9N-00B_NEO-M9N-00B_DataSheet_UBX-19014285.pdf` | Read revision history; visually inspected pp.8-9 pin assignment and Table 9. This is the exact accepted module variant's pin authority. |
 | u-blox integration manual, UBX-19014286 R10, 2025-03-27 | `files/NEO-M9N-00B_NEO-M9N_Integrationmanual_UBX-19014286.pdf` | Visually inspected p.71 Figure 31 minimal schematic and p.81 Figures 39/40 RF trace and VCC-pad layout. These are manufacturer circuit/layout examples, not complete EVM CAD. |
 | SparkFun U.FL breakout, schematic marked V10 | `files/NEO-M9N-00B_SparkFun_GPS_NEO_M9N_uFL_df70b2d67fa6.sch` | Parsed native device-to-pad mapping, explicit values, and nets. U1 is `U-BLOX_NEO-M9N`, package `NEO-M9N`, with all 24 pad numbers represented. The CAD omits the `-00B` order suffix; exact purchased variant is therefore unconfirmed. Indexed under our target part for applicability, not as proof of its procurement identity. |
-| Matching SparkFun native board | `files/NEO-M9N-00B_SparkFun_GPS_NEO_M9N_uFL_963d63cb9c1d.brd` | Inspected element positions, pad membership, copper-layer/routing/polygon metadata through the evidence pair inspector. 135 connected pads compared, zero mismatches; 349 routed wire primitives, 207 vias, copper layers 1/16, GND polygons on both layers. Native CAD was not opened in an EDA copper viewer; detailed copper visual review remains pending. |
+| Matching SparkFun native board | `files/NEO-M9N-00B_SparkFun_GPS_NEO_M9N_uFL_963d63cb9c1d.brd` | Native pair metadata: 135 connected pads compared, zero mismatches; 349 routed wires, 207 vias, copper layers 1/16, GND polygons on both layers. Later limited explicit-copper visual inspection is recorded below; fill and engineering validation remain open. |
 
 The pair inspector verified package identity and explicit values as well as
 pad-net membership. This does not establish filled-zone connectivity, routing
@@ -75,8 +75,8 @@ and flags ordered-package/polarity review rather than asserting equivalence.
 
 Still required before relying on this research for layout or release:
 
-- Inspect the native SparkFun copper visually and confirm its exact ordering
-  variant; the schematic's family name alone is insufficient.
+- Complete native fill/mechanical/clearance review beyond the limited derived
+  copper views below, and confirm the exact ordering variant.
 - Compare our actual copper, RF geometry, ground return, antenna protection,
   and supply decoupling against the manufacturer and reference views.
 - Record any adopted layout choice or justified difference in the design
@@ -111,3 +111,42 @@ connectivity check.
 
 Git comparison confirmed the accepted `.kicad_sch`, `.kicad_pcb`, and
 `netmap.json` remain unchanged. No acceptance or human sign-off was performed.
+
+## Limited explicit-copper inspection — 2026-09-20
+
+The controller visually inspected separate F.Cu/B.Cu exports of the archived
+SparkFun board using KiCad 10.0.6. Source SHA-256 stayed
+`963d63cb9c1d6d63123480ce3a4592504efa401d70e35f3a331b009f1f357717`.
+The first Eagle import loaded 94 footprints, 556 tracks/vias and five zones,
+but saving project settings failed and the unmodified derived export rejected
+UNDEFINED layers. A source-specific in-memory workaround omitted exactly 41
+imported graphics: J3 USB-C's 16 layer-46 Milling wires/arcs; four stand-offs
+JP101/JP31/JP41/JP91 with four layer-41/42 restriction arcs each; and eight
+board layer-47 dimensions plus one text. Layer-39 stand-off keepout circles
+were retained. No archived XML bytes were edited and no general repair was added.
+
+SaveBoard with skip-settings and a fresh-process reload preserved all 94
+footprint anchors/rotations, 157 pads (positions, sizes, rotations, drills,
+shapes and nets), and 556 track/via endpoints, widths, layers and nets exactly
+relative to the imported board. Five zone records remain by count only.
+The successful diagnostic emitted SWIG removed-object warnings; an earlier
+via.GetWidth probe asserted and was corrected to explicit F.Cu diameter access.
+These diagnostics do not constitute a clean production pipeline or source-format
+semantic equivalence test.
+
+Ignored artifacts are under `.pcb-copilot/reference-review/eagle-import-20260920/`:
+`reference-explicit-copper-only.kicad_pcb` and
+`copper/reference-explicit-copper-only-{F_Cu,B_Cu}.svg` with 2000px PNGs.
+Both exports use top view with Edge.Cuts/F.SilkS overlay; B.Cu is not mirrored.
+No filled plane or refill was used. The views show central U1 NEO-M9N, upper-left
+J3 USB-C, upper-right J13 U.FL, right-edge Qwiic J4, C4=1uF immediately right
+of the module beside U2 regulator, many vias around/under the module and back
+trace bundles around its upper/lower perimeter. Native source contacts place
+U1.11, J13.FEED and FB1.1 on GPS_ANT1; FB1.2 supplies a separate ANT_VCC branch
+with R14/C1. These are source observations, not copied placement constraints.
+
+Omitted milling/restriction graphics prohibit mechanical, clearance, pour, DRC
+or fabrication approval of the derived board. Native Eagle fill equivalence,
+RF impedance/width/stackup, -00B procurement identity and suitability for our
+different circuit remain unverified. Proposed local grouping and the unresolved
+RF-notch representation are documented in DESIGN_BASIS.md.

@@ -66,3 +66,47 @@ reported "0 schematic-parity issue(s)" on every run because it read a
 kicad-cli field the pipeline never asked to be populated. Fixed by a real
 presence check, and by choosing a switch that fits (16.8 x 12.5 mm → 4.8 x
 3.3 mm).
+
+## Assisted layout proposal — 2026-09-20
+
+`layout-intent.yaml` transcribes native accepted 34x40mm outline and exact
+footprint IDs, SHA-256
+`352b9a918f92f160d7f18d93cd791287db3cac9aefea57a5609d18c9455650af`.
+Shared bottom-left/y-up conversion of native (10,160)-(44,200) differs from
+the generator's legacy y-down coordinates: holes at legacy y4 become y36;
+U.FL J2=(31,29), interface J3=(17,4), rotation 90. Connector/hole/fiducial,
+battery and switch anchors preserve current mechanical/access choices.
+U1/U2 retain current anchors as provisional power/receiver seeds, not source
+layout copies or owner-approved constraints.
+
+The proposed bands are interface/backup y0–12 and receiver/power/RF y12–40.
+An initial split at y30 intersected fixed J1/J2 envelopes, so those functions
+share a region; near-pad relationships express their electrical grouping.
+Movable bypass parts target actual supply pads:
+C1→U1.3/C2→U1.2 within a proposed 5mm; C3→U2.23 within 2mm;
+C4 bulk→U2.23 within 5mm; C5→U2.9 and C6→U2.22 within 3mm.
+D1→J2.1 has a proposed 5mm maximum to keep protection at the connector.
+These are search bounds informed by existing bypass/entry functions and house
+rules, not proof of effective decoupling or vendor-required numerical distances.
+
+The manufacturer RF grounding/VCC examples and limited SparkFun copper views
+recorded in REFERENCE_REVIEW inform review priorities. SparkFun's USB,
+ANT_VCC bias branch, rechargeable backup path and 2.2k pull-ups differ from
+our unused USB, no-bias antenna feed, CR1220 and 4.7k pull-ups. No coordinates,
+fill, RF width or stackup are adopted from that source. Exact source -00B
+variant and suitability remain unresolved.
+
+All 15 named native nets retain effective classes: Power VCC/VIN/V_BCKP
+width/clearance 0.3/0.15mm, RF_IN historical RF_50ohm 0.3/0.2mm, others
+Default 0.2/0.127mm; vias 0.6/0.3mm. The RF class name is not impedance proof.
+Critical-net calculations are empty because manufacturer stackup/dielectric
+height, er and copper thickness are unknown.
+
+Current GND_TOP/GND_BOTTOM occupy F.Cu/B.Cu with 0.2mm clearance and an RF
+notch. Schema v1 cannot represent their polygon. The proposal intentionally
+has no zones, so the isolated draft removes accepted copper and requires
+manual source-backed notch/return-plane reconstruction before routing or
+approval. It does not replace the notch with a full-board rectangle or
+assert that the historic notch is electrically correct. Antenna type/siting/
+ground plane, D1 ordered-package mapping, VIN dropout, cell/environment and
+RF return/impedance review remain pending. Accepted CAD and signoff are untouched.
