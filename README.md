@@ -1,5 +1,9 @@
 # PCB Copilot
 
+**Start here: [open the results and see current progress](docs/PROGRESS.md).**
+That page links the four schematic PDFs, PCB previews, editable KiCad drafts
+and research records. All are proposals awaiting human review, not approved boards.
+
 PCB Copilot is a human-controlled assistant for researching, drafting,
 checking, and packaging KiCad boards. Its purpose is to remove repetitive
 work—not to pretend that software can independently approve an electrical
@@ -56,6 +60,7 @@ part of the engineering record.
 
 ## Read next
 
+- [Results and progress](docs/PROGRESS.md) — what to open, what works, what remains, and why folders are kept
 - [Workflow](docs/WORKFLOW.md) — operator sequence and commands
 - [Architecture](docs/ARCHITECTURE.md) — authority, state, gates, and preserved components
 - [Design rules](docs/DESIGN_RULES.md) — enforced rules and human review scope
@@ -63,6 +68,10 @@ part of the engineering record.
 - [Project format](docs/PROJECT_FORMAT.md) — manifest and directory contract
 - [Approved remake design](docs/superpowers/specs/2026-09-14-pcb-copilot-repository-remake-design.md)
 - [Implementation roadmap](docs/superpowers/plans/2026-09-14-pcb-copilot-remake-roadmap.md)
+
+For normal use, stay with the results page, workflow and your board's folder.
+`src/`, `tests/`, `tools/`, `migration/`, and the plans are maintainer material.
+Hidden `.pcb-copilot` folders hold real drafts; do not treat them as disposable caches.
 
 ## Safety rule
 

@@ -61,14 +61,16 @@ The ordering rule this establishes: **datasheet first, reference design
 second, and a reference is evidence of practice, not of correctness.** Where
 they disagree, the datasheet wins and the disagreement itself gets a row.
 
-**3. `EVALUATION.md` contradicted this file** on the bulk cap — it argued the
+**3. The superseded initial evaluation contradicted this file** on the bulk
+cap — it argued the
 10uF was "for Adafruit's regulator, not applicable here." The Eagle netlist
 says C5/C6 sit on the `3.3V` net alongside `IC1.VDD` and `IC1.VDDIO`, so they
 decouple the rail the sensor actually runs on. A host-fed rail has a different
 source/cable impedance from the regulated reference, so neither blanket
 conclusion establishes the needed capacitance or achievable ripple. C3 remains
-the current design choice, with bench verification open. `EVALUATION.md` is a
-historical decision record, not evidence of measured supply performance.
+the current design choice, with bench verification open. The obsolete
+evaluation was a historical decision record, not evidence of measured supply
+performance, and has been removed after preserving this correction here.
 
 ## Assisted layout proposal — 2026-09-20
 

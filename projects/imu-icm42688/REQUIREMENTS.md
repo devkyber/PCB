@@ -25,8 +25,9 @@ for a rocketry avionics stack; the barometer lives on its own board
 - **Supply noise: the datasheet specifies `Power Supply Noise ... 10 mV
   peak-peak` (§3.3.2).** This is a requirement on the board and it is five
   times tighter than the BMP390's 50 mVpp. It is the reason C1/C2/C3 are the
-  values they are, and the reason the previous 100nF-only decoupling was a
-  spec violation rather than a preference.
+  values they are. The previous 100 nF-only network did not match the
+  datasheet application circuit; without a rail measurement, that mismatch
+  alone does not prove the assembled board exceeded 10 mVpp.
 - Supply ramp (§3.3.2): monotonic, **0.01 – 3 ms** from 10% to 90%.
   **[OWNER]** Not verified against the host's rail behaviour. A slow or
   non-monotonic 3V3 ramp on the stack can leave the part mis-initialised.
@@ -75,8 +76,8 @@ for a rocketry avionics stack; the barometer lives on its own board
 - Gyro zero-rate output stable to within its datasheet ZRO spec at rest,
   measured on the assembled board (**±0.5 °/s** initial tolerance, §3.1).
 - Rail noise at U1's VDD pad stays under the datasheet's **10 mVpp** limit
-  while sampling — measured at the pad, not at the header. This is the
-  criterion the original 100nF-only decoupling would have failed silently.
+  while sampling — measured at the pad, not at the header. Nominal capacitor
+  values do not establish this result; it remains a bench criterion.
 - Sustained sampling at the intended ODR with no FIFO overruns over a
   30-minute run.
 - Survives a representative vibration profile without a reading dropout.

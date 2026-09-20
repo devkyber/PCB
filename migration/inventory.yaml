@@ -16,9 +16,8 @@ rules:
     action: KEEP
     rationale: Canonical repository purpose and entry point.
   - pattern: CLAUDE.md
-    action: MERGE
-    rationale: Preserve operational instructions in the canonical workflow index.
-    replacement: docs/WORKFLOW.md
+    action: KEEP
+    rationale: Concise current agent contract; links to canonical progress and workflow rather than duplicating them.
   - pattern: HUMAN_WORK.md
     action: GENERATED
     rationale: Recreate human work from project-specific review state.
@@ -31,8 +30,8 @@ rules:
     action: KEEP
     rationale: Approved design and implementation records.
   - pattern: docs/archive/**
-    action: MERGE
-    rationale: Retain current facts in project design records before removing historical duplication.
+    action: DELETE
+    rationale: Audited 2026-09-20; obsolete V2 history and duplicate relay/ADC tutorial removed. Current board decisions remain in canonical project records; originals are recoverable from Git.
     replacement: projects/tms-v3/PDR.md
   - pattern: docs/QUICKSTART.md
     action: DELETE
@@ -43,17 +42,20 @@ rules:
     rationale: Durable routing safety was consolidated into the canonical workflow; host-specific setup was stale.
     replacement: docs/WORKFLOW.md
   - pattern: docs/pcb-design-workflow.md
-    action: MERGE
-    rationale: Consolidate the lifecycle and gates.
+    action: DELETE
+    rationale: Superseded operator guidance and old defect chronology removed at owner request; current guidance and recurring-defect lessons remain in WORKFLOW and ARCHITECTURE. Full chronology is recoverable from Git.
     replacement: docs/WORKFLOW.md
   - pattern: docs/pcb-design-rules.md
-    action: MERGE
-    rationale: Consolidate enforced and human rules without overstating coverage.
-    replacement: docs/DESIGN_RULES.md
+    action: DELETE
+    rationale: Detailed original moved intact with non-authoritative warning; canonical rule index retains exact scope and links to provenance.
+    replacement: docs/history/legacy-design-rules.md
   - pattern: docs/tms-v3-pdr.md
-    action: MERGE
-    rationale: Move board-specific review material beside the board.
+    action: DELETE
+    rationale: Moved beside the board with explicit historical conflicts; preserved unique design/review history without endorsing stale approval.
     replacement: projects/tms-v3/PDR.md
+  - pattern: docs/history/**
+    action: KEEP
+    rationale: Detailed rule provenance retained until fact-level migration; current reports and deviations still use its stable rule IDs. Obsolete workflow chronology was removed.
   - pattern: docs/ARCHITECTURE.md
     action: KEEP
     rationale: Canonical architecture and recurring-defect record.
@@ -76,6 +78,17 @@ rules:
     action: MERGE
     rationale: Retain current findings in requirements, design basis, deviations, or limitations.
     replacement: projects/*/DESIGN_BASIS.md
+  - pattern: projects/baro-bmp390/EVALUATION.md
+    action: DELETE
+    rationale: Audited current pin map, bulk-cap rationale, address, sizing and test-point facts are in canonical board records; old routing counts and disproven bulk verdict not migrated.
+    replacement: projects/baro-bmp390/DESIGN_BASIS.md
+  - pattern: projects/imu-icm42688/EVALUATION.md
+    action: DELETE
+    rationale: Audited current capacitor, reserved-pin grounding, SPI, dimensions and mechanical facts are in canonical board records; false NC and measured-noise claims not migrated.
+    replacement: projects/imu-icm42688/DESIGN_BASIS.md
+  - pattern: projects/gnss-neom9n/EVALUATION.md
+    action: KEEP
+    rationale: Accepted schematic Description fields and live generators still cite this file; retained until a reviewed metadata migration, not current design authority.
   - pattern: projects/tms-v3/tms-v3-bom.md
     action: GENERATED
     rationale: Generate the BOM from the accepted PCB.

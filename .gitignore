@@ -4,6 +4,9 @@ __pycache__/
 .venv/
 venv/
 .pytest_cache/
+.ruff_cache/
+# Agent implementation evidence is local, not product source.
+.superpowers/
 # Transactional local drafts, reports, and state
 .pcb-copilot/
 

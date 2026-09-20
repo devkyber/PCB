@@ -11,6 +11,7 @@ CANONICAL = {
     "rules": Path("docs/DESIGN_RULES.md"),
     "limitations": Path("docs/LIMITATIONS.md"),
     "project_format": Path("docs/PROJECT_FORMAT.md"),
+    "progress": Path("docs/PROGRESS.md"),
 }
 LINK_RE = re.compile(r"\[[^]]+\]\(([^)]+)\)")
 
@@ -32,11 +33,45 @@ def test_canonical_local_markdown_links_resolve(repo_root, document):
         if not path_text or "://" in path_text or path_text.startswith("mailto:"):
             continue
         target_path = (source.parent / path_text).resolve()
+        if ".pcb-copilot" in target_path.parts:
+            # Snapshot IDs are local: another checkout may have different drafts.
+            # If this selected draft exists, require all its linked artifacts.
+            assert target_path.is_relative_to(repo_root / "projects")
+            local_root = next(
+                parent for parent in target_path.parents if parent.name == ".pcb-copilot"
+            )
+            relative_result = target_path.relative_to(local_root).parts
+            assert len(relative_result) >= 3 and relative_result[0] == "drafts"
+            snapshot = local_root / "drafts" / relative_result[1]
+            if not snapshot.exists():
+                continue
         assert target_path.exists(), f"{document} links to missing {target}"
 
 
+@pytest.mark.parametrize("state", ("absent", "other-draft", "missing-file", "complete"))
+def test_local_results_link_availability_is_snapshot_specific(tmp_path, state):
+    document = Path("docs/PROGRESS.md")
+    (tmp_path / "docs").mkdir()
+    (tmp_path / document).write_text(
+        "[PDF](../projects/board/.pcb-copilot/drafts/selected/preview.pdf)",
+        encoding="utf-8",
+    )
+    drafts = tmp_path / "projects/board/.pcb-copilot/drafts"
+    if state == "other-draft":
+        (drafts / "new-id").mkdir(parents=True)
+    elif state in {"missing-file", "complete"}:
+        (drafts / "selected").mkdir(parents=True)
+        if state == "complete":
+            (drafts / "selected/preview.pdf").touch()
+    if state == "missing-file":
+        with pytest.raises(AssertionError, match="links to missing"):
+            test_canonical_local_markdown_links_resolve(tmp_path, document)
+    else:
+        test_canonical_local_markdown_links_resolve(tmp_path, document)
+
+
 def test_canonical_rules_preserve_legacy_ids_and_exact_checker_scope(repo_root):
-    legacy = (repo_root / 'docs/pcb-design-rules.md').read_text(encoding='utf-8')
+    legacy = (repo_root / 'docs/history/legacy-design-rules.md').read_text(encoding='utf-8')
     canonical = (repo_root / 'docs/DESIGN_RULES.md').read_text(encoding='utf-8')
     legacy_ids = set(re.findall(r'^### (\d+\.\d+) ', legacy, re.MULTILINE))
     rows = re.findall(r'^\| `(\d+\.\d+)` \| ([^|]+) \| (Partial|Human) \|$',
@@ -83,3 +118,23 @@ def test_limitations_describe_current_draft_layout_capability(repo_root):
     assert 'STEP' in normalized and 'partial' in normalized
     assert 'the new layout, unified review, and release interfaces remain planned' not in normalized
     assert 'Add real-footprint layout intents, measured placement, constraints' not in normalized
+
+
+def test_progress_is_the_results_entry_point(repo_root):
+    readme = (repo_root / "README.md").read_text(encoding="utf-8")
+    assert "docs/PROGRESS.md" in readme
+    progress = (repo_root / "docs/PROGRESS.md").read_text(encoding="utf-8")
+    for board in ("baro-bmp390", "imu-icm42688", "gnss-neom9n", "tms-v3"):
+        assert f"../projects/{board}/.pcb-copilot/drafts/" in progress
+        assert f"../projects/{board}/REFERENCE_REVIEW.md" in progress
+    assert progress.count("/preview.pdf)") == 4
+    assert progress.count("/preview.svg)") == 4
+    assert "not approved" in progress
+    assert "local" in progress and "fresh checkout" in progress
+    assert "time saved" in progress
+
+
+def test_project_format_reflects_implemented_layout_intents(repo_root):
+    text = (repo_root / "docs/PROJECT_FORMAT.md").read_text(encoding="utf-8")
+    assert "layout intents remain planned" not in text
+    assert "planned reproducible layout intent" not in text

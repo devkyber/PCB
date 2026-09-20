@@ -1,24 +1,27 @@
 # Requirements — TMS V3 (Thrust Measurement System)
 
-> **Status: 2026-08-26 — now cross-checked against `docs/tms-v3-pdr.md`.**
+> **Status: 2026-09-20 — cross-checked against the historical
+> [`PDR.md`](PDR.md) and the accepted design records.**
 >
 > This file was first written by reading the as-built board backwards, on the
 > belief that no spec existed. One did: a 504-line Preliminary/Critical Design
 > Review with a full component register, signal-chain budgets and a TBD
-> register, sitting in `docs/`. Phase 1 is not always "write a spec" —
+> register, now preserved as `PDR.md`. Phase 1 is not always "write a spec" —
 > sometimes it is "find the spec that already exists", and the reference
 > search has to cover this repo, not only the internet.
 >
-> The PDR is the authority for anything below that cites it. Where this file
-> and the PDR disagree, the disagreement is stated rather than smoothed over —
+> The PDR is a historical source for anything below that cites it; accepted
+> CAD and the maintained project records are current authority. Where this
+> file and the PDR disagree, the disagreement is stated rather than smoothed over —
 > the connector set is the live example: the PDR §1 register specifies XT60U-F
 > for both batteries, and the owner superseded it on 2026-08-26 with XT30PW
 > for the batteries and XT60 for the **igniter output**. Open questions are
 > **[OWNER]**.
 >
-> **This board fires pyrotechnic igniters. One reconstructed requirement below
-> is currently violated by the board — see the connector item under
-> Mechanical. Do not fabricate before resolving it.**
+> **This board fires pyrotechnic igniters. Cold bridgewire resistance/current,
+> ignition-path copper suitability, isolated-return intent, reset/brownout
+> behavior, and physical connector/module fit remain unresolved human safety
+> decisions. Do not fabricate or energize the output before resolving them.**
 
 ## Purpose
 Static-fire test-stand data acquisition and ignition control for solid rocket
@@ -67,25 +70,15 @@ telemetry link and the remote ARM interlock exist.
 
 ## Mechanical
 - Board outline and mounting: as laid out; 2 layers, 1.6 mm FR4, 1 oz copper.
-- **[OWNER] — BLOCKING SAFETY ITEM. Four connectors declare a type they do
-  not have.** `check_connector_class` in `validate_pcb.py` now fails on this:
-
-  | Ref | Declared | Footprint fitted |
-  |---|---|---|
-  | J1 | XT60U-F, electronics battery | `PinHeader_1x02_P2.54mm` |
-  | J2 | XT60U-F, **igniter battery** | `PinHeader_1x02_P2.54mm` |
-  | J5 | ARM switch **screw terminal** | `PinHeader_1x02_P2.54mm` |
-  | J6 | E-match **screw terminal** | `PinHeader_1x02_P2.54mm` |
-
-  An XT60 is rated 60 A continuous; a 2.54 mm header pin is about 3 A, and it
-  is a friction fit with no retention. J2 and J6 are the igniter battery and
-  the e-match — the two highest-consequence connections on the board.
-  Resolve by fitting the real footprints (the board will need to grow —
-  an XT60 is roughly 16 x 8 mm) **or** by deciding the connectors really are
-  headers with flying leads and recording that in `DEVIATIONS.md` along with
-  the current each must carry. Do not resolve it by editing the labels.
-- **[OWNER] Trace width on the ignition path is unverified** against whatever
-  current the answer above establishes.
+- The earlier 2.54 mm header substitutions on J1/J2/J5/J6 were corrected in
+  the accepted design: J1/J2 are board-mount XT30PW-F battery connectors, J5
+  is a 5.08 mm WJ500V screw terminal for the external ARM switch, and J6 is
+  an XT60-F igniter output. See `DESIGN_BASIS.md` for part identities and the
+  historical mismatch. This correction does not prove physical mating,
+  retention under blast/vibration, or current margin.
+- **[OWNER] Trace width and connector/relay margin on the ignition path are
+  unverified** against the measured cold resistance and pulse current of the
+  actual nichrome bridgewire.
 
 ## Interfaces
 | Connector | Signal set | Notes |
@@ -93,7 +86,7 @@ telemetry link and the remote ARM interlock exist.
 | J1 | VBAT, GND | 4S LiPo electronics supply — see connector item |
 | J2 | IGN_BATT+, IGN_GND | 2S LiPo igniter supply, isolated return |
 | J5 | IGN_BATT+, IGN_ARM_RET | External ARM switch, in series with the relay contact |
-| J6 | IGN_OUT, IGN_GND | E-match output |
+| J6 | IGN_OUT, IGN_GND | Nichrome bridgewire igniter output, XT60-F |
 | J7 / J8 | Teensy 4.1 socket | Pin map from PJRC card rev4 — see DESIGN_BASIS |
 | J9 | XBee 3 socket | Pin map from Digi 90001543 |
 | J3 / J4 | Load cell, pressure sensor | analog inputs, TVS-protected (D2) |
@@ -104,8 +97,8 @@ telemetry link and the remote ARM interlock exist.
   **[OWNER]** No conformal coating or enclosure is specified. A firing
   circuit that gets damp is a firing circuit that may fire.
 - Vibration and blast: the board is near a firing motor. All connectors
-  should retain positively under shock — which is the *other* reason the
-  header substitution above matters, independent of current.
+  should retain positively under shock. The corrected connector classes still
+  require physical mating and retention review with the actual harness.
 - **[OWNER] Failure mode on power loss is not stated.** If the relay is
   de-energised the contact opens and the igniter is safe; confirm that
   `RELAY_CTRL` is low at Teensy reset and cannot glitch high during boot.
@@ -118,6 +111,6 @@ telemetry link and the remote ARM interlock exist.
 - Telemetry link holds at the intended stand-to-operator distance.
 - **The igniter output stays open** with the ARM switch open, with
   `RELAY_CTRL` low, and through a Teensy reset and a brownout — verified with
-  a resistive dummy load and a scope, never a live e-match.
+  a resistive dummy load and a scope, never an energetic igniter.
 - Ignition fires reliably into a dummy load at the specified current with the
   ARM switch closed.

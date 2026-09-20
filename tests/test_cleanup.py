@@ -1,0 +1,59 @@
+"""Guards for the audited documentation cleanup, not a blanket deletion gate."""
+
+MOVED = {
+    "docs/tms-v3-pdr.md": "projects/tms-v3/PDR.md",
+    "docs/pcb-design-rules.md": "docs/history/legacy-design-rules.md",
+}
+REMOVED = {
+    "docs/archive/tms-v2-summary.md": "projects/tms-v3/DESIGN_BASIS.md",
+    "docs/archive/tms3-design-review.md": "projects/tms-v3/DESIGN_BASIS.md",
+    "docs/pcb-design-workflow.md": "docs/WORKFLOW.md",
+    "projects/baro-bmp390/EVALUATION.md": "projects/baro-bmp390/DESIGN_BASIS.md",
+    "projects/imu-icm42688/EVALUATION.md": "projects/imu-icm42688/DESIGN_BASIS.md",
+    "docs/archive/tms-v3-relay-and-adc-explained.md": "projects/tms-v3/PDR.md",
+    "docs/archive/README.md": "docs/PROGRESS.md",
+}
+
+
+def test_audited_documentation_targets_have_canonical_destinations(repo_root):
+    for old, replacement in (MOVED | REMOVED).items():
+        assert not (repo_root / old).exists(), old
+        assert (repo_root / replacement).is_file(), replacement
+    for replacement in MOVED.values():
+        assert "historical" in (repo_root / replacement).read_text(
+            encoding="utf-8"
+        ).lower()
+
+
+def test_removed_evaluation_refs_are_not_left_in_active_board_sources(repo_root):
+    for board in ("baro-bmp390", "imu-icm42688"):
+        for path in (repo_root / "projects" / board).iterdir():
+            if path.suffix in {".md", ".py", ".kicad_sch"}:
+                assert "EVALUATION.md" not in path.read_text(encoding="utf-8"), path
+
+
+def test_gnss_evaluation_is_retained_while_accepted_cad_cites_it(repo_root):
+    project = repo_root / "projects/gnss-neom9n"
+    assert "EVALUATION.md" in (project / "gnss-neom9n.kicad_sch").read_text(
+        encoding="utf-8"
+    )
+    assert (project / "EVALUATION.md").is_file()
+
+
+def test_cleanup_does_not_remove_live_legacy_runtime_inputs(repo_root):
+    # These are not ready for deletion just because newer APIs are planned.
+    for relative in (
+        "docs/pcb_layout_helpers.py", "docs/schematic_layout_helpers.py",
+        "docs/deviations.py", "docs/extract_netmap.py", "docs/pipeline.py",
+        ".claude/settings.json", "pyproject.toml", "uv.lock",
+    ):
+        assert (repo_root / relative).is_file(), relative
+
+
+def test_superseded_history_is_not_retained_as_duplicate_archives(repo_root):
+    for relative in (
+        "docs/history/legacy-workflow.md",
+        "projects/tms-v3/history/tms-v2-summary.md",
+        "projects/tms-v3/history/tms3-design-review.md",
+    ):
+        assert not (repo_root / relative).exists(), relative

@@ -1,5 +1,22 @@
 # TMS V3 Preliminary Design Review
 
+> **Historical design record — not current approval or fabrication authority.**
+> This document preserves the Rev D design-stage review and its original
+> decisions. Its “approved” language records that historical checkpoint only.
+> Current accepted CAD and the maintained
+> [requirements](REQUIREMENTS.md), [design basis](DESIGN_BASIS.md),
+> [deviations](DEVIATIONS.md), and [reference review](REFERENCE_REVIEW.md)
+> take precedence.
+>
+> Known conflicts include the historical 100 mm × 80 mm outline versus the
+> accepted 100 mm × 100 mm board; XT60 battery connectors versus accepted
+> XT30 battery connectors; commercial e-match assumptions versus the current
+> nichrome bridgewire use case; 22 pF crystal-load capacitors versus the
+> schematic’s 33 pF choice and the accepted PCB’s unresolved 22 pF fields;
+> and an “internal 2.5 V reference” assumption even though the accepted
+> ADS1256 reference nets contain no active reference source. None of these
+> conflicts is resolved by retaining this document.
+
 **PSI Rocketry · TMS V3**  
 **Date:** 2026-08-24  
 **Rev:** D — all findings resolved, ready for schematic  

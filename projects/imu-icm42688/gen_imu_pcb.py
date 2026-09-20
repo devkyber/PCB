@@ -16,8 +16,8 @@ caps within 2mm of their pins, 2 M2 mounting holes (5.5mm keepout each
 per docs/DESIGN_RULES.md §15.6), and 3 fiducials on a strict 20x15mm
 canvas left no room for DRC-clean spacing. This mirrors the documented
 §15.7 lesson: placeholder-era dimensions don't survive contact with real
-part geometry — widen, don't force it. Documented as a deviation in
-EVALUATION.md.
+part geometry — widen, don't force it. The maintained sizing rationale is in
+REQUIREMENTS.md.
 
 This script produces PLACEMENT + real footprints + net-annotated pads +
 ground plane + fiducials + stitching vias. It does NOT route traces —

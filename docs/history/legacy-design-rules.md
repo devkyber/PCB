@@ -1,8 +1,12 @@
 # PCB Design Rules — Expert Knowledge Base
 
-> **Superseded:** This legacy rule collection is retained while executable
-> checks are migrated. Use [DESIGN_RULES.md](DESIGN_RULES.md) as the canonical
-> rule authority.
+> **Historical record only — not universal design authority.** This file
+> preserves all 42 numbered legacy subsections and their source bibliography
+> for provenance. Many numerical values and absolute prescriptions are
+> board-, part-, stackup-, fabricator-, or date-specific; some examples are
+> superseded by current project evidence. Use the canonical
+> [design rules](../DESIGN_RULES.md), exact manufacturer evidence, and each
+> project's maintained design basis for current decisions.
 
 **Purpose:** Mandatory reference for Claude during PCB layout and review.  
 **Sources:** TI app notes, Analog Devices mixed-signal guides, Rick Hartley (Sierra Circuits), Altium/Cadence design guides, JLCPCB DFM specs, IPC-2221.  

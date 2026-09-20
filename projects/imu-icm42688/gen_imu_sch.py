@@ -50,7 +50,7 @@ STEMMA QT / Qwiic (JST-SH 4-pin, I2C) — evaluated per docs/DESIGN_RULES.md
 (I2C needs AP_AD0 address-select handling + pull-ups, not just an SDO
 passthrough). Rather than guess an unverified LCSC part number for the
 connector, this is documented as a known gap for a future SPI+I2C dual-
-mode revision — see EVALUATION.md.
+mode revision — see DESIGN_BASIS.md.
 """
 
 import sys

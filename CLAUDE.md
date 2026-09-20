@@ -8,6 +8,7 @@ collection, drafting, consistency checks, and repeatable packaging.
 ## Read first
 
 - [Purpose and quick start](README.md)
+- [Selected results and progress](docs/PROGRESS.md)
 - [Operator workflow](docs/WORKFLOW.md)
 - [Architecture and authority](docs/ARCHITECTURE.md)
 - [Design rules](docs/DESIGN_RULES.md)
@@ -43,8 +44,10 @@ uv run pcb-copilot research projects/baro-bmp390 --verify
 uv run pcb-copilot research projects/baro-bmp390 --extract BMP390
 uv run python docs/run_gates.py projects/baro-bmp390/baro-bmp390.kicad_pcb
 uv run python docs/audit_workflow.py
-uv run python docs/selftest_enforcement.py
 ```
+
+Run `uv run python docs/selftest_enforcement.py` only in a disposable repository
+copy: it temporarily replaces evidence files and touches board modification times.
 
 The old pipeline and helper scripts remain compatibility entry points during
 migration. Read their callers and characterization tests before moving them.
@@ -54,7 +57,9 @@ or factual loss.
 
 ## Gate Rule during migration
 
-`docs/pipeline.py` remains the legacy end-to-end entry point. Evidence archive,
+`docs/pipeline.py --status` remains a legacy summary; the full pipeline is
+mutating and its accepted-PCB routing call is rejected by draft-only wrappers.
+Use the independent draft commands in `docs/WORKFLOW.md`. Evidence archive,
 verification, and supported exact extraction now live behind
 `pcb-copilot research`; the old research scripts remain compatibility wrappers.
 A file existing, a command returning zero, or a generated report from an older
@@ -64,7 +69,9 @@ showing that the failure path fires.
 
 ## Current known boundary
 
-Generated schematics are not yet reliably human-reviewable: the current four
-measure zero junctions, and TMS V3 requires hierarchy. Do not call a board
-finished because it opens or passes ERC. Consult [Limitations](docs/LIMITATIONS.md)
-and leave unresolved decisions visible.
+Accepted legacy schematics and new drafts are different artifacts. The selected
+drafts have local wiring and junctions; TMS V3 has an overview plus six functional
+sheets. Schematic and PCB human reviews remain pending. Layout drafting currently
+requires the circuit's physical parts on an existing PCB; GNSS/TMS placement
+blockers remain. Do not call a board finished because it opens or passes ERC/DRC.
+Consult [Limitations](docs/LIMITATIONS.md) and leave unresolved decisions visible.

@@ -8,7 +8,7 @@ directly out of gen_baro_sch.py's pin_label() calls — the ERC-verified
 source of truth (same pattern as TMS V3's gen_tms_v3_pcb.py).
 
 Board: 18mm x 26mm, 2-layer, JLCPCB spec. Grew from the initial ~15x15mm
-target — see EVALUATION.md for the sizing rationale. The real
+target — see REQUIREMENTS.md for the maintained sizing rationale. The real
 JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horizontal STEMMA QT footprint's
 courtyard measures ~7.8mm x 6.6mm (mounting tabs included) — far bigger
 than the 4.5x6mm "minimal" estimate in docs/DESIGN_RULES.md §15.6, and by

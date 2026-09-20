@@ -48,7 +48,7 @@ projects/BOARD_NAME/
 ├── DEVIATIONS.md              narrowly scoped waivers
 ├── SIGNOFF.md                 compatibility human-review record
 ├── schematic-intent.yaml      reproducible schematic intent, not acceptance
-├── layout-intent.yaml         planned reproducible layout intent
+├── layout-intent.yaml         reproducible layout intent, not acceptance
 ├── evidence/
 │   ├── index.yaml             structured provenance, roles, trust and hashes
 │   └── files/                 archived exact source bytes
@@ -57,8 +57,12 @@ projects/BOARD_NAME/
 
 The evidence migration is complete: `datasheets/` and `reference-designs/`
 have been replaced by the unified, hash-addressed archive. All four schematic
-intents are present; layout intents remain planned. Legacy `STATUS.md`, `PIPELINE.json`, generators,
+and layout intents are present. Legacy `STATUS.md`, `PIPELINE.json`, generators,
 and build wrappers remain until their replacement gates pass.
+
+For selected local PDFs, PCB previews and editable drafts, start with
+[Results and progress](PROGRESS.md). Outputs under `.pcb-copilot/` are not
+tracked in Git and may contain manual work; they are not disposable caches.
 
 Evidence files retain their exact downloaded bytes. `.gitattributes` disables
 Git text/line-ending conversion under `evidence/files/`; do not format those

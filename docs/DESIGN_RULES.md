@@ -141,7 +141,7 @@ must stay visible in reports; see [Limitations](LIMITATIONS.md).
 
 Reports and `DEVIATIONS.md` still use these historical IDs. They are retained
 here so consolidation does not silently change what a waiver or finding means.
-The [legacy rule collection](pcb-design-rules.md) remains the provenance for
+The [legacy rule collection](history/legacy-design-rules.md) remains the provenance for
 the detailed subsections pending fact-level migration; its generic values and
 absolute prescriptions are not promoted into current engineering requirements.
 Use the authority order above and the board's cited design basis.

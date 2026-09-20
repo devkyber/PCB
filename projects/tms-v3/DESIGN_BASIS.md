@@ -57,11 +57,12 @@ content hash recorded in `evidence/index.yaml`. Nothing here is cited from memor
 The "60" is the **instantaneous** figure. Continuous rating is **30 A**
 (`XT60_XT60.pdf`). Nothing on this board approaches either number — the
 electronics draw is under an amp and the igniter pulse is a few amps. The
-XT60 is here for **retention and ecosystem fit**: it is what LiPo packs
-terminate in, and it latches. Sizing the copper to the connector's rating
-instead of the actual current would be the wrong lesson to take from this.
-**[OWNER]** the actual e-match firing current is still unspecified, and trace
-width on the ignition path depends on it.
+XT60 is here on the igniter output for **retention and current margin**; it
+latches and matches the accepted output-harness decision. Sizing the copper
+to the connector's rating instead of the actual current would be the wrong
+lesson to take from this. **[OWNER]** the actual nichrome cold resistance and
+firing pulse current are still unspecified, and trace width on the ignition
+path depends on them.
 
 ## What this comparison caught
 
