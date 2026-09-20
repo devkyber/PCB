@@ -1,0 +1,36 @@
+# Proposal only. Native accepted geometry/rules transcribed 2026-09-20.
+# See DESIGN_BASIS.md for source facts, functional choices and open decisions.
+schema_version: 1
+title: "baro-bmp390 assisted layout proposal"
+revision: "layout-proposal-1"
+coordinate_frame: "board-origin-bottom-left-x-right-y-up-mm"
+outline: {"width_mm":18,"height_mm":26}
+regions:
+  - {"id":"mounts","x_mm":0,"y_mm":0,"width_mm":18,"height_mm":6}
+  - {"id":"sensor","x_mm":1,"y_mm":6,"width_mm":16,"height_mm":11}
+  - {"id":"host-entry","x_mm":0,"y_mm":17,"width_mm":18,"height_mm":9}
+placements:
+  - {"ref":"C1","region":"sensor","footprint":"Capacitor_SMD:C_0402_1005Metric","rotation_deg":0,"near_ref":"U1","near_pin":"10","source_pin":"1","max_distance_mm":2}
+  - {"ref":"C2","region":"sensor","footprint":"Capacitor_SMD:C_0402_1005Metric","rotation_deg":0,"near_ref":"U1","near_pin":"1","source_pin":"1","max_distance_mm":2}
+  - {"ref":"C3","region":"sensor","footprint":"Capacitor_SMD:C_0603_1608Metric","rotation_deg":0,"near_ref":"J1","near_pin":"2","source_pin":"1","max_distance_mm":8}
+  - {"ref":"FID1","region":"host-entry","footprint":"Fiducial:Fiducial_1mm_Mask3mm","rotation_deg":0,"pcb_only":true,"anchor_x_mm":15.2,"anchor_y_mm":23.2}
+  - {"ref":"FID2","region":"host-entry","footprint":"Fiducial:Fiducial_1mm_Mask3mm","rotation_deg":0,"pcb_only":true,"anchor_x_mm":2.8,"anchor_y_mm":23.2}
+  - {"ref":"FID3","region":"sensor","footprint":"Fiducial:Fiducial_1mm_Mask3mm","rotation_deg":0,"pcb_only":true,"anchor_x_mm":2.8,"anchor_y_mm":12}
+  - {"ref":"H1","region":"mounts","footprint":"MountingHole:MountingHole_2.2mm_M2_Pad","rotation_deg":0,"anchor_x_mm":2.8,"anchor_y_mm":2.8}
+  - {"ref":"H2","region":"mounts","footprint":"MountingHole:MountingHole_2.2mm_M2_Pad","rotation_deg":0,"anchor_x_mm":15.2,"anchor_y_mm":2.8}
+  - {"ref":"J1","region":"host-entry","footprint":"Connector_JST:JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horizontal","rotation_deg":0,"anchor_x_mm":9,"anchor_y_mm":21}
+  - {"ref":"R1","region":"sensor","footprint":"Resistor_SMD:R_0402_1005Metric","rotation_deg":0}
+  - {"ref":"R2","region":"sensor","footprint":"Resistor_SMD:R_0402_1005Metric","rotation_deg":0}
+  - {"ref":"TP1","region":"sensor","footprint":"TestPoint:TestPoint_Pad_1.0x1.0mm","rotation_deg":0}
+  - {"ref":"U1","region":"sensor","footprint":"jlcpcb:LGA-10_L2.0-W2.0-P0.50-BL","rotation_deg":0,"anchor_x_mm":9,"anchor_y_mm":12}
+net_classes:
+  - {"name":"Power","nets":["+3V3"],"width_mm":0.3,"clearance_mm":0.2,"via_diameter_mm":0.6,"via_drill_mm":0.3}
+  - {"name":"Default","nets":["BMP_INT","GND","I2C_SCL","I2C_SDA"],"width_mm":0.2,"clearance_mm":0.127,"via_diameter_mm":0.6,"via_drill_mm":0.3}
+critical_nets: []
+zones:
+  - {"net":"GND","layers":["F.Cu"],"clearance_mm":0.2}
+  - {"net":"GND","layers":["B.Cu"],"clearance_mm":0.2}
+route_policy: "human"
+unresolved_decisions:
+  - {"code":"owner.standoffs","message":"Current two-hole cantilever pattern retained; owner must specify stack standoffs, vibration/height constraints and pressure-port access.","severity":"review"}
+  - {"code":"owner.supply-performance","message":"Host/cable impedance, ripple at U1 (50 mVpp criterion) and full-accuracy environment require measurement; no current-sizing inputs invented.","severity":"review"}

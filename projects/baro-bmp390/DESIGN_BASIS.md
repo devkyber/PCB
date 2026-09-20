@@ -69,3 +69,43 @@ source/cable impedance from the regulated reference, so neither blanket
 conclusion establishes the needed capacitance or achievable ripple. C3 remains
 the current design choice, with bench verification open. `EVALUATION.md` is a
 historical decision record, not evidence of measured supply performance.
+
+## Assisted layout proposal — 2026-09-20
+
+`layout-intent.yaml` is an unapproved placement proposal. Native accepted
+outline 18x26mm, exact footprint IDs, pad-net assignments and effective rules
+were measured read-only; accepted PCB SHA-256 is
+`0b198a4204eb1b695bb5fc3708de018cc20ab1477e81e5dd76d2467e2a2af426`.
+The coordinate frame is board-local bottom-left, X right/Y up, using the shared
+KiCad conversion. Native bounds (10,174)-(28,200) yield H1=(2.8,2.8),
+H2=(15.2,2.8), J1=(9,21). REQUIREMENTS/generator y=23.2 holes and low-y
+connector use the opposite legacy Y convention; they are not new coordinates.
+
+Fixed mechanical holes, connector and PCB-only FID1–3 retain measured anchors.
+U1's centre (9,12), rotation 0 is retained as a proposal seed to preserve the
+pressure-port/mechanical separation; it is not a newly approved enclosure
+constraint. Movable capacitors/pull-ups/test point use three proposed functional
+bands: mounts y0–6, sensor x1–17/y6–17 and host entry y17–26. The 1mm
+sensor-side inset keeps unconstrained pull-ups clear of the existing 0.5mm
+copper-edge rule (the first shelf proposal put R1 copper only 0.45mm away).
+C3 remains in the
+sensor band immediately below the connector body. C1.1→U1.10 and C2.1→U1.1
+are 2mm maximum pad-distance proposals from the existing house rule and
+Bosch Fig 25 bypass functions; C3.1→J1.2 uses a proposed 8mm entry-bulk limit.
+An initial 5mm search failed because J1's supply pad is at y23 and its body
+occupies the connector band; historical C3 sits below it at y16.5. The 8mm
+proposal allows body clearance, and is not a relaxation of a sourced bypass
+requirement. C3 is rail bulk, not either of the two sensor-local bypass caps.
+No reference coordinates are copied. The Adafruit central sensor/local C6 and
+connector-edge observations in REFERENCE_REVIEW support these functions;
+its regulator/level shifting and extra connector differ from our host-fed rail.
+
+All five named nets retain native effective rules: +3V3 Power 0.3mm/0.2mm
+width/clearance; other nets Default 0.2mm/0.127mm, vias 0.6/0.3mm.
+GND F.Cu/B.Cu zones retain net/layers/0.2mm clearance only. Schema-generated
+rectangles/default connection/fill settings are proposed, not full native-zone
+equivalence: solid-pad connection, return continuity and silk/access need review.
+Current/thermal calculation inputs remain absent. Standoff pattern, cantilever
+rigidity, height, pressure port/coating, host/cable ripple and temperature
+accuracy remain open. Native parity and a preview are not human placement
+approval; SIGNOFF and accepted CAD remain unchanged.
