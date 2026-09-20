@@ -78,7 +78,7 @@ U3 and do not replace the TI datasheet pin-map citation.
 | TI ADS1x20EVM guide SBAU203, July 2013 | `sha256:483b3351badfa960fcc9bbea1fab18e3ccfd21e0cb282c192950d26452feafc4` | Archived; visually inspected PDF page 18 schematic, title-block Rev A, SVN 28, dated 2013-06-06. EVM copper review incomplete. |
 | ProtoCentral native ZIP, pinned commit above | `sha256:83c75b67b2f7d4c6f46f65f6b7bfc7647ddf0220fb10479eeedf8d0f6f659a5e` | Archived; contains two Eagle 6.4 XML members. |
 | ProtoCentral `pc_ads1220_brk/pc_ads1220_brk.sch` | `sha256:06809c8c1335a3581d08cc29f73f9cbd5d76d59f864283c90997d73321750691` | Archived; exact pin/pad pair comparison performed. |
-| ProtoCentral `pc_ads1220_brk/pc_ads1220_brk.brd` | `sha256:30c7978775749e9178d67311229ada682460f87f777642532a6a854d5d07b790` | Archived; XML copper metadata inspected; visual copper/return-path review pending. |
+| ProtoCentral `pc_ads1220_brk/pc_ads1220_brk.brd` | `sha256:30c7978775749e9178d67311229ada682460f87f777642532a6a854d5d07b790` | Archived; XML metadata and later limited four-layer explicit-copper views inspected (below); filled return-path and TMS applicability review remain pending. |
 | ProtoCentral schematic PDF, title-block 2014-07-18 | `sha256:891a4b71a749d574a93fa67d03564ae00f6d13abf8c555b03d877303707cfa3b` | Archived; one-page circuit visually inspected. PDF-to-native revision identity not independently proven. |
 
 TI source URLs are recorded in the existing index. The new archive source is
@@ -115,8 +115,10 @@ or applicability to TMS.
   calls for bypass at each relevant supply. This is a connectivity comparison,
   not validation of placement or noise performance. TMS's single pressure
   input and internal-reference configuration differ from the multipurpose EVM.
-- ProtoCentral: the inspected schematic offers separate AVDD/DVDD entry with
-  100nF bypass, 47-ohm SPI series elements and a zero-ohm GND/AGND connection.
+- ProtoCentral: the schematic labels separate AVDD/DVDD entries with 100nF
+  bypass, but source R6=0R bridges VCC/+5V and R5=0R bridges GND/AGND.
+  Header labels do not establish isolation; assembly/DNP state is unverified.
+  The reference also has 47-ohm SPI series elements.
   TMS retains its accepted 33-ohm series resistors and shared electronics GND.
   Do not copy the breakout's supply wiring into the Teensy interface without
   checking the actual voltage domains against the TI datasheet.
@@ -138,8 +140,8 @@ bench validation or readiness for fabrication.
 ## Remaining coverage and next review
 
 ADS1256 open-hardware PCB coverage remains unresolved. ADS1220 now has an
-archived open-hardware native pair, but actual copper visualization and
-comparison against the accepted TMS PCB remain pending. Search, archive,
+archived open-hardware native pair and limited explicit-copper visualization
+(below), but comparison against actual TMS copper remains pending. Search, archive,
 inspection and engineering comparison are separate statuses.
 
 No new manufacturer/open-hardware schematic-and-PCB searches were performed
@@ -190,3 +192,77 @@ The A1 overview has excessive empty space, although corrected labels are now
 separate from sheet-pin text. These limitations and the unresolved engineering
 items above remain human-review findings. A successful structural command is
 not visual approval, acceptance, bench validation or release approval.
+
+## ADS1220 limited copper inspection — 2026-09-20
+
+The controller inspected all four enabled copper-layer exports from the pinned
+ProtoCentral source, SHA-256
+`30c7978775749e9178d67311229ada682460f87f777642532a6a854d5d07b790`, unchanged.
+KiCad 10.0.6 Eagle import required no graphics omissions or sanitization.
+SaveBoard(..., True) and fresh-process reload preserved 12 footprint
+anchors/rotations, 48 pads (identity/net/position/size/rotation/drill/shape/layer
+mask), 112 tracks/vias (91 wires + 21 vias, identity/net/endpoints/width/layer)
+and four zone records by count. Zone outlines/fills were not compared; this
+checks the derived saved inventory against the import, not all Eagle semantics.
+The disposable diagnostic and exports exited zero without warnings.
+
+Ignored outputs are `.pcb-copilot/reference-review/ads1220-20260920/`:
+`reference-explicit-copper.kicad_pcb` and
+`copper/reference-explicit-copper-{F_Cu,B_Cu,In1_Cu,In2_Cu}.svg`/PNG.
+All four 1600px-wide views use top view with Edge.Cuts/F.SilkS; bottom is not
+mirrored. No zone refill/check-zones occurred. Cropping clips boundary silk,
+so no conclusion relies on missing text.
+
+U$1 is central, SV1 digital header left and SV3 analog header right. R1/R2/R3
+47-ohm SPI elements lie on the digital side; pad 2 connects to ADC pins 2/1/16
+respectively. C1/C2=100nF lie above the ADC; source contacts tie U$1.13/C1.1
+to VCC and U$1.12/C2.1 to +5V, with GND/AGND returns. Return vias surround
+ADC/header/power areas. Top carries most fanout; bottom has crossovers and
+portions of input/reference/supply routes. Inner views show through-hole pads
+and vias, no explicit routed wires. Layer-1/16 wire counts do not prove a
+two-layer fabricated stackup: four layers are configured. GND/AGND polygons
+exist on 1/16, but newly filled planes are not shown. R6.2=VCC, R6.1=+5V;
+R5 bridges GND/AGND. Values are source entries, not verified population.
+No DRC, filled-plane equivalence, return-current quality, bypass-distance
+conformance or actual TMS suitability is established.
+
+## J9 source geometry and remaining blocker — 2026-09-20
+
+Read-only inspection of the hand-authored footprint and Digi 90001543 PDF
+pages 36–37, 45 and 52–56 used indexed source
+`sha256:a02aee173feaec9b7504a1794d94e579ae62ca01ae868217befb62b1638efcfa`.
+Index revision is null and the exact module/antenna/socket is unspecified.
+P45 top-view numbering agrees: 1 top-left, 10 bottom-left, 11 bottom-right,
+20 top-right. Nominal 2mm pitch and 22mm row spacing agree approximately with
+rounded 0.079in and twice 0.433in; this does not prove socket drill/fit tolerances.
+
+P36 through-hole U.FL drawing implies body Y approximately -7.7216 to
+19.9136mm relative to pin 1 in library x-right/y-down coordinates (body-end
+ordinates +/-0.544in, first pin +0.240in). P25 independently gives 27.61mm
+body length. Current Fab/silk Y -6.53..19.2 is only 25.73mm; courtyard
+-7.03..19.7 is 26.73mm and underbounds even the pictured body by approximately
+0.69mm at the nose and 0.21mm opposite. X body 24.4mm approximately matches
+0.960in/24.384mm. P37 RPSMA hardware extends farther for that variant.
+
+P55 is the through-hole embedded-antenna all-layer clearance/edge-placement
+view; P53/P54 concern other packages. P56 note 4 excludes external RF
+connectors from that preceding guidance. No keepout can be adopted until the
+actual antenna/module variant is selected. P52 VCC pin 1 bypass/ripple/brownout
+guidance still needs circuit review. Socket contact/body/drill drawing,
+enclosure clearance and physical mating are unresolved; a module pin drawing
+does not validate a 0.9mm board drill. The geometry/provenance blocker is not
+cleared by recognizing the custom description or relabeling it imported.
+A source-backed corrected proposed envelope requires review before any repair
+of the accepted footprint/board. No such repair or approval occurred here.
+
+## Accepted geometry discrepancies for layout migration
+
+Read-only native inventory also finds C8/C9 PCB Value fields still 22pF while
+the schematic and earlier basis describe 33pF; C4 actually connects +5V/GND,
+despite generator comments placing it at DVDD. These are unresolved source
+disagreements, not authorization to rewrite accepted CAD. Y1/C10/C11 parent
+angles are 90 degrees while both pads in each are native 0 degrees; library
+local-zero pads would imply 90 degrees. Native Y1 pads are 5.5x1.4mm and cap
+pads 0.56x0.62mm, making orientation material. Current drafting preserves
+embedded pad geometry and emits instance-difference warnings. Footprint-ID
+and net parity do not establish geometric or value equivalence.

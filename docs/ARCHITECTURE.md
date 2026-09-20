@@ -100,11 +100,12 @@ exist today:
   anchors, near-pad relationships, net classes, zones, critical physical
   inputs, unresolved owner decisions, and routing policy.
 
-There is no `draft-layout` CLI yet, and actual schematic and PCB human
-approvals remain pending. Layout drafting is underway; unified review and
-release/fabrication packages remain planned. Legacy PCB, routing, gate, and
-fabrication scripts remain the available compatibility path while their
-behavior is migrated behind package APIs.
+The reviewed layout CLI supports isolated `draft-layout` proposals, native
+geometry/constraint checks, previews and human-controlled routing policy.
+Plan 4 board intents are being migrated; actual schematic/PCB human review
+and acceptance remain pending. Plan 5 unified review and release/fabrication
+packages remain planned. Legacy gate/fabrication scripts remain compatibility
+tools, not evidence of completed release integration or board approval.
 
 ## Enforcement tiers
 

@@ -50,7 +50,7 @@ content hash recorded in `evidence/index.yaml`. Nothing here is cited from memor
 | **J3** | **JST B5B-XH-A** (C157991) | **load cell** | 1x05 polarised latching, 3A | PDR §2: 4-wire bridge + shield | PDR §2 signal chain | Match to the owner's "Molex-like" requirement. **JST XH rather than Molex KK**: same class (polarised, latching, crimp wire-to-board) but KK has *no* LCSC stock while XH has 36k, and KiCad ships the exact B5B-XH-A land pattern. Polarisation matters here — a load-cell bridge plugged in reversed reads backwards. |
 | **J4** | **JST B3B-XH-A** (C144394) | **pressure sensor** | 1x03 polarised latching | PDR §4: 3-wire 0–5V sensor on VBAT | PDR §4 | Match |
 | **J7, J8** | **1x24 female socket** (C2883741) | **Teensy 4.1** | **female sockets — the Teensy plugs in and lifts out** | PDR §1 register: "Module (socket)" | PDR §1 | Match. Previously `PinHeader` (male pins), which would have required soldering the Teensy down permanently, contradicting the register's own "socket". |
-| **J9** | 1x10 female 2.00mm ×2 (C2925557) | **XBee 3 socket** | two rows of ten at 2.00mm | Digi 90001543 mechanical | `evidence/files/xbee3_hardware_ref.pdf` | Match. **Order 2 pieces per board** — one footprint, two physical parts. |
+| **J9** | 1x10 female 2.00mm ×2 (C2925557) | **XBee 3 socket** | two rows of ten at 2.00mm; hand-authored body/courtyard underbounds the pictured module | Digi 90001543 mechanical pp.36–37, 45; antenna guidance pp.52–56 | `evidence/files/xbee3_hardware_ref.pdf` | Unresolved: nominal pad order/pitch is consistent, but body envelope, exact module/antenna/socket and drill/physical fit require review. The historical two-socket BOM quantity is not fit approval; see REFERENCE_REVIEW. |
 
 ## Note on the XT60 rating
 
@@ -73,3 +73,57 @@ width on the ignition path depends on it.
    2.54mm headers while claiming XT60s and screw terminals.
 4. Earlier revisions: **invented Teensy and XBee pin maps** (+5V onto a GND
    pin), fixed by rebuilding both from the vendor documents now archived here.
+
+## Assisted layout proposal — 2026-09-20
+
+The unapproved `layout-intent.yaml` uses native accepted 100x100mm outline,
+exact footprint IDs and pad nets, SHA-256
+`7012096ec8281fa6477880bffe165272c3ce6ce9eb57a00020c50d0759ec858e`.
+Shared bottom-left/y-up conversion uses native outline (10,100)-(110,200).
+Legacy generator design y increases with native y despite contradictory
+comments: its (4.5,4.5) H1 becomes (4.5,95.5), and Teensy rows become
+J7=(26,18), J8=(26,33.24), both rotation 90. Their 15.24mm separation,
+connectors J1–9, holes and PCB-only FID1–3 remain fixed existing mechanics.
+U2/U3/U4 and L1 retain current anchors as provisional functional seeds.
+Keeping those anchors neither approves socket fit nor freezes every passive.
+
+Proposed controller/interface y0–38, analog x0–50/y38–80, power x0–50/y80–100,
+telemetry x50–100/y38–70 and relay/status x50–100/y70–100 regions follow
+the existing circuit grouping. Movable passives, relay/driver, LEDs and probe
+points remain search candidates. Pad-distance proposals use the house bypass
+2mm target (C1→U2.1, C5/C6→actual DVDD U2.16, C10→U3.12, C11→U3.13);
+additional bypass C2 uses 3mm, bulk C3/C4/C12 and regulator caps C15/C16
+use 5mm. C7→U2.4 uses 3mm while VREF source remains absent.
+Y1→U2.19 uses 5mm; C8/C9→Y1.1/.2 use 3mm. C13→J7.3 and C14→J9.1
+use proposed 5mm module bypass limits instead of blindly repeating generator
+U3 associations. C17→L1.2 uses 5mm. These choices require physical routing
+review; no historical misidentified U2.15 waiver transfers to pin16.
+
+TI ADS1256EVM layout separation/return-plane views and TI/ProtoCentral ADS1220
+bypass observations inform grouping. ProtoCentral's R6=0R VCC/+5V bridge
+and R5=0R GND/AGND bridge preclude assuming isolation from header labels;
+its 47-ohm resistors differ from accepted TMS 33-ohm SPI elements. Four
+enabled-layer explicit-copper views prove neither filled returns nor stackup/
+two-layer suitability. No source positions are copied; ADS1256 open-hardware
+coverage and per-part reference gaps remain explicit.
+
+Native named-net rules are retained: Default width/clearance 0.254/0.2mm,
+vias 0.6/0.3mm; Power +3V3/+5V/+5V_FILT 0.5/0.2mm, vias 0.8/0.4mm;
+HighCurrent VBAT/VBAT_PROT/IGN_BATT+/IGN_ARM_RET/IGN_OUT/IGN_GND 1/0.3mm,
+vias 1/0.5mm. These historical dimensions are not verified current capacity.
+Only GND B.Cu zone with 0.3mm clearance is requested; generated connection/
+fill defaults are proposals, not native-zone equivalence. IGN_GND remains
+separate and no ignition-current/thermal model is run without owner inputs.
+
+J9 remains blocked by unsupported hand-authored provenance and an undersized
+body/courtyard relative to the Digi through-hole drawing. See the exact
+dimensions and variant-dependent p55/p56 antenna guidance in REFERENCE_REVIEW.
+A source-backed proposed envelope correction, selected module/socket, drill fit
+and physical mating review are prerequisites; no accepted footprint is repaired
+or relabeled verified. Y1/C10/C11's six non-square pad-angle differences remain
+preserved embedded geometry and explicit review findings. Actual PCB C8/C9
+still say 22pF despite schematic/earlier 33pF prose; C4 actually sits on +5V,
+not generator-described DVDD. Resolve these source disagreements before
+approval. Igniter cold resistance/current/duration, isolated return decision,
+LM7805 thermal budget, external VREF source and reset/brownout behavior remain
+human decisions. No acceptance, physical signoff or release occurred.
