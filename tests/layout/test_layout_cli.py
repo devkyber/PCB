@@ -371,3 +371,70 @@ def test_approval_cannot_outlive_artifact_edits(reviewed, artifact):
     target.write_bytes(target.read_bytes() + b"\n")
     with pytest.raises(ValueError, match="artifacts changed"):
         accept_layout(project, draft)
+
+
+def test_refresh_blocks_custom_rules_added_after_constraint_proposal(reviewed):
+    from pcb_copilot.accept import accept_layout
+    from pcb_copilot.layout.commands import approve_layout_preview, review_layout_draft
+
+    project, draft, _ = reviewed
+    before = accepted_file_hashes(project)
+    rules = (draft.root / project.pcb_path.name).with_suffix(".kicad_dru")
+    rules.write_text("(version 1)\n", encoding="utf-8")
+    report = review_layout_draft(project, draft.id)
+    assert any(
+        f["code"] == "constraints.custom_rules_changed"
+        for f in report["machine_failures"]
+    )
+    with pytest.raises(ValueError):
+        approve_layout_preview(
+            project, draft.id, "fixture reviewer", confirm_preview=True
+        )
+    with pytest.raises(ValueError):
+        accept_layout(project, draft)
+    assert accepted_file_hashes(project) == before
+
+
+def test_custom_rules_edit_during_refresh_cannot_be_sealed(reviewed, monkeypatch):
+    from pcb_copilot.layout import commands
+
+    project, draft, _ = reviewed
+    original = commands.render_layout_preview
+    review_before = (draft.root / "review.json").read_bytes()
+
+    def edit_after_exports(toolchain, pcb, output):
+        findings = original(toolchain, pcb, output)
+        pcb.with_suffix(".kicad_dru").write_text("(version 1)\n", encoding="utf-8")
+        return findings
+
+    monkeypatch.setattr(commands, "render_layout_preview", edit_after_exports)
+    with pytest.raises(ValueError, match="inputs changed during review"):
+        commands.review_layout_draft(project, draft.id)
+    assert (draft.root / "review.json").read_bytes() == review_before
+
+
+def test_missing_custom_rules_snapshot_requires_new_proposal(reviewed):
+    from pcb_copilot.layout.commands import approve_layout_preview, review_layout_draft
+
+    project, draft, _ = reviewed
+    constraints_path = draft.root / "constraints-report.json"
+    constraints = json.loads(constraints_path.read_text(encoding="utf-8"))
+    constraints.pop("custom_rules_sha256", None)
+    constraints_path.write_text(json.dumps(constraints), encoding="utf-8")
+    # Reconstruct a pre-fix review fixture: its hash binds the old report shape.
+    # This must not acquire approval even without asking for a fresh review.
+    review_path = draft.root / "review.json"
+    old_review = json.loads(review_path.read_text(encoding="utf-8"))
+    old_review["artifact_hashes"]["constraints-report.json"] = file_digest(
+        constraints_path
+    )
+    review_path.write_text(json.dumps(old_review), encoding="utf-8")
+    with pytest.raises(ValueError, match="custom-rule proposal snapshot"):
+        approve_layout_preview(
+            project, draft.id, "fixture reviewer", confirm_preview=True
+        )
+    report = review_layout_draft(project, draft.id)
+    assert any(
+        f["code"] == "constraints.custom_rules_changed"
+        for f in report["machine_failures"]
+    )

@@ -57,6 +57,13 @@ def _zone_constraints(pcb):
     return sorted(signatures)
 
 
+def _custom_rules_match(constraints, pcb):
+    # A missing field is an old, unverified snapshot, not recorded absence.
+    return "custom_rules_sha256" in constraints and constraints[
+        "custom_rules_sha256"
+    ] == file_digest(pcb.with_suffix(".kicad_dru"))
+
+
 def validate_layout_draft(project, draft):
     if (
         draft.kind != DraftKind.LAYOUT
@@ -111,8 +118,10 @@ def draft_layout(project, intent_path: Path, route=None):
     placement = propose_placement(project, intent, draft)
     save_layout_intent(intent, draft.root / "layout-intent.yaml")
     _write(draft.root / "placement-proposal.json", asdict(placement))
+    custom_rules_digest = file_digest(placement.pcb_path.with_suffix(".kicad_dru"))
     constraints = apply_constraints(placement.pcb_path, intent)
     constraint_data = asdict(constraints)
+    constraint_data["custom_rules_sha256"] = custom_rules_digest
     constraint_data["intent_sha256"] = file_digest(draft.root / "layout-intent.yaml")
     constraint_data["project_sha256"] = file_digest(
         placement.pcb_path.with_suffix(".kicad_pro")
@@ -161,6 +170,7 @@ def review_layout_draft(project, draft_id):
     inputs = [
         pcb,
         pcb.with_suffix(".kicad_pro"),
+        pcb.with_suffix(".kicad_dru"),
         intent_path,
         draft.root / "constraints-report.json",
         draft.root / "placement-proposal.json",
@@ -175,6 +185,14 @@ def review_layout_draft(project, draft_id):
             (draft.root / "constraints-report.json").read_text(encoding="utf-8")
         )
         findings.extend(constraint_data["findings"])
+        if not _custom_rules_match(constraint_data, pcb):
+            findings.append(
+                {
+                    "code": "constraints.custom_rules_changed",
+                    "severity": "block",
+                    "message": "Custom rules changed or their proposal snapshot is unverified; prepare a new draft. Custom rules still require separate effective-rule review.",
+                }
+            )
         if constraint_data.get("intent_sha256") != file_digest(intent_path):
             findings.append(
                 {
@@ -262,6 +280,14 @@ def checked_layout_review(project, draft):
     hashes = layout_artifacts(project, draft)
     if None in hashes.values() or report.get("artifact_hashes") != hashes:
         raise ValueError("review artifacts changed or missing; run review-draft")
+    constraints = json.loads(
+        (draft.root / "constraints-report.json").read_text(encoding="utf-8")
+    )
+    pcb = draft.root / project.pcb_path.relative_to(project.root)
+    if not _custom_rules_match(constraints, pcb):
+        raise ValueError(
+            "custom-rule proposal snapshot is unverified or changed; prepare a new draft"
+        )
     if report.get("exit_code") != 0 or any(
         f["severity"] == "block" for f in report["findings"]
     ):
