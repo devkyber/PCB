@@ -256,15 +256,17 @@ def _pad_extents(block):
         pad_rot = float(m.group(3) or 0.0)
         sw, sh = float(m.group(4)), float(m.group(5))
         dx, dy = _rotate(px, py, rot)
-        total = (rot + pad_rot) % 180.0
+        # Serialized board pad angles are absolute; only the pad position
+        # remains footprint-local. Adding rot here counts rotation twice.
+        total = pad_rot % 180.0
         if abs(total) < 0.01:
             hw, hh = sw / 2.0, sh / 2.0
         elif abs(total - 90.0) < 0.01:
             hw, hh = sh / 2.0, sw / 2.0
         else:
-            # Off-axis pad: use the circumscribing square. Conservative —
-            # never under-reports how far a pad actually reaches.
-            hw = hh = max(sw, sh) / 2.0
+            angle = math.radians(total)
+            hw = (abs(sw * math.cos(angle)) + abs(sh * math.sin(angle))) / 2
+            hh = (abs(sw * math.sin(angle)) + abs(sh * math.cos(angle))) / 2
         xs += [ox + dx - hw, ox + dx + hw]
         ys += [oy + dy - hh, oy + dy + hh]
     if not xs:

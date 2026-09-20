@@ -191,9 +191,8 @@ def _validate_pad(node: list[Any]) -> None:
     height = _finite_number(size[2], "pad coordinate")
     if width <= 0.0 or height <= 0.0:
         raise ValueError("pad geometry was not measured")
-    angle = _finite_number(at[3], "pad rotation") % 360.0 if len(at) > 3 else 0.0
-    if abs(angle % 90.0) >= 0.01:
-        raise ValueError(f"off-axis pad rotation {angle:g} is not safely supported")
+    if len(at) > 3:
+        _finite_number(at[3], "pad rotation")
     if len(_layout_helpers._pad_local_extents(sch_io.dumps(node))) != 1:
         raise ValueError("pad geometry was not measured by the shared extent helper")
 
@@ -293,6 +292,14 @@ def _footprint_data(path: Path) -> tuple[list[Any], tuple[float, float, float, f
     pads = sch_io.find_children(tree, "pad")
     for pad in pads:
         _validate_pad(pad)
+    for node in [tree, *pads]:
+        for clearance in sch_io.find_children(node, "clearance"):
+            if len(clearance) != 2:
+                raise ValueError("malformed clearance")
+            _finite_number(clearance[1], "clearance")
+    for block in _layout_helpers._iter_top_level_elements(text, "clearance"):
+        if not re.fullmatch(r"\(clearance\s+[-\d.]+\)", block):
+            raise ValueError("clearance was not measured by the shared extent helper")
     if len(_layout_helpers._pad_local_extents(text)) != len(pads):
         raise ValueError("pad geometry was not measured by the shared extent helper")
     _validate_courtyard(tree, text)

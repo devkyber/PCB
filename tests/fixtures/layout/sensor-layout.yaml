@@ -1,0 +1,21 @@
+schema_version: 1
+title: BMP390 measured placement fixture
+revision: test-1
+coordinate_frame: board-origin-bottom-left-x-right-y-up-mm
+outline: {width_mm: 18, height_mm: 26}
+regions:
+  - {id: sensor, x_mm: 0, y_mm: 0, width_mm: 18, height_mm: 26}
+placements:
+  - {ref: C1, region: sensor, footprint: 'Capacitor_SMD:C_0402_1005Metric', rotation_deg: 90, near_ref: U1, near_pin: '10', source_pin: '1', max_distance_mm: 2}
+  - {ref: C2, region: sensor, footprint: 'Capacitor_SMD:C_0402_1005Metric', near_ref: U1, near_pin: '1', source_pin: '1', max_distance_mm: 2}
+  - {ref: U1, region: sensor, footprint: 'jlcpcb:LGA-10_L2.0-W2.0-P0.50-BL', anchor_x_mm: 9, anchor_y_mm: 12}
+  - {ref: H1, region: sensor, footprint: 'MountingHole:MountingHole_2.2mm_M2_Pad', anchor_x_mm: 2.8, anchor_y_mm: 2.8}
+  - {ref: H2, region: sensor, footprint: 'MountingHole:MountingHole_2.2mm_M2_Pad', anchor_x_mm: 15.2, anchor_y_mm: 2.8}
+  - {ref: FID1, region: sensor, footprint: 'Fiducial:Fiducial_1mm_Mask3mm', pcb_only: true, anchor_x_mm: 15.2, anchor_y_mm: 23.2}
+  - {ref: FID2, region: sensor, footprint: 'Fiducial:Fiducial_1mm_Mask3mm', pcb_only: true, anchor_x_mm: 2.8, anchor_y_mm: 23.2}
+  - {ref: FID3, region: sensor, footprint: 'Fiducial:Fiducial_1mm_Mask3mm', pcb_only: true, anchor_x_mm: 2.8, anchor_y_mm: 12}
+  - {ref: C3, region: sensor}
+  - {ref: J1, region: sensor, footprint: 'Connector_JST:JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horizontal', anchor_x_mm: 9, anchor_y_mm: 21}
+  - {ref: R1, region: sensor}
+  - {ref: R2, region: sensor}
+  - {ref: TP1, region: sensor}

@@ -6,6 +6,7 @@ import json
 import subprocess
 import sys
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -161,3 +162,18 @@ print(json.dumps({
 @pytest.fixture
 def capture_layout_metrics_fn():
     return capture_layout_metrics
+
+
+@pytest.fixture
+def sensor_layout_draft(project_copy, repo_root, kipython):
+    from pcb_copilot.drafts import create_draft
+    from pcb_copilot.layout.io import load_layout_intent
+    from pcb_copilot.models import DraftKind
+    from pcb_copilot.project import load_project
+
+    project = load_project(project_copy)
+    return SimpleNamespace(
+        project=project,
+        intent=load_layout_intent(repo_root / "tests/fixtures/layout/sensor-layout.yaml"),
+        record=create_draft(project, DraftKind.LAYOUT),
+    )

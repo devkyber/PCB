@@ -177,7 +177,13 @@ def get_courtyard_bbox_from_file(mod_path) -> tuple[float, float] | None:
 def _pad_local_extents(mod_text: str) -> list[tuple[float, float, float, float]]:
     """Per-pad local-frame bounding boxes, rotation-aware."""
     boxes = []
-    for block in _iter_top_level_elements(mod_text, 'pad'):
+    pads = list(_iter_top_level_elements(mod_text, 'pad'))
+    outer = mod_text
+    for block in pads:
+        outer = outer.replace(block, '')
+    clearance_match = re.search(r'\(clearance\s+([-\d.]+)\)', outer)
+    fp_clearance = max(0.0, float(clearance_match.group(1))) if clearance_match else 0.0
+    for block in pads:
         m = re.search(r'\(at\s+([-\d.]+)\s+([-\d.]+)(?:\s+([-\d.]+))?\)', block)
         s = re.search(r'\(size\s+([-\d.]+)\s+([-\d.]+)\)', block)
         if not (m and s):
@@ -190,7 +196,11 @@ def _pad_local_extents(mod_text: str) -> list[tuple[float, float, float, float]]
         elif abs(prot % 180.0 - 90.0) < 0.01:
             hw, hh = sh / 2.0, sw / 2.0
         else:
-            hw = hh = max(sw, sh) / 2.0   # conservative for off-axis pads
+            hw, hh = _rotated_half_extents(sw, sh, prot)
+        clearance_match = re.search(r'\(clearance\s+([-\d.]+)\)', block)
+        clearance = max(fp_clearance, float(clearance_match.group(1)) if clearance_match else 0)
+        hw += clearance
+        hh += clearance
         boxes.append((px - hw, py - hh, px + hw, py + hh))
     return boxes
 
@@ -484,8 +494,8 @@ def shelf_pack(items: list[tuple[str, object]], zone_x: float, zone_y: float,
                row_gap_mm: float = 1.0) -> dict[str, tuple[float, float]]:
     """Lay out `items` (list of (ref, fp_def_node)) left-to-right, wrapping
     to a new row when the zone width is exceeded, using each item's REAL
-    courtyard size. Returns {ref: (x_mm, y_mm)} — center coordinates,
-    already collision-free by construction.
+    courtyard/pad union. Returns {ref: (x_mm, y_mm)} — footprint anchors,
+    preserving asymmetric offsets such as a header's pin-one origin.
 
     This is the "don't hand-guess coordinates at all" option: fetch every
     footprint first, then call this once instead of picking (x, y) by eye.
@@ -500,13 +510,17 @@ def shelf_pack(items: list[tuple[str, object]], zone_x: float, zone_y: float,
     row_height = 0.0
 
     for ref, fp_def_node in items:
-        bbox = get_courtyard_bbox(fp_def_node) or (3.0, 3.0)
-        w, h = bbox
+        extents = (get_extents_from_text(fp_def_node)
+                   if isinstance(fp_def_node, str) else get_extents(fp_def_node))
+        if extents is None:
+            raise ValueError(f'{ref}: no measured footprint geometry for shelf packing')
+        x0, y0, x1, y1 = extents
+        w, h = x1 - x0, y1 - y0
         if cursor_x + w > zone_x + zone_w and cursor_x > zone_x + margin_mm:
             cursor_x = zone_x + margin_mm
             cursor_y += row_height + row_gap_mm
             row_height = 0.0
-        positions[ref] = (cursor_x + w / 2, cursor_y + h / 2)
+        positions[ref] = (cursor_x - x0, cursor_y - y0)
         cursor_x += w + margin_mm
         row_height = max(row_height, h)
 

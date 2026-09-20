@@ -195,10 +195,6 @@ def test_drc_freshness_requires_a_newer_clean_report(tmp_path: Path, validator):
     assert validator.check_drc_freshness(str(pcb))[0] == "PASS"
 
 
-@pytest.mark.xfail(
-    strict=True,
-    reason="known bug: helper uses max(width, height)/2 for off-axis pads and can under-bound",
-)
 def test_off_axis_pad_extents_enclose_the_rotated_rectangle(pcb_helpers):
     footprint = '(footprint "rotated" (pad "1" smd rect (at 0 0 45) (size 4 2) (layers "F.Cu")))'
     half_extent = (4 * math.cos(math.pi / 4) + 2 * math.sin(math.pi / 4)) / 2
@@ -207,10 +203,6 @@ def test_off_axis_pad_extents_enclose_the_rotated_rectangle(pcb_helpers):
     )
 
 
-@pytest.mark.xfail(
-    strict=True,
-    reason="known bug: validator uses max(width, height)/2 for off-axis pads and can under-bound",
-)
 def test_validator_off_axis_pad_extents_enclose_the_rotated_rectangle(validator):
     block = _footprint("U1", 5.0, 5.0).replace("(at 0 0)", "(at 0 0 45)").replace(
         "(size 2 2)", "(size 4 2)"
@@ -219,6 +211,41 @@ def test_validator_off_axis_pad_extents_enclose_the_rotated_rectangle(validator)
     assert validator._pad_extents(block) == pytest.approx(
         (5 - half_extent, 5 - half_extent, 5 + half_extent, 5 + half_extent)
     )
+
+
+def test_serialized_native_pad_angle_is_already_absolute(tmp_path, kipython, validator):
+    pcb = tmp_path / "rotated.kicad_pcb"
+    script = '''
+import pcbnew, sys
+board = pcbnew.BOARD()
+fp = pcbnew.FOOTPRINT(board)
+fp.SetReference("U1")
+pad = pcbnew.PAD(fp)
+pad.SetNumber("1")
+pad.SetShape(pcbnew.PAD_SHAPE_RECT)
+pad.SetSize(pcbnew.VECTOR2I(pcbnew.FromMM(4), pcbnew.FromMM(2)))
+fp.Add(pad)
+board.Add(fp)
+fp.SetOrientationDegrees(90)
+pcbnew.SaveBoard(sys.argv[1], board)
+'''
+    subprocess.run([str(kipython), "-I", "-c", script, str(pcb)], check=True)
+    block = next(validator._iter_footprint_blocks(pcb.read_text()))
+    assert validator._pad_extents(block) == pytest.approx((-1, -2, 1, 2))
+
+
+def test_shelf_pack_preserves_pin_one_anchor_and_pad_union(pcb_helpers, header_mod):
+    text = header_mod.read_text()
+    positions = pcb_helpers.shelf_pack([("J1", text)], 0, 0, 15, 15)
+    assert positions["J1"] == pytest.approx((2.27, 2.27))
+    pad_only = '(footprint "pad" (pad "1" smd rect (at 3 0) (size 4 2)))'
+    assert pcb_helpers.shelf_pack([("U1", pad_only)], 0, 0, 15, 15)["U1"] == (0, 2)
+
+
+def test_pad_and_footprint_clearance_are_included(pcb_helpers):
+    text = '''(footprint "FID" (clearance 0.2)
+      (pad "1" smd circle (at 0 0) (size 1 1) (clearance 1.5)))'''
+    assert pcb_helpers.get_extents_from_text(text) == (-2, -2, 2, 2)
 
 
 @pytest.mark.parametrize("board_name", ["baro-bmp390", "imu-icm42688", "gnss-neom9n", "tms-v3"])

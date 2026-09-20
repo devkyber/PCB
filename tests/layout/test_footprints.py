@@ -304,7 +304,7 @@ def test_resolution_rejects_footprint_without_measurable_geometry(
         resolve_footprint(load_project(project_copy), "U1", "vendor:Empty")
 
 
-def test_resolution_rejects_off_axis_pad_geometry(project_copy: Path):
+def test_resolution_measures_off_axis_pad_geometry(project_copy: Path):
     library = project_copy / "libs/vendor.pretty"
     library.mkdir(parents=True)
     (library / "Angled.kicad_mod").write_text(
@@ -316,12 +316,12 @@ def test_resolution_rejects_off_axis_pad_geometry(project_copy: Path):
         '(fp_lib_table (version 7) '
         '(lib (name "vendor") (type "KiCad") '
         '(uri "${KIPRJMOD}/libs/vendor.pretty") '
-        '(options "") (descr "Imported by kicad-claude")))',
+        '(options "") (descr "Real LCSC footprints via easyeda2kicad")))',
         encoding="utf-8",
     )
 
-    with pytest.raises(ValueError, match="off-axis pad rotation 45"):
-        resolve_footprint(load_project(project_copy), "U1", "vendor:Angled")
+    candidate = resolve_footprint(load_project(project_copy), "U1", "vendor:Angled")
+    assert candidate.extents_mm == pytest.approx((-2.121320344, -2.121320344, 2.121320344, 2.121320344))
 
 
 @pytest.mark.parametrize(
@@ -394,6 +394,14 @@ def test_resolution_rejects_off_axis_pad_geometry(project_copy: Path):
                 '(rect_delta 1 0) (layers "F.Cu"))'
             ),
             "trapezoid pad rect_delta is not safely supported",
+        ),
+        (
+            '(pad "1" smd rect (at 0 0) (size 1 1) (clearance nan) (layers "F.Cu"))',
+            "non-finite clearance",
+        ),
+        (
+            '(pad "1" smd rect (at 0 0) (size 1 1) (clearance 1e1) (layers "F.Cu"))',
+            "clearance was not measured",
         ),
     ],
 )
