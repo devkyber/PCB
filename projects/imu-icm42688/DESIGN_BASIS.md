@@ -71,14 +71,26 @@ footprint IDs, SHA-256
 `a70dda20452db6712b75275eff32f4f56b6767a2e21048ba0ce9f483d1ad855e`.
 Shared bottom-left conversion subtracts native outline origin: the generator's
 absolute MCP hole (6,18) becomes H1=(3,15); H2=(21,10), J1=(5,5), rotation
-90 degrees. Anchors are not footprint centres. Holes, connector and PCB-only
-FID1–3 retain existing mechanics. U1=(13,11), rotation 0 is a provisional
+90 degrees. Anchors are not footprint centres. Holes and connector retain
+existing mechanics. PCB-only FID1–3 are manufacturing features, not fixed
+owner mating interfaces. Historical FID1=(1.5,9), FID3=(2,1.5) fail the
+measured envelope/edge constraint; the draft proposes FID1=(2.1,9.8),
+FID3=(21.8,2.1), keeping FID2=(21.5,15) and an asymmetric three-point pattern.
+The new positions clear the fixed header and mounting-hole envelopes; physical
+inspection remains pending. Accepted fiducials are unchanged.
+U1=(13,11), rotation 0 is a provisional
 existing seed only; owner airframe orientation and mounting rigidity are open.
 
 Proposed host-entry y0–7 and sensor y7–19 regions follow the existing functional
-placement. Passives/test points remain movable. C1.1→U1.8 and C3.1→U1.5
+placement. C3/test points remain movable. C1.1→U1.8 and C3.1→U1.5
 target 2mm pad distance; VDD bulk C2.1→U1.8 allows 4mm as a proposed search
-limit, not a manufacturer numerical requirement. TDK SPI Fig 7 supplies
+limit, not a manufacturer numerical requirement. The greedy search repeatedly
+placed VDD capacitors in VDDIO's required space. Two new proposed anchors,
+C1=(16.1,10.25) and C2=(16.3,8.4), both rotation 0, keep VDD bypass on the
+east side and bulk below it, leaving space for C3 at actual VDDIO pin5.
+These are proposed relocations, not frozen historical capacitor positions;
+the unchanged 2mm/4mm pad-distance and geometry checks must pass.
+TDK SPI Fig 7 supplies
 bypass values/functions; AN-000493 Fig 5 and the AnyShake copper views supply
 local-placement context. AnyShake's regulator/translator/power selection and
 exposed INT2 are not adopted. The later native pair comparison in

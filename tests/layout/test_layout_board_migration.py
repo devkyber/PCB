@@ -132,10 +132,8 @@ def test_fresh_human_draft_keeps_complete_native_inventory_and_reports_limits(
         assert not report["machine_failures"], report["machine_failures"]
         assert set(proposal["placed"]) == set(accepted["footprints"])
     if project.manifest.name == "imu-icm42688":
-        assert any(
-            f["code"] == "layout.geometry" and f.get("reference") in {"FID1", "FID3"}
-            for f in report["machine_failures"]
-        )
+        assert not report["machine_failures"], report["machine_failures"]
+        assert set(proposal["placed"]) == set(accepted["footprints"])
     if project.manifest.name == "gnss-neom9n":
         assert not intent.zones  # RF notch cannot be represented as a rectangle.
         assert draft["zones"] == 0

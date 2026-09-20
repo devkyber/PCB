@@ -9,12 +9,12 @@ regions:
   - {"id":"host-entry","x_mm":0,"y_mm":0,"width_mm":24,"height_mm":7}
   - {"id":"sensor","x_mm":0,"y_mm":7,"width_mm":24,"height_mm":12}
 placements:
-  - {"ref":"C1","region":"sensor","footprint":"Capacitor_SMD:C_0402_1005Metric","rotation_deg":0,"near_ref":"U1","near_pin":"8","source_pin":"1","max_distance_mm":2}
-  - {"ref":"C2","region":"sensor","footprint":"Capacitor_SMD:C_0603_1608Metric","rotation_deg":0,"near_ref":"U1","near_pin":"8","source_pin":"1","max_distance_mm":4}
+  - {"ref":"C1","region":"sensor","footprint":"Capacitor_SMD:C_0402_1005Metric","rotation_deg":0,"anchor_x_mm":16.1,"anchor_y_mm":10.25,"near_ref":"U1","near_pin":"8","source_pin":"1","max_distance_mm":2}
+  - {"ref":"C2","region":"sensor","footprint":"Capacitor_SMD:C_0603_1608Metric","rotation_deg":0,"anchor_x_mm":16.3,"anchor_y_mm":8.4,"near_ref":"U1","near_pin":"8","source_pin":"1","max_distance_mm":4}
   - {"ref":"C3","region":"sensor","footprint":"Capacitor_SMD:C_0402_1005Metric","rotation_deg":0,"near_ref":"U1","near_pin":"5","source_pin":"1","max_distance_mm":2}
-  - {"ref":"FID1","region":"sensor","footprint":"Fiducial:Fiducial_1mm_Mask3mm","rotation_deg":0,"pcb_only":true,"anchor_x_mm":1.5,"anchor_y_mm":9}
+  - {"ref":"FID1","region":"sensor","footprint":"Fiducial:Fiducial_1mm_Mask3mm","rotation_deg":0,"pcb_only":true,"anchor_x_mm":2.1,"anchor_y_mm":9.8}
   - {"ref":"FID2","region":"sensor","footprint":"Fiducial:Fiducial_1mm_Mask3mm","rotation_deg":0,"pcb_only":true,"anchor_x_mm":21.5,"anchor_y_mm":15}
-  - {"ref":"FID3","region":"host-entry","footprint":"Fiducial:Fiducial_1mm_Mask3mm","rotation_deg":0,"pcb_only":true,"anchor_x_mm":2,"anchor_y_mm":1.5}
+  - {"ref":"FID3","region":"host-entry","footprint":"Fiducial:Fiducial_1mm_Mask3mm","rotation_deg":0,"pcb_only":true,"anchor_x_mm":21.8,"anchor_y_mm":2.1}
   - {"ref":"H1","region":"sensor","footprint":"MountingHole:MountingHole_2.2mm_M2_Pad","rotation_deg":0,"anchor_x_mm":3,"anchor_y_mm":15}
   - {"ref":"H2","region":"sensor","footprint":"MountingHole:MountingHole_2.2mm_M2_Pad","rotation_deg":0,"anchor_x_mm":21,"anchor_y_mm":10}
   - {"ref":"J1","region":"host-entry","footprint":"Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical","rotation_deg":90,"anchor_x_mm":5,"anchor_y_mm":5}
