@@ -5,6 +5,7 @@ import importlib.util
 import json
 import subprocess
 import sys
+from dataclasses import dataclass, field
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -25,8 +26,12 @@ def _load_module(name: str, path: Path):
     return module
 
 
-PCB_HELPERS = _load_module("characterized_pcb_layout_helpers", REPO_ROOT / "docs/pcb_layout_helpers.py")
-VALIDATOR = _load_module("characterized_validate_pcb", REPO_ROOT / "docs/validate_pcb.py")
+PCB_HELPERS = _load_module(
+    "characterized_pcb_layout_helpers", REPO_ROOT / "docs/pcb_layout_helpers.py"
+)
+VALIDATOR = _load_module(
+    "characterized_validate_pcb", REPO_ROOT / "docs/validate_pcb.py"
+)
 
 
 @pytest.fixture
@@ -55,13 +60,20 @@ def coordinate_helpers(repo_root: Path) -> dict[str, object]:
     for node in tree.body:
         if isinstance(node, (ast.Assign, ast.AnnAssign)):
             targets = node.targets if isinstance(node, ast.Assign) else [node.target]
-            if any(isinstance(target, ast.Name) and target.id in names for target in targets):
+            if any(
+                isinstance(target, ast.Name) and target.id in names
+                for target in targets
+            ):
                 selected.append(node)
-        elif isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name in functions:
+        elif (
+            isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+            and node.name in functions
+        ):
             selected.append(node)
     namespace: dict[str, object] = {}
     exec(  # noqa: S102 - deliberately execute only selected pure AST definitions
-        compile(ast.Module(body=selected, type_ignores=[]), str(path), "exec"), namespace
+        compile(ast.Module(body=selected, type_ignores=[]), str(path), "exec"),
+        namespace,
     )
     return namespace
 
@@ -72,7 +84,9 @@ def _kipython_or_skip() -> Path:
     except ToolchainDiscoveryError as exc:
         pytest.skip(f"KiCad integration unavailable: {exc}")
     if toolchain.kipython is None:
-        pytest.skip("KiCad integration unavailable: no Python runtime can import pcbnew")
+        pytest.skip(
+            "KiCad integration unavailable: no Python runtime can import pcbnew"
+        )
     return toolchain.kipython
 
 
@@ -84,7 +98,7 @@ def kipython() -> Path:
 def capture_layout_metrics(pcb: Path) -> dict[str, object]:
     """Capture a read-only, deterministic summary through KiCad's pcbnew API."""
     kipython = _kipython_or_skip()
-    script = r'''
+    script = r"""
 import json
 import pcbnew
 import sys
@@ -101,7 +115,7 @@ print(json.dumps({
     "via_count": sum(item.GetClass() == "PCB_VIA" for item in tracks),
     "zone_layers": sorted({zone.GetLayerName() for zone in board.Zones()}),
 }, sort_keys=True))
-'''
+"""
     result = subprocess.run(
         [str(kipython), "-I", "-c", script, str(pcb.resolve())],
         capture_output=True,
@@ -174,6 +188,127 @@ def sensor_layout_draft(project_copy, repo_root, kipython):
     project = load_project(project_copy)
     return SimpleNamespace(
         project=project,
-        intent=load_layout_intent(repo_root / "tests/fixtures/layout/sensor-layout.yaml"),
+        intent=load_layout_intent(
+            repo_root / "tests/fixtures/layout/sensor-layout.yaml"
+        ),
         record=create_draft(project, DraftKind.LAYOUT),
     )
+
+
+@pytest.fixture
+def layout_draft(sensor_layout_draft):
+    """A published layout draft suitable for candidate-only routing tests."""
+    from pcb_copilot.drafts import publish_draft
+
+    fixture = sensor_layout_draft
+    publish_draft(fixture.record, lambda root: None)
+    fixture.pcb = fixture.record.root / fixture.project.pcb_path.relative_to(
+        fixture.project.root
+    )
+    return fixture
+
+
+@dataclass
+class _FakeRouter:
+    """Subprocess-shaped offline router used at the RouteBackend boundary."""
+
+    calls: list[list[str]] = field(default_factory=list)
+    scores: list[tuple[int, int]] = field(
+        default_factory=lambda: [(4, 3), (6, 1), (2, 1)]
+    )
+    pour_layers: tuple[str, ...] = ("F.Cu", "B.Cu")
+    initial_drc_errors: int = 99
+    fail_attempts: set[int] = field(default_factory=set)
+
+    def __call__(self, command, **kwargs):
+        command = [str(value) for value in command]
+        self.calls.append(command)
+        pcb = next(
+            (
+                Path(value)
+                for value in reversed(command)
+                if value.endswith(".kicad_pcb")
+            ),
+            None,
+        )
+        if any("PCB_COPILOT_ROUTE_RESULT=" in value for value in command):
+            assert pcb is not None
+            index = int(pcb.parent.name.rsplit("-", 1)[1]) - 1
+            if index + 1 in self.fail_attempts:
+                raise RuntimeError("simulated router failure")
+            pcb.write_bytes(pcb.read_bytes() + f"\nroute-{index + 1}".encode())
+            result = {
+                "unconnected": self.scores[index][1],
+                "drc": {"errors": self.initial_drc_errors},
+                "steps": ["export_dsn", "freerouting", "import_ses", "fill_zones"],
+                "freerouting": {
+                    "jar_version": "test-2.3.0",
+                    "java": "test-java",
+                    "args": ["-jar", "test-router.jar"],
+                },
+                "_router_details": {
+                    "jar_version": "test-2.3.0",
+                    "java": "test-java",
+                    "jar": "test-router.jar",
+                    "args": ["-de", "test.dsn", "-do", "test.ses"],
+                },
+            }
+            return SimpleNamespace(
+                returncode=0,
+                stdout="PCB_COPILOT_ROUTE_RESULT=" + json.dumps(result) + "\n",
+                stderr="",
+            )
+        if any("PCB_COPILOT_POUR_LAYERS=" in value for value in command):
+            return SimpleNamespace(
+                returncode=0,
+                stdout="PCB_COPILOT_POUR_LAYERS=" + json.dumps(self.pour_layers) + "\n",
+                stderr="",
+            )
+        if any(value.endswith("stitch_vias.py") for value in command):
+            assert pcb is not None
+            pcb.write_bytes(pcb.read_bytes() + b"\nstitch")
+            return SimpleNamespace(returncode=0, stdout="stitched\n", stderr="")
+        if any(value.endswith("fix_via_annular.py") for value in command):
+            assert pcb is not None
+            pcb.write_bytes(pcb.read_bytes() + b"\nannular")
+            return SimpleNamespace(returncode=0, stdout="fixed\n", stderr="")
+        if "drc" in command:
+            assert pcb is not None
+            index = int(pcb.parent.name.rsplit("-", 1)[1]) - 1
+            output = Path(command[command.index("-o") + 1])
+            errors, unconnected = self.scores[index]
+            output.write_text(
+                json.dumps(
+                    {
+                        "violations": [
+                            {"severity": "error", "type": "clearance"}
+                            for _ in range(errors)
+                        ],
+                        "unconnected_items": [{} for _ in range(unconnected)],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            return SimpleNamespace(returncode=0, stdout="", stderr="")
+        if "--version" in command or "-version" in command:
+            return SimpleNamespace(returncode=0, stdout="test-version\n", stderr="")
+        raise AssertionError(f"unexpected routing command: {command}")
+
+
+@pytest.fixture
+def fake_router(monkeypatch, repo_root):
+    from pcb_copilot.layout import route
+    from pcb_copilot.toolchain import ToolchainPaths
+
+    fake = _FakeRouter()
+    backend = route.RouteBackend(
+        runner=fake,
+        repo_root=repo_root,
+        toolchain=ToolchainPaths(
+            kicad_cli=Path("kicad-cli"),
+            kipython=Path("kipython"),
+            freerouting_jars=(Path("test-router.jar"),),
+        ),
+    )
+    monkeypatch.setattr(route, "_backend_factory", lambda _project: backend)
+    return fake

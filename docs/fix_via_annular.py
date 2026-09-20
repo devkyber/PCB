@@ -24,6 +24,7 @@ the via's current capacity silently, so this deliberately does not.
 Run as:  kipython fix_via_annular.py <board.kicad_pcb>
 Exit 0 whether or not anything changed; it reports what it did.
 """
+
 import sys
 
 import pcbnew
@@ -43,32 +44,39 @@ def main() -> None:
     except AttributeError:
         min_ann = 0.15
     if min_ann <= 0:
-        print('  no minimum annular width set on this board — nothing to check')
+        print("  no minimum annular width set on this board — nothing to check")
         return
 
     fixed = []
     for t in board.GetTracks():
         if not isinstance(t, pcbnew.PCB_VIA):
             continue
-        dia, drill = t.GetWidth() / MM, t.GetDrill() / MM
+        # KiCad 10 exposes a no-argument GetWidth() overload in SWIG but
+        # asserts when it is called for PCB_VIA.  The front width is the
+        # copper diameter for the through vias this repair handles.
+        dia, drill = t.GetFrontWidth() / MM, t.GetDrill() / MM
         ann = (dia - drill) / 2
         if ann >= min_ann - 1e-9:
             continue
         want = drill + 2 * min_ann
-        t.SetWidth(int(round(want * MM)))
+        t.SetWidth(round(want * MM))
         fixed.append((t.GetNetname(), dia, drill, ann, want))
 
     if not fixed:
-        print(f'  all vias meet the {min_ann:.3f}mm minimum annular width')
+        print(f"  all vias meet the {min_ann:.3f}mm minimum annular width")
         return
 
     board.Save(path)
-    print(f'  widened {len(fixed)} via(s) to meet the '
-          f'{min_ann:.3f}mm minimum annular width:')
+    print(
+        f"  widened {len(fixed)} via(s) to meet the "
+        f"{min_ann:.3f}mm minimum annular width:"
+    )
     for net, dia, drill, ann, want in fixed:
-        print(f'    [{net}] dia {dia:.2f} -> {want:.2f} on a {drill:.2f} drill '
-              f'(annular {ann:.3f} -> {min_ann:.3f})')
+        print(
+            f"    [{net}] dia {dia:.2f} -> {want:.2f} on a {drill:.2f} drill "
+            f"(annular {ann:.3f} -> {min_ann:.3f})"
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

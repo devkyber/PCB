@@ -14,6 +14,7 @@ from __future__ import annotations
 import logging
 import os
 import platform
+import re
 import shutil
 import subprocess
 from pathlib import Path
@@ -40,7 +41,9 @@ def find_kicad_python() -> Path | None:
 
     sys_name = platform.system()
     if sys_name == "Darwin":
-        framework = Path("/Applications/KiCad/KiCad.app/Contents/Frameworks/Python.framework/Versions")
+        framework = Path(
+            "/Applications/KiCad/KiCad.app/Contents/Frameworks/Python.framework/Versions"
+        )
         if framework.is_dir():
             # Prefer "Current" symlink, else newest 3.x.
             current = framework / "Current" / "bin" / "python3"
@@ -63,8 +66,24 @@ def find_kicad_python() -> Path | None:
             return Path(sys_python)
 
     if sys_name == "Windows":
-        for ver in ("10", "9", "8"):
-            cand = Path(rf"C:\Program Files\KiCad\{ver}\bin\python.exe")
+        program_files = Path(os.environ.get("ProgramFiles", r"C:\Program Files"))
+        install_root = program_files / "KiCad"
+
+        def version_key(path: Path) -> tuple[int, ...]:
+            numbers = tuple(int(value) for value in re.findall(r"\d+", path.name))
+            return numbers or (0,)
+
+        installs = (
+            sorted(
+                (path for path in install_root.iterdir() if path.is_dir()),
+                key=version_key,
+                reverse=True,
+            )
+            if install_root.is_dir()
+            else []
+        )
+        for install in installs:
+            cand = install / "bin" / "python.exe"
             if cand.is_file():
                 return cand
 
@@ -247,7 +266,9 @@ print("RESULT_JSON:" + json.dumps(result))
 """
 
 
-def apply_netlist(pcb_path: Path, netlist_xml_path: Path, timeout: float = 90.0) -> dict:
+def apply_netlist(
+    pcb_path: Path, netlist_xml_path: Path, timeout: float = 90.0
+) -> dict:
     """Apply a kicadxml netlist to the PCB: assign nets to pads, add missing nets.
 
     The netlist must be in `kicadxml` format (use `export_netlist(format="kicadxml")`
@@ -266,13 +287,18 @@ def apply_netlist(pcb_path: Path, netlist_xml_path: Path, timeout: float = 90.0)
     )
     # Parse the trailing RESULT_JSON: line.
     result_line = next(
-        (line for line in reversed(out.splitlines()) if line.startswith("RESULT_JSON:")),
+        (
+            line
+            for line in reversed(out.splitlines())
+            if line.startswith("RESULT_JSON:")
+        ),
         None,
     )
     if result_line is None:
         raise KicadPythonError(f"apply_netlist script produced no result: {out[-300:]}")
     import json
-    return json.loads(result_line[len("RESULT_JSON:"):])
+
+    return json.loads(result_line[len("RESULT_JSON:") :])
 
 
 # --------------------------------------------------------------------------- #
@@ -604,6 +630,7 @@ def bond_ground(
     if not pcb_path.is_file():
         raise FileNotFoundError(pcb_path)
     import json as _json
+
     cfg = {
         "via_drill_mm": via_drill_mm,
         "via_pad_mm": via_pad_mm,
@@ -621,4 +648,4 @@ def bond_ground(
     )
     if line is None:
         raise KicadPythonError(f"bond_ground produced no result: {out[-300:]}")
-    return _json.loads(line[len("RESULT_JSON:"):])
+    return _json.loads(line[len("RESULT_JSON:") :])

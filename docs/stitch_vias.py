@@ -17,6 +17,7 @@ Why this runs after routing, not during placement:
 
 Run as:  kipython stitch_vias.py <board.kicad_pcb> [pitch_mm] [edge_mm]
 """
+
 import sys
 
 import pcbnew
@@ -48,12 +49,16 @@ def main() -> None:
     # The second failure is the dangerous one: it produces no error, just a
     # via that never got placed and a pad that is not grounded.
     try:
-        clearance = board.GetDesignSettings().m_NetSettings \
-                         .GetDefaultNetclass().GetClearance() / MM
-    except Exception:
+        clearance = (
+            board.GetDesignSettings().m_NetSettings.GetDefaultNetclass().GetClearance()
+            / MM
+        )
+    except (AttributeError, RuntimeError, TypeError):
         clearance = board.GetDesignSettings().m_MinClearance / MM
-    print(f'  board default clearance {clearance:.3f}mm '
-          f'(per-pad overrides read individually)')
+    print(
+        f"  board default clearance {clearance:.3f}mm "
+        f"(per-pad overrides read individually)"
+    )
 
     # A stitching via ties two pours together. If only ONE copper layer
     # carries a pour, there is nothing on the other end and every via the
@@ -64,20 +69,31 @@ def main() -> None:
     # producing plausible-looking garbage. The ground-PAD pass below still
     # applies — connecting an IC's ground pad down to the single plane is
     # meaningful with one pour or two.
-    zone_layers = {z.GetLayer() for z in board.Zones()
-                   if z.GetNetname() == 'GND' and not z.GetIsRuleArea()}
+    # Ask the board for the layer name from the native ID.  KiCad 10's
+    # zone.GetLayerName() can incorrectly say F.Cu for a serialized B.Cu zone.
+    zone_layers = {
+        str(board.GetLayerName(z.GetLayer()))
+        for z in board.Zones()
+        if z.GetNetname() == "GND" and not z.GetIsRuleArea()
+    }
     grid_ok = len(zone_layers) >= 2
     if not grid_ok:
-        print(f'  grid pass SKIPPED: GND pours on {len(zone_layers)} layer(s); '
-              f'stitching needs two. Ground-pad escapes still run.')
-    gnd = board.GetNetsByName().get('GND') if hasattr(board.GetNetsByName(), 'get') else None
+        print(
+            f"  grid pass SKIPPED: GND pours on {len(zone_layers)} layer(s); "
+            f"stitching needs two. Ground-pad escapes still run."
+        )
+    gnd = (
+        board.GetNetsByName().get("GND")
+        if hasattr(board.GetNetsByName(), "get")
+        else None
+    )
     if gnd is None:
         for name, net in board.GetNetsByName().items():
-            if str(name) == 'GND':
+            if str(name) == "GND":
                 gnd = net
                 break
     if gnd is None:
-        print('  no GND net — nothing to stitch')
+        print("  no GND net — nothing to stitch")
         return
     gnd_code = gnd.GetNetCode()
 
@@ -117,13 +133,13 @@ def main() -> None:
             own = pad.GetOwnClearance(pad.GetLayer())
             if own:
                 c = max(c, own / MM)
-        except Exception:
+        except (AttributeError, RuntimeError, TypeError):
             try:
                 loc = pad.GetLocalClearance()
                 if loc:
                     c = max(c, float(loc) / MM)
-            except Exception:
-                pass
+            except (AttributeError, RuntimeError, TypeError):
+                loc = None
         return int((dia / 2 + c) * MM)
 
     boxes, foreign = [], []
@@ -189,19 +205,31 @@ def main() -> None:
         for pad in fp.Pads():
             if pad.GetNetCode() != gnd_code:
                 continue
-            if pad.GetAttribute() not in (pcbnew.PAD_ATTRIB_SMD,
-                                          pcbnew.PAD_ATTRIB_CONN):
+            if pad.GetAttribute() not in (
+                pcbnew.PAD_ATTRIB_SMD,
+                pcbnew.PAD_ATTRIB_CONN,
+            ):
                 continue
             pc = pad.GetPosition()
             psz = max(pad.GetSize().x, pad.GetSize().y)
             placed = False
-            r = psz / 2 + (dia / 2) * MM        # may abut its own GND pad
+            r = psz / 2 + (dia / 2) * MM  # may abut its own GND pad
             while r < psz / 2 + 3.0 * MM and not placed:
-                for dx, dy in ((0, -1), (0, 1), (-1, 0), (1, 0),
-                               (-1, -1), (1, -1), (-1, 1), (1, 1)):
+                for dx, dy in (
+                    (0, -1),
+                    (0, 1),
+                    (-1, 0),
+                    (1, 0),
+                    (-1, -1),
+                    (1, -1),
+                    (-1, 1),
+                    (1, 1),
+                ):
                     pt = pcbnew.VECTOR2I(int(pc.x + dx * r), int(pc.y + dy * r))
-                    if not (x0 + margin <= pt.x <= x1 - margin
-                            and y0 + margin <= pt.y <= y1 - margin):
+                    if not (
+                        x0 + margin <= pt.x <= x1 - margin
+                        and y0 + margin <= pt.y <= y1 - margin
+                    ):
                         continue
                     if any(b.Contains(pt) for b in foreign):
                         continue
@@ -259,9 +287,11 @@ def main() -> None:
                 r += 0.15 * MM
 
     board.Save(path)
-    print(f'  {added} grid + {pad_vias} ground-pad stitching vias added post-route '
-          f'(pitch {pitch}mm, {edge_gap}mm edge gap)')
+    print(
+        f"  {added} grid + {pad_vias} ground-pad stitching vias added post-route "
+        f"(pitch {pitch}mm, {edge_gap}mm edge gap)"
+    )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
