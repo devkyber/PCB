@@ -23,6 +23,8 @@ placements:
     region: sensor
   - ref: C1
     region: support
+    # Example standard-library lookup ID; runtime must still resolve and measure it.
+    footprint: Capacitor_SMD:C_0603_1608Metric
     near_ref: U1
     near_pin: '10'
     source_pin: '1'

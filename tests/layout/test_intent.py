@@ -38,6 +38,7 @@ def minimal_layout_intent(**updates) -> LayoutIntent:
             PlacementItem(
                 ref="C1",
                 region="support",
+                footprint="Capacitor_SMD:C_0603_1608Metric",
                 near_ref="U1",
                 near_pin="10",
                 source_pin="1",
@@ -118,6 +119,40 @@ def test_complete_impedance_inputs_can_be_validated_against_accepted_net():
     )
 
     validate_layout_intent(intent, {"U1", "C1"}, {"RF_OUT"})
+
+
+@pytest.mark.parametrize(
+    ("updates", "message"),
+    [
+        (
+            {
+                "kind": "power",
+                "current_a": 1.5,
+                "duration_s": 0.5,
+                "rise_c": 10.0,
+                "copper_oz": 1.0,
+                "layer": "external",
+                "impedance_ohm": 50.0,
+            },
+            "RF-only",
+        ),
+        (
+            {
+                "kind": "rf",
+                "impedance_ohm": 50.0,
+                "dielectric_height_mm": 0.18,
+                "er": 4.2,
+                "copper_mm": 0.035,
+                "current_a": 1.5,
+            },
+            "power-only",
+        ),
+    ],
+    ids=["power-with-rf-input", "rf-with-power-input"],
+)
+def test_critical_net_rejects_inputs_from_another_kind(updates, message):
+    with pytest.raises(ValueError, match=message):
+        CriticalNetIntent(net="CRITICAL", reason="derived physical rule", **updates)
 
 
 def test_overlapping_regions_are_rejected():
@@ -214,7 +249,7 @@ def test_unknown_refs_require_explicit_pcb_only_placement_and_footprint():
             )
         }
     )
-    validate_layout_intent(valid, {"U1", "C1"})
+    validate_layout_intent(valid, {"U1", "C1"}, set())
 
 
 def test_unknown_region_and_near_ref_are_rejected():
@@ -233,6 +268,7 @@ def test_unknown_region_and_near_ref_are_rejected():
                 PlacementItem(
                     ref="C1",
                     region="support",
+                    footprint="Capacitor_SMD:C_0603_1608Metric",
                     near_ref="U9",
                     near_pin="10",
                     max_distance_mm=2.0,
@@ -245,6 +281,7 @@ def test_fixed_coordinates_are_anchor_pairs_in_the_declared_frame():
     placement = PlacementItem(
         ref="U1",
         region="sensor",
+        footprint="Package_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm",
         anchor_x_mm=2.0,
         anchor_y_mm=3.0,
         rotation_deg=90.0,
@@ -257,9 +294,40 @@ def test_fixed_coordinates_are_anchor_pairs_in_the_declared_frame():
         PlacementItem(
             ref="U1",
             region="sensor",
+            footprint="Package_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm",
             anchor_x_mm=float("nan"),
             anchor_y_mm=3.0,
         )
+
+
+@pytest.mark.parametrize(
+    "updates",
+    [
+        {"anchor_x_mm": 2.0, "anchor_y_mm": 3.0},
+        {"near_ref": "U1", "near_pin": "10", "max_distance_mm": 2.0},
+    ],
+    ids=["fixed-anchor", "near-pad"],
+)
+def test_geometry_specific_placement_requires_footprint_id(updates):
+    with pytest.raises(ValueError, match="footprint.*Library:Name"):
+        PlacementItem(ref="C1", region="support", **updates)
+
+
+@pytest.mark.parametrize(
+    "footprint",
+    [
+        " ",
+        "C_0603",
+        ":C_0603",
+        "Capacitor_SMD:",
+        "Bad/Lib:C",
+        "Lib:C/0603",
+        "Lib:C:0603",
+    ],
+)
+def test_footprint_id_must_use_library_name_syntax(footprint):
+    with pytest.raises(ValueError, match="Library:Name"):
+        PlacementItem(ref="C1", region="support", footprint=footprint)
 
 
 def test_fixed_anchor_must_be_inside_its_assigned_region():
@@ -269,6 +337,7 @@ def test_fixed_anchor_must_be_inside_its_assigned_region():
                 PlacementItem(
                     ref="U1",
                     region="sensor",
+                    footprint="Package_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm",
                     anchor_x_mm=15.0,
                     anchor_y_mm=5.0,
                 ),
@@ -297,6 +366,13 @@ def test_net_references_must_exist_in_accepted_schematic():
 
     with pytest.raises(LayoutIntentError, match="unknown net.*MISSING"):
         validate_layout_intent(intent, {"U1", "C1"}, {"SENSE", "IGN_FIRE"})
+
+
+def test_full_validation_requires_authoritative_net_inventory():
+    intent = minimal_layout_intent()
+
+    with pytest.raises(LayoutIntentError, match="accepted net inventory"):
+        validate_layout_intent(intent, {"U1", "C1"})
 
 
 def test_zone_net_must_exist_in_accepted_schematic():

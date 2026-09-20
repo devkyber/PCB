@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from enum import Enum
 from typing import Literal
 
@@ -48,7 +49,8 @@ class PlacementItem(_FrozenModel):
 
     Fixed coordinates locate the footprint anchor, not its geometric center.
     Near-pad relationships name the target pad and may name the source pad so
-    later placement checks can measure pad-to-pad distance.
+    later placement checks can measure pad-to-pad distance. A footprint ID is
+    lookup input; it is not evidence that the footprint was resolved or approved.
     """
 
     ref: str = Field(min_length=1, pattern=r"^[A-Za-z#]+[A-Za-z0-9_-]*$")
@@ -62,6 +64,16 @@ class PlacementItem(_FrozenModel):
     near_pin: str | None = Field(default=None, min_length=1)
     source_pin: str | None = Field(default=None, min_length=1)
     max_distance_mm: float | None = Field(default=None, gt=0, allow_inf_nan=False)
+
+    @field_validator("footprint")
+    @classmethod
+    def footprint_is_library_id(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        value = value.strip()
+        if not re.fullmatch(r"[^\s:/\\]+:[^\s:/\\]+", value):
+            raise ValueError("footprint must use Library:Name syntax")
+        return value
 
     @model_validator(mode="after")
     def relationships_are_complete(self) -> PlacementItem:
@@ -78,8 +90,12 @@ class PlacementItem(_FrozenModel):
             raise ValueError("source_pin requires a near-pad relationship")
         if self.near_ref == self.ref:
             raise ValueError("near_ref must name another placement")
-        if self.pcb_only and self.footprint is None:
-            raise ValueError("PCB-only placement requires an explicit footprint")
+        if (
+            self.pcb_only or self.anchor is not None or self.near_ref is not None
+        ) and self.footprint is None:
+            raise ValueError(
+                "geometry-specific placement footprint must use Library:Name syntax"
+            )
         return self
 
     @property
@@ -145,6 +161,20 @@ class CriticalNetIntent(_FrozenModel):
         if not value:
             raise ValueError("critical net and reason must not be blank")
         return value
+
+    @model_validator(mode="after")
+    def inputs_match_kind(self) -> CriticalNetIntent:
+        power_fields = ("current_a", "duration_s", "rise_c", "copper_oz", "layer")
+        rf_fields = ("impedance_ohm", "dielectric_height_mm", "er", "copper_mm")
+        if self.kind == "power" and any(
+            getattr(self, name) is not None for name in rf_fields
+        ):
+            raise ValueError("power critical net contains RF-only inputs")
+        if self.kind == "rf" and any(
+            getattr(self, name) is not None for name in power_fields
+        ):
+            raise ValueError("RF critical net contains power-only inputs")
+        return self
 
 
 class ZoneIntent(_FrozenModel):
@@ -285,8 +315,8 @@ def validate_layout_intent(
 ) -> None:
     """Validate intent against refs and nets read from accepted CAD.
 
-    ``accepted_nets=None`` deliberately means that no net inventory was supplied;
-    it does not infer accepted facts from the intent itself.
+    ``accepted_nets=None`` means the authoritative net inventory was not supplied,
+    so validation fails rather than inferring accepted facts from intent itself.
     """
 
     placed_schematic_refs = {
@@ -317,7 +347,7 @@ def validate_layout_intent(
             )
 
     if accepted_nets is None:
-        return
+        raise LayoutIntentError("accepted net inventory is required for validation")
     known_nets = set(accepted_nets)
     net_class_unknown = sorted(
         {
