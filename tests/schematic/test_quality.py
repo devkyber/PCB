@@ -37,7 +37,7 @@ def test_current_schematic_metrics_match_baseline(repo_root, board, components, 
 
 
 def test_only_tms_fails_current_density_rule(repo_root):
-    sys.path.insert(0, str(repo_root / "docs"))
+    sys.path.insert(0, str(repo_root / "scripts"))
     checker = importlib.import_module("check_schematic_quality")
     results = {}
     for board in ("baro-bmp390", "imu-icm42688", "gnss-neom9n", "tms-v3"):
@@ -54,7 +54,7 @@ def test_only_tms_fails_current_density_rule(repo_root):
 
 
 def test_legacy_analyse_delegates_to_portable_metrics(repo_root):
-    sys.path.insert(0, str(repo_root / "docs"))
+    sys.path.insert(0, str(repo_root / "scripts"))
     checker = importlib.import_module("check_schematic_quality")
     schematic = repo_root / "projects/baro-bmp390/baro-bmp390.kicad_sch"
 

@@ -60,7 +60,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / 'src'))
-sys.path.insert(0, str(REPO / 'docs'))
+sys.path.insert(0, str(REPO / 'scripts'))
 
 from pcb_copilot.schematic.quality import analyse_schematic  # noqa: E402
 

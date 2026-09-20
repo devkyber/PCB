@@ -8,7 +8,7 @@
 
 **Tech Stack:** Python 3.10+, `uv`, pytest 8+, Pydantic 2, PyYAML 6, KiCad 10 CLI/pcbnew through kipython, the vendored `kicad-claude-mcp` package, and Git.
 
-**Spec:** `docs/superpowers/specs/2026-09-14-pcb-copilot-repository-remake-design.md`
+**Spec:** `planning/specs/2026-09-14-pcb-copilot-repository-remake-design.md`
 
 ## Global Constraints
 
@@ -134,8 +134,8 @@ run_review(project: Project) -> list[Finding]
 
 - [ ] Run every plan's targeted tests before moving to the next plan.
 - [ ] Run `uv run pytest -q` from the repository root after every plan.
-- [ ] Run `uv run python docs/selftest_enforcement.py` after any gate, hook, parser, or compatibility-entry-point change.
-- [ ] Run `uv run python docs/audit_workflow.py` after each board migration.
+- [ ] Run `uv run python scripts/selftest_enforcement.py` after any gate, hook, parser, or compatibility-entry-point change.
+- [ ] Run `uv run python scripts/audit_workflow.py` after each board migration.
 - [ ] Record the four-board netmap and KiCad-open baseline before schematic or PCB mutation.
 - [ ] Confirm `git status --short` contains only the files owned by the current task before each commit.
 - [ ] Stop at each plan boundary for a human review of the diff and generated KiCad previews.

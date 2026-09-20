@@ -39,17 +39,17 @@ transactional draft --> preview + checks --> human acceptance
 
 The remake wraps proven behavior before relocating it:
 
-- `docs/pipeline.py`: fixed stage order, advisory research, fabrication
+- `scripts/pipeline.py`: fixed stage order, advisory research, fabrication
   interlock, canonical hashes, repeatability, and ownership tripwire.
-- `docs/run_gates.py` and checks: evidence, datasheet, ERC, geometry,
+- `scripts/run_gates.py` and checks: evidence, datasheet, ERC, geometry,
   design-rule, DRC, sign-off, and fabrication decisions.
-- `docs/selftest_enforcement.py`: wiring and fault-injection philosophy.
-- `docs/deviations.py`: the single scoped-waiver parser.
-- `docs/extract_netmap.py` and `docs/check_netlist_parity.py`: connectivity
+- `scripts/selftest_enforcement.py`: wiring and fault-injection philosophy.
+- `scripts/deviations.py`: the single scoped-waiver parser.
+- `scripts/extract_netmap.py` and `scripts/check_netlist_parity.py`: connectivity
   derivation and schematic/PCB agreement.
-- `docs/schematic_layout_helpers.py`: symbol placement, pin coordinates,
+- `scripts/schematic_layout_helpers.py`: symbol placement, pin coordinates,
   power symbols, grid handling, and label congestion/crossing protection.
-- `docs/pcb_layout_helpers.py`: coordinate transforms, measured extents,
+- `scripts/pcb_layout_helpers.py`: coordinate transforms, measured extents,
   placement tracking, and collision checks.
 - Routing and fabrication scripts: best-of attempts, zone fill, ground
   bonding, stitching, annular repair, fresh DRC, and manufacturing export.
@@ -125,9 +125,9 @@ case that mutates a temporary project and observes the expected failure.
 The compatibility tools answer different questions:
 
 ```powershell
-uv run python docs/selftest_enforcement.py
-uv run python docs/run_gates.py projects/baro-bmp390/baro-bmp390.kicad_pcb
-uv run python docs/audit_workflow.py
+uv run python scripts/selftest_enforcement.py
+uv run python scripts/run_gates.py projects/baro-bmp390/baro-bmp390.kicad_pcb
+uv run python scripts/audit_workflow.py
 ```
 
 1. Is the enforcement machinery wired, and can it fail?
@@ -155,7 +155,7 @@ Fabrication runs only after all release conditions pass.
 
 ## Scoped deviations
 
-`docs/deviations.py` is the only waiver parser until moved intact. It reads
+`scripts/deviations.py` is the only waiver parser until moved intact. It reads
 only rows below `## Declared`, ignores withdrawn rows, and matches scope. A
 waiver of decoupling rule `2.2` on one pin cannot excuse missing evidence,
 parity, or another component.

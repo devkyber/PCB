@@ -200,7 +200,7 @@ def main() -> int:
     problems = compare(s, p)
 
     # The escape hatch, scoped. `<ref>.<pin> | parity | <reason>` waives that
-    # one designator. Parsed by docs/deviations.py — the ONE parser.
+    # one designator. Parsed by scripts/deviations.py — the ONE parser.
     if problems:
         from deviations import parse                        # noqa: PLC0415
         waivers, _ = parse(pcb.parent)

@@ -12,7 +12,7 @@ exists. Verdicts must be `Match` or `Deviate: <reason>`.
 | `evidence/files/BMP390_Adafruit_20BMP390.sch` | Adafruit BMP390 breakout, **Eagle source** — exact values and pin-level nets, not a summary | Tier 2 (open hardware, widely built) |
 | `evidence/files/BMP390_Adafruit_20BMP390.brd` | same board's layout | Tier 2 |
 
-Extracted with `docs/fetch_reference_doc.py eagle <file> <PART>`, which reads
+Extracted with `scripts/fetch_reference_doc.py eagle <file> <PART>`, which reads
 the Eagle XML directly. WebFetch summarises and loses exactly the pin-level
 detail every row below depends on.
 

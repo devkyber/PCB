@@ -8,7 +8,7 @@
 
 **Tech Stack:** Python 3.10+, Pydantic 2, PyYAML 6, KiCad 10 schematic format/CLI, `kicad-skip`, `kicad-claude-mcp`, pytest, and PDF rendering.
 
-**Spec:** `docs/superpowers/specs/2026-09-14-pcb-copilot-repository-remake-design.md`
+**Spec:** `planning/specs/2026-09-14-pcb-copilot-repository-remake-design.md`
 
 ## Global Constraints
 
@@ -133,7 +133,7 @@ part identity, values, footprints or no-connect intent. Human review and the
 Plan 4 gate remain unchanged.
 
 - Accepted schematics remain byte-identical until an explicit `accept` command.
-- Read `docs/schematic_layout_helpers.py`, all four schematic generators, netmap extraction, quality checks, and MCP schematic tests before changing them.
+- Read `scripts/schematic_layout_helpers.py`, all four schematic generators, netmap extraction, quality checks, and MCP schematic tests before changing them.
 - Preserve verified symbol identity, pin coordinates, net membership, and explicit no-connects.
 - Use graphical power symbols for rails, direct wires inside functional blocks, and labels at block boundaries.
 - Use hierarchy rather than shrinking or crowding sheets beyond calibrated capacity.
@@ -275,14 +275,14 @@ git commit -m "feat: define evidence-backed schematic intent"
 ### Task 3: UTF-8 and schematic-quality characterization
 
 **Files:**
-- Modify: `docs/check_schematic_quality.py`
+- Modify: `scripts/check_schematic_quality.py`
 - Create: `tests/schematic/test_quality.py`
 - Create: `src/pcb_copilot/schematic/quality.py`
 
 **Interfaces:**
 - Produces: `SchematicMetrics(component_count: int, power_symbol_count: int, junction_count: int, sheet_count: int, drawn_connection_ratio: float, title_complete: bool)`
 - Produces: `analyse_schematic(path: Path) -> SchematicMetrics`
-- Preserves CLI: `python docs/check_schematic_quality.py BOARD.kicad_pcb`
+- Preserves CLI: `python scripts/check_schematic_quality.py BOARD.kicad_pcb`
 
 - [ ] **Step 1: Add a failing Windows-encoding regression test**
 
@@ -315,14 +315,14 @@ advisory for zero junctions and the calibrated A4/A3 capacities.
 
 Run: `uv run pytest tests/schematic/test_quality.py -v`
 
-Run: `uv run python docs/selftest_enforcement.py`
+Run: `uv run python scripts/selftest_enforcement.py`
 
 Expected: PASS and the TMS density fault injection still fails when injected.
 
 - [ ] **Step 5: Commit quality extraction**
 
 ```bash
-git add src/pcb_copilot/schematic/quality.py tests/schematic/test_quality.py docs/check_schematic_quality.py
+git add src/pcb_copilot/schematic/quality.py tests/schematic/test_quality.py scripts/check_schematic_quality.py
 git commit -m "fix: make schematic quality portable and testable"
 ```
 
@@ -334,7 +334,7 @@ git commit -m "fix: make schematic quality portable and testable"
 - Modify: `tests/schematic/conftest.py`
 - Create: `tests/schematic/test_render.py`
 - Create: `tests/fixtures/schematic/two-block.yaml`
-- Modify only when a characterization test requires it: `docs/schematic_layout_helpers.py`
+- Modify only when a characterization test requires it: `scripts/schematic_layout_helpers.py`
 
 **Interfaces:**
 - Produces: `render_schematic_draft(project: Project, intent: SchematicIntent, draft: DraftRecord) -> Path`
@@ -391,7 +391,7 @@ unwaived errors, and the accepted project remains unchanged.
 - [ ] **Step 5: Commit one-sheet rendering**
 
 ```bash
-git add src/pcb_copilot/schematic/render.py src/pcb_copilot/schematic/wiring.py tests/schematic/conftest.py tests/schematic/test_render.py tests/fixtures/schematic/two-block.yaml docs/schematic_layout_helpers.py
+git add src/pcb_copilot/schematic/render.py src/pcb_copilot/schematic/wiring.py tests/schematic/conftest.py tests/schematic/test_render.py tests/fixtures/schematic/two-block.yaml scripts/schematic_layout_helpers.py
 git commit -m "feat: render wired functional schematic blocks"
 ```
 
@@ -652,7 +652,7 @@ Use these four literal commit messages, one after each approved acceptance:
 
 - [ ] `uv run pytest tests/schematic -q` exits `0`.
 - [ ] Existing MCP schematic and hierarchy tests pass.
-- [x] `uv run python docs/selftest_enforcement.py` exits `0`.
+- [x] `uv run python scripts/selftest_enforcement.py` exits `0`.
 - [ ] Every accepted schematic's extracted netmap matches its baseline or has a separately approved electrical change.
 - [ ] TMS V3 is hierarchical and all boards have nonzero drawn connectivity.
 - [x] Accepted files change only through explicit acceptance.

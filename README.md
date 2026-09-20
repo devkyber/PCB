@@ -60,17 +60,14 @@ part of the engineering record.
 
 ## Read next
 
-- [Results and progress](docs/PROGRESS.md) — what to open, what works, what remains, and why folders are kept
-- [Workflow](docs/WORKFLOW.md) — operator sequence and commands
-- [Architecture](docs/ARCHITECTURE.md) — authority, state, gates, and preserved components
-- [Design rules](docs/DESIGN_RULES.md) — enforced rules and human review scope
-- [Limitations](docs/LIMITATIONS.md) — honest capability boundary and future work
-- [Project format](docs/PROJECT_FORMAT.md) — manifest and directory contract
-- [Approved remake design](docs/superpowers/specs/2026-09-14-pcb-copilot-repository-remake-design.md)
-- [Implementation roadmap](docs/superpowers/plans/2026-09-14-pcb-copilot-remake-roadmap.md)
+Use the [documentation index](docs/README.md) to choose a guide by question.
+Start with results and workflow; architecture, rules, limitations and project
+format are references when you need them.
 
 For normal use, stay with the results page, workflow and your board's folder.
-`src/`, `tests/`, `tools/`, `migration/`, and the plans are maintainer material.
+`src/`, `tests/`, `tools/`, `scripts/`, `migration/`, and `planning/` are maintainer
+material. The [implementation roadmap](planning/plans/2026-09-14-pcb-copilot-remake-roadmap.md)
+links the plans; it is not a getting-started guide.
 Hidden `.pcb-copilot` folders hold real drafts; do not treat them as disposable caches.
 
 ## Safety rule

@@ -8,7 +8,7 @@
 
 **Tech Stack:** Python 3.10+, Pydantic 2, PyYAML 6, KiCad 10 CLI/pcbnew, `kicad-claude-mcp`, Freerouting as an optional backend, pytest, and existing workspace helpers.
 
-**Spec:** `docs/superpowers/specs/2026-09-14-pcb-copilot-repository-remake-design.md`
+**Spec:** `planning/specs/2026-09-14-pcb-copilot-repository-remake-design.md`
 
 ## Global Constraints
 
@@ -37,7 +37,7 @@
 - Create: `tests/layout/test_existing_helpers.py`
 - Create: `tests/fixtures/kicad/PinHeader_1x04_P2.54mm_Vertical.kicad_mod`
 - Create: `tests/fixtures/baseline/layout_metrics.json`
-- Modify only for explicit bug fixes: `docs/pcb_layout_helpers.py`, `docs/validate_pcb.py`
+- Modify only for explicit bug fixes: `scripts/pcb_layout_helpers.py`, `scripts/validate_pcb.py`
 
 **Interfaces:**
 - Characterizes: `design_to_mcp`, `design_to_kicad`, `kicad_to_design`, `PlacementTracker.place`, `get_extents_from_file`, and validator check functions
@@ -223,7 +223,7 @@ git commit -m "feat: define reviewable PCB layout intent"
 - Modify: `tests/layout/conftest.py`
 - Create: `tests/layout/test_place.py`
 - Create: `tests/fixtures/layout/sensor-layout.yaml`
-- Modify only with characterization coverage: `docs/pcb_layout_helpers.py`
+- Modify only with characterization coverage: `scripts/pcb_layout_helpers.py`
 
 **Interfaces:**
 - Produces: `propose_placement(project: Project, intent: LayoutIntent, draft: DraftRecord) -> PlacementReport`
@@ -275,7 +275,7 @@ Expected: PASS with no off-board pads or courtyard collisions in fixtures.
 - [ ] **Step 5: Commit placement proposals**
 
 ```bash
-git add src/pcb_copilot/layout/place.py src/pcb_copilot/layout/render.py tests/layout/conftest.py tests/layout/test_place.py tests/fixtures/layout/sensor-layout.yaml docs/pcb_layout_helpers.py
+git add src/pcb_copilot/layout/place.py src/pcb_copilot/layout/render.py tests/layout/conftest.py tests/layout/test_place.py tests/fixtures/layout/sensor-layout.yaml scripts/pcb_layout_helpers.py
 git commit -m "feat: propose measured PCB placement drafts"
 ```
 
@@ -329,10 +329,10 @@ git commit -m "feat: apply evidence-backed PCB constraints"
 - Create: `src/pcb_copilot/layout/route.py`
 - Modify: `tests/layout/conftest.py`
 - Create: `tests/layout/test_route.py`
-- Modify: `docs/route_and_fill.py`
-- Modify: `docs/route_best_of.py`
-- Modify: `docs/stitch_vias.py`
-- Modify: `docs/fix_via_annular.py`
+- Modify: `scripts/route_and_fill.py`
+- Modify: `scripts/route_best_of.py`
+- Modify: `scripts/stitch_vias.py`
+- Modify: `scripts/fix_via_annular.py`
 - Reuse: `tools/kicad-claude-mcp/src/kicad_claude/adapters/route_pipeline.py`
 
 **Interfaces:**
@@ -386,7 +386,7 @@ missing-tool reason. An unexplained skip is a failure to investigate.
 - [ ] **Step 5: Commit candidate routing**
 
 ```bash
-git add src/pcb_copilot/layout/route.py tests/layout/test_route.py docs/route_and_fill.py docs/route_best_of.py docs/stitch_vias.py docs/fix_via_annular.py
+git add src/pcb_copilot/layout/route.py tests/layout/test_route.py scripts/route_and_fill.py scripts/route_best_of.py scripts/stitch_vias.py scripts/fix_via_annular.py
 git commit -m "refactor: expose routing as an optional PCB draft backend"
 ```
 

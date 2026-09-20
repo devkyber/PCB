@@ -36,9 +36,9 @@ from pcb_copilot.schematic.wiring import (
 )
 
 REPO = Path(__file__).resolve().parents[3]
-DOCS = REPO / "docs"
-if str(DOCS) not in sys.path:
-    sys.path.insert(0, str(DOCS))
+SCRIPTS = REPO / "scripts"
+if str(SCRIPTS) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS))
 
 _helpers = importlib.import_module("schematic_layout_helpers")
 LabelPlacer = _helpers.LabelPlacer

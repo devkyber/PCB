@@ -38,7 +38,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / 'src'))
-sys.path.insert(0, str(REPO / 'docs'))
+sys.path.insert(0, str(REPO / 'scripts'))
 
 from pcb_copilot.evidence.checks import Part, check_evidence  # noqa: E402
 from pcb_copilot.evidence.inventory import (  # noqa: F401
@@ -65,7 +65,7 @@ def _waived(proj: Path, ref: str, scope: str) -> bool:
     (`U1.5 | 2.2 | Pad 5 is SDO...`) silently excuse that part from needing
     an archived reference design AND from needing a design-basis row —
     three unrelated gates reading one line and each taking it as blanket
-    permission. See docs/deviations.py for the full account.
+    permission. See scripts/deviations.py for the full account.
     """
     from deviations import waived
     return waived(proj, ref, scope)
@@ -105,7 +105,7 @@ def check_requirements(proj: Path, inv) -> tuple[bool, str]:
     f = proj / 'REQUIREMENTS.md'
     if not f.is_file():
         return False, ('no REQUIREMENTS.md — Phase 1 produced no artifact. '
-                       'Scaffold: python3 docs/run_gates.py --init ' + str(proj))
+                       'Scaffold: python3 scripts/run_gates.py --init ' + str(proj))
     txt = f.read_text()
     missing = [s for s in REQUIRED_SECTIONS
                if not re.search(r'^#+.*' + re.escape(s), txt, re.I | re.M)]
@@ -184,8 +184,8 @@ def check_references(proj: Path, inv) -> tuple[bool, str]:
         head += f'; {len(waived)} waived in DEVIATIONS.md'
     if missing:
         return False, (head + '\nNO REFERENCE: ' + ', '.join(sorted(missing)) +
-                       '\nSearch seeds:  python3 docs/collect_references.py suggest <PART>'
-                       '\nArchive it:    python3 docs/collect_references.py add ' +
+                       '\nSearch seeds:  python3 scripts/collect_references.py suggest <PART>'
+                       '\nArchive it:    python3 scripts/collect_references.py add ' +
                        str(proj) + ' <PART> <URL>'
                        '\nOr record in DEVIATIONS.md why no reference exists for it.')
     return True, head + '; every key part has an archived reference'

@@ -63,7 +63,7 @@ def test_legacy_eagle_command_keeps_component_and_net_output(repo_root):
     result = subprocess.run(
         [
             sys.executable,
-            str(repo_root / "docs/fetch_reference_doc.py"),
+            str(repo_root / "scripts/fetch_reference_doc.py"),
             "eagle",
             str(source),
             "IC1",

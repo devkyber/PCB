@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Test that the enforcement fires. The meta-gate.
 
-    python3 docs/selftest_enforcement.py
+    python3 scripts/selftest_enforcement.py
 
 WHY THIS EXISTS
 ---------------
@@ -45,7 +45,7 @@ def text(p: Path) -> str:
 
 # --- Tier 1: CLAUDE.md is always loaded -----------------------------------
 c = text(REPO / 'CLAUDE.md')
-check('CLAUDE.md names the pipeline', 'docs/pipeline.py' in c)
+check('CLAUDE.md names the pipeline', 'scripts/pipeline.py' in c)
 check('CLAUDE.md states the evidence rule', 'not evidence' in c)
 check('CLAUDE.md carries the Gate Rule section', 'Gate Rule' in c)
 
@@ -101,9 +101,9 @@ else:
 for tool in ['pipeline.py', 'run_gates.py', 'check_datasheets.py',
              'check_design_rules.py', 'validate_pcb.py', 'pcb_layout_helpers.py',
              'check_research.py', 'collect_references.py', 'fetch_reference_doc.py']:
-    check(f'docs/{tool} present', (REPO / 'docs' / tool).is_file())
+    check(f'scripts/{tool} present', (REPO / 'scripts' / tool).is_file())
 
-r = subprocess.run([sys.executable, REPO / 'docs/pipeline.py', '--status'],
+r = subprocess.run([sys.executable, REPO / 'scripts/pipeline.py', '--status'],
                    capture_output=True, text=True)
 check('pipeline --status runs', r.returncode == 0, r.stderr.strip()[:100])
 
@@ -120,28 +120,28 @@ check('pipeline --status runs', r.returncode == 0, r.stderr.strip()[:100])
 _rg = subprocess.run([sys.executable, '-c',
                       'import sys; sys.path.insert(0, %r); import run_gates; '
                       'print([g[0] for g in run_gates.GATES])'
-                      % str(REPO / 'docs')], capture_output=True, text=True)
+                      % str(REPO / 'scripts')], capture_output=True, text=True)
 check('research gate is REGISTERED in run_gates.GATES',
       'research' in _rg.stdout, _rg.stdout.strip()[:120] or _rg.stderr[:120])
 check('research stage runs in pipeline.py',
-      "'research'" in text(REPO / 'docs/pipeline.py'))
+      "'research'" in text(REPO / 'scripts/pipeline.py'))
 check('research stage is advisory (does not block a build)',
-      'ADVISORY' in text(REPO / 'docs/pipeline.py'))
+      'ADVISORY' in text(REPO / 'scripts/pipeline.py'))
 check('CLAUDE.md names the unified research command',
       'pcb-copilot research' in text(REPO / 'CLAUDE.md'))
 check('.claude/rules/pcb-schematic.md names the unified research command',
       'pcb-copilot research' in text(REPO / '.claude/rules/pcb-schematic.md'))
 
-r = subprocess.run([sys.executable, REPO / 'docs/collect_references.py',
+r = subprocess.run([sys.executable, REPO / 'scripts/collect_references.py',
                     'suggest', 'SELFTEST'], capture_output=True, text=True)
 check('collect_references suggest runs', r.returncode == 0 and 'Tier 1' in r.stdout)
 
 # The archiver must REFUSE an HTML error page saved as a document. This is
 # the silent failure that makes an archive worthless: the gate sees a file.
-_probe = REPO / 'docs' / '.selftest_probe.pdf'
+_probe = REPO / 'scripts' / '.selftest_probe.pdf'
 _probe.write_text('<!doctype html><html><body>Sign in</body></html>', encoding='utf-8')
 try:
-    sys.path.insert(0, str(REPO / 'docs'))
+    sys.path.insert(0, str(REPO / 'scripts'))
     from collect_references import sniff
     check('archiver detects an HTML page masquerading as a document',
           sniff(_probe) == 'html')
@@ -164,7 +164,7 @@ for proj in sorted((REPO / 'projects').iterdir()):
     for art in ['SIGNOFF.md', 'DEVIATIONS.md', 'build.sh', 'evidence/index.yaml',
                 'REQUIREMENTS.md', 'DESIGN_BASIS.md']:
         check(f'{proj.name}: {art}', (proj / art).exists(),
-              'run: python3 docs/run_gates.py --init projects/' + proj.name)
+              'run: python3 scripts/run_gates.py --init projects/' + proj.name)
 
 # --- The DATASHEET path actually rejects a non-datasheet ------------------
 # "The datasheet is the bible" was enforced by counting files whose names
@@ -185,7 +185,7 @@ if _ds.is_file():
             '<!doctype html><html><body>Sign in to download</body></html>',
             encoding='utf-8',
         )
-        _r = subprocess.run([sys.executable, str(REPO / 'docs/check_datasheets.py'), 
+        _r = subprocess.run([sys.executable, str(REPO / 'scripts/check_datasheets.py'),
                              str(next(_bd.glob('*.kicad_pcb')))],
                             capture_output=True, text=True)
         check('datasheet gate REJECTS an HTML login wall named .pdf',
@@ -206,7 +206,7 @@ if _ds.is_file():
             re.sub(r'(?m)^(  source_url:) .+$', r'\1 null', _orig, count=1),
             encoding='utf-8',
         )
-        _r = subprocess.run([sys.executable, str(REPO / 'docs/check_research.py'),
+        _r = subprocess.run([sys.executable, str(REPO / 'scripts/check_research.py'),
                              str(next(_bd.glob('*.kicad_pcb')))],
                             capture_output=True, text=True)
         check('archive integrity FLAGS a document with no source URL',
@@ -259,7 +259,7 @@ def _sandbox(src: Path = None):
 
 
 def _research(pcb):
-    return subprocess.run([sys.executable, str(REPO / 'docs/check_research.py'), str(pcb)],
+    return subprocess.run([sys.executable, str(REPO / 'scripts/check_research.py'), str(pcb)],
                           capture_output=True, text=True).stdout
 
 
@@ -321,7 +321,7 @@ if _pcb_src:
         re.sub(r'^- \[ \]', '- [x]', _s.read_text(encoding='utf-8'), flags=re.M),
         encoding='utf-8',
     )
-    sys.path.insert(0, str(REPO / 'docs'))
+    sys.path.insert(0, str(REPO / 'scripts'))
     import run_gates as _rg
     _ok, _det = _rg.gate_signoff(_p)
     check('bulk-ticked SIGNOFF.md without dates does NOT pass',
@@ -359,7 +359,7 @@ if _pcb_src:
     # certifies the thing it was written to catch.
     _fresh = Path(_tf.mkdtemp(prefix='selftest-fresh-')) / 'newboard'
     _fresh.mkdir(parents=True)
-    subprocess.run([sys.executable, str(REPO / 'docs/run_gates.py'), '--init', str(_fresh)],
+    subprocess.run([sys.executable, str(REPO / 'scripts/run_gates.py'), '--init', str(_fresh)],
                    capture_output=True, text=True)
     _sh.copy2(_pcb_src, _fresh / 'newboard.kicad_pcb')
     check('a fresh scaffold uses only the unified evidence archive',
@@ -386,17 +386,17 @@ if _pcb_src:
 # pass and disagreed with run_gates on both — ERC (counted waived violations)
 # and placement (treated WARN as failure). An audit that contradicts the gate
 # is worse than no audit, so this asserts they agree.
-_aw = REPO / 'docs/audit_workflow.py'
+_aw = REPO / 'scripts/audit_workflow.py'
 check('audit_workflow.py exists', _aw.is_file())
 check('pipeline --status points at the workflow audit',
-      'audit_workflow' in text(REPO / 'docs/pipeline.py'))
+      'audit_workflow' in text(REPO / 'scripts/pipeline.py'))
 if _aw.is_file():
     _b = REPO / 'projects' / 'baro-bmp390'
     _p = next(iter(_b.glob('*.kicad_pcb')), None)
     if _p:
         _r = subprocess.run([sys.executable, str(_aw), 'baro-bmp390'],
                             capture_output=True, text=True)
-        _g = subprocess.run([sys.executable, str(REPO / 'docs/run_gates.py'), str(_p)],
+        _g = subprocess.run([sys.executable, str(REPO / 'scripts/run_gates.py'), str(_p)],
                             capture_output=True, text=True)
         # both must agree that ERC and DRC are clean on this board
         check('workflow audit agrees with run_gates on ERC',
@@ -426,12 +426,12 @@ if _aw.is_file():
 # green while six gates could not fail at all.
 
 def _parity(pcb):
-    return subprocess.run([str(KIPYTHON), str(REPO / 'docs/check_netlist_parity.py'),
+    return subprocess.run([str(KIPYTHON), str(REPO / 'scripts/check_netlist_parity.py'),
                            str(pcb)], capture_output=True, text=True)
 
 
 def _schqual(pcb):
-    return subprocess.run([sys.executable, str(REPO / 'docs/check_schematic_quality.py'),
+    return subprocess.run([sys.executable, str(REPO / 'scripts/check_schematic_quality.py'),
                            str(pcb)], capture_output=True, text=True)
 
 
@@ -531,12 +531,12 @@ if _pcb_src:
     _sh.rmtree(_b.parent, ignore_errors=True)
 
 # 17. both gates must be REGISTERED, not merely present on disk.
-_rg = (REPO / 'docs/run_gates.py').read_text(encoding='utf-8')
+_rg = (REPO / 'scripts/run_gates.py').read_text(encoding='utf-8')
 check('netlist-parity gate is REGISTERED in run_gates.GATES',
       'gate_netlist_parity' in _rg.split('GATES = [')[1])
 check('schematic-quality gate is REGISTERED in run_gates.GATES',
       'gate_schematic_quality' in _rg.split('GATES = [')[1])
-_aw = (REPO / 'docs/audit_workflow.py').read_text(encoding='utf-8')
+_aw = (REPO / 'scripts/audit_workflow.py').read_text(encoding='utf-8')
 check('audit CALLS the parity gate rather than re-implementing it',
       'run_gates.gate_netlist_parity' in _aw)
 check('audit CALLS the schematic-quality gate rather than re-implementing it',
@@ -549,7 +549,7 @@ check('audit CALLS the schematic-quality gate rather than re-implementing it',
 # silently destroyed any hand-drawing done in Eeschema. These require that it
 # cannot. Check 18 is the one that matters: it is the whole reason the marker
 # exists, and it is tested BEFORE anyone spends an evening in the editor.
-sys.path.insert(0, str(REPO / 'docs'))
+sys.path.insert(0, str(REPO / 'scripts'))
 import pipeline as _pl  # noqa: E402
 import run_gates as _rgm  # noqa: E402
 

@@ -24,7 +24,7 @@ def test_parity_script_bootstraps_repository_sources_without_site_packages(tmp_p
             sys.executable,
             "-I",
             "-S",
-            str(repo / "docs" / "check_netlist_parity.py"),
+            str(repo / "scripts" / "check_netlist_parity.py"),
         ],
         cwd=tmp_path,
         env=environment,

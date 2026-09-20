@@ -103,7 +103,7 @@ def schematic_inventory(
     """Export physical parts, complete symbol pins and connected nets from KiCad.
 
     Components come from the native component list, including wholly disconnected
-    parts. Net normalization matches docs/check_netlist_parity.py: only leading
+    parts. Net normalization matches scripts/check_netlist_parity.py: only leading
     slashes are removed; deeper sheet paths remain distinct.
     """
     with tempfile.TemporaryDirectory(prefix="pcb-layout-netlist-") as directory:

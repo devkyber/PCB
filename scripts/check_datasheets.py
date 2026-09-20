@@ -50,7 +50,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / 'src'))
-sys.path.insert(0, str(REPO / 'docs'))
+sys.path.insert(0, str(REPO / 'scripts'))
 from pcb_copilot.evidence.checks import Part, check_evidence  # noqa: E402
 from pcb_copilot.project import load_project  # noqa: E402
 from collect_references import sniff          # noqa: E402  (payload verification)
@@ -208,7 +208,7 @@ def check(pcb_path: Path) -> tuple[bool, str]:
         lines.append('NOT A DATASHEET: ' + '; '.join(sorted(fake)))
         lines.append('The file exists but its bytes are not a PDF — typically a '
                      'vendor login wall or a 404 page saved with a .pdf name. '
-                     'Re-fetch with docs/collect_references.py add '
+                     'Re-fetch with scripts/collect_references.py add '
                      '<project> <PART> <URL> --kind datasheet, which verifies '
                      'the payload before it lands on disk.')
     if missing:

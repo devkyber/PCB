@@ -2,7 +2,7 @@
 
 MOVED = {
     "docs/tms-v3-pdr.md": "projects/tms-v3/PDR.md",
-    "docs/pcb-design-rules.md": "docs/history/legacy-design-rules.md",
+    "docs/pcb-design-rules.md": "migration/legacy-design-rules.md",
 }
 REMOVED = {
     "docs/archive/tms-v2-summary.md": "projects/tms-v3/DESIGN_BASIS.md",
@@ -43,8 +43,8 @@ def test_gnss_evaluation_is_retained_while_accepted_cad_cites_it(repo_root):
 def test_cleanup_does_not_remove_live_legacy_runtime_inputs(repo_root):
     # These are not ready for deletion just because newer APIs are planned.
     for relative in (
-        "docs/pcb_layout_helpers.py", "docs/schematic_layout_helpers.py",
-        "docs/deviations.py", "docs/extract_netmap.py", "docs/pipeline.py",
+        "scripts/pcb_layout_helpers.py", "scripts/schematic_layout_helpers.py",
+        "scripts/deviations.py", "scripts/extract_netmap.py", "scripts/pipeline.py",
         ".claude/settings.json", "pyproject.toml", "uv.lock",
     ):
         assert (repo_root / relative).is_file(), relative

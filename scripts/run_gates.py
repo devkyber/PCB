@@ -69,7 +69,7 @@ def _run(cmd, **kw):
 
 
 def gate_datasheets(pcb: Path) -> tuple[bool, str]:
-    r = _run([sys.executable, REPO / 'docs' / 'check_datasheets.py', pcb])
+    r = _run([sys.executable, REPO / 'scripts' / 'check_datasheets.py', pcb])
     lines = r.stdout.strip().splitlines()
     head = lines[0] if lines else 'no output'
     # Name the offending parts. The summary line alone reads as healthy
@@ -83,7 +83,7 @@ def gate_datasheets(pcb: Path) -> tuple[bool, str]:
 
 
 def gate_placement(pcb: Path) -> tuple[bool, str]:
-    r = _run([sys.executable, REPO / 'docs' / 'validate_pcb.py', pcb])
+    r = _run([sys.executable, REPO / 'scripts' / 'validate_pcb.py', pcb])
     # Match validate_pcb's per-check lines only ("[x] FAIL  <name>"), not its
     # trailing "RESULT: n FAIL" summary — counting the summary as a finding
     # made this gate report a failure it could not name.
@@ -98,7 +98,7 @@ def gate_placement(pcb: Path) -> tuple[bool, str]:
 def gate_design_rules(pcb: Path) -> tuple[bool, str]:
     if not KIPYTHON.exists():
         return False, 'kipython not found — cannot check docs/DESIGN_RULES.md'
-    r = _run([KIPYTHON, REPO / 'docs' / 'check_design_rules.py', pcb])
+    r = _run([KIPYTHON, REPO / 'scripts' / 'check_design_rules.py', pcb])
     line = next((l for l in r.stdout.splitlines() if l.startswith('RESULT:')), '')
     return r.returncode == 0, line or 'no result line'
 
@@ -112,7 +112,7 @@ def gate_research(pcb: Path) -> tuple[bool, str]:
     Advisory sub-checks are surfaced but do not fail the board, so the gate
     reports on things that legitimately vary (LCSC coverage) without becoming
     the gate everyone learns to ignore."""
-    r = _run([sys.executable, REPO / 'docs' / 'check_research.py', pcb, '--json'])
+    r = _run([sys.executable, REPO / 'scripts' / 'check_research.py', pcb, '--json'])
     try:
         res = json.loads(r.stdout)
     except Exception:                                       # noqa: BLE001
@@ -415,7 +415,7 @@ def init_project(proj: Path) -> int:
         print(f'  created  {m}')
     for k in kept:
         print(f'  kept     {k} (already present)')
-    print(f'\nNext: python3 docs/run_gates.py {proj}/{board}.kicad_pcb')
+    print(f'\nNext: python3 scripts/run_gates.py {proj}/{board}.kicad_pcb')
     return 0
 
 
@@ -430,7 +430,7 @@ def gate_netlist_parity(pcb: Path) -> tuple[bool, str]:
     """
     if not KIPYTHON.exists():
         return False, 'kipython not found — cannot compare netlists'
-    r = _run([KIPYTHON, REPO / 'docs' / 'check_netlist_parity.py', pcb])
+    r = _run([KIPYTHON, REPO / 'scripts' / 'check_netlist_parity.py', pcb])
     lines = [l for l in r.stdout.splitlines() if l.strip()]
     head = next((l for l in lines if l.startswith('schematic:')), '')
     bad = [l.strip() for l in lines if 'MISMATCH:' in l or 'NOT on the board' in l
@@ -448,7 +448,7 @@ def gate_schematic_quality(pcb: Path) -> tuple[bool, str]:
     in writing went unenforced on every board: the ~25-components-per-A4
     hierarchy rule, and having a title block at all.
     """
-    r = _run([sys.executable, REPO / 'docs' / 'check_schematic_quality.py', pcb])
+    r = _run([sys.executable, REPO / 'scripts' / 'check_schematic_quality.py', pcb])
     lines = [l for l in r.stdout.splitlines() if l.strip()]
     head = lines[0] if lines else 'no output'
     notes = [l.strip() for l in lines if l.strip().startswith(('FAIL:', 'advise:'))]
@@ -487,7 +487,7 @@ def gate_schematic_ownership(pcb: Path) -> tuple[bool, str]:
     overwritten. Two questions, two places, neither reading an artifact the
     current run has not finished writing.
     """
-    sys.path.insert(0, str(REPO / 'docs'))
+    sys.path.insert(0, str(REPO / 'scripts'))
     import pipeline
     import extract_netmap
 

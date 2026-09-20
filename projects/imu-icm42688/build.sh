@@ -1,5 +1,5 @@
 #!/bin/bash
-# Thin shim. The real build lives in docs/pipeline.py, for every board.
+# Thin shim. The real build lives in scripts/pipeline.py, for every board.
 #
 # This file used to contain its own five-step sequence. That made two code
 # paths for "build a board" — one here, one in the workflow document — and
@@ -8,4 +8,4 @@
 # memory and any old reference to ./build.sh still lands in the right place.
 set -euo pipefail
 cd "$(dirname "$0")"
-exec python3 ../../docs/pipeline.py "$PWD" "$@"
+exec python3 ../../scripts/pipeline.py "$PWD" "$@"

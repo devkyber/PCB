@@ -26,7 +26,7 @@ rules:
     action: REFACTOR
     rationale: Preserve automation behavior while moving platform logic to portable hooks.
     replacement: src/pcb_copilot/hooks.py
-  - pattern: docs/superpowers/**
+  - pattern: planning/**
     action: KEEP
     rationale: Approved design and implementation records.
   - pattern: docs/archive/**
@@ -48,20 +48,25 @@ rules:
   - pattern: docs/pcb-design-rules.md
     action: DELETE
     rationale: Detailed original moved intact with non-authoritative warning; canonical rule index retains exact scope and links to provenance.
-    replacement: docs/history/legacy-design-rules.md
+    replacement: migration/legacy-design-rules.md
   - pattern: docs/tms-v3-pdr.md
     action: DELETE
     rationale: Moved beside the board with explicit historical conflicts; preserved unique design/review history without endorsing stale approval.
     replacement: projects/tms-v3/PDR.md
   - pattern: docs/history/**
-    action: KEEP
-    rationale: Detailed rule provenance retained until fact-level migration; current reports and deviations still use its stable rule IDs. Obsolete workflow chronology was removed.
+    action: DELETE
+    rationale: Reader-only docs relocation; detailed rule provenance moved to migration and obsolete chronology removed.
+    replacement: migration/legacy-design-rules.md
   - pattern: docs/ARCHITECTURE.md
     action: KEEP
     rationale: Canonical architecture and recurring-defect record.
   - pattern: docs/*.py
+    action: DELETE
+    rationale: Executable helpers relocated intact to scripts; all active callers use the new paths, with no shims retained in reader documentation.
+    replacement: scripts/
+  - pattern: scripts/*.py
     action: REFACTOR
-    rationale: Preserve tested workflow behavior behind package APIs and compatibility commands.
+    rationale: Preserve tested compatibility and maintenance behavior; package migration remains separate from file relocation.
     replacement: src/pcb_copilot
   - pattern: docs/*.md
     action: KEEP

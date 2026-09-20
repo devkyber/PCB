@@ -15,7 +15,7 @@ Full reference: `docs/WORKFLOW.md` Phase 3, `docs/DESIGN_RULES.md` §15.
 
 ## While wiring (script-based generation)
 - Attach every net to the symbol's real pin coordinate (e.g. `get_pin_position`) — never a hand-guessed `(x, y)`. A label near a pin looks connected but ERC will show it dangling; this was the largest defect class found integrating real parts into TMS V3.
-- **Never call `add_label` or `add_symbol` at bare coordinates. Route everything through `docs/schematic_layout_helpers.py`.** ERC only checks connectivity, never geometry, so every defect below is 100% ERC-clean and invisible until a human renders the sheet. The module handles them all; a generator script should contain circuit intent and coordinates, nothing else.
+- **Never call `add_label` or `add_symbol` at bare coordinates. Route everything through `scripts/schematic_layout_helpers.py`.** ERC only checks connectivity, never geometry, so every defect below is 100% ERC-clean and invisible until a human renders the sheet. The module handles them all; a generator script should contain circuit intent and coordinates, nothing else.
 
   Two objects, wired up once per script:
 
@@ -52,7 +52,7 @@ Full reference: `docs/WORKFLOW.md` Phase 3, `docs/DESIGN_RULES.md` §15.
 - Every IC power pin has a decoupling cap
 - Every address/config/mode pin is tied per datasheet — nothing floating (§15.2)
 - Every inter-IC connection has matching voltage levels, or a level shifter if not (§15.3)
-- Reference-design comparison table (`docs/WORKFLOW.md` Phase 2.3) has every row filled — this is a hard gate, not optional. When fetching the reference source, use `docs/fetch_reference_doc.py` for anything you need an exact value from (GitHub Eagle `.sch`/`.brd`, PDFs) — WebFetch summarizes and will silently lose pin-level detail; a dead link goes through `verify_url()` first, never reported as just "unavailable."
+- Reference-design comparison table (`docs/WORKFLOW.md` Phase 2.3) has every row filled — this is a hard gate, not optional. When fetching the reference source, use `scripts/fetch_reference_doc.py` for anything you need an exact value from (GitHub Eagle `.sch`/`.brd`, PDFs) — WebFetch summarizes and will silently lose pin-level detail; a dead link goes through `verify_url()` first, never reported as just "unavailable."
 - Run ERC — zero **errors**. `endpoint_off_grid`/`pin_to_pin` warnings on real fetched parts are an expected easyeda2kicad artifact; a `power_pin_not_driven` error gets a `power:PWR_FLAG` symbol on that net.
 
 
@@ -63,11 +63,11 @@ hard gate, not optional", and four boards had zero archived references. The
 rule was true and unenforced, which is the same as absent.
 
 ```bash
-python3 docs/collect_references.py suggest <PARTNO>
+python3 scripts/collect_references.py suggest <PARTNO>
 uv run pcb-copilot research <project> --add <PART> <URL> --role <ROLE>
 uv run pcb-copilot research <project> --extract <PART>
 uv run pcb-copilot research <project> --verify
-python3 docs/check_research.py <board.kicad_pcb>
+python3 scripts/check_research.py <board.kicad_pcb>
 ```
 
 - Search order is Tier 1 manufacturer EVM/app note → Tier 2 open hardware

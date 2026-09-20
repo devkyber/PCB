@@ -18,7 +18,7 @@
 
 INPUT=$(cat)
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-VALIDATOR="$REPO_ROOT/docs/validate_pcb.py"
+VALIDATOR="$REPO_ROOT/scripts/validate_pcb.py"
 [[ -f "$VALIDATOR" ]] || exit 0
 
 read -r TOOL FILE_PATH <<<"$(echo "$INPUT" | python3 -c '

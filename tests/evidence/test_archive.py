@@ -142,7 +142,7 @@ def test_legacy_add_command_archives_to_unified_index(
     project_copy, repo_root, monkeypatch
 ):
     _without_unified_evidence(project_copy)
-    sys.path.insert(0, str(repo_root / "docs"))
+    sys.path.insert(0, str(repo_root / "scripts"))
     collect = importlib.import_module("collect_references")
     monkeypatch.setattr(collect, "verify_url", lambda _url: (True, "200"))
     monkeypatch.setattr(

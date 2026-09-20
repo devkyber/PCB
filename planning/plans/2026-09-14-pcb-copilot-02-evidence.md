@@ -8,7 +8,7 @@
 
 **Tech Stack:** Python 3.10+, Pydantic 2, PyYAML 6, httpx, SHA-256, pytest, and existing Eagle/PDF extraction utilities.
 
-**Spec:** `docs/superpowers/specs/2026-09-14-pcb-copilot-repository-remake-design.md`
+**Spec:** `planning/specs/2026-09-14-pcb-copilot-repository-remake-design.md`
 
 ## Global Constraints
 
@@ -117,12 +117,12 @@ git commit -m "feat: add structured PCB evidence index"
 **Files:**
 - Create: `src/pcb_copilot/evidence/archive.py`
 - Create: `tests/evidence/test_archive.py`
-- Modify: `docs/collect_references.py`
+- Modify: `scripts/collect_references.py`
 
 **Interfaces:**
 - Produces: `sniff_media_type(payload: bytes) -> str`
 - Produces: `archive_document(project: Project, part_number: str, url: str, roles: set[EvidenceRole], payload: bytes, retrieved_on: date) -> EvidenceRecord`
-- Preserves CLI: `python docs/collect_references.py add PROJECT PART URL`
+- Preserves CLI: `python scripts/collect_references.py add PROJECT PART URL`
 
 - [ ] **Step 1: Port current bad-payload cases into failing tests**
 
@@ -159,7 +159,7 @@ payload whose sniffed media type conflicts with a claimed PDF, compute SHA-256,
 and reuse an existing record with the same hash rather than copying bytes.
 Merge new roles, component refs, and part numbers into that record.
 
-Convert `docs/collect_references.py` into a compatibility CLI that calls the
+Convert `scripts/collect_references.py` into a compatibility CLI that calls the
 new service. Retain `suggest`, `add`, and `verify` command spellings until the
 new research CLI is documented and tested.
 
@@ -172,14 +172,14 @@ Run: `uv run pytest tests/evidence/test_archive.py -v`. Expected: PASS.
 
 - [ ] **Step 5: Run the original enforcement cases**
 
-Run: `uv run python docs/selftest_enforcement.py`
+Run: `uv run python scripts/selftest_enforcement.py`
 
 Expected: exit `0`, including the HTML-login-wall and provenance checks.
 
 - [ ] **Step 6: Commit archive compatibility**
 
 ```bash
-git add src/pcb_copilot/evidence/archive.py tests/evidence/test_archive.py docs/collect_references.py
+git add src/pcb_copilot/evidence/archive.py tests/evidence/test_archive.py scripts/collect_references.py
 git commit -m "refactor: preserve verified evidence archival"
 ```
 
@@ -189,13 +189,13 @@ git commit -m "refactor: preserve verified evidence archival"
 - Create: `src/pcb_copilot/evidence/extract.py`
 - Create: `src/pcb_copilot/evidence/facts.py`
 - Create: `tests/evidence/test_extract.py`
-- Modify: `docs/fetch_reference_doc.py`
+- Modify: `scripts/fetch_reference_doc.py`
 
 **Interfaces:**
 - Produces: `EvidenceFact(subject: str, predicate: str, value: str, unit: str | None, evidence_id: str, pages: tuple[int, ...], confidence: Literal["exact", "review_required"])`
 - Produces: `extract_eagle_connections(path: Path, part: str) -> tuple[EvidenceFact, ...]`
 - Produces: `render_pdf_pages(path: Path, pages: Sequence[int], output_dir: Path) -> tuple[Path, ...]`
-- Preserves CLI forms: `python docs/fetch_reference_doc.py eagle projects/baro-bmp390/evidence/files/BMP390_Adafruit_20BMP390.sch BMP390` and `python docs/fetch_reference_doc.py pdf projects/tms-v3/evidence/files/xbee3_hardware_ref.pdf --pages 15,16`
+- Preserves CLI forms: `python scripts/fetch_reference_doc.py eagle projects/baro-bmp390/evidence/files/BMP390_Adafruit_20BMP390.sch BMP390` and `python scripts/fetch_reference_doc.py pdf projects/tms-v3/evidence/files/xbee3_hardware_ref.pdf --pages 15,16`
 
 - [ ] **Step 1: Write failing extraction characterization tests**
 
@@ -236,7 +236,7 @@ Expected: PASS and no output regression.
 - [ ] **Step 5: Commit cited extraction**
 
 ```bash
-git add src/pcb_copilot/evidence/extract.py src/pcb_copilot/evidence/facts.py tests/evidence/test_extract.py docs/fetch_reference_doc.py
+git add src/pcb_copilot/evidence/extract.py src/pcb_copilot/evidence/facts.py tests/evidence/test_extract.py scripts/fetch_reference_doc.py
 git commit -m "feat: attach citations to extracted evidence facts"
 ```
 
@@ -245,9 +245,9 @@ git commit -m "feat: attach citations to extracted evidence facts"
 **Files:**
 - Create: `src/pcb_copilot/evidence/checks.py`
 - Create: `tests/evidence/test_checks.py`
-- Modify: `docs/check_datasheets.py`
-- Modify: `docs/check_research.py`
-- Modify: `docs/run_gates.py`
+- Modify: `scripts/check_datasheets.py`
+- Modify: `scripts/check_research.py`
+- Modify: `scripts/run_gates.py`
 
 **Interfaces:**
 - Produces: `check_evidence(project: Project, pcb_inventory: Sequence[Part]) -> list[Finding]`
@@ -285,14 +285,14 @@ Modify the legacy gate functions to render these findings into their current
 
 Run: `uv run pytest tests/evidence/test_checks.py -v`
 
-Run: `uv run python docs/selftest_enforcement.py`
+Run: `uv run python scripts/selftest_enforcement.py`
 
 Expected: all tests pass and every injected evidence fault blocks.
 
 - [ ] **Step 5: Commit unified evidence gates**
 
 ```bash
-git add src/pcb_copilot/evidence/checks.py tests/evidence/test_checks.py docs/check_datasheets.py docs/check_research.py docs/run_gates.py
+git add src/pcb_copilot/evidence/checks.py tests/evidence/test_checks.py scripts/check_datasheets.py scripts/check_research.py scripts/run_gates.py
 git commit -m "refactor: use one evidence checker for PCB gates"
 ```
 
@@ -347,7 +347,7 @@ foreach ($board in @("baro-bmp390", "imu-icm42688", "gnss-neom9n", "tms-v3")) {
     uv run python scripts/migrate_evidence.py "projects/$board"
     uv run python scripts/migrate_evidence.py "projects/$board" --apply
     uv run pytest tests/evidence -q
-    uv run python docs/run_gates.py "projects/$board/$board.kicad_pcb"
+    uv run python scripts/run_gates.py "projects/$board/$board.kicad_pcb"
     git add "projects/$board"
     git commit -m "refactor: migrate $board evidence"
 }
@@ -363,7 +363,7 @@ The loop must yield four commits named for the literal board migrated.
 
 Run: `uv run pytest tests/evidence -q`
 
-Run: `uv run python docs/audit_workflow.py`
+Run: `uv run python scripts/audit_workflow.py`
 
 Run a SHA-256 duplicate scan over `projects/*/evidence/files/`.
 
@@ -430,7 +430,7 @@ git commit -m "feat: add cited PCB research assistant"
 ## Plan 2 Completion Check
 
 - [ ] `uv run pytest tests/evidence -q` exits `0`.
-- [ ] `uv run python docs/selftest_enforcement.py` exits `0`.
+- [ ] `uv run python scripts/selftest_enforcement.py` exits `0`.
 - [ ] Evidence-related gates match the baseline for all four boards.
 - [ ] Every evidence record resolves to existing bytes with a matching hash.
 - [ ] Exact duplicate evidence bytes have one canonical path and multiple roles.

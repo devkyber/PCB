@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """The single entry point for building a board. One command, every stage, in order.
 
-    python3 docs/pipeline.py projects/<board>            # full run
-    python3 docs/pipeline.py projects/<board> --from pcb # resume at a stage
-    python3 docs/pipeline.py projects/<board> --check    # gates only, no rebuild
-    python3 docs/pipeline.py --status                    # every board, one table
+    python3 scripts/pipeline.py projects/<board>            # full run
+    python3 scripts/pipeline.py projects/<board> --from pcb # resume at a stage
+    python3 scripts/pipeline.py projects/<board> --check    # gates only, no rebuild
+    python3 scripts/pipeline.py --status                    # every board, one table
 
 WHY THIS FILE EXISTS
 --------------------
@@ -42,7 +42,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-DOCS = REPO / 'docs'
+SCRIPTS = REPO / 'scripts'
 KICAD_CLI = Path('/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli')
 KIPYTHON = Path.home() / '.local' / 'bin' / 'kipython'
 
@@ -191,7 +191,7 @@ def stage_env(b: Board) -> StageResult:
     # because every other gate in this pipeline is worthless if the hooks,
     # matchers and entry points that invoke them have quietly come undone —
     # which is exactly what happened on 2026-08-25.
-    st = run([sys.executable, DOCS / 'selftest_enforcement.py'])
+    st = run([sys.executable, SCRIPTS / 'selftest_enforcement.py'])
     if st.returncode != 0:
         bad = [l.strip() for l in st.stdout.splitlines() if '[FAIL]' in l]
         problems.append(f'enforcement self-test: {len(bad)} broken '
@@ -243,7 +243,7 @@ def stage_research(b: Board) -> StageResult:
         return StageResult('research', True,
                            'no board file yet — research is checked at the gates stage',
                            time.time() - t, skipped=True)
-    r = run([sys.executable, DOCS / 'check_research.py', b.pcb])
+    r = run([sys.executable, SCRIPTS / 'check_research.py', b.pcb])
     line = next((l for l in reversed((r.stdout or '').splitlines())
                  if l.startswith('RESULT:')), 'no result')
     detail = line.replace('RESULT: ', '').strip()
@@ -313,7 +313,7 @@ def stage_sch(b: Board, regenerate: bool = False) -> StageResult:
                                f'{OWNER_FILE} says human but {b.sch.name} does not '
                                'exist — nothing to build the board from',
                                time.time() - t)
-        r = run([sys.executable, DOCS / 'extract_netmap.py', b.sch])
+        r = run([sys.executable, SCRIPTS / 'extract_netmap.py', b.sch])
         if r.returncode != 0:
             return StageResult('sch', False,
                                'netmap extraction failed: '
@@ -363,7 +363,7 @@ def stage_erc(b: Board) -> StageResult:
 
 def stage_route(b: Board, passes: int) -> StageResult:
     t = time.time()
-    script = DOCS / 'route_and_fill.py'
+    script = SCRIPTS / 'route_and_fill.py'
     if not script.is_file():
         return StageResult('route', False, 'route_and_fill.py missing', time.time() - t)
 
@@ -373,11 +373,11 @@ def stage_route(b: Board, passes: int) -> StageResult:
     # it reached. Keeping whichever result the last attempt produced makes
     # "ships" or "does not ship" a matter of luck.
     #
-    # docs/route_best_of.py was written for exactly this and, like
+    # scripts/route_best_of.py was written for exactly this and, like
     # stitch_vias.py before it, was invoked by NOTHING — the third orphaned
     # tool found in this workspace. It re-routes from the same unrouted
     # placement each time and keeps the best board.
-    best = DOCS / 'route_best_of.py'
+    best = SCRIPTS / 'route_best_of.py'
     if best.is_file():
         r = run([sys.executable, best, b.pcb, '4', passes], timeout=3600)
     else:
@@ -409,14 +409,14 @@ def stage_route(b: Board, passes: int) -> StageResult:
     # is exactly the kind of stale evidence this pipeline exists to prevent.
     notes = []
     if KIPYTHON.exists():
-        stitch = DOCS / 'stitch_vias.py'
+        stitch = SCRIPTS / 'stitch_vias.py'
         if stitch.is_file():
             sr = run([KIPYTHON, stitch, b.pcb], timeout=600)
             n = next((l.strip() for l in (sr.stdout or '').splitlines()
                       if 'stitching vias added' in l), '')
             if n and not n.startswith('0 grid + 0'):
                 notes.append(n)
-        fixer = DOCS / 'fix_via_annular.py'
+        fixer = SCRIPTS / 'fix_via_annular.py'
         if fixer.is_file():
             fr = run([KIPYTHON, fixer, b.pcb], timeout=300)
             n = next((l.strip() for l in (fr.stdout or '').splitlines()
@@ -465,7 +465,7 @@ def stage_fab(b: Board, gates_ok: bool) -> StageResult:
     if not gates_ok:
         return StageResult('fab', True, 'skipped — gates did not pass',
                            time.time() - t, skipped=True)
-    script = DOCS / 'export_fab.py'
+    script = SCRIPTS / 'export_fab.py'
     if not script.is_file():
         return StageResult('fab', False, 'export_fab.py missing', time.time() - t)
     r = run([sys.executable, script, b.pcb], timeout=600)
@@ -481,7 +481,7 @@ def stage_fab(b: Board, gates_ok: bool) -> StageResult:
 
 def stage_gates(b: Board) -> StageResult:
     t = time.time()
-    r = run([sys.executable, DOCS / 'run_gates.py', b.pcb], timeout=1800)
+    r = run([sys.executable, SCRIPTS / 'run_gates.py', b.pcb], timeout=1800)
     lines = r.stdout.strip().splitlines()
     result = next((l for l in reversed(lines) if l.startswith('RESULT:')), 'no result')
     return StageResult('gates', r.returncode == 0, result.strip(), time.time() - t), r.stdout
@@ -505,7 +505,7 @@ def write_report(b: Board, results, gate_table: str, started: str):
     (b.dir / 'PIPELINE.json').write_text(json.dumps(rec, indent=2) + '\n')
 
     lines = [f'# Pipeline Status — {b.name}', '',
-             '_Machine-generated by `docs/pipeline.py`. Do not edit by hand._', '',
+             '_Machine-generated by `scripts/pipeline.py`. Do not edit by hand._', '',
              f'- Run finished: `{rec["finished_utc"]}`',
              f'- Repo commit: `{rec["git"]}`',
              f'- Board file SHA: `{rec["pcb_sha256_12"]}`', '',
@@ -548,8 +548,8 @@ def cmd_status():
     print('-' * (w + 60))
     for n, when, st, fresh in rows:
         print(f'{n.ljust(w)}  {when.ljust(16)}  {st.ljust(34)}  {fresh}')
-    print('\nRebuild:  python3 docs/pipeline.py projects/<board>')
-    print('Step-by-step workflow audit:  python3 docs/audit_workflow.py')
+    print('\nRebuild:  python3 scripts/pipeline.py projects/<board>')
+    print('Step-by-step workflow audit:  python3 scripts/audit_workflow.py')
 
 
 def main():
@@ -650,7 +650,7 @@ def main():
     # The register of what is waiting on a person is regenerated here, so it
     # can never be a stale hand-written list next to a fresh gate table --
     # which is exactly what BLOCKERS.md was when it was deleted.
-    hw = DOCS / 'human_work.py'
+    hw = SCRIPTS / 'human_work.py'
     if hw.is_file():
         run([sys.executable, hw, '--write'], timeout=600)
 

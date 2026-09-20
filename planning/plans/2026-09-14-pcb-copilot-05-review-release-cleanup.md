@@ -8,7 +8,7 @@
 
 **Tech Stack:** Python 3.10+, Pydantic 2, KiCad 10 CLI/pcbnew, pytest, current gate and fabrication code, SHA-256, Markdown/JSON reports, and Git.
 
-**Spec:** `docs/superpowers/specs/2026-09-14-pcb-copilot-repository-remake-design.md`
+**Spec:** `planning/specs/2026-09-14-pcb-copilot-repository-remake-design.md`
 
 ## Global Constraints
 
@@ -95,7 +95,7 @@ their parsing logic into `legacy.py`.
 
 Run: `uv run pytest tests/review/test_registry.py -v`
 
-Run: `uv run python docs/selftest_enforcement.py`
+Run: `uv run python scripts/selftest_enforcement.py`
 
 Expected: PASS and the legacy gate registry remains intact.
 
@@ -115,7 +115,7 @@ git commit -m "feat: add complete typed PCB review registry"
 - Create from current implementations: `src/pcb_copilot/review/pcb_geometry.py`
 - Create from current implementations: `src/pcb_copilot/review/design_rules.py`
 - Create: `tests/review/test_behavior_parity.py`
-- Modify into compatibility entry points: `docs/deviations.py`, `docs/extract_netmap.py`, `docs/check_netlist_parity.py`, `docs/validate_pcb.py`, `docs/check_design_rules.py`
+- Modify into compatibility entry points: `scripts/deviations.py`, `scripts/extract_netmap.py`, `scripts/check_netlist_parity.py`, `scripts/validate_pcb.py`, `scripts/check_design_rules.py`
 
 **Interfaces:**
 - Preserves: current public functions and CLI exit behavior
@@ -152,16 +152,16 @@ implementation and the old path re-exports it.
 
 Run: `uv run pytest tests/review -q`
 
-Run: `uv run python docs/selftest_enforcement.py`
+Run: `uv run python scripts/selftest_enforcement.py`
 
-Run: `uv run python docs/audit_workflow.py`
+Run: `uv run python scripts/audit_workflow.py`
 
 Expected: zero test failures; audit and gates agree for every adapted check.
 
 - [ ] **Step 5: Commit relocated primitives**
 
 ```bash
-git add src/pcb_copilot/review tests/review docs/deviations.py docs/extract_netmap.py docs/check_netlist_parity.py docs/validate_pcb.py docs/check_design_rules.py
+git add src/pcb_copilot/review tests/review scripts/deviations.py scripts/extract_netmap.py scripts/check_netlist_parity.py scripts/validate_pcb.py scripts/check_design_rules.py
 git commit -m "refactor: preserve PCB checks behind package APIs"
 ```
 
@@ -170,7 +170,7 @@ git commit -m "refactor: preserve PCB checks behind package APIs"
 **Files:**
 - Create: `src/pcb_copilot/review/faults.py`
 - Create: `tests/review/test_fault_injection.py`
-- Modify: `docs/selftest_enforcement.py`
+- Modify: `scripts/selftest_enforcement.py`
 
 **Interfaces:**
 - Produces: `FaultCase(id: str, check_id: str, mutate: Callable[[Path], None], expected_summary: str)`
@@ -212,13 +212,13 @@ and no changes under live `projects/`.
 
 - [ ] **Step 5: Convert the old self-test into a compatibility wrapper**
 
-`docs/selftest_enforcement.py` invokes the package fault runner and preserves
+`scripts/selftest_enforcement.py` invokes the package fault runner and preserves
 its current nonzero-on-failure contract. Run it directly and assert exit `0`.
 
 - [ ] **Step 6: Commit enforcement strength tests**
 
 ```bash
-git add src/pcb_copilot/review/faults.py tests/review/test_fault_injection.py docs/selftest_enforcement.py
+git add src/pcb_copilot/review/faults.py tests/review/test_fault_injection.py scripts/selftest_enforcement.py
 git commit -m "test: require fault coverage for blocking PCB checks"
 ```
 
@@ -301,9 +301,9 @@ git commit -m "refactor: make PCB human sign-off project-specific"
 - Create: `src/pcb_copilot/review/render.py`
 - Modify: `src/pcb_copilot/cli.py`
 - Create: `tests/review/test_cli.py`
-- Modify: `docs/run_gates.py`
-- Modify: `docs/audit_workflow.py`
-- Modify: `docs/human_work.py`
+- Modify: `scripts/run_gates.py`
+- Modify: `scripts/audit_workflow.py`
+- Modify: `scripts/human_work.py`
 
 **Interfaces:**
 - Adds parser positional `project_path`, optional `--format` choice, and
@@ -345,16 +345,16 @@ headings during compatibility. Add tests asserting they agree with
 
 Run: `uv run pytest tests/review -q`
 
-Run: `uv run python docs/selftest_enforcement.py`
+Run: `uv run python scripts/selftest_enforcement.py`
 
-Run: `uv run python docs/audit_workflow.py`
+Run: `uv run python scripts/audit_workflow.py`
 
 Expected: zero test failures; all three interfaces agree.
 
 - [ ] **Step 6: Commit complete review**
 
 ```bash
-git add src/pcb_copilot/review src/pcb_copilot/cli.py tests/review docs/run_gates.py docs/audit_workflow.py docs/human_work.py
+git add src/pcb_copilot/review src/pcb_copilot/cli.py tests/review scripts/run_gates.py scripts/audit_workflow.py scripts/human_work.py
 git commit -m "feat: produce complete scoped PCB review reports"
 ```
 
@@ -368,7 +368,7 @@ git commit -m "feat: produce complete scoped PCB review reports"
 - Create: `tests/fabrication/test_release.py`
 - Create: `tests/fabrication/conftest.py`
 - Modify: `src/pcb_copilot/cli.py`
-- Modify: `docs/export_fab.py`
+- Modify: `scripts/export_fab.py`
 
 **Interfaces:**
 - Produces: `export_fabrication(project: Project, destination: Path, toolchain: ToolchainPaths) -> FabricationManifest`
@@ -377,7 +377,7 @@ git commit -m "feat: produce complete scoped PCB review reports"
 - Produces: `ReleaseResult(lifecycle: Lifecycle, fabrication_dir: Path, manifest_path: Path, review: ReviewReport)`
 - Adds parser positional `project_path` and required `--reviewer`; concrete
   form: `pcb-copilot release projects/baro-bmp390 --reviewer "Lee Taeho"`.
-- Preserves CLI: `python docs/export_fab.py BOARD.kicad_pcb`
+- Preserves CLI: `python scripts/export_fab.py BOARD.kicad_pcb`
 
 - [ ] **Step 1: Write failing release-interlock tests**
 
@@ -433,7 +433,7 @@ Expected: PASS.
 - [ ] **Step 6: Commit release workflow**
 
 ```bash
-git add src/pcb_copilot/fabrication src/pcb_copilot/release.py src/pcb_copilot/cli.py tests/fabrication docs/export_fab.py
+git add src/pcb_copilot/fabrication src/pcb_copilot/release.py src/pcb_copilot/cli.py tests/fabrication scripts/export_fab.py
 git commit -m "feat: bind PCB fabrication output to reviewed releases"
 ```
 
@@ -494,7 +494,7 @@ git commit -m "refactor: make PCB workflow hooks portable"
 **Files:**
 - Modify: `src/pcb_copilot/state.py`
 - Modify: `src/pcb_copilot/status.py`
-- Modify: `docs/pipeline.py`
+- Modify: `scripts/pipeline.py`
 - Modify: `.gitignore`
 - Create: `tests/test_generated_state.py`
 - Delete after parity: `HUMAN_WORK.md`, `projects/*/STATUS.md`, `projects/*/PIPELINE.json`
@@ -528,7 +528,7 @@ ownership drift, and report consumers to the local state implementation.
 Run:
 
 ```bash
-rg -n "HUMAN_WORK\.md|STATUS\.md|PIPELINE\.json" --glob '!docs/superpowers/**'
+rg -n "HUMAN_WORK\.md|STATUS\.md|PIPELINE\.json" --glob '!planning/**'
 uv run pytest tests/test_generated_state.py tests/test_state.py tests/test_status_cli.py -v
 ```
 
@@ -544,7 +544,7 @@ Add `HUMAN_WORK.md`, `projects/*/STATUS.md`, and `projects/*/PIPELINE.json` to
 - [ ] **Step 6: Commit generated-state cleanup**
 
 ```bash
-git add .gitignore src/pcb_copilot/state.py src/pcb_copilot/status.py docs/pipeline.py tests/test_generated_state.py
+git add .gitignore src/pcb_copilot/state.py src/pcb_copilot/status.py scripts/pipeline.py tests/test_generated_state.py
 git rm HUMAN_WORK.md projects/*/STATUS.md projects/*/PIPELINE.json
 git commit -m "refactor: generate PCB status locally on demand"
 ```
@@ -611,7 +611,7 @@ plus regression fixtures cover each project generator's unique behavior.
 
 Run: `uv run pytest tests/test_cleanup.py -v`
 
-Run: `rg -n "EVALUATION\.md|tms-v3-bom\.md|docs/archive|docs/QUICKSTART\.md|docs/SETUP\.md|pcb-design-workflow\.md|pcb-design-rules\.md|gen_.*_(sch|pcb)\.py|build\.sh" --glob '!docs/superpowers/**'`
+Run: `rg -n "EVALUATION\.md|tms-v3-bom\.md|docs/archive|docs/QUICKSTART\.md|docs/SETUP\.md|pcb-design-workflow\.md|pcb-design-rules\.md|gen_.*_(sch|pcb)\.py|build\.sh" --glob '!planning/**'`
 
 Expected: cleanup test passes and search returns no live references to deletion
 candidates.

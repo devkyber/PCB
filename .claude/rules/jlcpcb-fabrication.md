@@ -8,7 +8,7 @@ paths:
 Full reference: `docs/DESIGN_RULES.md` §11 (DFM), `docs/WORKFLOW.md` Phase 6.
 
 ## Before exporting Gerbers
-- `python3 docs/validate_pcb.py <board>.kicad_pcb` must show zero FAIL
+- `python3 scripts/validate_pcb.py <board>.kicad_pcb` must show zero FAIL
 - DRC and ERC both zero violations
 - Fiducials optional for JLCPCB PCBA (auto-added if absent); recommended for fine-pitch (<0.5mm) parts
 

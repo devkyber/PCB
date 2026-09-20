@@ -24,11 +24,11 @@ def test_every_tracked_path_has_one_inventory_rule(repo_root):
 
 def test_equal_specificity_matches_are_rejected():
     rules = (
-        InventoryRule(pattern="docs/*.py", action="KEEP", rationale="first"),
-        InventoryRule(pattern="docs/*.py", action="REFACTOR", rationale="second"),
+        InventoryRule(pattern="scripts/*.py", action="KEEP", rationale="first"),
+        InventoryRule(pattern="scripts/*.py", action="REFACTOR", rationale="second"),
     )
-    with pytest.raises(AmbiguousInventoryRule, match="docs/pipeline.py"):
-        classify_path(PurePosixPath("docs/pipeline.py"), rules)
+    with pytest.raises(AmbiguousInventoryRule, match="scripts/pipeline.py"):
+        classify_path(PurePosixPath("scripts/pipeline.py"), rules)
 
 
 def test_capture_board_is_deterministic_and_complete(repo_root):

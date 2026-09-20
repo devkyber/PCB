@@ -95,7 +95,7 @@ an unproven abstraction is not progress.
 
 | Existing capability | Current implementation | Treatment in the remake |
 |---|---|---|
-| Fixed stage order and fabrication interlock | `docs/pipeline.py` | Keep the release-time enforcement. Split drafting into independent commands, but make `release` run every prerequisite check so a user cannot forget one. |
+| Fixed stage order and fabrication interlock | `scripts/pipeline.py` | Keep the release-time enforcement. Split drafting into independent commands, but make `release` run every prerequisite check so a user cannot forget one. |
 | Research is advisory while designing and blocking at release | `pipeline.ADVISORY`, `check_research.py`, `run_gates.py` | Keep. This supports iteration without converting missing evidence into approval. |
 | Separate machinery, board, and workflow questions | `selftest_enforcement.py`, `run_gates.py`, `audit_workflow.py` | Keep these as distinct layers. The audit must continue calling the real gates rather than reimplementing them. |
 | Enforcement wiring plus strength testing | Synthetic hook events and fault injection in `selftest_enforcement.py` | Keep and expand. Every new blocking check needs a fault that proves it can fail, not only a registration test. |

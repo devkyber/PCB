@@ -162,7 +162,7 @@ class StubCrossingError(RuntimeError):
     immediately, with both conflicting (ref, pin, net) triples, so the
     fix (move the component, or pass an explicit shorter/differently-
     directed stub_mm) happens at generation time — the same principle as
-    docs/pcb_layout_helpers.py's PlacementTracker for PCB courtyards.
+    scripts/pcb_layout_helpers.py's PlacementTracker for PCB courtyards.
     """
 
 
@@ -786,7 +786,7 @@ def set_property_pos(ed, tree, ref: str, prop_name: str, x_mm: float, y_mm: floa
 class SymbolOverlapError(RuntimeError):
     """Two symbols were placed overlapping (or closer than the clearance).
 
-    This is the schematic twin of `docs/pcb_layout_helpers.py`'s courtyard
+    This is the schematic twin of `scripts/pcb_layout_helpers.py`'s courtyard
     collision check, and it exists for exactly the same reason: a
     generator script picks (x, y) for each symbol by hand, those numbers
     are chosen against whatever the symbol looked like at the time, and

@@ -83,7 +83,7 @@ review, release and replacement-dependent cleanup is not complete.
    only when their replacements and current facts are verified.
 
 See [Limitations](LIMITATIONS.md) for detailed boundaries and the
-[roadmap](superpowers/plans/2026-09-14-pcb-copilot-remake-roadmap.md) for task history.
+[roadmap](../planning/plans/2026-09-14-pcb-copilot-remake-roadmap.md) for task history.
 
 ## What belongs in the repository
 
@@ -94,14 +94,15 @@ For daily work, use this page, [Workflow](WORKFLOW.md), and your board under
 | --- | --- |
 | `projects/` | Accepted KiCad files, evidence, libraries, requirements, decisions and draft inputs |
 | `src/`, `tests/`, `tools/` | Implementation, regression protection and still-used or not-yet-migrated KiCad capabilities |
-| `docs/` | Canonical guidance; Python helpers here are still imported and are not disposable prose |
-| `migration/`, `scripts/` | Preservation inventory and tested migration commands |
+| `docs/` | Seven reader guides only; start with [the reading index](README.md) |
+| `scripts/` | Executable compatibility helpers, checks and maintenance commands |
+| `migration/` | Preservation inventory and legacy rule provenance for maintainers |
 | `.git/`, `.gitattributes`, `.gitignore` | History/recovery, exact evidence bytes and generated-file policy |
 | `.venv/`, `pyproject.toml`, `uv.lock` | Working runtime and reproducible dependencies; `.venv` is local, not tracked |
 | `.claude/`, `CLAUDE.md` | Configured hooks and agent operating rules; hook migration is unfinished |
 | `projects/*/.pcb-copilot/` | Local drafts, previews, manual edits, research diagnostics and state—not a cache |
 | `.superpowers/` | Ignored implementation review evidence and unfinished-checkpoint recovery records; not product source |
-| `docs/superpowers/` | Approved specification and plans, kept separate from daily instructions |
+| `planning/` | Approved specification and plans, kept separate from daily instructions |
 
 `HUMAN_WORK.md`, project `STATUS.md`/`PIPELINE.json`, generators, build wrappers
 and the manual TMS BOM are legacy material, not the current results entry point.
@@ -109,7 +110,7 @@ They still have callers or unverified replacement behavior. Removing them now
 would not be a safe documentation-only cleanup. Disposable test/lint caches
 can be removed and may be recreated by the tools.
 
-### Cleanup in this revision
+### Earlier cleanup (`1553b87`)
 
 Seven superseded documents were removed: the old workflow chronology, two TMS
 V2 history records, the archive index, the duplicate relay/ADC tutorial, and
@@ -118,7 +119,7 @@ architecture and project records; obsolete chronology is available in Git,
 not duplicated in new archive folders.
 
 The TMS PDR now lives beside its board. The detailed legacy rule reference is
-the one retained document under `docs/history/`: existing review/deviation
+retained in `migration/legacy-design-rules.md`: existing review/deviation
 identifiers still rely on it, and detailed fact migration is unfinished.
 Both retained records carry warnings about stale or non-authoritative claims.
 No accepted CAD, evidence, libraries, intent, settings or sign-off was changed.
@@ -132,3 +133,25 @@ Cleanup verification: 54 focused tests passed; lint passed for the changed
 tests; all 37 protected-file hashes matched; all 40 evidence archive records
 verified. The three generator edits leave executable syntax unchanged.
 This is not another full-suite run or an engineering approval.
+
+### Reader-only documentation (2026-09-21)
+
+The seven tracked files under `docs/` are now reader guides. The 22 Python
+helpers moved from `docs/` to `scripts/`; use the same filenames
+and arguments at that new path. Imports, hooks and board build wrappers follow
+the new location. There are no executable shims under `docs/`.
+Approved plans/specifications now live in `planning/`; detailed old rule
+provenance lives in `migration/`. These moves do not finish Plan 5 or approve
+any board. Old generated records and unchanged sign-off documents may still
+mention the former script paths; those are historical references, not commands
+to follow. Use [Workflow](WORKFLOW.md) for current commands.
+
+Local-only cleanup is still blocked by the environment: `docs/__pycache__/`
+and the now-empty `docs/archive/`, `docs/history/`, `docs/superpowers/` folders
+may remain visible in Explorer. None contains versioned scripts or plans now.
+
+Relocation verification: **684 passed, 48 skipped, 3 deselected** in the full
+non-network suite. Skips were 44 missing-library-index tests and four
+Java/Freerouting dependency checks. Two legacy docstring escape warnings
+remain. Source-package/new-test lint and independent relocation review passed;
+all 37 protected hashes and all 40 evidence records were verified unchanged.

@@ -20,7 +20,7 @@ would have caught it if not?**
 That is what this prints. It is a report, not a gate — it never fails a
 build. `run_gates.py` remains the thing that decides "done".
 
-Usage:  python3 docs/audit_workflow.py [board ...]
+Usage:  python3 scripts/audit_workflow.py [board ...]
 """
 from __future__ import annotations
 
@@ -30,8 +30,8 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-DOCS = REPO / 'docs'
-sys.path.insert(0, str(DOCS))
+SCRIPTS = REPO / 'scripts'
+sys.path.insert(0, str(SCRIPTS))
 # Imported, not re-implemented. Every row below that has a gate calls that
 # gate. Three rows here have drifted into their own copy of a check at some
 # point (ERC, placement, DRC) and each time the audit disagreed with the
@@ -48,7 +48,7 @@ def _run(cmd):
 # (phase label, what the workflow says must exist, how it is verified)
 def steps(proj: Path, pcb: Path):
     name = proj.name
-    research = _run([sys.executable, DOCS / 'check_research.py', pcb, '--json'])
+    research = _run([sys.executable, SCRIPTS / 'check_research.py', pcb, '--json'])
     try:
         res = {r['name']: r for r in json.loads(research.stdout)}
     except Exception:
@@ -66,7 +66,7 @@ def steps(proj: Path, pcb: Path):
     out.append(('Step 2.1  datasheet per non-passive part, bytes verified',
                 *(lambda r: (r.returncode == 0,
                              (r.stdout or '').splitlines()[0][:78]))(
-                    _run([sys.executable, DOCS / 'check_datasheets.py', pcb])),
+                    _run([sys.executable, SCRIPTS / 'check_datasheets.py', pcb])),
                 'check_datasheets.py'))
     out.append(('Step 2.2  reference design archived per key part',
                 *rc('reference designs'), 'check_research.py'))
@@ -106,7 +106,7 @@ def steps(proj: Path, pcb: Path):
     out.append(('Phase 4B  schematic == PCB netlist', ok,
                 detail.splitlines()[0][:78], 'check_netlist_parity.py'))
 
-    v = _run([sys.executable, DOCS / 'validate_pcb.py', pcb])
+    v = _run([sys.executable, SCRIPTS / 'validate_pcb.py', pcb])
     vt = v.stdout or ''
     for label, frag in (('Phase 4A  placement geometry', 'Courtyard collisions'),
                         ('Phase 4A  every schematic symbol is ON the board',
@@ -128,7 +128,7 @@ def steps(proj: Path, pcb: Path):
         out.append((label, ok, note, 'validate_pcb.py'))
 
     if KIPYTHON.exists():
-        r = _run([KIPYTHON, DOCS / 'check_design_rules.py', pcb])
+        r = _run([KIPYTHON, SCRIPTS / 'check_design_rules.py', pcb])
         last = [l for l in (r.stdout or '').splitlines() if l.startswith('RESULT')]
         out.append(('Phase 4A  docs/DESIGN_RULES.md numbered rules',
                     r.returncode == 0, last[-1][:78] if last else 'no result',

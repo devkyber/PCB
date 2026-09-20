@@ -11,9 +11,9 @@ from kicad_claude.utils.geometry import kicad_to_mcp_xy, rotate_xy
 
 from pcb_copilot.schematic.wiring import VisualObstacle
 
-DOCS = Path(__file__).resolve().parents[3] / 'docs'
-if str(DOCS) not in sys.path:
-    sys.path.insert(0, str(DOCS))
+SCRIPTS = Path(__file__).resolve().parents[3] / 'scripts'
+if str(SCRIPTS) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS))
 _helpers = importlib.import_module('schematic_layout_helpers')
 
 

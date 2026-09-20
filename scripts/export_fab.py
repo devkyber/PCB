@@ -24,7 +24,7 @@ and listed separately at the end, rather than being dropped: a connector
 you intend to hand-solder should appear in the BOM you keep, and be absent
 only from the assembly order.
 
-Usage:  python3 docs/export_fab.py <board.kicad_pcb>
+Usage:  python3 scripts/export_fab.py <board.kicad_pcb>
 """
 from __future__ import annotations
 
@@ -200,7 +200,7 @@ def main() -> None:
     print(f'\nOutput: {out}')
     print(f'  stamped SOURCE.json  (board {_pl.sha(pcb)})')
     print('NOTE: this packages whatever is on disk. It does NOT check the '
-          'gates — run `python3 docs/pipeline.py <project> --check` first.')
+          'gates — run `python3 scripts/pipeline.py <project> --check` first.')
 
 
 if __name__ == '__main__':

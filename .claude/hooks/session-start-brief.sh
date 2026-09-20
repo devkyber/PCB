@@ -15,9 +15,9 @@ cat <<'TXT'
 === PCB WORKSPACE — OPERATING RULES (loaded automatically) ===
 
 ONE command builds a board. Do not hand-run generators:
-    python3 docs/pipeline.py projects/<board>
-    python3 docs/pipeline.py projects/<board> --check   # gates only
-    python3 docs/pipeline.py --status                   # all boards
+    python3 scripts/pipeline.py projects/<board>
+    python3 scripts/pipeline.py projects/<board> --check   # gates only
+    python3 scripts/pipeline.py --status                   # all boards
 
 RULES THAT ARE NOT NEGOTIABLE
  1. A board is "done" only when run_gates.py exits 0. Paste the table.
@@ -39,7 +39,7 @@ RULES THAT ARE NOT NEGOTIABLE
  7. RESEARCH BEFORE SCHEMATIC. Order: requirements -> parts -> datasheets
     -> reference designs -> compare/justify -> schematic. A reference is
     only real when it is a FILE ON DISK with a live source URL:
-        python3 docs/collect_references.py suggest <PART>
+        python3 scripts/collect_references.py suggest <PART>
         uv run pcb-copilot research <project> --add <PART> <URL> --role <ROLE>
     Extract supported exact values with pcb-copilot research --extract; flag
     unsupported formats for human review rather than inferring pin-level facts.
@@ -100,12 +100,12 @@ RULES THAT ARE NOT NEGOTIABLE
     "does netmap.json match the schematic on disk", which has no ordering
     dependence.
 
-Enforcement model: docs/ARCHITECTURE.md § Enforcement tiers. Wiring self-test: docs/selftest_enforcement.py
+Enforcement model: docs/ARCHITECTURE.md § Enforcement tiers. Wiring self-test: scripts/selftest_enforcement.py
 TXT
 
 echo
-python3 docs/selftest_enforcement.py 2>/dev/null | tail -3
+python3 scripts/selftest_enforcement.py 2>/dev/null | tail -3
 echo
 echo "=== CURRENT BOARD STATE ==="
-python3 docs/pipeline.py --status 2>/dev/null || echo "(pipeline unavailable)"
+python3 scripts/pipeline.py --status 2>/dev/null || echo "(pipeline unavailable)"
 exit 0

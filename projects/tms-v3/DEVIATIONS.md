@@ -1,6 +1,6 @@
 # TMS V3 — declared deviations from docs/DESIGN_RULES.md
 
-Read by `docs/check_design_rules.py`. Format, one per line:
+Read by `scripts/check_design_rules.py`. Format, one per line:
 
     <part.pin>  |  <rule number>  |  <reason>
 

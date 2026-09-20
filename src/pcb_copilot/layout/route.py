@@ -281,7 +281,7 @@ class RouteBackend:
                 stitch_command = [
                     self.kipython,
                     "-I",
-                    self.repo_root / "docs" / "stitch_vias.py",
+                    self.repo_root / "scripts" / "stitch_vias.py",
                     pcb_path,
                 ]
                 commands.append(_command_text(stitch_command))
@@ -295,7 +295,7 @@ class RouteBackend:
             annular_command = [
                 self.kipython,
                 "-I",
-                self.repo_root / "docs" / "fix_via_annular.py",
+                self.repo_root / "scripts" / "fix_via_annular.py",
                 pcb_path,
             ]
             commands.append(_command_text(annular_command))
@@ -548,7 +548,7 @@ def _context_for_candidate_path(pcb_path: Path) -> tuple[Project, DraftRecord]:
 
 
 def legacy_route_cli(arguments: Sequence[str], *, best_of: bool) -> int:
-    """Compatibility implementation for docs/route_{and_fill,best_of}.py."""
+    """Compatibility implementation for scripts/route_{and_fill,best_of}.py."""
     if not arguments:
         raise ValueError("a published layout-draft .kicad_pcb path is required")
     pcb_path = Path(arguments[0])

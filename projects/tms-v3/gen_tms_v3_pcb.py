@@ -39,7 +39,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parents[2] / 'tools/kicad-claude-mcp/src'))
-sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parents[2] / 'docs'))
+sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parents[2] / 'scripts'))
 
 import json
 import os
@@ -869,7 +869,7 @@ VIA_EDGE_KEEPOUT = 1.0   # keep via copper off the routed board edge
 # such items on the first routed build. A 8mm grid ties the islands down.
 perimeter_pts = []
 # Ground stitching is NOT done here. It happens after routing, in
-# docs/stitch_vias.py — which is now invoked by docs/pipeline.py's route
+# scripts/stitch_vias.py — which is now invoked by scripts/pipeline.py's route
 # stage. It used to say "called from build.sh", and build.sh had since been
 # reduced to a shim that execs pipeline.py, so for a while NOTHING called it
 # and this board's ground bonding quietly stopped happening. A comment

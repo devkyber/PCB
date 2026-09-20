@@ -13,10 +13,10 @@ Full reference: `docs/DESIGN_RULES.md`. This is the compressed version for in-co
 - **Every board must have routed traces.** Placement-only is not a deliverable — see Phase 4B in `docs/WORKFLOW.md`.
 - **Zero unconnected nets** before calling layout done. Verify with DRC.
 - **Fiducials optional** — JLCPCB auto-adds its own for assembly if the board has none, so orders aren't rejected for missing them. Add 3 self-placed fiducials (L-pattern) for boards with fine-pitch (<0.5mm) parts, for tighter placement accuracy.
-- Run `python3 docs/validate_pcb.py <board>.kicad_pcb` before declaring the board ready for export.
+- Run `python3 scripts/validate_pcb.py <board>.kicad_pcb` before declaring the board ready for export.
 
 ## Before choosing any placement coordinate
-Fetch the real footprint first and check its courtyard size with `docs/pcb_layout_helpers.py` — a placeholder-era coordinate does not survive a real footprint (recurring defect: TMS V3's relay/24-pin header, IMU's header anchor point, barometer's 3×-oversized STEMMA QT connector all trace to this). Use `PlacementTracker.place()` for every component as you place it — it raises immediately on a courtyard collision with the exact overlap, instead of a DRC violation discovered after the whole board is built. See `docs/DESIGN_RULES.md` §15.7.
+Fetch the real footprint first and check its courtyard size with `scripts/pcb_layout_helpers.py` — a placeholder-era coordinate does not survive a real footprint (recurring defect: TMS V3's relay/24-pin header, IMU's header anchor point, barometer's 3×-oversized STEMMA QT connector all trace to this). Use `PlacementTracker.place()` for every component as you place it — it raises immediately on a courtyard collision with the exact overlap, instead of a DRC violation discovered after the whole board is built. See `docs/DESIGN_RULES.md` §15.7.
 
 ## Fast checks while editing
 - Decoupling caps ≤2mm from IC power pins, no via between cap and pin (§2)
@@ -32,13 +32,13 @@ Run the 7+1 pass Layout Review Protocol (`docs/DESIGN_RULES.md` §17), starting 
 ## Before saying this board is done
 
 ```bash
-python3 docs/pipeline.py projects/<board> --check   # gates only
-python3 docs/pipeline.py projects/<board>           # full rebuild + gates
+python3 scripts/pipeline.py projects/<board> --check   # gates only
+python3 scripts/pipeline.py projects/<board>           # full rebuild + gates
 ```
 
 Exits non-zero unless every gate passes. **Paste its output** — a completion
 claim without this table is not evidence. New/legacy board missing the gate
-artifacts: `python3 docs/run_gates.py --init projects/<board>`.
+artifacts: `python3 scripts/run_gates.py --init projects/<board>`.
 
 DRC answers *"can JLCPCB build this?"*, never *"is this a good layout?"*.
 `check_design_rules.py` (inside the gate runner) answers the second — TMS V3

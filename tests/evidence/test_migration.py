@@ -143,7 +143,7 @@ def test_evidence_gate_results_match_before_and_after_migration(
 ):
     destination = tmp_path / board
     shutil.copytree(repo_root / "projects" / board, destination)
-    sys.path.insert(0, str(repo_root / "docs"))
+    sys.path.insert(0, str(repo_root / "scripts"))
     datasheets = importlib.import_module("check_datasheets")
     research = importlib.import_module("check_research")
     pcb = destination / f"{board}.kicad_pcb"
@@ -155,7 +155,7 @@ def test_evidence_gate_results_match_before_and_after_migration(
 
 
 def test_migrated_utf8_signoff_is_readable(repo_root):
-    sys.path.insert(0, str(repo_root / "docs"))
+    sys.path.insert(0, str(repo_root / "scripts"))
     run_gates = importlib.import_module("run_gates")
     pcb = repo_root / "projects/tms-v3/tms-v3.kicad_pcb"
 

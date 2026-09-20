@@ -18,9 +18,9 @@ from pcb_copilot.schematic.fields import (
 )
 from pcb_copilot.schematic.wiring import VisualObstacle
 
-_DOCS = Path(__file__).resolve().parents[3] / 'docs'
-if str(_DOCS) not in sys.path:
-    sys.path.insert(0, str(_DOCS))
+_SCRIPTS = Path(__file__).resolve().parents[3] / 'scripts'
+if str(_SCRIPTS) not in sys.path:
+    sys.path.insert(0, str(_SCRIPTS))
 
 from schematic_layout_helpers import (
     DEFAULT_STUB_MM,

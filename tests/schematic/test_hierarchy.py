@@ -46,7 +46,7 @@ def _component(ref: str, block: str, net: str = "DATA_READY") -> dict:
 
 
 def _extract(schematic: Path) -> dict:
-    module_path = Path(__file__).resolve().parents[2] / "docs" / "extract_netmap.py"
+    module_path = Path(__file__).resolve().parents[2] / "scripts" / "extract_netmap.py"
     spec = importlib.util.spec_from_file_location("extract_netmap", module_path)
     assert spec and spec.loader
     module = importlib.util.module_from_spec(spec)

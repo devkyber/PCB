@@ -4,6 +4,11 @@ This is the canonical operator workflow. PCB Copilot is supplementary: it
 collects evidence, prepares reviewable drafts, runs checks, and keeps the
 record coherent while a human makes design decisions.
 
+Compatibility scripts now live in `scripts/`, not `docs/`. Their filenames
+and arguments are unchanged; update old bookmarks or local commands accordingly.
+The `pcb-copilot` command is unchanged. Plans and specifications live in
+`planning/`, outside these reader guides.
+
 ## 1. Start with status
 
 ```powershell
@@ -26,15 +31,15 @@ The legacy all-board summary is also read-only. It reads stored pipeline
 reports and current board hashes without rebuilding a board:
 
 ```powershell
-uv run python docs/pipeline.py --status
+uv run python scripts/pipeline.py --status
 ```
 
 These legacy checking commands remain valid during migration:
 
 ```powershell
-uv run python docs/pipeline.py projects/<board> --check
-uv run python docs/run_gates.py projects/<board>/<board>.kicad_pcb
-uv run python docs/audit_workflow.py
+uv run python scripts/pipeline.py projects/<board> --check
+uv run python scripts/run_gates.py projects/<board>/<board>.kicad_pcb
+uv run python scripts/audit_workflow.py
 ```
 
 `--check` does not rebuild design files, but it still rewrites check and status
@@ -42,7 +47,7 @@ reports. The direct gate runner likewise writes ERC and DRC reports. Use the
 package `status` command or legacy `--status` when the operation must be
 read-only.
 
-`docs/selftest_enforcement.py` is a fault-injection tool, not a read-only
+`scripts/selftest_enforcement.py` is a fault-injection tool, not a read-only
 status command: it temporarily replaces BMP390 evidence files and touches a
 board's modification time. Run it in a disposable repository copy so an
 interrupted test cannot leave the working archive modified.
@@ -50,7 +55,7 @@ interrupted test cannot leave the working archive modified.
 The full compatibility pipeline is mutating. It is not the supported layout
 workflow. Its schematic/PCB generator stages can overwrite accepted CAD before
 its route stage reaches the draft-only routing boundary. The routing wrappers
-now reject accepted PCB paths, while `docs/pipeline.py` still passes its accepted
+now reject accepted PCB paths, while `scripts/pipeline.py` still passes its accepted
 project PCB to them. Consequently the full legacy pipeline is not a working
 end-to-end replacement for `draft-layout`; use the separate draft commands below.
 
@@ -65,7 +70,7 @@ For a new legacy project, create its directory first, then scaffold the gate
 records:
 
 ```powershell
-uv run python docs/run_gates.py --init projects/<board>
+uv run python scripts/run_gates.py --init projects/<board>
 ```
 
 The project directory must already exist. `--init` creates missing
@@ -154,10 +159,10 @@ not accurate.
 Compatibility commands remain available during migration:
 
 ```powershell
-uv run python docs/collect_references.py suggest BMP390
-uv run python docs/collect_references.py add projects/baro-bmp390 BMP390 https://example.invalid/manufacturer-document.pdf
-uv run python docs/fetch_reference_doc.py eagle projects/baro-bmp390/evidence/files/BMP390_Adafruit_20BMP390.sch BMP390
-uv run python docs/check_research.py projects/baro-bmp390/baro-bmp390.kicad_pcb
+uv run python scripts/collect_references.py suggest BMP390
+uv run python scripts/collect_references.py add projects/baro-bmp390 BMP390 https://example.invalid/manufacturer-document.pdf
+uv run python scripts/fetch_reference_doc.py eagle projects/baro-bmp390/evidence/files/BMP390_Adafruit_20BMP390.sch BMP390
+uv run python scripts/check_research.py projects/baro-bmp390/baro-bmp390.kicad_pcb
 ```
 
 Research is advisory while drafting and blocking when release readiness is
@@ -289,7 +294,7 @@ KiCad and 3D view. Check connector access, mounting, return paths, decoupling,
 crystal/RF geometry, high-current paths, copper pours, silkscreen, assembly,
 and mechanical fit.
 
-The legacy `docs/route_and_fill.py` and `docs/route_best_of.py` wrappers accept
+The legacy `scripts/route_and_fill.py` and `scripts/route_best_of.py` wrappers accept
 only published layout-draft PCB paths. They use the shared candidate pipeline;
 zero DRC/unconnected counts still require engineering and human preview review.
 
@@ -381,15 +386,15 @@ U1.5 | 2.2 | Pin 5 is a configuration input, not a supply pin.
 
 The scope identifies one numbered rule or one evidence gate such as
 `reference`, `basis`, or `datasheet`. A waiver never excuses unrelated checks.
-Struck-out rows are withdrawn. `docs/deviations.py` remains the only parser
+Struck-out rows are withdrawn. `scripts/deviations.py` remains the only parser
 until it is moved intact behind the package API.
 
 ## 9. Diagnose the right question
 
 ```powershell
-uv run python docs/selftest_enforcement.py
-uv run python docs/run_gates.py projects/baro-bmp390/baro-bmp390.kicad_pcb
-uv run python docs/audit_workflow.py
+uv run python scripts/selftest_enforcement.py
+uv run python scripts/run_gates.py projects/baro-bmp390/baro-bmp390.kicad_pcb
+uv run python scripts/audit_workflow.py
 ```
 
 - The self-test asks whether enforcement is wired and can actually fail.

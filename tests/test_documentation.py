@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 
 CANONICAL = {
+    "reading_index": Path("docs/README.md"),
     "purpose": Path("README.md"),
     "workflow": Path("docs/WORKFLOW.md"),
     "architecture": Path("docs/ARCHITECTURE.md"),
@@ -71,14 +72,14 @@ def test_local_results_link_availability_is_snapshot_specific(tmp_path, state):
 
 
 def test_canonical_rules_preserve_legacy_ids_and_exact_checker_scope(repo_root):
-    legacy = (repo_root / 'docs/history/legacy-design-rules.md').read_text(encoding='utf-8')
+    legacy = (repo_root / 'migration/legacy-design-rules.md').read_text(encoding='utf-8')
     canonical = (repo_root / 'docs/DESIGN_RULES.md').read_text(encoding='utf-8')
     legacy_ids = set(re.findall(r'^### (\d+\.\d+) ', legacy, re.MULTILINE))
     rows = re.findall(r'^\| `(\d+\.\d+)` \| ([^|]+) \| (Partial|Human) \|$',
                       canonical, re.MULTILINE)
     assert len(rows) == len(legacy_ids), 'preserve each historical rule ID exactly once'
     assert {rule for rule, _topic, _scope in rows} == legacy_ids
-    checker = ast.parse((repo_root / 'docs/check_design_rules.py').read_text(encoding='utf-8'))
+    checker = ast.parse((repo_root / 'scripts/check_design_rules.py').read_text(encoding='utf-8'))
     constants = {node.targets[0].id: ast.literal_eval(node.value)
                  for node in checker.body if isinstance(node, ast.Assign)
                  and isinstance(node.targets[0], ast.Name)
@@ -92,9 +93,9 @@ def test_workflow_preserves_legacy_entry_points_and_mutation_caveats(repo_root):
     workflow = (repo_root / 'docs/WORKFLOW.md').read_text(encoding='utf-8')
     normalized = ' '.join(workflow.split())
     commands = {
-        'uv run python docs/pipeline.py --status',
-        'uv run python docs/pipeline.py projects/<board> --check',
-        'uv run python docs/run_gates.py --init projects/<board>',
+        'uv run python scripts/pipeline.py --status',
+        'uv run python scripts/pipeline.py projects/<board> --check',
+        'uv run python scripts/run_gates.py --init projects/<board>',
         'uv run pcb-copilot draft-layout projects/baro-bmp390 --intent projects/baro-bmp390/layout-intent.yaml --route human',
     }
     assert commands <= set(workflow.splitlines())

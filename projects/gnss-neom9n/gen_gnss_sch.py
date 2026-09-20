@@ -50,7 +50,7 @@ Design decisions (see EVALUATION.md for full reference-design comparison):
 
 import sys
 sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parents[2] / 'tools/kicad-claude-mcp/src'))
-sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parents[2] / 'docs'))
+sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parents[2] / 'scripts'))
 
 from pathlib import Path
 from kicad_claude.tools.schematic import ed, write_blank_schematic, sch_io
@@ -167,7 +167,7 @@ NOCONNECT: dict[str, list[str]] = {}
 
 def pin_label(ref, pin_number, net_name):
     """Attach a net label to a placed symbol's exact pin via a stub wire
-    (see docs/schematic_layout_helpers.py) — still ERC-exact, but doesn't
+    (see scripts/schematic_layout_helpers.py) — still ERC-exact, but doesn't
     land on top of the pin's own auto-drawn name, and raises immediately
     if the stub would cross another net's stub (a silent-short defect
     class found on baro-bmp390 — see StubCrossingError)."""

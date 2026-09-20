@@ -57,9 +57,9 @@ def _records_for_part(
 
 
 def _waived(project: Project, reference: str, scope: str) -> bool:
-    docs = Path(__file__).resolve().parents[3] / "docs"
-    if str(docs) not in sys.path:
-        sys.path.insert(0, str(docs))
+    scripts = Path(__file__).resolve().parents[3] / "scripts"
+    if str(scripts) not in sys.path:
+        sys.path.insert(0, str(scripts))
     from deviations import waived
 
     return waived(project.root, reference, scope)

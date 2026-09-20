@@ -4,7 +4,7 @@ PCB validation script — checks a .kicad_pcb file for common defects
 that our evaluation scorecard identified.
 
 Usage:
-    python3 docs/validate_pcb.py projects/<board>/<board>.kicad_pcb
+    python3 scripts/validate_pcb.py projects/<board>/<board>.kicad_pcb
 
 Checks:
   1. Placeholder footprints (Conn_01x* used for ICs)

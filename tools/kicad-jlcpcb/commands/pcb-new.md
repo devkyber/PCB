@@ -127,8 +127,8 @@ Phase 1.6 stops here. The plugin has done everything it can automate: parts, pin
 ## MANDATORY FINAL STEP — do not report the board as done without this
 
 ```bash
-python3 docs/run_gates.py --init projects/<board>   # first time only: scaffold gate artifacts
-python3 docs/pipeline.py projects/<board>
+python3 scripts/run_gates.py --init projects/<board>   # first time only: scaffold gate artifacts
+python3 scripts/pipeline.py projects/<board>
 ```
 
 The pipeline runs `env → sch → erc → pcb → route → gates` in a fixed order and
@@ -150,8 +150,8 @@ the human steps go in `SIGNOFF.md`. See `docs/WORKFLOW.md`
 ## MANDATORY FINAL STEP — do not report the board as done without this
 
 ```bash
-python3 docs/run_gates.py --init projects/<board>   # first time only: scaffold gate artifacts
-python3 docs/pipeline.py projects/<board>
+python3 scripts/run_gates.py --init projects/<board>   # first time only: scaffold gate artifacts
+python3 scripts/pipeline.py projects/<board>
 ```
 
 The pipeline runs `env → sch → erc → pcb → route → gates` in a fixed order and

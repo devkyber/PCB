@@ -55,7 +55,7 @@ mode revision — see DESIGN_BASIS.md.
 
 import sys
 sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parents[2] / 'tools/kicad-claude-mcp/src'))
-sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parents[2] / 'docs'))
+sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parents[2] / 'scripts'))
 
 from pathlib import Path
 from kicad_claude.tools.schematic import ed, write_blank_schematic, sch_io
@@ -175,7 +175,7 @@ def pin_label(ref, pin_number, net_name):
     """Terminate a placed symbol's exact pin — still the single source of
     connectivity (the stub lands exactly on the pin, ERC-clean) — but via
     a short stub wire so nothing sits on top of the symbol's own auto-
-    drawn pin name. See docs/schematic_layout_helpers.py.
+    drawn pin name. See scripts/schematic_layout_helpers.py.
 
     `.auto()` picks the terminator: a standard global rail (GND, +3V3,
     +5V) gets a **graphical power symbol**, the way a hand-drawn

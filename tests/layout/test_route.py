@@ -338,7 +338,7 @@ pcbnew.SaveBoard(sys.argv[1],b,True)
         [str(kipython), "-I", "-c", script, str(pcb)], check=True, timeout=30
     )
     subprocess.run(
-        [str(kipython), str(repo_root / "docs/fix_via_annular.py"), str(pcb)],
+        [str(kipython), str(repo_root / "scripts/fix_via_annular.py"), str(pcb)],
         check=True,
         timeout=30,
     )

@@ -27,7 +27,7 @@ collection, drafting, consistency checks, and repeatable packaging.
    reference design. The datasheet outranks the reference circuit.
 5. Preserve `netmap.json` and run schematic/PCB parity after connectivity
    changes.
-6. Use `docs/deviations.py` as the single scoped-waiver parser.
+6. Use `scripts/deviations.py` as the single scoped-waiver parser.
 7. Use the existing schematic and PCB coordinate/placement helpers; do not add
    inline coordinate conversions or hand-guessed pin endpoints.
 8. Treat ERC, DRC, design-rule checks, and autorouting as evidence with stated
@@ -42,11 +42,11 @@ uv sync
 uv run pcb-copilot status projects/baro-bmp390
 uv run pcb-copilot research projects/baro-bmp390 --verify
 uv run pcb-copilot research projects/baro-bmp390 --extract BMP390
-uv run python docs/run_gates.py projects/baro-bmp390/baro-bmp390.kicad_pcb
-uv run python docs/audit_workflow.py
+uv run python scripts/run_gates.py projects/baro-bmp390/baro-bmp390.kicad_pcb
+uv run python scripts/audit_workflow.py
 ```
 
-Run `uv run python docs/selftest_enforcement.py` only in a disposable repository
+Run `uv run python scripts/selftest_enforcement.py` only in a disposable repository
 copy: it temporarily replaces evidence files and touches board modification times.
 
 The old pipeline and helper scripts remain compatibility entry points during
@@ -57,7 +57,7 @@ or factual loss.
 
 ## Gate Rule during migration
 
-`docs/pipeline.py --status` remains a legacy summary; the full pipeline is
+`scripts/pipeline.py --status` remains a legacy summary; the full pipeline is
 mutating and its accepted-PCB routing call is rejected by draft-only wrappers.
 Use the independent draft commands in `docs/WORKFLOW.md`. Evidence archive,
 verification, and supported exact extraction now live behind

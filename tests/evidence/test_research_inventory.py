@@ -9,7 +9,7 @@ def test_research_inventory_preserves_classification_and_property_spellings(
     caller, legacy_spelling, repo_root, monkeypatch
 ):
     if caller == "legacy":
-        monkeypatch.syspath_prepend(str(repo_root / "docs"))
+        monkeypatch.syspath_prepend(str(repo_root / "scripts"))
         inventory = importlib.import_module("check_research").inventory
     else:
         from pcb_copilot.evidence.inventory import inventory

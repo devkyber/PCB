@@ -27,10 +27,10 @@ def _load_module(name: str, path: Path):
 
 
 PCB_HELPERS = _load_module(
-    "characterized_pcb_layout_helpers", REPO_ROOT / "docs/pcb_layout_helpers.py"
+    "characterized_pcb_layout_helpers", REPO_ROOT / "scripts/pcb_layout_helpers.py"
 )
 VALIDATOR = _load_module(
-    "characterized_validate_pcb", REPO_ROOT / "docs/validate_pcb.py"
+    "characterized_validate_pcb", REPO_ROOT / "scripts/validate_pcb.py"
 )
 
 

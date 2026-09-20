@@ -128,7 +128,7 @@ def test_legacy_gate_entry_points_consume_unified_index(project_copy, repo_root)
     _write_index(project_copy)
     shutil.rmtree(project_copy / "datasheets", ignore_errors=True)
     shutil.rmtree(project_copy / "reference-designs", ignore_errors=True)
-    sys.path.insert(0, str(repo_root / "docs"))
+    sys.path.insert(0, str(repo_root / "scripts"))
     datasheets = importlib.import_module("check_datasheets")
     research = importlib.import_module("check_research")
     pcb = project_copy / "baro-bmp390.kicad_pcb"

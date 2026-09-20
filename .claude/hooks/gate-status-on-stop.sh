@@ -19,11 +19,11 @@ CHANGED=$(find projects -name '*.kicad_pcb' -newermt '-45 minutes' 2>/dev/null)
 
 echo "=============================================================="
 echo " AUTOMATIC GATE CHECK — boards touched this session"
-echo " (docs/pipeline.py --status for the full picture)"
+echo " (scripts/pipeline.py --status for the full picture)"
 echo "=============================================================="
 while IFS= read -r pcb; do
     [[ -f "$pcb" ]] || continue
-    python3 docs/run_gates.py "$pcb" 2>&1 | sed 's/^/  /'
+    python3 scripts/run_gates.py "$pcb" 2>&1 | sed 's/^/  /'
 done <<< "$CHANGED"
 echo "=============================================================="
 echo " A completion claim without the table above is not evidence."

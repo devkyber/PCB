@@ -18,9 +18,9 @@ from pcb_copilot.evidence.checks import Finding
 from pcb_copilot.layout.lib_ids import split_footprint_lib_id
 from pcb_copilot.models import FootprintCandidate, Project
 
-_DOCS = Path(__file__).resolve().parents[3] / "docs"
-if str(_DOCS) not in sys.path:
-    sys.path.insert(0, str(_DOCS))
+_SCRIPTS = Path(__file__).resolve().parents[3] / "scripts"
+if str(_SCRIPTS) not in sys.path:
+    sys.path.insert(0, str(_SCRIPTS))
 _layout_helpers = importlib.import_module("pcb_layout_helpers")
 
 _REAL_LOCAL_DESCRIPTIONS = {

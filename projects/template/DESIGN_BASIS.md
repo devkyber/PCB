@@ -9,8 +9,8 @@ exists.
 Fill one row per key part (any IC >=8 pins, or any plug-in module socket).
 Archive the source first so the citation points at a file you still have:
 
-    python3 docs/collect_references.py suggest <PART>
-    python3 docs/collect_references.py add projects/template <PART> <URL>
+    python3 scripts/collect_references.py suggest <PART>
+    python3 scripts/collect_references.py add projects/template <PART> <URL>
 
 | Ref | Part | Aspect | Ours | Reference says | Source | Verdict |
 |---|---|---|---|---|---|---|

@@ -163,5 +163,5 @@ barometer port/environment design.
 5. Remove superseded files only after replacement, caller, fact, and behavior
    checks pass.
 
-The [implementation roadmap](superpowers/plans/2026-09-14-pcb-copilot-remake-roadmap.md)
+The [implementation roadmap](../planning/plans/2026-09-14-pcb-copilot-remake-roadmap.md)
 contains the test and migration gates for this work.

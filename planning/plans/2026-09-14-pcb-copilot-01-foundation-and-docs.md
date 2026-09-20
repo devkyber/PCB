@@ -8,7 +8,7 @@
 
 **Tech Stack:** Python 3.10+, `uv`, pytest 8+, Pydantic 2, PyYAML 6, stdlib `argparse`, Git, and the vendored `kicad-claude-mcp` workspace package.
 
-**Spec:** `docs/superpowers/specs/2026-09-14-pcb-copilot-repository-remake-design.md`
+**Spec:** `planning/specs/2026-09-14-pcb-copilot-repository-remake-design.md`
 
 ## Windows helper follow-up — 2026-09-17
 
@@ -443,7 +443,7 @@ git commit -m "feat: add versioned PCB project manifests"
 - Create: `src/pcb_copilot/state.py`
 - Create: `tests/test_state.py`
 - Modify: `src/pcb_copilot/models.py`
-- Read before modifying later: `docs/pipeline.py`, `docs/extract_netmap.py`, `docs/run_gates.py`
+- Read before modifying later: `scripts/pipeline.py`, `scripts/extract_netmap.py`, `scripts/run_gates.py`
 
 **Interfaces:**
 - Produces: `canonical_design_hash(path: Path) -> str`
@@ -634,7 +634,7 @@ supersession notice at their top only after every inbound link has moved.
 
 Run: `uv run pytest tests/test_documentation.py -v`
 
-Run: `rg -n "docs/(QUICKSTART|SETUP|pcb-design-workflow|pcb-design-rules)\.md" --glob '!docs/superpowers/**'`
+Run: `rg -n "docs/(QUICKSTART|SETUP|pcb-design-workflow|pcb-design-rules)\.md" --glob '!planning/**'`
 
 Expected: tests pass; remaining references occur only inside the superseded documents themselves or migration inventory.
 
@@ -642,7 +642,7 @@ Expected: tests pass; remaining references occur only inside the superseded docu
 
 Run: `uv run pytest -m "not slow and not network" -q`
 
-Run: `uv run python docs/selftest_enforcement.py`
+Run: `uv run python scripts/selftest_enforcement.py`
 
 Expected: zero pytest failures and the enforcement self-test exits `0`.
 
@@ -656,7 +656,7 @@ git commit -m "docs: define the human-controlled PCB copilot"
 ## Plan 1 Completion Check
 
 - [ ] `uv run pytest -m "not slow and not network" -q` exits `0`.
-- [ ] `uv run python docs/selftest_enforcement.py` exits `0`.
+- [ ] `uv run python scripts/selftest_enforcement.py` exits `0`.
 - [ ] `uv run pcb-copilot status projects/baro-bmp390` leaves that project byte-identical.
 - [ ] All four manifests load and point to the current accepted KiCad files.
 - [ ] The migration inventory classifies every tracked path exactly once.

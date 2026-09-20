@@ -99,8 +99,8 @@ KIND_DIR = {'ref': 'reference-designs', 'datasheet': 'datasheets'}
 
 INDEX_HEADER = """# Reference / document archive
 
-Provenance record. `docs/collect_references.py verify` and
-`docs/check_research.py` read the `->` rows; the rest is for humans.
+Provenance record. `scripts/collect_references.py verify` and
+`scripts/check_research.py` read the `->` rows; the rest is for humans.
 
 Format:  PART[, PART...]  ->  filename  # source-url | fetched YYYY-MM-DD | note
 
@@ -167,8 +167,8 @@ def cmd_suggest(part: str) -> int:
             tier = t
         print(f'   {name:<16} {tmpl.format(p=part)}')
     print('\nFor anything you need an EXACT value or pin from, download with:')
-    print(f'   python3 docs/collect_references.py add <project> {part} <URL>')
-    print('then parse it with docs/fetch_reference_doc.py (Eagle .sch -> real')
+    print(f'   python3 scripts/collect_references.py add <project> {part} <URL>')
+    print('then parse it with scripts/fetch_reference_doc.py (Eagle .sch -> real')
     print('pin-level nets; PDF -> rendered pages). WebFetch SUMMARISES and will')
     print('lose exactly the detail you came for.')
     return 0
