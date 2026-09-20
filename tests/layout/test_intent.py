@@ -34,7 +34,11 @@ def minimal_layout_intent(**updates) -> LayoutIntent:
             ),
         ),
         "placements": (
-            PlacementItem(ref="U1", region="sensor"),
+            PlacementItem(
+                ref="U1",
+                region="sensor",
+                footprint="Package_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm",
+            ),
             PlacementItem(
                 ref="C1",
                 region="support",
@@ -311,6 +315,30 @@ def test_fixed_coordinates_are_anchor_pairs_in_the_declared_frame():
 def test_geometry_specific_placement_requires_footprint_id(updates):
     with pytest.raises(ValueError, match="footprint.*Library:Name"):
         PlacementItem(ref="C1", region="support", **updates)
+
+
+def test_near_pad_target_requires_footprint_id():
+    with pytest.raises(ValueError, match="near-pad target U1.*footprint"):
+        minimal_layout_intent(
+            placements=[
+                PlacementItem(ref="U1", region="sensor"),
+                PlacementItem(
+                    ref="C1",
+                    region="support",
+                    footprint="Capacitor_SMD:C_0603_1608Metric",
+                    near_ref="U1",
+                    near_pin="10",
+                    source_pin="1",
+                    max_distance_mm=2.0,
+                ),
+            ]
+        )
+
+
+def test_simple_unreferenced_placement_may_defer_footprint_to_accepted_cad():
+    placement = PlacementItem(ref="R1", region="sensor")
+
+    assert placement.footprint is None
 
 
 @pytest.mark.parametrize(

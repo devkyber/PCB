@@ -244,6 +244,7 @@ class LayoutIntent(_FrozenModel):
         known_regions = set(region_ids)
         regions_by_id = {region.id: region for region in self.regions}
         known_placements = set(placement_refs)
+        placements_by_ref = {placement.ref: placement for placement in self.placements}
         for placement in self.placements:
             if placement.region not in known_regions:
                 raise ValueError(
@@ -266,6 +267,14 @@ class LayoutIntent(_FrozenModel):
             ):
                 raise ValueError(
                     f"unknown near_ref {placement.near_ref}: {placement.ref}"
+                )
+            if (
+                placement.near_ref is not None
+                and placements_by_ref[placement.near_ref].footprint is None
+            ):
+                raise ValueError(
+                    f"near-pad target {placement.near_ref} requires an explicit "
+                    "footprint ID"
                 )
 
         class_names = [net_class.name for net_class in self.net_classes]
