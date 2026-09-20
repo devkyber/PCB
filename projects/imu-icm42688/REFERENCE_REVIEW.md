@@ -32,7 +32,7 @@ does not establish that the PDF was regenerated from that commit's schematic.
 | --- | --- | --- |
 | TDK DS-000347 rev 1.6, existing AnyShake mirror | `evidence/files/ICM-42688-P_ds-000347-icm-42688-p-v1.6.pdf` | Rendered and visually inspected pp.20-21 using the evidence PDF helper. Table 10 provides the pin definitions and allowed reserved-pin connections; Figure 7 is the SPI circuit with 100nF and 2.2uF on VDD and 10nF on VDDIO. This is the manufacturer circuit reference. |
 | TDK AN-000493 rev 1.0, ChipDip mirror | `evidence/files/ICM-42688-P_DOC056673507_44e5201b843b.pdf` | Inspected schematic p.12 Figure 4, BOM p.13 and layout p.14 Figures 5–6. The layout views show placement/pads, not routed copper or filled planes. |
-| AnyShake pinned native schematic | `evidence/files/ICM-42688-P_ICM-42688_5b2b5ac9a5f0.kicad_sch` | Acquired alongside PCB. Its hash differs from the older existing `ICM-42688-P_ICM-42688.kicad_sch`; the older bytes and original provenance are preserved. No claim of KiCad pair parity is made. |
+| AnyShake pinned native schematic | `evidence/files/ICM-42688-P_ICM-42688_5b2b5ac9a5f0.kicad_sch` | Acquired alongside PCB. Its hash differs from the older existing `ICM-42688-P_ICM-42688.kicad_sch`; the older bytes and original provenance are preserved. The later limited native pair comparison is recorded below. |
 | AnyShake rendered schematic | `evidence/files/ICM-42688-P_ICM-42688_8cdcc0d19fe3.pdf` | Visually inspected page 1. Sensor U2 is ICM-42688-P; C3 is 2.2uF, C5 is 0.1uF and C7 is 0.01uF. It also contains a regulator, diodes, power-selection header and TXB0104 level translator absent from our circuit. |
 | AnyShake native PCB | `evidence/files/ICM-42688-P_ICM-42688_57a947b32217.kicad_pcb` | Inspected source pad nets and KiCad exports of F.Cu/B.Cu with Edge.Cuts and F.SilkS overlay. The two views show central sensor U2, nearby decoupling, peripheral header and mounting holes, and routes interrupting poured copper. Source counts: 25 footprints, 133 segments, 38 vias and 61 zone records (includes small filled/teardrop regions; not 61 independent ground planes). This is placement/routing reference coverage, not a reference-board DRC or return-current proof. |
 
@@ -44,9 +44,22 @@ fully connected.
 
 `research --inspect-reference` was attempted on the pinned KiCad pair. The
 current inspector supports Eagle XML only and returned `invalid Eagle XML`.
-Therefore pair consistency is **not verified**. The project archive integrity
-check passed for all six records; that check proves bytes/provenance consistency,
-not the design's electrical correctness.
+That historical failure remains a limitation of the production Eagle inspector.
+The project archive integrity check passed for all six records; that check
+proves bytes/provenance consistency, not electrical correctness.
+
+On 2026-09-20 a separate read-only KiCad 10.0.6 diagnostic exported the pinned
+schematic to kicadxml and loaded the PCB through pcbnew. All 24 physical
+schematic refs are present with exact matching footprint IDs; the PCB has 25
+footprints including extra `G***` (`AnyShake:Logo`). Both have 20 named nets
+and 68 physical named-net memberships, with zero differences after stripping
+only leading slashes and excluding unnamed/`unconnected-(` nets. Schematic
+SHA-256 `5b2b5ac9a5f0790f3bce0b0acc635cce32087a664b17739b7e44aa42d830e9cf`
+and PCB SHA-256 `57a947b322177ba9cee23e5265cb029a6a13b0352bae5527c3acaa6c8ef2ef0c`
+matched before and after. No generator, save or DRC ran. This closes only the
+pinned pair's named-net/ref/footprint-ID consistency gap; it proves neither
+values/models/library fidelity nor routing, geometry or return-current quality,
+and adds no production KiCad inspector feature. Human applicability remains open.
 
 ## Manufacturer follow-up and remaining coverage
 

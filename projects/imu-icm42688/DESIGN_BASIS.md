@@ -63,3 +63,34 @@ Five defects, all invisible to ERC and DRC, all found by reading Tier 0:
 Item 5 is the general lesson: a comment citing a source is not a citation.
 `DESIGN_BASIS.md` exists so the claim and the source sit in the same row
 where they can be compared.
+
+## Assisted layout proposal — 2026-09-20
+
+The unapproved `layout-intent.yaml` uses native accepted 24x19mm outline and
+footprint IDs, SHA-256
+`a70dda20452db6712b75275eff32f4f56b6767a2e21048ba0ce9f483d1ad855e`.
+Shared bottom-left conversion subtracts native outline origin: the generator's
+absolute MCP hole (6,18) becomes H1=(3,15); H2=(21,10), J1=(5,5), rotation
+90 degrees. Anchors are not footprint centres. Holes, connector and PCB-only
+FID1–3 retain existing mechanics. U1=(13,11), rotation 0 is a provisional
+existing seed only; owner airframe orientation and mounting rigidity are open.
+
+Proposed host-entry y0–7 and sensor y7–19 regions follow the existing functional
+placement. Passives/test points remain movable. C1.1→U1.8 and C3.1→U1.5
+target 2mm pad distance; VDD bulk C2.1→U1.8 allows 4mm as a proposed search
+limit, not a manufacturer numerical requirement. TDK SPI Fig 7 supplies
+bypass values/functions; AN-000493 Fig 5 and the AnyShake copper views supply
+local-placement context. AnyShake's regulator/translator/power selection and
+exposed INT2 are not adopted. The later native pair comparison in
+REFERENCE_REVIEW establishes only ref/footprint/named-net consistency.
+
+Seven native named nets retain Default width/clearance 0.254/0.2mm and
+via diameter/drill 0.6/0.3mm. GND F.Cu/B.Cu zones retain net/layers/0.2mm
+clearance; generated rectangles and default thermal/fill settings are not
+native zone equivalence. Review the existing J1 solid-connection deviation,
+return paths, ground escapes, access and silkscreen after placement.
+No current/stackup calculation is fabricated. Host ramp, rail noise, high-g
+coverage and mechanical axes remain unresolved; nominal capacitance alone
+does not establish the 10mVpp condition despite historical REQUIREMENTS prose.
+Any existing edge/envelope violation remains a blocking measured finding,
+not a reason to silently move fixed mechanics or waive geometry.

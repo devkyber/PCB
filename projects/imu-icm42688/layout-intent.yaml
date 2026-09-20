@@ -1,0 +1,35 @@
+# Proposal only. Native accepted geometry/rules transcribed 2026-09-20.
+# See DESIGN_BASIS.md for source facts, functional choices and open decisions.
+schema_version: 1
+title: "imu-icm42688 assisted layout proposal"
+revision: "layout-proposal-1"
+coordinate_frame: "board-origin-bottom-left-x-right-y-up-mm"
+outline: {"width_mm":24,"height_mm":19}
+regions:
+  - {"id":"host-entry","x_mm":0,"y_mm":0,"width_mm":24,"height_mm":7}
+  - {"id":"sensor","x_mm":0,"y_mm":7,"width_mm":24,"height_mm":12}
+placements:
+  - {"ref":"C1","region":"sensor","footprint":"Capacitor_SMD:C_0402_1005Metric","rotation_deg":0,"near_ref":"U1","near_pin":"8","source_pin":"1","max_distance_mm":2}
+  - {"ref":"C2","region":"sensor","footprint":"Capacitor_SMD:C_0603_1608Metric","rotation_deg":0,"near_ref":"U1","near_pin":"8","source_pin":"1","max_distance_mm":4}
+  - {"ref":"C3","region":"sensor","footprint":"Capacitor_SMD:C_0402_1005Metric","rotation_deg":0,"near_ref":"U1","near_pin":"5","source_pin":"1","max_distance_mm":2}
+  - {"ref":"FID1","region":"sensor","footprint":"Fiducial:Fiducial_1mm_Mask3mm","rotation_deg":0,"pcb_only":true,"anchor_x_mm":1.5,"anchor_y_mm":9}
+  - {"ref":"FID2","region":"sensor","footprint":"Fiducial:Fiducial_1mm_Mask3mm","rotation_deg":0,"pcb_only":true,"anchor_x_mm":21.5,"anchor_y_mm":15}
+  - {"ref":"FID3","region":"host-entry","footprint":"Fiducial:Fiducial_1mm_Mask3mm","rotation_deg":0,"pcb_only":true,"anchor_x_mm":2,"anchor_y_mm":1.5}
+  - {"ref":"H1","region":"sensor","footprint":"MountingHole:MountingHole_2.2mm_M2_Pad","rotation_deg":0,"anchor_x_mm":3,"anchor_y_mm":15}
+  - {"ref":"H2","region":"sensor","footprint":"MountingHole:MountingHole_2.2mm_M2_Pad","rotation_deg":0,"anchor_x_mm":21,"anchor_y_mm":10}
+  - {"ref":"J1","region":"host-entry","footprint":"Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical","rotation_deg":90,"anchor_x_mm":5,"anchor_y_mm":5}
+  - {"ref":"TP1","region":"sensor","footprint":"TestPoint:TestPoint_Pad_1.0x1.0mm","rotation_deg":0}
+  - {"ref":"TP2","region":"sensor","footprint":"TestPoint:TestPoint_Pad_1.0x1.0mm","rotation_deg":0}
+  - {"ref":"TP3","region":"sensor","footprint":"TestPoint:TestPoint_Pad_1.0x1.0mm","rotation_deg":0}
+  - {"ref":"U1","region":"sensor","footprint":"jlcpcb:LGA-14_L3.0-W2.5-P0.50-TL","rotation_deg":0,"anchor_x_mm":13,"anchor_y_mm":11}
+net_classes:
+  - {"name":"Default","nets":["+3V3","GND","INT1","SPI_CS","SPI_SCLK","SPI_SDI","SPI_SDO"],"width_mm":0.254,"clearance_mm":0.2,"via_diameter_mm":0.6,"via_drill_mm":0.3}
+critical_nets: []
+zones:
+  - {"net":"GND","layers":["F.Cu"],"clearance_mm":0.2}
+  - {"net":"GND","layers":["B.Cu"],"clearance_mm":0.2}
+route_policy: "human"
+unresolved_decisions:
+  - {"code":"owner.orientation","message":"U1 rotation is historical CAD orientation only; airframe axis orientation and silk axis marks require owner decision.","severity":"review"}
+  - {"code":"owner.mount-rigidity","message":"Current holes retained; standoff rigidity, vibration and high-g clipping suitability unresolved.","severity":"review"}
+  - {"code":"owner.supply-performance","message":"Verify host monotonic ramp and 10 mVpp rail noise; nominal bypass capacitance does not establish compliance.","severity":"review"}
