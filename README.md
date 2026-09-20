@@ -25,16 +25,20 @@ The foundation, evidence archive and schematic-draft commands are implemented.
 All four boards now have circuit-preserving schematic intents; TMS V3 renders
 as an overview plus six functional sheets. Drafts include PDF previews, ERC,
 connectivity checks and explicit stale-safe acceptance. None of these new
-board drafts has been accepted. Reference research is recorded per board,
-with missing sources and unreviewed copper views stated explicitly.
+board drafts has been accepted. Layout foundations now include footprint
+resolution and a reviewable intent/constraint schema, but there is no
+`draft-layout` CLI yet. Reference research is recorded per board, with missing
+sources and unreviewed copper views stated explicitly.
 
 You can edit a generated draft in KiCad and refresh its checks with
 `pcb-copilot review-draft PROJECT_PATH DRAFT_ID`, preserving the edited CAD.
 See the [edit-and-review workflow](docs/WORKFLOW.md#edit-a-draft-and-refresh-its-review).
 
-Human visual review is the current Plan 3 checkpoint. The new layout assistant
-and unified review/release/cleanup remain Plans 4 and 5; they are not finished.
-Existing scripts remain available until replacement behavior is verified.
+Human visual review is the current Plan 3 checkpoint. Actual schematic and PCB
+human approvals remain pending. The layout assistant is underway, while
+unified review/release/cleanup remains planned; neither Plan 4 nor Plan 5 is
+finished. Existing scripts remain available until replacement behavior is
+verified.
 
 ```powershell
 uv sync

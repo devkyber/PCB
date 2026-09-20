@@ -1,0 +1,43 @@
+schema_version: 1
+title: Two-part sensor layout example
+revision: A
+# Design space: board lower-left origin, +X right, +Y up, in millimetres.
+# Fixed coordinates below are footprint anchors, not geometric centers.
+coordinate_frame: board-origin-bottom-left-x-right-y-up-mm
+outline:
+  width_mm: 20.0
+  height_mm: 20.0
+regions:
+  - id: sensor
+    x_mm: 0.0
+    y_mm: 0.0
+    width_mm: 10.0
+    height_mm: 20.0
+  - id: support
+    x_mm: 10.0
+    y_mm: 0.0
+    width_mm: 10.0
+    height_mm: 20.0
+placements:
+  - ref: U1
+    region: sensor
+  - ref: C1
+    region: support
+    near_ref: U1
+    near_pin: '10'
+    source_pin: '1'
+    max_distance_mm: 2.0
+net_classes:
+  - name: signals
+    nets: [SENSE]
+    width_mm: 0.2
+    clearance_mm: 0.2
+critical_nets: []
+zones:
+  - net: GND
+    layers: [F.Cu, B.Cu]
+route_policy: human
+unresolved_decisions:
+  - code: layout.constraint-inputs-unresolved
+    message: Example board has no accepted current or stackup inputs; critical_nets remain empty.
+    severity: review

@@ -93,10 +93,18 @@ exist today:
 - KiCad rendering, PDF/ERC preview, quality metrics, and intent/netlist
   comparison.
 
-Layout drafting, unified review, and release/fabrication packages remain
-planned. There is no package or CLI command for them yet. Legacy PCB, routing,
-gate, and fabrication scripts remain the available compatibility path while
-their behavior is migrated behind package APIs.
+**Layout foundations** (`layout`)
+
+- verified real-footprint resolution and measured pad/courtyard geometry;
+- frozen, versioned YAML intent for explicit placement regions, footprint
+  anchors, near-pad relationships, net classes, zones, critical physical
+  inputs, unresolved owner decisions, and routing policy.
+
+There is no `draft-layout` CLI yet, and actual schematic and PCB human
+approvals remain pending. Layout drafting is underway; unified review and
+release/fabrication packages remain planned. Legacy PCB, routing, gate, and
+fabrication scripts remain the available compatibility path while their
+behavior is migrated behind package APIs.
 
 ## Enforcement tiers
 
