@@ -252,6 +252,48 @@ class _FakeRouter:
                     "jar": "test-router.jar",
                     "args": ["-de", "test.dsn", "-do", "test.ses"],
                 },
+                "_command_trace": [
+                    {
+                        "operation": "pipeline.export_dsn",
+                        "argv": ["kipython", "export_dsn"],
+                        "cwd": None,
+                    },
+                    {
+                        "operation": "pipeline.inspect_keepouts",
+                        "argv": ["kipython", "inspect_keepouts"],
+                        "cwd": None,
+                    },
+                    {
+                        "operation": "pipeline.freerouting",
+                        "argv": ["java", "freerouting"],
+                        "cwd": None,
+                    },
+                    {
+                        "operation": "pipeline.import_ses",
+                        "argv": ["kipython", "import_ses"],
+                        "cwd": None,
+                    },
+                    {
+                        "operation": "pipeline.fill_zones",
+                        "argv": ["kipython", "fill_zones"],
+                        "cwd": None,
+                    },
+                    {
+                        "operation": "pipeline.drc.1",
+                        "argv": ["kicad-cli", "drc_before_bond"],
+                        "cwd": None,
+                    },
+                    {
+                        "operation": "pipeline.bond_ground",
+                        "argv": ["kipython", "bond_ground"],
+                        "cwd": None,
+                    },
+                    {
+                        "operation": "pipeline.drc.2",
+                        "argv": ["kicad-cli", "drc_after_bond"],
+                        "cwd": None,
+                    },
+                ],
             }
             return SimpleNamespace(
                 returncode=0,

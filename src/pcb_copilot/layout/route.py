@@ -58,18 +58,64 @@ _ROUTE_CHILD = r"""
 import json,sys
 from pathlib import Path
 sys.path.insert(0, sys.argv[1])
-from kicad_claude.adapters import route_pipeline
+import subprocess
+from kicad_claude.adapters import dsn_keepouts, route_pipeline
+
+command_trace = []
+operation_stack = []
+original_run = subprocess.run
+def traced_run(command, *args, **kwargs):
+    argv = ([str(value) for value in command]
+            if not isinstance(command, str) else [command])
+    command_trace.append({
+        'operation': operation_stack[-1] if operation_stack else 'pipeline.unknown',
+        'argv': argv,
+        'cwd': str(kwargs.get('cwd')) if kwargs.get('cwd') is not None else None,
+    })
+    return original_run(command, *args, **kwargs)
+subprocess.run = traced_run
+
+def wrap(owner, name, operation):
+    original = getattr(owner, name)
+    def traced(*args, **kwargs):
+        operation_stack.append(operation() if callable(operation) else operation)
+        try:
+            return original(*args, **kwargs)
+        finally:
+            operation_stack.pop()
+    setattr(owner, name, traced)
+
+wrap(route_pipeline.kicad_python, 'export_dsn', 'pipeline.export_dsn')
+wrap(dsn_keepouts, 'collect', 'pipeline.inspect_keepouts')
+wrap(route_pipeline.kicad_python, 'import_ses', 'pipeline.import_ses')
+wrap(route_pipeline.kicad_python, 'fill_zones', 'pipeline.fill_zones')
+wrap(route_pipeline.kicad_python, 'bond_ground', 'pipeline.bond_ground')
+
+drc_count = [0]
+def drc_operation():
+    drc_count[0] += 1
+    return 'pipeline.drc.' + str(drc_count[0])
+wrap(route_pipeline.kicad_cli, 'run_drc', drc_operation)
+
 captured = {}
 original = route_pipeline.freerouting.route
 def route(*args, **kwargs):
-    result = original(*args, **kwargs)
-    captured.update(result)
-    return result
+    operation_stack.append('pipeline.freerouting')
+    try:
+        result = original(*args, **kwargs)
+        captured.update(result)
+        return result
+    finally:
+        operation_stack.pop()
 route_pipeline.freerouting.route = route
-result = route_pipeline.route_board(
-    Path(sys.argv[2]), passes=int(sys.argv[3]), timeout_seconds=900.0, backup=False
-)
+try:
+    result = route_pipeline.route_board(
+        Path(sys.argv[2]), passes=int(sys.argv[3]), timeout_seconds=900.0, backup=False
+    )
+except Exception as exc:
+    result = {'_pipeline_error': type(exc).__name__ + ': ' + str(exc)}
 result['_router_details'] = captured
+result['_command_trace'] = command_trace
 print('PCB_COPILOT_ROUTE_RESULT=' + json.dumps(result))
 """
 
@@ -177,15 +223,25 @@ class RouteBackend:
         try:
             routed = self._run(route_command, timeout=960, env=child_env)
             result = json.loads(_marker(routed.stdout, "PCB_COPILOT_ROUTE_RESULT="))
+            trace = result.get("_command_trace")
+            if not isinstance(trace, list):
+                raise TypeError("shared route pipeline omitted its command trace")
+            for entry in trace:
+                if (
+                    not isinstance(entry, dict)
+                    or not isinstance(entry.get("operation"), str)
+                    or not isinstance(entry.get("argv"), list)
+                ):
+                    raise TypeError(
+                        "shared route pipeline returned malformed command trace"
+                    )
+                commands.append(f"{entry['operation']}: {_command_text(entry['argv'])}")
+            if result.get("_pipeline_error"):
+                raise RuntimeError(
+                    f"shared route pipeline failed: {result['_pipeline_error']}"
+                )
             details = result.get("_router_details") or {}
             if details:
-                router_command = [
-                    details.get("java", "<unknown-java>"),
-                    "-jar",
-                    details.get("jar", "<unknown-router-jar>"),
-                    *(details.get("args") or ()),
-                ]
-                commands.append(_command_text(router_command))
                 limitations.append(
                     "Freerouting "
                     f"{details.get('jar_version', 'unknown')} via "
@@ -298,31 +354,39 @@ _backend_factory: Callable[[Project], RouteBackend] = _default_backend
 
 
 def _published_draft_pcb(project: Project, draft: DraftRecord) -> Path:
-    if draft.kind is not DraftKind.LAYOUT:
+    from pcb_copilot.accept import load_draft
+    from pcb_copilot.drafts import _project_root
+
+    try:
+        canonical_project_root = _project_root(draft)
+        persisted = load_draft(project, draft.id)
+    except (KeyError, OSError, TypeError, ValueError) as exc:
+        raise ValueError(f"draft root/ID is not canonical: {exc}") from exc
+    if canonical_project_root.resolve() != project.root.resolve():
+        raise ValueError("draft root is not canonical for the requested project")
+    if draft != persisted:
+        raise ValueError("caller DraftRecord does not match persisted draft metadata")
+    if persisted.kind is not DraftKind.LAYOUT:
         raise ValueError("candidate routing requires a published layout draft")
-    if draft.project != project.manifest.name:
+    if persisted.project != project.manifest.name:
         raise ValueError("draft belongs to a different project")
     try:
         relative = project.pcb_path.resolve().relative_to(project.root.resolve())
     except ValueError as exc:
         raise ValueError("project PCB is outside the project root") from exc
-    pcb_path = (draft.root / relative).resolve()
+    pcb_path = (persisted.root / relative).resolve()
     try:
-        pcb_path.relative_to(draft.root.resolve())
+        pcb_path.relative_to(persisted.root)
     except ValueError as exc:
         raise ValueError("draft PCB resolves outside the draft root") from exc
-    metadata_path = draft.root / "draft.json"
-    if not metadata_path.is_file() or not pcb_path.is_file():
+    if not pcb_path.is_file():
         raise ValueError("candidate routing requires a published layout draft")
-    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
     if (
-        metadata.get("id") != draft.id
-        or metadata.get("kind") != DraftKind.LAYOUT.value
-        or metadata.get("project") != project.manifest.name
+        canonical_design_hash(project.pcb_path) != persisted.base_pcb_hash
+        or canonical_design_hash(project.schematic_path)
+        != persisted.base_schematic_hash
     ):
-        raise ValueError("draft metadata does not match the requested layout draft")
-    if canonical_design_hash(project.pcb_path) != draft.base_pcb_hash:
-        raise ValueError("accepted PCB changed after this layout draft was created")
+        raise ValueError("accepted design changed after this layout draft was created")
     return pcb_path
 
 
@@ -508,15 +572,15 @@ def legacy_route_cli(arguments: Sequence[str], *, best_of: bool) -> int:
         json.dumps(
             {
                 "selected": report.selected,
-                "drc_errors": report.drc_errors,
-                "unconnected": report.unconnected,
+                "drc_errors": _present_metric(report.drc_errors),
+                "unconnected": _present_metric(report.unconnected),
                 "limitations": report.limitations,
                 "attempts": [
                     {
                         "index": item.index,
                         "pcb_path": str(item.pcb_path),
-                        "drc_errors": item.drc_errors,
-                        "unconnected": item.unconnected,
+                        "drc_errors": _present_metric(item.drc_errors),
+                        "unconnected": _present_metric(item.unconnected),
                     }
                     for item in report.attempts
                 ],
@@ -531,3 +595,7 @@ def legacy_route_cli(arguments: Sequence[str], *, best_of: bool) -> int:
         and report.drc_errors == 0
         else 1
     )
+
+
+def _present_metric(value: int) -> int | str:
+    return "unknown" if value == UNKNOWN_METRIC else value
