@@ -36,9 +36,9 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / 'src'))
 
-from pcb_copilot.evidence.index import save_evidence_index  # noqa: E402
-from pcb_copilot.evidence.models import EvidenceIndex  # noqa: E402
-from pcb_copilot.toolchain import discover_toolchain  # noqa: E402
+from pcb_copilot.evidence.index import save_evidence_index
+from pcb_copilot.evidence.models import EvidenceIndex
+from pcb_copilot.toolchain import discover_toolchain
 
 _TOOLCHAIN = discover_toolchain(REPO)
 KICAD_CLI = _TOOLCHAIN.kicad_cli
@@ -65,7 +65,8 @@ def _erc_waivable(v: dict) -> bool:
 
 
 def _run(cmd, **kw):
-    return subprocess.run([str(c) for c in cmd], capture_output=True, text=True, **kw)
+    return subprocess.run([str(c) for c in cmd], capture_output=True,
+                          text=True, check=False, **kw)
 
 
 def gate_datasheets(pcb: Path) -> tuple[bool, str]:
@@ -207,7 +208,7 @@ SIGNATURE_RE = re.compile(r'\d{4}-\d{2}-\d{2}')
 
 
 def gate_signoff(pcb: Path) -> tuple[bool, str]:
-    """HUMAN gate. Proves the step was performed, not that it was correct.
+    r"""HUMAN gate. Proves the step was performed, not that it was correct.
 
     This is the LAST gate and it was the weakest thing in the workspace.
     It counted `- [x]` and nothing else, so
@@ -264,7 +265,7 @@ def gate_signoff(pcb: Path) -> tuple[bool, str]:
 # the artifacts the gates read, pre-populated with the questions no tool can
 # answer. It never overwrites an existing file.
 
-SIGNOFF_TEMPLATE = """# Human Sign-Off — {board}
+SIGNOFF_TEMPLATE = r"""# Human Sign-Off — {board}
 
 Claude can get a board to *"every automated gate passes."* It cannot get it to
 *"correct."* Checking a box here records that the step was **performed** — not
@@ -488,20 +489,21 @@ def gate_schematic_ownership(pcb: Path) -> tuple[bool, str]:
     current run has not finished writing.
     """
     sys.path.insert(0, str(REPO / 'scripts'))
-    import pipeline
     import extract_netmap
 
-    b = pipeline.Board(pcb.parent)
-    owner = b.owner()
+    root = pcb.parent
+    schematic = pcb.with_suffix('.kicad_sch')
+    owner_path = root / 'SCHEMATIC_OWNER'
+    owner = (owner_path.read_text(encoding='utf-8').strip().lower()
+             if owner_path.is_file() else 'generated')
 
-    if owner == 'invalid':
-        got = (b.dir / pipeline.OWNER_FILE).read_text().strip()[:40]
-        return False, (f'{pipeline.OWNER_FILE} says {got!r} — must be one of '
-                       + ', '.join(pipeline.OWNERS))
-    if not b.sch.is_file():
+    if owner not in {'generated', 'human'}:
+        return False, (f'SCHEMATIC_OWNER says {owner[:40]!r} — must be one of '
+                       'generated, human')
+    if not schematic.is_file():
         return False, 'no schematic'
 
-    netmap = b.dir / 'netmap.json'
+    netmap = root / 'netmap.json'
     if not netmap.is_file():
         return False, 'no netmap.json — no schematic->PCB contract to build the board from'
 
@@ -509,17 +511,17 @@ def gate_schematic_ownership(pcb: Path) -> tuple[bool, str]:
     # `#PWR`/`#FLG` pseudo-refs carry no footprint, so nothing derived from a
     # netlist can name them and gen_*_pcb.py filters them out anyway.
     on_disk = {r: v for r, v in on_disk.items() if not r.startswith('#')}
-    fresh = extract_netmap.extract(b.sch)['nets']
+    fresh = extract_netmap.extract(schematic)['nets']
 
     if on_disk != fresh:
         differing = sorted(r for r in set(on_disk) | set(fresh)
                            if on_disk.get(r) != fresh.get(r))
-        return False, (f'netmap.json disagrees with {b.sch.name} on '
+        return False, (f'netmap.json disagrees with {schematic.name} on '
                        f'{len(differing)} reference(s): {", ".join(differing[:8])} — '
-                       f'the board was built from a stale netlist. Re-run the pipeline.')
+                       'the board was built from a stale netlist. Reconcile the current design.')
 
     n = sum(len(v) for v in fresh.values())
-    return True, (f'{owner}-owned; netmap.json matches {b.sch.name} '
+    return True, (f'{owner}-owned; netmap.json matches {schematic.name} '
                   f'({n} pin-net assignments)')
 
 
