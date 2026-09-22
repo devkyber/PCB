@@ -1,30 +1,8 @@
 #!/usr/bin/env python3
-"""Produce a complete, JLCPCB-ready fabrication package for a board.
+"""Legacy export internals retained for migration; direct CLI is disabled.
 
-Why this is not just `kicad-cli export gerbers`
------------------------------------------------
-Two things bite at the ordering step and neither is obvious until the
-upload is rejected:
-
-1. **The BOM must carry LCSC part numbers, and `kicad-cli sch export bom`
-   reads the SCHEMATIC.** Part numbers in this workspace are stamped onto
-   PCB FOOTPRINTS, so the schematic BOM comes out with an empty LCSC
-   column — a file that looks complete and orders nothing. This builds the
-   BOM from the .kicad_pcb, which is the artifact that actually gets
-   fabricated and the one the numbers are on.
-
-2. **JLCPCB wants its own column names and its own CPL layout.** "Comment /
-   Designator / Footprint / LCSC Part #" for the BOM, and
-   "Designator / Mid X / Mid Y / Layer / Rotation" for the CPL, with Y
-   positive-up relative to the board origin. kicad-cli's native CSV uses
-   neither.
-
-Parts with no LCSC number are written to the BOM with an empty part column
-and listed separately at the end, rather than being dropped: a connector
-you intend to hand-solder should appear in the BOM you keep, and be absent
-only from the assembly order.
-
-Usage:  python3 scripts/export_fab.py <board.kicad_pcb>
+The old command packaged whatever PCB was on disk without current review or
+hash-bound human sign-off. It must not be used to authorize fabrication.
 """
 from __future__ import annotations
 
@@ -62,12 +40,12 @@ def _blocks(text: str):
 
 
 def _prop(block: str, name: str) -> str:
-    m = re.search(r'\(property\s+"%s"\s+"([^"]*)"' % re.escape(name), block)
+    m = re.search(rf'\(property\s+"{re.escape(name)}"\s+"([^"]*)"', block)
     if m:
         return m.group(1)
     legacy = {'Reference': 'reference', 'Value': 'value'}.get(name)
     if legacy:
-        m = re.search(r'\(fp_text\s+%s\s+"([^"]*)"' % legacy, block)
+        m = re.search(rf'\(fp_text\s+{legacy}\s+"([^"]*)"', block)
         if m:
             return m.group(1)
     return ''
@@ -78,7 +56,7 @@ def board_bbox(text: str):
     xs, ys = [], []
     for m in re.finditer(r'\(gr_(?:line|rect)\s*\(start\s+([-\d.]+)\s+([-\d.]+)\)'
                          r'\s*\(end\s+([-\d.]+)\s+([-\d.]+)\)'
-                         r'(?:(?!\(gr_).)*?\(layer\s+"Edge\.Cuts"\)', text, re.S):
+                         r'(?:(?!\(gr_).)*?\(layer\s+"Edge\.Cuts"\)', text, re.DOTALL):
         xs += [float(m.group(1)), float(m.group(3))]
         ys += [float(m.group(2)), float(m.group(4))]
     for m in re.finditer(r'\(gr_arc[\s\S]{0,400}?\(layer\s+"Edge\.Cuts"\)', text):
@@ -90,7 +68,7 @@ def board_bbox(text: str):
     return min(xs), min(ys), max(xs), max(ys)
 
 
-def main() -> None:
+def _legacy_export_unchecked() -> None:
     pcb = Path(sys.argv[1]).resolve()
     proj, name = pcb.parent, pcb.stem
     out = proj / 'fabrication'
@@ -104,7 +82,8 @@ def main() -> None:
         (['pcb', 'export', 'drill', '--output', str(out) + '/',
           '--format', 'excellon', '--excellon-separate-th', str(pcb)], 'drill'),
     ):
-        r = subprocess.run([str(KICAD_CLI)] + args, capture_output=True, text=True)
+        r = subprocess.run([str(KICAD_CLI)] + args, capture_output=True,
+                           text=True, check=False)
         print(f'  [{"ok" if r.returncode == 0 else "FAIL"}] {label}')
 
     # ---- BOM, built from the BOARD so the LCSC numbers are present -------
@@ -139,7 +118,7 @@ def main() -> None:
     tmp = out / '_pos.csv'
     r = subprocess.run([str(KICAD_CLI), 'pcb', 'export', 'pos', '--output', str(tmp),
                         '--format', 'csv', '--units', 'mm', '--side', 'both',
-                        str(pcb)], capture_output=True, text=True)
+                        str(pcb)], capture_output=True, text=True, check=False)
     cpl = out / f'{name}-cpl.csv'
     if r.returncode == 0 and tmp.is_file():
         with tmp.open() as fi, cpl.open('w', newline='') as fo:
@@ -203,5 +182,12 @@ def main() -> None:
           'gates — run `python3 scripts/pipeline.py <project> --check` first.')
 
 
+def main() -> int:
+    print('Direct fabrication export is retired. Use `pcb-copilot review`; '
+          'release/export remains unavailable until all checks and human '
+          'decisions are current.', file=sys.stderr)
+    return 2
+
+
 if __name__ == '__main__':
-    main()
+    sys.exit(main())

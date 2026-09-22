@@ -60,3 +60,8 @@ def test_superseded_history_is_not_retained_as_duplicate_archives(repo_root):
         "projects/tms-v3/history/tms3-design-review.md",
     ):
         assert not (repo_root / relative).exists(), relative
+
+
+def test_board_shell_shims_to_retired_pipeline_are_removed(repo_root):
+    for board in ('baro-bmp390', 'imu-icm42688', 'gnss-neom9n', 'tms-v3'):
+        assert not (repo_root / 'projects' / board / 'build.sh').exists()

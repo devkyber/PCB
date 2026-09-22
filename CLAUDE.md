@@ -46,8 +46,9 @@ uv run pcb-copilot review projects/baro-bmp390
 uv run pytest -q -m "not slow and not network"
 ```
 
-Run `uv run python scripts/selftest_enforcement.py` only in a disposable repository
-copy: it temporarily replaces evidence files and touches board modification times.
+The historical `scripts/selftest_enforcement.py` is not yet migrated to the
+current command surface. Study or port it only in a disposable repository copy:
+it temporarily replaces evidence files and touches board modification times.
 
 The old pipeline and helpers remain only where behavior or callers have not
 been migrated. Read their callers and characterization tests before removal.
@@ -55,9 +56,8 @@ Delete only after their current behavior and factual content are preserved.
 
 ## Gate Rule during migration
 
-The full `scripts/pipeline.py` is mutating and is not the current workflow; it
-can overwrite root CAD before its draft-only routing boundary rejects the
-route. Use `pcb-copilot` for current work. Evidence archive, verification,
+The legacy `scripts/pipeline.py` and direct `scripts/export_fab.py` CLIs now
+refuse execution. Use `pcb-copilot` for current work. Evidence archive, verification,
 and supported exact extraction live behind `pcb-copilot research`. A file
 existing, a command returning zero, or an older report is not evidence. Every
 gate must prove it ran against the current design and have a fault test.

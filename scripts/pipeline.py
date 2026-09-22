@@ -1,40 +1,14 @@
 #!/usr/bin/env python3
-"""The single entry point for building a board. One command, every stage, in order.
+"""Legacy helpers retained for callers; the mutating CLI is retired.
 
-    python3 scripts/pipeline.py projects/<board>            # full run
-    python3 scripts/pipeline.py projects/<board> --from pcb # resume at a stage
-    python3 scripts/pipeline.py projects/<board> --check    # gates only, no rebuild
-    python3 scripts/pipeline.py --status                    # every board, one table
-
-WHY THIS FILE EXISTS
---------------------
-Before it, "build the board" meant remembering: which generator to run, in
-which order, which helper to import, which checks to run afterward, and which
-document to consult. Every one of those was a chance to skip a step, and the
-record of this workspace is that skipped steps are the ONLY defect class that
-has ever shipped here.
-
-So the pipeline is not a convenience wrapper. It is the enforcement mechanism:
-
-  * The order is fixed in code, not in prose.
-  * A stage that fails STOPS the run. You cannot route an unplaced board or
-    fabricate an unrouted one by forgetting.
-  * Every run writes PIPELINE.json (machine) and STATUS.md (human) recording
-    what ran, when, against which git commit, and what the board hashed to.
-    A completion claim without that record is not evidence.
-  * The last stage is always run_gates.py. It cannot be turned off.
-
-Stages are named so `--from` reads like the workflow document:
-    env -> sch -> erc -> pcb -> route -> gates
+Use `pcb-copilot status`, `review`, or the explicit current-design update
+commands. No CLI mode in this legacy module is supported.
 """
 from __future__ import annotations
 
-import argparse
 import hashlib
 import json
-import os
 import re
-import shutil
 import subprocess
 import sys
 import time
@@ -76,7 +50,7 @@ class StageResult:
 
 def run(cmd, cwd=None, timeout=None):
     return subprocess.run([str(c) for c in cmd], cwd=cwd, capture_output=True,
-                          text=True, timeout=timeout)
+                          text=True, timeout=timeout, check=False)
 
 
 # Deliberately NOT anchored to surrounding quotes. The first version was
@@ -108,7 +82,7 @@ def sha(path: Path) -> str:
     return hashlib.sha256(UUID_RE.sub(b'UUID', path.read_bytes())).hexdigest()[:12]
 
 
-def check_repeatable(b: 'Board') -> StageResult:
+def check_repeatable(b: Board) -> StageResult:
     """Rebuild twice and prove the design output is identical.
 
     Repeatability is a claim; this measures it. Run with --verify-repeatable.
@@ -432,9 +406,9 @@ def stage_route(b: Board, passes: int) -> StageResult:
         # different board than the one on disk a moment earlier. What is
         # needed is a fresh DRC verdict, not a fresh route.
         drc_json = Path(str(b.pcb).replace('.kicad_pcb', '.postfix.drc.json'))
-        dr = run([KICAD_CLI, 'pcb', 'drc', '--format', 'json',
-                  '--output', drc_json, '--severity-error',
-                  '--refill-zones', b.pcb], timeout=900)
+        run([KICAD_CLI, 'pcb', 'drc', '--format', 'json',
+             '--output', drc_json, '--severity-error',
+             '--refill-zones', b.pcb], timeout=900)
         try:
             rep = json.loads(drc_json.read_text())
             errs = sum(1 for v in rep.get('violations', [])
@@ -443,7 +417,7 @@ def stage_route(b: Board, passes: int) -> StageResult:
             ok = (errs == 0 and unc == 0)
             detail = (f'{errs} error(s), {unc} unconnected after post-route passes'
                       ' | ' + '; '.join(notes)[:120])
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - failed DRC remains a failed stage
             ok = False
             detail = f'post-route DRC did not parse: {exc} | ' + '; '.join(notes)[:100]
         finally:
@@ -548,116 +522,14 @@ def cmd_status():
     print('-' * (w + 60))
     for n, when, st, fresh in rows:
         print(f'{n.ljust(w)}  {when.ljust(16)}  {st.ljust(34)}  {fresh}')
-    print('\nRebuild:  python3 scripts/pipeline.py projects/<board>')
-    print('Step-by-step workflow audit:  python3 scripts/audit_workflow.py')
+    print('\nCurrent status: uv run pcb-copilot status projects/<board>')
 
 
 def main():
-    ap = argparse.ArgumentParser(description=__doc__,
-                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('project', nargs='?')
-    ap.add_argument('--from', dest='start', choices=STAGE_ORDER, default='env')
-    ap.add_argument('--check', action='store_true', help='gates only; never rebuilds')
-    ap.add_argument('--skip-route', action='store_true')
-    ap.add_argument('--regenerate', action='store_true',
-                    help='discard an out-of-sync schematic and rebuild it from the '
-                         'generator. Required to get past the sch provenance '
-                         'tripwire on a `generated` board; refuses on a `human` one.')
-    ap.add_argument('--passes', type=int, default=int(os.environ.get('ROUTE_PASSES', 50)))
-    ap.add_argument('--status', action='store_true')
-    ap.add_argument('--verify-repeatable', action='store_true',
-                    help='rebuild twice and prove the design output is identical')
-    a = ap.parse_args()
-
-    if a.status:
-        cmd_status()
-        return 0
-    if not a.project:
-        ap.error('give a project directory, or --status')
-
-    if a.verify_repeatable:
-        bb = Board(Path(a.project))
-        res = check_repeatable(bb)
-        print(f'=== repeatability: {bb.name} ===')
-        print(f'  [{"PASS" if res.ok else "FAIL"}] {res.detail}  ({res.secs:.0f}s)')
-        return 0 if res.ok else 1
-
-    b = Board(Path(a.project))
-    started = datetime.now(timezone.utc).isoformat(timespec='seconds')
-    print(f'=== pipeline: {b.name} ===')
-
-    if a.check:
-        plan = ['gates']
-    else:
-        plan = STAGE_ORDER[STAGE_ORDER.index(a.start):]
-    results, gate_table = [], ''
-
-    gates_ok = False
-    for name in STAGE_ORDER:
-        if name not in plan:
-            results.append(StageResult(name, True, 'not requested', 0.0, skipped=True))
-            print(f'  [SKIP] {name}')
-            continue
-        if name == 'route' and a.skip_route:
-            results.append(StageResult('route', True, 'skipped by flag', 0.0, skipped=True))
-            print('  [SKIP] route  (--skip-route)')
-            continue
-
-        print(f'  [....] {name}', flush=True)
-        if name == 'env':
-            res = stage_env(b)
-        elif name == 'fab':
-            res = stage_fab(b, gates_ok)
-        elif name == 'research':
-            res = stage_research(b)
-        elif name == 'sch':
-            res = stage_sch(b, regenerate=a.regenerate)
-        elif name == 'erc':
-            res = stage_erc(b)
-        elif name == 'pcb':
-            res = stage_pcb(b)
-        elif name == 'route':
-            res = stage_route(b, a.passes)
-        else:
-            res, gate_table = stage_gates(b)
-            gates_ok = res.ok
-        results.append(res)
-        mark = 'PASS' if res.ok else ('WARN' if name in ADVISORY else 'FAIL')
-        print(f'  [{mark}] {name}  ({res.secs:.0f}s)  {res.detail}')
-
-        # A failing stage stops the run. Routing an unplaced board or
-        # fabricating an unrouted one is exactly the class of mistake this
-        # pipeline exists to make impossible.
-        if not res.ok and name != 'gates' and name not in ADVISORY:
-            # Stop building — but ALWAYS run the gates before reporting.
-            #
-            # The first version broke out here, so a failing route stage
-            # produced a STATUS.md with no gate table at all. That is exactly
-            # backwards: the run that went worst is the run whose evidence
-            # matters most. Building further on a broken stage is forbidden;
-            # measuring the damage is mandatory.
-            for later in STAGE_ORDER[STAGE_ORDER.index(name) + 1:]:
-                if later != 'gates':
-                    results.append(StageResult(later, False, 'not reached', 0.0, skipped=True))
-            print(f'\n  STOPPED building at {name} — running gates to record the state.')
-            gres, gate_table = stage_gates(b)
-            results.append(gres)
-            print(f'  [{"PASS" if gres.ok else "FAIL"}] gates  ({gres.secs:.0f}s)  {gres.detail}')
-            break
-
-    write_report(b, results, gate_table, started)
-    ok = all(r.ok for r in results if not r.skipped)
-    # The register of what is waiting on a person is regenerated here, so it
-    # can never be a stale hand-written list next to a fresh gate table --
-    # which is exactly what BLOCKERS.md was when it was deleted.
-    hw = SCRIPTS / 'human_work.py'
-    if hw.is_file():
-        run([sys.executable, hw, '--write'], timeout=600)
-
-    print(f'\nreport: {(b.dir / "STATUS.md").relative_to(REPO)}  +  PIPELINE.json'
-          f'  +  HUMAN_WORK.md')
-    print('RESULT: ' + ('all stages pass' if ok else 'PIPELINE FAILED — board is not ready'))
-    return 0 if ok else 1
+    print('Legacy pipeline CLI retired. Use `pcb-copilot status`, '
+          '`pcb-copilot review`, and explicit current-design update commands.',
+          file=sys.stderr)
+    return 2
 
 
 if __name__ == '__main__':

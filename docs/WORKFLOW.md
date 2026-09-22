@@ -135,16 +135,17 @@ make each decision from actual inspection or measurement; use `accepted` or
 human's behalf. Re-run `review` afterward. An edited schematic, PCB, or review
 profile makes prior decisions stale; `prepare-signoff` never overwrites them.
 
-Do not run the full legacy `scripts/pipeline.py` on a current board:
-its generator stages can overwrite root CAD before its draft-only routing
-boundary rejects the route. Never equate a green ERC, DRC, or parity result
+The legacy `scripts/pipeline.py` CLI and direct `scripts/export_fab.py` CLI are
+retired: both refuse execution. Their old paths could overwrite current CAD
+or package a board without current review. Never equate a green ERC, DRC, or parity result
 with engineering approval. The board's `review-profile.yaml` lists the human
 work still required; unsigned, rejected, or stale decisions block responsible
 fabrication. The old `SIGNOFF.md` remains only for legacy script compatibility.
 
-If you run `scripts/selftest_enforcement.py`, use a disposable repository
-copy. It injects faults by temporarily changing evidence files and board
-timestamps; interruption could leave those files changed.
+The historical `scripts/selftest_enforcement.py` has not yet been migrated to
+the current command surface and is not a current pass criterion. If studying
+or porting its fault cases, use a disposable repository copy: it temporarily
+changes evidence files and board timestamps.
 
 See [Limitations](LIMITATIONS.md) for board-specific open questions and
 [Design rules](DESIGN_RULES.md) for the implemented versus human rule scope.

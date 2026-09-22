@@ -99,8 +99,8 @@ rules:
     rationale: Generate the BOM from the accepted PCB.
     replacement: pcb-copilot release
   - pattern: projects/*/build.sh
-    action: REFACTOR
-    rationale: Replace board-specific shell orchestration with portable commands.
+    action: DELETE
+    rationale: Board shims called the retired mutating pipeline CLI; current status, review, and explicit update commands replace them.
     replacement: pcb-copilot
   - pattern: projects/*/gen_*_sch.py
     action: REFACTOR
