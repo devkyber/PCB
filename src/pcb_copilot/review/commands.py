@@ -40,5 +40,6 @@ def render_review_text(report: ReviewReport) -> str:
         lines.append(f'[{"PASS" if result.passed else "FAIL"}] {result.check_id}: {result.detail}')
         lines.append(f'  proves: {result.scope.proves}')
         lines.append(f'  does not prove: {result.scope.does_not_prove}')
+        lines.extend(f'  advisory: {warning}' for warning in result.advisories)
     lines.append('RESULT: BLOCKED' if report.blocking else 'RESULT: no registered blocker')
     return '\n'.join(lines)

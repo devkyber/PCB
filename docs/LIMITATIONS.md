@@ -35,9 +35,10 @@ Whether this saves time in a real owner-led design session remains unmeasured.
   DRC does not replace assembly and mechanical review. STEP export can be
   partial when component models are missing.
 - The design-rule checker covers only 4 of 42 historical numbered sections.
-  Unified full-project `review`, relevant hash-bound human sign-off, and
-  transactional `release` are not yet implemented. Do not fabricate from an
-  isolated green script result.
+  Current `review` aggregates ten checks but still relies on legacy gate
+  implementations; even its per-sheet title/density check does not judge
+  visual flow. Relevant hash-bound human sign-off and transactional `release`
+  are not yet implemented. Do not fabricate from an isolated green result.
 
 ## Open decisions by project
 
@@ -64,8 +65,8 @@ The assistant must surface missing inputs, not invent numbers or check boxes.
 1. Replace the persistent draft/accept layout interface with `update-layout`
    that checks schematic parity, placement, routing completeness, zones,
    native DRC, previews, and non-regression before touching the root board.
-2. Add a complete `pcb-copilot review` report that distinguishes machine
-   failures, engineering warnings, and decisions requiring the named human.
+2. Finish `pcb-copilot review` migration: replace legacy gate dependencies,
+   give every blocking check a safe fault test, and add on-demand reports.
 3. Add hash-bound project-specific sign-off and `release`, with reproducible
    fabrication outputs only from the reviewed current design.
 4. Move active legacy checks behind the package CLI, remove duplicate scripts,

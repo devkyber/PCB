@@ -44,6 +44,16 @@ class MutatingCheck:
         return CheckResult(self.check_id, True, 'fixture result', self.scope)
 
 
+@dataclass
+class AdvisoryCheck:
+    check_id: str = 'advisory'
+    scope: CheckScope = SCOPE
+
+    def run(self, _project):
+        return CheckResult(self.check_id, True, 'structural checks pass', self.scope,
+                           advisories=('human page flow may be unclear',))
+
+
 def test_registry_runs_every_check_after_a_failure(project_copy):
     calls = []
     project = load_project(project_copy)
@@ -89,3 +99,11 @@ def test_schematic_fingerprint_changes_when_hierarchical_child_changes(tmp_path)
     child.write_bytes(child.read_bytes() + b'\n')
 
     assert schematic_digest(root) != before
+
+
+def test_passing_check_can_report_nonblocking_engineering_warning(project_copy):
+    report = run_checks(load_project(project_copy), [AdvisoryCheck()])
+
+    assert not report.blocking
+    assert report.findings[0].kind == FindingKind.ENGINEERING_WARNING
+    assert not report.findings[0].blocking

@@ -97,10 +97,25 @@ widths, pours, silkscreen, and assembly.
 
 ## 5. Review and release boundary
 
-There is not yet one complete `pcb-copilot review` or `release` command. The
-legacy gate scripts remain in the repository as implementation dependencies
-and characterization references, but they are not the recommended build
-pipeline. Do not run the full legacy `scripts/pipeline.py` on a current board:
+Run the current-design review after schematic or PCB changes:
+
+```powershell
+uv run pcb-copilot review projects/baro-bmp390
+uv run pcb-copilot review projects/baro-bmp390 --format json
+```
+
+This runs all ten registered checks against a disposable copy, so KiCad report
+generation cannot rewrite the current project. A failure does not hide later
+checks. The report includes full-content fingerprints for the root schematic
+and every referenced child sheet, plus the PCB, and states what each check
+does and does not prove. Schematic structural quality now covers every sheet;
+label-heavy sheets produce nonblocking engineering warnings, not a false
+claim of readability. Legacy gate scripts still supply most checks while they
+are migrated. Relevant hash-bound human sign-off and transactional `release`
+are not implemented; the old generic sign-off check is only a dated checklist
+presence check.
+
+Do not run the full legacy `scripts/pipeline.py` on a current board:
 its generator stages can overwrite root CAD before its draft-only routing
 boundary rejects the route. Never equate a green ERC, DRC, or parity result
 with engineering approval. The board's `SIGNOFF.md` records human work still

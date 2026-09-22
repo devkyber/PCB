@@ -47,9 +47,11 @@ def run_checks(project: Project, checks: Sequence[Check]) -> ReviewReport:
         if not result.passed:
             findings.append(Finding(result.check_id, result.finding_kind,
                                     result.detail, True))
+        findings.extend(Finding(result.check_id, FindingKind.ENGINEERING_WARNING,
+                                warning, False) for warning in result.advisories)
     return ReviewReport(
         project.manifest.name,
         schematic_hash,
         pcb_hash,
-        tuple(results), tuple(findings), bool(findings),
+        tuple(results), tuple(findings), any(finding.blocking for finding in findings),
     )

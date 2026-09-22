@@ -10,16 +10,13 @@ from pathlib import Path
 
 from pcb_copilot.models import Project
 from pcb_copilot.review.models import CheckResult, CheckScope, FindingKind
+from pcb_copilot.review.schematic_quality import SchematicQualityCheck
 
 _SCOPES = {
     'gate_research': ('indexed source/reference coverage', 'source applicability or completeness'),
     'gate_datasheets': ('required datasheet files are present', 'correct interpretation of every limit'),
     'gate_erc': ('KiCad electrical-rule findings', 'circuit fitness or safe operation'),
     'gate_schematic_ownership': ('netmap agrees with current schematic', 'the circuit is correct'),
-    'gate_schematic_quality': (
-        'root-sheet title and density checks',
-        'child-sheet quality or full visual readability',
-    ),
     'gate_netlist_parity': ('schematic/PCB pin-net agreement', 'which side holds the correct intent'),
     'gate_placement': ('implemented placement geometry checks', 'assembly or enclosure fit'),
     'gate_design_rules': ('the implemented subset of house design rules', 'all numbered rules'),
@@ -49,6 +46,9 @@ def legacy_checks() -> tuple[LegacyCheck, ...]:
     gates = importlib.import_module('run_gates').GATES
     checks = []
     for _name, function, kind in gates:
+        if function.__name__ == 'gate_schematic_quality':
+            checks.append(SchematicQualityCheck())
+            continue
         proves, does_not_prove = _SCOPES[function.__name__]
         checks.append(LegacyCheck(
             function.__name__.removeprefix('gate_'),

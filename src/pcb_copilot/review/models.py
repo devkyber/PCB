@@ -28,6 +28,7 @@ class CheckResult:
     scope: CheckScope
     finding_kind: FindingKind = FindingKind.MACHINE_FAILURE
     duration_ms: int = 0
+    advisories: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)

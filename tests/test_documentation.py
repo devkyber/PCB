@@ -55,7 +55,8 @@ def test_workflow_states_current_command_and_unfinished_boundaries(repo_root):
     assert '--reconcile-board-names' in workflow
     assert 'root `.kicad_sch`' in workflow
     assert 'Do not copy an unrouted proposal over a routed current PCB.' in normalized
-    assert 'not yet one complete `pcb-copilot review` or `release` command' in normalized
+    assert 'pcb-copilot review projects/baro-bmp390' in workflow
+    assert 'Relevant hash-bound human sign-off and transactional `release`' in normalized
     assert 'disposable repository' in workflow
     for removed in ('pcb-copilot draft-schematic', 'pcb-copilot review-draft',
                     'pcb-copilot accept '):

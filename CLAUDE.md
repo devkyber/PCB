@@ -42,6 +42,7 @@ uv run pcb-copilot status projects/baro-bmp390
 uv run pcb-copilot research projects/baro-bmp390 --verify
 uv run pcb-copilot research projects/baro-bmp390 --extract BMP390
 uv run pcb-copilot update-schematic projects/baro-bmp390 --intent projects/baro-bmp390/schematic-intent.yaml
+uv run pcb-copilot review projects/baro-bmp390
 uv run pytest -q -m "not slow and not network"
 ```
 
@@ -68,6 +69,7 @@ an overview plus six functional sheets, and its routed board retains its
 geometry after exact net-name/class reconciliation. Human schematic and PCB
 reviews remain pending. Layout drafting requires physical parts on an existing
 PCB; it does not replace the rooted routed boards. GNSS/TMS layout blockers
-remain, as do TMS safety decisions. Unified `review`, `update-layout`, and
-`release` are not implemented. Consult [Limitations](docs/LIMITATIONS.md) and
+remain, as do TMS safety decisions. `review` runs current checks in a disposable
+copy, but hash-bound human sign-off, `update-layout`, and `release` are not
+implemented. Consult [Limitations](docs/LIMITATIONS.md) and
 never call a board finished merely because it opens or passes ERC/DRC.

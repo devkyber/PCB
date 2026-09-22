@@ -36,6 +36,7 @@ uv sync
 uv run pcb-copilot status projects/baro-bmp390
 uv run pcb-copilot research projects/baro-bmp390 --verify
 uv run pcb-copilot update-schematic projects/baro-bmp390 --intent projects/baro-bmp390/schematic-intent.yaml
+uv run pcb-copilot review projects/baro-bmp390
 ```
 
 The last command previews and checks a candidate without changing the root
@@ -47,8 +48,10 @@ that KiCad net-class rules are preserved.
 
 `research` can verify exact archived bytes, produce search plans, and inspect
 supported reference schematic/PCB pairs. Search plans are not live searches.
-The current layout tool produces proposals, but a single current-file
-`update-layout`, unified `review`, and `release` command are still being built.
+The current layout tool produces proposals. `review` runs the current checks
+against a disposable project copy and reports blockers and their exact scope;
+it does not approve the design. A single current-file `update-layout`,
+hash-bound sign-off, and `release` are still being built.
 Do not replace a routed PCB with an unrouted proposal.
 
 For commands and judgment boundaries, read [Workflow](docs/WORKFLOW.md) and
