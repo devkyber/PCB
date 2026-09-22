@@ -52,7 +52,8 @@ def collect_status(project: Project) -> ProjectStatus:
     if not evidence_present:
         recommendation = f"pcb-copilot research {project.root} --verify"
     else:
-        recommendation = f"pcb-copilot update-schematic {project.root} --intent schematic-intent.yaml"
+        recommendation = (f"pcb-copilot update-schematic {project.root} "
+                          f"--intent {project.root / 'schematic-intent.yaml'}")
 
     return ProjectStatus(
         name=project.manifest.name,

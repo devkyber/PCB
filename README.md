@@ -1,79 +1,56 @@
 # PCB Copilot
 
-**Start here: [open the results and see current progress](docs/PROGRESS.md).**
-That page links the four schematic PDFs, PCB previews, editable KiCad drafts
-and research records. All are proposals awaiting human review, not approved boards.
+PCB Copilot is a human-controlled assistant for board development. It helps
+collect and verify datasheets and reference designs, turn reviewed circuit
+intent into an editable KiCad schematic, compare schematic and PCB
+connectivity, and prepare layout proposals. It does not decide whether a
+circuit is safe, manufacturable, or ready to release.
 
-PCB Copilot is a human-controlled assistant for researching, drafting,
-checking, and packaging KiCad boards. Its purpose is to remove repetitive
-work—not to pretend that software can independently approve an electrical
-design.
+## Open the current designs
 
-The useful target is practical leverage:
+The KiCad files linked here—not files under `.pcb-copilot`—are the current
+working designs. All four schematics were updated to functional-block
+drawings. The existing routed PCBs were retained; the TMS board changed only
+where hierarchy-qualified net names and their project net classes had to
+follow the new schematic.
 
-- locate and archive datasheets, integration manuals, and reference designs;
-- extract exact pin, value, and connection facts with citations;
-- prepare a connected, readable schematic draft instead of a blank sheet;
-- propose placement, constraints, and optional routing candidates;
-- run repeatable ERC, DRC, parity, evidence, ownership, and release checks;
-- show unresolved engineering judgments to the human who owns the board.
+| Board | Current schematic | Current PCB | Present boundary |
+| --- | --- | --- | --- |
+| BMP390 | [KiCad](projects/baro-bmp390/baro-bmp390.kicad_sch) | [KiCad](projects/baro-bmp390/baro-bmp390.kicad_pcb) | Human schematic review and environmental/mechanical decisions pending. |
+| ICM-42688 | [KiCad](projects/imu-icm42688/imu-icm42688.kicad_sch) | [KiCad](projects/imu-icm42688/imu-icm42688.kicad_pcb) | Axis orientation, mounting, and human layout review pending. |
+| NEO-M9N | [KiCad](projects/gnss-neom9n/gnss-neom9n.kicad_sch) | [KiCad](projects/gnss-neom9n/gnss-neom9n.kicad_pcb) | Antenna, RF stack-up, and layout blockers pending. |
+| TMS V3 | [Seven-sheet KiCad project](projects/tms-v3/tms-v3.kicad_sch) | [KiCad](projects/tms-v3/tms-v3.kicad_pcb) | Ignition safety, reference source, thermal, and physical-fit decisions pending. |
 
-Accepted `.kicad_sch` and `.kicad_pcb` files remain the sources of truth.
-Drafting never silently overwrites them. A person reviews and accepts each
-material change, and fabrication stays blocked until the accepted revision has
-current evidence and sign-off.
+Open the root `.kicad_sch` in KiCad; TMS's six child sheets must remain beside
+it. Each board's requirements, design basis, reference review, deviations,
+sign-off, and archived `evidence/` are in its project directory. No board has
+complete, hash-bound human sign-off or release approval for its current design.
 
-## Current state
+## Start here
 
-The foundation, evidence archive and schematic-draft commands are implemented.
-All four boards now have circuit-preserving schematic intents; TMS V3 renders
-as an overview plus six functional sheets. Drafts include PDF previews, ERC,
-connectivity checks and explicit stale-safe acceptance. None of these new
-board drafts has been accepted. `draft-layout` now prepares placement, constraints,
-optional routing candidates, SVG/STEP previews and fresh DRC. Layout acceptance
-requires current schematic/PCB/settings snapshots and explicit human preview
-approval. Reference research is recorded per board, with missing
-sources and unreviewed copper views stated explicitly.
-
-You can edit a generated draft in KiCad and refresh its checks with
-`pcb-copilot review-draft PROJECT_PATH DRAFT_ID`, preserving the edited CAD.
-See the [edit-and-review workflow](docs/WORKFLOW.md#edit-a-draft-and-refresh-its-review).
-
-Human visual review is the current Plan 3 checkpoint. Actual schematic and PCB
-human approvals remain pending. The layout assistant is underway, while
-unified review/release/cleanup remains planned; neither Plan 4 nor Plan 5 is
-finished. Existing scripts remain available until replacement behavior is
-verified.
+Install [uv](https://docs.astral.sh/uv/) and KiCad 10, then from the repository
+root run:
 
 ```powershell
 uv sync
-uv run pcb-copilot --version
 uv run pcb-copilot status projects/baro-bmp390
-uv run pcb-copilot draft-schematic projects/baro-bmp390 --intent projects/baro-bmp390/schematic-intent.yaml
-uv run pytest -m "not slow and not network" -q
+uv run pcb-copilot research projects/baro-bmp390 --verify
+uv run pcb-copilot update-schematic projects/baro-bmp390 --intent projects/baro-bmp390/schematic-intent.yaml
 ```
 
-The repository currently contains four real boards: `baro-bmp390`,
-`imu-icm42688`, `gnss-neom9n`, and `tms-v3`. Do not regenerate or accept one
-merely to make a check green. Existing failures and open owner decisions are
-part of the engineering record.
+The last command previews and checks a candidate without changing the root
+design. Add `--apply` only when you intend to update the current schematic;
+the change returns its lifecycle to `DRAFT` and requires human review. TMS's
+hierarchy uses `--reconcile-board-names` when a new schematic has exactly the
+same pad membership but different local net names; the command also checks
+that KiCad net-class rules are preserved.
 
-## Read next
+`research` can verify exact archived bytes, produce search plans, and inspect
+supported reference schematic/PCB pairs. Search plans are not live searches.
+The current layout tool produces proposals, but a single current-file
+`update-layout`, unified `review`, and `release` command are still being built.
+Do not replace a routed PCB with an unrouted proposal.
 
-Use the [documentation index](docs/README.md) to choose a guide by question.
-Start with results and workflow; architecture, rules, limitations and project
-format are references when you need them.
-
-For normal use, stay with the results page, workflow and your board's folder.
-`src/`, `tests/`, `tools/`, `scripts/`, `migration/`, and `planning/` are maintainer
-material. The [implementation roadmap](planning/plans/2026-09-14-pcb-copilot-remake-roadmap.md)
-links the plans; it is not a getting-started guide.
-Hidden `.pcb-copilot` folders hold real drafts; do not treat them as disposable caches.
-
-## Safety rule
-
-Passing automation means that the implemented checks found no blocking
-condition. It does not mean the circuit is correct, safe, manufacturable in
-its operating environment, or suitable for a rocket, battery, RF, precision
-measurement, or pyrotechnic system. The named human reviewer owns those
-decisions.
+For commands and judgment boundaries, read [Workflow](docs/WORKFLOW.md) and
+[Limitations](docs/LIMITATIONS.md). Maintainers can use
+[Architecture](docs/ARCHITECTURE.md) and [Design rules](docs/DESIGN_RULES.md).

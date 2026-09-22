@@ -11,7 +11,10 @@ REMOVED = {
     "projects/baro-bmp390/EVALUATION.md": "projects/baro-bmp390/DESIGN_BASIS.md",
     "projects/imu-icm42688/EVALUATION.md": "projects/imu-icm42688/DESIGN_BASIS.md",
     "docs/archive/tms-v3-relay-and-adc-explained.md": "projects/tms-v3/PDR.md",
-    "docs/archive/README.md": "docs/PROGRESS.md",
+    "docs/archive/README.md": "README.md",
+    "docs/README.md": "README.md",
+    "docs/PROGRESS.md": "README.md",
+    "docs/PROJECT_FORMAT.md": "docs/ARCHITECTURE.md",
 }
 
 

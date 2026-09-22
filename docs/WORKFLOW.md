@@ -1,405 +1,114 @@
-# PCB Copilot Workflow
+# Working with a board
 
-This is the canonical operator workflow. PCB Copilot is supplementary: it
-collects evidence, prepares reviewable drafts, runs checks, and keeps the
-record coherent while a human makes design decisions.
+PCB Copilot supplies evidence, an editable starting schematic, and checks. The
+engineer owns requirements, circuit choices, PCB judgment, physical tests, and
+release. The current KiCad design is always the root `.kicad_sch`, child sheets,
+`.kicad_pcb`, and `.kicad_pro` inside `projects/BOARD/`.
 
-Compatibility scripts now live in `scripts/`, not `docs/`. Their filenames
-and arguments are unchanged; update old bookmarks or local commands accordingly.
-The `pcb-copilot` command is unchanged. Plans and specifications live in
-`planning/`, outside these reader guides.
+## 1. Open and understand the current design
 
-## 1. Start with status
+Start at the [four current projects](../README.md#open-the-current-designs),
+not a hidden draft directory. In the board folder, read `REQUIREMENTS.md`,
+`DESIGN_BASIS.md`, `REFERENCE_REVIEW.md`, `DEVIATIONS.md`, `SIGNOFF.md`, and
+`project.yaml`. Open the root KiCad schematic and PCB. Keep any hierarchical
+child sheets beside the root; TMS V3 has six.
 
 ```powershell
 uv sync
 uv run pcb-copilot status projects/baro-bmp390
 ```
 
-Status is read-only. It reports the manifest, lifecycle, accepted design
-paths, evidence availability, toolchain, recorded hashes, and one next action.
-It does not run generators or rewrite tracked reports.
+`status` is read-only. `DRAFT` means no current human approval, even when a
+machine check passed. An old sign-off does not survive a design change.
 
-Shared tool discovery reuses the KiCad CLI finder. For `pcbnew` helpers it
-prefers explicit `KIPYTHON`, then PATH `kipython`. On Windows, it can also use
-`python.exe` beside the selected KiCad CLI after a successful isolated import
-probe (five-second timeout). A failed optional probe leaves those helpers
-unavailable; it does not hide the KiCad CLI. Other legacy wrappers still need
-individual portability checks—discovery alone does not validate their behavior.
+## 2. Research before copying a circuit
 
-The legacy all-board summary is also read-only. It reads stored pipeline
-reports and current board hashes without rebuilding a board:
-
-```powershell
-uv run python scripts/pipeline.py --status
-```
-
-These legacy checking commands remain valid during migration:
-
-```powershell
-uv run python scripts/pipeline.py projects/<board> --check
-uv run python scripts/run_gates.py projects/<board>/<board>.kicad_pcb
-uv run python scripts/audit_workflow.py
-```
-
-`--check` does not rebuild design files, but it still rewrites check and status
-reports. The direct gate runner likewise writes ERC and DRC reports. Use the
-package `status` command or legacy `--status` when the operation must be
-read-only.
-
-`scripts/selftest_enforcement.py` is a fault-injection tool, not a read-only
-status command: it temporarily replaces BMP390 evidence files and touches a
-board's modification time. Run it in a disposable repository copy so an
-interrupted test cannot leave the working archive modified.
-
-The full compatibility pipeline is mutating. It is not the supported layout
-workflow. Its schematic/PCB generator stages can overwrite accepted CAD before
-its route stage reaches the draft-only routing boundary. The routing wrappers
-now reject accepted PCB paths, while `scripts/pipeline.py` still passes its accepted
-project PCB to them. Consequently the full legacy pipeline is not a working
-end-to-end replacement for `draft-layout`; use the separate draft commands below.
-
-`SCHEMATIC_OWNER` defaults to `generated` when the file is missing. Setting it
-to `manual` protects the schematic generator path, but it does not protect the PCB
-generator stages in the compatibility pipeline. Use draft commands for either
-kind of accepted CAD.
-
-## 2. Define the board before choosing parts
-
-For a new legacy project, create its directory first, then scaffold the gate
-records:
-
-```powershell
-uv run python scripts/run_gates.py --init projects/<board>
-```
-
-The project directory must already exist. `--init` creates missing
-`REQUIREMENTS.md`, `DESIGN_BASIS.md`, `DEVIATIONS.md`, `SIGNOFF.md`, and
-`evidence/index.yaml` records plus the evidence files directory.
-It never overwrites an existing file. It does not create KiCad design files or
-a PCB Copilot project manifest.
-
-Write measurable requirements in the project’s `REQUIREMENTS.md`: purpose,
-supply range, worst-case current, interfaces, outline, mounting, operating
-environment, and success criteria. A heading without substantive content is
-not a captured requirement.
-
-Human-owned inputs stay explicit. Examples include TMS igniter resistance and
-pulse current, GNSS antenna/stackup choice, IMU axis orientation and mounting
-rigidity, and the barometer’s mechanical port/standoff arrangement. The
-assistant must report these as open decisions rather than inventing numbers.
-
-## 3. Collect evidence
-
-Datasheets, reference schematics, and reference PCB layouts are three distinct
-research deliverables of equal workflow importance. Search manufacturer EVMs,
-evaluation kits and integration guides first, then credible open hardware.
-The datasheet remains the authority when a reference conflicts with device
-requirements. A downloaded schematic does not establish PCB-layout coverage.
-
-```powershell
-uv run pcb-copilot research projects/baro-bmp390 --search-plan BMP390
-uv run pcb-copilot research projects/baro-bmp390 --inspect-reference SCHEMATIC_EVIDENCE_ID PCB_EVIDENCE_ID
-```
-
-`--search-plan` prints queries; it does **not** perform a live web search or
-claim that research is complete. The assistant executes the searches and
-records query/date, candidates, source identity, variant/revision, rejected
-results and access failures in `REFERENCE_REVIEW.md`. Archive selected native
-CAD and supporting PDFs, inspect both circuit and copper views, and compare
-them with requirements and the datasheet. Record relevant choices and
-differences in `DESIGN_BASIS.md`, including layout choices.
-
-`--inspect-reference` takes two IDs from `evidence/index.yaml`. It verifies
-their bytes before comparing an Eagle schematic's mapped pads with its board,
-checks package names and explicit values, and reports routing/layer/polygon
-metadata. It is read-only and reports mismatches with a nonzero exit code.
-It does not run DRC, prove completion of routes, or certify layout suitability.
-KiCad reference-pair inspection and automatic live-search providers are not
-implemented in this command. Unsupported sources require explicit inspection;
-they must never silently count as inspected or validated.
-
-Keep four statuses separate in the review: **searched**, **archived**,
-**inspected**, and **compared/validated within a stated scope**. Missing
-reference designs or unavailable layout files remain visible findings during
-drafting; release review must address coverage and unresolved comparisons.
-
-Use this trust order:
-
-1. Manufacturer datasheet, integration manual, EVM, or application note.
-2. Proven open-hardware CAD from vendors such as Adafruit or SparkFun.
-3. Teaching or community material for rationale, never as sole pin-level
-   authority.
-4. Symbol, footprint, and 3D-model libraries as implementation inputs that
-   still require verification.
-
-The datasheet outranks a reference design. Modules often need both a component
-datasheet and an integration or socket pinout manual. Archive the exact bytes,
-source URL, retrieval date, part identity, and document role before citing a
-fact. Reject HTML login or error pages masquerading as PDFs.
-
-Use the unified research command for archive verification, collection, and
-exact extraction from supported CAD sources:
+Datasheets, reference schematics, and reference PCB layouts are three separate
+deliverables. Search manufacturer EVMs and integration guides, then credible
+open hardware. Record query, date, exact part/variant, source URL, what was
+unavailable, and the reason a reference applies or does not apply in the
+board's `REFERENCE_REVIEW.md`. Archive exact source bytes and provenance in
+`evidence/`; the datasheet outranks a conflicting reference design.
 
 ```powershell
 uv run pcb-copilot research projects/baro-bmp390 --verify
-uv run pcb-copilot research projects/baro-bmp390 --add BMP390 https://example.invalid/manufacturer-document.pdf --role datasheet
+uv run pcb-copilot research projects/baro-bmp390 --search-plan BMP390
 uv run pcb-copilot research projects/baro-bmp390 --extract BMP390
+uv run pcb-copilot research projects/baro-bmp390 --inspect-reference SCHEMATIC_ID PCB_ID
 ```
 
-The example URL illustrates syntax only and must not be archived. `--verify`
-is read-only and verifies the indexed bytes, hashes, media types, and source
-URLs; board-level coverage remains enforced by `check_research.py` and
-`check_datasheets.py`. `--extract` prints cited exact facts when a supported
-Eagle schematic is present, lists PDFs and other sources that still need human
-review, surfaces conflicts, and proposes `DESIGN_BASIS.md` rows without editing
-that file. Use `--trust-tier` when the default `manufacturer` classification is
-not accurate.
+`--verify` checks indexed bytes, hashes, media types, and URLs—not source
+completeness. `--search-plan` proposes queries; it does not search the web.
+`--extract` reports supported cited CAD facts and items needing human review.
+`--inspect-reference` compares an archived Eagle schematic/board pair's pad
+membership, packages, and explicit values. It does not prove routing quality,
+return paths, RF behavior, mechanical fit, or suitability for this board.
+Keep “searched”, “archived”, “inspected”, and “compared” distinct. Record any
+adopted design choice and its source in `DESIGN_BASIS.md`.
 
-Compatibility commands remain available during migration:
+## 3. Preview or update the current schematic
+
+Edit `schematic-intent.yaml` only from reviewed circuit facts. Every connected
+pin, explicit no-connect, reference, value, and footprint needs a deliberate
+contract. Preview first:
 
 ```powershell
-uv run python scripts/collect_references.py suggest BMP390
-uv run python scripts/collect_references.py add projects/baro-bmp390 BMP390 https://example.invalid/manufacturer-document.pdf
-uv run python scripts/fetch_reference_doc.py eagle projects/baro-bmp390/evidence/files/BMP390_Adafruit_20BMP390.sch BMP390
-uv run python scripts/check_research.py projects/baro-bmp390/baro-bmp390.kicad_pcb
+uv run pcb-copilot update-schematic projects/baro-bmp390 --intent projects/baro-bmp390/schematic-intent.yaml
 ```
 
-Research is advisory while drafting and blocking when release readiness is
-evaluated.
+The command generates a temporary candidate, runs structural review, KiCad
+ERC/PDF export, and exact schematic/PCB connectivity parity, then reports
+findings and preview paths. It does not edit the root design without `--apply`.
+Inspect every PDF sheet in KiCad as well as ERC; the graphical collision
+diagnostic checks only supported power glyph/text geometry.
 
-Record key comparisons in `DESIGN_BASIS.md`: our choice, reference choice,
-source, and `Match` or `Deviate: reason`. A reasoned deviation is valid; an
-implicit difference is not.
+When you deliberately want the checked candidate to become the current
+working schematic, rerun with `--apply`. A failed generation or validation
+leaves current files unchanged. A successful apply updates the root schematic
+and `netmap.json` transactionally and sets lifecycle to `DRAFT`, not human
+reviewed. For a hierarchical change that only renames PCB nets while retaining
+exact pad membership, add `--reconcile-board-names`; it checks native KiCad
+parity and preserves project net-class settings. It refuses changed pin groups
+or rule values. This is for name reconciliation, not circuit redesign.
 
-## 4. Draft the schematic
+You may also edit the current root KiCad design directly. The tool does not
+infer or adopt those manual edits into intent automatically; reconcile intent,
+netmap, and PCB, then rerun appropriate checks. Use Git for history and
+rollback. Generated `.pcb-copilot/preview/` reports are local aids, not the
+design to open or an approval record.
 
-During the remake, accepted schematics stay untouched until explicit
-acceptance. Generate a draft from a reviewed intent file with:
+## 4. Layout remains a proposal workflow
 
-```powershell
-uv run pcb-copilot draft-schematic projects/baro-bmp390 --intent projects/baro-bmp390/schematic-intent.yaml
-```
-
-The command prints a JSON report with the draft ID and artifact paths under
-`.pcb-copilot/drafts/`. It preserves the source intent beside `preview.pdf`,
-`erc.json`, `metrics.json`, and `review.json`. An exit code of 1 indicates
-blocking machine findings; the draft remains available for inspection. Missing
-or mismatched pin-map citations are explicit review advisories during drafting
-and acceptance; evidence requirements remain blocking at release. A failed PDF or ERC
-export is recorded as a failure and does not discard the schematic.
-
-For a generic part without verified pin-map evidence, set
-`pin_map_evidence_id: null` and supply a substantive `pin_map_review_note`.
-Do not borrow an unrelated IC's citation to suppress the finding. The renderer
-still validates all actual library pins against connected and explicit NC
-assignments, even when the intent omits its optional pin inventory.
-
-The draft must include functional blocks, local drawn wires, graphical power
-symbols, boundary labels, complete titles, explicit no-connects, evidence
-references, ERC output, quality metrics, and a rendered PDF. Hierarchy is used
-when a sheet would otherwise be crowded; TMS V3 is the required multi-sheet
-proof case.
-
-Review the rendered page, not only ERC. Confirm flow, grouping, symbol and pin
-identity, values, power paths, labels, page boundaries, and readable spacing.
-ERC proves only the rule set that it implements.
-
-The preview also reports suspected stock power-glyph contacts with other power
-glyphs or visible power Value/local/hierarchical labels. These are conservative
-review advisories, not electrical blockers or automatic repairs. Each finding
-identifies its sheet and symbol/label (and directly attached component pin when
-available). Bounds use millimetres from the sheet's lower-left corner, unlike
-KiCad's top-left file coordinates: the checker preserves file X and transforms
-Y to `sheet_height - file_Y` before computing bounds. Unsupported geometry
-produces an explicit `power-clearance-unchecked` advisory. No findings does not
-establish complete graphical clearance: wires, pin names and ordinary component
-fields are outside this diagnostic's scope.
-
-### Edit a draft and refresh its review
-
-Open the root schematic inside `.pcb-copilot/drafts/DRAFT_ID/` in KiCad and
-make your edits there, not in the accepted project. Save any changed child
-sheets, then close or stop editing them while the review runs:
-
-```powershell
-uv run pcb-copilot review-draft projects/baro-bmp390 DRAFT_ID
-```
-
-Replace `DRAFT_ID` with the original draft ID. This command checks the existing
-root and child schematics and refreshes PDF, ERC, metrics and `review.json`.
-It does not rerun the schematic generator or overwrite your CAD edits. The
-original accepted-base hashes stay in force: if the accepted design has
-changed, review refuses the stale draft instead of silently rebasing it.
-
-The saved draft `schematic-intent.yaml` remains the connectivity contract.
-Changed pin/net membership or incompatible net names produce blocking findings;
-the command never updates intent to disguise a mismatch. This comparison does
-not validate every part value, footprint, symbol identity or no-connect marker.
-Inspect those explicitly, and reconcile deliberate circuit changes with the
-reviewed intent before acceptance. Generated reports are replaced on refresh;
-keep durable review notes in the project's review record, not only in generated
-JSON. Human review returns to `pending`, and accepted files and lifecycle state
-remain unchanged.
-
-An interrupted or failed refresh is not approval. Inspect the reported failures,
-correct the cause, and run `review-draft` again. Do not edit hashes or reuse an
-older PDF to bypass a changed-artifact check. Review the refreshed PDF before
-running the separate `accept` command.
-
-## 5. Draft placement and routing
-
-Resolve and measure the real footprint before choosing coordinates. Place
-fixed mechanical items first, then ICs/modules, decoupling, clocks, protection,
-connectors, and remaining passives. Evaluate placement before blaming an
-autorouter: moving a major module can improve completion more than extra route
-passes.
-
-Create a layout proposal from a reviewed layout intent:
+The package can inspect real footprints, check placement constraints, and
+generate isolated PCB proposals from `layout-intent.yaml`:
 
 ```powershell
 uv run pcb-copilot draft-layout projects/baro-bmp390 --intent projects/baro-bmp390/layout-intent.yaml --route human
 ```
 
-The command publishes an isolated PCB, companion project settings, complete
-schematic snapshot, placement/constraint/route reports, fresh DRC, SVG plot and
-STEP when available. Accepted CAD is untouched. The intent file must already
-exist; board-specific layout intent preparation and actual human review remain
-separate checkpoints.
+This command does not update the root PCB. The proposed boards are not
+fabrication candidates merely because placement or DRC checks run. In
+particular, the retained root PCBs have routing that the newer placement
+proposals do not preserve. A single transactional `update-layout` command
+with non-regression, routing, DRC, and visual gates is still missing. Do not
+copy an unrouted proposal over a routed current PCB. Human review must cover
+decoupling/return paths, connectors, mechanical access, RF, thermal, copper
+widths, pours, silkscreen, and assembly.
 
-The routing policy comes from intent (`human` by default). Human routing starts
-no router; its route metrics are `unknown` until measured. `critical_only`
-currently reports unsupported selective routing without running it.
-`candidate_all` runs optional attempts and copies the selected measured attempt
-and its companion settings into the review board, retaining attempts for
-comparison. Missing Java/Freerouting and failed attempts remain explicit limits.
-Selection does not approve a board.
+## 5. Review and release boundary
 
-Edit the draft PCB in KiCad and run `review-draft PROJECT_PATH DRAFT_ID` to
-re-measure current geometry and refresh exports without replacing positions
-or copper. It preserves the original accepted-base snapshot and invalidates any
-previous preview approval. Historical placement search failures are separated
-from current measurements; unresolved identity/provenance constraints remain
-visible. Changes to intent, companion rules or authored zone boundaries require
-a new constraint proposal; do not edit generated hashes to bypass this check.
+There is not yet one complete `pcb-copilot review` or `release` command. The
+legacy gate scripts remain in the repository as implementation dependencies
+and characterization references, but they are not the recommended build
+pipeline. Do not run the full legacy `scripts/pipeline.py` on a current board:
+its generator stages can overwrite root CAD before its draft-only routing
+boundary rejects the route. Never equate a green ERC, DRC, or parity result
+with engineering approval. The board's `SIGNOFF.md` records human work still
+required; unchecked or stale items block responsible fabrication.
 
-Machine failures are separate from engineering warnings. Unconnected airwires
-are review findings at placement acceptance; physical DRC errors, parity failures,
-placeholders, missing required previews and stale inputs block acceptance.
-Routing must be completed before release. STEP exporter logs are retained in
-`export-report.json`; nonzero export with a usable file is partial output.
-Even a successful STEP export does not prove complete component models or fit.
-Inspect the board in
-KiCad and 3D view. Check connector access, mounting, return paths, decoupling,
-crystal/RF geometry, high-current paths, copper pours, silkscreen, assembly,
-and mechanical fit.
+If you run `scripts/selftest_enforcement.py`, use a disposable repository
+copy. It injects faults by temporarily changing evidence files and board
+timestamps; interruption could leave those files changed.
 
-The legacy `scripts/route_and_fill.py` and `scripts/route_best_of.py` wrappers accept
-only published layout-draft PCB paths. They use the shared candidate pipeline;
-zero DRC/unconnected counts still require engineering and human preview review.
-
-## 6. Review and accept
-
-The final command surface separates three categories:
-
-- machine failures: deterministic checks or tools could not establish a fact;
-- engineering warnings: a condition needs judgment or measured inputs;
-- human decisions: project-specific sign-off that automation cannot perform.
-
-Acceptance is explicit and stale-safe. A draft records the schematic and PCB
-hashes it started from; acceptance refuses it if either accepted design changed
-in the meantime. Layout snapshots also cover companion project settings and
-custom rules. Schematic acceptance updates schematic CAD and derived
-connectivity; layout acceptance updates PCB CAD and reviewed companion settings.
-
-For a layout draft, the human operator first inspects SVG, KiCad/3D and reports,
-then records their own preview attestation:
-
-```powershell
-uv run pcb-copilot approve-layout-preview projects/baro-bmp390 DRAFT_ID --reviewer "Your name" --confirm-preview
-```
-
-This attestation is bound to current artifacts and review bytes. It is a
-separate action from machine checks and is never issued automatically by an
-assistant. Refreshing the review or changing any reviewed input invalidates it.
-Acceptance retains recoverable backups and records the accepted PCB SHA256.
-It does not establish release, manufacturing approval or routing completion.
-
-After inspecting the preview (and recording approval for layouts), accept its ID:
-
-```powershell
-uv run pcb-copilot accept projects/baro-bmp390 DRAFT_ID
-```
-
-Replace `DRAFT_ID` with the ID printed by `draft-schematic`. Acceptance checks
-the original files, preview artifact hashes, and intent
-versus KiCad netlist. It installs the root and child sheets, refreshes
-`netmap.json`, marks schematic ownership human, and records the reviewed file
-hashes. PCB bytes are unchanged. Changed child sheets invalidate review state.
-Moving a flat local net into a child sheet can add a KiCad sheet-name prefix.
-Comparison permits that only when the entire physical pin group is identical;
-split nets, shorts, missing pins and unrelated renames still fail. Acceptance
-retains KiCad's actual qualified names in `netmap.json`. It does not rename PCB
-nets: reconcile those explicitly and rerun schematic/PCB parity before release.
-Acceptance records outstanding evidence findings without treating them as
-release approval.
-If you edit a draft after its last review, run `review-draft` and inspect its
-new preview first; re-running `draft-schematic` creates a new generated draft
-and does not incorporate your manual CAD edits.
-Backups and a transaction record remain under `.pcb-copilot/acceptances/ID`.
-Ordinary write failures roll back completed replacements. If the process is
-interrupted, a remaining `accept.lock` means the transaction needs recovery
-from that backup before retrying; do not simply delete the lock.
-
-Use the existing gate runner and sign-off files for release review.
-A checked box requires reviewer identity and date. Never bulk-check a review
-form. The review is evidence that an activity happened, not proof that the
-human conclusion was correct.
-
-## 7. Release and fabricate
-
-The unified release command is planned in Plan 5, not implemented yet. Its
-required behavior is to run the complete check registry even after one check
-fails, validate hash-bound sign-off, and generate fabrication output
-transactionally. Output
-must record accepted design hashes, Git revision, tool versions, reviewer,
-review results, and hashes of all generated files.
-
-For the compatibility pipeline, fabrication remains the last stage:
-
-```text
-env → research → sch → erc → pcb → route → gates → fab
-```
-
-Before ordering, independently inspect the Gerber viewer, drill set, BOM, CPL,
-layer stack, copper weight, board thickness, finish, polarity, rotations, and
-mechanical dimensions. Fabrication files are derived artifacts, never design
-authority.
-
-## 8. Declare deviations narrowly
-
-Put each waiver under `## Declared` in `DEVIATIONS.md`:
-
-```text
-U1.5 | 2.2 | Pin 5 is a configuration input, not a supply pin.
-```
-
-The scope identifies one numbered rule or one evidence gate such as
-`reference`, `basis`, or `datasheet`. A waiver never excuses unrelated checks.
-Struck-out rows are withdrawn. `scripts/deviations.py` remains the only parser
-until it is moved intact behind the package API.
-
-## 9. Diagnose the right question
-
-```powershell
-uv run python scripts/selftest_enforcement.py
-uv run python scripts/run_gates.py projects/baro-bmp390/baro-bmp390.kicad_pcb
-uv run python scripts/audit_workflow.py
-```
-
-- The self-test asks whether enforcement is wired and can actually fail.
-- The gate runner asks whether one board passes the implemented checks.
-- The audit asks whether promised workflow controls are present across boards.
-
-Do not substitute one answer for another. See [Architecture](ARCHITECTURE.md)
-and [Limitations](LIMITATIONS.md).
+See [Limitations](LIMITATIONS.md) for board-specific open questions and
+[Design rules](DESIGN_RULES.md) for the implemented versus human rule scope.

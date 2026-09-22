@@ -1,205 +1,98 @@
-# PCB Copilot Architecture
+# Architecture and project format
 
-PCB Copilot is an evidence-backed assistant around human-owned KiCad designs.
-Its architecture follows one rule: a documented check is useful only when the
-workflow invokes it and a fault test proves that it can fail.
+The product boundary is the `pcb-copilot` CLI in `src/pcb_copilot/`. The four
+root KiCad projects in `projects/` are the current designs. Their evidence,
+requirements, intent, and human decisions are inputs or review records—not a
+second accepted CAD tree. Git is the durable history.
 
-## Authority and mutation boundary
+## Authority and data flow
 
-Accepted `.kicad_sch` and `.kicad_pcb` files are the electrical and physical
-sources of truth. Requirements and explicit owner decisions define intended
-behavior. Evidence supports design choices; generators and reports are derived
-artifacts.
-
-Read-only operations may inspect accepted files. Generators write separate
-drafts under `.pcb-copilot/drafts/`. Acceptance verifies the draft's recorded
-base hashes and atomically changes only the requested accepted artifact.
-Release requires current review and sign-off bound to both accepted hashes.
+Requirements and owner decisions define the intended behavior. Exact archived
+datasheets and reference designs support it. The typed schematic/layout intent
+files describe proposed changes. The root KiCad files are the working electrical
+and physical designs; `netmap.json` is a versioned connectivity review diff.
+Generated previews and reports under ignored `.pcb-copilot/` are local output.
 
 ```text
-requirements + evidence
-          |
-          v
-   typed design intent
-          |
-          v
-transactional draft --> preview + checks --> human acceptance
-                                                 |
-                                                 v
-                                      accepted KiCad design
-                                                 |
-                                                 v
-                                     full review + sign-off
-                                                 |
-                                                 v
-                                      fabrication package
+requirements + cited evidence + human decisions
+                    ↓
+            explicit design intent
+                    ↓
+          temporary candidate + checks
+                    ↓  explicit --apply, if gates pass
+              root KiCad design
+                    ↓
+          human review and bench work
+                    ↓
+          future release interlock
 ```
 
-## Preserved implementation
+`update-schematic` uses a temporary copy, renders PDF/ERC/metrics, verifies
+intent and PCB pin-net parity, then replaces the current schematic and netmap
+through a rollback-capable transaction. TMS's optional net-name reconciliation
+also changes PCB name fields and `.kicad_pro` class patterns in that same
+transaction. It compares native before/after rule values; unchanged copper
+geometry is not mistaken for a finished layout. Applying a design change
+invalidates prior review/release state and leaves lifecycle `DRAFT`.
 
-The remake wraps proven behavior before relocating it:
+The layout package has real-footprint, placement, constraint, routing-candidate,
+preview, and DRC helpers, but the public current-file `update-layout` and
+unified review/release gates are unfinished. The legacy script tree is still
+present where its behavior or callers have not moved. It is not an alternate
+recommended pipeline.
 
-- `scripts/pipeline.py`: fixed stage order, advisory research, fabrication
-  interlock, canonical hashes, repeatability, and ownership tripwire.
-- `scripts/run_gates.py` and checks: evidence, datasheet, ERC, geometry,
-  design-rule, DRC, sign-off, and fabrication decisions.
-- `scripts/selftest_enforcement.py`: wiring and fault-injection philosophy.
-- `scripts/deviations.py`: the single scoped-waiver parser.
-- `scripts/extract_netmap.py` and `scripts/check_netlist_parity.py`: connectivity
-  derivation and schematic/PCB agreement.
-- `scripts/schematic_layout_helpers.py`: symbol placement, pin coordinates,
-  power symbols, grid handling, and label congestion/crossing protection.
-- `scripts/pcb_layout_helpers.py`: coordinate transforms, measured extents,
-  placement tracking, and collision checks.
-- Routing and fabrication scripts: best-of attempts, zone fill, ground
-  bonding, stitching, annular repair, fresh DRC, and manufacturing export.
-- `tools/kicad-claude-mcp`: tested KiCad editing, hierarchy, routing, sourcing,
-  rules, and manufacturing primitives.
-
-Characterization tests and the four-board baseline protect these behaviors.
-No compatibility path is removed until its package replacement has equivalent
-outputs and zero live callers.
-
-## Package boundaries
-
-`src/pcb_copilot` is the stable API and CLI boundary. Three package areas
-exist today:
-
-**Foundation**
-
-- `project`: safe manifest loading and path containment;
-- `models`: project and lifecycle types;
-- `state`: canonical hashes, effective lifecycle, ownership, and draft safety;
-- `toolchain`: portable KiCad/kipython/router discovery;
-- `migration`: preservation inventory and board baselines;
-- `status`: read-only operator status;
-- `drafts`: deterministic draft records and atomic publication;
-- `accept`: stale-safe schematic acceptance and rollback.
-
-**Evidence** (`evidence`)
-
-- archive and index: byte-sniffed, hashed evidence storage;
-- checks and models: typed roles, trust tiers, coverage findings, and scoped
-  evidence waivers;
-- commands and extraction: verification, collection, cited Eagle extraction,
-  PDF page rendering, and explicit unsupported-source findings;
-- references and migration: search plans, Eagle schematic/board comparison,
-  and legacy archive migration.
-
-**Schematic drafts** (`schematic`)
-
-- typed YAML intent and pin-coverage validation;
-- hierarchy, local wiring, power-symbol and field placement;
-- KiCad rendering, PDF/ERC preview, quality metrics, and intent/netlist
-  comparison.
-
-**Layout foundations** (`layout`)
-
-- verified real-footprint resolution and measured pad/courtyard geometry;
-- frozen, versioned YAML intent for explicit placement regions, footprint
-  anchors, near-pad relationships, net classes, zones, critical physical
-  inputs, unresolved owner decisions, and routing policy.
-
-The reviewed layout CLI supports isolated `draft-layout` proposals, native
-geometry/constraint checks, previews and human-controlled routing policy.
-Plan 4 board intents are being migrated; actual schematic/PCB human review
-and acceptance remain pending. Plan 5 unified review and release/fabrication
-packages remain planned. Legacy gate/fabrication scripts remain compatibility
-tools, not evidence of completed release integration or board approval.
-
-## Enforcement tiers
-
-| Tier | Mechanism | Role |
-| --- | --- | --- |
-| 0 | registered blocking checks | decides release readiness |
-| 1 | package invariants | prevents unsafe writes and invalid state |
-| 2 | contextual rules/hooks | timely advice and feedback |
-| 3 | human documentation | explanation and judgment support |
-
-Hooks are not trusted merely because files exist. Synthetic events must prove
-that matchers and entry points fire. Every new blocking check needs a fault
-case that mutates a temporary project and observes the expected failure.
-
-## Three assurance questions
-
-The compatibility tools answer different questions:
-
-```powershell
-uv run python scripts/selftest_enforcement.py
-uv run python scripts/run_gates.py projects/baro-bmp390/baro-bmp390.kicad_pcb
-uv run python scripts/audit_workflow.py
-```
-
-1. Is the enforcement machinery wired, and can it fail?
-2. Does this board pass the currently implemented checks?
-3. Were promised workflow controls actually exercised across boards?
-
-The audit calls real gate functions. It must not reimplement their logic and
-produce a second answer.
-
-## Review model
-
-Findings are separated into machine failures, engineering warnings, and human
-decisions. Each check states what it proves and does not prove. Review runs the
-entire registry even after an early failure so one problem does not hide the
-rest of the work.
-
-The current compatibility pipeline order is:
+## A board directory
 
 ```text
-env -> research -> sch -> erc -> pcb -> route -> gates -> fab
+projects/BOARD/
+  project.yaml             path and lifecycle declaration
+  BOARD.kicad_sch          current schematic; child sheets beside it
+  BOARD.kicad_pcb          current board
+  BOARD.kicad_pro          KiCad rules and project settings
+  netmap.json              versioned connectivity comparison
+  schematic-intent.yaml   reproducible proposed circuit
+  layout-intent.yaml      reproducible proposed placement/rules
+  REQUIREMENTS.md          human-owned purpose and limits
+  DESIGN_BASIS.md          sourced design choices and disagreements
+  REFERENCE_REVIEW.md      schematic and PCB reference research
+  DEVIATIONS.md           narrow rule/evidence waivers
+  SIGNOFF.md              outstanding human checks
+  evidence/index.yaml     source provenance, roles, and hashes
+  evidence/files/         exact archived source bytes
 ```
 
-Research is advisory while work is exploratory and blocking at release.
-Fabrication runs only after all release conditions pass.
+The `project.yaml` schema is version 1. Design and evidence paths are relative
+to the board directory; the loader rejects escapes and unknown fields.
+Lifecycle values are `DRAFT`, `HUMAN_REVIEWED`, and `RELEASED`, but effective
+state also checks recorded design hashes. KiCad UUID tokens are masked for
+canonical design hashes so regenerated identifiers do not masquerade as
+electrical edits. Hash equality is not semantic equivalence: native parity,
+ERC/DRC, source inspection, and human review answer different questions.
 
-## Scoped deviations
+Evidence files retain downloaded bytes; `.gitattributes` prevents line-ending
+conversion under `evidence/files/`. Source provenance and hashes must survive
+a Windows checkout. A reference schematic, reference PCB, and datasheet are
+different evidence roles. Archive integrity alone does not establish coverage
+or applicability.
 
-`scripts/deviations.py` is the only waiver parser until moved intact. It reads
-only rows below `## Declared`, ignores withdrawn rows, and matches scope. A
-waiver of decoupling rule `2.2` on one pin cannot excuse missing evidence,
-parity, or another component.
+## Code boundaries and checks
 
-## Connectivity and hashes
+- `evidence/` verifies archives and exposes cited extraction and reference
+  comparison with explicit unsupported-source findings.
+- `schematic/` validates intent, renders functional blocks/hierarchy, checks
+  power-symbol clearance, previews in KiCad, and compares native netlists.
+- `layout/` resolves real geometry and produces placement/constraint/routing
+  proposals without making them current boards.
+- `state.py`, `status.py`, and `accept.py` enforce hash freshness, report the
+  effective lifecycle, and roll back multi-file schematic updates.
+- `tools/kicad-claude-mcp/` is a tested local KiCad dependency until its active
+  APIs can be moved to a smaller package.
 
-`netmap.json` remains versioned because a Git diff of it is a reviewable
-connectivity diff. It is not deleted until an equally reviewable semantic
-replacement exists. Parity asks whether schematic and PCB agree; it does not
-decide which side is correct.
+The existing rule checker implements only a subset of the numbered house
+rules; [Design rules](DESIGN_RULES.md) marks that scope. The deviation parser
+reads only declared, non-withdrawn rows and never turns a narrow exception
+into blanket approval. A parity pass proves the schematic and board agree,
+not that either describes the right circuit.
 
-Canonical design hashes mask generated KiCad UUIDs before SHA-256. This avoids
-false staleness while retaining content drift detection. Hash equality does
-not replace semantic checks.
-
-## Coordinates and footprint geometry
-
-All design/MCP/KiCad conversion uses one helper implementation. Inline Y-axis
-conversion repeatedly caused plausible-looking but wrong placement. Actual
-footprint pads and courtyards are measured before coordinates are selected;
-notably, a 1xN header's origin is pin 1 rather than its center.
-
-## Known PCB encoding deviation
-
-Current boards contain short pad nets such as `(net "GND")` without a numeric
-net table. KiCad accepts and resolves them, but external parsers may not. A GUI
-save can normalize the entire file and create a large diff. Connectivity
-checks should use KiCad/pcbnew or the tested parser boundary rather than an
-unreviewed regex.
-
-## Recurring defect classes
-
-- check that cannot fail;
-- template that satisfies its own gate;
-- orphaned tool with no real caller;
-- waiver broader than its stated scope;
-- second parser or second build path that disagrees;
-- fix applied to one board but not propagated;
-- gate reading stale output after a failed tool;
-- nondeterministic result presented as stable.
-
-The controls are fault injection, non-empty scaffolds, caller inventory,
-single implementations, four-board regression, delete-before-generate output
-handling, and repeated measurements.
-
-See [Workflow](WORKFLOW.md), [Design rules](DESIGN_RULES.md),
-[Project format](PROJECT_FORMAT.md), and [Limitations](LIMITATIONS.md).
+See [Workflow](WORKFLOW.md) for operator commands and
+[Limitations](LIMITATIONS.md) for the engineering boundary.

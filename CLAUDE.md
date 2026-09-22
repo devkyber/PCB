@@ -1,26 +1,25 @@
 # PCB Copilot Workspace Instructions
 
 This repository builds a human-controlled PCB assistant. The human owns the
-requirements, accepted KiCad designs, unresolved engineering choices, visual
+requirements, current KiCad designs, unresolved engineering choices, visual
 review, bench validation, and release decision. Automation performs evidence
 collection, drafting, consistency checks, and repeatable packaging.
 
 ## Read first
 
-- [Purpose and quick start](README.md)
-- [Selected results and progress](docs/PROGRESS.md)
+- [Current designs and quick start](README.md)
 - [Operator workflow](docs/WORKFLOW.md)
 - [Architecture and authority](docs/ARCHITECTURE.md)
 - [Design rules](docs/DESIGN_RULES.md)
 - [Limitations and human responsibilities](docs/LIMITATIONS.md)
-- [Project manifest and state](docs/PROJECT_FORMAT.md)
 
 ## Non-negotiable operating rules
 
 1. Read a project's `REQUIREMENTS.md`, `DESIGN_BASIS.md`, `DEVIATIONS.md`,
    `SIGNOFF.md`, and `project.yaml` before changing its design.
-2. Accepted `.kicad_sch` and `.kicad_pcb` files are sources of truth. Generate
-   only into a separate draft and require explicit acceptance.
+2. Root `.kicad_sch` and `.kicad_pcb` files are the current working sources of
+   truth. Generate into a temporary candidate; change root CAD only through an
+   explicit `--apply` after checks. Applying does not imply human approval.
 3. Never invent missing owner inputs, pin mappings, electrical limits,
    footprints, stackups, currents, or safety conclusions.
 4. Archive exact source bytes and provenance before citing a datasheet or
@@ -42,36 +41,33 @@ uv sync
 uv run pcb-copilot status projects/baro-bmp390
 uv run pcb-copilot research projects/baro-bmp390 --verify
 uv run pcb-copilot research projects/baro-bmp390 --extract BMP390
-uv run python scripts/run_gates.py projects/baro-bmp390/baro-bmp390.kicad_pcb
-uv run python scripts/audit_workflow.py
+uv run pcb-copilot update-schematic projects/baro-bmp390 --intent projects/baro-bmp390/schematic-intent.yaml
+uv run pytest -q -m "not slow and not network"
 ```
 
 Run `uv run python scripts/selftest_enforcement.py` only in a disposable repository
 copy: it temporarily replaces evidence files and touches board modification times.
 
-The old pipeline and helper scripts remain compatibility entry points during
-migration. Read their callers and characterization tests before moving them.
-Delete nothing merely because a replacement is planned; the migration
-inventory must show a verified destination, no live callers, and no behavior
-or factual loss.
+The old pipeline and helpers remain only where behavior or callers have not
+been migrated. Read their callers and characterization tests before removal.
+Delete only after their current behavior and factual content are preserved.
 
 ## Gate Rule during migration
 
-`scripts/pipeline.py --status` remains a legacy summary; the full pipeline is
-mutating and its accepted-PCB routing call is rejected by draft-only wrappers.
-Use the independent draft commands in `docs/WORKFLOW.md`. Evidence archive,
-verification, and supported exact extraction now live behind
-`pcb-copilot research`; the old research scripts remain compatibility wrappers.
-A file existing, a command returning zero, or a generated report from an older
-run is not evidence. Every gate must
-prove it ran against the current design and must have a fault-injection test
-showing that the failure path fires.
+The full `scripts/pipeline.py` is mutating and is not the current workflow; it
+can overwrite root CAD before its draft-only routing boundary rejects the
+route. Use `pcb-copilot` for current work. Evidence archive, verification,
+and supported exact extraction live behind `pcb-copilot research`. A file
+existing, a command returning zero, or an older report is not evidence. Every
+gate must prove it ran against the current design and have a fault test.
 
 ## Current known boundary
 
-Accepted legacy schematics and new drafts are different artifacts. The selected
-drafts have local wiring and junctions; TMS V3 has an overview plus six functional
-sheets. Schematic and PCB human reviews remain pending. Layout drafting currently
-requires the circuit's physical parts on an existing PCB; GNSS/TMS placement
-blockers remain. Do not call a board finished because it opens or passes ERC/DRC.
-Consult [Limitations](docs/LIMITATIONS.md) and leave unresolved decisions visible.
+All four root schematics now contain the improved working drawings. TMS V3 has
+an overview plus six functional sheets, and its routed board retains its
+geometry after exact net-name/class reconciliation. Human schematic and PCB
+reviews remain pending. Layout drafting requires physical parts on an existing
+PCB; it does not replace the rooted routed boards. GNSS/TMS layout blockers
+remain, as do TMS safety decisions. Unified `review`, `update-layout`, and
+`release` are not implemented. Consult [Limitations](docs/LIMITATIONS.md) and
+never call a board finished merely because it opens or passes ERC/DRC.

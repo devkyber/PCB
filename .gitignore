@@ -37,12 +37,9 @@ fp-info-cache
 *.ses
 erc-check.json
 
-# Regenerated tool output — rewritten by every gate run, so tracking them
-# means the tree is never clean and every STATUS.md records provenance as
-# "<commit>+dirty" against a commit that no longer describes the board.
-# STATUS.md and PIPELINE.json stay tracked: those ARE the provenance.
-# netmap.json stays tracked too — it is the schematic->PCB connectivity
-# contract, and a git diff of it is a diff of the board's netlist.
+# Regenerated check output is local. Legacy tracked STATUS.md and
+# PIPELINE.json are migration leftovers, not current design authority;
+# netmap.json remains tracked as a reviewable connectivity contract.
 projects/*/drc-report.json
 projects/*/erc-report.json
 projects/*/*.route-report.json
