@@ -44,13 +44,20 @@ def test_accept_rejects_changed_previewed_child(reviewed_candidate):
         accept_schematic(project, draft)
 
 
-def test_accept_hierarchy_records_review_without_changing_pcb(reviewed_candidate):
+def test_accept_hierarchy_awaits_human_review_without_changing_pcb(reviewed_candidate):
     project, draft = reviewed_candidate
     pcb = project.pcb_path.read_bytes()
     original = project.schematic_path.read_bytes()
+    state_dir = project.root / '.pcb-copilot'
+    (state_dir / 'release.json').write_text(
+        json.dumps({'lifecycle': 'RELEASED', 'schematic_hash': 'old', 'pcb_hash': 'old'}),
+        encoding='utf-8',
+    )
     result = accept_schematic(project, draft)
-    assert result.lifecycle == Lifecycle.HUMAN_REVIEWED
-    assert effective_lifecycle(project) == Lifecycle.HUMAN_REVIEWED
+    assert result.lifecycle == Lifecycle.DRAFT
+    assert effective_lifecycle(project) == Lifecycle.DRAFT
+    assert not (state_dir / 'release.json').exists()
+    assert json.loads((state_dir / 'review.json').read_text())['lifecycle'] == 'DRAFT'
     assert project.pcb_path.read_bytes() == pcb
     assert (project.root / 'sensor.kicad_sch').is_file()
     assert json.loads(project.netmap_path.read_text())['nets']['U1']['7'] == 'DATA_READY'
@@ -90,3 +97,27 @@ def test_write_failure_rolls_back_every_accepted_file(reviewed_candidate, monkey
     assert all(p.read_bytes() == data for p, data in before.items())
     assert not (project.root / 'sensor.kicad_sch').exists()
     assert not (project.root / '.pcb-copilot/accept.lock').exists()
+
+
+def test_review_write_failure_restores_prior_release(reviewed_candidate, monkeypatch):
+    import pcb_copilot.accept as module
+
+    project, draft = reviewed_candidate
+    state_dir = project.root / '.pcb-copilot'
+    release = state_dir / 'release.json'
+    release.write_bytes(b'{"lifecycle":"RELEASED"}\n')
+    original_schematic = project.schematic_path.read_bytes()
+    original_release = release.read_bytes()
+    replace_bytes = module._replace_bytes
+
+    def fail_review(path, payload):
+        if path == state_dir / 'review.json':
+            raise OSError('injected review write failure')
+        replace_bytes(path, payload)
+
+    monkeypatch.setattr(module, '_replace_bytes', fail_review)
+    with pytest.raises(OSError, match='injected review write failure'):
+        accept_schematic(project, draft)
+    assert project.schematic_path.read_bytes() == original_schematic
+    assert release.read_bytes() == original_release
+    assert not (state_dir / 'accept.lock').exists()

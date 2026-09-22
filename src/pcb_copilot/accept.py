@@ -136,10 +136,11 @@ def accept_schematic(project: Project, draft: DraftRecord) -> AcceptanceResult:
             raise ValueError(f'new child would overwrite an unrelated file: {relative}')
     changes[project.netmap_path] = (json.dumps(netmap, indent=2) + '\n').encode()
     changes[project.root / 'SCHEMATIC_OWNER'] = b'human\n'
-    _accept_changes(project, draft, changes, check_base, evidence_findings)
+    _accept_changes(project, draft, changes, check_base, evidence_findings,
+                    lifecycle=Lifecycle.DRAFT)
     return AcceptanceResult(DraftKind.SCHEMATIC, project.schematic_path,
                             canonical_design_hash(project.schematic_path),
-                            project.netmap_path, Lifecycle.HUMAN_REVIEWED)
+                            project.netmap_path, Lifecycle.DRAFT)
 
 
 def accept_layout(project: Project, draft: DraftRecord) -> AcceptanceResult:
@@ -168,9 +169,11 @@ def accept_layout(project: Project, draft: DraftRecord) -> AcceptanceResult:
                             project.netmap_path, Lifecycle.HUMAN_REVIEWED)
 
 
-def _accept_changes(project, draft, changes, check_base, evidence_findings):
+def _accept_changes(project, draft, changes, check_base, evidence_findings,
+                    *, lifecycle=Lifecycle.HUMAN_REVIEWED):
     """Shared backup/journal/rollback transaction for explicitly accepted CAD."""
     state_path = project.root / '.pcb-copilot/review.json'
+    release_path = project.root / '.pcb-copilot/release.json'
     backup = project.root / '.pcb-copilot/acceptances' / draft.id
     lock = project.root / '.pcb-copilot/accept.lock'
     # A persistent lock on interruption prevents a second partial transaction.
@@ -182,7 +185,7 @@ def _accept_changes(project, draft, changes, check_base, evidence_findings):
     try:
         check_base()
         backup.mkdir(parents=True, exist_ok=False)
-        for target in [*changes, state_path]:
+        for target in [*changes, state_path, release_path]:
             before[target] = target.read_bytes() if target.exists() else None
             if target.exists():
                 destination = backup / target.relative_to(project.root)
@@ -198,8 +201,11 @@ def _accept_changes(project, draft, changes, check_base, evidence_findings):
         for target, payload in changes.items():
             _replace_bytes(target, payload)
             applied.append(target)
+        if release_path.exists():
+            release_path.unlink()
+            applied.append(release_path)
         review = {
-            'schema_version': 1, 'lifecycle': Lifecycle.HUMAN_REVIEWED.value,
+            'schema_version': 1, 'lifecycle': lifecycle.value,
             'draft_id': draft.id, 'schematic_hash': canonical_design_hash(project.schematic_path),
             'pcb_hash': canonical_design_hash(project.pcb_path),
             'accepted_files': accepted_file_hashes(project),
