@@ -31,6 +31,10 @@ def main(
     subparsers = parser.add_subparsers(dest="command")
     status_parser = subparsers.add_parser("status", help="show read-only project status")
     status_parser.add_argument("project_path", type=Path)
+    update_parser = subparsers.add_parser('update-schematic', help='preview or apply the current schematic')
+    update_parser.add_argument('project_path', type=Path)
+    update_parser.add_argument('--intent', required=True, type=Path)
+    update_parser.add_argument('--apply', action='store_true')
     draft_parser = subparsers.add_parser('draft-schematic', help='create a schematic draft and review artifacts')
     draft_parser.add_argument('project_path', type=Path)
     draft_parser.add_argument('--intent', required=True, type=Path)
@@ -79,6 +83,16 @@ def main(
         except ProjectFormatError as exc:
             parser.error(str(exc))
         print(render_status(collect_status(project)))
+    elif args.command == 'update-schematic':
+        from pcb_copilot.schematic.update import update_schematic
+        from pcb_copilot.toolchain import ToolchainDiscoveryError
+
+        try:
+            result = update_schematic(load_project(args.project_path), args.intent, args.apply)
+        except (ValueError, OSError, RuntimeError, ToolchainDiscoveryError) as exc:
+            parser.error(str(exc))
+        print(json.dumps(result, indent=2))
+        return result['exit_code']
     elif args.command == 'accept':
         from pcb_copilot.accept import accept_layout, accept_schematic, load_draft
         from pcb_copilot.models import DraftKind

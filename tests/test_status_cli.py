@@ -9,6 +9,7 @@ def test_status_does_not_modify_project(project_copy, tree_hash, capsys):
     assert "Lifecycle: DRAFT" in output
     assert "baro-bmp390.kicad_sch" in output
     assert "baro-bmp390.kicad_pcb" in output
+    assert "Next: pcb-copilot update-schematic" in output
 
 
 def test_status_reports_missing_evidence_index(project_copy, capsys):
