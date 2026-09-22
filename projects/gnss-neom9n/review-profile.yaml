@@ -1,0 +1,37 @@
+schema_version: 1
+items:
+  - id: antenna-choice
+    prompt: Decide and document passive versus active antenna, bias, connector, and actual module variant.
+    rationale: RF topology depends on the installed antenna and module.
+    evidence_refs: [REQUIREMENTS.md, DESIGN_BASIS.md, REFERENCE_REVIEW.md]
+    safety_tags: [rf]
+  - id: rf-layout
+    prompt: Review measured stackup, 50-ohm geometry, return path, keepout, and antenna siting.
+    rationale: Generic DRC cannot establish RF performance.
+    evidence_refs: [DESIGN_BASIS.md, REFERENCE_REVIEW.md]
+    safety_tags: [rf, layout]
+  - id: ldo-headroom
+    prompt: Measure supply, regulator headroom, startup, and thermal margin under expected load.
+    rationale: ERC cannot establish power margin.
+    evidence_refs: [DESIGN_BASIS.md]
+    safety_tags: [power]
+  - id: backup
+    prompt: Verify backup cell chemistry, polarity, charging constraints, and retention requirement.
+    rationale: A valid netlist can still misuse a backup cell.
+    evidence_refs: [REQUIREMENTS.md, DESIGN_BASIS.md]
+    safety_tags: [power]
+  - id: connector
+    prompt: Verify host connector orientation, pinout, and module footprint with physical parts.
+    rationale: Electrical parity cannot establish physical mating.
+    evidence_refs: [REQUIREMENTS.md]
+    safety_tags: [connector, assembly]
+  - id: mechanical
+    prompt: Inspect enclosure, antenna clearance, mounting, silkscreen, and 3D fit.
+    rationale: Board DRC does not include the final enclosure or antenna environment.
+    evidence_refs: [REQUIREMENTS.md]
+    safety_tags: [mechanical]
+  - id: sourcing
+    prompt: Confirm exact orderable module, RF parts, BOM availability, and deviations.
+    rationale: Reference designs do not guarantee selected stock or substitutes.
+    evidence_refs: [DEVIATIONS.md, DESIGN_BASIS.md]
+    safety_tags: [sourcing]

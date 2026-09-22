@@ -56,7 +56,8 @@ def test_workflow_states_current_command_and_unfinished_boundaries(repo_root):
     assert 'root `.kicad_sch`' in workflow
     assert 'Do not copy an unrouted proposal over a routed current PCB.' in normalized
     assert 'pcb-copilot review projects/baro-bmp390' in workflow
-    assert 'Relevant hash-bound human sign-off and transactional `release`' in normalized
+    assert 'review-profile.yaml' in workflow and 'review-signoff.yaml' in workflow
+    assert 'Transactional `release` is not implemented' in normalized
     assert 'disposable repository' in workflow
     for removed in ('pcb-copilot draft-schematic', 'pcb-copilot review-draft',
                     'pcb-copilot accept '):
@@ -68,7 +69,7 @@ def test_limitations_keep_human_level_and_safety_boundary(repo_root):
     normalized = ' '.join(limitations.split())
     assert 'Not reliably or autonomously.' in limitations
     assert 'TMS V3' in limitations and 'Do not fabricate or energize' in normalized
-    assert 'update-layout' in limitations and 'not yet implemented' in limitations
+    assert 'update-layout' in limitations and 'release` is not implemented' in normalized
 
 
 def test_canonical_rules_preserve_legacy_ids_and_exact_checker_scope(repo_root):

@@ -11,6 +11,7 @@ from pathlib import Path
 from pcb_copilot.models import Project
 from pcb_copilot.review.models import CheckResult, CheckScope, FindingKind
 from pcb_copilot.review.schematic_quality import SchematicQualityCheck
+from pcb_copilot.review.signoff import SignoffCheck
 
 _SCOPES = {
     'gate_research': ('indexed source/reference coverage', 'source applicability or completeness'),
@@ -21,7 +22,6 @@ _SCOPES = {
     'gate_placement': ('implemented placement geometry checks', 'assembly or enclosure fit'),
     'gate_design_rules': ('the implemented subset of house design rules', 'all numbered rules'),
     'gate_drc': ('two refilled KiCad DRC runs and unrouted count', 'thermal, RF, or functional behavior'),
-    'gate_signoff': ('dated checklist items recorded', 'review quality or hash-bound approval'),
 }
 
 
@@ -48,6 +48,9 @@ def legacy_checks() -> tuple[LegacyCheck, ...]:
     for _name, function, kind in gates:
         if function.__name__ == 'gate_schematic_quality':
             checks.append(SchematicQualityCheck())
+            continue
+        if function.__name__ == 'gate_signoff':
+            checks.append(SignoffCheck())
             continue
         proves, does_not_prove = _SCOPES[function.__name__]
         checks.append(LegacyCheck(

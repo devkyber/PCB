@@ -1,5 +1,9 @@
 # TMS V3 — human sign-off
 
+> Legacy checklist for old scripts only. The current `pcb-copilot review`
+> reads `review-profile.yaml` and hash-bound `review-signoff.yaml`, not these
+> boxes. Ticking this file does not approve the current design.
+
 Read by `docs/run_gates.py`. Every unchecked box fails the gate.
 
 Checking a box records that the step was **performed**. It does not, and

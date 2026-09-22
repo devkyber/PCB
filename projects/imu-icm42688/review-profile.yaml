@@ -1,0 +1,32 @@
+schema_version: 1
+items:
+  - id: axes
+    prompt: Verify sensor axis orientation and sign convention in the installed assembly.
+    rationale: ERC and DRC cannot verify physical coordinate meaning.
+    evidence_refs: [REQUIREMENTS.md, DESIGN_BASIS.md]
+    safety_tags: [motion_sensor]
+  - id: range
+    prompt: Confirm the selected acceleration and gyro ranges cover the intended motion without saturation.
+    rationale: A valid circuit may still have unusable measurement range.
+    evidence_refs: [REQUIREMENTS.md]
+    safety_tags: [motion_sensor]
+  - id: mounting
+    prompt: Verify mounting rigidity, vibration coupling, board outline, and enclosure clearance.
+    rationale: Placement checks cannot predict the assembled sensor dynamics.
+    evidence_refs: [REQUIREMENTS.md]
+    safety_tags: [mechanical]
+  - id: rail-noise
+    prompt: Measure the IMU supply and local decoupling behavior in the intended host system.
+    rationale: ERC does not establish noise performance.
+    evidence_refs: [DESIGN_BASIS.md]
+    safety_tags: [power]
+  - id: connector
+    prompt: Verify header pin order and orientation against the mating host.
+    rationale: A consistent schematic and PCB can both encode a reversed connector.
+    evidence_refs: [REQUIREMENTS.md]
+    safety_tags: [connector]
+  - id: footprint-bom
+    prompt: Check the exact package, assembly orientation, BOM availability, and deviations.
+    rationale: DRC and archived PDFs do not prove manufacturability.
+    evidence_refs: [DEVIATIONS.md, DESIGN_BASIS.md]
+    safety_tags: [assembly, sourcing]

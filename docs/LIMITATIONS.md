@@ -37,8 +37,10 @@ Whether this saves time in a real owner-led design session remains unmeasured.
 - The design-rule checker covers only 4 of 42 historical numbered sections.
   Current `review` aggregates ten checks but still relies on legacy gate
   implementations; even its per-sheet title/density check does not judge
-  visual flow. Relevant hash-bound human sign-off and transactional `release`
-  are not yet implemented. Do not fabricate from an isolated green result.
+  visual flow. Board-specific hash-bound sign-off is now checked, but no human
+  decisions have been migrated or recorded for the current revisions.
+  Transactional `release` is not implemented. Do not fabricate from an
+  isolated green result.
 
 ## Open decisions by project
 
@@ -57,7 +59,8 @@ Whether this saves time in a real owner-led design session remains unmeasured.
   fabricate or energize the ignition output while these remain unresolved.
 
 Each board's `REQUIREMENTS.md`, `DESIGN_BASIS.md`, `REFERENCE_REVIEW.md`,
-`DEVIATIONS.md`, and `SIGNOFF.md` provide the specific sources and decisions.
+`DEVIATIONS.md`, and `review-profile.yaml` provide the specific sources and
+open decisions. Legacy `SIGNOFF.md` checkboxes are not current approvals.
 The assistant must surface missing inputs, not invent numbers or check boxes.
 
 ## Next implementation work
@@ -67,7 +70,7 @@ The assistant must surface missing inputs, not invent numbers or check boxes.
    native DRC, previews, and non-regression before touching the root board.
 2. Finish `pcb-copilot review` migration: replace legacy gate dependencies,
    give every blocking check a safe fault test, and add on-demand reports.
-3. Add hash-bound project-specific sign-off and `release`, with reproducible
+3. Finish the human-sign-off workflow and add `release`, with reproducible
    fabrication outputs only from the reviewed current design.
 4. Move active legacy checks behind the package CLI, remove duplicate scripts,
    status mirrors, generators, obsolete plans, and local history only after

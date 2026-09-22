@@ -39,6 +39,8 @@ def main(
     current_review_parser = subparsers.add_parser('review', help='check the current root design without changing it')
     current_review_parser.add_argument('project_path', type=Path)
     current_review_parser.add_argument('--format', choices=('text', 'json'), default='text')
+    signoff_parser = subparsers.add_parser('prepare-signoff', help='create an unsigned current-design review worksheet')
+    signoff_parser.add_argument('project_path', type=Path)
     draft_parser = subparsers.add_parser('draft-schematic', help='create a schematic draft and review artifacts')
     draft_parser.add_argument('project_path', type=Path)
     draft_parser.add_argument('--intent', required=True, type=Path)
@@ -114,6 +116,15 @@ def main(
         print(render_review_json(report) if args.format == 'json'
               else render_review_text(report))
         return int(report.blocking)
+    elif args.command == 'prepare-signoff':
+        from pcb_copilot.review.signoff import prepare_signoff
+
+        try:
+            path = prepare_signoff(load_project(args.project_path))
+        except (ValueError, OSError, RuntimeError) as exc:
+            parser.error(str(exc))
+        print(f'Unsigned review worksheet: {path}')
+        return 0
     elif args.command == 'accept':
         from pcb_copilot.accept import accept_layout, accept_schematic, load_draft
         from pcb_copilot.models import DraftKind

@@ -1,5 +1,9 @@
 # Human Sign-Off — gnss-neom9n
 
+> Legacy checklist for old scripts only. The current `pcb-copilot review`
+> reads `review-profile.yaml` and hash-bound `review-signoff.yaml`, not these
+> boxes. Ticking this file does not approve the current design.
+
 Claude can get a board to *"every automated gate passes."* It cannot get it to
 *"correct."* Checking a box here records that the step was **performed** — not
 that it was performed correctly. That distinction is real and is not hidden.

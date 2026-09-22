@@ -37,9 +37,10 @@ invalidates prior review/release state and leaves lifecycle `DRAFT`.
 
 The layout package has real-footprint, placement, constraint, routing-candidate,
 preview, and DRC helpers, but the public current-file `update-layout` and
-unified review/release gates are unfinished. The legacy script tree is still
-present where its behavior or callers have not moved. It is not an alternate
-recommended pipeline.
+transactional release are unfinished. Current `review` runs isolated checks
+and validates hash-bound, board-specific human decisions. Most machine checks
+still call legacy scripts until migration. The legacy script tree is not an
+alternate recommended pipeline.
 
 ## A board directory
 
@@ -56,7 +57,9 @@ projects/BOARD/
   DESIGN_BASIS.md          sourced design choices and disagreements
   REFERENCE_REVIEW.md      schematic and PCB reference research
   DEVIATIONS.md           narrow rule/evidence waivers
-  SIGNOFF.md              outstanding human checks
+  review-profile.yaml     board-specific human questions
+  review-signoff.yaml     optional dated, hash-bound decisions
+  SIGNOFF.md              legacy checklist, not current approval
   evidence/index.yaml     source provenance, roles, and hashes
   evidence/files/         exact archived source bytes
 ```

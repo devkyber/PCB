@@ -23,7 +23,8 @@ follow the new schematic.
 
 Open the root `.kicad_sch` in KiCad; TMS's six child sheets must remain beside
 it. Each board's requirements, design basis, reference review, deviations,
-sign-off, and archived `evidence/` are in its project directory. No board has
+project-specific `review-profile.yaml`, and archived `evidence/` are in its
+project directory. No board has
 complete, hash-bound human sign-off or release approval for its current design.
 
 ## Start here
@@ -50,8 +51,9 @@ that KiCad net-class rules are preserved.
 supported reference schematic/PCB pairs. Search plans are not live searches.
 The current layout tool produces proposals. `review` runs the current checks
 against a disposable project copy and reports blockers and their exact scope;
-it does not approve the design. A single current-file `update-layout`,
-hash-bound sign-off, and `release` are still being built.
+it does not approve the design. The review now requires dated, named decisions
+bound to the current files; none are auto-signed. A single current-file
+`update-layout` and transactional `release` are still being built.
 Do not replace a routed PCB with an unrouted proposal.
 
 For commands and judgment boundaries, read [Workflow](docs/WORKFLOW.md) and

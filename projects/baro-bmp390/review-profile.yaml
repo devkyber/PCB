@@ -1,0 +1,32 @@
+schema_version: 1
+items:
+  - id: sensor-port
+    prompt: Confirm the BMP390 pressure port and any coating or enclosure opening do not obstruct the measurement.
+    rationale: Electrical checks cannot establish pressure access or environmental suitability.
+    evidence_refs: [REQUIREMENTS.md, DESIGN_BASIS.md]
+    safety_tags: [pressure_sensor, mechanical]
+  - id: supply
+    prompt: Measure the actual sensor supply and ripple in the intended host system.
+    rationale: ERC does not establish supply quality or startup margin.
+    evidence_refs: [DESIGN_BASIS.md]
+    safety_tags: [power]
+  - id: connector
+    prompt: Verify connector pin order and orientation against the mating hardware.
+    rationale: A netlist can be consistent while the physical connector is reversed.
+    evidence_refs: [REQUIREMENTS.md]
+    safety_tags: [connector]
+  - id: footprint
+    prompt: Check the BMP390 land pattern, pin 1, and assembly orientation against the exact purchased part.
+    rationale: Library and placement checks cannot verify a physical package.
+    evidence_refs: [DESIGN_BASIS.md]
+    safety_tags: [assembly]
+  - id: mechanical
+    prompt: Inspect outline, mounting, silkscreen, and 3D clearance in KiCad and the enclosure.
+    rationale: DRC does not prove assembly fit.
+    evidence_refs: [REQUIREMENTS.md]
+    safety_tags: [mechanical]
+  - id: sourcing
+    prompt: Confirm the BOM, part variants, stock, and any declared deviations.
+    rationale: Archived datasheets do not prove the selected orderable parts are available.
+    evidence_refs: [DEVIATIONS.md, DESIGN_BASIS.md]
+    safety_tags: [sourcing]

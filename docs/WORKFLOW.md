@@ -9,7 +9,7 @@ release. The current KiCad design is always the root `.kicad_sch`, child sheets,
 
 Start at the [four current projects](../README.md#open-the-current-designs),
 not a hidden draft directory. In the board folder, read `REQUIREMENTS.md`,
-`DESIGN_BASIS.md`, `REFERENCE_REVIEW.md`, `DEVIATIONS.md`, `SIGNOFF.md`, and
+`DESIGN_BASIS.md`, `REFERENCE_REVIEW.md`, `DEVIATIONS.md`, `review-profile.yaml`, and
 `project.yaml`. Open the root KiCad schematic and PCB. Keep any hierarchical
 child sheets beside the root; TMS V3 has six.
 
@@ -111,15 +111,33 @@ and every referenced child sheet, plus the PCB, and states what each check
 does and does not prove. Schematic structural quality now covers every sheet;
 label-heavy sheets produce nonblocking engineering warnings, not a false
 claim of readability. Legacy gate scripts still supply most checks while they
-are migrated. Relevant hash-bound human sign-off and transactional `release`
-are not implemented; the old generic sign-off check is only a dated checklist
-presence check.
+are migrated. The new human check uses board-specific `review-profile.yaml`
+and optional `review-signoff.yaml` records. Each accepted decision needs a
+reviewer, date, note, and the exact current schematic, PCB, and profile hashes;
+old `SIGNOFF.md` ticks do not count. No decision is filled automatically.
+Transactional `release` is not implemented, so review does not create
+fabrication authority.
+
+After reviewing the profile and the actual KiCad design, the human operator
+can prepare an unsigned worksheet:
+
+```powershell
+uv run pcb-copilot prepare-signoff projects/baro-bmp390
+```
+
+This creates `review-signoff.yaml` only if absent and pre-fills current hashes.
+It leaves reviewer, date, decision, and note blank. The responsible human must
+make each decision from actual inspection or measurement; use `accepted` or
+`rejected` and ISO `YYYY-MM-DD` dates. Do not let an assistant sign on the
+human's behalf. Re-run `review` afterward. An edited schematic, PCB, or review
+profile makes prior decisions stale; `prepare-signoff` never overwrites them.
 
 Do not run the full legacy `scripts/pipeline.py` on a current board:
 its generator stages can overwrite root CAD before its draft-only routing
 boundary rejects the route. Never equate a green ERC, DRC, or parity result
-with engineering approval. The board's `SIGNOFF.md` records human work still
-required; unchecked or stale items block responsible fabrication.
+with engineering approval. The board's `review-profile.yaml` lists the human
+work still required; unsigned, rejected, or stale decisions block responsible
+fabrication. The old `SIGNOFF.md` remains only for legacy script compatibility.
 
 If you run `scripts/selftest_enforcement.py`, use a disposable repository
 copy. It injects faults by temporarily changing evidence files and board

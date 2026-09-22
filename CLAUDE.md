@@ -16,7 +16,7 @@ collection, drafting, consistency checks, and repeatable packaging.
 ## Non-negotiable operating rules
 
 1. Read a project's `REQUIREMENTS.md`, `DESIGN_BASIS.md`, `DEVIATIONS.md`,
-   `SIGNOFF.md`, and `project.yaml` before changing its design.
+   `review-profile.yaml`, and `project.yaml` before changing its design.
 2. Root `.kicad_sch` and `.kicad_pcb` files are the current working sources of
    truth. Generate into a temporary candidate; change root CAD only through an
    explicit `--apply` after checks. Applying does not imply human approval.
@@ -70,6 +70,7 @@ geometry after exact net-name/class reconciliation. Human schematic and PCB
 reviews remain pending. Layout drafting requires physical parts on an existing
 PCB; it does not replace the rooted routed boards. GNSS/TMS layout blockers
 remain, as do TMS safety decisions. `review` runs current checks in a disposable
-copy, but hash-bound human sign-off, `update-layout`, and `release` are not
-implemented. Consult [Limitations](docs/LIMITATIONS.md) and
+copy and checks board-specific hash-bound sign-off. No current human decisions
+have been carried over from legacy checkboxes. `update-layout` and `release`
+are not implemented. Consult [Limitations](docs/LIMITATIONS.md) and
 never call a board finished merely because it opens or passes ERC/DRC.
