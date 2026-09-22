@@ -2,13 +2,12 @@
 	(version 20250114)
 	(generator "kicad-claude")
 	(generator_version "0.1")
-	(uuid "bfd5ee5d-0084-4396-b5d1-c0b6ab760dec")
+	(uuid "5c37670d-85bd-4f80-838f-b9440ebafe95")
 	(paper "A4")
 	(title_block
-		(title "BARO-BMP390 - Barometric Pressure Sensor Breakout")
-		(date "2026-08-24")
-		(rev "rev1")
-		(comment 1 "Lee Taeho")
+		(title "BMP390 - 3.3V I2C barometer")
+		(date "2026-09-22")
+		(rev "working-1")
 	)
 	(lib_symbols
 		(symbol "Connector_Generic:Conn_01x04"
@@ -227,43 +226,42 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "power:GND"
-			(power global)
+		(symbol "Device:C"
 			(pin_numbers
 				(hide yes)
 			)
 			(pin_names
-				(offset 0)
-				(hide yes)
+				(offset 0.254)
 			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "#PWR"
-				(at 0 -6.35 0)
+			(property "Reference" "C"
+				(at 0.635 2.54 0)
 				(show_name no)
 				(do_not_autoplace no)
-				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
+					(justify left)
 				)
 			)
-			(property "Value" "GND"
-				(at 0 -3.81 0)
+			(property "Value" "C"
+				(at 0.635 -2.54 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
+					(justify left)
 				)
 			)
 			(property "Footprint" ""
-				(at 0 0 0)
+				(at 0.9652 -3.81 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(hide yes)
@@ -284,7 +282,7 @@
 					)
 				)
 			)
-			(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(property "Description" "Unpolarized capacitor"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -295,7 +293,7 @@
 					)
 				)
 			)
-			(property "ki_keywords" "global power"
+			(property "ki_keywords" "cap capacitor"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -306,18 +304,38 @@
 					)
 				)
 			)
-			(symbol "GND_0_1"
+			(property "ki_fp_filters" "C_*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "C_0_1"
 				(polyline
 					(pts
-						(xy 0 0)
-						(xy 0 -1.27)
-						(xy 1.27 -1.27)
-						(xy 0 -2.54)
-						(xy -1.27 -1.27)
-						(xy 0 -1.27)
+						(xy -2.032 0.762)
+						(xy 2.032 0.762)
 					)
 					(stroke
-						(width 0)
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.032 -0.762)
+						(xy 2.032 -0.762)
+					)
+					(stroke
+						(width 0.508)
 						(type default)
 					)
 					(fill
@@ -325,10 +343,10 @@
 					)
 				)
 			)
-			(symbol "GND_1_1"
-				(pin power_in line
-					(at 0 0 270)
-					(length 0)
+			(symbol "C_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 2.794)
 					(name ""
 						(effects
 							(font
@@ -344,133 +362,9 @@
 						)
 					)
 				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "power:+3V3"
-			(power global)
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "#PWR"
-				(at 0 -3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "+3V3"
-				(at 0 3.556 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" "Power symbol creates a global label with name \"+3V3\""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "global power"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "+3V3_0_1"
-				(polyline
-					(pts
-						(xy -0.762 1.27)
-						(xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 2.54)
-						(xy 0.762 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0)
-						(xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "+3V3_1_1"
-				(pin power_in line
-					(at 0 0 90)
-					(length 0)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.794)
 					(name ""
 						(effects
 							(font
@@ -478,7 +372,7 @@
 							)
 						)
 					)
-					(number "1"
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -885,42 +779,38 @@
 				)
 			)
 		)
-		(symbol "Device:C"
-			(pin_numbers
-				(hide yes)
-			)
+		(symbol "Connector_Generic:Conn_01x01"
 			(pin_names
-				(offset 0.254)
+				(offset 1.016)
+				(hide yes)
 			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "C"
-				(at 0.635 2.54 0)
+			(property "Reference" "J"
+				(at 0 2.54 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
 				)
 			)
-			(property "Value" "C"
-				(at 0.635 -2.54 0)
+			(property "Value" "Conn_01x01"
+				(at 0 -2.54 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
 				)
 			)
 			(property "Footprint" ""
-				(at 0.9652 -3.81 0)
+				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(hide yes)
@@ -941,7 +831,7 @@
 					)
 				)
 			)
-			(property "Description" "Unpolarized capacitor"
+			(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -952,7 +842,7 @@
 					)
 				)
 			)
-			(property "ki_keywords" "cap capacitor"
+			(property "ki_keywords" "connector"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -963,7 +853,7 @@
 					)
 				)
 			)
-			(property "ki_fp_filters" "C_*"
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -974,39 +864,33 @@
 					)
 				)
 			)
-			(symbol "C_0_1"
-				(polyline
-					(pts
-						(xy -2.032 0.762)
-						(xy 2.032 0.762)
-					)
+			(symbol "Conn_01x01_1_1"
+				(rectangle
+					(start -1.27 1.27)
+					(end 1.27 -1.27)
 					(stroke
-						(width 0.508)
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(rectangle
+					(start -1.27 0.127)
+					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
 						(type default)
 					)
 					(fill
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy -2.032 -0.762)
-						(xy 2.032 -0.762)
-					)
-					(stroke
-						(width 0.508)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "C_1_1"
 				(pin passive line
-					(at 0 3.81 270)
-					(length 2.794)
-					(name ""
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1014,24 +898,6 @@
 						)
 					)
 					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -3.81 90)
-					(length 2.794)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1182,9 +1048,13 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Connector_Generic:Conn_01x01"
+		(symbol "power:GND"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 1.016)
+				(offset 0)
 				(hide yes)
 			)
 			(exclude_from_sim no)
@@ -1192,18 +1062,19 @@
 			(on_board yes)
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "J"
-				(at 0 2.54 0)
+			(property "Reference" "#PWR"
+				(at 0 -6.35 0)
 				(show_name no)
 				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
 			)
-			(property "Value" "Conn_01x01"
-				(at 0 -2.54 0)
+			(property "Value" "GND"
+				(at 0 -3.81 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -1234,7 +1105,7 @@
 					)
 				)
 			)
-			(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1245,7 +1116,7 @@
 					)
 				)
 			)
-			(property "ki_keywords" "connector"
+			(property "ki_keywords" "global power"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1256,44 +1127,172 @@
 					)
 				)
 			)
-			(property "ki_fp_filters" "Connector*:*_1x??_*"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
+			(symbol "GND_0_1"
+				(polyline
+					(pts
+						(xy 0 0)
+						(xy 0 -1.27)
+						(xy 1.27 -1.27)
+						(xy 0 -2.54)
+						(xy -1.27 -1.27)
+						(xy 0 -1.27)
 					)
-				)
-			)
-			(symbol "Conn_01x01_1_1"
-				(rectangle
-					(start -1.27 1.27)
-					(end 1.27 -1.27)
 					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(rectangle
-					(start -1.27 0.127)
-					(end 0 -0.127)
-					(stroke
-						(width 0.1524)
+						(width 0)
 						(type default)
 					)
 					(fill
 						(type none)
 					)
 				)
-				(pin passive line
-					(at -5.08 0 0)
-					(length 3.81)
-					(name "Pin_1"
+			)
+			(symbol "GND_1_1"
+				(pin power_in line
+					(at 0 0 270)
+					(length 0)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "power:+3V3"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#PWR"
+				(at 0 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "+3V3"
+				(at 0 3.556 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"+3V3\""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "+3V3_0_1"
+				(polyline
+					(pts
+						(xy -0.762 1.27)
+						(xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54)
+						(xy 0.762 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0)
+						(xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "+3V3_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name ""
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1318,17 +1317,26 @@
 		)
 	)
 	(embedded_fonts no)
+	(text "Host supply and I2C"
+		(at 52.125 18 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+			)
+		)
+		(uuid "0f94db4c-0937-46ca-9b36-58812465276e")
+	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x04")
-		(at 30.48 90.17 0)
+		(at 52.07 40.64 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "beecbfc0-f3b2-41e5-a4d6-f26d580e03cb")
+		(uuid "5fd20030-c216-4c39-bc20-026d32cb63e6")
 		(property "Reference" "J1"
-			(at 25.4 85.09 0)
+			(at 52.07 31.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1336,7 +1344,7 @@
 			)
 		)
 		(property "Value" "STEMMA-QT"
-			(at 25.4 97.79 0)
+			(at 52.07 52.07 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1344,7 +1352,7 @@
 			)
 		)
 		(property "Footprint" "Connector_JST:JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horizontal"
-			(at 30.48 90.62 0)
+			(at 52.125 46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1353,7 +1361,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 30.48 90.62 0)
+			(at 52.125 46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1361,8 +1369,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "STEMMA QT / Qwiic I2C connector, JST SH 4-pin 1mm pitch"
-			(at 30.48 90.62 0)
+		(property "Description" "Intent block host; evidence None"
+			(at 52.125 46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1371,21 +1379,798 @@
 			)
 		)
 		(pin "1"
-			(uuid "b3b5834c-d041-478c-a4f6-64ecaea4ad41")
+			(uuid "41e1fb03-f469-4b51-8279-602b58c88aea")
 		)
 		(pin "2"
-			(uuid "0d8b3c88-d09f-44f2-8224-f1eaf82d599d")
+			(uuid "d7a21817-81a9-4ddb-93c2-dfff6a621606")
 		)
 		(pin "3"
-			(uuid "068b5b9c-2ce1-4914-ba8f-d1abdb569d53")
+			(uuid "9325787a-8d76-421d-bbb0-3192f9e06d02")
 		)
 		(pin "4"
-			(uuid "77cb5a12-6ae6-460f-8f1d-b145eadd32a8")
+			(uuid "af2c8f5d-4287-4601-80b2-d9ace862c58f")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
 					(reference "J1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 52.07 67.31 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ba9fb986-3ade-4010-be05-7c886d801e1d")
+		(property "Reference" "C3"
+			(at 56.52 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10uF"
+			(at 56.52 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 52.125 71.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 52.125 71.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Intent block host; evidence None"
+			(at 52.125 71.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a62a4221-1752-4ca2-b668-3401a5ce852d")
+		)
+		(pin "2"
+			(uuid "1eccebce-aa0e-43b4-8f24-8b9c03cc44ac")
+		)
+		(instances
+			(project "baro-bmp390"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+					(reference "C3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 52.07 90.17 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6cf6fad7-7de6-4aad-940e-2b4e33c9d46d")
+		(property "Reference" "#FLG01"
+			(at 52.07 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 52.07 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "~"
+			(at 52.125 97.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 52.125 97.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Intent block host; evidence None"
+			(at 52.125 97.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e65e702a-7e21-4899-9998-3d82d8cf7691")
+		)
+		(instances
+			(project "baro-bmp390"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+					(reference "#FLG01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 52.07 110.49 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "09eb740f-9000-4fb2-b673-dc68b03a4a20")
+		(property "Reference" "#FLG02"
+			(at 56.52 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 56.52 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "~"
+			(at 52.125 117.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 52.125 117.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Intent block host; evidence None"
+			(at 52.125 117.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ee14afde-42e3-4e30-9599-6f00d73ec1dc")
+		)
+		(instances
+			(project "baro-bmp390"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+					(reference "#FLG02")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(text "BMP390 and decoupling"
+		(at 116.375 18 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+			)
+		)
+		(uuid "d6b65393-6c8e-4eda-bbeb-c57ca26c8230")
+	)
+	(symbol
+		(lib_id "jlcpcb:BMP390_C5124834")
+		(at 116.84 43.18 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "02b783d1-9f89-4788-85f6-eb35a5e92bed")
+		(property "Reference" "U1"
+			(at 116.84 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "BMP390"
+			(at 116.84 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "jlcpcb:LGA-10_L2.0-W2.0-P0.50-BL"
+			(at 116.375 46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 116.375 46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Intent block sensor; evidence sha256:8dcf0f74449cb1627e865c7f24d328b76c204d8b9621091ede8c6869fb393e48"
+			(at 116.375 46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a7435a40-edea-4d53-889a-ebad22bfceb1")
+		)
+		(pin "2"
+			(uuid "1c468f60-1922-4e8e-87df-ea68eb89063a")
+		)
+		(pin "3"
+			(uuid "7101eb92-97a3-48be-b927-d7d275026b06")
+		)
+		(pin "4"
+			(uuid "e3c7c006-edfd-4ae7-ae3a-e742833d35e1")
+		)
+		(pin "5"
+			(uuid "9ba79113-0a7a-43ca-9151-c3da78c2195e")
+		)
+		(pin "6"
+			(uuid "440246cc-ebc8-43af-9fc3-a84bdfa0c6b0")
+		)
+		(pin "7"
+			(uuid "20449b67-e911-463b-ad55-2fa251195891")
+		)
+		(pin "8"
+			(uuid "733874ed-1f3d-4eec-a369-2509d94676db")
+		)
+		(pin "9"
+			(uuid "1ba7d299-9c4e-4f48-a5b6-8a8758650122")
+		)
+		(pin "10"
+			(uuid "a9fe705a-8a79-4e3e-aeb2-c067a53af083")
+		)
+		(instances
+			(project "baro-bmp390"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+					(reference "U1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Generic:Conn_01x01")
+		(at 116.84 67.31 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7db3159c-a034-418c-a696-545dc0d2175b")
+		(property "Reference" "TP1"
+			(at 116.84 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "INT"
+			(at 116.84 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+			(at 116.375 74.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 116.375 74.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Intent block sensor; evidence None"
+			(at 116.375 74.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "01d90641-6dd8-406c-8a5f-542767247c13")
+		)
+		(instances
+			(project "baro-bmp390"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+					(reference "TP1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 104.14 90.17 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f3e1f20f-f679-4328-bb72-0bc5c0052608")
+		(property "Reference" "C1"
+			(at 108.59 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100nF"
+			(at 108.59 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 103.675 94.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 103.675 94.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Intent block sensor; evidence None"
+			(at 103.675 94.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "77a51a65-90c5-4763-92b4-329824dfe372")
+		)
+		(pin "2"
+			(uuid "2ad0fe21-0af1-4f46-8057-c502ccdb620d")
+		)
+		(instances
+			(project "baro-bmp390"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+					(reference "C1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 129.54 90.17 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "1fb80b52-399c-4761-b422-0a0592958d1a")
+		(property "Reference" "C2"
+			(at 133.99 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100nF"
+			(at 133.99 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 129.075 94.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 129.075 94.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Intent block sensor; evidence None"
+			(at 129.075 94.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9fdc234f-8de5-4803-8399-459a43b22be3")
+		)
+		(pin "2"
+			(uuid "31906f6b-13e2-4e1f-8fbf-3864ee05d2f7")
+		)
+		(instances
+			(project "baro-bmp390"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+					(reference "C2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(text "I2C pull-ups"
+		(at 180.625 18 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+			)
+		)
+		(uuid "adb96004-1c25-46bf-8a11-06f4ebd8a783")
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 167.64 41.91 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d30785b4-48db-403f-9af8-51cbcfa9d5ed")
+		(property "Reference" "R1"
+			(at 172.09 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "4.7k"
+			(at 172.09 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 167.925 46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 167.925 46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Intent block bus; evidence None"
+			(at 167.925 46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3346c377-444b-4bb7-b3eb-edb7383d383a")
+		)
+		(pin "2"
+			(uuid "93c001e1-5b6f-425a-bac7-f23e2e3c5e6a")
+		)
+		(instances
+			(project "baro-bmp390"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+					(reference "R1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 193.04 41.91 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a2786571-c279-4a91-92a3-f9d8d5a9e01b")
+		(property "Reference" "R2"
+			(at 197.49 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "4.7k"
+			(at 197.49 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 193.325 46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 193.325 46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Intent block bus; evidence None"
+			(at 193.325 46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "56a98c37-19b2-4311-946b-7445fb75ce34")
+		)
+		(pin "2"
+			(uuid "3483f888-f82d-4f54-b05d-eb0e2e078bb9")
+		)
+		(instances
+			(project "baro-bmp390"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+					(reference "R2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(text "Mounting holes"
+		(at 244.875 18 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+			)
+		)
+		(uuid "cc961cf3-00ee-4b11-9948-11f3df2c094b")
+	)
+	(symbol
+		(lib_id "Connector_Generic:Conn_01x01")
+		(at 245.11 39.37 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f44b8e06-01ca-42d8-ad9b-aa8284ee1b16")
+		(property "Reference" "H1"
+			(at 245.11 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "M2"
+			(at 245.11 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2_Pad"
+			(at 244.875 46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 244.875 46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Intent block mechanical; evidence None"
+			(at 244.875 46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8b97a314-97da-47cb-872b-c55c63d3e25f")
+		)
+		(instances
+			(project "baro-bmp390"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+					(reference "H1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Generic:Conn_01x01")
+		(at 245.11 59.69 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "fe4411a3-3a44-4345-bacb-b07d71ff7ede")
+		(property "Reference" "H2"
+			(at 245.11 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "M2"
+			(at 245.11 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2_Pad"
+			(at 244.875 66.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 244.875 66.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Intent block mechanical; evidence None"
+			(at 244.875 66.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a33d82e4-b660-4e6d-b06b-2ba63b3f616b")
+		)
+		(instances
+			(project "baro-bmp390"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+					(reference "H2")
 					(unit 1)
 				)
 			)
@@ -1393,26 +2178,26 @@
 	)
 	(wire
 		(pts
-			(xy 25.4 87.63)
-			(xy 27.94 87.63)
+			(xy 46.99 38.1)
+			(xy 29.21 38.1)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "810dde57-c097-4321-933f-3d821af2b51d")
+		(uuid "d045dfa6-d938-4406-9fb1-d65a6aeadff9")
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 27.94 87.63 0)
+		(at 29.21 38.1 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "f4c93e05-87c8-488b-b10a-0715885a0a17")
+		(uuid "3affe18a-558e-419c-b722-d4709b7f5b17")
 		(property "Reference" "#PWR101"
-			(at 27.94 83.82 0)
+			(at 33.66 36.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1421,15 +2206,15 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 31.75 87.63 0)
+			(at 25.4 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 27.94 88.08 0)
+		(property "Footprint" "~"
+			(at 29.21 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1438,7 +2223,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 27.94 88.08 0)
+			(at 29.21 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1446,8 +2231,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 27.94 88.08 0)
+		(property "Description" "Intent block host; evidence None"
+			(at 29.21 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1456,11 +2241,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "776de2e9-db4d-4b38-8d3d-97c6e9320163")
+			(uuid "9e6288f5-f06f-4964-b21a-a7c052cb2649")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
 					(reference "#PWR101")
 					(unit 1)
 				)
@@ -1469,26 +2254,26 @@
 	)
 	(wire
 		(pts
-			(xy 25.4 90.17)
-			(xy 27.94 90.17)
+			(xy 46.99 40.64)
+			(xy 44.45 40.64)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "b6ca7f83-0e85-423f-8c68-5224a3ce977c")
+		(uuid "c5f66b2a-b376-4ddc-90fe-af1b019936b9")
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 27.94 90.17 0)
+		(at 44.45 40.64 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "82d508d2-ac7c-40e4-ab69-6e33876b5776")
+		(uuid "b2fb77a2-8a86-48c4-b0ff-de0f58841e43")
 		(property "Reference" "#PWR102"
-			(at 27.94 86.36 0)
+			(at 44.45 36.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1497,15 +2282,15 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 31.75 90.17 0)
+			(at 40.64 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 27.94 90.62 0)
+		(property "Footprint" "~"
+			(at 44.45 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1514,7 +2299,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 27.94 90.62 0)
+			(at 44.45 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1522,8 +2307,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 27.94 90.62 0)
+		(property "Description" "Intent block host; evidence None"
+			(at 44.45 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1532,11 +2317,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "e11b7ebf-1772-476f-a6e9-7c38a436621b")
+			(uuid "560f2286-7e5a-4eb4-9578-9c62dd8c473b")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
 					(reference "#PWR102")
 					(unit 1)
 				)
@@ -1545,134 +2330,68 @@
 	)
 	(wire
 		(pts
-			(xy 25.4 92.71)
-			(xy 34.29 92.71)
+			(xy 46.99 43.18)
+			(xy 38.1 43.18)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "e9d2e712-c08e-4535-8e8c-6b477aa5f5fb")
+		(uuid "50a72488-1b15-4293-84cf-702b024024a0")
 	)
 	(label "I2C_SDA"
-		(at 34.29 92.71 0)
+		(at 38.1 43.18 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
-		(uuid "12240c73-72fa-4145-90c8-bd622948f64a")
+		(uuid "f6b1be59-35a5-49bd-bee7-fe4edcf68f3e")
 	)
 	(wire
 		(pts
-			(xy 25.4 95.25)
-			(xy 31.75 95.25)
+			(xy 46.99 45.72)
+			(xy 40.64 45.72)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "cb225a58-557b-4acf-9781-8eabcd7704a2")
+		(uuid "e7e51eeb-27ea-4714-9d67-1e1fbfe32be7")
 	)
 	(label "I2C_SCL"
-		(at 31.75 95.25 0)
+		(at 40.64 45.72 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
-		(uuid "c742801b-82d7-479e-8830-10df720f5b11")
-	)
-	(symbol
-		(lib_id "power:PWR_FLAG")
-		(at 30.48 39.37 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "07629cfc-ef3d-4b7f-b263-8ca5fa709f30")
-		(property "Reference" "#FLG01"
-			(at 30.48 35.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "PWR_FLAG"
-			(at 30.48 43.18 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" ""
-			(at 30.48 39.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 30.48 39.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 30.48 39.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "83c5b42b-5b15-4381-a442-b15a216b54f4")
-		)
-		(instances
-			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
-					(reference "#FLG01")
-					(unit 1)
-				)
-			)
-		)
+		(uuid "6b0cf75d-41f3-4050-9594-4a7f374ba6e2")
 	)
 	(wire
 		(pts
-			(xy 30.48 39.37)
-			(xy 33.02 39.37)
+			(xy 52.07 63.5)
+			(xy 52.07 60.96)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "717e833b-f41f-4af9-90bd-d423ec118a1d")
+		(uuid "8738fa60-966e-4dff-b12f-eca5ba8a6b2b")
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 33.02 39.37 0)
+		(at 52.07 60.96 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "dfcad8d9-a786-4a40-a36a-4d7307974258")
+		(uuid "e0d51cf2-de09-4cf2-b8db-60f24ebb5a42")
 		(property "Reference" "#PWR103"
-			(at 33.02 35.56 0)
+			(at 56.52 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1681,15 +2400,15 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 36.83 39.37 0)
+			(at 53.97 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 33.02 39.82 0)
+		(property "Footprint" "~"
+			(at 52.07 60.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1698,7 +2417,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 33.02 39.82 0)
+			(at 52.07 60.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1706,8 +2425,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 33.02 39.82 0)
+		(property "Description" "Intent block host; evidence None"
+			(at 52.07 60.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1716,78 +2435,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "d045bf12-a404-48b0-bf0c-1b7c69188359")
+			(uuid "3e04187f-647a-4a08-a66d-a0fe2d2342ec")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
 					(reference "#PWR103")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:PWR_FLAG")
-		(at 59.69 39.37 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "7b81c626-363f-4b27-836d-e00304fcc6ce")
-		(property "Reference" "#FLG02"
-			(at 59.69 35.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "PWR_FLAG"
-			(at 59.69 43.18 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" ""
-			(at 59.69 39.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 59.69 39.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 59.69 39.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "0560ec56-fc22-4e49-8069-7bd515595aba")
-		)
-		(instances
-			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
-					(reference "#FLG02")
 					(unit 1)
 				)
 			)
@@ -1795,26 +2448,26 @@
 	)
 	(wire
 		(pts
-			(xy 59.69 39.37)
-			(xy 62.23 39.37)
+			(xy 52.07 71.12)
+			(xy 52.07 73.66)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "7cd86779-fae2-4fb7-8d3a-67ce08678661")
+		(uuid "cf404692-c880-460d-b106-960d542a377d")
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 62.23 39.37 0)
+		(at 52.07 73.66 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "af2748d8-68e8-4d93-ba7a-28057a99531d")
+		(uuid "86ceb515-a3f9-4e7d-97da-13a593a3914c")
 		(property "Reference" "#PWR104"
-			(at 62.23 35.56 0)
+			(at 52.07 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1823,15 +2476,15 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 66.04 39.37 0)
+			(at 53.97 77.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 62.23 39.82 0)
+		(property "Footprint" "~"
+			(at 52.07 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1840,7 +2493,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 62.23 39.82 0)
+			(at 52.07 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1848,8 +2501,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 62.23 39.82 0)
+		(property "Description" "Intent block host; evidence None"
+			(at 52.07 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1858,170 +2511,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "b23df998-8203-4c7b-953b-be5aadf44c33")
+			(uuid "ea04aac6-9af4-40c0-8d60-2a2ae2c0023d")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
 					(reference "#PWR104")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "jlcpcb:BMP390_C5124834")
-		(at 110.49 90.17 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "00a07902-6a87-46e4-9c36-3c60020f292c")
-		(property "Reference" "U1"
-			(at 110.49 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "BMP390"
-			(at 110.49 97.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "jlcpcb:LGA-10_L2.0-W2.0-P0.50-BL"
-			(at 110.49 90.62 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 110.49 90.62 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Bosch BMP390 barometric pressure sensor, LGA-10 (real footprint), I2C mode"
-			(at 110.49 90.62 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "05912d66-b924-4acc-bd24-199048eb4e74")
-		)
-		(pin "2"
-			(uuid "dfc002f6-05a4-4ba2-9772-d9ac162ad050")
-		)
-		(pin "3"
-			(uuid "9c62e7ef-32aa-4e22-a121-bae9ac2f57c1")
-		)
-		(pin "4"
-			(uuid "cc6609ba-e49f-4ba3-83cc-2448cb9a42ab")
-		)
-		(pin "5"
-			(uuid "11498067-1792-4af4-9aba-570433562788")
-		)
-		(pin "6"
-			(uuid "7c83f8e0-47cc-4cb0-a839-a218bbc66cc8")
-		)
-		(pin "7"
-			(uuid "1895608d-c4ff-4df8-822f-f0b72fccdd61")
-		)
-		(pin "8"
-			(uuid "94850f64-c254-41f0-b7d5-9607defc5959")
-		)
-		(pin "9"
-			(uuid "3db82c27-8d68-4421-8dc3-fb5d3cb273df")
-		)
-		(pin "10"
-			(uuid "acaec623-6ff3-435c-9f35-9d01b0f87c16")
-		)
-		(instances
-			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
-					(reference "U1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 69.85 59.69 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "c043d734-74de-48e4-b564-3ab3e7202157")
-		(property "Reference" "C1"
-			(at 74.3 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "100nF"
-			(at 74.3 60.96 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-			(at 69.85 60.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 69.85 60.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "BMP390 VDD decoupling, X7R — Bosch datasheet Fig.25 recommended 100nF"
-			(at 69.85 60.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "7cff1932-4496-47bd-b780-1310a544ba44")
-		)
-		(pin "2"
-			(uuid "1c440086-6876-43f4-a83a-e75728e2e2ce")
-		)
-		(instances
-			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
-					(reference "C1")
 					(unit 1)
 				)
 			)
@@ -2029,26 +2524,26 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 55.88)
-			(xy 69.85 53.34)
+			(xy 52.07 90.17)
+			(xy 54.61 90.17)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "a041965c-583e-4773-9a3a-c7f5e81c9bb8")
+		(uuid "1a9299d3-be59-4a59-95c1-5fae77be94f9")
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 69.85 53.34 0)
+		(at 54.61 90.17 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "987025e2-5a4d-41ef-b5a8-1c15d7c69806")
+		(uuid "d3005cfa-3148-4301-972e-1f3d3a802598")
 		(property "Reference" "#PWR105"
-			(at 69.85 49.53 0)
+			(at 54.61 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2057,15 +2552,15 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 71.75 49.53 0)
+			(at 58.42 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 69.85 53.79 0)
+		(property "Footprint" "~"
+			(at 54.61 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2074,7 +2569,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 69.85 53.79 0)
+			(at 54.61 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2082,8 +2577,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 69.85 53.79 0)
+		(property "Description" "Intent block host; evidence None"
+			(at 54.61 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2092,11 +2587,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "bfacb8cc-f0e6-4708-965e-58ad9ff6e7c2")
+			(uuid "17b8bea0-17c8-4bdd-90ce-c8aaf5281742")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
 					(reference "#PWR105")
 					(unit 1)
 				)
@@ -2105,26 +2600,26 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 63.5)
-			(xy 69.85 66.04)
+			(xy 52.07 110.49)
+			(xy 54.61 110.49)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "eef30b48-30ca-4d55-b00e-e5db2de2fef2")
+		(uuid "3ffe991f-43de-461b-a88b-772c995e37ea")
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 69.85 66.04 0)
+		(at 54.61 110.49 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "c6120ec6-e6f3-47a5-935a-dd34630f7d3d")
+		(uuid "0bd79fe9-bfff-4f62-b8a8-66e4a3ce4dd0")
 		(property "Reference" "#PWR106"
-			(at 74.3 64.77 0)
+			(at 59.06 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2133,15 +2628,15 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 71.75 69.85 0)
+			(at 58.42 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 69.85 66.49 0)
+		(property "Footprint" "~"
+			(at 54.61 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2150,7 +2645,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 69.85 66.49 0)
+			(at 54.61 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2158,8 +2653,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 69.85 66.49 0)
+		(property "Description" "Intent block host; evidence None"
+			(at 54.61 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2168,79 +2663,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "5d8bb699-8692-4bf7-ae40-e0b8928c002e")
+			(uuid "36bae033-0ecd-4f70-b3e5-d6aedbaf9b90")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
 					(reference "#PWR106")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 90.17 59.69 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "3a698e7f-0813-479e-85fe-85a52fe62ddc")
-		(property "Reference" "C2"
-			(at 94.62 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "100nF"
-			(at 94.62 60.96 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-			(at 90.17 60.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 90.17 60.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "BMP390 VDDIO decoupling, X7R — Bosch datasheet Fig.25 recommended 100nF"
-			(at 90.17 60.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "e8459611-8835-42e3-98e7-81b4d6131a43")
-		)
-		(pin "2"
-			(uuid "d6e4eb9f-d180-4e36-a0a8-a762eb95081a")
-		)
-		(instances
-			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
-					(reference "C2")
 					(unit 1)
 				)
 			)
@@ -2248,26 +2676,26 @@
 	)
 	(wire
 		(pts
-			(xy 90.17 55.88)
-			(xy 90.17 53.34)
+			(xy 105.41 38.1)
+			(xy 100.33 38.1)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "8044874d-8475-418a-ad23-fbef5edbdd01")
+		(uuid "11fea771-c5ff-43e8-8f85-f409f185d029")
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 90.17 53.34 0)
+		(at 100.33 38.1 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "af0c5a7b-b19d-427d-8f5a-bdf1895d6894")
+		(uuid "408bc273-64dc-4c27-8397-94c2d351e748")
 		(property "Reference" "#PWR107"
-			(at 90.17 49.53 0)
+			(at 104.78 36.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2276,15 +2704,15 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 92.07 49.53 0)
+			(at 96.52 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 90.17 53.79 0)
+		(property "Footprint" "~"
+			(at 100.33 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2293,7 +2721,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 90.17 53.79 0)
+			(at 100.33 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2301,8 +2729,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 90.17 53.79 0)
+		(property "Description" "Intent block host; evidence None"
+			(at 100.33 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2311,11 +2739,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "e2075eb8-3b4d-4fe5-9d25-f3dca8672bd1")
+			(uuid "f191d82d-add4-4b4e-bec7-5dd0a5701d10")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
 					(reference "#PWR107")
 					(unit 1)
 				)
@@ -2324,26 +2752,47 @@
 	)
 	(wire
 		(pts
-			(xy 90.17 63.5)
-			(xy 90.17 66.04)
+			(xy 105.41 40.64)
+			(xy 92.71 40.64)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "4bc92ae8-2020-4f04-aa39-5833aa390787")
+		(uuid "12615016-3576-4d5f-8262-167daae80a9c")
+	)
+	(label "I2C_SCL"
+		(at 92.71 40.64 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "17e4cef9-6885-401e-8a37-826061295fb5")
+	)
+	(wire
+		(pts
+			(xy 105.41 43.18)
+			(xy 102.87 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ec8ade98-80bb-412b-946d-354b50997eeb")
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 90.17 66.04 0)
+		(at 102.87 43.18 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "f2d4b088-73c0-474f-a8c7-7ebe01ccdf11")
+		(uuid "bf6c1312-ec9c-4c51-acf4-fb3cfc68df97")
 		(property "Reference" "#PWR108"
-			(at 94.62 64.77 0)
+			(at 102.87 39.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2352,15 +2801,15 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 92.07 69.85 0)
+			(at 99.06 43.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 90.17 66.49 0)
+		(property "Footprint" "~"
+			(at 102.87 43.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2369,7 +2818,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 90.17 66.49 0)
+			(at 102.87 43.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2377,8 +2826,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 90.17 66.49 0)
+		(property "Description" "Intent block host; evidence None"
+			(at 102.87 43.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2387,79 +2836,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "0b702c87-2a3f-4ae4-a06b-4eb29009d355")
+			(uuid "64d7ecf0-5f5a-469f-a4de-66adf8402487")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
 					(reference "#PWR108")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 49.53 59.69 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "1755dcc1-80ef-44a3-9362-8e9630e329f8")
-		(property "Reference" "C3"
-			(at 53.98 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "10uF"
-			(at 53.98 60.96 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
-			(at 49.53 60.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 49.53 60.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "+3V3 rail bulk at the J1 entry, X5R 16V — rule 3.2 + Adafruit reference C5; the QT cable feeding this rail has no local regulator"
-			(at 49.53 60.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "bb3d664f-49a6-44dc-b643-b6ae5dc540a6")
-		)
-		(pin "2"
-			(uuid "992e94fa-37f8-46f2-bd40-6c243b1f75ee")
-		)
-		(instances
-			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
-					(reference "C3")
 					(unit 1)
 				)
 			)
@@ -2467,26 +2849,47 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 55.88)
-			(xy 49.53 53.34)
+			(xy 105.41 45.72)
+			(xy 97.79 45.72)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "27a451d2-3c71-46c7-97c8-fda01ca0ac74")
+		(uuid "d3bf0969-6591-4f17-bbf2-4eafd7290651")
+	)
+	(label "I2C_SDA"
+		(at 97.79 45.72 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "6a3c9bfe-b349-4d79-bea2-11e5e27fd308")
+	)
+	(wire
+		(pts
+			(xy 105.41 48.26)
+			(xy 100.33 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7ec314b6-6ab5-4abd-8569-3134d7c60385")
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 49.53 53.34 0)
+		(at 100.33 48.26 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "ce25b52d-e700-47e3-b72b-f800ff345e15")
+		(uuid "a965cbba-f2a9-44a4-b526-1cb410cc1c91")
 		(property "Reference" "#PWR109"
-			(at 49.53 49.53 0)
+			(at 100.33 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2495,15 +2898,15 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 51.43 49.53 0)
+			(at 96.52 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 49.53 53.79 0)
+		(property "Footprint" "~"
+			(at 100.33 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2512,7 +2915,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 49.53 53.79 0)
+			(at 100.33 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2520,8 +2923,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 49.53 53.79 0)
+		(property "Description" "Intent block host; evidence None"
+			(at 100.33 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2530,11 +2933,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "9a9572ba-2268-462a-bd26-6517596a03ab")
+			(uuid "6875f44b-1aab-4d27-ad0d-610d2929a560")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
 					(reference "#PWR109")
 					(unit 1)
 				)
@@ -2543,169 +2946,26 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 63.5)
-			(xy 49.53 66.04)
+			(xy 128.27 48.26)
+			(xy 133.35 48.26)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "38e9c5d5-7d69-4fac-b3ff-8af7510a28c8")
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 49.53 66.04 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "e0920829-123c-481a-843c-8b1bf02dfe6d")
-		(property "Reference" "#PWR110"
-			(at 53.98 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 51.43 69.85 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 49.53 66.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 49.53 66.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 49.53 66.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "0bf271a8-cb72-4d67-9ad4-149270546ad6")
-		)
-		(instances
-			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
-					(reference "#PWR110")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 165.1 59.69 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "08794a16-1ed6-4def-a72c-04f6ad3296ff")
-		(property "Reference" "R1"
-			(at 169.55 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "4.7k"
-			(at 169.55 60.96 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 165.1 60.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 165.1 60.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "I2C SCL pull-up to VDDIO — Bosch datasheet Fig.25 recommended 4.7kOhm"
-			(at 165.1 60.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "73d5284c-f80d-41bb-8245-04250469ae8c")
-		)
-		(pin "2"
-			(uuid "8d8e9c5d-b8ff-4669-a8f3-e5663e2bb421")
-		)
-		(instances
-			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
-					(reference "R1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 165.1 55.88)
-			(xy 165.1 53.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "53c0311e-b395-47e0-a8f0-4ddf475fbc54")
+		(uuid "f0984a2e-87e2-4a56-b8b5-9e07524958f3")
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 165.1 53.34 0)
+		(at 133.35 48.26 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "21cc9396-17f8-493b-b39a-88fa87198384")
-		(property "Reference" "#PWR111"
-			(at 165.1 49.53 0)
+		(uuid "51a1010a-2d5c-48f2-ba7b-cb6b299bd76a")
+		(property "Reference" "#PWR110"
+			(at 133.35 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2714,15 +2974,15 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 167 49.53 0)
+			(at 137.16 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 165.1 53.79 0)
+		(property "Footprint" "~"
+			(at 133.35 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2731,7 +2991,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 165.1 53.79 0)
+			(at 133.35 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2739,8 +2999,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 165.1 53.79 0)
+		(property "Description" "Intent block host; evidence None"
+			(at 133.35 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2749,11 +3009,87 @@
 			)
 		)
 		(pin "1"
-			(uuid "2b839dde-eb4c-4c23-bf72-71bde67b6a18")
+			(uuid "d77dc14c-1050-4878-85e9-a43427744254")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+					(reference "#PWR110")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 128.27 43.18)
+			(xy 130.81 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "21ec2a15-db84-4460-9493-53101ad3e92f")
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 130.81 43.18 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "66fa8653-60f5-4092-b9af-49bdd449a754")
+		(property "Reference" "#PWR111"
+			(at 130.81 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 134.62 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "~"
+			(at 130.81 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 130.81 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Intent block host; evidence None"
+			(at 130.81 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1e725d38-d46c-4175-b43e-0e61e72c74fc")
+		)
+		(instances
+			(project "baro-bmp390"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
 					(reference "#PWR111")
 					(unit 1)
 				)
@@ -2762,114 +3098,26 @@
 	)
 	(wire
 		(pts
-			(xy 165.1 63.5)
-			(xy 165.1 66.04)
+			(xy 128.27 40.64)
+			(xy 146.05 40.64)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "5f6b8708-9035-47b1-a05f-70cf8201ff0e")
-	)
-	(label "I2C_SCL"
-		(at 165.1 66.04 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "2c444e3f-ba93-4e04-82e6-6fa1e68ec95f")
+		(uuid "f53252fe-383f-4a51-a518-62e6e9ed840a")
 	)
 	(symbol
-		(lib_id "Device:R")
-		(at 185.42 59.69 0)
+		(lib_id "power:GND")
+		(at 146.05 40.64 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "650fab5c-4969-4d61-acd0-2f9f8a09b929")
-		(property "Reference" "R2"
-			(at 189.87 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "4.7k"
-			(at 189.87 60.96 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 185.42 60.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 185.42 60.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "I2C SDA pull-up to VDDIO — Bosch datasheet Fig.25 recommended 4.7kOhm"
-			(at 185.42 60.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "b38d5fee-d7f3-42f5-98bb-08b633d4c5a7")
-		)
-		(pin "2"
-			(uuid "c93a668b-e034-4c31-9e56-5b9bfc1a669e")
-		)
-		(instances
-			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
-					(reference "R2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 185.42 55.88)
-			(xy 185.42 53.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7fbfdfe0-3e38-4905-9951-76e746c29a3f")
-	)
-	(symbol
-		(lib_id "power:+3V3")
-		(at 185.42 53.34 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "622aa391-ca58-4c21-b343-8b25aa4437f1")
+		(uuid "013c7d2b-444f-44fa-8d27-06bada03c67a")
 		(property "Reference" "#PWR112"
-			(at 185.42 49.53 0)
+			(at 146.05 36.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2877,16 +3125,16 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+3V3"
-			(at 187.32 49.53 0)
+		(property "Value" "GND"
+			(at 149.86 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 185.42 53.79 0)
+		(property "Footprint" "~"
+			(at 146.05 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2895,7 +3143,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 185.42 53.79 0)
+			(at 146.05 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2903,8 +3151,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 185.42 53.79 0)
+		(property "Description" "Intent block host; evidence None"
+			(at 146.05 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2913,11 +3161,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "5e0f9757-591f-4832-8df4-9c8760259550")
+			(uuid "ba00289e-9365-448a-ad62-9445a10697ae")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
 					(reference "#PWR112")
 					(unit 1)
 				)
@@ -2926,132 +3174,26 @@
 	)
 	(wire
 		(pts
-			(xy 185.42 63.5)
-			(xy 185.42 66.04)
+			(xy 128.27 38.1)
+			(xy 133.35 38.1)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "4ef6e800-dac8-4065-a654-b3ce8342a1db")
-	)
-	(label "I2C_SDA"
-		(at 185.42 66.04 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "f9829c0a-d7a8-4d05-875b-c4b9347279e6")
-	)
-	(symbol
-		(lib_id "Connector_Generic:Conn_01x01")
-		(at 119.38 134.62 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "9218e353-a819-49f3-b375-925b53290955")
-		(property "Reference" "TP1"
-			(at 114.3 130.81 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "INT"
-			(at 114.3 138.43 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
-			(at 119.38 135.07 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 119.38 135.07 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "BMP390 INT breakout test point (unused in V1, routed per §15.2)"
-			(at 119.38 135.07 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "9c13d054-31e1-4ae1-9277-b752155c90f1")
-		)
-		(instances
-			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
-					(reference "TP1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 114.3 134.62)
-			(xy 120.65 134.62)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "698c5037-93d6-4415-87d2-39d400653fca")
-	)
-	(label "BMP_INT"
-		(at 120.65 134.62 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "aea31e35-6e1b-4895-a8cd-859a43be5bda")
-	)
-	(wire
-		(pts
-			(xy 99.06 85.09)
-			(xy 96.52 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a52fffe1-4772-46c8-864f-4dfeae2648d1")
+		(uuid "23ca597e-55d7-4b76-bb33-df6eaffda77d")
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 96.52 85.09 0)
+		(at 133.35 38.1 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "9ac6a263-3026-4f59-a6b5-450da9ea66f1")
+		(uuid "efda8687-ba22-4e81-bf44-e6d5cf31b1cf")
 		(property "Reference" "#PWR113"
-			(at 96.52 81.28 0)
+			(at 133.35 34.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3060,15 +3202,15 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 92.71 85.09 0)
+			(at 137.16 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 96.52 85.54 0)
+		(property "Footprint" "~"
+			(at 133.35 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3077,7 +3219,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 96.52 85.54 0)
+			(at 133.35 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3085,8 +3227,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 96.52 85.54 0)
+		(property "Description" "Intent block host; evidence None"
+			(at 133.35 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3095,11 +3237,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "2b1ad978-4007-4ac7-8c2e-b7cce8d0a236")
+			(uuid "66ae2b5c-758f-48b8-b4cb-fcc9d0fd2fe1")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
 					(reference "#PWR113")
 					(unit 1)
 				)
@@ -3108,47 +3250,26 @@
 	)
 	(wire
 		(pts
-			(xy 99.06 87.63)
-			(xy 86.36 87.63)
+			(xy 104.14 86.36)
+			(xy 104.14 83.82)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "8877ae0e-9f60-4097-a0c6-b98089e71630")
-	)
-	(label "I2C_SCL"
-		(at 86.36 87.63 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "9ecbe52d-aa94-4f77-a4f5-0df70b8d82b8")
-	)
-	(wire
-		(pts
-			(xy 99.06 90.17)
-			(xy 96.52 90.17)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3d8155aa-dd69-4eac-b5df-5c30869d9dca")
+		(uuid "8f1b9275-01e7-4924-98ec-40e58471dfd7")
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 96.52 90.17 0)
+		(lib_id "power:+3V3")
+		(at 104.14 83.82 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "f5b909cd-0350-45e0-8e1b-274639cb5d99")
+		(uuid "20114553-8514-4bfe-89ff-70b519a6e026")
 		(property "Reference" "#PWR114"
-			(at 96.52 86.36 0)
+			(at 104.14 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3156,16 +3277,16 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "GND"
-			(at 92.71 90.17 0)
+		(property "Value" "+3V3"
+			(at 106.04 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 96.52 90.62 0)
+		(property "Footprint" "~"
+			(at 104.14 83.82 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3174,7 +3295,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 96.52 90.62 0)
+			(at 104.14 83.82 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3182,8 +3303,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 96.52 90.62 0)
+		(property "Description" "Intent block host; evidence None"
+			(at 104.14 83.82 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3192,11 +3313,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "f5575265-8760-40a2-a6a1-b8fd355a9347")
+			(uuid "4d1339a4-4bfe-46a9-8ee3-baf0fc049502")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
 					(reference "#PWR114")
 					(unit 1)
 				)
@@ -3205,47 +3326,26 @@
 	)
 	(wire
 		(pts
-			(xy 99.06 92.71)
-			(xy 91.44 92.71)
+			(xy 104.14 93.98)
+			(xy 104.14 96.52)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "89d36a2d-b8b2-4bbb-b806-cc3f65df83c5")
-	)
-	(label "I2C_SDA"
-		(at 91.44 92.71 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "1c9db4b0-9ec8-47f5-b143-0c4867b5e052")
-	)
-	(wire
-		(pts
-			(xy 99.06 95.25)
-			(xy 96.52 95.25)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e00d8cf3-90ce-4a02-96af-6322e9b39e51")
+		(uuid "fbad3687-2466-407b-9189-689bb22133b4")
 	)
 	(symbol
-		(lib_id "power:+3V3")
-		(at 96.52 95.25 0)
+		(lib_id "power:GND")
+		(at 104.14 96.52 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "0d0da421-b9b0-4b25-a0df-409877f9539b")
+		(uuid "782f153f-c680-45f0-bbac-2b580e52078d")
 		(property "Reference" "#PWR115"
-			(at 96.52 91.44 0)
+			(at 108.59 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3253,16 +3353,16 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+3V3"
-			(at 92.71 95.25 0)
+		(property "Value" "GND"
+			(at 106.04 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 96.52 95.7 0)
+		(property "Footprint" "~"
+			(at 104.14 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3271,7 +3371,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 96.52 95.7 0)
+			(at 104.14 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3279,8 +3379,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 96.52 95.7 0)
+		(property "Description" "Intent block host; evidence None"
+			(at 104.14 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3289,11 +3389,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "c9183436-964a-4599-8a07-2726c4549322")
+			(uuid "a307acb7-c14c-47a1-8bf1-280c8ab3c5bf")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
 					(reference "#PWR115")
 					(unit 1)
 				)
@@ -3302,26 +3402,26 @@
 	)
 	(wire
 		(pts
-			(xy 121.92 95.25)
-			(xy 124.46 95.25)
+			(xy 129.54 86.36)
+			(xy 129.54 83.82)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "4d68aa67-b17a-4d88-b068-d24acc114321")
+		(uuid "481dd574-5d62-4e5b-8211-abaf02e4daab")
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 124.46 95.25 0)
+		(at 129.54 83.82 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "9ac5d9d4-2c37-47d3-ac0e-4ad0200291b7")
+		(uuid "1f358a42-6afa-4d57-9566-3f72a1874f93")
 		(property "Reference" "#PWR116"
-			(at 124.46 91.44 0)
+			(at 129.54 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3330,15 +3430,15 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 128.27 95.25 0)
+			(at 131.44 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 124.46 95.7 0)
+		(property "Footprint" "~"
+			(at 129.54 83.82 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3347,7 +3447,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 124.46 95.7 0)
+			(at 129.54 83.82 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3355,8 +3455,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 124.46 95.7 0)
+		(property "Description" "Intent block host; evidence None"
+			(at 129.54 83.82 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3365,11 +3465,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "5ac3f841-4b6f-4623-8349-d9e6cb243b54")
+			(uuid "eaa1e02a-3a0d-4115-8b64-26fcc9d64819")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
 					(reference "#PWR116")
 					(unit 1)
 				)
@@ -3378,47 +3478,26 @@
 	)
 	(wire
 		(pts
-			(xy 121.92 92.71)
-			(xy 129.54 92.71)
+			(xy 129.54 93.98)
+			(xy 129.54 96.52)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "a4ebcbcd-cc34-4cce-a770-d36876595366")
-	)
-	(label "BMP_INT"
-		(at 129.54 92.71 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "b6c2e2f9-64bc-4b54-9f45-14dc24d8bbe3")
-	)
-	(wire
-		(pts
-			(xy 121.92 90.17)
-			(xy 124.46 90.17)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3d3d3efa-00a5-4787-ac37-f45f53d32b6b")
+		(uuid "2a3dec6d-7b75-4849-a6af-bad9c7f57c4c")
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 124.46 90.17 0)
+		(at 129.54 96.52 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "800dedc7-d3b9-43a2-b5d8-9d71a329f053")
+		(uuid "2d9583c3-deb1-40ac-9788-127c7bc47466")
 		(property "Reference" "#PWR117"
-			(at 124.46 86.36 0)
+			(at 129.54 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3427,15 +3506,15 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 128.27 90.17 0)
+			(at 131.44 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 124.46 90.62 0)
+		(property "Footprint" "~"
+			(at 129.54 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3444,7 +3523,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 124.46 90.62 0)
+			(at 129.54 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3452,8 +3531,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 124.46 90.62 0)
+		(property "Description" "Intent block host; evidence None"
+			(at 129.54 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3462,11 +3541,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "ec57511f-270c-4517-8f42-74f9b0498ce2")
+			(uuid "7de23873-ed18-4706-b69c-3ed686fdb0c6")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
 					(reference "#PWR117")
 					(unit 1)
 				)
@@ -3475,102 +3554,26 @@
 	)
 	(wire
 		(pts
-			(xy 121.92 87.63)
-			(xy 124.46 87.63)
+			(xy 167.64 38.1)
+			(xy 167.64 35.56)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "fc16a807-86d0-432c-a2c5-347d943a3ed9")
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 124.46 87.63 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "343dbbb7-b2e0-48d4-8939-6a7b13a52c1a")
-		(property "Reference" "#PWR118"
-			(at 124.46 83.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 128.27 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 124.46 88.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 124.46 88.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 124.46 88.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "2edf82dd-58ba-4cc1-9cf7-9fe3947904c7")
-		)
-		(instances
-			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
-					(reference "#PWR118")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 121.92 85.09)
-			(xy 124.46 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3696670c-0331-455a-8351-a4b4fb958c95")
+		(uuid "7e4dd801-bdc9-4f0a-8bcd-c4fdc07593e9")
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 124.46 85.09 0)
+		(at 167.64 35.56 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "83d61cf1-6a9a-40dc-aa95-a69c7c35bb0f")
-		(property "Reference" "#PWR119"
-			(at 124.46 81.28 0)
+		(uuid "af6e29fc-7c6b-460d-a477-0472a3d143f4")
+		(property "Reference" "#PWR118"
+			(at 167.64 31.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3579,15 +3582,15 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 128.27 85.09 0)
+			(at 169.54 31.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 124.46 85.54 0)
+		(property "Footprint" "~"
+			(at 167.64 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3596,7 +3599,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 124.46 85.54 0)
+			(at 167.64 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3604,8 +3607,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 124.46 85.54 0)
+		(property "Description" "Intent block host; evidence None"
+			(at 167.64 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3614,151 +3617,286 @@
 			)
 		)
 		(pin "1"
-			(uuid "1dad80bb-8543-4040-a525-ccf05c83d88a")
+			(uuid "ab394d89-edb6-44bc-8822-ceb023e3a882")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+					(reference "#PWR118")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 167.64 45.72)
+			(xy 167.64 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "43e810a1-a0b6-4984-81c1-0e1e19523627")
+	)
+	(label "I2C_SCL"
+		(at 167.64 48.26 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f0151555-4af0-43d6-acf1-738b5d0712d0")
+	)
+	(wire
+		(pts
+			(xy 193.04 38.1)
+			(xy 193.04 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7d165e4d-3d2d-45bc-8efb-8e901ea98ebe")
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 193.04 35.56 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3a047fcb-0850-46a2-9410-2358135f3fcd")
+		(property "Reference" "#PWR119"
+			(at 193.04 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 194.94 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "~"
+			(at 193.04 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 193.04 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Intent block host; evidence None"
+			(at 193.04 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "df14e3fc-06dd-4205-8c63-f8f36bf4d0e5")
+		)
+		(instances
+			(project "baro-bmp390"
+				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
 					(reference "#PWR119")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(symbol
-		(lib_id "Connector_Generic:Conn_01x01")
-		(at 250.19 59.69 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "405c67ad-9a1e-4c80-93a1-4ff5be67f0f2")
-		(property "Reference" "H1"
-			(at 245.11 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+	(wire
+		(pts
+			(xy 193.04 45.72)
+			(xy 193.04 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "696cbc29-a7d7-42ce-a736-0dd86e7df4d9")
+	)
+	(label "I2C_SDA"
+		(at 193.04 48.26 0)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+			(justify left bottom)
 		)
-		(property "Value" "M2"
-			(at 245.11 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2_Pad"
-			(at 250.19 60.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 250.19 60.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "M2 mounting hole #1"
-			(at 250.19 60.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "2af36c55-b295-414b-bc4e-7aa3f3032cca")
-		)
-		(instances
-			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
-					(reference "H1")
-					(unit 1)
-				)
-			)
-		)
+		(uuid "e8165ec6-ba73-4ec2-9245-1ffdca2575f8")
 	)
 	(no_connect
-		(at 245.11 59.69)
-		(uuid "aa17ea7d-53f8-4df2-ac6a-ab743c9c2691")
-	)
-	(symbol
-		(lib_id "Connector_Generic:Conn_01x01")
-		(at 250.19 90.17 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "f8af7e8e-357d-4760-8f51-e8defe9313a2")
-		(property "Reference" "H2"
-			(at 245.11 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "M2"
-			(at 245.11 93.98 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2_Pad"
-			(at 250.19 90.62 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 250.19 90.62 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "M2 mounting hole #2"
-			(at 250.19 90.62 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "c99ae878-c234-40ce-9385-a7b47c8eae8a")
-		)
-		(instances
-			(project "baro-bmp390"
-				(path "/bfd5ee5d-0084-4396-b5d1-c0b6ab760dec"
-					(reference "H2")
-					(unit 1)
-				)
-			)
-		)
+		(at 240.03 39.37)
+		(uuid "8303cda8-c5a9-4b0b-9d8e-3781f70c91cb")
 	)
 	(no_connect
-		(at 245.11 90.17)
-		(uuid "4c68f38f-356b-4a41-ba95-a02a6de8d0db")
+		(at 240.03 59.69)
+		(uuid "f0e845a6-e9b7-4afd-b865-1fe20944f474")
+	)
+	(wire
+		(pts
+			(xy 128.27 45.72)
+			(xy 135.89 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2659a78a-19e7-4505-8283-0fa7d4bea2f2")
+	)
+	(label "BMP_INT"
+		(at 135.89 45.72 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "5d1adb68-c475-4d4c-82d4-92eb481bf78f")
+	)
+	(wire
+		(pts
+			(xy 111.76 67.31)
+			(xy 105.41 67.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aeb42248-d971-490d-8bc9-f7a85a40d913")
+	)
+	(wire
+		(pts
+			(xy 135.89 45.72)
+			(xy 140.97 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "359fa5ac-65f7-4c5f-b172-7e56ca8f6560")
+	)
+	(wire
+		(pts
+			(xy 140.97 45.72)
+			(xy 140.97 64.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "22f6bf82-1aff-4e25-b246-e188e3f9f99a")
+	)
+	(wire
+		(pts
+			(xy 140.97 64.77)
+			(xy 105.41 64.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6e7cbdbe-d33f-419d-9111-8c4a7c3566fe")
+	)
+	(wire
+		(pts
+			(xy 105.41 64.77)
+			(xy 105.41 67.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1aac8f39-ab9e-4d37-8f99-4c0fad5af42f")
+	)
+	(wire
+		(pts
+			(xy 104.14 83.82)
+			(xy 129.54 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0280bc4e-d371-4b4e-8ee2-27a4160338d7")
+	)
+	(junction
+		(at 104.14 83.82)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "bbeeb699-78dc-4ef3-a17f-083da2291721")
+	)
+	(junction
+		(at 129.54 83.82)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "455582f0-dc88-4f3d-9a70-f609949f441c")
+	)
+	(wire
+		(pts
+			(xy 104.14 96.52)
+			(xy 129.54 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "48b37762-166c-4db6-a0da-c1d15c8f677e")
+	)
+	(junction
+		(at 104.14 96.52)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4361fd45-c02c-41c9-803e-5f5a58e1c0c0")
+	)
+	(junction
+		(at 129.54 96.52)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f2f8bc15-e5ac-428e-8a84-e15e2472e709")
+	)
+	(wire
+		(pts
+			(xy 167.64 35.56)
+			(xy 193.04 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9e134308-b531-478c-bf9b-6d3885b3e578")
+	)
+	(junction
+		(at 167.64 35.56)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "22202ff6-36c0-496d-8ace-1534801151b3")
+	)
+	(junction
+		(at 193.04 35.56)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "869c49d4-98c9-4848-81ef-80a873be4176")
 	)
 )

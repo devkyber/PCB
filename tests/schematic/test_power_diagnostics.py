@@ -93,7 +93,7 @@ def test_preview_reports_known_serialized_power_clashes(
 def test_bmp_power_spacing_clears_nonadjacent_ic_glyphs(rendered_boards):
     tree = _rendered_tree(rendered_boards, 'baro-bmp390')
     clashes = [finding for finding in power_clearance_findings(tree, 'baro-bmp390.kicad_sch')
-               if finding.code == 'power-glyph-collision'
+               if finding.code in {'power-glyph-collision', 'power-text-collision'}
                and 'attached U1.' in finding.message]
     assert clashes == []
 

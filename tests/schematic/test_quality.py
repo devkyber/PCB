@@ -19,21 +19,26 @@ def test_quality_reads_utf8_independent_of_locale(tmp_path):
 
 
 @pytest.mark.parametrize(
-    ("board", "components", "power"),
+    ("board", "components", "power", "junctions", "minimum_drawn_ratio"),
     [
-        ("baro-bmp390", 10, 21),
-        ("imu-icm42688", 10, 19),
-        ("gnss-neom9n", 24, 33),
-        ("tms-v3", 66, 72),
+        ("baro-bmp390", 10, 21, 6, 0.8),
+        ("imu-icm42688", 10, 19, 0, 0),
+        ("gnss-neom9n", 24, 33, 0, 0),
+        ("tms-v3", 66, 72, 0, 0),
     ],
 )
-def test_current_schematic_metrics_match_baseline(repo_root, board, components, power):
+def test_current_schematic_metrics_match_baseline(
+    repo_root, board, components, power, junctions, minimum_drawn_ratio,
+):
     metrics = analyse_schematic(repo_root / "projects" / board / f"{board}.kicad_sch")
 
     assert metrics.component_count == components
     assert metrics.power_symbol_count == power
-    assert metrics.junction_count == 0
-    assert metrics.drawn_connection_ratio == 0
+    assert metrics.junction_count == junctions
+    if minimum_drawn_ratio:
+        assert metrics.drawn_connection_ratio >= minimum_drawn_ratio
+    else:
+        assert metrics.drawn_connection_ratio == 0
 
 
 def test_only_tms_fails_current_density_rule(repo_root):

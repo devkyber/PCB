@@ -1,8 +1,8 @@
-# Connectivity transcribed from the accepted schematic/netmap, not a redesign.
+# Connectivity reconciled with the current PCB/netmap.
 # Missing generic-part citations stay explicit until actual part selection/review.
 schema_version: 1
 title: BMP390 - 3.3V I2C barometer
-revision: '1-draft'
+revision: 'working-1'
 sheets:
   - {id: main, title: Barometer, page: A4}
 blocks:

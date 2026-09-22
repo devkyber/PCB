@@ -9,6 +9,7 @@ from pathlib import Path
 from pcb_copilot.accept import accept_schematic, load_draft
 from pcb_copilot.models import Project
 from pcb_copilot.schematic.commands import draft_schematic
+from pcb_copilot.schematic.parity import candidate_board_parity
 
 
 def _remove_transaction(path: Path, expected_parent: Path) -> None:
@@ -26,6 +27,13 @@ def update_schematic(project: Project, intent_path: Path, apply: bool) -> dict:
     preview_dir.mkdir(parents=True, exist_ok=True)
     copied = {}
     try:
+        parity_error = candidate_board_parity(project, draft.root)
+        if parity_error is not None:
+            report['findings'].append({
+                'code': 'board-parity', 'message': parity_error,
+                'reference': None, 'evidence_id': None, 'severity': 'block',
+            })
+            report['exit_code'] = 1
         for source_name, destination_name in (
             ('preview.pdf', 'schematic.pdf'),
             ('erc.json', 'schematic-erc.json'),

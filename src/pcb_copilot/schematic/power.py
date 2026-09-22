@@ -53,7 +53,7 @@ def power_stub_length(
     # Alternating two lengths leaves pins two rows apart at the same x. On
     # compact ICs their stock power glyphs can touch even though the pins do
     # not. Four staggered lengths separate those glyphs without a long rail.
-    stagger_steps = (0, 8, 4, 12)
+    stagger_steps = (2, 8, 0, 12)
     return round(DEFAULT_STUB_MM + stagger_steps[rank % 4] * GRID_MM, 3)
 
 
