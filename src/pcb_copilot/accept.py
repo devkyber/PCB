@@ -91,7 +91,9 @@ def _replace_bytes(target: Path, payload: bytes) -> None:
         temporary.unlink(missing_ok=True)
 
 
-def accept_schematic(project: Project, draft: DraftRecord) -> AcceptanceResult:
+def accept_schematic(
+    project: Project, draft: DraftRecord, *, record_legacy_owner: bool = True,
+) -> AcceptanceResult:
     metadata = validate_schematic_draft(project, draft)
 
     def check_base():
@@ -123,6 +125,10 @@ def accept_schematic(project: Project, draft: DraftRecord) -> AcceptanceResult:
         normalize_intent_netmap(intent, netmap['nets'])
     except ValueError as exc:
         raise ValueError(f'draft netlist differs from schematic intent: {exc}') from exc
+    netmap['no_connect'] = {
+        component.ref: sorted(item.pin for item in component.no_connects)
+        for component in intent.components if component.no_connects
+    }
     # Retain KiCad's real qualified names in the accepted netmap. Normalizing
     # comparison must not silently rename the PCB or merge local sheet nets.
 
@@ -135,7 +141,8 @@ def accept_schematic(project: Project, draft: DraftRecord) -> AcceptanceResult:
         if target.exists() and relative not in metadata['base_files']:
             raise ValueError(f'new child would overwrite an unrelated file: {relative}')
     changes[project.netmap_path] = (json.dumps(netmap, indent=2) + '\n').encode()
-    changes[project.root / 'SCHEMATIC_OWNER'] = b'human\n'
+    if record_legacy_owner:
+        changes[project.root / 'SCHEMATIC_OWNER'] = b'human\n'
     _accept_changes(project, draft, changes, check_base, evidence_findings,
                     lifecycle=Lifecycle.DRAFT)
     return AcceptanceResult(DraftKind.SCHEMATIC, project.schematic_path,

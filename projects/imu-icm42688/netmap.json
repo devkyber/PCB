@@ -1,18 +1,6 @@
 {
-  "source": "gen_imu_sch.py",
+  "source": "extract_netmap.py (derived from imu-icm42688.kicad_sch)",
   "nets": {
-    "U1": {
-      "1": "SPI_SDO",
-      "4": "INT1",
-      "5": "+3V3",
-      "6": "GND",
-      "8": "+3V3",
-      "12": "SPI_CS",
-      "13": "SPI_SCLK",
-      "14": "SPI_SDI",
-      "7": "GND",
-      "9": "GND"
-    },
     "C1": {
       "1": "+3V3",
       "2": "GND"
@@ -42,19 +30,25 @@
     "TP3": {
       "1": "INT1"
     },
-    "#FLG01": {
-      "1": "+3V3"
-    },
-    "#FLG02": {
-      "1": "GND"
+    "U1": {
+      "1": "SPI_SDO",
+      "12": "SPI_CS",
+      "13": "SPI_SCLK",
+      "14": "SPI_SDI",
+      "4": "INT1",
+      "5": "+3V3",
+      "6": "GND",
+      "7": "GND",
+      "8": "+3V3",
+      "9": "GND"
     }
   },
   "no_connect": {
     "U1": [
-      "2",
-      "3",
       "10",
-      "11"
+      "11",
+      "2",
+      "3"
     ],
     "H1": [
       "1"

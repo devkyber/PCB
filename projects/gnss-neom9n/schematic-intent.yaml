@@ -1,6 +1,6 @@
 schema_version: 1
-title: NEO-M9N GNSS breakout - review draft
-revision: '1'
+title: NEO-M9N GNSS breakout
+revision: 'working-1'
 sheets:
 - id: main
   title: GNSS receiver breakout

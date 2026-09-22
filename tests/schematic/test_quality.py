@@ -22,8 +22,8 @@ def test_quality_reads_utf8_independent_of_locale(tmp_path):
     ("board", "components", "power", "junctions", "minimum_drawn_ratio"),
     [
         ("baro-bmp390", 10, 21, 6, 0.8),
-        ("imu-icm42688", 10, 19, 0, 0),
-        ("gnss-neom9n", 24, 33, 0, 0),
+        ("imu-icm42688", 10, 19, 4, 0.75),
+        ("gnss-neom9n", 24, 33, 8, 0.7),
         ("tms-v3", 66, 72, 0, 0),
     ],
 )

@@ -29,7 +29,7 @@ def rendered_boards(tmp_path_factory):
     repo_root = Path(__file__).resolve().parents[2]
     base = tmp_path_factory.mktemp('power-diagnostics')
     rendered = {}
-    for board in ('baro-bmp390', 'gnss-neom9n', 'tms-v3'):
+    for board in ('baro-bmp390', 'imu-icm42688', 'gnss-neom9n', 'tms-v3'):
         root = base / board
         shutil.copytree(
             repo_root / 'projects' / board,
@@ -58,11 +58,6 @@ def _rendered_tree(rendered_boards, board, filename=None):
     ('board', 'expected_code', 'message_parts'),
     [
         (
-            'gnss-neom9n',
-            'power-text-collision',
-            ('U2.12', 'RF_IN'),
-        ),
-        (
             'tms-v3',
             'power-text-collision',
             ('J8', 'hierarchical label'),
@@ -90,11 +85,16 @@ def test_preview_reports_known_serialized_power_clashes(
     assert all(path.read_bytes() == payload for path, payload in before.items())
 
 
-def test_bmp_power_spacing_clears_nonadjacent_ic_glyphs(rendered_boards):
-    tree = _rendered_tree(rendered_boards, 'baro-bmp390')
-    clashes = [finding for finding in power_clearance_findings(tree, 'baro-bmp390.kicad_sch')
+@pytest.mark.parametrize('board,reference', [
+    ('baro-bmp390', 'U1.'),
+    ('imu-icm42688', 'U1.'),
+    ('gnss-neom9n', 'U2.'),
+])
+def test_ic_power_spacing_clears_glyph_and_label_clashes(rendered_boards, board, reference):
+    tree = _rendered_tree(rendered_boards, board)
+    clashes = [finding for finding in power_clearance_findings(tree, f'{board}.kicad_sch')
                if finding.code in {'power-glyph-collision', 'power-text-collision'}
-               and 'attached U1.' in finding.message]
+               and f'attached {reference}' in finding.message]
     assert clashes == []
 
 

@@ -60,7 +60,9 @@ def test_accept_hierarchy_awaits_human_review_without_changing_pcb(reviewed_cand
     assert json.loads((state_dir / 'review.json').read_text())['lifecycle'] == 'DRAFT'
     assert project.pcb_path.read_bytes() == pcb
     assert (project.root / 'sensor.kicad_sch').is_file()
-    assert json.loads(project.netmap_path.read_text())['nets']['U1']['7'] == 'DATA_READY'
+    netmap = json.loads(project.netmap_path.read_text())
+    assert netmap['nets']['U1']['7'] == 'DATA_READY'
+    assert netmap['no_connect']['U1'] == ['1', '2', '3', '4', '5', '6', '8']
     assert (project.root / '.pcb-copilot/acceptances' / draft.id / project.schematic_path.name).read_bytes() == original
     with (project.root / 'sensor.kicad_sch').open('ab') as stream:
         stream.write(b'\n')

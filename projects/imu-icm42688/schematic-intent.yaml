@@ -1,6 +1,6 @@
 schema_version: 1
-title: ICM-42688-P SPI breakout - preserved circuit draft
-revision: rev1-draft
+title: ICM-42688-P SPI breakout
+revision: working-1
 sheets:
   - id: main
     title: Host interface, inertial sensor and mounting

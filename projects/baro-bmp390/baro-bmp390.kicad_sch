@@ -2,7 +2,7 @@
 	(version 20250114)
 	(generator "kicad-claude")
 	(generator_version "0.1")
-	(uuid "5c37670d-85bd-4f80-838f-b9440ebafe95")
+	(uuid "8dd1dae7-40db-4b5c-b204-becabe095a97")
 	(paper "A4")
 	(title_block
 		(title "BMP390 - 3.3V I2C barometer")
@@ -1324,7 +1324,7 @@
 				(size 1.5 1.5)
 			)
 		)
-		(uuid "0f94db4c-0937-46ca-9b36-58812465276e")
+		(uuid "78510354-83a3-4b7b-b00e-67b0e1810dfb")
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x04")
@@ -1334,7 +1334,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "5fd20030-c216-4c39-bc20-026d32cb63e6")
+		(uuid "cf503016-cb51-47af-aaab-03e5640d4359")
 		(property "Reference" "J1"
 			(at 52.07 31.75 0)
 			(effects
@@ -1379,20 +1379,20 @@
 			)
 		)
 		(pin "1"
-			(uuid "41e1fb03-f469-4b51-8279-602b58c88aea")
+			(uuid "f39a71a3-e28f-472e-8ae8-3b0181a4454e")
 		)
 		(pin "2"
-			(uuid "d7a21817-81a9-4ddb-93c2-dfff6a621606")
+			(uuid "ce122457-9394-4a9b-8847-4a1e97d65f14")
 		)
 		(pin "3"
-			(uuid "9325787a-8d76-421d-bbb0-3192f9e06d02")
+			(uuid "c7c5fe19-5dab-417d-8698-06cf0cbeb2d9")
 		)
 		(pin "4"
-			(uuid "af2c8f5d-4287-4601-80b2-d9ace862c58f")
+			(uuid "97c1fdf8-d8ae-4b30-a9d1-104e52804579")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "J1")
 					(unit 1)
 				)
@@ -1407,7 +1407,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "ba9fb986-3ade-4010-be05-7c886d801e1d")
+		(uuid "4e6f805e-6f8f-41af-9cc8-aab173ca1820")
 		(property "Reference" "C3"
 			(at 56.52 66.04 0)
 			(effects
@@ -1452,14 +1452,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "a62a4221-1752-4ca2-b668-3401a5ce852d")
+			(uuid "281edb15-d168-4ad8-9e91-6d86268f4618")
 		)
 		(pin "2"
-			(uuid "1eccebce-aa0e-43b4-8f24-8b9c03cc44ac")
+			(uuid "f2678af4-d678-4c75-aa08-0a4eba20f1cc")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "C3")
 					(unit 1)
 				)
@@ -1474,7 +1474,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "6cf6fad7-7de6-4aad-940e-2b4e33c9d46d")
+		(uuid "293050de-6e8c-4e99-9cc8-c5b34a95190e")
 		(property "Reference" "#FLG01"
 			(at 52.07 86.36 0)
 			(effects
@@ -1521,11 +1521,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "e65e702a-7e21-4899-9998-3d82d8cf7691")
+			(uuid "c8036c3a-f040-45f4-bc72-bb7c4c5b18ba")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "#FLG01")
 					(unit 1)
 				)
@@ -1540,7 +1540,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "09eb740f-9000-4fb2-b673-dc68b03a4a20")
+		(uuid "23b916e9-6f3b-4330-9e1f-39f9f3493a16")
 		(property "Reference" "#FLG02"
 			(at 56.52 109.22 0)
 			(effects
@@ -1587,11 +1587,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "ee14afde-42e3-4e30-9599-6f00d73ec1dc")
+			(uuid "d16311b1-afc9-40c5-b3b6-dc3079cbe78f")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "#FLG02")
 					(unit 1)
 				)
@@ -1605,7 +1605,7 @@
 				(size 1.5 1.5)
 			)
 		)
-		(uuid "d6b65393-6c8e-4eda-bbeb-c57ca26c8230")
+		(uuid "c2d74c6a-3d98-4da9-918f-6b5d76a577cc")
 	)
 	(symbol
 		(lib_id "jlcpcb:BMP390_C5124834")
@@ -1615,7 +1615,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "02b783d1-9f89-4788-85f6-eb35a5e92bed")
+		(uuid "f9f48750-48a9-49fc-a0de-b14acfdeadb7")
 		(property "Reference" "U1"
 			(at 116.84 30.48 0)
 			(effects
@@ -1660,38 +1660,38 @@
 			)
 		)
 		(pin "1"
-			(uuid "a7435a40-edea-4d53-889a-ebad22bfceb1")
+			(uuid "1fbc30f3-c30c-4bfc-b126-4a9f6fcad9d1")
 		)
 		(pin "2"
-			(uuid "1c468f60-1922-4e8e-87df-ea68eb89063a")
+			(uuid "d6df24d4-98a2-4c28-b2d8-99efd9482b84")
 		)
 		(pin "3"
-			(uuid "7101eb92-97a3-48be-b927-d7d275026b06")
+			(uuid "749536bf-937e-4e16-98aa-d02e8025763b")
 		)
 		(pin "4"
-			(uuid "e3c7c006-edfd-4ae7-ae3a-e742833d35e1")
+			(uuid "683b87c9-d28e-44be-89f0-de0273649080")
 		)
 		(pin "5"
-			(uuid "9ba79113-0a7a-43ca-9151-c3da78c2195e")
+			(uuid "e6d2a1a2-b3d6-4b84-be74-ed50491ea460")
 		)
 		(pin "6"
-			(uuid "440246cc-ebc8-43af-9fc3-a84bdfa0c6b0")
+			(uuid "5164172f-b7ba-4be6-afb0-72646949eb75")
 		)
 		(pin "7"
-			(uuid "20449b67-e911-463b-ad55-2fa251195891")
+			(uuid "82fbec1a-3d61-499b-8efd-c6fe95e5584c")
 		)
 		(pin "8"
-			(uuid "733874ed-1f3d-4eec-a369-2509d94676db")
+			(uuid "95272d15-589a-4ebb-9640-6cf70433a804")
 		)
 		(pin "9"
-			(uuid "1ba7d299-9c4e-4f48-a5b6-8a8758650122")
+			(uuid "a4d7e6e4-867a-4e5e-ac19-177a6140ff88")
 		)
 		(pin "10"
-			(uuid "a9fe705a-8a79-4e3e-aeb2-c067a53af083")
+			(uuid "348820b9-cd5e-4cfd-ae5b-4f413c84d634")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "U1")
 					(unit 1)
 				)
@@ -1706,7 +1706,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "7db3159c-a034-418c-a696-545dc0d2175b")
+		(uuid "76dc179e-e5dd-4564-a6db-5bb4980e46ac")
 		(property "Reference" "TP1"
 			(at 116.84 60.96 0)
 			(effects
@@ -1751,11 +1751,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "01d90641-6dd8-406c-8a5f-542767247c13")
+			(uuid "8b8683a7-d3e1-4b5f-8c54-cd10dd00adba")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "TP1")
 					(unit 1)
 				)
@@ -1770,7 +1770,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "f3e1f20f-f679-4328-bb72-0bc5c0052608")
+		(uuid "6deed8f8-3717-4550-8f06-c4fff9d65c0f")
 		(property "Reference" "C1"
 			(at 108.59 88.9 0)
 			(effects
@@ -1815,14 +1815,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "77a51a65-90c5-4763-92b4-329824dfe372")
+			(uuid "d694499f-b11f-4697-b66d-dbf557d12f22")
 		)
 		(pin "2"
-			(uuid "2ad0fe21-0af1-4f46-8057-c502ccdb620d")
+			(uuid "bc08b590-8aed-4143-8e7d-90d398e28bd9")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "C1")
 					(unit 1)
 				)
@@ -1837,7 +1837,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "1fb80b52-399c-4761-b422-0a0592958d1a")
+		(uuid "ef9e702b-4539-4a2c-bea6-b34434a0316d")
 		(property "Reference" "C2"
 			(at 133.99 88.9 0)
 			(effects
@@ -1882,14 +1882,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "9fdc234f-8de5-4803-8399-459a43b22be3")
+			(uuid "3c2ea7fc-24f9-43dc-bc7b-3c82ba615419")
 		)
 		(pin "2"
-			(uuid "31906f6b-13e2-4e1f-8fbf-3864ee05d2f7")
+			(uuid "c06bb83a-2345-49c8-862c-a8e9965e0474")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "C2")
 					(unit 1)
 				)
@@ -1903,7 +1903,7 @@
 				(size 1.5 1.5)
 			)
 		)
-		(uuid "adb96004-1c25-46bf-8a11-06f4ebd8a783")
+		(uuid "2b077aac-6400-4fcb-991b-e6c3b449110c")
 	)
 	(symbol
 		(lib_id "Device:R")
@@ -1913,7 +1913,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "d30785b4-48db-403f-9af8-51cbcfa9d5ed")
+		(uuid "1713bc05-418d-4da4-a104-746956fceffa")
 		(property "Reference" "R1"
 			(at 172.09 40.64 0)
 			(effects
@@ -1958,14 +1958,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "3346c377-444b-4bb7-b3eb-edb7383d383a")
+			(uuid "700e08cf-e926-4ffa-856a-a6734ad351ee")
 		)
 		(pin "2"
-			(uuid "93c001e1-5b6f-425a-bac7-f23e2e3c5e6a")
+			(uuid "fe1357fb-8676-4ba0-b39e-ee97f5d9908b")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "R1")
 					(unit 1)
 				)
@@ -1980,7 +1980,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "a2786571-c279-4a91-92a3-f9d8d5a9e01b")
+		(uuid "4edd5abe-895f-47df-8fc6-09192feea688")
 		(property "Reference" "R2"
 			(at 197.49 40.64 0)
 			(effects
@@ -2025,14 +2025,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "56a98c37-19b2-4311-946b-7445fb75ce34")
+			(uuid "8820c8a0-7e3d-4cf7-bf95-920057907cf4")
 		)
 		(pin "2"
-			(uuid "3483f888-f82d-4f54-b05d-eb0e2e078bb9")
+			(uuid "0af48005-c620-4f60-afb8-0a9cfbdd6e3c")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "R2")
 					(unit 1)
 				)
@@ -2046,7 +2046,7 @@
 				(size 1.5 1.5)
 			)
 		)
-		(uuid "cc961cf3-00ee-4b11-9948-11f3df2c094b")
+		(uuid "1b914f30-315f-46fe-ba62-f7da2ca9304b")
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x01")
@@ -2056,7 +2056,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "f44b8e06-01ca-42d8-ad9b-aa8284ee1b16")
+		(uuid "c409c532-a8ec-451a-a2c2-858c6acfb334")
 		(property "Reference" "H1"
 			(at 245.11 33.02 0)
 			(effects
@@ -2101,11 +2101,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "8b97a314-97da-47cb-872b-c55c63d3e25f")
+			(uuid "03fd2202-7b19-49c7-8b61-5a5050195cd3")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "H1")
 					(unit 1)
 				)
@@ -2120,7 +2120,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "fe4411a3-3a44-4345-bacb-b07d71ff7ede")
+		(uuid "517b9153-3510-4389-9693-f2cce10f8803")
 		(property "Reference" "H2"
 			(at 245.11 53.34 0)
 			(effects
@@ -2165,11 +2165,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "a33d82e4-b660-4e6d-b06b-2ba63b3f616b")
+			(uuid "22032e87-ef0b-4cc7-a749-917a9f91b5e1")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "H2")
 					(unit 1)
 				)
@@ -2185,7 +2185,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "d045dfa6-d938-4406-9fb1-d65a6aeadff9")
+		(uuid "c9777c35-1719-485c-ab63-345728ba52ce")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -2195,7 +2195,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "3affe18a-558e-419c-b722-d4709b7f5b17")
+		(uuid "da45b44c-f1a2-49f3-a605-c6b6a55983cf")
 		(property "Reference" "#PWR101"
 			(at 33.66 36.83 0)
 			(effects
@@ -2241,11 +2241,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "9e6288f5-f06f-4964-b21a-a7c052cb2649")
+			(uuid "07ad0eb2-3f51-409d-9a72-203d92c0a3c8")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "#PWR101")
 					(unit 1)
 				)
@@ -2261,7 +2261,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "c5f66b2a-b376-4ddc-90fe-af1b019936b9")
+		(uuid "8044057b-eee8-49b4-936a-ca6d0ceee911")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -2271,7 +2271,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "b2fb77a2-8a86-48c4-b0ff-de0f58841e43")
+		(uuid "7a043ae6-c470-4842-9172-941e7052f9ca")
 		(property "Reference" "#PWR102"
 			(at 44.45 36.83 0)
 			(effects
@@ -2317,11 +2317,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "560f2286-7e5a-4eb4-9578-9c62dd8c473b")
+			(uuid "24cbed0e-66e9-4023-8847-7ffe5758ab05")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "#PWR102")
 					(unit 1)
 				)
@@ -2337,7 +2337,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "50a72488-1b15-4293-84cf-702b024024a0")
+		(uuid "7ece1520-d120-4cb5-aaeb-b8b21ee362d1")
 	)
 	(label "I2C_SDA"
 		(at 38.1 43.18 180)
@@ -2347,7 +2347,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "f6b1be59-35a5-49bd-bee7-fe4edcf68f3e")
+		(uuid "c1ed2c35-37cf-4b41-a80b-b43f51b2a170")
 	)
 	(wire
 		(pts
@@ -2358,7 +2358,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "e7e51eeb-27ea-4714-9d67-1e1fbfe32be7")
+		(uuid "03d8db5e-460c-4ac8-b444-174259846ca0")
 	)
 	(label "I2C_SCL"
 		(at 40.64 45.72 180)
@@ -2368,7 +2368,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "6b0cf75d-41f3-4050-9594-4a7f374ba6e2")
+		(uuid "c04880a0-8167-4175-be8d-412d544d898c")
 	)
 	(wire
 		(pts
@@ -2379,7 +2379,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "8738fa60-966e-4dff-b12f-eca5ba8a6b2b")
+		(uuid "e1d9019f-9b4c-4ff8-b4c5-27bf013584bf")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -2389,7 +2389,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "e0d51cf2-de09-4cf2-b8db-60f24ebb5a42")
+		(uuid "d6537944-dabe-431c-9de4-37dfed58a7d8")
 		(property "Reference" "#PWR103"
 			(at 56.52 59.69 0)
 			(effects
@@ -2435,11 +2435,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "3e04187f-647a-4a08-a66d-a0fe2d2342ec")
+			(uuid "f116e4fe-f262-4aea-9c74-73b89c87404f")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "#PWR103")
 					(unit 1)
 				)
@@ -2455,7 +2455,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "cf404692-c880-460d-b106-960d542a377d")
+		(uuid "298d3b99-5765-4efd-a9be-410bc9dc4bc6")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -2465,7 +2465,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "86ceb515-a3f9-4e7d-97da-13a593a3914c")
+		(uuid "4c889333-1c99-4cbd-9cc3-a79bd771ecff")
 		(property "Reference" "#PWR104"
 			(at 52.07 69.85 0)
 			(effects
@@ -2511,11 +2511,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "ea04aac6-9af4-40c0-8d60-2a2ae2c0023d")
+			(uuid "21160651-00a4-42f4-a598-ea72f013a8f7")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "#PWR104")
 					(unit 1)
 				)
@@ -2531,7 +2531,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "1a9299d3-be59-4a59-95c1-5fae77be94f9")
+		(uuid "8c21d331-dae5-48f5-9bd0-5af149e59d30")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -2541,7 +2541,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "d3005cfa-3148-4301-972e-1f3d3a802598")
+		(uuid "4333d588-e609-44be-82c2-272b2cb4eaec")
 		(property "Reference" "#PWR105"
 			(at 54.61 86.36 0)
 			(effects
@@ -2587,11 +2587,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "17b8bea0-17c8-4bdd-90ce-c8aaf5281742")
+			(uuid "3efeeda6-f643-47af-92a5-393735faf301")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "#PWR105")
 					(unit 1)
 				)
@@ -2607,7 +2607,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "3ffe991f-43de-461b-a88b-772c995e37ea")
+		(uuid "b1dadf60-35d7-48a6-8ddb-e064cdaae356")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -2617,7 +2617,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "0bd79fe9-bfff-4f62-b8a8-66e4a3ce4dd0")
+		(uuid "65336159-9942-444a-8fba-25bca8eabf18")
 		(property "Reference" "#PWR106"
 			(at 59.06 109.22 0)
 			(effects
@@ -2663,11 +2663,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "36bae033-0ecd-4f70-b3e5-d6aedbaf9b90")
+			(uuid "77b1d700-2550-499a-a3d2-0aa56f5f8bf2")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "#PWR106")
 					(unit 1)
 				)
@@ -2683,7 +2683,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "11fea771-c5ff-43e8-8f85-f409f185d029")
+		(uuid "53880e2e-ff5f-48cb-bed3-a72da569692c")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -2693,7 +2693,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "408bc273-64dc-4c27-8397-94c2d351e748")
+		(uuid "62d0b793-e35b-4066-aee5-4bc2fe6c59f6")
 		(property "Reference" "#PWR107"
 			(at 104.78 36.83 0)
 			(effects
@@ -2739,11 +2739,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "f191d82d-add4-4b4e-bec7-5dd0a5701d10")
+			(uuid "a020f19d-6367-4195-9a1e-68fa3eafcacf")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "#PWR107")
 					(unit 1)
 				)
@@ -2759,7 +2759,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "12615016-3576-4d5f-8262-167daae80a9c")
+		(uuid "ba0330e7-cbc8-4c07-bbb0-acccb01bbdac")
 	)
 	(label "I2C_SCL"
 		(at 92.71 40.64 180)
@@ -2769,7 +2769,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "17e4cef9-6885-401e-8a37-826061295fb5")
+		(uuid "26e2bea4-fda9-4c0d-a693-1561c237da6e")
 	)
 	(wire
 		(pts
@@ -2780,7 +2780,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "ec8ade98-80bb-412b-946d-354b50997eeb")
+		(uuid "4f2ebc4e-a28b-4d1c-b91c-97a0152316ea")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -2790,7 +2790,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "bf6c1312-ec9c-4c51-acf4-fb3cfc68df97")
+		(uuid "dc569d7d-d776-43e7-8c16-df4f8539f599")
 		(property "Reference" "#PWR108"
 			(at 102.87 39.37 0)
 			(effects
@@ -2836,11 +2836,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "64d7ecf0-5f5a-469f-a4de-66adf8402487")
+			(uuid "ad264bbc-6fae-4ba2-8687-a246c2379ba4")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "#PWR108")
 					(unit 1)
 				)
@@ -2856,7 +2856,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "d3bf0969-6591-4f17-bbf2-4eafd7290651")
+		(uuid "1ea6d66e-3a67-452f-8b38-d0cee74f24c7")
 	)
 	(label "I2C_SDA"
 		(at 97.79 45.72 180)
@@ -2866,7 +2866,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "6a3c9bfe-b349-4d79-bea2-11e5e27fd308")
+		(uuid "8c28fe61-21dc-4ade-8a4c-cd77015876af")
 	)
 	(wire
 		(pts
@@ -2877,7 +2877,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "7ec314b6-6ab5-4abd-8569-3134d7c60385")
+		(uuid "edc3c2b8-56d1-43ab-ab6a-3a8e86cf4fea")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -2887,7 +2887,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "a965cbba-f2a9-44a4-b526-1cb410cc1c91")
+		(uuid "90327ebe-baca-4d5b-bdd6-58477106b29f")
 		(property "Reference" "#PWR109"
 			(at 100.33 44.45 0)
 			(effects
@@ -2933,11 +2933,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "6875f44b-1aab-4d27-ad0d-610d2929a560")
+			(uuid "578b2c78-ac84-4c43-8b10-eadc7536b9a2")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "#PWR109")
 					(unit 1)
 				)
@@ -2953,7 +2953,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f0984a2e-87e2-4a56-b8b5-9e07524958f3")
+		(uuid "c8b16fb3-c1c4-4f91-ba8b-225f214c7bb7")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -2963,7 +2963,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "51a1010a-2d5c-48f2-ba7b-cb6b299bd76a")
+		(uuid "5c686916-52e9-4e3a-add9-180b618dd6a4")
 		(property "Reference" "#PWR110"
 			(at 133.35 44.45 0)
 			(effects
@@ -3009,11 +3009,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "d77dc14c-1050-4878-85e9-a43427744254")
+			(uuid "379f3530-53d3-4316-88ce-2c8c907f947d")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "#PWR110")
 					(unit 1)
 				)
@@ -3029,7 +3029,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "21ec2a15-db84-4460-9493-53101ad3e92f")
+		(uuid "ca3a4992-d7aa-4a5f-8c32-5b9ab6a46016")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -3039,7 +3039,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "66fa8653-60f5-4092-b9af-49bdd449a754")
+		(uuid "54d8cc28-9603-4dfb-872e-f8f014220168")
 		(property "Reference" "#PWR111"
 			(at 130.81 39.37 0)
 			(effects
@@ -3085,11 +3085,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "1e725d38-d46c-4175-b43e-0e61e72c74fc")
+			(uuid "23361875-37a9-400e-ba57-d4af354b0b37")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "#PWR111")
 					(unit 1)
 				)
@@ -3105,7 +3105,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f53252fe-383f-4a51-a518-62e6e9ed840a")
+		(uuid "0cb4cfa5-d5f3-40c0-afcb-5975e8830bf6")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -3115,7 +3115,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "013c7d2b-444f-44fa-8d27-06bada03c67a")
+		(uuid "8b77a8ab-d96e-4c76-93d6-66384e71fbf6")
 		(property "Reference" "#PWR112"
 			(at 146.05 36.83 0)
 			(effects
@@ -3161,11 +3161,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "ba00289e-9365-448a-ad62-9445a10697ae")
+			(uuid "fbd07575-6d17-4f97-bfd3-9714767e5e6f")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "#PWR112")
 					(unit 1)
 				)
@@ -3181,7 +3181,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "23ca597e-55d7-4b76-bb33-df6eaffda77d")
+		(uuid "4e63ed43-c36b-47a7-b7e7-d5a6b7cd5b0b")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -3191,7 +3191,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "efda8687-ba22-4e81-bf44-e6d5cf31b1cf")
+		(uuid "bd4a6354-55ae-4fd7-8a5b-3a5df6ea7d9b")
 		(property "Reference" "#PWR113"
 			(at 133.35 34.29 0)
 			(effects
@@ -3237,11 +3237,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "66ae2b5c-758f-48b8-b4cb-fcc9d0fd2fe1")
+			(uuid "3146e4b5-17cd-4696-9286-ae15922899d9")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "#PWR113")
 					(unit 1)
 				)
@@ -3257,7 +3257,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "8f1b9275-01e7-4924-98ec-40e58471dfd7")
+		(uuid "3a486cef-f363-4d90-856b-4412d3856457")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -3267,7 +3267,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "20114553-8514-4bfe-89ff-70b519a6e026")
+		(uuid "67095bca-e158-49ec-b844-e607385171b5")
 		(property "Reference" "#PWR114"
 			(at 104.14 80.01 0)
 			(effects
@@ -3313,11 +3313,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "4d1339a4-4bfe-46a9-8ee3-baf0fc049502")
+			(uuid "dcc8f675-4713-4889-a577-340d7b860ddf")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "#PWR114")
 					(unit 1)
 				)
@@ -3333,7 +3333,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "fbad3687-2466-407b-9189-689bb22133b4")
+		(uuid "5f77c227-47af-493e-a7ba-25826bd8ef2f")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -3343,7 +3343,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "782f153f-c680-45f0-bbac-2b580e52078d")
+		(uuid "875e9f06-41a2-44c2-849b-5829d6c3fa03")
 		(property "Reference" "#PWR115"
 			(at 108.59 95.25 0)
 			(effects
@@ -3389,11 +3389,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "a307acb7-c14c-47a1-8bf1-280c8ab3c5bf")
+			(uuid "84da066f-7f74-473c-a037-f96717426a72")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "#PWR115")
 					(unit 1)
 				)
@@ -3409,7 +3409,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "481dd574-5d62-4e5b-8211-abaf02e4daab")
+		(uuid "d1db08f6-ca7d-459e-962e-1bddbd7f1cdf")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -3419,7 +3419,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "1f358a42-6afa-4d57-9566-3f72a1874f93")
+		(uuid "58d5dd57-062e-4f18-a40a-65ba53fca497")
 		(property "Reference" "#PWR116"
 			(at 129.54 80.01 0)
 			(effects
@@ -3465,11 +3465,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "eaa1e02a-3a0d-4115-8b64-26fcc9d64819")
+			(uuid "a847fe8f-3e9c-44b9-a9b7-a765175fbc83")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "#PWR116")
 					(unit 1)
 				)
@@ -3485,7 +3485,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "2a3dec6d-7b75-4849-a6af-bad9c7f57c4c")
+		(uuid "37e1ea62-34d2-4fe2-9f7e-0502ed4912ff")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -3495,7 +3495,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "2d9583c3-deb1-40ac-9788-127c7bc47466")
+		(uuid "18704ec9-e501-460c-9d0c-c633f4e235e1")
 		(property "Reference" "#PWR117"
 			(at 129.54 92.71 0)
 			(effects
@@ -3541,11 +3541,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "7de23873-ed18-4706-b69c-3ed686fdb0c6")
+			(uuid "da96b6e7-e908-4aea-9a15-025005a04235")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "#PWR117")
 					(unit 1)
 				)
@@ -3561,7 +3561,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "7e4dd801-bdc9-4f0a-8bcd-c4fdc07593e9")
+		(uuid "25fd9699-2e33-4bb2-89f6-4a31f28e9e4c")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -3571,7 +3571,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "af6e29fc-7c6b-460d-a477-0472a3d143f4")
+		(uuid "e309848d-f653-41d4-a84b-e37d66dc9e8f")
 		(property "Reference" "#PWR118"
 			(at 167.64 31.75 0)
 			(effects
@@ -3617,11 +3617,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "ab394d89-edb6-44bc-8822-ceb023e3a882")
+			(uuid "6eef2cee-2858-4db6-8773-6c57b1e97538")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "#PWR118")
 					(unit 1)
 				)
@@ -3637,7 +3637,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "43e810a1-a0b6-4984-81c1-0e1e19523627")
+		(uuid "b72d8293-fe92-45af-8bcb-bae72e809859")
 	)
 	(label "I2C_SCL"
 		(at 167.64 48.26 0)
@@ -3647,7 +3647,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "f0151555-4af0-43d6-acf1-738b5d0712d0")
+		(uuid "00edf084-51fb-4f78-8bbe-cf69c9112427")
 	)
 	(wire
 		(pts
@@ -3658,7 +3658,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "7d165e4d-3d2d-45bc-8efb-8e901ea98ebe")
+		(uuid "e09d4d1d-c82e-482b-b052-f4314f4c92db")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -3668,7 +3668,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "3a047fcb-0850-46a2-9410-2358135f3fcd")
+		(uuid "3331f0b9-3e1c-47ad-9146-9784331b5586")
 		(property "Reference" "#PWR119"
 			(at 193.04 31.75 0)
 			(effects
@@ -3714,11 +3714,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "df14e3fc-06dd-4205-8c63-f8f36bf4d0e5")
+			(uuid "4cfd63f1-994d-4dbf-9191-e417e61700e8")
 		)
 		(instances
 			(project "baro-bmp390"
-				(path "/5c37670d-85bd-4f80-838f-b9440ebafe95"
+				(path "/8dd1dae7-40db-4b5c-b204-becabe095a97"
 					(reference "#PWR119")
 					(unit 1)
 				)
@@ -3734,7 +3734,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "696cbc29-a7d7-42ce-a736-0dd86e7df4d9")
+		(uuid "a7f72064-a769-4d95-91a1-8b186fa3f9b2")
 	)
 	(label "I2C_SDA"
 		(at 193.04 48.26 0)
@@ -3744,15 +3744,15 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "e8165ec6-ba73-4ec2-9245-1ffdca2575f8")
+		(uuid "9a84203f-6459-48fc-b06c-bc0d7a16c7f1")
 	)
 	(no_connect
 		(at 240.03 39.37)
-		(uuid "8303cda8-c5a9-4b0b-9d8e-3781f70c91cb")
+		(uuid "d22ad202-5e31-470a-9848-bc79b7777c4c")
 	)
 	(no_connect
 		(at 240.03 59.69)
-		(uuid "f0e845a6-e9b7-4afd-b865-1fe20944f474")
+		(uuid "000239d4-4f12-44d1-8957-ccf5bf391406")
 	)
 	(wire
 		(pts
@@ -3763,7 +3763,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "2659a78a-19e7-4505-8283-0fa7d4bea2f2")
+		(uuid "82573eb5-86fb-4aa2-b9bd-ccfe2885affc")
 	)
 	(label "BMP_INT"
 		(at 135.89 45.72 0)
@@ -3773,7 +3773,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "5d1adb68-c475-4d4c-82d4-92eb481bf78f")
+		(uuid "d7a452ff-c056-4da9-acc4-444235e8cff5")
 	)
 	(wire
 		(pts
@@ -3784,7 +3784,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "aeb42248-d971-490d-8bc9-f7a85a40d913")
+		(uuid "ea4ceb91-0a88-4a43-9741-1bdfd220187b")
 	)
 	(wire
 		(pts
@@ -3795,7 +3795,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "359fa5ac-65f7-4c5f-b172-7e56ca8f6560")
+		(uuid "cd8acc84-1fb9-4687-8171-b807ddf16e82")
 	)
 	(wire
 		(pts
@@ -3806,7 +3806,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "22f6bf82-1aff-4e25-b246-e188e3f9f99a")
+		(uuid "148123df-035e-4074-bcd8-99fb2f98c5bd")
 	)
 	(wire
 		(pts
@@ -3817,7 +3817,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "6e7cbdbe-d33f-419d-9111-8c4a7c3566fe")
+		(uuid "a1ee9940-1e04-440e-ad46-271889c15a3a")
 	)
 	(wire
 		(pts
@@ -3828,7 +3828,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "1aac8f39-ab9e-4d37-8f99-4c0fad5af42f")
+		(uuid "75dde7ce-e530-496e-aca2-f4fa8b6f6d47")
 	)
 	(wire
 		(pts
@@ -3839,19 +3839,19 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "0280bc4e-d371-4b4e-8ee2-27a4160338d7")
+		(uuid "dd65601a-1d44-44cf-aa2f-93636b3c6afc")
 	)
 	(junction
 		(at 104.14 83.82)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "bbeeb699-78dc-4ef3-a17f-083da2291721")
+		(uuid "7c3a0a5d-e996-416b-965d-07203cd4ce07")
 	)
 	(junction
 		(at 129.54 83.82)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "455582f0-dc88-4f3d-9a70-f609949f441c")
+		(uuid "18daf51d-062b-4ec7-ab53-8ed0bff6ca78")
 	)
 	(wire
 		(pts
@@ -3862,19 +3862,19 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "48b37762-166c-4db6-a0da-c1d15c8f677e")
+		(uuid "9b4da12a-72a0-4ca0-8ddc-e5bb6bd0c26f")
 	)
 	(junction
 		(at 104.14 96.52)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "4361fd45-c02c-41c9-803e-5f5a58e1c0c0")
+		(uuid "6804bff2-d449-4c54-af3b-dab6e24f44fa")
 	)
 	(junction
 		(at 129.54 96.52)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "f2f8bc15-e5ac-428e-8a84-e15e2472e709")
+		(uuid "48a82fd3-f166-4555-9d1f-cf0e263d31b5")
 	)
 	(wire
 		(pts
@@ -3885,18 +3885,18 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "9e134308-b531-478c-bf9b-6d3885b3e578")
+		(uuid "9351084c-493b-467c-b764-3b2e9d858e7f")
 	)
 	(junction
 		(at 167.64 35.56)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "22202ff6-36c0-496d-8ace-1534801151b3")
+		(uuid "a8a48b1c-ad4e-4d5b-a9bb-b22e0aa38610")
 	)
 	(junction
 		(at 193.04 35.56)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "869c49d4-98c9-4848-81ef-80a873be4176")
+		(uuid "1fea563e-b709-4e01-b41a-6099cd7f6d74")
 	)
 )

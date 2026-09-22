@@ -56,7 +56,7 @@ def update_schematic(project: Project, intent_path: Path, apply: bool) -> dict:
         if apply:
             if report['exit_code']:
                 return result
-            accepted = accept_schematic(project, draft)
+            accepted = accept_schematic(project, draft, record_legacy_owner=False)
             result['applied'] = True
             result['lifecycle'] = accepted.lifecycle.value
             result['schematic'] = str(accepted.accepted_path)

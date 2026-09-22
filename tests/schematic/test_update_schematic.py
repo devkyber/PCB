@@ -23,6 +23,8 @@ def test_apply_updates_current_schematic_and_clears_candidate(project_copy, caps
     pcb = project_copy / 'baro-bmp390.kicad_pcb'
     old_schematic = schematic.read_bytes()
     old_pcb = pcb.read_bytes()
+    owner_marker = project_copy / 'SCHEMATIC_OWNER'
+    owner_marker.unlink(missing_ok=True)
 
     code = main(['update-schematic', str(project_copy), '--intent',
                  str(project_copy / 'schematic-intent.yaml'), '--apply'])
@@ -33,6 +35,7 @@ def test_apply_updates_current_schematic_and_clears_candidate(project_copy, caps
     assert result['lifecycle'] == 'DRAFT'
     assert schematic.read_bytes() != old_schematic
     assert pcb.read_bytes() == old_pcb
+    assert not owner_marker.exists()
     assert not list((project_copy / '.pcb-copilot/drafts').glob('*'))
     assert not list((project_copy / '.pcb-copilot/acceptances').glob('*'))
 
