@@ -109,6 +109,9 @@ def test_review_write_failure_restores_prior_release(reviewed_candidate, monkeyp
     release = state_dir / 'release.json'
     release.write_bytes(b'{"lifecycle":"RELEASED"}\n')
     original_schematic = project.schematic_path.read_bytes()
+    original_board = project.pcb_path.read_bytes()
+    project_file = project.pcb_path.with_suffix('.kicad_pro')
+    original_project = project_file.read_bytes()
     original_release = release.read_bytes()
     replace_bytes = module._replace_bytes
 
@@ -119,7 +122,23 @@ def test_review_write_failure_restores_prior_release(reviewed_candidate, monkeyp
 
     monkeypatch.setattr(module, '_replace_bytes', fail_review)
     with pytest.raises(OSError, match='injected review write failure'):
-        accept_schematic(project, draft)
+        accept_schematic(project, draft, board_payload=original_board + b'\n',
+                         project_payload=original_project + b'\n')
     assert project.schematic_path.read_bytes() == original_schematic
+    assert project.pcb_path.read_bytes() == original_board
+    assert project_file.read_bytes() == original_project
     assert release.read_bytes() == original_release
     assert not (state_dir / 'accept.lock').exists()
+
+
+def test_accept_can_replace_reconciled_board_in_same_transaction(reviewed_candidate):
+    project, draft = reviewed_candidate
+    board_payload = project.pcb_path.read_bytes() + b'\n'
+    project_file = project.pcb_path.with_suffix('.kicad_pro')
+    settings_payload = project_file.read_bytes() + b'\n'
+
+    accept_schematic(project, draft, board_payload=board_payload,
+                     project_payload=settings_payload)
+
+    assert project.pcb_path.read_bytes() == board_payload
+    assert project_file.read_bytes() == settings_payload

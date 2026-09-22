@@ -89,6 +89,7 @@ def render_hierarchy(
 
         for sheet, relative in zip(intent.sheets[1:], child_paths, strict=True):
             child_path = root / relative
+            child_path.unlink(missing_ok=True)
             write_blank_schematic(child_path)
             child_tree = sch_io.parse_file(child_path)
             instance_path = f"/{root_uuid}/{ed.get_sheet_uuid(sheet_nodes[sheet.id])}"

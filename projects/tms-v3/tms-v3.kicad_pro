@@ -573,6 +573,18 @@
       {
         "netclass": "HighCurrent",
         "pattern": "IGN_*"
+      },
+      {
+        "netclass": "HighCurrent",
+        "pattern": "Power/VBAT_PROT"
+      },
+      {
+        "netclass": "HighCurrent",
+        "pattern": "Connectors and test/IGN_BATT+"
+      },
+      {
+        "netclass": "HighCurrent",
+        "pattern": "Connectors and test/IGN_GND"
       }
     ]
   },

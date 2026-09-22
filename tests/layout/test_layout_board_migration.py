@@ -92,7 +92,7 @@ def test_unknown_owner_inputs_do_not_become_calculated_rules(migrated):
     assert all(f.severity == "review" for f in intent.unresolved_decisions)
     if project.manifest.name == "tms-v3":
         classes = {net: c for c in intent.net_classes for net in c.nets}
-        assert classes["IGN_GND"].width_mm == 1.0
+        assert classes["Connectors and test/IGN_GND"].width_mm == 1.0
         assert classes["GND"].width_mm == 0.254
         assert {z.net for z in intent.zones} == {"GND"}
 

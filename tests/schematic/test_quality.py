@@ -3,6 +3,7 @@ import sys
 
 import pytest
 
+from pcb_copilot.schematic.preview import schematic_files
 from pcb_copilot.schematic.quality import analyse_schematic
 
 
@@ -24,7 +25,6 @@ def test_quality_reads_utf8_independent_of_locale(tmp_path):
         ("baro-bmp390", 10, 21, 6, 0.8),
         ("imu-icm42688", 10, 19, 4, 0.75),
         ("gnss-neom9n", 24, 33, 8, 0.7),
-        ("tms-v3", 66, 72, 0, 0),
     ],
 )
 def test_current_schematic_metrics_match_baseline(
@@ -41,7 +41,24 @@ def test_current_schematic_metrics_match_baseline(
         assert metrics.drawn_connection_ratio == 0
 
 
-def test_only_tms_fails_current_density_rule(repo_root):
+def test_tms_hierarchy_preserves_components_and_stays_within_page_capacity(repo_root):
+    root = repo_root / "projects/tms-v3/tms-v3.kicad_sch"
+    sheets = schematic_files(root)
+    metrics = [analyse_schematic(path) for path in sheets]
+
+    assert len(sheets) == 7
+    assert metrics[0].sheet_count == 7
+    assert sum(item.component_count for item in metrics) == 66
+    assert sum(item.power_symbol_count for item in metrics) == 72
+    assert sum(item.junction_count for item in metrics) == 19
+    assert all(item.title_complete for item in metrics)
+    assert all(item.component_count <= item.page_capacity for item in metrics)
+    # The controller and external-connector sheets remain label-heavy; the
+    # hierarchy is an improvement, not a claim of fully human-level drawing.
+    assert sum(item.junction_count == 0 for item in metrics[1:]) == 2
+
+
+def test_no_current_sheet_fails_density_rule(repo_root):
     sys.path.insert(0, str(repo_root / "scripts"))
     checker = importlib.import_module("check_schematic_quality")
     results = {}
@@ -54,7 +71,7 @@ def test_only_tms_fails_current_density_rule(repo_root):
         "baro-bmp390": False,
         "imu-icm42688": False,
         "gnss-neom9n": False,
-        "tms-v3": True,
+        "tms-v3": False,
     }
 
 

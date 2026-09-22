@@ -57,6 +57,15 @@ def power_stub_length(
     # Deep rows on high-pin-count symbols often sit beside signal labels;
     # the default short exit keeps their power glyphs next to the symbol.
     steps = (8 if rank % 4 == 1 else 0) if rank >= 8 else stagger_steps[rank % 4]
+    symbol = ed.find_symbol_by_reference(tree, ref)
+    library = ed.find_child(symbol, 'lib_id')
+    if library is not None and str(library[1]).startswith('Connector_Generic:'):
+        # Connector pins carry long hierarchical signal labels. Shorten
+        # selected power exits to leave the adjacent label corridor open.
+        if len(column) >= 20 and 8 <= rank < 16:
+            steps = 2
+        elif len(column) <= 5 and rank == 3:
+            steps = 4
     return round(DEFAULT_STUB_MM + steps * GRID_MM, 3)
 
 

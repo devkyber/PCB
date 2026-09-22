@@ -54,37 +54,6 @@ def _rendered_tree(rendered_boards, board, filename=None):
     return sch_io.parse_file(rendered_boards[board]['files'][filename])
 
 
-@pytest.mark.parametrize(
-    ('board', 'expected_code', 'message_parts'),
-    [
-        (
-            'tms-v3',
-            'power-text-collision',
-            ('J8', 'hierarchical label'),
-        ),
-    ],
-)
-def test_preview_reports_known_serialized_power_clashes(
-    rendered_boards, tmp_path, board, expected_code, message_parts
-):
-    schematic = rendered_boards[board]['root']
-    before = {path: path.read_bytes()
-              for path in rendered_boards[board]['files'].values()}
-
-    result = render_schematic_preview(
-        ToolchainPaths(tmp_path / 'missing-kicad-cli', None, ()),
-        schematic,
-        tmp_path / f'{board}-preview',
-    )
-
-    matching = [finding for finding in result.findings
-                if finding.code == expected_code]
-    assert any(all(part in finding.message for part in message_parts)
-               for finding in matching)
-    assert all(finding.severity == 'review' for finding in matching)
-    assert all(path.read_bytes() == payload for path, payload in before.items())
-
-
 @pytest.mark.parametrize('board,reference', [
     ('baro-bmp390', 'U1.'),
     ('imu-icm42688', 'U1.'),
@@ -94,6 +63,18 @@ def test_ic_power_spacing_clears_glyph_and_label_clashes(rendered_boards, board,
     tree = _rendered_tree(rendered_boards, board)
     clashes = [finding for finding in power_clearance_findings(tree, f'{board}.kicad_sch')
                if finding.code in {'power-glyph-collision', 'power-text-collision'}
+               and f'attached {reference}' in finding.message]
+    assert clashes == []
+
+
+@pytest.mark.parametrize('sheet,reference', [
+    ('controller-and-telemetry.kicad_sch', 'J8.'),
+    ('external-connectors-and-test.kicad_sch', 'J3.'),
+])
+def test_tms_connector_power_clears_hierarchical_labels(rendered_boards, sheet, reference):
+    tree = _rendered_tree(rendered_boards, 'tms-v3', sheet)
+    clashes = [finding for finding in power_clearance_findings(tree, sheet)
+               if finding.code == 'power-text-collision'
                and f'attached {reference}' in finding.message]
     assert clashes == []
 

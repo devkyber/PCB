@@ -9,7 +9,10 @@ from pathlib import Path
 from pcb_copilot.accept import accept_schematic, load_draft
 from pcb_copilot.models import Project
 from pcb_copilot.schematic.commands import draft_schematic
-from pcb_copilot.schematic.parity import candidate_board_parity
+from pcb_copilot.schematic.parity import (
+    candidate_board_parity,
+    reconcile_board_net_names,
+)
 
 
 def _remove_transaction(path: Path, expected_parent: Path) -> None:
@@ -19,7 +22,9 @@ def _remove_transaction(path: Path, expected_parent: Path) -> None:
         shutil.rmtree(path)
 
 
-def update_schematic(project: Project, intent_path: Path, apply: bool) -> dict:
+def update_schematic(
+    project: Project, intent_path: Path, apply: bool, *, reconcile_names: bool = False,
+) -> dict:
     """Render once, show review artifacts, and optionally update current CAD."""
     report = draft_schematic(project, intent_path)
     draft = load_draft(project, report['draft_id'])
@@ -27,6 +32,18 @@ def update_schematic(project: Project, intent_path: Path, apply: bool) -> dict:
     preview_dir.mkdir(parents=True, exist_ok=True)
     copied = {}
     try:
+        board_payload = None
+        project_payload = None
+        renamed_nets = 0
+        if reconcile_names:
+            candidate_board, candidate_settings, names = reconcile_board_net_names(
+                project, draft.root,
+            )
+            renamed_nets = len(names)
+            if names:
+                board_payload = candidate_board
+                if candidate_settings != project.pcb_path.with_suffix('.kicad_pro').read_bytes():
+                    project_payload = candidate_settings
         parity_error = candidate_board_parity(project, draft.root)
         if parity_error is not None:
             report['findings'].append({
@@ -52,11 +69,15 @@ def update_schematic(project: Project, intent_path: Path, apply: bool) -> dict:
             'metrics': copied.get('metrics.json'),
             'findings': report['findings'],
             'exit_code': report['exit_code'],
+            'renamed_nets': renamed_nets,
         }
         if apply:
             if report['exit_code']:
                 return result
-            accepted = accept_schematic(project, draft, record_legacy_owner=False)
+            accepted = accept_schematic(
+                project, draft, record_legacy_owner=False,
+                board_payload=board_payload, project_payload=project_payload,
+            )
             result['applied'] = True
             result['lifecycle'] = accepted.lifecycle.value
             result['schematic'] = str(accepted.accepted_path)

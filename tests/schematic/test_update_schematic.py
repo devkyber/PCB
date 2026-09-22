@@ -55,3 +55,18 @@ def test_apply_blocks_schematic_pcb_net_mismatch(project_copy, capsys):
     assert result['applied'] is False
     assert schematic.read_bytes() == before
     assert any(finding['code'] == 'board-parity' for finding in result['findings'])
+
+
+def test_reconcile_option_keeps_already_matching_board(project_copy, capsys):
+    board = project_copy / 'baro-bmp390.kicad_pcb'
+    before = board.read_bytes()
+
+    code = main(['update-schematic', str(project_copy), '--intent',
+                 str(project_copy / 'schematic-intent.yaml'),
+                 '--reconcile-board-names', '--apply'])
+    result = json.loads(capsys.readouterr().out)
+
+    assert code == 0
+    assert result['applied'] is True
+    assert result['renamed_nets'] == 0
+    assert board.read_bytes() == before

@@ -32,9 +32,9 @@ def test_removed_evaluation_refs_are_not_left_in_active_board_sources(repo_root)
                 assert "EVALUATION.md" not in path.read_text(encoding="utf-8"), path
 
 
-def test_gnss_evaluation_is_retained_while_accepted_cad_cites_it(repo_root):
+def test_gnss_evaluation_is_retained_while_design_basis_cites_it(repo_root):
     project = repo_root / "projects/gnss-neom9n"
-    assert "EVALUATION.md" in (project / "gnss-neom9n.kicad_sch").read_text(
+    assert "EVALUATION.md" in (project / "DESIGN_BASIS.md").read_text(
         encoding="utf-8"
     )
     assert (project / "EVALUATION.md").is_file()

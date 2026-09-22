@@ -35,6 +35,7 @@ def main(
     update_parser.add_argument('project_path', type=Path)
     update_parser.add_argument('--intent', required=True, type=Path)
     update_parser.add_argument('--apply', action='store_true')
+    update_parser.add_argument('--reconcile-board-names', action='store_true')
     draft_parser = subparsers.add_parser('draft-schematic', help='create a schematic draft and review artifacts')
     draft_parser.add_argument('project_path', type=Path)
     draft_parser.add_argument('--intent', required=True, type=Path)
@@ -88,7 +89,10 @@ def main(
         from pcb_copilot.toolchain import ToolchainDiscoveryError
 
         try:
-            result = update_schematic(load_project(args.project_path), args.intent, args.apply)
+            result = update_schematic(
+                load_project(args.project_path), args.intent, args.apply,
+                reconcile_names=args.reconcile_board_names,
+            )
         except (ValueError, OSError, RuntimeError, ToolchainDiscoveryError) as exc:
             parser.error(str(exc))
         print(json.dumps(result, indent=2))

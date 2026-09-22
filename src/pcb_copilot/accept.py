@@ -93,6 +93,8 @@ def _replace_bytes(target: Path, payload: bytes) -> None:
 
 def accept_schematic(
     project: Project, draft: DraftRecord, *, record_legacy_owner: bool = True,
+    board_payload: bytes | None = None,
+    project_payload: bytes | None = None,
 ) -> AcceptanceResult:
     metadata = validate_schematic_draft(project, draft)
 
@@ -141,6 +143,10 @@ def accept_schematic(
         if target.exists() and relative not in metadata['base_files']:
             raise ValueError(f'new child would overwrite an unrelated file: {relative}')
     changes[project.netmap_path] = (json.dumps(netmap, indent=2) + '\n').encode()
+    if board_payload is not None:
+        changes[project.pcb_path] = board_payload
+    if project_payload is not None:
+        changes[project.pcb_path.with_suffix('.kicad_pro')] = project_payload
     if record_legacy_owner:
         changes[project.root / 'SCHEMATIC_OWNER'] = b'human\n'
     _accept_changes(project, draft, changes, check_base, evidence_findings,
