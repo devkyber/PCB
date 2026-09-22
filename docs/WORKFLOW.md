@@ -102,10 +102,13 @@ Run the current-design review after schematic or PCB changes:
 ```powershell
 uv run pcb-copilot review projects/baro-bmp390
 uv run pcb-copilot review projects/baro-bmp390 --format json
+uv run pcb-copilot review projects/baro-bmp390 --format markdown --output projects/baro-bmp390/.pcb-copilot/reports/manual.md
 ```
 
 This runs all ten registered checks against a disposable copy, so KiCad report
-generation cannot rewrite the current project. A failure does not hide later
+generation cannot rewrite the current project. The optional Markdown/JSON
+report may be written only as a new file under ignored `.pcb-copilot/reports/`;
+it cannot overwrite a prior report or a design file. A failure does not hide later
 checks. The report includes full-content fingerprints for the root schematic
 and every referenced child sheet, plus the PCB, and states what each check
 does and does not prove. Schematic structural quality now covers every sheet;

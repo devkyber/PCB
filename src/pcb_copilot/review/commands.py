@@ -30,7 +30,8 @@ def review_project(project: Project, checks: Sequence[Check] | None = None) -> R
 
 
 def render_review_json(report: ReviewReport) -> str:
-    return json.dumps(asdict(report), indent=2, ensure_ascii=False)
+    return json.dumps({'schema_version': 1, **asdict(report)}, indent=2,
+                      ensure_ascii=False, sort_keys=True)
 
 
 def render_review_text(report: ReviewReport) -> str:
@@ -43,3 +44,39 @@ def render_review_text(report: ReviewReport) -> str:
         lines.extend(f'  advisory: {warning}' for warning in result.advisories)
     lines.append('RESULT: BLOCKED' if report.blocking else 'RESULT: no registered blocker')
     return '\n'.join(lines)
+
+
+def render_review_markdown(report: ReviewReport) -> str:
+    lines = [
+        f'# Review: {report.project}', '',
+        f'- Schematic SHA-256 (root and referenced sheets): `{report.schematic_hash}`',
+        f'- PCB SHA-256: `{report.pcb_hash}`',
+        f'- Result: **{"BLOCKED" if report.blocking else "no registered blocker"}**',
+        '',
+    ]
+    for result in report.results:
+        lines.extend([
+            f'## {result.check_id} — {"PASS" if result.passed else "FAIL"}', '',
+            result.detail.strip(), '',
+            f'- Proves: {result.scope.proves}',
+            f'- Does not prove: {result.scope.does_not_prove}',
+            f'- Deterministic: {"yes" if result.scope.deterministic else "no"}',
+            f'- External tool: {"yes" if result.scope.requires_external_tool else "no"}',
+        ])
+        lines.extend(f'- Advisory: {warning}' for warning in result.advisories)
+        lines.append('')
+    return '\n'.join(lines)
+
+
+def write_review_report(project: Project, output: Path, rendered: str) -> Path:
+    """Create a new local report; never overwrite design or prior review data."""
+    reports = (project.root / '.pcb-copilot' / 'reports').resolve()
+    target = output.resolve()
+    if (not reports.is_relative_to(project.root.resolve())
+            or not target.is_relative_to(reports)
+            or target.suffix not in {'.json', '.md'}):
+        raise ValueError('review output must be a .json or .md file under .pcb-copilot/reports')
+    reports.mkdir(parents=True, exist_ok=True)
+    with target.open('x', encoding='utf-8') as stream:
+        stream.write(rendered + ('\n' if not rendered.endswith('\n') else ''))
+    return target

@@ -38,7 +38,8 @@ def main(
     update_parser.add_argument('--reconcile-board-names', action='store_true')
     current_review_parser = subparsers.add_parser('review', help='check the current root design without changing it')
     current_review_parser.add_argument('project_path', type=Path)
-    current_review_parser.add_argument('--format', choices=('text', 'json'), default='text')
+    current_review_parser.add_argument('--format', choices=('text', 'json', 'markdown'), default='text')
+    current_review_parser.add_argument('--output', type=Path)
     signoff_parser = subparsers.add_parser('prepare-signoff', help='create an unsigned current-design review worksheet')
     signoff_parser.add_argument('project_path', type=Path)
     draft_parser = subparsers.add_parser('draft-schematic', help='create a schematic draft and review artifacts')
@@ -105,16 +106,28 @@ def main(
     elif args.command == 'review':
         from pcb_copilot.review.commands import (
             render_review_json,
+            render_review_markdown,
             render_review_text,
             review_project,
+            write_review_report,
         )
 
         try:
             report = review_project(load_project(args.project_path))
         except (ValueError, OSError, RuntimeError) as exc:
             parser.error(str(exc))
-        print(render_review_json(report) if args.format == 'json'
-              else render_review_text(report))
+        rendered = {
+            'json': render_review_json,
+            'markdown': render_review_markdown,
+            'text': render_review_text,
+        }[args.format](report)
+        if args.output:
+            try:
+                print(write_review_report(load_project(args.project_path), args.output, rendered))
+            except (ValueError, OSError) as exc:
+                parser.error(str(exc))
+        else:
+            print(rendered)
         return int(report.blocking)
     elif args.command == 'prepare-signoff':
         from pcb_copilot.review.signoff import prepare_signoff
