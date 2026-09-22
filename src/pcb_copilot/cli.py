@@ -36,6 +36,9 @@ def main(
     update_parser.add_argument('--intent', required=True, type=Path)
     update_parser.add_argument('--apply', action='store_true')
     update_parser.add_argument('--reconcile-board-names', action='store_true')
+    current_review_parser = subparsers.add_parser('review', help='check the current root design without changing it')
+    current_review_parser.add_argument('project_path', type=Path)
+    current_review_parser.add_argument('--format', choices=('text', 'json'), default='text')
     draft_parser = subparsers.add_parser('draft-schematic', help='create a schematic draft and review artifacts')
     draft_parser.add_argument('project_path', type=Path)
     draft_parser.add_argument('--intent', required=True, type=Path)
@@ -97,6 +100,20 @@ def main(
             parser.error(str(exc))
         print(json.dumps(result, indent=2))
         return result['exit_code']
+    elif args.command == 'review':
+        from pcb_copilot.review.commands import (
+            render_review_json,
+            render_review_text,
+            review_project,
+        )
+
+        try:
+            report = review_project(load_project(args.project_path))
+        except (ValueError, OSError, RuntimeError) as exc:
+            parser.error(str(exc))
+        print(render_review_json(report) if args.format == 'json'
+              else render_review_text(report))
+        return int(report.blocking)
     elif args.command == 'accept':
         from pcb_copilot.accept import accept_layout, accept_schematic, load_draft
         from pcb_copilot.models import DraftKind

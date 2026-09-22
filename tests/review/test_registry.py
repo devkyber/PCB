@@ -1,6 +1,9 @@
 from dataclasses import dataclass
+from pathlib import Path
+from shutil import copy2
 
 from pcb_copilot.project import load_project
+from pcb_copilot.review.fingerprint import schematic_digest
 from pcb_copilot.review.models import CheckResult, CheckScope, FindingKind
 from pcb_copilot.review.registry import run_checks
 
@@ -31,6 +34,16 @@ class CrashingCheck:
         raise RuntimeError('check crashed')
 
 
+@dataclass
+class MutatingCheck:
+    check_id: str = 'mutating'
+    scope: CheckScope = SCOPE
+
+    def run(self, project):
+        project.schematic_path.write_text('mutated', encoding='utf-8')
+        return CheckResult(self.check_id, True, 'fixture result', self.scope)
+
+
 def test_registry_runs_every_check_after_a_failure(project_copy):
     calls = []
     project = load_project(project_copy)
@@ -55,3 +68,24 @@ def test_crashed_check_is_blocking_and_does_not_hide_following_checks(project_co
     assert report.findings[0].blocking is True
     assert 'check crashed' in report.findings[0].detail
     assert len(report.results) == 2
+
+
+def test_report_hashes_identify_input_design_even_if_check_mutates_copy(project_copy):
+    project = load_project(project_copy)
+    input_hash = schematic_digest(project.schematic_path)
+
+    report = run_checks(project, [MutatingCheck()])
+
+    assert report.schematic_hash == input_hash
+
+
+def test_schematic_fingerprint_changes_when_hierarchical_child_changes(tmp_path):
+    source = Path('projects/tms-v3')
+    for schematic in source.glob('*.kicad_sch'):
+        copy2(schematic, tmp_path / schematic.name)
+    root = tmp_path / 'tms-v3.kicad_sch'
+    before = schematic_digest(root)
+    child = tmp_path / 'power-and-protection.kicad_sch'
+    child.write_bytes(child.read_bytes() + b'\n')
+
+    assert schematic_digest(root) != before

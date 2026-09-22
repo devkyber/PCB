@@ -8,6 +8,7 @@ from time import perf_counter
 from typing import Protocol
 
 from pcb_copilot.models import Project
+from pcb_copilot.review.fingerprint import pcb_digest, schematic_digest
 from pcb_copilot.review.models import (
     CheckResult,
     CheckScope,
@@ -15,7 +16,6 @@ from pcb_copilot.review.models import (
     FindingKind,
     ReviewReport,
 )
-from pcb_copilot.state import canonical_design_hash
 
 
 class Check(Protocol):
@@ -27,6 +27,8 @@ class Check(Protocol):
 
 def run_checks(project: Project, checks: Sequence[Check]) -> ReviewReport:
     """Run all checks and turn exceptions into blocking, scoped findings."""
+    schematic_hash = schematic_digest(project.schematic_path)
+    pcb_hash = pcb_digest(project.pcb_path)
     results: list[CheckResult] = []
     findings: list[Finding] = []
     for check in checks:
@@ -47,7 +49,7 @@ def run_checks(project: Project, checks: Sequence[Check]) -> ReviewReport:
                                     result.detail, True))
     return ReviewReport(
         project.manifest.name,
-        canonical_design_hash(project.schematic_path),
-        canonical_design_hash(project.pcb_path),
+        schematic_hash,
+        pcb_hash,
         tuple(results), tuple(findings), bool(findings),
     )
