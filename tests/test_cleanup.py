@@ -65,3 +65,12 @@ def test_superseded_history_is_not_retained_as_duplicate_archives(repo_root):
 def test_board_shell_shims_to_retired_pipeline_are_removed(repo_root):
     for board in ('baro-bmp390', 'imu-icm42688', 'gnss-neom9n', 'tms-v3'):
         assert not (repo_root / 'projects' / board / 'build.sh').exists()
+
+
+def test_generated_status_mirrors_are_not_current_files(repo_root):
+    assert not (repo_root / 'HUMAN_WORK.md').exists()
+    for board in ('baro-bmp390', 'imu-icm42688', 'gnss-neom9n', 'tms-v3'):
+        root = repo_root / 'projects' / board
+        assert (root / 'SCHEMATIC_OWNER').read_text(encoding='utf-8').strip() == 'human'
+        assert not (root / 'STATUS.md').exists()
+        assert not (root / 'PIPELINE.json').exists()

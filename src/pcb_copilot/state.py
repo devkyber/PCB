@@ -117,8 +117,10 @@ def assert_schematic_regeneration_safe(project: Project) -> None:
 
     pipeline = _read_json(project.root / "PIPELINE.json")
     recorded_hash = pipeline.get("sch_sha256_12") if pipeline else None
+    if recorded_hash is None:
+        raise OwnershipError('generated schematic has no recorded baseline; regeneration refused')
     current_hash = canonical_design_hash(project.schematic_path)
-    if recorded_hash is not None and recorded_hash != current_hash:
+    if recorded_hash != current_hash:
         raise OwnershipError(
             "generated schematic differs from the last recorded canonical hash"
         )

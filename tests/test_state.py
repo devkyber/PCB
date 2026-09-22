@@ -106,6 +106,15 @@ def test_matching_generated_schematic_may_be_regenerated(project_copy):
     assert_schematic_regeneration_safe(project)
 
 
+def test_generated_schematic_without_recorded_baseline_cannot_be_regenerated(project_copy):
+    project = load_project(project_copy)
+    (project.root / 'SCHEMATIC_OWNER').write_text('generated\n', encoding='utf-8')
+    (project.root / 'PIPELINE.json').unlink(missing_ok=True)
+
+    with pytest.raises(OwnershipError, match='baseline'):
+        assert_schematic_regeneration_safe(project)
+
+
 def test_human_owned_schematic_cannot_be_regenerated(project_copy):
     project = load_project(project_copy)
     (project.root / "SCHEMATIC_OWNER").write_text("human\n", encoding="utf-8")

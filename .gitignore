@@ -37,9 +37,11 @@ fp-info-cache
 *.ses
 erc-check.json
 
-# Regenerated check output is local. Legacy tracked STATUS.md and
-# PIPELINE.json are migration leftovers, not current design authority;
+# Generated status mirrors are not design authority. Use the current CLI;
 # netmap.json remains tracked as a reviewable connectivity contract.
+HUMAN_WORK.md
+projects/*/STATUS.md
+projects/*/PIPELINE.json
 projects/*/drc-report.json
 projects/*/erc-report.json
 projects/*/*.route-report.json
