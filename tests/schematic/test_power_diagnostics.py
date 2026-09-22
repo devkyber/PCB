@@ -58,11 +58,6 @@ def _rendered_tree(rendered_boards, board, filename=None):
     ('board', 'expected_code', 'message_parts'),
     [
         (
-            'baro-bmp390',
-            'power-glyph-collision',
-            ('#PWR108', '#PWR109'),
-        ),
-        (
             'gnss-neom9n',
             'power-text-collision',
             ('U2.12', 'RF_IN'),
@@ -95,8 +90,20 @@ def test_preview_reports_known_serialized_power_clashes(
     assert all(path.read_bytes() == payload for path, payload in before.items())
 
 
+def test_bmp_power_spacing_clears_nonadjacent_ic_glyphs(rendered_boards):
+    tree = _rendered_tree(rendered_boards, 'baro-bmp390')
+    clashes = [finding for finding in power_clearance_findings(tree, 'baro-bmp390.kicad_sch')
+               if finding.code == 'power-glyph-collision'
+               and 'attached U1.' in finding.message]
+    assert clashes == []
+
+
 def test_same_net_power_glyph_pair_is_not_exempt(rendered_boards):
     tree = _rendered_tree(rendered_boards, 'baro-bmp390')
+    first_x, _ = ed.get_pin_position(tree, '#PWR108', '1')
+    second_x, second_y = ed.get_pin_position(tree, '#PWR109', '1')
+    assert first_x != second_x
+    ed.move_symbol(tree, '#PWR109', first_x, second_y, 0)
     symbol = ed.find_symbol_by_reference(tree, '#PWR109')
     value = next(prop for prop in ed.find_children(symbol, 'property')
                  if prop[1] == 'Value')
@@ -113,6 +120,9 @@ def test_same_net_power_glyph_pair_is_not_exempt(rendered_boards):
 def test_direct_wired_same_net_non_flag_glyphs_are_not_exempt(rendered_boards):
     tree = _rendered_tree(rendered_boards, 'baro-bmp390')
     refs = ('#PWR108', '#PWR109')
+    first_x, _ = ed.get_pin_position(tree, refs[0], '1')
+    _, second_y = ed.get_pin_position(tree, refs[1], '1')
+    ed.move_symbol(tree, refs[1], first_x, second_y, 0)
     for ref in refs:
         symbol = ed.find_symbol_by_reference(tree, ref)
         value = next(prop for prop in ed.find_children(symbol, 'property')
@@ -259,7 +269,7 @@ def test_preview_diagnostic_hook_is_not_skipped(
 
 
 @pytest.mark.slow
-def test_power_findings_reach_draft_review_json(repo_root, tmp_path):
+def test_power_clearance_review_is_persisted_for_generated_bmp(repo_root, tmp_path):
     root = tmp_path / 'baro-bmp390'
     shutil.copytree(
         repo_root / 'projects' / 'baro-bmp390',
@@ -272,7 +282,6 @@ def test_power_findings_reach_draft_review_json(repo_root, tmp_path):
     persisted = json.loads((root / '.pcb-copilot' / 'drafts' / report['draft_id']
                             / 'review.json').read_text(encoding='utf-8'))
 
-    assert any(finding['code'] == 'power-glyph-collision'
-               and finding['severity'] == 'review'
-               for finding in report['findings'])
+    assert not any(finding['code'] == 'power-glyph-collision'
+                   for finding in report['findings'])
     assert persisted['findings'] == report['findings']

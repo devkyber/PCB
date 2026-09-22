@@ -32,7 +32,7 @@ from schematic_layout_helpers import (
 def power_stub_length(
     ed, tree: list, ref: str, pin: str, origin: tuple[float, float]
 ) -> float | None:
-    """Alternate horizontal-column stubs by eight grid steps (10.16 mm).
+    """Stagger horizontal-column stubs over four rows on the KiCad grid.
 
     This is a spacing hint, not a glyph collision solver. Pass the result to
     LabelPlacer.auto so its existing crossing checks still govern the wire.
@@ -50,10 +50,11 @@ def power_stub_length(
     if len(column) < 2:
         return None
     rank = column.index(round(y, 3))
-    # Four grid steps separate glyph centers but can put the shorter rail's
-    # outward Value text directly over its neighbor's ground triangle.
-    # Eight steps clear both stock glyph and short rail-name envelopes.
-    return round(DEFAULT_STUB_MM + (rank % 2) * 8 * GRID_MM, 3)
+    # Alternating two lengths leaves pins two rows apart at the same x. On
+    # compact ICs their stock power glyphs can touch even though the pins do
+    # not. Four staggered lengths separate those glyphs without a long rail.
+    stagger_steps = (0, 8, 4, 12)
+    return round(DEFAULT_STUB_MM + stagger_steps[rank % 4] * GRID_MM, 3)
 
 
 @dataclass(frozen=True)
