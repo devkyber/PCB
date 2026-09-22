@@ -51,6 +51,8 @@ def collect_status(project: Project) -> ProjectStatus:
     evidence_present = project.evidence_index_path.is_file()
     if not evidence_present:
         recommendation = f"pcb-copilot research {project.root} --verify"
+    elif project.schematic_path.is_file() and project.pcb_path.is_file():
+        recommendation = f"pcb-copilot review {project.root}"
     else:
         recommendation = (f"pcb-copilot update-schematic {project.root} "
                           f"--intent {project.root / 'schematic-intent.yaml'}")
@@ -74,6 +76,11 @@ def render_status(status: ProjectStatus) -> str:
     evidence = "present" if status.evidence_index_present else "missing"
     review = " / ".join(status.review_hashes) if status.review_hashes else "none"
     release = " / ".join(status.release_hashes) if status.release_hashes else "none"
+    if status.lifecycle == Lifecycle.DRAFT:
+        if status.review_hashes:
+            review += " (stale; not approval)"
+        if status.release_hashes:
+            release += " (stale; not fabrication authority)"
     return "\n".join(
         (
             f"Project: {status.name}",
