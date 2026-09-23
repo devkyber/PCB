@@ -1,6 +1,4 @@
-import importlib
 import shutil
-import sys
 from datetime import date
 
 import pytest
@@ -136,31 +134,3 @@ def test_same_bytes_merge_roles_parts_and_refs_without_duplicate_file(project_co
     assert index.records[0].part_numbers == frozenset({"XBee 3", "XB3-24Z8"})
     assert index.records[0].component_refs == frozenset({"J9", "J10"})
     assert len(list((project_copy / "evidence" / "files").iterdir())) == 1
-
-
-def test_legacy_add_command_archives_to_unified_index(
-    project_copy, repo_root, monkeypatch
-):
-    _without_unified_evidence(project_copy)
-    sys.path.insert(0, str(repo_root / "scripts"))
-    collect = importlib.import_module("collect_references")
-    monkeypatch.setattr(collect, "verify_url", lambda _url: (True, "200"))
-    monkeypatch.setattr(
-        collect,
-        "_download_bytes",
-        lambda _url: b"%PDF-1.7\ncompatibility fixture",
-        raising=False,
-    )
-
-    result = collect.cmd_add(
-        project_copy,
-        "BMP390",
-        "https://example.test/BMP390.pdf",
-        "datasheet",
-        "compatibility test",
-    )
-
-    assert result == 0
-    index = load_evidence_index(project_copy / "evidence" / "index.yaml")
-    assert len(index.records) == 1
-    assert index.records[0].roles == frozenset({EvidenceRole.DATASHEET})

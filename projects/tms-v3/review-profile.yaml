@@ -46,7 +46,7 @@ items:
     evidence_refs: [REQUIREMENTS.md]
     safety_tags: [mechanical]
   - id: sourcing
-    prompt: Resolve unavailable crystal, orderable BOM, substitutions, and all declared deviations.
+    prompt: Resolve unassigned C8/C9 0402 capacitor parts, unavailable crystal, orderable BOM, substitutions, and all declared deviations.
     rationale: Archived evidence does not prove a buildable exact parts list.
     evidence_refs: [DEVIATIONS.md, DESIGN_BASIS.md]
     safety_tags: [sourcing]

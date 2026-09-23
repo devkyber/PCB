@@ -62,7 +62,7 @@ def discover_toolchain(
 
     kipython = Path(found_kipython).expanduser().resolve() if found_kipython else None
 
-    third_party = repo_root.resolve() / "tools" / "kicad-claude-mcp" / "third_party"
+    third_party = repo_root.resolve() / "packages" / "kicad-claude-mcp" / "third_party"
     freerouting_jars = tuple(
         sorted(path.resolve() for path in third_party.glob("freerouting*.jar"))
     )

@@ -60,7 +60,6 @@ def _copy_inputs(project_root: Path, destination: Path, project_name: str) -> No
     names = {
         "project.yaml",
         "netmap.json",
-        "SCHEMATIC_OWNER",
         "sym-lib-table",
         "fp-lib-table",
         f"{project_name}.kicad_sch",

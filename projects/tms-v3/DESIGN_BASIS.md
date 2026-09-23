@@ -128,3 +128,25 @@ not generator-described DVDD. Resolve these source disagreements before
 approval. Igniter cold resistance/current/duration, isolated return decision,
 LM7805 thermal budget, external VREF source and reset/brownout behavior remain
 human decisions. No acceptance, physical signoff or release occurred.
+
+## Measurement record reconciliation — 2026-09-23
+
+C8/C9 PCB Value properties now match the existing schematic/intent (33pF),
+and J9's Value matches XBEE3. This reconciles records; it does not select a
+new clock network or certify the socket or module fit.
+
+C8/C9 previously carried LCSC C1663 despite their 0402 land patterns. The
+supplier identifies C1663 as Samsung CL10C330JB8NNNC, 33pF, 0603. See the
+[LCSC product record](https://www.lcsc.com/product-detail/Multilayer-Ceramic-Capacitors-MLCC-SMD-SMT_Samsung-Electro-Mechanics-CL10C330JB8NNNC_C1663.html)
+(checked 2026-09-23). That supplier assignment was cleared on both PCB
+components because its package is incompatible. Exact replacement 0402 parts
+remain unassigned and require sourcing review. No substitute or stock claim
+has been invented. The historical Rev D BOM remains history, not an assembly
+instruction.
+
+Only five PCB property values changed. Copper, net assignments, pad geometry,
+component positions, footprint libraries, schematic sheets and the ignition
+section are unchanged. Exact schematic/PCB parity passes after this repair.
+The absent ADS1256 reference source, clock-part suitability, socket fit,
+routing/DRC and human sign-off remain unresolved. This is a limited record
+repair, not a completed or released PCB.

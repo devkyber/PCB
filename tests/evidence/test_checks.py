@@ -1,7 +1,5 @@
 import hashlib
-import importlib
 import shutil
-import sys
 from datetime import date
 
 from pcb_copilot.evidence.checks import Part, check_evidence
@@ -122,24 +120,3 @@ def test_numbered_rule_deviation_cannot_waive_missing_reference(project_copy):
         encoding="utf-8",
     )
     assert "part.missing_reference" in _codes(project_copy)
-
-
-def test_legacy_gate_entry_points_consume_unified_index(project_copy, repo_root):
-    _write_index(project_copy)
-    shutil.rmtree(project_copy / "datasheets", ignore_errors=True)
-    shutil.rmtree(project_copy / "reference-designs", ignore_errors=True)
-    sys.path.insert(0, str(repo_root / "scripts"))
-    datasheets = importlib.import_module("check_datasheets")
-    research = importlib.import_module("check_research")
-    pcb = project_copy / "baro-bmp390.kicad_pcb"
-
-    datasheet_ok, _ = datasheets.check(pcb)
-    research_results = research.run(pcb)
-
-    assert datasheet_ok
-    assert next(
-        item["ok"] for item in research_results if "reference designs" in item["name"]
-    )
-    assert next(
-        item["ok"] for item in research_results if "archive integrity" in item["name"]
-    )

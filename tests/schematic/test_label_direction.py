@@ -69,7 +69,7 @@ def test_label_pdf_text_extends_outward_from_pin_stub(direction_preview, name):
 
 @pytest.mark.slow
 def test_label_direction_preserves_real_pin_connectivity(direction_preview):
-    from extract_netmap import extract
+    from pcb_copilot.schematic.netmap import extract
 
     schematic, _anchors, _rectangles, _scale = direction_preview
     assert extract(schematic)['nets'] == {'J8': {

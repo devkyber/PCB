@@ -1,24 +1,6 @@
-import json
 
-from pcb_copilot.cli import main
 from pcb_copilot.schematic.preview import render_schematic_preview
 from pcb_copilot.toolchain import ToolchainPaths
-
-
-def test_draft_command_preserves_accepted_files(project_copy, repo_root, capsys):
-    accepted = {p: p.read_bytes() for p in project_copy.glob('*.kicad_*')}
-    code = main(['draft-schematic', str(project_copy), '--intent',
-                 str(repo_root / 'tests/fixtures/schematic/parent-child.yaml')])
-    result = json.loads(capsys.readouterr().out)
-    assert code == 0  # Missing research is advisory during drafting, blocking at release.
-    assert any(f['code'] == 'intent-evidence-unresolved' and f['severity'] == 'review'
-               for f in result['findings'])
-    root = project_copy / '.pcb-copilot/drafts' / result['draft_id']
-    assert (root / 'preview.pdf').read_bytes().startswith(b'%PDF')
-    assert json.loads((root / 'erc.json').read_text(encoding='utf-8'))['sheets']
-    assert len(json.loads((root / 'metrics.json').read_text())['sheets']) == 2
-    assert (root / 'schematic-intent.yaml').is_file()
-    assert all(p.read_bytes() == data for p, data in accepted.items())
 
 
 def test_unavailable_cli_retains_draft_and_reports_failure(rendered, tmp_path):

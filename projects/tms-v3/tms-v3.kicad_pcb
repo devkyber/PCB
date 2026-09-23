@@ -7732,7 +7732,7 @@
 				)
 			)
 		)
-		(property "Value" "22pF"
+		(property "Value" "33pF"
 			(at 0 1.16 0)
 			(layer "F.Fab")
 			(uuid "88d61f65-0180-4e34-8798-64f79e141ab5")
@@ -7777,7 +7777,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C1663"
+		(property "LCSC Part" ""
 			(at 0 1.16 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -11688,7 +11688,7 @@
 				)
 			)
 		)
-		(property "Value" "XBee_THT_20pin_P2.00mm"
+		(property "Value" "XBEE3"
 			(at 11 21 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -12305,7 +12305,7 @@
 				)
 			)
 		)
-		(property "Value" "22pF"
+		(property "Value" "33pF"
 			(at 0 1.16 0)
 			(layer "F.Fab")
 			(uuid "5933b546-83b2-48af-a385-810950bc3991")
@@ -12350,7 +12350,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C1663"
+		(property "LCSC Part" ""
 			(at 0 1.16 0)
 			(layer "F.Fab")
 			(hide yes)

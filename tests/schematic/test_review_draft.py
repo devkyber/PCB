@@ -1,12 +1,9 @@
 import json
-import os
-import shlex
 import subprocess
 
 import pytest
 
 from pcb_copilot.accept import accept_schematic, load_draft
-from pcb_copilot.cli import main
 from pcb_copilot.evidence.index import load_evidence_index
 from pcb_copilot.models import Lifecycle
 from pcb_copilot.project import load_project
@@ -38,12 +35,8 @@ def _move_under_spaced_parent(project_copy, tmp_path):
 
 
 def _expected_review_command(project, draft):
-    root = str(project.root)
-    if os.name == 'nt':
-        quoted_root = "'" + root.replace("'", "''") + "'"
-    else:
-        quoted_root = shlex.quote(root)
-    return f'pcb-copilot review-draft {quoted_root} {draft.id}'
+    from pcb_copilot.accept import review_draft_command
+    return review_draft_command(project, draft.id)
 
 
 def test_review_preserves_manual_hierarchy_edits_and_refreshes_acceptance(
@@ -68,7 +61,7 @@ def test_review_preserves_manual_hierarchy_edits_and_refreshes_acceptance(
         path.write_text(changed, encoding='utf-8', newline='\n')
         edited[path] = path.read_bytes()
 
-    with pytest.raises(ValueError, match='review-draft') as error:
+    with pytest.raises(ValueError, match='update-schematic') as error:
         accept_schematic(project, draft)
     assert _expected_review_command(project, draft) in str(error.value)
 
@@ -230,7 +223,7 @@ def test_mid_review_edit_is_not_published_as_a_current_success(
     assert _expected_review_command(project, draft) in str(error.value)
     assert {path: path.read_bytes() for path in outputs} == output_bytes
     assert f'{title} concurrent edit' in child.read_text(encoding='utf-8')
-    with pytest.raises(ValueError, match='review-draft'):
+    with pytest.raises(ValueError, match='update-schematic'):
         accept_schematic(project, draft)
 
 
@@ -263,34 +256,5 @@ def test_intent_edit_while_loading_cannot_be_sealed_with_stale_parsed_intent(
     assert f'{title} concurrent intent edit' in intent_path.read_text(encoding='utf-8')
     assert all(path.read_bytes() == payload for path, payload in cad_before.items())
     assert {path: path.read_bytes() for path in outputs} == output_bytes
-    with pytest.raises(ValueError, match='review-draft'):
+    with pytest.raises(ValueError, match='update-schematic'):
         accept_schematic(project, draft)
-
-
-def test_review_draft_cli_returns_report_schema_and_blocking_exit_code(
-    project_copy, repo_root, tmp_path, capsys,
-):
-    project, draft, title = _reviewable_draft(project_copy, repo_root, tmp_path)
-    child = draft.root / 'sensor.kicad_sch'
-    child.write_text(
-        child.read_text(encoding='utf-8').replace(title, f'{title} reviewed', 1),
-        encoding='utf-8', newline='\n',
-    )
-
-    code = main(['review-draft', str(project.root), draft.id])
-    report = json.loads(capsys.readouterr().out)
-    assert code == 0
-    assert set(report) == {
-        'schema_version', 'draft_id', 'schematic', 'pdf', 'erc_report',
-        'metrics', 'findings', 'human_review', 'exit_code', 'artifact_hashes',
-    }
-
-    child.write_text(
-        child.read_text(encoding='utf-8').replace('DATA_READY', 'BROKEN_DATA'),
-        encoding='utf-8', newline='\n',
-    )
-    code = main(['review-draft', str(project.root), draft.id])
-    report = json.loads(capsys.readouterr().out)
-    assert code == 1 == report['exit_code']
-    assert any(finding['code'] == 'intent-netlist-mismatch'
-               for finding in report['findings'])

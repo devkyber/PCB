@@ -1,91 +1,125 @@
-"""Preview and apply a schematic to the single current project design."""
+"""Preview/apply the current schematic in a disposable project transaction."""
 
 from __future__ import annotations
 
 import json
-import shutil
+import tempfile
+from dataclasses import replace
 from pathlib import Path
 
 from pcb_copilot.accept import accept_schematic, load_draft
 from pcb_copilot.models import Project
+from pcb_copilot.project import load_project
 from pcb_copilot.schematic.commands import draft_schematic
-from pcb_copilot.schematic.parity import (
-    candidate_board_parity,
-    reconcile_board_net_names,
+from pcb_copilot.schematic.parity import candidate_board_parity, reconcile_board_net_names
+from pcb_copilot.schematic.preview import schematic_files
+from pcb_copilot.transaction import (
+    apply_files, assert_current, contained, copy_inputs, input_hashes, project_lock, replace_bytes,
 )
 
 
-def _remove_transaction(path: Path, expected_parent: Path) -> None:
-    if path.resolve().parent != expected_parent.resolve():
-        raise ValueError(f'transaction path escapes project: {path}')
-    if path.is_dir():
-        shutil.rmtree(path)
+def update_schematic(project: Project, intent_path: Path, apply: bool,
+                     *, reconcile_names: bool = False, pcb_candidate: Path | None = None) -> dict:
+    if reconcile_names and pcb_candidate is not None:
+        raise ValueError('--pcb and --reconcile-board-names are alternatives')
+    expected = input_hashes(project)
+    with project_lock(project) as workspace:
+        with tempfile.TemporaryDirectory(prefix='pcb-sch-') as directory:
+            staged_root = Path(directory) / project.root.name
+            copy_inputs(project, staged_root, expected)
+            snapshot = load_project(staged_root)
+            staged_intent = Path(directory) / 'requested-intent.yaml'
+            staged_intent.write_bytes(intent_path.read_bytes())
+            report = draft_schematic(snapshot, staged_intent)
+            draft = load_draft(snapshot, report['draft_id'])
+            board_payload = project_payload = None
+            rules_payload = None
+            paired_preview = None
+            renamed_nets = 0
+            if pcb_candidate is not None:
+                from pcb_copilot.layout.update import _prepare_candidate
 
-
-def update_schematic(
-    project: Project, intent_path: Path, apply: bool, *, reconcile_names: bool = False,
-) -> dict:
-    """Render once, show review artifacts, and optionally update current CAD."""
-    report = draft_schematic(project, intent_path)
-    draft = load_draft(project, report['draft_id'])
-    preview_dir = project.root / '.pcb-copilot' / 'preview'
-    preview_dir.mkdir(parents=True, exist_ok=True)
-    copied = {}
-    try:
-        board_payload = None
-        project_payload = None
-        renamed_nets = 0
-        if reconcile_names:
-            candidate_board, candidate_settings, names = reconcile_board_net_names(
-                project, draft.root,
-            )
-            renamed_nets = len(names)
-            if names:
-                board_payload = candidate_board
-                if candidate_settings != project.pcb_path.with_suffix('.kicad_pro').read_bytes():
-                    project_payload = candidate_settings
-        parity_error = candidate_board_parity(project, draft.root)
-        if parity_error is not None:
-            report['findings'].append({
-                'code': 'board-parity', 'message': parity_error,
-                'reference': None, 'evidence_id': None, 'severity': 'block',
-            })
-            report['exit_code'] = 1
-        for source_name, destination_name in (
-            ('preview.pdf', 'schematic.pdf'),
-            ('erc.json', 'schematic-erc.json'),
-            ('metrics.json', 'schematic-metrics.json'),
-        ):
-            source = draft.root / source_name
-            if source.is_file():
-                target = preview_dir / destination_name
-                shutil.copy2(source, target)
-                copied[source_name] = str(target)
-        result = {
-            'applied': False,
-            'schematic': str(project.schematic_path),
-            'preview': copied.get('preview.pdf'),
-            'erc_report': copied.get('erc.json'),
-            'metrics': copied.get('metrics.json'),
-            'findings': report['findings'],
-            'exit_code': report['exit_code'],
-            'renamed_nets': renamed_nets,
-        }
-        if apply:
-            if report['exit_code']:
-                return result
-            accepted = accept_schematic(
-                project, draft, record_legacy_owner=False,
-                board_payload=board_payload, project_payload=project_payload,
-            )
-            result['applied'] = True
-            result['lifecycle'] = accepted.lifecycle.value
-            result['schematic'] = str(accepted.accepted_path)
-            backup = project.root / '.pcb-copilot' / 'acceptances' / draft.id
-            _remove_transaction(backup, project.root / '.pcb-copilot' / 'acceptances')
-        (preview_dir / 'schematic-review.json').write_text(
-            json.dumps(result, indent=2) + '\n', encoding='utf-8',
-        )
-        return result
-    finally:
-        _remove_transaction(draft.root, project.root / '.pcb-copilot' / 'drafts')
+                paired_preview = Path(directory) / 'layout-preview'
+                paired_preview.mkdir()
+                paired_pcb = paired_preview / project.pcb_path.name
+                for source in (snapshot.pcb_path, snapshot.pcb_path.with_suffix('.kicad_pro'),
+                               snapshot.pcb_path.with_suffix('.kicad_dru')):
+                    if source.is_file():
+                        (paired_preview / source.name).write_bytes(source.read_bytes())
+                context = replace(snapshot, schematic_path=draft.root / project.schematic_path.name,
+                                  pcb_path=paired_pcb)
+                checked, findings, _ = _prepare_candidate(
+                    context, None, pcb_candidate, None, paired_preview, schematic_change=True,
+                )
+                report['findings'].extend(findings)
+                report['exit_code'] = int(any(item['severity'] == 'block' for item in report['findings']))
+                board_payload = checked.read_bytes()
+                for suffix in ('.kicad_pro', '.kicad_dru'):
+                    source = checked.with_suffix(suffix)
+                    if source.is_file():
+                        target = draft.root / project.pcb_path.with_suffix(suffix).relative_to(project.root)
+                        target.parent.mkdir(parents=True, exist_ok=True)
+                        target.write_bytes(source.read_bytes())
+                target = draft.root / project.pcb_path.relative_to(project.root)
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes(board_payload)
+                if checked.with_suffix('.kicad_pro').is_file():
+                    project_payload = checked.with_suffix('.kicad_pro').read_bytes()
+                if checked.with_suffix('.kicad_dru').is_file():
+                    rules_payload = checked.with_suffix('.kicad_dru').read_bytes()
+            if reconcile_names:
+                board, settings, names = reconcile_board_net_names(snapshot, draft.root)
+                renamed_nets = len(names)
+                if names:
+                    board_payload, project_payload = board, settings
+            parity_error = candidate_board_parity(snapshot, draft.root)
+            if parity_error:
+                report['findings'].append({'code': 'board-parity', 'message': parity_error,
+                                           'severity': 'block'})
+                report['exit_code'] = 1
+            assert_current(project, expected)
+            preview = contained(project.root, workspace / 'preview')
+            preview.mkdir(exist_ok=True)
+            if paired_preview is not None:
+                for source in paired_preview.iterdir():
+                    if source.is_file() and source.suffix in {'.svg', '.step', '.json'}:
+                        replace_bytes(contained(project.root, preview / source.name), source.read_bytes())
+            copied = {}
+            for source_name, target_name in (
+                ('preview.pdf', 'schematic.pdf'), ('erc.json', 'schematic-erc.json'),
+                ('metrics.json', 'schematic-metrics.json'),
+            ):
+                source = draft.root / source_name
+                target = contained(project.root, preview / target_name)
+                if source.is_file():
+                    replace_bytes(target, source.read_bytes())
+                    copied[source_name] = str(target)
+                else:
+                    target.unlink(missing_ok=True)
+            result = {'applied': False, 'schematic': str(project.schematic_path),
+                      'preview': copied.get('preview.pdf'), 'erc_report': copied.get('erc.json'),
+                      'metrics': copied.get('metrics.json'), 'findings': report['findings'],
+                      'exit_code': report['exit_code'], 'renamed_nets': renamed_nets}
+            if apply and not report['exit_code']:
+                accept_schematic(snapshot, draft,
+                                 board_payload=board_payload, project_payload=project_payload)
+                paths = [*schematic_files(snapshot.schematic_path), snapshot.netmap_path]
+                if board_payload is not None:
+                    paths.append(snapshot.pcb_path)
+                if project_payload is not None:
+                    paths.append(snapshot.pcb_path.with_suffix('.kicad_pro'))
+                changes = {project.root / path.relative_to(snapshot.root): path.read_bytes()
+                           for path in paths}
+                if rules_payload is not None:
+                    changes[project.pcb_path.with_suffix('.kicad_dru')] = rules_payload
+                changes[project.root / 'schematic-intent.yaml'] = (draft.root / 'schematic-intent.yaml').read_bytes()
+                for target in changes:
+                    relative = target.relative_to(project.root).as_posix()
+                    if relative not in expected and target.exists():
+                        raise ValueError(f'new sheet would overwrite unrelated file: {relative}')
+                result.update(applied=True, lifecycle='DRAFT')
+                changes[preview / 'schematic-review.json'] = (json.dumps(result, indent=2) + '\n').encode()
+                apply_files(project, changes, expected)
+            else:
+                replace_bytes(preview / 'schematic-review.json', (json.dumps(result, indent=2) + '\n').encode())
+            return result

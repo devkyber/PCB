@@ -1,6 +1,4 @@
 import hashlib
-import subprocess
-import sys
 
 from pcb_copilot.evidence.extract import (
     extract_eagle_connections,
@@ -51,29 +49,3 @@ def test_render_pdf_pages_returns_cited_page_images(repo_root, tmp_path):
 
     assert rendered == (tmp_path / "page_1.png",)
     assert rendered[0].read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
-
-
-def test_legacy_eagle_command_keeps_component_and_net_output(repo_root):
-    source = _evidence_path(
-        repo_root,
-        "baro-bmp390",
-        "reference-designs/BMP390_Adafruit_20BMP390.sch",
-        "evidence/files/BMP390_Adafruit_20BMP390.sch",
-    )
-    result = subprocess.run(
-        [
-            sys.executable,
-            str(repo_root / "scripts/fetch_reference_doc.py"),
-            "eagle",
-            str(source),
-            "IC1",
-        ],
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-
-    assert result.returncode == 0
-    assert "43 parts, 12 nets" in result.stdout
-    assert "'deviceset': 'BMP388'" in result.stdout
-    assert "3.3V: pins ['VDDIO', 'VDD']" in result.stdout

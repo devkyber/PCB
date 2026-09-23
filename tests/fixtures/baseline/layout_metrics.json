@@ -21,14 +21,6 @@
       "TP1": "TestPoint:TestPoint_Pad_1.0x1.0mm",
       "U1": "jlcpcb:LGA-10_L2.0-W2.0-P0.50-BL"
     },
-    "known_drc_result": {
-      "provenance": "historical_saved_report_not_freshly_run",
-      "report": "drc-report.json",
-      "result": "FAIL",
-      "schematic_parity_count": 0,
-      "unconnected_count": 0,
-      "violation_count": 15
-    },
     "net_count": 5,
     "pad_counts": {
       "C1": 2,
@@ -61,20 +53,7 @@
       "U1"
     ],
     "track_count": 73,
-    "validator_statuses": {
-      "board_dimensions": "INFO",
-      "connector_class": "PASS",
-      "courtyard_collisions": "PASS",
-      "edge_clearance_origins": "PASS",
-      "fiducials": "PASS",
-      "module_socket_pinouts": "PASS",
-      "pads_inside_board": "PASS",
-      "placeholder_footprints": "PASS",
-      "silkscreen": "PASS",
-      "symbol_footprint_parity": "PASS",
-      "trace_routing": "INFO"
-    },
-    "via_count": 17,
+    "via_count": 16,
     "zone_layers": [
       "F.Cu"
     ]
@@ -114,14 +93,6 @@
       "TP2": "TestPoint:TestPoint_Pad_1.0x1.0mm",
       "U1": "jlcpcb:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR",
       "U2": "jlcpcb:GPSM-SMD_24P-L16.0-W12.2-P1.10-BL"
-    },
-    "known_drc_result": {
-      "provenance": "historical_saved_report_not_freshly_run",
-      "report": "drc-report.json",
-      "result": "FAIL",
-      "schematic_parity_count": 0,
-      "unconnected_count": 1,
-      "violation_count": 35
     },
     "net_count": 15,
     "pad_counts": {
@@ -182,20 +153,7 @@
       "U1",
       "U2"
     ],
-    "track_count": 163,
-    "validator_statuses": {
-      "board_dimensions": "INFO",
-      "connector_class": "PASS",
-      "courtyard_collisions": "WARN",
-      "edge_clearance_origins": "PASS",
-      "fiducials": "PASS",
-      "module_socket_pinouts": "PASS",
-      "pads_inside_board": "PASS",
-      "placeholder_footprints": "PASS",
-      "silkscreen": "PASS",
-      "symbol_footprint_parity": "PASS",
-      "trace_routing": "INFO"
-    },
+    "track_count": 169,
     "via_count": 55,
     "zone_layers": [
       "F.Cu"
@@ -222,14 +180,6 @@
       "TP2": "TestPoint:TestPoint_Pad_1.0x1.0mm",
       "TP3": "TestPoint:TestPoint_Pad_1.0x1.0mm",
       "U1": "jlcpcb:LGA-14_L3.0-W2.5-P0.50-TL"
-    },
-    "known_drc_result": {
-      "provenance": "historical_saved_report_not_freshly_run",
-      "report": "drc-report.json",
-      "result": "FAIL",
-      "schematic_parity_count": 0,
-      "unconnected_count": 0,
-      "violation_count": 17
     },
     "net_count": 7,
     "pad_counts": {
@@ -263,19 +213,6 @@
       "U1"
     ],
     "track_count": 50,
-    "validator_statuses": {
-      "board_dimensions": "INFO",
-      "connector_class": "PASS",
-      "courtyard_collisions": "WARN",
-      "edge_clearance_origins": "PASS",
-      "fiducials": "PASS",
-      "module_socket_pinouts": "PASS",
-      "pads_inside_board": "PASS",
-      "placeholder_footprints": "PASS",
-      "silkscreen": "PASS",
-      "symbol_footprint_parity": "PASS",
-      "trace_routing": "INFO"
-    },
     "via_count": 14,
     "zone_layers": [
       "F.Cu"
@@ -358,14 +295,6 @@
       "U3": "jlcpcb:TSSOP-16_L5.0-W4.4-P0.65-LS6.4-BL",
       "U4": "jlcpcb:TO-263-2_L10.1-W9.1-P5.08-LS15.2-BR-1",
       "Y1": "jlcpcb:CRYSTAL-SMD_L11.4-W4.7-LS12.4"
-    },
-    "known_drc_result": {
-      "provenance": "historical_saved_report_not_freshly_run",
-      "report": "drc-report.json",
-      "result": "FAIL",
-      "schematic_parity_count": 0,
-      "unconnected_count": 4,
-      "violation_count": 16
     },
     "net_count": 47,
     "pad_counts": {
@@ -511,19 +440,6 @@
       "Y1"
     ],
     "track_count": 509,
-    "validator_statuses": {
-      "board_dimensions": "INFO",
-      "connector_class": "PASS",
-      "courtyard_collisions": "PASS",
-      "edge_clearance_origins": "PASS",
-      "fiducials": "PASS",
-      "module_socket_pinouts": "WARN",
-      "pads_inside_board": "PASS",
-      "placeholder_footprints": "PASS",
-      "silkscreen": "PASS",
-      "symbol_footprint_parity": "PASS",
-      "trace_routing": "INFO"
-    },
     "via_count": 87,
     "zone_layers": [
       "F.Cu"

@@ -34,11 +34,12 @@ class AcceptanceResult:
 
 
 def review_draft_command(project: Project, draft_id: str) -> str:
-    """Render a copyable review command for the current platform shell."""
-    arguments = ['pcb-copilot', 'review-draft', str(project.root), draft_id]
+    """Point a stale transaction back to the current public update command."""
+    arguments = ['pcb-copilot', 'update-schematic', str(project.root),
+                 '--intent', str(project.root / 'schematic-intent.yaml')]
     if os.name == 'nt':
-        root = "'" + str(project.root).replace("'", "''") + "'"
-        return f'pcb-copilot review-draft {root} {draft_id}'
+        return ' '.join("'" + item.replace("'", "''") + "'" if ' ' in item else item
+                        for item in arguments)
     return shlex.join(arguments)
 
 
@@ -92,7 +93,7 @@ def _replace_bytes(target: Path, payload: bytes) -> None:
 
 
 def accept_schematic(
-    project: Project, draft: DraftRecord, *, record_legacy_owner: bool = True,
+    project: Project, draft: DraftRecord, *,
     board_payload: bytes | None = None,
     project_payload: bytes | None = None,
 ) -> AcceptanceResult:
@@ -121,7 +122,7 @@ def accept_schematic(
     # follows the existing repository helper path established by the renderer.
     from pcb_copilot.schematic import render  # noqa: F401
 
-    netmap = importlib.import_module('extract_netmap').extract(schematic)
+    netmap = importlib.import_module('pcb_copilot.schematic.netmap').extract(schematic)
     intent = load_schematic_intent(draft.root / 'schematic-intent.yaml')
     try:
         normalize_intent_netmap(intent, netmap['nets'])
@@ -147,8 +148,6 @@ def accept_schematic(
         changes[project.pcb_path] = board_payload
     if project_payload is not None:
         changes[project.pcb_path.with_suffix('.kicad_pro')] = project_payload
-    if record_legacy_owner:
-        changes[project.root / 'SCHEMATIC_OWNER'] = b'human\n'
     _accept_changes(project, draft, changes, check_base, evidence_findings,
                     lifecycle=Lifecycle.DRAFT)
     return AcceptanceResult(DraftKind.SCHEMATIC, project.schematic_path,
@@ -156,30 +155,6 @@ def accept_schematic(
                             project.netmap_path, Lifecycle.DRAFT)
 
 
-def accept_layout(project: Project, draft: DraftRecord) -> AcceptanceResult:
-    from pcb_copilot.layout.commands import checked_layout_review
-
-    def check_base():
-        report = checked_layout_review(project, draft)
-        try:
-            approval = json.loads((draft.root / 'preview-approval.json').read_text(encoding='utf-8'))
-        except FileNotFoundError as exc:
-            raise ValueError('recorded human preview approval required; run approve-layout-preview') from exc
-        if (approval.get('confirmed_preview') is not True or not approval.get('reviewer')
-                or approval.get('draft_id') != draft.id
-                or approval.get('review_sha256') != file_digest(draft.root / 'review.json')
-                or approval.get('artifact_hashes') != report['artifact_hashes']):
-            raise ValueError('human preview approval is stale; review and approve current artifacts')
-
-    check_base()
-    source = draft.root / project.pcb_path.relative_to(project.root)
-    changes = {project.pcb_path: source.read_bytes(),
-               project.pcb_path.with_suffix('.kicad_pro'): source.with_suffix('.kicad_pro').read_bytes()}
-    if source.with_suffix('.kicad_dru').exists():
-        changes[project.pcb_path.with_suffix('.kicad_dru')] = source.with_suffix('.kicad_dru').read_bytes()
-    _accept_changes(project, draft, changes, check_base, check_evidence(project, ()))
-    return AcceptanceResult(DraftKind.LAYOUT, project.pcb_path, file_digest(project.pcb_path),
-                            project.netmap_path, Lifecycle.HUMAN_REVIEWED)
 
 
 def _accept_changes(project, draft, changes, check_base, evidence_findings,

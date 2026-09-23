@@ -1,7 +1,7 @@
 from pathlib import Path
 from shutil import copy2
 
-from pcb_copilot.review.legacy import legacy_checks
+from pcb_copilot.review.checks import current_checks
 from pcb_copilot.review.schematic_quality import check_schematic_sheets
 
 
@@ -33,6 +33,6 @@ def test_missing_child_title_blocks_hierarchical_quality(tmp_path):
 
 
 def test_review_registry_uses_hierarchical_quality_check():
-    quality = next(check for check in legacy_checks() if check.check_id == 'schematic_quality')
+    quality = next(check for check in current_checks() if check.check_id == 'schematic_quality')
 
     assert quality.scope.proves == 'all referenced sheets have title/revision and acceptable density'

@@ -84,7 +84,7 @@ def test_write_failure_rolls_back_every_accepted_file(reviewed_candidate, monkey
     import pcb_copilot.accept as module
 
     project, draft = reviewed_candidate
-    paths = [project.schematic_path, project.netmap_path, project.root / 'SCHEMATIC_OWNER']
+    paths = [project.schematic_path, project.netmap_path, project.manifest_path]
     before = {p: p.read_bytes() for p in paths}
     original = module._replace_bytes
 

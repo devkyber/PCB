@@ -146,7 +146,7 @@ def _review_findings(
         replace(finding, severity='review') for finding in check_evidence(project, ())
     ]
     try:
-        extracted = importlib.import_module('extract_netmap').extract(schematic)
+        extracted = importlib.import_module('pcb_copilot.schematic.netmap').extract(schematic)
         try:
             normalized = normalize_intent_netmap(intent, extracted['nets'])
             if normalized != extracted['nets']:

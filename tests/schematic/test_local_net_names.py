@@ -14,7 +14,7 @@ from pcb_copilot.schematic.wiring import (
 
 def test_local_wire_names_survive_kicad_export(rendered, repo_root):
     # The renderer makes the repository's existing extractor importable.
-    nets = importlib.import_module('extract_netmap').extract(rendered)['nets']
+    nets = importlib.import_module('pcb_copilot.schematic.netmap').extract(rendered)['nets']
     assert nets['J1']['1'] == 'INPUT'
     assert nets['R1']['1'] == 'INPUT'
     assert nets['R3']['1'] == 'INPUT'

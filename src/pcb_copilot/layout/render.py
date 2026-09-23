@@ -45,6 +45,9 @@ for fp in board.GetFootprints():
     if ref in fps:
         raise RuntimeError('Duplicate footprint reference ' + ref)
     fps[ref] = {'lib_id': fp.GetFPIDAsString(), 'value': fp.GetValue(),
+        'lcsc': next((fp.GetFieldText(key).strip() for key in
+                     ('LCSC Part', 'LCSC', 'LCSC Part #', 'JLCPCB', 'JLCPCB Part')
+                     if fp.HasField(key) and fp.GetFieldText(key).strip()), ''),
         'layer': fp.GetLayerName(),
         'rule_areas': sum(z.GetIsRuleArea() for z in fp.Zones()),
         'pads': [[p.GetNumber(), p.GetNetname()] for p in fp.Pads()]}
@@ -103,7 +106,7 @@ def schematic_inventory(
     """Export physical parts, complete symbol pins and connected nets from KiCad.
 
     Components come from the native component list, including wholly disconnected
-    parts. Net normalization matches scripts/check_netlist_parity.py: only leading
+    parts. Net normalization matches pcb_copilot.schematic.netmap: only leading
     slashes are removed; deeper sheet paths remain distinct.
     """
     with tempfile.TemporaryDirectory(prefix="pcb-layout-netlist-") as directory:
@@ -145,6 +148,10 @@ def schematic_inventory(
             raise ValueError(f"{ref}: native netlist has no symbol identity")
         parts[ref] = {
             "footprint": comp.findtext("footprint") or "",
+            "value": comp.findtext("value") or "",
+            "lcsc": next(((field.text or '').strip() for field in comp.findall('fields/field')
+                          if field.get('name') in {'LCSC Part', 'LCSC', 'LCSC Part #', 'JLCPCB', 'JLCPCB Part'}
+                          and (field.text or '').strip()), ''),
             "pins": libraries[(source.get("lib"), source.get("part"))],
         }
     nets = {}

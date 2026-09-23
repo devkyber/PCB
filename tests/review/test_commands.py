@@ -35,7 +35,7 @@ def test_review_runs_checks_in_copy_and_preserves_current_project(project_copy, 
 
     assert report.results[0].passed is True
     assert tree_hash(project_copy) == before
-    assert (project_copy / 'erc-report.json').read_text(encoding='utf-8') != 'temporary report'
+    assert not (project_copy / 'erc-report.json').exists()
 
 
 def test_review_cli_reports_all_registered_checks_without_writing_current_project(

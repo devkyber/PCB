@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import sys
 from dataclasses import dataclass
 from itertools import combinations, pairwise
 from pathlib import Path
@@ -18,11 +17,7 @@ from pcb_copilot.schematic.fields import (
 )
 from pcb_copilot.schematic.wiring import VisualObstacle
 
-_SCRIPTS = Path(__file__).resolve().parents[3] / 'scripts'
-if str(_SCRIPTS) not in sys.path:
-    sys.path.insert(0, str(_SCRIPTS))
-
-from schematic_layout_helpers import (
+from pcb_copilot.schematic.geometry import (
     DEFAULT_STUB_MM,
     GRID_MM,
     pin_exit_orientation_for_symbol,

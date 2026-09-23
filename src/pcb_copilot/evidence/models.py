@@ -10,6 +10,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 
 
 class EvidenceRole(str, Enum):
+    CAD_LIBRARY = "cad_library"
     DATASHEET = "datasheet"
     INTEGRATION_MANUAL = "integration_manual"
     REFERENCE_DESIGN = "reference_design"
@@ -19,6 +20,7 @@ class EvidenceRole(str, Enum):
 
 
 class TrustTier(str, Enum):
+    SUPPLIER = "supplier"
     MANUFACTURER = "manufacturer"
     MANUFACTURER_EVM = "manufacturer_evm"
     PROVEN_OPEN_HARDWARE = "proven_open_hardware"

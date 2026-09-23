@@ -5,31 +5,9 @@ from pathlib import Path
 
 import pytest
 
-from pcb_copilot.cli import main
 from pcb_copilot.state import accepted_file_hashes, file_digest
 
 
-def test_draft_layout_cli_preserves_accepted_board(
-    sensor_layout_draft, repo_root, capsys
-):
-    fixture = sensor_layout_draft
-    before = accepted_file_hashes(fixture.project)
-    main(
-        [
-            "draft-layout",
-            str(fixture.project.root),
-            "--intent",
-            str(repo_root / "tests/fixtures/layout/sensor-layout.yaml"),
-            "--route",
-            "human",
-        ]
-    )
-    report = json.loads(capsys.readouterr().out)
-    assert accepted_file_hashes(fixture.project) == before
-    assert report["human_review"] == "pending"
-    assert report["route"]["unconnected"] == "unknown"
-    assert report["plot"] and report["drc_report"]
-    assert not report["machine_failures"], report["machine_failures"]
 
 
 def test_settings_are_in_stale_base_inventory(sensor_layout_draft):
@@ -87,23 +65,6 @@ def test_publish_copies_manifest_paths_and_child_sheets(sensor_layout_draft):
     assert (draft.root / "cad/child.kicad_sch").read_bytes() == child.read_bytes()
 
 
-@pytest.mark.parametrize("changed", ["schematic", "pcb", "settings"])
-def test_layout_accept_rejects_stale_inputs(sensor_layout_draft, repo_root, changed):
-    from pcb_copilot.accept import StaleDraftError, accept_layout, load_draft
-    from pcb_copilot.layout.commands import draft_layout
-
-    fixture = sensor_layout_draft
-    report = draft_layout(
-        fixture.project, repo_root / "tests/fixtures/layout/sensor-layout.yaml"
-    )
-    target = {
-        "schematic": fixture.project.schematic_path,
-        "pcb": fixture.project.pcb_path,
-        "settings": fixture.project.pcb_path.with_suffix(".kicad_pro"),
-    }[changed]
-    target.write_bytes(target.read_bytes() + b"\n")
-    with pytest.raises(StaleDraftError):
-        accept_layout(fixture.project, load_draft(fixture.project, report["draft_id"]))
 
 
 @pytest.fixture
@@ -118,38 +79,15 @@ def reviewed(sensor_layout_draft, repo_root):
     return fixture.project, load_draft(fixture.project, report["draft_id"]), report
 
 
-def test_accept_needs_explicit_approval_and_installs_companion(reviewed):
-    from pcb_copilot.accept import accept_layout
-    from pcb_copilot.layout.commands import approve_layout_preview
-
-    project, draft, report = reviewed
-    assert not report["machine_failures"], report["machine_failures"]
-    before = project.schematic_path.read_bytes()
-    with pytest.raises(ValueError, match="human preview"):
-        accept_layout(project, draft)
-    with pytest.raises(ValueError, match="explicit"):
-        approve_layout_preview(project, draft.id, "fixture reviewer")
-    approve_layout_preview(project, draft.id, "fixture reviewer", confirm_preview=True)
-    pcb = draft.root / project.pcb_path.name
-    result = accept_layout(project, draft)
-    assert project.pcb_path.read_bytes() == pcb.read_bytes()
-    assert (
-        project.pcb_path.with_suffix(".kicad_pro").read_bytes()
-        == pcb.with_suffix(".kicad_pro").read_bytes()
-    )
-    assert project.schematic_path.read_bytes() == before
-    assert result.accepted_hash == file_digest(pcb)
 
 
 def test_refresh_preserves_manual_copper_and_invalidates_approval(reviewed):
     import sexpdata
     from kicad_claude.adapters import sch_io
 
-    from pcb_copilot.accept import accept_layout
-    from pcb_copilot.layout.commands import approve_layout_preview, review_layout_draft
+    from pcb_copilot.layout.commands import review_layout_draft
 
     project, draft, report = reviewed
-    approve_layout_preview(project, draft.id, "fixture reviewer", confirm_preview=True)
     pcb = draft.root / project.pcb_path.name
     tree = sch_io.parse_file(pcb)
     tree.append(
@@ -159,8 +97,6 @@ def test_refresh_preserves_manual_copper_and_invalidates_approval(reviewed):
     )
     sch_io.write_file(pcb, tree)
     before, metadata = pcb.read_bytes(), (draft.root / "draft.json").read_bytes()
-    with pytest.raises(ValueError, match="artifacts changed"):
-        accept_layout(project, draft)
     report = review_layout_draft(project, draft.id)
     assert pcb.read_bytes() == before
     assert (draft.root / "draft.json").read_bytes() == metadata
@@ -182,7 +118,7 @@ def test_refresh_rejects_unsupported_embedded_geometry_without_mutating_cad(
     import sexpdata
     from kicad_claude.adapters import sch_io
 
-    from pcb_copilot.layout.commands import approve_layout_preview, review_layout_draft
+    from pcb_copilot.layout.commands import review_layout_draft
 
     project, draft, _ = reviewed
     pcb = draft.root / project.pcb_path.name
@@ -217,10 +153,6 @@ def test_refresh_rejects_unsupported_embedded_geometry_without_mutating_cad(
         for f in report["machine_failures"]
     )
     assert not (draft.root / "preview-approval.json").exists()
-    with pytest.raises(ValueError, match="blocking review findings"):
-        approve_layout_preview(
-            project, draft.id, "fixture reviewer", confirm_preview=True
-        )
 
 
 def test_refresh_names_unavailable_near_pad_target_after_geometry_failure(reviewed):
@@ -314,25 +246,6 @@ def test_refresh_rejects_dropped_constraints(sensor_layout_draft, tmp_path):
     )
 
 
-def test_accept_rolls_back_board_and_settings_on_state_failure(reviewed, monkeypatch):
-    from pcb_copilot import accept
-    from pcb_copilot.layout.commands import approve_layout_preview
-
-    project, draft, _ = reviewed
-    approve_layout_preview(project, draft.id, "fixture reviewer", confirm_preview=True)
-    before = accepted_file_hashes(project)
-    original = accept._replace_bytes
-
-    def fail_state(target, payload):
-        if target == project.root / ".pcb-copilot/review.json":
-            raise OSError("fixture state failure")
-        original(target, payload)
-
-    monkeypatch.setattr(accept, "_replace_bytes", fail_state)
-    with pytest.raises(OSError, match="fixture state failure"):
-        accept.accept_layout(project, draft)
-    assert accepted_file_hashes(project) == before
-    assert not (project.root / ".pcb-copilot/accept.lock").exists()
 
 
 def test_review_classifies_shorts_as_blocking_and_airwires_as_review(tmp_path):
@@ -475,32 +388,10 @@ def test_selected_route_uses_attempt_index_and_hashes_the_actual_board(
     )
 
 
-@pytest.mark.parametrize(
-    "artifact",
-    [
-        "preview.svg",
-        "drc.json",
-        "placement-report.json",
-        "route-report.json",
-        "constraints-report.json",
-        "baro-bmp390.kicad_pro",
-    ],
-)
-def test_approval_cannot_outlive_artifact_edits(reviewed, artifact):
-    from pcb_copilot.accept import accept_layout
-    from pcb_copilot.layout.commands import approve_layout_preview
-
-    project, draft, _ = reviewed
-    approve_layout_preview(project, draft.id, "fixture reviewer", confirm_preview=True)
-    target = draft.root / artifact
-    target.write_bytes(target.read_bytes() + b"\n")
-    with pytest.raises(ValueError, match="artifacts changed"):
-        accept_layout(project, draft)
 
 
 def test_refresh_blocks_custom_rules_added_after_constraint_proposal(reviewed):
-    from pcb_copilot.accept import accept_layout
-    from pcb_copilot.layout.commands import approve_layout_preview, review_layout_draft
+    from pcb_copilot.layout.commands import review_layout_draft
 
     project, draft, _ = reviewed
     before = accepted_file_hashes(project)
@@ -511,12 +402,6 @@ def test_refresh_blocks_custom_rules_added_after_constraint_proposal(reviewed):
         f["code"] == "constraints.custom_rules_changed"
         for f in report["machine_failures"]
     )
-    with pytest.raises(ValueError):
-        approve_layout_preview(
-            project, draft.id, "fixture reviewer", confirm_preview=True
-        )
-    with pytest.raises(ValueError):
-        accept_layout(project, draft)
     assert accepted_file_hashes(project) == before
 
 
@@ -539,7 +424,7 @@ def test_custom_rules_edit_during_refresh_cannot_be_sealed(reviewed, monkeypatch
 
 
 def test_missing_custom_rules_snapshot_requires_new_proposal(reviewed):
-    from pcb_copilot.layout.commands import approve_layout_preview, review_layout_draft
+    from pcb_copilot.layout.commands import review_layout_draft
 
     project, draft, _ = reviewed
     constraints_path = draft.root / "constraints-report.json"
@@ -554,10 +439,6 @@ def test_missing_custom_rules_snapshot_requires_new_proposal(reviewed):
         constraints_path
     )
     review_path.write_text(json.dumps(old_review), encoding="utf-8")
-    with pytest.raises(ValueError, match="custom-rule proposal snapshot"):
-        approve_layout_preview(
-            project, draft.id, "fixture reviewer", confirm_preview=True
-        )
     report = review_layout_draft(project, draft.id)
     assert any(
         f["code"] == "constraints.custom_rules_changed"

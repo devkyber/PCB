@@ -2,19 +2,13 @@
 
 from __future__ import annotations
 
-import importlib
-import sys
-from pathlib import Path
 
 from kicad_claude.adapters import sch_io
 from kicad_claude.utils.geometry import kicad_to_mcp_xy, rotate_xy
 
 from pcb_copilot.schematic.wiring import VisualObstacle
 
-SCRIPTS = Path(__file__).resolve().parents[3] / 'scripts'
-if str(SCRIPTS) not in sys.path:
-    sys.path.insert(0, str(SCRIPTS))
-_helpers = importlib.import_module('schematic_layout_helpers')
+from pcb_copilot.schematic import geometry as _helpers
 
 
 def visible_text_envelope(

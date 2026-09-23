@@ -2,7 +2,7 @@
 # See DESIGN_BASIS.md for source facts, functional choices and open decisions.
 schema_version: 1
 title: "gnss-neom9n assisted layout proposal"
-revision: "layout-proposal-1"
+revision: "layout-proposal-2"
 coordinate_frame: "board-origin-bottom-left-x-right-y-up-mm"
 outline: {"width_mm":34,"height_mm":40}
 regions:
@@ -19,7 +19,7 @@ placements:
   - {"ref":"D1","region":"receiver-power-rf","footprint":"Diode_SMD:D_0402_1005Metric","rotation_deg":0,"near_ref":"J2","near_pin":"1","source_pin":"1","max_distance_mm":5}
   - {"ref":"FID1","region":"receiver-power-rf","footprint":"Fiducial:Fiducial_1mm_Mask3mm","rotation_deg":0,"pcb_only":true,"anchor_x_mm":17,"anchor_y_mm":36}
   - {"ref":"FID2","region":"interface-backup","footprint":"Fiducial:Fiducial_1mm_Mask3mm","rotation_deg":0,"pcb_only":true,"anchor_x_mm":4,"anchor_y_mm":4}
-  - {"ref":"FID3","region":"interface-backup","footprint":"Fiducial:Fiducial_1mm_Mask3mm","rotation_deg":0,"pcb_only":true,"anchor_x_mm":31,"anchor_y_mm":10}
+  - {"ref":"FID3","region":"interface-backup","footprint":"Fiducial:Fiducial_1mm_Mask3mm","rotation_deg":0,"pcb_only":true,"anchor_x_mm":31.8,"anchor_y_mm":8.3}
   - {"ref":"H1","region":"receiver-power-rf","footprint":"MountingHole:MountingHole_2.7mm_M2.5_Pad","rotation_deg":0,"anchor_x_mm":4,"anchor_y_mm":36}
   - {"ref":"H2","region":"receiver-power-rf","footprint":"MountingHole:MountingHole_2.7mm_M2.5_Pad","rotation_deg":0,"anchor_x_mm":30,"anchor_y_mm":36}
   - {"ref":"J1","region":"receiver-power-rf","footprint":"Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical","rotation_deg":0,"anchor_x_mm":9,"anchor_y_mm":32}

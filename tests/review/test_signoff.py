@@ -3,6 +3,7 @@ from datetime import UTC, datetime
 import yaml
 
 from pcb_copilot.cli import main
+from pcb_copilot.transaction import inputs_digest
 from pcb_copilot.project import load_project
 from pcb_copilot.review.fingerprint import pcb_digest, schematic_digest
 from pcb_copilot.review.signoff import (
@@ -35,6 +36,7 @@ def test_complete_current_signoff_passes_but_changed_child_sheet_is_stale(projec
                 'schematic_hash': schematic_digest(project.schematic_path),
                 'pcb_hash': pcb_digest(project.pcb_path),
                 'profile_hash': profile_digest(project.root),
+                'inputs_hash': inputs_digest(project),
             }
             for item in profile.items
         ],
@@ -62,6 +64,7 @@ def test_rejected_item_blocks_even_with_current_hash(project_copy):
             'schematic_hash': schematic_digest(project.schematic_path),
             'pcb_hash': pcb_digest(project.pcb_path),
             'profile_hash': profile_digest(project.root),
+                'inputs_hash': inputs_digest(project),
         }],
     }), encoding='utf-8')
 

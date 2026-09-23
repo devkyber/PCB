@@ -106,3 +106,21 @@ coverage and mechanical axes remain unresolved; nominal capacitance alone
 does not establish the 10mVpp condition despite historical REQUIREMENTS prose.
 Any existing edge/envelope violation remains a blocking measured finding,
 not a reason to silently move fixed mechanics or waive geometry.
+
+## Routing repair — 2026-09-23
+
+Moved FID1/FID3 inward to the positions already proposed in layout-intent.yaml,
+cleared the fiducials' copper/mask areas by relocating ground stitching vias,
+and repositioned silkscreen. Restored the header's library-relative pad angles;
+its circular and square pad geometry and pin positions are unchanged. Sensor,
+bypass parts, connector and mounting-hole positions and signal traces are retained.
+
+The repaired board passed the current review pipeline's automated checks,
+including exact schematic/PCB parity and two zone-refilled DRC runs with
+zero errors, zero warnings and zero unconnected items. Human decisions remain
+unsigned; lifecycle remains DRAFT. No fabrication release was produced.
+
+The earlier layout intent remains an unapproved placement proposal. Its
+conservative envelope/near-pad checks are separate from native DRC and still
+require work; these routing repairs do not establish that proposal as accepted
+or waive its constraints. Mechanical, assembly and bench review remain open.

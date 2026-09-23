@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import ast
 import importlib.util
 import json
 import subprocess
@@ -27,10 +26,10 @@ def _load_module(name: str, path: Path):
 
 
 PCB_HELPERS = _load_module(
-    "characterized_pcb_layout_helpers", REPO_ROOT / "scripts/pcb_layout_helpers.py"
+    "characterized_pcb_layout_helpers", REPO_ROOT / "src/pcb_copilot/layout/geometry.py"
 )
 VALIDATOR = _load_module(
-    "characterized_validate_pcb", REPO_ROOT / "scripts/validate_pcb.py"
+    "characterized_validate_pcb", REPO_ROOT / "src/pcb_copilot/review/placement.py"
 )
 
 
@@ -49,33 +48,6 @@ def validator():
     return VALIDATOR
 
 
-@pytest.fixture
-def coordinate_helpers(repo_root: Path) -> dict[str, object]:
-    """Load only pure coordinate definitions; importing the generator rewrites its board."""
-    path = repo_root / "projects/tms-v3/gen_tms_v3_pcb.py"
-    tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
-    names = {"ORIGIN_X", "ORIGIN_Y", "BOARD_W", "BOARD_H", "PAGE_H", "KICAD_Y0"}
-    functions = {"design_to_mcp", "design_to_kicad", "kicad_to_design"}
-    selected = []
-    for node in tree.body:
-        if isinstance(node, (ast.Assign, ast.AnnAssign)):
-            targets = node.targets if isinstance(node, ast.Assign) else [node.target]
-            if any(
-                isinstance(target, ast.Name) and target.id in names
-                for target in targets
-            ):
-                selected.append(node)
-        elif (
-            isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
-            and node.name in functions
-        ):
-            selected.append(node)
-    namespace: dict[str, object] = {}
-    exec(  # noqa: S102 - deliberately execute only selected pure AST definitions
-        compile(ast.Module(body=selected, type_ignores=[]), str(path), "exec"),
-        namespace,
-    )
-    return namespace
 
 
 def _kipython_or_skip() -> Path:
@@ -133,43 +105,6 @@ print(json.dumps({
         "y_max": max(ys),
     }
 
-    checks = {
-        "placeholder_footprints": VALIDATOR.check_placeholders(text),
-        "fiducials": VALIDATOR.check_fiducials(text),
-        "board_dimensions": VALIDATOR.check_board_dimensions(text),
-        "silkscreen": VALIDATOR.check_silkscreen(text),
-        "trace_routing": VALIDATOR.check_traces_exist(text),
-        "edge_clearance_origins": VALIDATOR.check_edge_clearance(text),
-        "pads_inside_board": VALIDATOR.check_pads_inside_board(text),
-        "courtyard_collisions": VALIDATOR.check_courtyard_overlap(text),
-        "module_socket_pinouts": VALIDATOR.check_module_socket_pinouts(text),
-        "symbol_footprint_parity": VALIDATOR.check_symbol_footprint_parity(str(pcb)),
-        "connector_class": VALIDATOR.check_connector_class(str(pcb)),
-    }
-    metrics["validator_statuses"] = {name: result[0] for name, result in checks.items()}
-
-    reports = sorted(pcb.parent.glob("*drc*.json"))
-    if reports:
-        # Match validate_pcb's report choice, while keeping its mtime-sensitive
-        # freshness verdict out of this checkout-stable historical snapshot.
-        report = max(reports, key=lambda path: path.stat().st_mtime)
-        document = json.loads(report.read_text(encoding="utf-8"))
-        violations = document.get("violations", [])
-        unconnected = document.get("unconnected_items", [])
-        parity = document.get("schematic_parity", [])
-        metrics["known_drc_result"] = {
-            "provenance": "historical_saved_report_not_freshly_run",
-            "report": report.name,
-            "result": "FAIL" if violations or unconnected or parity else "PASS",
-            "violation_count": len(violations),
-            "unconnected_count": len(unconnected),
-            "schematic_parity_count": len(parity),
-        }
-    else:
-        metrics["known_drc_result"] = {
-            "provenance": "no_saved_report",
-            "result": "UNKNOWN",
-        }
     return metrics
 
 
@@ -306,11 +241,11 @@ class _FakeRouter:
                 stdout="PCB_COPILOT_POUR_LAYERS=" + json.dumps(self.pour_layers) + "\n",
                 stderr="",
             )
-        if any(value.endswith("stitch_vias.py") for value in command):
+        if any(value.endswith("stitch_vias_native.py") for value in command):
             assert pcb is not None
             pcb.write_bytes(pcb.read_bytes() + b"\nstitch")
             return SimpleNamespace(returncode=0, stdout="stitched\n", stderr="")
-        if any(value.endswith("fix_via_annular.py") for value in command):
+        if any(value.endswith("fix_via_annular_native.py") for value in command):
             assert pcb is not None
             pcb.write_bytes(pcb.read_bytes() + b"\nannular")
             return SimpleNamespace(returncode=0, stdout="fixed\n", stderr="")

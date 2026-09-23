@@ -5,7 +5,7 @@ from kicad_claude.adapters import sch_editor as ed
 from kicad_claude.adapters import sch_io
 from kicad_claude.utils.geometry import mcp_to_kicad_xy
 from kicad_claude.utils.kicad_paths import find_symbol_lib_dirs
-from schematic_layout_helpers import (
+from pcb_copilot.schematic.geometry import (
     GRID_MM,
     LabelPlacer,
     StubCrossingError,

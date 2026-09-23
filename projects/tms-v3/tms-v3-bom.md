@@ -1,4 +1,8 @@
-# TMS V3 Full BOM — Rev D (All Findings Resolved)
+# TMS V3 historical BOM — Rev D
+
+Historical design record cited by `PDR.md`. This is not a current fabrication
+BOM or approval. Use the checked `pcb-copilot release` output for production;
+current unresolved decisions are in `review-profile.yaml` and `REFERENCE_REVIEW.md`.
 
 ## Active Components
 

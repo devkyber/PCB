@@ -37,32 +37,22 @@ def main(
     update_parser.add_argument('--intent', required=True, type=Path)
     update_parser.add_argument('--apply', action='store_true')
     update_parser.add_argument('--reconcile-board-names', action='store_true')
+    update_parser.add_argument('--pcb', type=Path, help='matching routed PCB for an atomic circuit change')
     current_review_parser = subparsers.add_parser('review', help='check the current root design without changing it')
     current_review_parser.add_argument('project_path', type=Path)
     current_review_parser.add_argument('--format', choices=('text', 'json', 'markdown'), default='text')
     current_review_parser.add_argument('--output', type=Path)
     signoff_parser = subparsers.add_parser('prepare-signoff', help='create an unsigned current-design review worksheet')
     signoff_parser.add_argument('project_path', type=Path)
-    draft_parser = subparsers.add_parser('draft-schematic', help='create a schematic draft and review artifacts')
-    draft_parser.add_argument('project_path', type=Path)
-    draft_parser.add_argument('--intent', required=True, type=Path)
-    layout_parser = subparsers.add_parser('draft-layout', help='create a layout proposal and previews')
+    layout_parser = subparsers.add_parser('update-layout', help='preview or apply a checked current layout')
     layout_parser.add_argument('project_path', type=Path)
-    layout_parser.add_argument('--intent', required=True, type=Path)
+    source = layout_parser.add_mutually_exclusive_group(required=True)
+    source.add_argument('--intent', type=Path)
+    source.add_argument('--candidate', type=Path, help='an already edited/routed KiCad board')
     layout_parser.add_argument('--route', choices=['human', 'critical_only', 'candidate_all'])
-    approval_parser = subparsers.add_parser('approve-layout-preview', help='record the human operator preview attestation')
-    approval_parser.add_argument('project_path', type=Path)
-    approval_parser.add_argument('draft_id')
-    approval_parser.add_argument('--reviewer', required=True)
-    approval_parser.add_argument('--confirm-preview', action='store_true', required=True)
-    review_parser = subparsers.add_parser(
-        'review-draft', help='refresh review artifacts for edited schematic or layout CAD',
-    )
-    review_parser.add_argument('project_path', type=Path)
-    review_parser.add_argument('draft_id')
-    accept_parser = subparsers.add_parser('accept', help='accept a reviewed schematic or layout draft')
-    accept_parser.add_argument('project_path', type=Path)
-    accept_parser.add_argument('draft_id')
+    layout_parser.add_argument('--apply', action='store_true')
+    release_parser = subparsers.add_parser('release', help='review and export the exact current design')
+    release_parser.add_argument('project_path', type=Path)
     research_parser = subparsers.add_parser(
         "research", help="verify, archive, or extract cited project evidence"
     )
@@ -81,10 +71,30 @@ def main(
         choices=[item.value for item in TrustTier],
         default=TrustTier.MANUFACTURER.value,
     )
+    parts_parser = subparsers.add_parser('parts', help='look up or import exact LCSC supplier parts')
+    parts_parser.add_argument('project_path', type=Path)
+    part_operation = parts_parser.add_mutually_exclusive_group(required=True)
+    part_operation.add_argument('--lookup', metavar='C_NUMBER')
+    part_operation.add_argument('--import', dest='import_lcsc', metavar='C_NUMBER')
+    parts_parser.add_argument('--mpn', help='expected manufacturer part number, required for import')
     args = parser.parse_args(argv)
 
     if args.version:
         print(f"pcb-copilot {__version__}")
+    elif args.command == 'parts':
+        from pcb_copilot.parts import import_part, lookup_part
+
+        try:
+            project = load_project(args.project_path)
+            if args.import_lcsc:
+                if not args.mpn:
+                    parser.error('parts --import requires --mpn to check the exact part identity')
+                result = import_part(project, args.import_lcsc, args.mpn, downloader=downloader)
+            else:
+                result, _, _ = lookup_part(args.lookup, downloader=downloader)
+        except (ValueError, OSError, RuntimeError) as exc:
+            parser.error(str(exc))
+        print(json.dumps(result, indent=2))
     elif args.command == "status":
         try:
             project = load_project(args.project_path)
@@ -99,6 +109,7 @@ def main(
             result = update_schematic(
                 load_project(args.project_path), args.intent, args.apply,
                 reconcile_names=args.reconcile_board_names,
+                pcb_candidate=args.pcb,
             )
         except (ValueError, OSError, RuntimeError, ToolchainDiscoveryError) as exc:
             parser.error(str(exc))
@@ -139,55 +150,20 @@ def main(
             parser.error(str(exc))
         print(f'Unsigned review worksheet: {path}')
         return 0
-    elif args.command == 'accept':
-        from pcb_copilot.accept import accept_layout, accept_schematic, load_draft
-        from pcb_copilot.models import DraftKind
-
+    elif args.command == 'update-layout':
+        from pcb_copilot.layout.update import update_layout
         try:
-            project = load_project(args.project_path)
-            draft = load_draft(project, args.draft_id)
-            target = project.pcb_path if draft.kind == DraftKind.LAYOUT else project.schematic_path
-            print(f'Accepting {draft.root} into {target}; '
-                  f'base schematic {draft.base_schematic_hash}; base PCB {draft.base_pcb_hash}')
-            result = (accept_layout if draft.kind == DraftKind.LAYOUT else accept_schematic)(project, draft)
+            result = update_layout(load_project(args.project_path), args.intent, args.apply,
+                                   candidate=args.candidate, route=args.route)
         except (ValueError, OSError, RuntimeError) as exc:
-            parser.error(str(exc))
-        print(f'Accepted {result.accepted_path} ({result.accepted_hash}); '
-              f'{result.lifecycle.value}')
-    elif args.command in {'draft-layout', 'approve-layout-preview'}:
-        from pcb_copilot.layout.commands import approve_layout_preview, draft_layout
-        from pcb_copilot.toolchain import ToolchainDiscoveryError
-
-        try:
-            project = load_project(args.project_path)
-            result = (draft_layout(project, args.intent, args.route) if args.command == 'draft-layout'
-                      else approve_layout_preview(project, args.draft_id, args.reviewer, confirm_preview=args.confirm_preview))
-        except (ValueError, OSError, RuntimeError, ToolchainDiscoveryError) as exc:
-            parser.error(str(exc))
-        print(json.dumps(result, indent=2))
-        return result.get('exit_code', 0)
-    elif args.command == 'draft-schematic':
-        from pcb_copilot.schematic.commands import draft_schematic
-        from pcb_copilot.toolchain import ToolchainDiscoveryError
-
-        try:
-            result = draft_schematic(load_project(args.project_path), args.intent)
-        except (ValueError, OSError, ToolchainDiscoveryError) as exc:
             parser.error(str(exc))
         print(json.dumps(result, indent=2))
         return result['exit_code']
-    elif args.command == 'review-draft':
-        from pcb_copilot.accept import load_draft
-        from pcb_copilot.layout.commands import review_layout_draft
-        from pcb_copilot.models import DraftKind
-        from pcb_copilot.schematic.commands import review_draft
-        from pcb_copilot.toolchain import ToolchainDiscoveryError
-
+    elif args.command == 'release':
+        from pcb_copilot.release import release_project
         try:
-            project = load_project(args.project_path)
-            draft = load_draft(project, args.draft_id)
-            result = (review_layout_draft if draft.kind == DraftKind.LAYOUT else review_draft)(project, args.draft_id)
-        except (ValueError, OSError, RuntimeError, ToolchainDiscoveryError) as exc:
+            result = release_project(load_project(args.project_path))
+        except (ValueError, OSError, RuntimeError) as exc:
             parser.error(str(exc))
         print(json.dumps(result, indent=2))
         return result['exit_code']

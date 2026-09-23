@@ -665,8 +665,6 @@ def test_research_preflight_from_package_without_checkout_docs(
     # tests the new research boundary, not full wheel portability.
     compatibility = tmp_path / "compatibility"
     compatibility.mkdir()
-    for name in ("pcb_layout_helpers.py", "deviations.py"):
-        shutil.copy2(repo_root / "scripts" / name, compatibility / name)
     # Fresh isolated process: no test-loaded check_research or docs path can
     # mask a checkout-only import. Keep installed third-party dependencies.
     script = """

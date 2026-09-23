@@ -11,14 +11,14 @@ from pathlib import Path
 
 from pcb_copilot.models import Project
 from pcb_copilot.project import load_project
-from pcb_copilot.review.legacy import legacy_checks
+from pcb_copilot.review.checks import current_checks
 from pcb_copilot.review.models import ReviewReport
 from pcb_copilot.review.registry import Check, run_checks
 
 
 def review_project(project: Project, checks: Sequence[Check] | None = None) -> ReviewReport:
     """Run all checks on a disposable byte copy of the current project."""
-    selected = tuple(legacy_checks() if checks is None else checks)
+    selected = tuple(current_checks() if checks is None else checks)
     with tempfile.TemporaryDirectory(prefix='pcb-copilot-review-') as temporary:
         staged_root = Path(temporary) / project.root.name
         shutil.copytree(

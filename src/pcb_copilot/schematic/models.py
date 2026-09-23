@@ -40,6 +40,7 @@ class ComponentIntent(BaseModel):
 
     ref: str = Field(min_length=1, pattern=r"^[A-Za-z#]+[A-Za-z0-9_-]*$")
     value: str = Field(min_length=1)
+    lcsc: str | None = Field(default=None, pattern=r'^C[1-9][0-9]*$')
     symbol: str = Field(min_length=1)
     footprint: str = Field(min_length=1)
     block: str = Field(min_length=1)

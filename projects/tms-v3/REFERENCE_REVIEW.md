@@ -266,3 +266,12 @@ local-zero pads would imply 90 degrees. Native Y1 pads are 5.5x1.4mm and cap
 pads 0.56x0.62mm, making orientation material. Current drafting preserves
 embedded pad geometry and emits instance-difference warnings. Footprint-ID
 and net parity do not establish geometric or value equivalence.
+
+## Metadata correction — 2026-09-23
+
+The C8/C9 Value disagreement recorded above is resolved to the existing
+schematic's 33pF. Their former C1663 sourcing identifiers were removed
+because the supplier lists a 0603 part against the unchanged 0402 footprints.
+Replacement sourcing remains open. J9's PCB Value now matches the schematic.
+See DESIGN_BASIS.md for the supplier citation and limited scope. Circuit,
+layout, reference-source and physical-fit review remain unresolved.

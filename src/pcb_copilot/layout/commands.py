@@ -6,7 +6,6 @@ import json
 import shutil
 import tempfile
 from dataclasses import asdict
-from datetime import datetime, timezone
 from pathlib import Path
 
 from kicad_claude.adapters import sch_io
@@ -246,7 +245,7 @@ def review_layout_draft(project, draft_id):
         findings.extend(render_layout_preview(toolchain, pcb, staging))
         assert_draft_base_current(project, draft, metadata)
         if before != {p: file_digest(p) for p in inputs}:
-            raise ValueError("draft inputs changed during review; rerun review-draft")
+            raise ValueError("draft inputs changed during review; rerun update-layout")
         _write(staging / "placement-report.json", placement)
         for name in (
             "preview.svg",
@@ -285,44 +284,3 @@ def review_layout_draft(project, draft_id):
         }
         _write(draft.root / "review.json", report)
     return report
-
-
-def checked_layout_review(project, draft):
-    validate_layout_draft(project, draft)
-    report = json.loads((draft.root / "review.json").read_text(encoding="utf-8"))
-    hashes = layout_artifacts(project, draft)
-    if None in hashes.values() or report.get("artifact_hashes") != hashes:
-        raise ValueError("review artifacts changed or missing; run review-draft")
-    constraints = json.loads(
-        (draft.root / "constraints-report.json").read_text(encoding="utf-8")
-    )
-    pcb = draft.root / project.pcb_path.relative_to(project.root)
-    if not _custom_rules_match(constraints, pcb):
-        raise ValueError(
-            "custom-rule proposal snapshot is unverified or changed; prepare a new draft"
-        )
-    if report.get("exit_code") != 0 or any(
-        f["severity"] == "block" for f in report["findings"]
-    ):
-        raise ValueError("layout draft has blocking review findings")
-    return report
-
-
-def approve_layout_preview(project, draft_id, reviewer, *, confirm_preview=False):
-    """Record the human operator's attestation; this is not automated approval."""
-    if not confirm_preview or not reviewer.strip():
-        raise ValueError(
-            "human reviewer and explicit preview confirmation are required"
-        )
-    draft = load_draft(project, draft_id)
-    report = checked_layout_review(project, draft)
-    approval = {
-        "draft_id": draft.id,
-        "reviewer": reviewer.strip(),
-        "confirmed_preview": True,
-        "created_utc": datetime.now(timezone.utc).isoformat(),
-        "review_sha256": file_digest(draft.root / "review.json"),
-        "artifact_hashes": report["artifact_hashes"],
-    }
-    _write(draft.root / "preview-approval.json", approval)
-    return approval

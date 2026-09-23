@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 import copy
-import importlib
-import sys
+import os
+import re
 import textwrap
 import uuid
 from collections import defaultdict
@@ -35,12 +35,7 @@ from pcb_copilot.schematic.wiring import (
     connect_local,
 )
 
-REPO = Path(__file__).resolve().parents[3]
-SCRIPTS = REPO / "scripts"
-if str(SCRIPTS) not in sys.path:
-    sys.path.insert(0, str(SCRIPTS))
-
-_helpers = importlib.import_module("schematic_layout_helpers")
+from pcb_copilot.schematic import geometry as _helpers
 LabelPlacer = _helpers.LabelPlacer
 SymbolPlacer = _helpers.SymbolPlacer
 set_title_block = _helpers.set_title_block
@@ -104,10 +99,35 @@ class _RenderedSheet:
 
 def _symbol_definition(project: Project, qualified: str):
     library, name = qualified.split(":", 1)
-    if library == "jlcpcb":
-        library_path = project.root / "libs" / "jlcpcb.kicad_sym"
-    else:
-        library_path = find_symbol_lib_dirs()[0] / f"{library}.kicad_sym"
+    if not library or any(value in library for value in ('/', '\\', '..')):
+        raise ValueError('invalid symbol library name')
+    library_path = None
+    table_path = project.root / 'sym-lib-table'
+    if table_path.is_file():
+        table = sch_io.parse_file(table_path)
+        entries = [entry for entry in sch_io.find_children(table, 'lib')
+                   if sch_io.find_child(entry, 'name')[1] == library]
+        if len(entries) > 1:
+            raise ValueError(f'duplicate symbol library registration: {library}')
+        if entries:
+            uri = str(sch_io.find_child(entries[0], 'uri')[1])
+            uri = uri.replace('${KIPRJMOD}', str(project.root))
+            for variable in re.findall(r'\$\{([^}]+)\}', uri):
+                replacement = os.environ.get(variable)
+                if replacement is None and re.fullmatch(r'KICAD\d+_SYMBOL_DIR', variable):
+                    replacement = str(next((p for p in find_symbol_lib_dirs()
+                                            if (p / f'{library}.kicad_sym').is_file()), ''))
+                if not replacement:
+                    raise ValueError(f'unresolved symbol library variable: {variable}')
+                uri = uri.replace('${' + variable + '}', replacement)
+            library_path = Path(uri)
+            if not library_path.is_absolute():
+                library_path = project.root / library_path
+    if library_path is None:
+        library_path = next((p / f'{library}.kicad_sym' for p in find_symbol_lib_dirs()
+                             if (p / f'{library}.kicad_sym').is_file()), None)
+    if library_path is None or not library_path.is_file():
+        raise ValueError(f'symbol library is unavailable: {library}')
     return library, name, ed.fetch_symbol_def(library_path, name)
 
 
@@ -153,7 +173,7 @@ def _render_sheet_tree(
         library, _name, cached_definition = definitions[component.symbol]
         definition = copy.deepcopy(cached_definition)
         reference = ref or component.ref
-        ed.add_symbol(
+        instance = ed.add_symbol(
             tree,
             qualified_lib_id=component.symbol,
             reference=reference,
@@ -170,6 +190,22 @@ def _render_sheet_tree(
                 f"{component.pin_map_evidence_id}"
             ),
         )
+        properties = {str(p[1]): str(p[2]) for p in sch_io.find_children(definition, 'property')
+                      if str(p[1]) in {'LCSC Part', 'Manufacturer', 'Manufacturer Part', 'Datasheet'}}
+        if component.lcsc:
+            inherited = properties.get('LCSC Part')
+            if inherited and inherited != component.lcsc:
+                raise ValueError(f'{component.ref}: intent LCSC identity differs from its symbol library')
+            properties['LCSC Part'] = component.lcsc
+        for key, val in properties.items():
+            existing = next((p for p in sch_io.find_children(instance, 'property') if p[1] == key), None)
+            if existing is not None:
+                existing[2] = val
+            else:
+                prop = copy.deepcopy(next(p for p in sch_io.find_children(instance, 'property')
+                                          if p[1] == 'Description'))
+                prop[1:3] = [key, val]
+                instance.append(prop)
         symbols.register(reference)
         origins[reference] = symbols._origin(reference)
         return library

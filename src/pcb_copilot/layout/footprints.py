@@ -2,11 +2,9 @@
 
 from __future__ import annotations
 
-import importlib
 import math
 import os
 import re
-import sys
 from pathlib import Path
 from typing import Any
 
@@ -18,10 +16,7 @@ from pcb_copilot.evidence.checks import Finding
 from pcb_copilot.layout.lib_ids import split_footprint_lib_id
 from pcb_copilot.models import FootprintCandidate, Project
 
-_SCRIPTS = Path(__file__).resolve().parents[3] / "scripts"
-if str(_SCRIPTS) not in sys.path:
-    sys.path.insert(0, str(_SCRIPTS))
-_layout_helpers = importlib.import_module("pcb_layout_helpers")
+from pcb_copilot.layout import geometry as _layout_helpers
 
 _REAL_LOCAL_DESCRIPTIONS = {
     "real lcsc footprints via easyeda2kicad",

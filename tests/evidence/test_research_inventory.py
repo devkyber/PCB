@@ -1,18 +1,12 @@
-import importlib
 
 import pytest
 
 
-@pytest.mark.parametrize("caller", ["packaged", "legacy"])
 @pytest.mark.parametrize("legacy_spelling", [False, True])
 def test_research_inventory_preserves_classification_and_property_spellings(
-    caller, legacy_spelling, repo_root, monkeypatch
+    legacy_spelling
 ):
-    if caller == "legacy":
-        monkeypatch.syspath_prepend(str(repo_root / "scripts"))
-        inventory = importlib.import_module("check_research").inventory
-    else:
-        from pcb_copilot.evidence.inventory import inventory
+    from pcb_copilot.evidence.inventory import inventory
 
     footprints = []
     for ref, value, pads, lcsc in [

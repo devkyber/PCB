@@ -1,8 +1,9 @@
 [project]
 name = "pcb-copilot"
 version = "0.1.0"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
+  "easyeda2kicad>=1.0.1,<2",
   "kicad-claude-mcp",
   "pydantic>=2,<3",
   "pymupdf>=1.24,<2",
@@ -16,7 +17,7 @@ pcb-copilot = "pcb_copilot.cli:entrypoint"
 dev = ["pytest>=8", "ruff>=0.6"]
 
 [tool.uv.workspace]
-members = ["tools/kicad-claude-mcp"]
+members = ["packages/kicad-claude-mcp"]
 
 [tool.uv.sources]
 kicad-claude-mcp = { workspace = true }
@@ -29,7 +30,8 @@ build-backend = "hatchling.build"
 packages = ["src/pcb_copilot"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests", "tools/kicad-claude-mcp/tests"]
+testpaths = ["tests", "packages/kicad-claude-mcp/tests"]
+addopts = "-p no:cacheprovider"
 markers = [
   "slow: invokes KiCad or Freerouting",
   "network: accesses external services",

@@ -14,9 +14,6 @@ from kicad_claude.adapters import kicad_python
 from pcb_copilot.layout.models import RoutePolicy
 from pcb_copilot.layout.route import (
     _ROUTE_CHILD,
-    RouteAttempt,
-    RouteReport,
-    legacy_route_cli,
     route_candidate,
 )
 from pcb_copilot.state import canonical_design_hash
@@ -46,12 +43,6 @@ def test_critical_only_never_broadens_to_all_nets(layout_draft, fake_router):
     )
 
 
-def test_legacy_wrapper_rejects_accepted_board_without_invoking_router(
-    layout_draft, fake_router
-):
-    with pytest.raises(ValueError, match="published.*draft"):
-        legacy_route_cli([str(layout_draft.project.pcb_path)], best_of=False)
-    assert fake_router.calls == []
 
 
 def test_candidate_rejects_caller_forged_base_hash(layout_draft, fake_router):
@@ -114,7 +105,7 @@ def test_postprocessing_runs_fresh_drc_without_rerouting(layout_draft, fake_rout
     )
     commands = report.attempts[0].commands
     assert sum("PCB_COPILOT_ROUTE_RESULT=" in command for command in commands) == 1
-    assert any("fix_via_annular.py" in command for command in commands)
+    assert any("fix_via_annular_native.py" in command for command in commands)
     assert any("test-java -version" in command for command in commands)
     assert commands[-1].find(" pcb drc ") >= 0
     assert report.drc_errors == fake_router.scores[0][0]
@@ -267,26 +258,6 @@ def route_board(path, **kwargs):
     ]
 
 
-def test_legacy_wrapper_presents_unknown_instead_of_negative_metrics(
-    layout_draft, monkeypatch, capsys
-):
-    from pcb_copilot.layout import route
-
-    unknown = RouteReport(
-        attempts=(RouteAttempt(1, layout_draft.pcb, -1, -1, ()),),
-        selected=None,
-        drc_errors=-1,
-        unconnected=-1,
-        limitations=("measurement unavailable",),
-    )
-    monkeypatch.setattr(route, "RouteBackend", lambda **_kwargs: object())
-    monkeypatch.setattr(route, "_route_candidate", lambda *_args: unknown)
-    assert legacy_route_cli([str(layout_draft.pcb)], best_of=False) == 1
-    output = json.loads(capsys.readouterr().out)
-    assert output["drc_errors"] == "unknown"
-    assert output["unconnected"] == "unknown"
-    assert output["attempts"][0]["drc_errors"] == "unknown"
-    assert output["attempts"][0]["unconnected"] == "unknown"
 
 
 def test_failed_attempt_with_unknown_metrics_cannot_be_selected(
@@ -309,12 +280,12 @@ def test_grid_stitching_is_skipped_below_two_pour_layers(layout_draft, fake_rout
         layout_draft.project, layout_draft.record, RoutePolicy.CANDIDATE_ALL, 1
     )
     assert not any(
-        any(value.endswith("stitch_vias.py") for value in call)
+        any(value.endswith("stitch_vias_native.py") for value in call)
         for call in fake_router.calls
     )
     assert any("grid stitching skipped" in item.lower() for item in report.limitations)
     assert any(
-        "fix_via_annular.py" in command for command in report.attempts[0].commands
+        "fix_via_annular_native.py" in command for command in report.attempts[0].commands
     )
 
 
@@ -338,7 +309,7 @@ pcbnew.SaveBoard(sys.argv[1],b,True)
         [str(kipython), "-I", "-c", script, str(pcb)], check=True, timeout=30
     )
     subprocess.run(
-        [str(kipython), str(repo_root / "scripts/fix_via_annular.py"), str(pcb)],
+        [str(kipython), str(repo_root / "src/pcb_copilot/layout/fix_via_annular_native.py"), str(pcb)],
         check=True,
         timeout=30,
     )

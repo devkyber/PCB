@@ -15,13 +15,11 @@ import sys
 import uuid
 from collections.abc import Callable, Mapping, Sequence
 from dataclasses import asdict, dataclass
-from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 from pcb_copilot.layout.models import RoutePolicy
 from pcb_copilot.models import DraftKind, DraftRecord, Project
-from pcb_copilot.project import load_project
 from pcb_copilot.state import canonical_design_hash
 from pcb_copilot.toolchain import ToolchainPaths, discover_toolchain
 
@@ -205,7 +203,7 @@ class RouteBackend:
             )
         commands: list[str] = []
         limitations: list[str] = []
-        legacy_src = self.repo_root / "tools" / "kicad-claude-mcp" / "src"
+        legacy_src = self.repo_root / "packages" / "kicad-claude-mcp" / "src"
         route_command = [
             sys.executable,
             "-I",
@@ -281,7 +279,7 @@ class RouteBackend:
                 stitch_command = [
                     self.kipython,
                     "-I",
-                    self.repo_root / "scripts" / "stitch_vias.py",
+                    Path(__file__).with_name("stitch_vias_native.py"),
                     pcb_path,
                 ]
                 commands.append(_command_text(stitch_command))
@@ -295,7 +293,7 @@ class RouteBackend:
             annular_command = [
                 self.kipython,
                 "-I",
-                self.repo_root / "scripts" / "fix_via_annular.py",
+                Path(__file__).with_name("fix_via_annular_native.py"),
                 pcb_path,
             ]
             commands.append(_command_text(annular_command))
@@ -505,97 +503,3 @@ def _route_candidate(
     )
     _write_report(run_root / "route-report.json", report)
     return report
-
-
-def _context_for_candidate_path(pcb_path: Path) -> tuple[Project, DraftRecord]:
-    pcb_path = pcb_path.expanduser().resolve()
-    draft_root = next(
-        (
-            parent
-            for parent in (pcb_path.parent, *pcb_path.parents)
-            if (parent / "draft.json").is_file()
-        ),
-        None,
-    )
-    if (
-        draft_root is None
-        or draft_root.parent.name != "drafts"
-        or draft_root.parent.parent.name != ".pcb-copilot"
-    ):
-        raise ValueError(
-            "routing wrapper accepts only a published .pcb-copilot/drafts/<id> "
-            "board; create/review a layout draft and route that copy"
-        )
-    project = load_project(draft_root.parent.parent.parent)
-    metadata = json.loads((draft_root / "draft.json").read_text(encoding="utf-8"))
-    created = datetime.fromisoformat(metadata["created_utc"].replace("Z", "+00:00"))
-    record = DraftRecord(
-        id=metadata["id"],
-        kind=DraftKind(metadata["kind"]),
-        project=metadata["project"],
-        base_schematic_hash=metadata["base_schematic_hash"],
-        base_pcb_hash=metadata["base_pcb_hash"],
-        created_utc=created,
-        root=draft_root,
-    )
-    expected = draft_root / project.pcb_path.relative_to(project.root)
-    if pcb_path != expected.resolve():
-        raise ValueError(
-            "routing wrapper input must be the published draft's declared PCB, "
-            "not an accepted board or unvalidated arbitrary copy"
-        )
-    return project, record
-
-
-def legacy_route_cli(arguments: Sequence[str], *, best_of: bool) -> int:
-    """Compatibility implementation for scripts/route_{and_fill,best_of}.py."""
-    if not arguments:
-        raise ValueError("a published layout-draft .kicad_pcb path is required")
-    pcb_path = Path(arguments[0])
-    if best_of:
-        attempts = int(arguments[1]) if len(arguments) > 1 else 5
-        passes = int(arguments[2]) if len(arguments) > 2 else 200
-    else:
-        attempts = 1
-        passes = int(arguments[1]) if len(arguments) > 1 else 50
-    if len(arguments) > (3 if best_of else 2):
-        raise ValueError("too many routing wrapper arguments")
-    project, record = _context_for_candidate_path(pcb_path)
-    report = _route_candidate(
-        project,
-        record,
-        RoutePolicy.CANDIDATE_ALL,
-        attempts,
-        RouteBackend(passes=passes),
-    )
-    print(
-        json.dumps(
-            {
-                "selected": report.selected,
-                "drc_errors": _present_metric(report.drc_errors),
-                "unconnected": _present_metric(report.unconnected),
-                "limitations": report.limitations,
-                "attempts": [
-                    {
-                        "index": item.index,
-                        "pcb_path": str(item.pcb_path),
-                        "drc_errors": _present_metric(item.drc_errors),
-                        "unconnected": _present_metric(item.unconnected),
-                    }
-                    for item in report.attempts
-                ],
-            },
-            indent=2,
-        )
-    )
-    return (
-        0
-        if report.selected is not None
-        and report.unconnected == 0
-        and report.drc_errors == 0
-        else 1
-    )
-
-
-def _present_metric(value: int) -> int | str:
-    return "unknown" if value == UNKNOWN_METRIC else value

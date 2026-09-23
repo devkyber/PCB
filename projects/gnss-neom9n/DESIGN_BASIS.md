@@ -110,3 +110,31 @@ approval. It does not replace the notch with a full-board rectangle or
 assert that the historic notch is electrically correct. Antenna type/siting/
 ground plane, D1 ordered-package mapping, VIN dropout, cell/environment and
 RF return/impedance review remain pending. Accepted CAD and signoff are untouched.
+
+## Routing repair — 2026-09-23
+
+Moved FID3 to native (41.8, 191.7) mm and relocated nearby ground stitching.
+Connected formerly ineffective ground vias to existing bottom ground copper;
+the isolated ground via now lies inside connected ground copper. Refreshed J2
+from the installed KiCad Hirose U.FL footprint with the same pads and sourcing
+identity. Its embedded copper keepout had been stored at the wrong location;
+it now follows the connector. Moved the affected ground via/escape outside
+that keepout. Restored the headers' library-relative pad angles and moved
+silkscreen clear of pads/edges. Existing RESET_N and RF_IN signal routes,
+component values, net assignments and ground-zone polygons are retained.
+
+Working assumption for the requested basic configuration: a passive external
+GNSS antenna and regulated 5 V at VIN. The user has not selected a specific
+antenna or fabrication stackup. This is not confirmation of 50-ohm impedance,
+antenna performance, D1 package suitability, or the former 3.3 V VIN claim.
+Those items remain in the review profile; no RF sign-off has been recorded.
+
+The repaired board passed the current review pipeline's automated checks,
+including exact schematic/PCB parity and two zone-refilled DRC runs with
+zero errors, zero warnings and zero unconnected items. Human decisions remain
+unsigned; lifecycle remains DRAFT. No fabrication release was produced.
+
+The earlier layout intent remains an unapproved placement proposal. Its
+conservative envelope/near-pad checks are separate from native DRC and still
+require work; these routing repairs do not establish that proposal as accepted
+or waive its constraints. Mechanical, assembly and bench review remain open.

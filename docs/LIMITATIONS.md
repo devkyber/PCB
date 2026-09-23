@@ -29,18 +29,16 @@ Whether this saves time in a real owner-led design session remains unmeasured.
 - Graphical clearance diagnostics cover supported power glyphs and nearby
   power/label text. They do not inspect every pin name, field, wire, symbol
   body, page-flow choice, or annotation. Inspect every KiCad/PDF page.
-- The current layout generator is a proposal tool, not an updater of the
-  routed root PCB. Placement is heuristic; optional routing is not evidence
+- Layout updates validate candidates before replacing the current PCB. Placement is heuristic; optional routing is not evidence
   of good return paths, EMI, thermal design, or manufacturing quality.
   DRC does not replace assembly and mechanical review. STEP export can be
   partial when component models are missing.
 - The design-rule checker covers only 4 of 42 historical numbered sections.
-  Current `review` aggregates ten checks but still relies on legacy gate
-  implementations; even its per-sheet title/density check does not judge
+  Current `review` aggregates ten packaged checks; even its per-sheet title/density check does not judge
   visual flow. Board-specific hash-bound sign-off is now checked, but no human
   decisions have been migrated or recorded for the current revisions.
-  Transactional `release` is not implemented. Do not fabricate from an
-  isolated green result.
+  Release reruns all checks and requires current human decisions. An
+  isolated green result is insufficient.
 
 ## Open decisions by project
 
@@ -60,21 +58,16 @@ Whether this saves time in a real owner-led design session remains unmeasured.
 
 Each board's `REQUIREMENTS.md`, `DESIGN_BASIS.md`, `REFERENCE_REVIEW.md`,
 `DEVIATIONS.md`, and `review-profile.yaml` provide the specific sources and
-open decisions. Legacy `SIGNOFF.md` checkboxes are not current approvals.
+open decisions. Only current hash-bound human decisions count as approvals.
 The assistant must surface missing inputs, not invent numbers or check boxes.
 
-## Next implementation work
+## Remaining engineering work
 
-1. Replace the persistent draft/accept layout interface with `update-layout`
-   that checks schematic parity, placement, routing completeness, zones,
-   native DRC, previews, and non-regression before touching the root board.
-2. Finish `pcb-copilot review` migration: replace legacy gate dependencies,
-   give every blocking check a safe fault test, and add on-demand reports.
-3. Finish the human-sign-off workflow and add `release`, with reproducible
-   fabrication outputs only from the reviewed current design.
-4. Move active legacy checks behind the package CLI, remove duplicate scripts,
-   status mirrors, generators, obsolete plans, and local history only after
-   their useful behavior and facts are preserved.
+The software pipeline supports checked updates and transactional fabrication
+export. It has not resolved the board-specific engineering decisions above.
+Placement intents are proposals; GNSS/TMS candidates may remain blocked, and an
+unrouted candidate cannot replace a routed PCB. Source discovery and many visual,
+RF, thermal and mechanical judgments still require an engineer.
 
 The engineer remains responsible for visual inspection, critical calculations,
 physical fit, staged bench validation, and the release decision. For TMS V3,

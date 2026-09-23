@@ -34,7 +34,7 @@ def test_accept_retains_real_local_sheet_net_names(project_copy, repo_root, tmp_
     report = draft_schematic(project, intent_path)
     assert report['exit_code'] == 0, report['findings']
     draft = load_draft(project, report['draft_id'])
-    exported = importlib.import_module('extract_netmap').extract(
+    exported = importlib.import_module('pcb_copilot.schematic.netmap').extract(
         draft.root / project.schematic_path.name
     )
     assert exported['nets'] == {
@@ -52,5 +52,5 @@ def test_accept_retains_real_local_sheet_net_names(project_copy, repo_root, tmp_
     assert project.pcb_path.read_bytes() == pcb_before
     # Re-export the installed root and child to ensure the saved contract
     # represents the accepted KiCad hierarchy, not just a draft-side report.
-    installed = importlib.import_module('extract_netmap').extract(project.schematic_path)
+    installed = importlib.import_module('pcb_copilot.schematic.netmap').extract(project.schematic_path)
     assert accepted['nets'] == installed['nets']

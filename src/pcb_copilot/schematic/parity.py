@@ -5,7 +5,6 @@ from __future__ import annotations
 import json
 import re
 import subprocess
-import sys
 from fnmatch import fnmatchcase
 from pathlib import Path
 
@@ -107,12 +106,9 @@ def reconcile_board_net_names(
     settings = current_pro.read_bytes()
     if candidate_pro.read_bytes() != settings:
         raise ValueError('candidate project settings differ before reconciliation')
-    scripts = Path(__file__).resolve().parents[3] / 'scripts'
-    if str(scripts) not in sys.path:
-        sys.path.insert(0, str(scripts))
-    from check_netlist_parity import schematic_nets
+    from pcb_copilot.schematic.netmap import schematic_nets
 
-    schematic = candidate_root / project.schematic_path.relative_to(project.root)
+    schematic = candidate_root / project.schematic_path.name
     names = derive_net_renames(
         schematic_nets(schematic), read_board_net_groups(project.pcb_path),
     )
@@ -145,21 +141,16 @@ def reconcile_board_net_names(
 
 
 def candidate_board_parity(project: Project, candidate_root: Path) -> str | None:
-    """Return a failure description or ``None`` for exact KiCad netlist parity."""
-    repo_root = Path(__file__).resolve().parents[3]
-    toolchain = discover_toolchain(repo_root)
-    if toolchain.kipython is None:
-        return 'KiCad Python with pcbnew is unavailable; board parity cannot be checked'
-    checker = repo_root / 'scripts' / 'check_netlist_parity.py'
+    """Compare native KiCad net groups on the candidate schematic and PCB."""
+    from pcb_copilot.schematic.netmap import schematic_nets
+
+    schematic = candidate_root / project.schematic_path.name
     pcb = candidate_root / project.pcb_path.relative_to(project.root)
     try:
-        run = subprocess.run(
-            [str(toolchain.kipython), str(checker), str(pcb)],
-            capture_output=True, text=True, encoding='utf-8', errors='replace',
-            timeout=120, check=False,
-        )
-    except (OSError, subprocess.TimeoutExpired) as exc:
-        return f'board parity check failed to run: {exc}'
-    if run.returncode:
-        return (run.stdout or run.stderr).strip()[:4000] or 'board parity check failed'
-    return None
+        expected = schematic_nets(schematic)
+        actual = read_board_net_groups(pcb)
+        differences = [name for name in sorted(set(expected) | set(actual))
+                       if expected.get(name) != actual.get(name)]
+    except (OSError, RuntimeError, ValueError, subprocess.SubprocessError) as exc:
+        return f'board parity check failed: {exc}'
+    return 'schematic/PCB pin membership differs: ' + ', '.join(differences) if differences else None

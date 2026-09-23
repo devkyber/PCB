@@ -39,6 +39,7 @@ class SignoffRecord:
     schematic_hash: str
     pcb_hash: str
     profile_hash: str
+    inputs_hash: str
 
 
 SCOPE = CheckScope(
@@ -84,6 +85,9 @@ def prepare_signoff(project: Project) -> Path:
     schematic = schematic_digest(project.schematic_path)
     pcb = pcb_digest(project.pcb_path)
     profile_hash = profile_digest(project.root)
+    from pcb_copilot.transaction import inputs_digest
+
+    inputs_hash = inputs_digest(project)
     document = {
         'schema_version': 1,
         'records': [
@@ -92,6 +96,7 @@ def prepare_signoff(project: Project) -> Path:
                 'reviewer': '', 'signed_on': '', 'decision': '', 'note': '',
                 'schematic_hash': schematic, 'pcb_hash': pcb,
                 'profile_hash': profile_hash,
+                'inputs_hash': inputs_hash,
             }
             for item in profile.items
         ],
@@ -129,6 +134,7 @@ def _load_records(root: Path) -> tuple[SignoffRecord, ...]:
             signed_on=signed_on, decision=decision, note=str(raw['note']).strip(),
             schematic_hash=str(raw['schematic_hash']), pcb_hash=str(raw['pcb_hash']),
             profile_hash=str(raw['profile_hash']),
+            inputs_hash=str(raw.get('inputs_hash', '')),
         )
         if not record.reviewer or not record.note:
             raise ValueError('sign-off reviewer and note are required')
@@ -144,6 +150,8 @@ class SignoffCheck:
     scope: CheckScope = SCOPE
 
     def run(self, project: Project) -> CheckResult:
+        from pcb_copilot.transaction import inputs_digest
+
         profile = load_review_profile(project.root)
         records = {record.item_id: record for record in _load_records(project.root)}
         unknown = sorted(set(records) - {item.id for item in profile.items})
@@ -152,6 +160,7 @@ class SignoffCheck:
         schematic = schematic_digest(project.schematic_path)
         pcb = pcb_digest(project.pcb_path)
         profile_hash = profile_digest(project.root)
+        inputs_hash = inputs_digest(project)
         open_items = []
         for item in profile.items:
             record = records.get(item.id)
@@ -159,8 +168,8 @@ class SignoffCheck:
                 open_items.append(f'{item.id} unsigned')
             elif record.decision == 'rejected':
                 open_items.append(f'{item.id} rejected')
-            elif (record.schematic_hash, record.pcb_hash, record.profile_hash) != (
-                schematic, pcb, profile_hash,
+            elif (record.schematic_hash, record.pcb_hash, record.profile_hash, record.inputs_hash) != (
+                schematic, pcb, profile_hash, inputs_hash,
             ):
                 open_items.append(f'{item.id} stale')
         detail = (f'{len(profile.items) - len(open_items)}/{len(profile.items)} current decisions'

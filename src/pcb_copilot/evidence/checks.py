@@ -4,9 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import re
-import sys
 from dataclasses import dataclass
-from pathlib import Path
 from typing import Literal
 
 from pcb_copilot.evidence.archive import sniff_media_type
@@ -57,10 +55,7 @@ def _records_for_part(
 
 
 def _waived(project: Project, reference: str, scope: str) -> bool:
-    scripts = Path(__file__).resolve().parents[3] / "scripts"
-    if str(scripts) not in sys.path:
-        sys.path.insert(0, str(scripts))
-    from deviations import waived
+    from pcb_copilot.deviations import waived
 
     return waived(project.root, reference, scope)
 

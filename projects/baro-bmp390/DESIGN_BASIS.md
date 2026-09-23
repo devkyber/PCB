@@ -12,7 +12,7 @@ exists. Verdicts must be `Match` or `Deviate: <reason>`.
 | `evidence/files/BMP390_Adafruit_20BMP390.sch` | Adafruit BMP390 breakout, **Eagle source** — exact values and pin-level nets, not a summary | Tier 2 (open hardware, widely built) |
 | `evidence/files/BMP390_Adafruit_20BMP390.brd` | same board's layout | Tier 2 |
 
-Extracted with `scripts/fetch_reference_doc.py eagle <file> <PART>`, which reads
+Extracted with the Eagle reference extractor (now `pcb-copilot research PROJECT --extract PART`), which reads
 the Eagle XML directly. WebFetch summarises and loses exactly the pin-level
 detail every row below depends on.
 
@@ -111,3 +111,20 @@ Current/thermal calculation inputs remain absent. Standoff pattern, cantilever
 rigidity, height, pressure port/coating, host/cable ripple and temperature
 accuracy remain open. Native parity and a preview are not human placement
 approval; SIGNOFF and accepted CAD remain unchanged.
+
+## Routing repair — 2026-09-23
+
+Removed one redundant +3V3 via connected only on the front layer. Moved
+silkscreen references and board text clear of exposed pads and board edges.
+Existing component placement, signal tracks, component values, nets and zone
+boundaries are retained.
+
+The repaired board passed the current review pipeline's automated checks,
+including exact schematic/PCB parity and two zone-refilled DRC runs with
+zero errors, zero warnings and zero unconnected items. Human decisions remain
+unsigned; lifecycle remains DRAFT. No fabrication release was produced.
+
+The earlier layout intent remains an unapproved placement proposal. Its
+conservative envelope/near-pad checks are separate from native DRC and still
+require work; these routing repairs do not establish that proposal as accepted
+or waive its constraints. Mechanical, assembly and bench review remain open.
