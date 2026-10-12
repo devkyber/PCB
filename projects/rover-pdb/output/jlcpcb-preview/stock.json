@@ -1,0 +1,508 @@
+{
+  "schema_version": 1,
+  "supplier": "LCSC retail",
+  "board_quantity": 5,
+  "bom_sha256": "1c051c9020bcfb9c131686bbf6781a4b72ed9643d4d04e372deb1a53e0ab6887",
+  "checked_at": "2026-10-05T15:37:59.060404+00:00",
+  "passed": false,
+  "parts": [
+    {
+      "lcsc_part": "C137289",
+      "mpn": "RC1206FR-073K9L",
+      "refs": [
+        "R20"
+      ],
+      "per_board": 1,
+      "required": 5,
+      "observed_at": "2026-10-05T15:37:55.348116+00:00",
+      "available": 86500,
+      "source_url": "https://www.lcsc.com/product-detail/C137289.html",
+      "status": "available",
+      "response_sha256": "79266a88317c7e0b4537060b916970f037ed7a105127ef7e7fbd13f3f259f241",
+      "source_file": "stock-sources/C137289-79266a88317c.html.gz",
+      "manufacturer": "YAGEO",
+      "immediate_stock": 86500,
+      "minimum_purchase": 100
+    },
+    {
+      "lcsc_part": "C1579437",
+      "mpn": "EEU-FR1C471B",
+      "refs": [
+        "C2"
+      ],
+      "per_board": 1,
+      "required": 5,
+      "observed_at": "2026-10-05T15:37:55.350713+00:00",
+      "available": 99,
+      "source_url": "https://www.lcsc.com/product-detail/C1579437.html",
+      "status": "available",
+      "response_sha256": "77404c58a965b130cfa23e9b19bdbb53c9e703ab5127c095b34b9372d091cce1",
+      "source_file": "stock-sources/C1579437-77404c58a965.html.gz",
+      "manufacturer": "PANASONIC",
+      "immediate_stock": 99,
+      "minimum_purchase": 1
+    },
+    {
+      "lcsc_part": "C1579630",
+      "mpn": "EEU-FR1H221B",
+      "refs": [
+        "C1",
+        "C5"
+      ],
+      "per_board": 2,
+      "required": 10,
+      "observed_at": "2026-10-05T15:37:55.351313+00:00",
+      "available": 805,
+      "source_url": "https://www.lcsc.com/product-detail/C1579630.html",
+      "status": "available",
+      "response_sha256": "fb2815ca2ca0d2257f548384e1d8ec3cdf6000dfd6fac4ab39a5b5960734acec",
+      "source_file": "stock-sources/C1579630-fb2815ca2ca0.html.gz",
+      "manufacturer": "PANASONIC",
+      "immediate_stock": 805,
+      "minimum_purchase": 5
+    },
+    {
+      "lcsc_part": "C160258",
+      "mpn": "B4B-EH-A(LF)(SN)",
+      "refs": [
+        "J1",
+        "J5",
+        "J6",
+        "J7"
+      ],
+      "per_board": 4,
+      "required": 20,
+      "observed_at": "2026-10-05T15:37:55.369202+00:00",
+      "available": 69630,
+      "source_url": "https://www.lcsc.com/product-detail/C160258.html",
+      "status": "available",
+      "response_sha256": "d710b51f60fa977d3bec1e7b56140c483968d0cfb935e3e2f2e1255fd184cab6",
+      "source_file": "stock-sources/C160258-d710b51f60fa.html.gz",
+      "manufacturer": "JST",
+      "immediate_stock": 69630,
+      "minimum_purchase": 10
+    },
+    {
+      "lcsc_part": "C1663",
+      "mpn": "CL10C330JB8NNNC",
+      "refs": [
+        "C39",
+        "C40",
+        "C41"
+      ],
+      "per_board": 3,
+      "required": 15,
+      "observed_at": "2026-10-05T15:37:56.035410+00:00",
+      "available": 156400,
+      "source_url": "https://www.lcsc.com/product-detail/C1663.html",
+      "status": "available",
+      "response_sha256": "c4ec6a9d8a1aa8458bcb542dc959ad4df326dc14fdada5cc850f023a961e85e5",
+      "source_file": "stock-sources/C1663-c4ec6a9d8a1a.html.gz",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "immediate_stock": 156400,
+      "minimum_purchase": 100
+    },
+    {
+      "lcsc_part": "C1711",
+      "mpn": "CL21B104KBCNNNC",
+      "refs": [
+        "C3",
+        "C30",
+        "C31",
+        "C32",
+        "C33",
+        "C34",
+        "C35"
+      ],
+      "per_board": 7,
+      "required": 35,
+      "observed_at": "2026-10-05T15:37:56.086609+00:00",
+      "available": 703100,
+      "source_url": "https://www.lcsc.com/product-detail/C1711.html",
+      "status": "available",
+      "response_sha256": "38c4fbf9a5004626d2d2f791da83b6ff9b6699d9d22c8fe09e9cb06a0be436b3",
+      "source_file": "stock-sources/C1711-38c4fbf9a500.html.gz",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "immediate_stock": 703100,
+      "minimum_purchase": 20
+    },
+    {
+      "lcsc_part": "C17508",
+      "mpn": "0805W8F1912T5E",
+      "refs": [
+        "R16"
+      ],
+      "per_board": 1,
+      "required": 5,
+      "observed_at": "2026-10-05T15:37:56.089497+00:00",
+      "available": 2600,
+      "source_url": "https://www.lcsc.com/product-detail/C17508.html",
+      "status": "available",
+      "response_sha256": "85c73be0026c8a87864a923d8ea72a2512972457d4337713d1394cc8a130ea0d",
+      "source_file": "stock-sources/C17508-85c73be0026c.html.gz",
+      "manufacturer": "UNI-ROYAL",
+      "immediate_stock": 2600,
+      "minimum_purchase": 100
+    },
+    {
+      "lcsc_part": "C17513",
+      "mpn": "0805W8F1001T5E",
+      "refs": [
+        "R21",
+        "R22",
+        "R23"
+      ],
+      "per_board": 3,
+      "required": 15,
+      "observed_at": "2026-10-05T15:37:56.238836+00:00",
+      "available": 25443800,
+      "source_url": "https://www.lcsc.com/product-detail/C17513.html",
+      "status": "available",
+      "response_sha256": "7dc129cc8be196ed18d6a40ee6ec928eaf0b61a67072628d9c48181ffcc0b31a",
+      "source_file": "stock-sources/C17513-7dc129cc8be1.html.gz",
+      "manufacturer": "UNI-ROYAL",
+      "immediate_stock": 25443800,
+      "minimum_purchase": 100
+    },
+    {
+      "lcsc_part": "C17560",
+      "mpn": "0805W8F2202T5E",
+      "refs": [
+        "R24"
+      ],
+      "per_board": 1,
+      "required": 5,
+      "observed_at": "2026-10-05T15:37:56.559583+00:00",
+      "available": 1315000,
+      "source_url": "https://www.lcsc.com/product-detail/C17560.html",
+      "status": "available",
+      "response_sha256": "5aece5e8f516dceeca23e4e97a8774b7c52fd6c9cc31dffeeb8254c7f0b2ed7d",
+      "source_file": "stock-sources/C17560-5aece5e8f516.html.gz",
+      "manufacturer": "UNI-ROYAL",
+      "immediate_stock": 1315000,
+      "minimum_purchase": 100
+    },
+    {
+      "lcsc_part": "C17806",
+      "mpn": "0805W8F7151T5E",
+      "refs": [
+        "R17"
+      ],
+      "per_board": 1,
+      "required": 5,
+      "observed_at": "2026-10-05T15:37:56.602680+00:00",
+      "available": 4200,
+      "source_url": "https://www.lcsc.com/product-detail/C17806.html",
+      "status": "available",
+      "response_sha256": "d688b2f8fe6df83af8b21657482207fd4c468262fc69831385d8e9375322b17a",
+      "source_file": "stock-sources/C17806-d688b2f8fe6d.html.gz",
+      "manufacturer": "UNI-ROYAL",
+      "immediate_stock": 4200,
+      "minimum_purchase": 100
+    },
+    {
+      "lcsc_part": "C2041326",
+      "mpn": "SRP1265A-6R8M",
+      "refs": [
+        "L1"
+      ],
+      "per_board": 1,
+      "required": 5,
+      "observed_at": "2026-10-05T15:37:56.642588+00:00",
+      "available": 411,
+      "source_url": "https://www.lcsc.com/product-detail/C2041326.html",
+      "status": "available",
+      "response_sha256": "c7c91196a8f46a7808a95b795afca5a2fe5b9deeee6c4fa1d98407e4aee783ae",
+      "source_file": "stock-sources/C2041326-c7c91196a8f4.html.gz",
+      "manufacturer": "BOURNS",
+      "immediate_stock": 411,
+      "minimum_purchase": 1
+    },
+    {
+      "lcsc_part": "C2093761",
+      "mpn": "CSS2H-2512K-2L00F",
+      "refs": [
+        "RS1"
+      ],
+      "per_board": 1,
+      "required": 5,
+      "observed_at": "2026-10-05T15:37:56.733893+00:00",
+      "available": 2831,
+      "source_url": "https://www.lcsc.com/product-detail/C2093761.html",
+      "status": "available",
+      "response_sha256": "4bf062a5064ddde65ba0784f78299a13c353cfd9f0c329ca63bf995a68b4ca26",
+      "source_file": "stock-sources/C2093761-4bf062a5064d.html.gz",
+      "manufacturer": "BOURNS",
+      "immediate_stock": 2831,
+      "minimum_purchase": 1
+    },
+    {
+      "lcsc_part": "C226259",
+      "mpn": "OS102011MA1QN1",
+      "refs": [
+        "SW1"
+      ],
+      "per_board": 1,
+      "required": 5,
+      "observed_at": "2026-10-05T15:37:57.041267+00:00",
+      "available": 0,
+      "source_url": "https://www.lcsc.com/product-detail/C226259.html",
+      "status": "shortage",
+      "response_sha256": "38ec7ac194ec697405525ec9048a80515cb41c253461ac59d261f018b5d41197",
+      "source_file": "stock-sources/C226259-38ec7ac194ec.html.gz",
+      "manufacturer": "C&K",
+      "immediate_stock": 0,
+      "minimum_purchase": 1
+    },
+    {
+      "lcsc_part": "C2297",
+      "mpn": "KT-0805G",
+      "refs": [
+        "D2"
+      ],
+      "per_board": 1,
+      "required": 5,
+      "observed_at": "2026-10-05T15:37:57.089165+00:00",
+      "available": 2330650,
+      "source_url": "https://www.lcsc.com/product-detail/C2297.html",
+      "status": "available",
+      "response_sha256": "c79e8a041ffa8d192208ff3b3965a02c1327eb411eba3f736b6b79c7ffd3324d",
+      "source_file": "stock-sources/C2297-c79e8a041ffa.html.gz",
+      "manufacturer": "Hubei KENTO Elec",
+      "immediate_stock": 2330650,
+      "minimum_purchase": 50
+    },
+    {
+      "lcsc_part": "C309062",
+      "mpn": "CL32B226KAJNNNE",
+      "refs": [
+        "C20",
+        "C21",
+        "C22",
+        "C23",
+        "C24",
+        "C25",
+        "C26",
+        "C27",
+        "C28"
+      ],
+      "per_board": 9,
+      "required": 45,
+      "observed_at": "2026-10-05T15:37:57.198984+00:00",
+      "available": 90681,
+      "source_url": "https://www.lcsc.com/product-detail/C309062.html",
+      "status": "available",
+      "response_sha256": "98133f7ea5de6b813365b3ca76ca72f1d097f1e05c8183c09969294cb062c36f",
+      "source_file": "stock-sources/C309062-98133f7ea5de.html.gz",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "immediate_stock": 90681,
+      "minimum_purchase": 1
+    },
+    {
+      "lcsc_part": "C3335811",
+      "mpn": "TSW-103-07-G-S",
+      "refs": [
+        "J2",
+        "J3",
+        "J4",
+        "J8"
+      ],
+      "per_board": 4,
+      "required": 20,
+      "observed_at": "2026-10-05T15:37:57.244823+00:00",
+      "available": 2605,
+      "source_url": "https://www.lcsc.com/product-detail/C3335811.html",
+      "status": "available",
+      "response_sha256": "f7fcfb7ebafc19a0bb3ed1e5ab5a1a712a9f401a6d3006ff8b25765d5bbbfc4c",
+      "source_file": "stock-sources/C3335811-f7fcfb7ebafc.html.gz",
+      "manufacturer": "Samtec",
+      "immediate_stock": 2605,
+      "minimum_purchase": 5
+    },
+    {
+      "lcsc_part": "C49851",
+      "mpn": "INA226AIDGSR",
+      "refs": [
+        "U1"
+      ],
+      "per_board": 1,
+      "required": 5,
+      "observed_at": "2026-10-05T15:37:57.562473+00:00",
+      "available": 38388,
+      "source_url": "https://www.lcsc.com/product-detail/C49851.html",
+      "status": "available",
+      "response_sha256": "cfd4f9c3c3ec20d10345f56ede89515d1c1397f2b3b0a3a1f6720562444642bd",
+      "source_file": "stock-sources/C49851-cfd4f9c3c3ec.html.gz",
+      "manufacturer": "TI",
+      "immediate_stock": 38388,
+      "minimum_purchase": 1
+    },
+    {
+      "lcsc_part": "C54431777",
+      "mpn": "APS1365M3R3DW",
+      "refs": [
+        "L3"
+      ],
+      "per_board": 1,
+      "required": 5,
+      "observed_at": "2026-10-05T15:37:57.609472+00:00",
+      "available": 987,
+      "source_url": "https://www.lcsc.com/product-detail/C54431777.html",
+      "status": "available",
+      "response_sha256": "a1e95020ec2a462c838aedf2c420142ae017812a383443dab8cf12be0e6126c5",
+      "source_file": "stock-sources/C54431777-a1e95020ec2a.html.gz",
+      "manufacturer": "Coilank",
+      "immediate_stock": 987,
+      "minimum_purchase": 1
+    },
+    {
+      "lcsc_part": "C60816",
+      "mpn": "RC0805FR-074K7L",
+      "refs": [
+        "R1",
+        "R2"
+      ],
+      "per_board": 2,
+      "required": 10,
+      "observed_at": "2026-10-05T15:37:57.722535+00:00",
+      "available": 4121800,
+      "source_url": "https://www.lcsc.com/product-detail/C60816.html",
+      "status": "available",
+      "response_sha256": "ea0199240c6bf758ea9dc639ed30884db3c6787e1cbdb7ac23537917babd8de9",
+      "source_file": "stock-sources/C60816-ea0199240c6b.html.gz",
+      "manufacturer": "YAGEO",
+      "immediate_stock": 4121800,
+      "minimum_purchase": 100
+    },
+    {
+      "lcsc_part": "C65649",
+      "mpn": "0805W8F3741T5E",
+      "refs": [
+        "R18"
+      ],
+      "per_board": 1,
+      "required": 5,
+      "observed_at": "2026-10-05T15:37:57.766083+00:00",
+      "available": 100,
+      "source_url": "https://www.lcsc.com/product-detail/C65649.html",
+      "status": "available",
+      "response_sha256": "143417b4136c84ed61de865a25ea7bb3c23e4d84b50b0f432c90dc55b1e2ccee",
+      "source_file": "stock-sources/C65649-143417b4136c.html.gz",
+      "manufacturer": "UNI-ROYAL",
+      "immediate_stock": 100,
+      "minimum_purchase": 100
+    },
+    {
+      "lcsc_part": "C6890985",
+      "mpn": "LMR51450SDRRR",
+      "refs": [
+        "U2",
+        "U3",
+        "U4"
+      ],
+      "per_board": 3,
+      "required": 15,
+      "observed_at": "2026-10-05T15:37:58.040399+00:00",
+      "available": 28254,
+      "source_url": "https://www.lcsc.com/product-detail/C6890985.html",
+      "status": "available",
+      "response_sha256": "3630ef118eff2c781088be613bd58258ce9ac08981e3679bfe1804cb79793012",
+      "source_file": "stock-sources/C6890985-3630ef118eff.html.gz",
+      "manufacturer": "TI",
+      "immediate_stock": 28254,
+      "minimum_purchase": 1
+    },
+    {
+      "lcsc_part": "C77102",
+      "mpn": "GRM32ER71H106KA12L",
+      "refs": [
+        "C10",
+        "C11",
+        "C12",
+        "C13",
+        "C14",
+        "C15",
+        "C16",
+        "C17",
+        "C18",
+        "C19"
+      ],
+      "per_board": 10,
+      "required": 50,
+      "observed_at": "2026-10-05T15:37:58.176279+00:00",
+      "available": 29445,
+      "source_url": "https://www.lcsc.com/product-detail/C77102.html",
+      "status": "available",
+      "response_sha256": "f6579c3a0f3c4c70cacddcb53f1259ef063f334e0a18fc11a11f33829070c615",
+      "source_file": "stock-sources/C77102-f6579c3a0f3c.html.gz",
+      "manufacturer": "muRata",
+      "immediate_stock": 29445,
+      "minimum_purchase": 5
+    },
+    {
+      "lcsc_part": "C780205",
+      "mpn": "SRP1265A-4R7M",
+      "refs": [
+        "L2"
+      ],
+      "per_board": 1,
+      "required": 5,
+      "observed_at": "2026-10-05T15:37:58.278677+00:00",
+      "available": 579,
+      "source_url": "https://www.lcsc.com/product-detail/C780205.html",
+      "status": "available",
+      "response_sha256": "034946294ece0633e8b4f9382804da1df774c2809c56bcd3dac7e72a474034c0",
+      "source_file": "stock-sources/C780205-034946294ece.html.gz",
+      "manufacturer": "BOURNS",
+      "immediate_stock": 579,
+      "minimum_purchase": 1
+    },
+    {
+      "lcsc_part": "C84376",
+      "mpn": "RC0805FR-0710KL",
+      "refs": [
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "per_board": 4,
+      "required": 20,
+      "observed_at": "2026-10-05T15:37:58.316627+00:00",
+      "available": 1702900,
+      "source_url": "https://www.lcsc.com/product-detail/C84376.html",
+      "status": "available",
+      "response_sha256": "9d93899063a39c727d92fa693169573d8c2f5b84fd999b244a46527de7556008",
+      "source_file": "stock-sources/C84376-9d93899063a3.html.gz",
+      "manufacturer": "YAGEO",
+      "immediate_stock": 1702900,
+      "minimum_purchase": 100
+    },
+    {
+      "lcsc_part": "C96346",
+      "mpn": "RC0805FR-07100KL",
+      "refs": [
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14",
+        "R15",
+        "R19"
+      ],
+      "per_board": 7,
+      "required": 35,
+      "observed_at": "2026-10-05T15:37:58.506599+00:00",
+      "available": 765200,
+      "source_url": "https://www.lcsc.com/product-detail/C96346.html",
+      "status": "available",
+      "response_sha256": "d9b26ef6acc0eb59300fe7292633090210a3e16e87241d06556e7ece08f6967b",
+      "source_file": "stock-sources/C96346-d9b26ef6acc0.html.gz",
+      "manufacturer": "YAGEO",
+      "immediate_stock": 765200,
+      "minimum_purchase": 100
+    }
+  ],
+  "assembly_inventory_confirmed": false,
+  "scope": "Exact C-number/MPN retail stock at request time; zero assembly attrition allowance. No inventory is reserved. Confirm JLCPCB assembly stock, extra-parts allowance, preorder requirements and part eligibility in the actual order."
+}

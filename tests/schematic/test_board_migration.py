@@ -9,10 +9,11 @@ from kicad_claude.adapters import sch_io
 from kicad_claude.utils.geometry import kicad_to_mcp_xy
 
 from pcb_copilot.schematic.io import load_schematic_intent
+from tests.board_fixtures import board_source
 
 
 def test_baro_intent_preserves_accepted_components_and_connectivity(repo_root):
-    root = repo_root / 'projects/baro-bmp390'
+    root = board_source(repo_root, 'baro-bmp390')
     intent = load_schematic_intent(root / 'schematic-intent.yaml')
     baseline = json.loads((root / 'netmap.json').read_text(encoding='utf-8'))
     assert {c.ref: {p: v.net for p, v in c.pins.items()}
@@ -93,7 +94,7 @@ def test_imu_int1_wire_avoids_generated_ground_value_text(repo_root, tmp_path):
     from pcb_copilot.schematic.fields import text_field_envelope
 
     root = tmp_path / 'imu-icm42688'
-    shutil.copytree(repo_root / 'projects/imu-icm42688', root,
+    shutil.copytree(board_source(repo_root, 'imu-icm42688'), root,
                     ignore=shutil.ignore_patterns('.pcb-copilot'))
     project = load_project(root)
     accepted = {path: path.read_bytes() for path in
@@ -190,7 +191,7 @@ def test_real_board_draft_round_trip_preserves_sources(repo_root, tmp_path, boar
     from pcb_copilot.schematic.commands import draft_schematic
 
     root = tmp_path / board
-    shutil.copytree(repo_root / 'projects' / board, root,
+    shutil.copytree(board_source(repo_root, board), root,
                     ignore=shutil.ignore_patterns('.pcb-copilot'))
     project = load_project(root)
     before = {path: path.read_bytes() for path in

@@ -1,0 +1,678 @@
+{
+  "blocking": true,
+  "findings": [
+    {
+      "blocking": true,
+      "check_id": "erc",
+      "detail": "5 violation(s), 37 unspecified-pin warnings waived",
+      "kind": "machine_failure"
+    },
+    {
+      "blocking": true,
+      "check_id": "schematic_ownership",
+      "detail": "netmap is stale for: R2, U4",
+      "kind": "machine_failure"
+    },
+    {
+      "blocking": true,
+      "check_id": "netlist_parity",
+      "detail": "Ignition/NPN_BASE: schematic [('Q1', '1'), ('R1', '2')]; PCB [('Q1', '1'), ('R1', '2'), ('R2', '1')]\nPower/VBAT_PROT: schematic [('C15', '1'), ('D3', '2')]; PCB [('C15', '1'), ('D3', '2'), ('U4', '1')]\nunconnected-(R2-Pad1): schematic [('R2', '1')]; PCB []\nunconnected-(U4-IN-Pad1): schematic [('U4', '1')]; PCB []\nC1: missing schematic link; F8 would add a duplicate footprint\nC10: missing schematic link; F8 would add a duplicate footprint\nC11: missing schematic link; F8 would add a duplicate footprint\nC12: missing schematic link; F8 would add a duplicate footprint\nC13: missing schematic link; F8 would add a duplicate footprint\nC14: missing schematic link; F8 would add a duplicate footprint\nC15: missing schematic link; F8 would add a duplicate footprint\nC16: missing schematic link; F8 would add a duplicate footprint\nC17: missing schematic link; F8 would add a duplicate footprint\nC2: missing schematic link; F8 would add a duplicate footprint\nC3: missing schematic link; F8 would add a duplicate footprint\nC4: missing schematic link; F8 would add a duplicate footprint\nC5: missing schematic link; F8 would add a duplicate footprint\nC6: missing schematic link; F8 would add a duplicate footprint\nC7: missing schematic link; F8 would add a duplicate footprint\nC8: missing schematic link; F8 would add a duplicate footprint\nC9: missing schematic link; F8 would add a duplicate footprint\nD1: missing schematic link; F8 would add a duplicate footprint\nD2: missing schematic link; F8 would add a duplicate footprint\nD3: missing schematic link; F8 would add a duplicate footprint\nH1: missing schematic link; F8 would add a duplicate footprint\nH2: missing schematic link; F8 would add a duplicate footprint\nH3: missing schematic link; F8 would add a duplicate footprint\nH4: missing schematic link; F8 would add a duplicate footprint\nJ1: missing schematic link; F8 would add a duplicate footprint\nJ2: missing schematic link; F8 would add a duplicate footprint\nJ3: missing schematic link; F8 would add a duplicate footprint\nJ4: missing schematic link; F8 would add a duplicate footprint\nJ5: missing schematic link; F8 would add a duplicate footprint\nJ6: missing schematic link; F8 would add a duplicate footprint\nJ7: missing schematic link; F8 would add a duplicate footprint\nJ8: missing schematic link; F8 would add a duplicate footprint\nJ9: missing schematic link; F8 would add a duplicate footprint\nK1: missing schematic link; F8 would add a duplicate footprint\nL1: missing schematic link; F8 would add a duplicate footprint\nLED1: missing schematic link; F8 would add a duplicate footprint\nLED2: missing schematic link; F8 would add a duplicate footprint\nLED3: missing schematic link; F8 would add a duplicate footprint\nQ1: missing schematic link; F8 would add a duplicate footprint\nR1: missing schematic link; F8 would add a duplicate footprint\nR10: missing schematic link; F8 would add a duplicate footprint\nR11: missing schematic link; F8 would add a duplicate footprint\nR12: missing schematic link; F8 would add a duplicate footprint\nR13: missing schematic link; F8 would add a duplicate footprint\nR14: missing schematic link; F8 would add a duplicate footprint\nR2: missing schematic link; F8 would add a duplicate footprint\nR3: missing schematic link; F8 would add a duplicate footprint\nR4: missing schematic link; F8 would add a duplicate footprint\nR5: missing schematic link; F8 would add a duplicate footprint\nR6: missing schematic link; F8 would add a duplicate footprint\nR7: missing schematic link; F8 would add a duplicate footprint\nR8: missing schematic link; F8 would add a duplicate footprint\nR9: missing schematic link; F8 would add a duplicate footprint\nTP1: missing schematic link; F8 would add a duplicate footprint\nTP2: missing schematic link; F8 would add a duplicate footprint\nTP3: missing schematic link; F8 would add a duplicate footprint\nTP4: missing schematic link; F8 would add a duplicate footprint\nTP5: missing schematic link; F8 would add a duplicate footprint\nTP6: missing schematic link; F8 would add a duplicate footprint\nTP7: missing schematic link; F8 would add a duplicate footprint\nTP8: missing schematic link; F8 would add a duplicate footprint\nTP9: missing schematic link; F8 would add a duplicate footprint\nU2: missing schematic link; F8 would add a duplicate footprint\nU3: missing schematic link; F8 would add a duplicate footprint\nU4: missing schematic link; F8 would add a duplicate footprint\nY1: missing schematic link; F8 would add a duplicate footprint",
+      "kind": "machine_failure"
+    },
+    {
+      "blocking": true,
+      "check_id": "drc",
+      "detail": "1 error(s), 15 warning(s), 4 unconnected; two refilled runs",
+      "kind": "machine_failure"
+    },
+    {
+      "blocking": true,
+      "check_id": "jlcpcb_dfm",
+      "detail": "jlcpcb-2layer-1oz-green-2026-10-05: 244 error(s), 4 unconnected. Set solder-mask minimum web width to at least 0.10 mm.; Annular width (rule 'JLCPCB recommended component annular ring' min annular width 0.2500 mm; actual 0.2000 mm); Annular width (rule 'JLCPCB recommended component annular ring' min annular width 0.2500 mm; actual 0.2000 mm); Annular width (rule 'JLCPCB recommended component annular ring' min annular width 0.2500 mm; actual 0.2000 mm); Annular width (rule 'JLCPCB recommended component annular ring' min annular width 0.2500 mm; actual 0.2000 mm); Clearance violation (netclass 'Power' clearance 0.2000 mm; actual 0.1932 mm); Assertion failure (rule 'JLCPCB silkscreen graphic stroke'); Assertion failure (rule 'JLCPCB silkscreen graphic stroke'); Assertion failure (rule 'JLCPCB silkscreen graphic stroke')",
+      "kind": "machine_failure"
+    },
+    {
+      "blocking": true,
+      "check_id": "assembly_contracts",
+      "detail": "conflicting values without an exact MPN: ['J1', 'J2']",
+      "kind": "machine_failure"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 6fb139d0-a6a2-4f20-8a27-7c36c1738b20: short track; ADS1220 pressure/ADS1220_SCLK_ADC on F.Cu at (55.4389, 124.9489) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 02f8ff92-695c-4f20-a5e5-b8ba66cf2687: short track; GND on F.Cu at (45.3860, 112.1773) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 0d5aa280-abd0-4909-bf53-e4cfafc80b28: short track; GND on F.Cu at (44.5300, 142.0712) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 0f5b510e-648d-4173-ae5a-6bb107bb7922: short track; GND on F.Cu at (36.5450, 154.8987) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 10168f19-023a-4ddc-9deb-01d068b89d65: short track; GND on F.Cu at (48.6100, 154.8400) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 19f3cb5c-23dc-48c3-a26b-dcda96c5c7db: short track; GND on F.Cu at (33.6400, 150.3800) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 27164ad7-a4dc-40cf-976a-0e7d420f57d9: short track; GND on F.Cu at (42.9300, 147.8762) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 3901d551-d42e-4071-b261-e96e53281d46: short track; GND on F.Cu at (38.8467, 129.5025) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 64b20d41-92fc-4934-9f60-7e12b7f34439: short track; GND on F.Cu at (36.4425, 154.7962) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 6a92e275-1c0c-42da-acef-48cf38ab659e: short track; GND on F.Cu at (99.1085, 127.8960) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 7e2a7a14-c26d-4788-8fd2-13ac71fae964: short track; GND on F.Cu at (69.9029, 124.1242) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 8115f1ec-c46f-4c1f-96ae-41016de7ae10: short track; GND on F.Cu at (69.8287, 124.0500) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 81f8f4fa-d736-4013-83cb-719b7674c4c5 is fully covered by same-net track 71f69a49-02cb-4086-aa6c-5cf4a0ed4b1c; GND on F.Cu at (39.6800, 130.8700) mm. Inspect redundant/overlaid routing before cleanup.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track d79f8a05-47c2-4fbd-b5a1-7a1cfeedcc90: short track; GND on F.Cu at (43.8262, 126.1847) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track e3a78746-91c6-4849-9372-64c9835661ac: short track; GND on F.Cu at (62.5100, 132.8829) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track f6b04ad7-db8f-4e36-829d-3d8d6f588c55: short track; GND on F.Cu at (36.6475, 154.7962) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 575f7422-3df2-45d9-bde7-49e0c8507307: short track; +5V on F.Cu at (43.7800, 125.0042) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 5f5f5211-d786-42c6-ae6d-877acbff314a: short track; +5V on F.Cu at (41.8493, 123.1800) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 87c74bef-cc14-4d74-bd30-15c17791d76f: short track; +5V on F.Cu at (40.3672, 123.8128) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track b1364232-8db9-4a86-8235-4d5088410057: short track; +5V on F.Cu at (33.1113, 104.1596) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track cee85f09-56c7-48e3-a98e-00abf37e62e1: short track; +5V on F.Cu at (41.8493, 123.1800) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 1b22ac2c-adf6-4e42-9a59-5ea80cc876de: short track; +3V3 on F.Cu at (39.3458, 123.2342) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 795e721f-be51-4693-b105-ead216e30a5a: short track; +3V3 on F.Cu at (41.1113, 104.1596) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track f0704e7c-3810-4f84-9b10-7e0de2c1e0b5 is fully covered by same-net track f72a4f42-ba11-4c67-835e-008980934579; +3V3 on F.Cu at (39.6309, 123.5193) mm. Inspect redundant/overlaid routing before cleanup.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track fdf5506c-03f8-4885-9875-fbb86a6279c6: short track; +3V3 on F.Cu at (36.1050, 123.7300) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 38c88104-c80c-4507-b7d4-57f8eb9a0368: short track; +3V3 on B.Cu at (46.5415, 152.3932) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track a23563d5-411f-4f43-9a70-e1c3b9085c4b: short track; +3V3 on B.Cu at (37.3545, 123.7991) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 1850ba1b-494f-489e-9c2e-2877e8cc56d9: short track; ADS1220 pressure/ADS1220_DOUT_ADC on F.Cu at (43.9991, 127.4141) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 3b10e06e-409e-48e8-b9ee-bbad4a0c2b79: short track; ADS1220 pressure/ADS1220_DIN_ADC on F.Cu at (39.8360, 128.0105) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 601de04e-6d06-4f85-9d39-ecb4d960cee7: short track; ADS1220 pressure/ADS1220_DIN_ADC on F.Cu at (37.7200, 126.3242) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 6db5ef31-1d78-4bfb-895e-e8a03af27f24: short track; ADS1220 pressure/ADS1220_DIN_ADC on F.Cu at (39.8882, 128.0627) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 8dbe7375-8ee7-4ead-85ae-600ce980c4b7: short track; Controller and telemetry/LED_TX on F.Cu at (107.4900, 123.8110) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track e84a79cf-66ad-4aa7-885c-2399cdaeebca: short track; Controller and telemetry/LED_TX on F.Cu at (52.6330, 169.5395) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 356ad91b-6a70-4603-8ff3-9234bb72b370: short track; Controller and telemetry/LED_PWR on F.Cu at (48.0447, 140.7902) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 9a2ee95e-7a03-41f4-8270-e7913477e1a9: short track; Controller and telemetry/LED_PWR_A on F.Cu at (103.9342, 127.4242) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track d9b0d515-a7d7-4434-98b2-edf2a915aeb8 is fully covered by same-net track bc4a8040-82bd-4bcf-9962-b9cdcba5007d; Controller and telemetry/LED_PWR_A on F.Cu at (103.9780, 127.6514) mm. Inspect redundant/overlaid routing before cleanup.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 564cec81-0dea-4119-8ddd-181aaa02775f: short track; ADS1256 load cell/XTAL1 on F.Cu at (47.6500, 154.9263) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 3e510a10-02e4-4540-8d9e-57c112808239: short track; ADS1256 load cell/XTAL1 on B.Cu at (41.8566, 150.3231) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 36041516-45f0-476f-8f0b-bb88240382a6: short track; ADS1256 load cell/XTAL2 on F.Cu at (45.7949, 143.3515) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track d6b83b9e-f865-4a91-8e5f-fddb9e2bc6de: short track; LC_SIG_P on B.Cu at (19.0000, 172.6963) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 260d3f64-e56c-4891-b6a3-d7201dd505f3: short track; LC_SIG_N on F.Cu at (29.2011, 152.2702) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track e0e1ee66-7d5a-41e0-a7a3-3652c3e83437: short track; LC_SIG_N on F.Cu at (29.2011, 152.1386) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 8bec6268-5294-486f-982a-d57b3e74721a: short track; ADS1256 load cell/LC_AINN on F.Cu at (41.2859, 154.8969) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track eadd8bba-871d-449a-ab1f-b2b203efa7eb: short track; ADS1256 load cell/LC_AINN on F.Cu at (41.0587, 154.8969) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track ebf30c6c-a687-410f-92e1-593689ba73df: short track; ADS1256 load cell/LC_AINN on F.Cu at (39.7296, 154.8458) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 7a443df4-e9c9-412a-9ada-2deeeefe8439: short track; SPI1_MOSI on F.Cu at (58.1017, 160.0558) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track e2f3e233-a895-46f6-a889-e9a0946595d1: short track; SPI1_MOSI on F.Cu at (57.2965, 131.4090) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 5ff71cec-f146-4898-bbcb-5a32225c6f27: short track; RELAY_CTRL on B.Cu at (61.0282, 104.1995) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 044c356b-b9b8-4507-b7a2-1bf6ab378709: short track; ADS1256 load cell/LC_AINP on F.Cu at (39.6706, 151.7670) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track a2303f7f-f9bb-4e7a-bd30-ea07ec685b95: short track; ADS1256 load cell/LC_AINP on F.Cu at (39.1868, 152.1946) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track aa789282-2450-4ac1-948b-5f0b14516fe0: short track; ADS1256_DRDY on F.Cu at (40.1397, 145.0135) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 2bdad250-db6a-44dd-920b-e371a6260ef1: short track; SPI0_MOSI on F.Cu at (65.6660, 155.3486) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track cf90664c-7efa-4908-b3a9-cd89b9caa693: short track; SPI1_MISO on F.Cu at (40.5169, 127.8025) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track d6080290-2637-4226-a6a1-7c4c1f931734: short track; SPI1_MISO on F.Cu at (55.3598, 127.8698) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 25ad3dd4-8c5e-4ea8-9433-ef8b93d9cfe8: short track; SPI1_MISO on B.Cu at (40.5168, 127.8025) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 748bf62a-eebc-4181-a3f6-8375862ac886: short track; Controller and telemetry/UART2_TX on B.Cu at (58.8600, 152.4305) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track 17f40527-1712-47b2-8f22-f9a4588643e0: short track; SPI0_MISO on F.Cu at (55.7478, 149.2143) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "routing_topology",
+      "detail": "Track e42c4c4b-711a-4652-b831-be7c11b01933: short track; SPI0_MISO on F.Cu at (55.7478, 149.2142) mm. Inspect for a patched join; short pad escapes can be intentional.",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "schematic_quality",
+      "detail": "ignition-control.kicad_sch: 5 components but no wire junctions; inspect whether labels obscure circuit flow",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "schematic_quality",
+      "detail": "external-connectors-and-test.kicad_sch: 19 components but no wire junctions; inspect whether labels obscure circuit flow",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": false,
+      "check_id": "schematic_quality",
+      "detail": "controller-and-telemetry.kicad_sch: 11 components but no wire junctions; inspect whether labels obscure circuit flow",
+      "kind": "engineering_warning"
+    },
+    {
+      "blocking": true,
+      "check_id": "signoff",
+      "detail": "0/12 current decisions: ignition-current unsigned; safe-state unsigned; current-path unsigned; controller-sockets unsigned; xbee-fit unsigned; adc-reference unsigned; thermal unsigned; isolated-return unsigned; mechanical unsigned; sourcing unsigned; shared.schematic-readability unsigned; shared.layout-handover unsigned",
+      "kind": "human_decision"
+    }
+  ],
+  "pcb_hash": "70e52d1410792282c99cbd0c38ab1e32418a5cf34f19ddd37a43e8e6f520e3f1",
+  "project": "tms-v3",
+  "results": [
+    {
+      "advisories": [],
+      "check_id": "research",
+      "detail": "requirements, cited basis and archived evidence verified",
+      "duration_ms": 136,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "engineering validity of those choices",
+        "proves": "requirements, cited basis and source integrity",
+        "requires_external_tool": false
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "datasheets",
+      "detail": "required datasheet bytes verified",
+      "duration_ms": 122,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "interpretation of electrical limits",
+        "proves": "required datasheets are archived and verified",
+        "requires_external_tool": false
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "erc",
+      "detail": "5 violation(s), 37 unspecified-pin warnings waived",
+      "duration_ms": 2975,
+      "finding_kind": "machine_failure",
+      "passed": false,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "circuit fitness or safe operation",
+        "proves": "fresh KiCad electrical-rule findings",
+        "requires_external_tool": true
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "schematic_ownership",
+      "detail": "netmap is stale for: R2, U4",
+      "duration_ms": 756,
+      "finding_kind": "machine_failure",
+      "passed": false,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "circuit correctness",
+        "proves": "netmap matches the current schematic",
+        "requires_external_tool": true
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "netlist_parity",
+      "detail": "Ignition/NPN_BASE: schematic [('Q1', '1'), ('R1', '2')]; PCB [('Q1', '1'), ('R1', '2'), ('R2', '1')]\nPower/VBAT_PROT: schematic [('C15', '1'), ('D3', '2')]; PCB [('C15', '1'), ('D3', '2'), ('U4', '1')]\nunconnected-(R2-Pad1): schematic [('R2', '1')]; PCB []\nunconnected-(U4-IN-Pad1): schematic [('U4', '1')]; PCB []\nC1: missing schematic link; F8 would add a duplicate footprint\nC10: missing schematic link; F8 would add a duplicate footprint\nC11: missing schematic link; F8 would add a duplicate footprint\nC12: missing schematic link; F8 would add a duplicate footprint\nC13: missing schematic link; F8 would add a duplicate footprint\nC14: missing schematic link; F8 would add a duplicate footprint\nC15: missing schematic link; F8 would add a duplicate footprint\nC16: missing schematic link; F8 would add a duplicate footprint\nC17: missing schematic link; F8 would add a duplicate footprint\nC2: missing schematic link; F8 would add a duplicate footprint\nC3: missing schematic link; F8 would add a duplicate footprint\nC4: missing schematic link; F8 would add a duplicate footprint\nC5: missing schematic link; F8 would add a duplicate footprint\nC6: missing schematic link; F8 would add a duplicate footprint\nC7: missing schematic link; F8 would add a duplicate footprint\nC8: missing schematic link; F8 would add a duplicate footprint\nC9: missing schematic link; F8 would add a duplicate footprint\nD1: missing schematic link; F8 would add a duplicate footprint\nD2: missing schematic link; F8 would add a duplicate footprint\nD3: missing schematic link; F8 would add a duplicate footprint\nH1: missing schematic link; F8 would add a duplicate footprint\nH2: missing schematic link; F8 would add a duplicate footprint\nH3: missing schematic link; F8 would add a duplicate footprint\nH4: missing schematic link; F8 would add a duplicate footprint\nJ1: missing schematic link; F8 would add a duplicate footprint\nJ2: missing schematic link; F8 would add a duplicate footprint\nJ3: missing schematic link; F8 would add a duplicate footprint\nJ4: missing schematic link; F8 would add a duplicate footprint\nJ5: missing schematic link; F8 would add a duplicate footprint\nJ6: missing schematic link; F8 would add a duplicate footprint\nJ7: missing schematic link; F8 would add a duplicate footprint\nJ8: missing schematic link; F8 would add a duplicate footprint\nJ9: missing schematic link; F8 would add a duplicate footprint\nK1: missing schematic link; F8 would add a duplicate footprint\nL1: missing schematic link; F8 would add a duplicate footprint\nLED1: missing schematic link; F8 would add a duplicate footprint\nLED2: missing schematic link; F8 would add a duplicate footprint\nLED3: missing schematic link; F8 would add a duplicate footprint\nQ1: missing schematic link; F8 would add a duplicate footprint\nR1: missing schematic link; F8 would add a duplicate footprint\nR10: missing schematic link; F8 would add a duplicate footprint\nR11: missing schematic link; F8 would add a duplicate footprint\nR12: missing schematic link; F8 would add a duplicate footprint\nR13: missing schematic link; F8 would add a duplicate footprint\nR14: missing schematic link; F8 would add a duplicate footprint\nR2: missing schematic link; F8 would add a duplicate footprint\nR3: missing schematic link; F8 would add a duplicate footprint\nR4: missing schematic link; F8 would add a duplicate footprint\nR5: missing schematic link; F8 would add a duplicate footprint\nR6: missing schematic link; F8 would add a duplicate footprint\nR7: missing schematic link; F8 would add a duplicate footprint\nR8: missing schematic link; F8 would add a duplicate footprint\nR9: missing schematic link; F8 would add a duplicate footprint\nTP1: missing schematic link; F8 would add a duplicate footprint\nTP2: missing schematic link; F8 would add a duplicate footprint\nTP3: missing schematic link; F8 would add a duplicate footprint\nTP4: missing schematic link; F8 would add a duplicate footprint\nTP5: missing schematic link; F8 would add a duplicate footprint\nTP6: missing schematic link; F8 would add a duplicate footprint\nTP7: missing schematic link; F8 would add a duplicate footprint\nTP8: missing schematic link; F8 would add a duplicate footprint\nTP9: missing schematic link; F8 would add a duplicate footprint\nU2: missing schematic link; F8 would add a duplicate footprint\nU3: missing schematic link; F8 would add a duplicate footprint\nU4: missing schematic link; F8 would add a duplicate footprint\nY1: missing schematic link; F8 would add a duplicate footprint",
+      "duration_ms": 1189,
+      "finding_kind": "machine_failure",
+      "passed": false,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "which circuit is correct",
+        "proves": "exact schematic/PCB pin-net agreement and forward-annotation links",
+        "requires_external_tool": true
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "placement",
+      "detail": "implemented placement checks pass",
+      "duration_ms": 234,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "assembly or enclosure fit",
+        "proves": "implemented placement geometry checks",
+        "requires_external_tool": false
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "design_rules",
+      "detail": "=== docs/DESIGN_RULES.md geometric checks: C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-copilot-review-7_95rofs\\tms-v3\\tms-v3.kicad_pcb ===\n\n1 DECLARED DEVIATION(S) (DEVIATIONS.md):\n  [2.2 decoupling <=2mm]  U2.15 [+3V3] -> nearest C6 (100nF): 2.50mm  EXCEEDS 2mm\n      reason: DVDD. 2.3mm rather than 2.0mm. Pins 14 and 15 are on OPPOSITE sides of the SSOP-28 (1-14 down, 15-28 up), and the pin-15 side also carries XTAL1/XTAL2, where rule 5.1 gives the crystal first claim on the space. C6 is as close as the 0.5mm reflow clearance of rule 1.2 permits.\n\npassing:\n  [1.2 heat source >=15mm from analog]  2 ok\n  [2.2 decoupling <=2mm]  5 ok\n  [5.1 crystal <=5mm from IC]  1 ok\n  [5.1 load cap <=3mm from crystal]  2 ok\n  [6.1 regulator cap <=5mm]  1 ok\n\nRESULT: 0 violation(s), 11 check(s) passed\nSCOPE: geometric rules 1.2, 2.2, 5.1, 6.1 only (4 of 42 numbered subsections in docs/DESIGN_RULES.md). The remainder are not machine-checkable from the board file and are covered by the Phase 5 human review.",
+      "duration_ms": 742,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "all house rules or source applicability",
+        "proves": "geometric rules 1.2, 2.2, 5.1 and 6.1",
+        "requires_external_tool": true
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "drc",
+      "detail": "1 error(s), 15 warning(s), 4 unconnected; two refilled runs",
+      "duration_ms": 4896,
+      "finding_kind": "machine_failure",
+      "passed": false,
+      "scope": {
+        "deterministic": false,
+        "does_not_prove": "RF, thermal or functional behavior",
+        "proves": "two fresh zone-refilled DRC runs and routing completeness",
+        "requires_external_tool": true
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "jlcpcb_dfm",
+      "detail": "jlcpcb-2layer-1oz-green-2026-10-05: 244 error(s), 4 unconnected. Set solder-mask minimum web width to at least 0.10 mm.; Annular width (rule 'JLCPCB recommended component annular ring' min annular width 0.2500 mm; actual 0.2000 mm); Annular width (rule 'JLCPCB recommended component annular ring' min annular width 0.2500 mm; actual 0.2000 mm); Annular width (rule 'JLCPCB recommended component annular ring' min annular width 0.2500 mm; actual 0.2000 mm); Annular width (rule 'JLCPCB recommended component annular ring' min annular width 0.2500 mm; actual 0.2000 mm); Clearance violation (netclass 'Power' clearance 0.2000 mm; actual 0.1932 mm); Assertion failure (rule 'JLCPCB silkscreen graphic stroke'); Assertion failure (rule 'JLCPCB silkscreen graphic stroke'); Assertion failure (rule 'JLCPCB silkscreen graphic stroke')",
+      "duration_ms": 2542,
+      "finding_kind": "machine_failure",
+      "passed": false,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "assembly eligibility, current capacity or supplier order acceptance",
+        "proves": "independent dated JLCPCB geometry and declared stackup checks",
+        "requires_external_tool": true
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "assembly_contracts",
+      "detail": "conflicting values without an exact MPN: ['J1', 'J2']",
+      "duration_ms": 250,
+      "finding_kind": "machine_failure",
+      "passed": false,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "supplier preview approval, mechanical fit or model shape correctness",
+        "proves": "exact-part rotation rules, local model files and wire-pad label/net association",
+        "requires_external_tool": false
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "routing_settings",
+      "detail": "Native routing: 509 segments, 0 arcs, 87 vias; 0 locked item(s). Default width: 0.254 mm; 0 positive width preset(s).",
+      "duration_ms": 128,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "ampacity, thermal margin, branch currents, effective custom rules or router UI selection",
+        "proves": "stored native routing widths/locks and project routing-setting coverage",
+        "requires_external_tool": false
+      }
+    },
+    {
+      "advisories": [
+        "Track 6fb139d0-a6a2-4f20-8a27-7c36c1738b20: short track; ADS1220 pressure/ADS1220_SCLK_ADC on F.Cu at (55.4389, 124.9489) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 02f8ff92-695c-4f20-a5e5-b8ba66cf2687: short track; GND on F.Cu at (45.3860, 112.1773) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 0d5aa280-abd0-4909-bf53-e4cfafc80b28: short track; GND on F.Cu at (44.5300, 142.0712) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 0f5b510e-648d-4173-ae5a-6bb107bb7922: short track; GND on F.Cu at (36.5450, 154.8987) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 10168f19-023a-4ddc-9deb-01d068b89d65: short track; GND on F.Cu at (48.6100, 154.8400) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 19f3cb5c-23dc-48c3-a26b-dcda96c5c7db: short track; GND on F.Cu at (33.6400, 150.3800) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 27164ad7-a4dc-40cf-976a-0e7d420f57d9: short track; GND on F.Cu at (42.9300, 147.8762) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 3901d551-d42e-4071-b261-e96e53281d46: short track; GND on F.Cu at (38.8467, 129.5025) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 64b20d41-92fc-4934-9f60-7e12b7f34439: short track; GND on F.Cu at (36.4425, 154.7962) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 6a92e275-1c0c-42da-acef-48cf38ab659e: short track; GND on F.Cu at (99.1085, 127.8960) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 7e2a7a14-c26d-4788-8fd2-13ac71fae964: short track; GND on F.Cu at (69.9029, 124.1242) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 8115f1ec-c46f-4c1f-96ae-41016de7ae10: short track; GND on F.Cu at (69.8287, 124.0500) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 81f8f4fa-d736-4013-83cb-719b7674c4c5 is fully covered by same-net track 71f69a49-02cb-4086-aa6c-5cf4a0ed4b1c; GND on F.Cu at (39.6800, 130.8700) mm. Inspect redundant/overlaid routing before cleanup.",
+        "Track d79f8a05-47c2-4fbd-b5a1-7a1cfeedcc90: short track; GND on F.Cu at (43.8262, 126.1847) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track e3a78746-91c6-4849-9372-64c9835661ac: short track; GND on F.Cu at (62.5100, 132.8829) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track f6b04ad7-db8f-4e36-829d-3d8d6f588c55: short track; GND on F.Cu at (36.6475, 154.7962) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 575f7422-3df2-45d9-bde7-49e0c8507307: short track; +5V on F.Cu at (43.7800, 125.0042) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 5f5f5211-d786-42c6-ae6d-877acbff314a: short track; +5V on F.Cu at (41.8493, 123.1800) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 87c74bef-cc14-4d74-bd30-15c17791d76f: short track; +5V on F.Cu at (40.3672, 123.8128) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track b1364232-8db9-4a86-8235-4d5088410057: short track; +5V on F.Cu at (33.1113, 104.1596) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track cee85f09-56c7-48e3-a98e-00abf37e62e1: short track; +5V on F.Cu at (41.8493, 123.1800) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 1b22ac2c-adf6-4e42-9a59-5ea80cc876de: short track; +3V3 on F.Cu at (39.3458, 123.2342) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 795e721f-be51-4693-b105-ead216e30a5a: short track; +3V3 on F.Cu at (41.1113, 104.1596) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track f0704e7c-3810-4f84-9b10-7e0de2c1e0b5 is fully covered by same-net track f72a4f42-ba11-4c67-835e-008980934579; +3V3 on F.Cu at (39.6309, 123.5193) mm. Inspect redundant/overlaid routing before cleanup.",
+        "Track fdf5506c-03f8-4885-9875-fbb86a6279c6: short track; +3V3 on F.Cu at (36.1050, 123.7300) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 38c88104-c80c-4507-b7d4-57f8eb9a0368: short track; +3V3 on B.Cu at (46.5415, 152.3932) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track a23563d5-411f-4f43-9a70-e1c3b9085c4b: short track; +3V3 on B.Cu at (37.3545, 123.7991) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 1850ba1b-494f-489e-9c2e-2877e8cc56d9: short track; ADS1220 pressure/ADS1220_DOUT_ADC on F.Cu at (43.9991, 127.4141) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 3b10e06e-409e-48e8-b9ee-bbad4a0c2b79: short track; ADS1220 pressure/ADS1220_DIN_ADC on F.Cu at (39.8360, 128.0105) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 601de04e-6d06-4f85-9d39-ecb4d960cee7: short track; ADS1220 pressure/ADS1220_DIN_ADC on F.Cu at (37.7200, 126.3242) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 6db5ef31-1d78-4bfb-895e-e8a03af27f24: short track; ADS1220 pressure/ADS1220_DIN_ADC on F.Cu at (39.8882, 128.0627) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 8dbe7375-8ee7-4ead-85ae-600ce980c4b7: short track; Controller and telemetry/LED_TX on F.Cu at (107.4900, 123.8110) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track e84a79cf-66ad-4aa7-885c-2399cdaeebca: short track; Controller and telemetry/LED_TX on F.Cu at (52.6330, 169.5395) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 356ad91b-6a70-4603-8ff3-9234bb72b370: short track; Controller and telemetry/LED_PWR on F.Cu at (48.0447, 140.7902) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 9a2ee95e-7a03-41f4-8270-e7913477e1a9: short track; Controller and telemetry/LED_PWR_A on F.Cu at (103.9342, 127.4242) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track d9b0d515-a7d7-4434-98b2-edf2a915aeb8 is fully covered by same-net track bc4a8040-82bd-4bcf-9962-b9cdcba5007d; Controller and telemetry/LED_PWR_A on F.Cu at (103.9780, 127.6514) mm. Inspect redundant/overlaid routing before cleanup.",
+        "Track 564cec81-0dea-4119-8ddd-181aaa02775f: short track; ADS1256 load cell/XTAL1 on F.Cu at (47.6500, 154.9263) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 3e510a10-02e4-4540-8d9e-57c112808239: short track; ADS1256 load cell/XTAL1 on B.Cu at (41.8566, 150.3231) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 36041516-45f0-476f-8f0b-bb88240382a6: short track; ADS1256 load cell/XTAL2 on F.Cu at (45.7949, 143.3515) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track d6b83b9e-f865-4a91-8e5f-fddb9e2bc6de: short track; LC_SIG_P on B.Cu at (19.0000, 172.6963) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 260d3f64-e56c-4891-b6a3-d7201dd505f3: short track; LC_SIG_N on F.Cu at (29.2011, 152.2702) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track e0e1ee66-7d5a-41e0-a7a3-3652c3e83437: short track; LC_SIG_N on F.Cu at (29.2011, 152.1386) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 8bec6268-5294-486f-982a-d57b3e74721a: short track; ADS1256 load cell/LC_AINN on F.Cu at (41.2859, 154.8969) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track eadd8bba-871d-449a-ab1f-b2b203efa7eb: short track; ADS1256 load cell/LC_AINN on F.Cu at (41.0587, 154.8969) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track ebf30c6c-a687-410f-92e1-593689ba73df: short track; ADS1256 load cell/LC_AINN on F.Cu at (39.7296, 154.8458) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 7a443df4-e9c9-412a-9ada-2deeeefe8439: short track; SPI1_MOSI on F.Cu at (58.1017, 160.0558) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track e2f3e233-a895-46f6-a889-e9a0946595d1: short track; SPI1_MOSI on F.Cu at (57.2965, 131.4090) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 5ff71cec-f146-4898-bbcb-5a32225c6f27: short track; RELAY_CTRL on B.Cu at (61.0282, 104.1995) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 044c356b-b9b8-4507-b7a2-1bf6ab378709: short track; ADS1256 load cell/LC_AINP on F.Cu at (39.6706, 151.7670) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track a2303f7f-f9bb-4e7a-bd30-ea07ec685b95: short track; ADS1256 load cell/LC_AINP on F.Cu at (39.1868, 152.1946) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track aa789282-2450-4ac1-948b-5f0b14516fe0: short track; ADS1256_DRDY on F.Cu at (40.1397, 145.0135) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 2bdad250-db6a-44dd-920b-e371a6260ef1: short track; SPI0_MOSI on F.Cu at (65.6660, 155.3486) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track cf90664c-7efa-4908-b3a9-cd89b9caa693: short track; SPI1_MISO on F.Cu at (40.5169, 127.8025) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track d6080290-2637-4226-a6a1-7c4c1f931734: short track; SPI1_MISO on F.Cu at (55.3598, 127.8698) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 25ad3dd4-8c5e-4ea8-9433-ef8b93d9cfe8: short track; SPI1_MISO on B.Cu at (40.5168, 127.8025) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 748bf62a-eebc-4181-a3f6-8375862ac886: short track; Controller and telemetry/UART2_TX on B.Cu at (58.8600, 152.4305) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track 17f40527-1712-47b2-8f22-f9a4588643e0: short track; SPI0_MISO on F.Cu at (55.7478, 149.2143) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "Track e42c4c4b-711a-4652-b831-be7c11b01933: short track; SPI0_MISO on F.Cu at (55.7478, 149.2142) mm. Inspect for a patched join; short pad escapes can be intentional."
+      ],
+      "check_id": "routing_topology",
+      "detail": "Inspected 509 straight tracks: {'short_track': 55, 'covered_track': 3}. Excluded 0 arcs and 0 custom/offset pads. Native DRC remains the connectivity gate; copper was not changed.",
+      "duration_ms": 777,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "electrical connectivity, ampacity, via/zone/arc topology or whether an off-centre entry is intentional",
+        "proves": "covered straight tracks, short segments and off-centre native pad contacts",
+        "requires_external_tool": true
+      }
+    },
+    {
+      "advisories": [
+        "ignition-control.kicad_sch: 5 components but no wire junctions; inspect whether labels obscure circuit flow",
+        "external-connectors-and-test.kicad_sch: 19 components but no wire junctions; inspect whether labels obscure circuit flow",
+        "controller-and-telemetry.kicad_sch: 11 components but no wire junctions; inspect whether labels obscure circuit flow"
+      ],
+      "check_id": "schematic_quality",
+      "detail": "7 sheet(s) checked",
+      "duration_ms": 111,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "visual readability, electrical correctness, or page-flow quality",
+        "proves": "all referenced sheets have title/revision and acceptable density",
+        "requires_external_tool": false
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "signoff",
+      "detail": "0/12 current decisions: ignition-current unsigned; safe-state unsigned; current-path unsigned; controller-sockets unsigned; xbee-fit unsigned; adc-reference unsigned; thermal unsigned; isolated-return unsigned; mechanical unsigned; sourcing unsigned; shared.schematic-readability unsigned; shared.layout-handover unsigned",
+      "duration_ms": 265,
+      "finding_kind": "human_decision",
+      "passed": false,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "the reviewer inspected correctly, measured hardware, or made a safe decision",
+        "proves": "named, dated, project-specific decisions match the exact current design and review profile",
+        "requires_external_tool": false
+      }
+    }
+  ],
+  "schema_version": 1,
+  "schematic_hash": "e973b95edbc81856b43a483361fad050aa3d19906ec3c839f5a2520b7d953771"
+}

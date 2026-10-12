@@ -95,7 +95,7 @@ def test_tms_reconciles_names_without_changing_current_copper(repo_root, tmp_pat
 
     assert len(names) == 26
     assert names['VBAT_PROT'] == 'Power/VBAT_PROT'
-    assert parity.candidate_board_parity(project, draft_root) is None
+    assert parity.candidate_board_parity(project, draft_root, include_links=False) is None
     assert project.pcb_path.read_bytes() == before
     assert candidate == current
     assert project_settings == (draft_root / project.pcb_path.with_suffix('.kicad_pro').name).read_bytes()

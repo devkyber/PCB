@@ -1,0 +1,628 @@
+{
+  "components": 71,
+  "bom_rows": 25,
+  "manual_fit": {
+    "SKT1": {
+      "footprint": "rover:Pico2_Sockets_LXWCONN_254PM_1x20",
+      "reason": "Hand-fit two female sockets and the Pico module after factory assembly, per docs/design/BOM_NOTES.md."
+    }
+  },
+  "centroid_corrections": [
+    {
+      "reference": "C1",
+      "offset": {
+        "x_mm": 2.5,
+        "y_mm": 0,
+        "geometry_sha256": "3bc3de1dd6076697fc9dc892c7a37544d5d1127cb5dcdcd884d2b2fb6350a475",
+        "reason": "Center of embedded F.Fab capacitor body circle."
+      }
+    },
+    {
+      "reference": "C2",
+      "offset": {
+        "x_mm": 2.5,
+        "y_mm": 0,
+        "geometry_sha256": "d187050405800620f984c18a659bccb5c0a7d7bee1ca9efeedf09e89897cbabb",
+        "reason": "Center of embedded F.Fab capacitor body circle."
+      }
+    },
+    {
+      "reference": "C5",
+      "offset": {
+        "x_mm": 2.5,
+        "y_mm": 0,
+        "geometry_sha256": "3bc3de1dd6076697fc9dc892c7a37544d5d1127cb5dcdcd884d2b2fb6350a475",
+        "reason": "Center of embedded F.Fab capacitor body circle."
+      }
+    },
+    {
+      "reference": "J1",
+      "offset": {
+        "x_mm": 3.75,
+        "y_mm": 0.3,
+        "geometry_sha256": "3bc6897ce07dd39a0043713dcc64fc46c0974897491e1e87fae03b73032a9492",
+        "reason": "Center of embedded F.Fab JST housing rectangle."
+      }
+    },
+    {
+      "reference": "J2",
+      "offset": {
+        "x_mm": 0,
+        "y_mm": 2.54,
+        "geometry_sha256": "249673e04ba36e5e7953f43f7e440ee79df8ae3633182a1788a76b6b165ae8f4",
+        "reason": "Center of embedded F.Fab 1x3 header body."
+      }
+    },
+    {
+      "reference": "J3",
+      "offset": {
+        "x_mm": 0,
+        "y_mm": 2.54,
+        "geometry_sha256": "249673e04ba36e5e7953f43f7e440ee79df8ae3633182a1788a76b6b165ae8f4",
+        "reason": "Center of embedded F.Fab 1x3 header body."
+      }
+    },
+    {
+      "reference": "J4",
+      "offset": {
+        "x_mm": 0,
+        "y_mm": 2.54,
+        "geometry_sha256": "249673e04ba36e5e7953f43f7e440ee79df8ae3633182a1788a76b6b165ae8f4",
+        "reason": "Center of embedded F.Fab 1x3 header body."
+      }
+    },
+    {
+      "reference": "J5",
+      "offset": {
+        "x_mm": 3.75,
+        "y_mm": 0.3,
+        "geometry_sha256": "3bc6897ce07dd39a0043713dcc64fc46c0974897491e1e87fae03b73032a9492",
+        "reason": "Center of embedded F.Fab JST housing rectangle."
+      }
+    },
+    {
+      "reference": "J6",
+      "offset": {
+        "x_mm": 3.75,
+        "y_mm": 0.3,
+        "geometry_sha256": "3bc6897ce07dd39a0043713dcc64fc46c0974897491e1e87fae03b73032a9492",
+        "reason": "Center of embedded F.Fab JST housing rectangle."
+      }
+    },
+    {
+      "reference": "J7",
+      "offset": {
+        "x_mm": 3.75,
+        "y_mm": 0.3,
+        "geometry_sha256": "3bc6897ce07dd39a0043713dcc64fc46c0974897491e1e87fae03b73032a9492",
+        "reason": "Center of embedded F.Fab JST housing rectangle."
+      }
+    },
+    {
+      "reference": "J8",
+      "offset": {
+        "x_mm": 0,
+        "y_mm": 2.54,
+        "geometry_sha256": "249673e04ba36e5e7953f43f7e440ee79df8ae3633182a1788a76b6b165ae8f4",
+        "reason": "Center of embedded F.Fab 1x3 header body."
+      }
+    },
+    {
+      "reference": "SW1",
+      "offset": {
+        "x_mm": 2,
+        "y_mm": 0,
+        "geometry_sha256": "b37130536603919b4821257657bcbeb0bcbdc8e46f249d3d52416581fdedfff8",
+        "reason": "Center of embedded F.Fab fixed switch housing; movable actuator excluded."
+      }
+    }
+  ],
+  "rotation_corrections": [
+    {
+      "reference": "C1",
+      "native_angle": 0.0,
+      "jlcpcb_angle": 0.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C2",
+      "native_angle": 0.0,
+      "jlcpcb_angle": 0.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C3",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C5",
+      "native_angle": 0.0,
+      "jlcpcb_angle": 0.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C10",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C11",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C12",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C13",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C14",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C15",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C16",
+      "native_angle": -90.0,
+      "jlcpcb_angle": 270.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C17",
+      "native_angle": -90.0,
+      "jlcpcb_angle": 270.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C18",
+      "native_angle": -90.0,
+      "jlcpcb_angle": 270.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C19",
+      "native_angle": -90.0,
+      "jlcpcb_angle": 270.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C20",
+      "native_angle": -90.0,
+      "jlcpcb_angle": 270.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C21",
+      "native_angle": -90.0,
+      "jlcpcb_angle": 270.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C22",
+      "native_angle": -90.0,
+      "jlcpcb_angle": 270.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C23",
+      "native_angle": -90.0,
+      "jlcpcb_angle": 270.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C24",
+      "native_angle": -90.0,
+      "jlcpcb_angle": 270.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C25",
+      "native_angle": -90.0,
+      "jlcpcb_angle": 270.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C26",
+      "native_angle": -90.0,
+      "jlcpcb_angle": 270.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C27",
+      "native_angle": -90.0,
+      "jlcpcb_angle": 270.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C28",
+      "native_angle": -90.0,
+      "jlcpcb_angle": 270.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C30",
+      "native_angle": 180.0,
+      "jlcpcb_angle": 180.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C31",
+      "native_angle": 180.0,
+      "jlcpcb_angle": 180.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C32",
+      "native_angle": 180.0,
+      "jlcpcb_angle": 180.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C33",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C34",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C35",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C39",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C40",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "C41",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "D2",
+      "native_angle": 180.0,
+      "jlcpcb_angle": 180.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "J1",
+      "native_angle": 0.0,
+      "jlcpcb_angle": 0.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "J2",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 0.0,
+      "offset_degrees": -90,
+      "basis": "derived_from_preview"
+    },
+    {
+      "reference": "J3",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 0.0,
+      "offset_degrees": -90,
+      "basis": "derived_from_preview"
+    },
+    {
+      "reference": "J4",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 0.0,
+      "offset_degrees": -90,
+      "basis": "derived_from_preview"
+    },
+    {
+      "reference": "J5",
+      "native_angle": 0.0,
+      "jlcpcb_angle": 0.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "J6",
+      "native_angle": 0.0,
+      "jlcpcb_angle": 0.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "J7",
+      "native_angle": 0.0,
+      "jlcpcb_angle": 0.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "J8",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 0.0,
+      "offset_degrees": -90,
+      "basis": "derived_from_preview"
+    },
+    {
+      "reference": "L1",
+      "native_angle": 0.0,
+      "jlcpcb_angle": 0.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "L2",
+      "native_angle": 0.0,
+      "jlcpcb_angle": 0.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "L3",
+      "native_angle": 0.0,
+      "jlcpcb_angle": 0.0,
+      "offset_degrees": 0,
+      "basis": "unverified"
+    },
+    {
+      "reference": "R1",
+      "native_angle": 180.0,
+      "jlcpcb_angle": 180.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "R2",
+      "native_angle": 180.0,
+      "jlcpcb_angle": 180.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "R3",
+      "native_angle": -90.0,
+      "jlcpcb_angle": 270.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "R4",
+      "native_angle": -90.0,
+      "jlcpcb_angle": 270.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "R5",
+      "native_angle": -90.0,
+      "jlcpcb_angle": 270.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "R6",
+      "native_angle": -90.0,
+      "jlcpcb_angle": 270.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "R10",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "R11",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "R12",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "R13",
+      "native_angle": 180.0,
+      "jlcpcb_angle": 180.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "R14",
+      "native_angle": 180.0,
+      "jlcpcb_angle": 180.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "R15",
+      "native_angle": 180.0,
+      "jlcpcb_angle": 180.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "R16",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "R17",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "R18",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "R19",
+      "native_angle": 180.0,
+      "jlcpcb_angle": 180.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "R20",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "R21",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "R22",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "R23",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "R24",
+      "native_angle": 90.0,
+      "jlcpcb_angle": 90.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "RS1",
+      "native_angle": 180.0,
+      "jlcpcb_angle": 180.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "SW1",
+      "native_angle": 180.0,
+      "jlcpcb_angle": 180.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "U1",
+      "native_angle": 0.0,
+      "jlcpcb_angle": 270.0,
+      "offset_degrees": -90,
+      "basis": "derived_from_preview"
+    },
+    {
+      "reference": "U2",
+      "native_angle": 0.0,
+      "jlcpcb_angle": 0.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "U3",
+      "native_angle": 0.0,
+      "jlcpcb_angle": 0.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    },
+    {
+      "reference": "U4",
+      "native_angle": 0.0,
+      "jlcpcb_angle": 0.0,
+      "offset_degrees": 0,
+      "basis": "observed"
+    }
+  ],
+  "local_checks_passed": true,
+  "supplier_review": {
+    "passed": false,
+    "detail": "JLCPCB placement review has not been recorded for this upload."
+  },
+  "passed": false,
+  "unsourced": [],
+  "supplier_rotation_verified": false,
+  "supplier_stock_verified": false
+}

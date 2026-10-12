@@ -1,0 +1,261 @@
+{
+  "status": "PREPARED_NOT_RUN",
+  "source_url": "https://www.ti.com/lit/zip/SNVMCB2",
+  "archive": "evidence\\files\\LMR51450SDRRR_SNVMCB2_e1fd811f3bcb.zip",
+  "archive_sha256": "e1fd811f3bcb494bf528772421a5af4dd37b37f50461caaa5e834d3256ac1a40",
+  "model_sha256": "fe9f32ad701f344d07d5c5016ace318ce9636f6e56f5d7a7407ae7e67aefc7e3",
+  "cad_sha256": {
+    "buck-12v.kicad_sch": "d56183c4a4c13f1a636730d3a56bbd8551bfefbd05a48b2ca2708ecfda425a9e",
+    "buck-5v.kicad_sch": "6668bfbd3ba638245618429223c82a9eb1e71a8b2187d53c046de25db8a394f0",
+    "buck-motor.kicad_sch": "1a885de1677d56aa69d59738e198c924eb6c6eade4dd4423f2fef4292a7d9005",
+    "dxl-enable.kicad_sch": "95ac0de112c4f20957c3290df8c64230e3d21e1ed6eafae8e2221fc743bdff24",
+    "input-monitor.kicad_sch": "c3d592a4d6d1b5ff21eb89d56357a7a59a19afafb7b3624295ac168bd67f5d0e",
+    "pico-servos.kicad_sch": "eff4fec1fd43f74dea87970d822ae4da9ed266488e4c64c9a8a30b7809f3589b",
+    "rover-pdb.kicad_sch": "4200d604fe479e47c27b7209dd070b100c7d727478924128bb419cc5fa08fb85"
+  },
+  "vendor_files": [
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450 PSPICE TRANSIENTMODEL_FeaturesandLimitations.pdf",
+      "sha256": "3546d73fffd2e109d4c7b840674f7f19ddf656d5669331fa8c9646b0741c6a84",
+      "bytes": 41699
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/START_UP/START_UP.als",
+      "sha256": "117b310861babb8d94df9f2f162ef072b37f962644df607b7e320c7984113bd2",
+      "bytes": 2556
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/START_UP/START_UP.net",
+      "sha256": "f792ced73e977906d8b735e4cb4791088acd6b95142dc0bf50f5f2fb89b187f5",
+      "bytes": 959
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/START_UP/START_UP_sch.prp",
+      "sha256": "abd51047e5541e9a4791e9fe0a83d0ed3084cc2b0e384401c946589e6ee1909a",
+      "bytes": 20506
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/START_UP/STEADY_STATE.sim",
+      "sha256": "224e199914cf8af66ead3e1c9aa2f9d63622271c56a0ed00776d21a7ebfc90f2",
+      "bytes": 1878
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/START_UP/Tran1/Tran1.1OP",
+      "sha256": "c741f5f039dd5d07e787aae27b5727199909ceb968e89881b95f50e746653906",
+      "bytes": 16306
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/START_UP/Tran1/Tran1.cir",
+      "sha256": "eb4a89d85e5a96a9e27246e68c98971a8ba098603a6eeadcfb92078f26d00a0d",
+      "bytes": 654
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/START_UP/Tran1/Tran1.mif",
+      "sha256": "e26fd3f247f042279dea42112bc9be714534bd66eefacc6a9540af7d80b35ca4",
+      "bytes": 5299
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/START_UP/Tran1/Tran1.mrk",
+      "sha256": "97a0da114768967ca5f9a873d0331313a7afaab38b0584224cd2e4ecc5fb32d9",
+      "bytes": 425
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/START_UP/Tran1/Tran1.out",
+      "sha256": "50d43092817eb96e634af98a930db13121e83da3a6696eec584b73c5fafa2ffe",
+      "bytes": 3157
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/START_UP/Tran1/Tran1.prb",
+      "sha256": "969212996950cd062cffd565c7132307786300a5392013cf99467f542c98b9d2",
+      "bytes": 2679
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/START_UP/Tran1.sim",
+      "sha256": "690f0c89124e8d05be90932ae3e18e366145a6e6b5ca9b3b6af73346ef4625bd",
+      "bytes": 1845
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/STEADY_STATE/STEADY_STATE.als",
+      "sha256": "6d353ae706233ad0dd619e340e6f584fab61072e75b76928420b45ec8e6c9c99",
+      "bytes": 2640
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/STEADY_STATE/STEADY_STATE.net",
+      "sha256": "6344575e5304ea99372374defa30faa5a9a984fe0bd5644b8e59175bed915a12",
+      "bytes": 959
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/STEADY_STATE/STEADY_STATE_sch.prp",
+      "sha256": "e26fb4871338e129e2ed9fa28a67bc2da2b7928b5403b2b8f51943b9e346c768",
+      "bytes": 20649
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/STEADY_STATE/Tran1/Install_TIPSpice.json",
+      "sha256": "8b98c121aaeba34e6dd6de81bf4deb58cffc8804fcbfa89ef55b2d3d75af3a72",
+      "bytes": 40
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/STEADY_STATE/Tran1/Tran1.1op",
+      "sha256": "b553167facf5b3b8b24b4d323d92a504766e47bcda88d083af7780b681fac5df",
+      "bytes": 16306
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/STEADY_STATE/Tran1/Tran1.cir",
+      "sha256": "8289260d30b05bdd0fa6147dd58c56facda6b47b438b90b84a594fadf346b7aa",
+      "bytes": 661
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/STEADY_STATE/Tran1/Tran1.json",
+      "sha256": "201bb0bad8f4e5a51b19888a69c85a5c587d27a6cf90d0de6fb39241da86466c",
+      "bytes": 22132
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/STEADY_STATE/Tran1/Tran1.mif",
+      "sha256": "12ccd809e9700d02efd79ab8df6f3effe3251b31b0fc66d407885b75b9035cc1",
+      "bytes": 5019
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/STEADY_STATE/Tran1/Tran1.mrk",
+      "sha256": "97a0da114768967ca5f9a873d0331313a7afaab38b0584224cd2e4ecc5fb32d9",
+      "bytes": 425
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/STEADY_STATE/Tran1/Tran1.out",
+      "sha256": "7bb187ee3719f591b19f780eec8246b8d70ccfe1fa3c9f5f44900a5ba1c2286b",
+      "bytes": 3226
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/STEADY_STATE/Tran1/Tran1.out.1",
+      "sha256": "f739ab5274b38a939fa34c01fff1a2252111051b6bd82c09de3a2f641e6fb436",
+      "bytes": 4892
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/STEADY_STATE/Tran1/Tran1.prb",
+      "sha256": "65015c6fbdba9e3d5521fa828e9eb05c1eb3a0f0ef297b8608fe5a2d4a9bebc6",
+      "bytes": 3051
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS-PSpiceFiles/STEADY_STATE/Tran1.sim",
+      "sha256": "e7bb101a846d9a53a733d570468a48eb04a465de2755f763be4ed828227ec1b1",
+      "bytes": 1849
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS.DSN",
+      "sha256": "f56d4b7b75107c3ec0713f49fa6d34fdc56cf58f3625657ba850871cd69b9bea",
+      "bytes": 764416
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/lmr51450_trans.ind",
+      "sha256": "861b556327e45d81403f120bd899eb47fd6e85f4d97a84ba818338d53b97ae51",
+      "bytes": 39639
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS.lib",
+      "sha256": "fe9f32ad701f344d07d5c5016ace318ce9636f6e56f5d7a7407ae7e67aefc7e3",
+      "bytes": 157671
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/lmr51450_trans.liberrorLog",
+      "sha256": "454cc885056296ad92f13a443b51103e139bde1f8dae371efb86ebee729d809e",
+      "bytes": 27
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS.libsig",
+      "sha256": "e78e060978503695c324f1921de904c5ed9c301fcb7f1103c9a6488f1b21d0f1",
+      "bytes": 813
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS.OLB",
+      "sha256": "7548865c7c0b3d86010e6284678bd7669f15e0b753f12beee438c7777e9463f4",
+      "bytes": 12288
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS.opj",
+      "sha256": "4679801f8bff263db3815fef3b65c82da7030d97b4901d3c629bbb4cb8245caa",
+      "bytes": 2896
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS.png",
+      "sha256": "a718721dcb5f2918f1470c19f8a148b27b3999aa2dd2c0b1cd37f7183956e3f5",
+      "bytes": 189232
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS_0.DBK",
+      "sha256": "369a6da025e9bfdf0f94d7698e835b65a13edb6983e00b67b5b139b8385376c1",
+      "bytes": 763904
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS_0.OBK",
+      "sha256": "e404ce52cb9cde5747f6e3971f7b82b4b3fb75a200ca1183fe2f465ffee4c1b1",
+      "bytes": 10752
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS_ENCRYPTED.OLBlck",
+      "sha256": "205d000aa762f3a96ac3ad4b25d791b5f7fc8efb9056b78f299f671a02b9fd21",
+      "bytes": 16384
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS_ENCRYPTED_0.OBK",
+      "sha256": "66be715d79e52fb58ce96d0f65c162aa2a3c6dc8b2cbc8f55faadf59fd20303c",
+      "bytes": 101888
+    },
+    {
+      "path": "vendor/LMR51450_PSPICE_TRANS/lmr51450_trans_pspmetadata.db",
+      "sha256": "4216df6f98778caf2a0c3d8406a1999415aad6361acc549f1b1333d7f8c05fdd",
+      "bytes": 1163264
+    }
+  ],
+  "cases": [
+    {
+      "path": "cases/12v_startup.cir",
+      "status": "NOT RUN",
+      "sha256": "39b22d55c23f4b4082838f08fbbf99738bb3ac8d321c4ab403f678e4ceb0de98"
+    },
+    {
+      "path": "cases/12v_load_step.cir",
+      "status": "NOT RUN",
+      "sha256": "714270a932658998068dafb229e35894007c4822b569021c580792a0e7b71cb8"
+    },
+    {
+      "path": "cases/12v_vin_sweep.cir",
+      "status": "NOT RUN",
+      "sha256": "d14942dc753efe65fa7de3d3582a1994e7ad2fd53aa27891d1a08f8a486d7e59"
+    },
+    {
+      "path": "cases/5v_startup.cir",
+      "status": "NOT RUN",
+      "sha256": "13c62e98eb8ad4a600fec82bb060abd0a1da439004715ae9dc76def95f0d8805"
+    },
+    {
+      "path": "cases/5v_load_step.cir",
+      "status": "NOT RUN",
+      "sha256": "b80e2c07c77644157fef4643db52e2da920a1a7ad6ce8cf9d803df8046bb3d21"
+    },
+    {
+      "path": "cases/5v_vin_sweep.cir",
+      "status": "NOT RUN",
+      "sha256": "72eaa340d50ffb4d612070a41c30849473914ec52f4d0fc75fd2d34e1f56a707"
+    },
+    {
+      "path": "cases/motor_startup.cir",
+      "status": "NOT RUN",
+      "sha256": "4b2f67b0af62f93e6dfd8e4e5113cead2f245b330b9d79da2d56fbbdae4aa0bd"
+    },
+    {
+      "path": "cases/motor_load_step.cir",
+      "status": "NOT RUN",
+      "sha256": "504ae5d516fadb8d405a201d03ffea572e11e30bab8f8022373aac2be1f1211f"
+    },
+    {
+      "path": "cases/motor_vin_sweep.cir",
+      "status": "NOT RUN",
+      "sha256": "12f1f9c36985205519c6c34ae505d9bc4f50b1d3b4963bd6cbb4adcade740d58"
+    },
+    {
+      "path": "cases/motor_enable.cir",
+      "status": "NOT RUN",
+      "sha256": "3771dbb930790d765aebb75c414f7bb656264a69f59358a28a3ad1b3473cdd90"
+    }
+  ],
+  "note": "Vendor .out files are bundled TI historical examples, not results from this project."
+}

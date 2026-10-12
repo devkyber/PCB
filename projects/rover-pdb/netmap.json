@@ -1,0 +1,408 @@
+{
+  "nets": {
+    "C1": {
+      "1": "VBAT",
+      "2": "GND"
+    },
+    "C10": {
+      "1": "VBAT",
+      "2": "GND"
+    },
+    "C11": {
+      "1": "VBAT",
+      "2": "GND"
+    },
+    "C12": {
+      "1": "VBAT",
+      "2": "GND"
+    },
+    "C13": {
+      "1": "VBAT",
+      "2": "GND"
+    },
+    "C14": {
+      "1": "VBAT",
+      "2": "GND"
+    },
+    "C15": {
+      "1": "VBAT",
+      "2": "GND"
+    },
+    "C16": {
+      "1": "22.19 V motor supply/VMOTOR",
+      "2": "GND"
+    },
+    "C17": {
+      "1": "22.19 V motor supply/VMOTOR",
+      "2": "GND"
+    },
+    "C18": {
+      "1": "22.19 V motor supply/VMOTOR",
+      "2": "GND"
+    },
+    "C19": {
+      "1": "22.19 V motor supply/VMOTOR",
+      "2": "GND"
+    },
+    "C2": {
+      "1": "+5V",
+      "2": "GND"
+    },
+    "C20": {
+      "1": "+12V",
+      "2": "GND"
+    },
+    "C21": {
+      "1": "+12V",
+      "2": "GND"
+    },
+    "C22": {
+      "1": "+12V",
+      "2": "GND"
+    },
+    "C23": {
+      "1": "+12V",
+      "2": "GND"
+    },
+    "C24": {
+      "1": "+5V",
+      "2": "GND"
+    },
+    "C25": {
+      "1": "+5V",
+      "2": "GND"
+    },
+    "C26": {
+      "1": "+5V",
+      "2": "GND"
+    },
+    "C27": {
+      "1": "+5V",
+      "2": "GND"
+    },
+    "C28": {
+      "1": "+5V",
+      "2": "GND"
+    },
+    "C3": {
+      "1": "+3V3",
+      "2": "GND"
+    },
+    "C30": {
+      "1": "VBAT",
+      "2": "GND"
+    },
+    "C31": {
+      "1": "VBAT",
+      "2": "GND"
+    },
+    "C32": {
+      "1": "VBAT",
+      "2": "GND"
+    },
+    "C33": {
+      "1": "12 V Jetson supply/BOOT_2",
+      "2": "12 V Jetson supply/SW_2"
+    },
+    "C34": {
+      "1": "5 V servo supply/BOOT_3",
+      "2": "5 V servo supply/SW_3"
+    },
+    "C35": {
+      "1": "22.19 V motor supply/BOOT_4",
+      "2": "22.19 V motor supply/SW_4"
+    },
+    "C39": {
+      "1": "+12V",
+      "2": "12 V Jetson supply/FF_2"
+    },
+    "C40": {
+      "1": "+5V",
+      "2": "5 V servo supply/FF_3"
+    },
+    "C41": {
+      "1": "22.19 V motor supply/VMOTOR",
+      "2": "22.19 V motor supply/FF_4"
+    },
+    "C5": {
+      "1": "22.19 V motor supply/VMOTOR",
+      "2": "GND"
+    },
+    "D2": {
+      "1": "22.19 V motor supply/LED_A",
+      "2": "GND"
+    },
+    "J1": {
+      "1": "GND",
+      "3": "DYNAMIXEL distribution/DXL_D_PLUS",
+      "4": "DYNAMIXEL distribution/DXL_D_MINUS"
+    },
+    "J2": {
+      "1": "Pico 2 and hobby servos/PWM_LIFT_A",
+      "2": "+5V",
+      "3": "GND"
+    },
+    "J3": {
+      "1": "Pico 2 and hobby servos/PWM_LIFT_B",
+      "2": "+5V",
+      "3": "GND"
+    },
+    "J4": {
+      "1": "Pico 2 and hobby servos/PWM_PAN",
+      "2": "+5V",
+      "3": "GND"
+    },
+    "J5": {
+      "1": "GND",
+      "2": "22.19 V motor supply/VMOTOR",
+      "3": "DYNAMIXEL distribution/DXL_D_PLUS",
+      "4": "DYNAMIXEL distribution/DXL_D_MINUS"
+    },
+    "J6": {
+      "1": "GND",
+      "2": "22.19 V motor supply/VMOTOR",
+      "3": "DYNAMIXEL distribution/DXL_D_PLUS",
+      "4": "DYNAMIXEL distribution/DXL_D_MINUS"
+    },
+    "J7": {
+      "1": "GND",
+      "2": "22.19 V motor supply/VMOTOR",
+      "3": "DYNAMIXEL distribution/DXL_D_PLUS",
+      "4": "DYNAMIXEL distribution/DXL_D_MINUS"
+    },
+    "J8": {
+      "1": "Pico 2 and hobby servos/PWM_AUX",
+      "2": "+5V",
+      "3": "GND"
+    },
+    "J9": {
+      "1": "+3V3",
+      "2": "Pico 2 and hobby servos/GP18",
+      "3": "Pico 2 and hobby servos/GP19",
+      "4": "Pico 2 and hobby servos/GP20",
+      "5": "Pico 2 and hobby servos/GP21",
+      "6": "GND"
+    },
+    "L1": {
+      "1": "+12V",
+      "2": "12 V Jetson supply/SW_2"
+    },
+    "L2": {
+      "1": "+5V",
+      "2": "5 V servo supply/SW_3"
+    },
+    "L3": {
+      "1": "22.19 V motor supply/VMOTOR",
+      "2": "22.19 V motor supply/SW_4"
+    },
+    "NT1": {
+      "1": "12 V Jetson supply/AGND_2",
+      "2": "GND"
+    },
+    "NT2": {
+      "1": "5 V servo supply/AGND_3",
+      "2": "GND"
+    },
+    "NT3": {
+      "1": "22.19 V motor supply/AGND_4",
+      "2": "GND"
+    },
+    "P1": {
+      "1": "Battery input and INA226/BAT_SWITCHED",
+      "2": "GND"
+    },
+    "P2": {
+      "1": "+12V",
+      "2": "GND"
+    },
+    "P3": {
+      "1": "GND",
+      "2": "+12V"
+    },
+    "P4": {
+      "1": "+5V",
+      "2": "GND"
+    },
+    "R1": {
+      "1": "+3V3",
+      "2": "Battery input and INA226/I2C_SDA"
+    },
+    "R10": {
+      "1": "+12V",
+      "2": "12 V Jetson supply/FB_2"
+    },
+    "R11": {
+      "1": "+5V",
+      "2": "5 V servo supply/FB_3"
+    },
+    "R12": {
+      "1": "22.19 V motor supply/VMOTOR",
+      "2": "22.19 V motor supply/FB_4"
+    },
+    "R13": {
+      "1": "VBAT",
+      "2": "12 V Jetson supply/EN_2"
+    },
+    "R14": {
+      "1": "VBAT",
+      "2": "5 V servo supply/EN_3"
+    },
+    "R15": {
+      "1": "22.19 V motor supply/MOTOR_EN",
+      "2": "22.19 V motor supply/AGND_4"
+    },
+    "R16": {
+      "1": "5 V servo supply/FB_3",
+      "2": "5 V servo supply/AGND_3"
+    },
+    "R17": {
+      "1": "12 V Jetson supply/FB_2",
+      "2": "12 V Jetson supply/AGND_2"
+    },
+    "R18": {
+      "1": "22.19 V motor supply/FB_4",
+      "2": "22.19 V motor supply/AGND_4"
+    },
+    "R19": {
+      "1": "VBAT",
+      "2": "22.19 V motor supply/SW_SUPPLY"
+    },
+    "R2": {
+      "1": "+3V3",
+      "2": "Battery input and INA226/I2C_SCL"
+    },
+    "R20": {
+      "1": "22.19 V motor supply/VMOTOR",
+      "2": "22.19 V motor supply/LED_A"
+    },
+    "R21": {
+      "1": "12 V Jetson supply/FF_2",
+      "2": "12 V Jetson supply/FB_2"
+    },
+    "R22": {
+      "1": "5 V servo supply/FF_3",
+      "2": "5 V servo supply/FB_3"
+    },
+    "R23": {
+      "1": "22.19 V motor supply/FF_4",
+      "2": "22.19 V motor supply/FB_4"
+    },
+    "R24": {
+      "1": "22.19 V motor supply/SW_SUPPLY",
+      "2": "22.19 V motor supply/AGND_4"
+    },
+    "R3": {
+      "1": "Pico 2 and hobby servos/PWM_LIFT_A",
+      "2": "GND"
+    },
+    "R4": {
+      "1": "Pico 2 and hobby servos/PWM_LIFT_B",
+      "2": "GND"
+    },
+    "R5": {
+      "1": "Pico 2 and hobby servos/PWM_PAN",
+      "2": "GND"
+    },
+    "R6": {
+      "1": "Pico 2 and hobby servos/PWM_AUX",
+      "2": "GND"
+    },
+    "RS1": {
+      "1": "VBAT",
+      "2": "Battery input and INA226/BAT_SWITCHED"
+    },
+    "SKT1": {
+      "1": "Pico 2 and hobby servos/PWM_LIFT_A",
+      "13": "GND",
+      "18": "GND",
+      "2": "Pico 2 and hobby servos/PWM_LIFT_B",
+      "21": "Battery input and INA226/I2C_SDA",
+      "22": "Battery input and INA226/I2C_SCL",
+      "23": "GND",
+      "24": "Pico 2 and hobby servos/GP18",
+      "25": "Pico 2 and hobby servos/GP19",
+      "26": "Pico 2 and hobby servos/GP20",
+      "27": "Pico 2 and hobby servos/GP21",
+      "28": "GND",
+      "3": "GND",
+      "33": "GND",
+      "36": "+3V3",
+      "38": "GND",
+      "4": "Pico 2 and hobby servos/PWM_PAN",
+      "5": "Pico 2 and hobby servos/PWM_AUX",
+      "8": "GND"
+    },
+    "SW1": {
+      "1": "22.19 V motor supply/SW_SUPPLY",
+      "2": "22.19 V motor supply/MOTOR_EN"
+    },
+    "TP1": {
+      "1": "VBAT"
+    },
+    "TP2": {
+      "1": "22.19 V motor supply/VMOTOR"
+    },
+    "TP3": {
+      "1": "+12V"
+    },
+    "TP4": {
+      "1": "+5V"
+    },
+    "TP5": {
+      "1": "+3V3"
+    },
+    "TP6": {
+      "1": "GND"
+    },
+    "U1": {
+      "1": "GND",
+      "10": "Battery input and INA226/BAT_SWITCHED",
+      "2": "GND",
+      "4": "Battery input and INA226/I2C_SDA",
+      "5": "Battery input and INA226/I2C_SCL",
+      "6": "+3V3",
+      "7": "GND",
+      "8": "VBAT",
+      "9": "VBAT"
+    },
+    "U2": {
+      "1": "12 V Jetson supply/SW_2",
+      "10": "VBAT",
+      "11": "VBAT",
+      "12": "VBAT",
+      "13": "GND",
+      "2": "12 V Jetson supply/SW_2",
+      "3": "12 V Jetson supply/SW_2",
+      "4": "12 V Jetson supply/BOOT_2",
+      "7": "12 V Jetson supply/FB_2",
+      "8": "12 V Jetson supply/AGND_2",
+      "9": "12 V Jetson supply/EN_2"
+    },
+    "U3": {
+      "1": "5 V servo supply/SW_3",
+      "10": "VBAT",
+      "11": "VBAT",
+      "12": "VBAT",
+      "13": "GND",
+      "2": "5 V servo supply/SW_3",
+      "3": "5 V servo supply/SW_3",
+      "4": "5 V servo supply/BOOT_3",
+      "7": "5 V servo supply/FB_3",
+      "8": "5 V servo supply/AGND_3",
+      "9": "5 V servo supply/EN_3"
+    },
+    "U4": {
+      "1": "22.19 V motor supply/SW_4",
+      "10": "VBAT",
+      "11": "VBAT",
+      "12": "VBAT",
+      "13": "GND",
+      "2": "22.19 V motor supply/SW_4",
+      "3": "22.19 V motor supply/SW_4",
+      "4": "22.19 V motor supply/BOOT_4",
+      "7": "22.19 V motor supply/FB_4",
+      "8": "22.19 V motor supply/AGND_4",
+      "9": "22.19 V motor supply/MOTOR_EN"
+    }
+  }
+}

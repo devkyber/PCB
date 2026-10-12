@@ -1,0 +1,45 @@
+{
+  "manufacturer": "Murata",
+  "part": "GRM32ER71H106KA12L",
+  "source_url": "https://docs.rs-online.com/2a0d/0900766b813885a3.pdf",
+  "source_title": "Murata GRM32ER71H106KA12# product sheet, 2014-11-11, page 2",
+  "hosting": "RS Online mirror of manufacturer PDF",
+  "retrieved_on": "2026-09-30",
+  "artifact": "../files/GRM32ER71H106KA12_Murata_characteristics_20141111_9281c34a22b3.pdf",
+  "sha256": "9281c34a22b351bb841a7a23d0aaa1c58b4d633f6bf1a9c03d15475ac5d11f2e",
+  "curve_artifact": "GRM32ER71H106KA12-DC-bias.png",
+  "curve_sha256": "32dcc30eedbb9a5670923faa511aa14ab76da17d426a62cf52fdbf5c763eb01e",
+  "conditions": {
+    "temperature_C": 25,
+    "AC_Vrms": 1,
+    "frequency_Hz": null,
+    "note": "Temperature and AC amplitude printed in graph legend. Exact sheet does not print frequency; current Murata measurement-conditions guide uses 1 kHz for this capacitance/rating."
+  },
+  "method": "Approximate digitization of original 320x253 raster graph, not manufacturer CSV. Plot x=43 at 0V, x=296 at50V; y=46 at0%, y=199 at-100%. Median blue pixels in nearest three columns. Reporting resolution about0.1uF per part.",
+  "readings": [
+    {
+      "DC_V": 19.8,
+      "approx_change_percent": -31,
+      "approx_cap_uF": 6.9
+    },
+    {
+      "DC_V": 22.190374,
+      "approx_change_percent": -36,
+      "approx_cap_uF": 6.4
+    },
+    {
+      "DC_V": 25.2,
+      "approx_change_percent": -42.5,
+      "approx_cap_uF": 5.75
+    },
+    {
+      "DC_V": 28,
+      "approx_change_percent": -48,
+      "approx_cap_uF": 5.2
+    }
+  ],
+  "typical_not_guaranteed_minimum": true,
+  "live_viewer": "Owner authorized licence acceptance. Exact part search and P/N List Selection returned no matching part numbers on 2026-09-30; no CSV or combined temperature/bias data retrieved. No conclusion about lifecycle status inferred.",
+  "screening": "At25.2V: two parts~11.5uF typical; times0.9 tolerance~10.4uF; additional0.85 temperature allowance~8.8uF. Three parts same screen~13.2uF. Independent-factor screen is not a manufacturer-guaranteed combined-condition minimum.",
+  "CAD_change": "None. Third10uF input capacitor perconverter is a recommendation only."
+}

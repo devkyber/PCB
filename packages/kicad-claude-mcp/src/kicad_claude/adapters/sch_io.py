@@ -98,7 +98,8 @@ def _atom(x: Any) -> str:
 
 def _escape(s: str) -> str:
     """Backslash-escape `\\` and `"` for KiCAD string literals."""
-    return s.replace("\\", "\\\\").replace('"', '\\"')
+    return (s.replace("\\", "\\\\").replace('"', '\\"')
+            .replace("\n", "\\n").replace("\r", "\\r").replace("\t", "\\t"))
 
 
 def _format_float(x: float) -> str:

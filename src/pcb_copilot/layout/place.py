@@ -26,8 +26,9 @@ from pcb_copilot.layout.models import (
     PlacementItem,
     validate_layout_intent,
 )
-from pcb_copilot.layout.render import native_board, schematic_inventory
+from pcb_copilot.layout.render import board_pin_nets, native_board, schematic_inventory
 from pcb_copilot.layout.research import prepare_layout_research
+from pcb_copilot.layout.schematic_links import bind_missing_links
 from pcb_copilot.models import DraftKind, DraftRecord, Project
 from pcb_copilot.state import canonical_design_hash
 from pcb_copilot.toolchain import discover_toolchain
@@ -55,13 +56,8 @@ class PlacementReport:
     pcb_path: Path
 
 
-def _board_nets(board: dict) -> dict:
-    nets = {}
-    for ref, fp in board["footprints"].items():
-        for pin, name in fp["pads"]:
-            if name:
-                nets.setdefault(name.lstrip("/"), set()).add((ref, pin))
-    return nets
+def _board_nets(board: dict, parts: dict | None = None) -> dict:
+    return board_pin_nets(board['footprints'], parts)
 
 
 def _local_embedded(node: list) -> str:
@@ -144,7 +140,7 @@ def propose_placement(
         validate_layout_intent(intent, set(parts), set(nets))
     except ValueError as exc:
         findings.append(Finding("placement.intent_invalid", str(exc)))
-    if _board_nets(board) != nets:
+    if _board_nets(board, parts) != nets:
         findings.append(
             Finding(
                 "placement.parity", "Accepted schematic/PCB pin-net assignments differ"
@@ -525,6 +521,14 @@ def propose_placement(
         result = native_board(toolchain, output)
         if _board_nets(result) != _board_nets(board):
             raise ValueError("draft PCB parity changed during native placement")
+        if _board_nets(result, parts) == nets:
+            try:
+                linked = bind_missing_links(output, parts, result['footprints'])
+                if linked:
+                    findings.append(Finding('placement.schematic_links_added',
+                        'Bound missing schematic IDs in the draft: ' + ', '.join(linked), severity='review'))
+            except ValueError as exc:
+                findings.append(Finding('placement.schematic_links', str(exc)))
 
     publish_draft(draft, writer)
     return PlacementReport(placed, findings, pcb_path)

@@ -4,10 +4,11 @@ import pytest
 
 from pcb_copilot.models import Lifecycle
 from pcb_copilot.project import ProjectFormatError, load_project
+from tests.board_fixtures import board_source
 
 
 def test_load_existing_flat_project(repo_root):
-    project = load_project(repo_root / "projects" / "baro-bmp390")
+    project = load_project(board_source(repo_root, 'baro-bmp390'))
     assert project.manifest.name == "baro-bmp390"
     assert project.schematic_path.name == "baro-bmp390.kicad_sch"
     assert project.pcb_path.name == "baro-bmp390.kicad_pcb"
@@ -40,7 +41,7 @@ safety_tags: []
     ["baro-bmp390", "imu-icm42688", "gnss-neom9n", "tms-v3"],
 )
 def test_all_existing_board_manifests_resolve_accepted_designs(repo_root, board_name):
-    project = load_project(repo_root / "projects" / board_name)
+    project = load_project(board_source(repo_root, board_name))
     assert project.schematic_path.is_file()
     assert project.pcb_path.is_file()
     assert project.netmap_path.is_file()
@@ -52,7 +53,7 @@ def test_tms_manifest_identifies_high_consequence_design(repo_root):
 
 
 def test_manifest_paths_are_absolute_after_loading(repo_root):
-    project = load_project(repo_root / "projects" / "gnss-neom9n")
+    project = load_project(board_source(repo_root, 'gnss-neom9n'))
     paths: tuple[Path, ...] = (
         project.schematic_path,
         project.pcb_path,

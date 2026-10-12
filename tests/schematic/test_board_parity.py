@@ -12,6 +12,7 @@ from kicad_claude.utils.geometry import kicad_to_mcp_xy, round_mm
 from pcb_copilot.schematic.io import load_schematic_intent
 from pcb_copilot.schematic.models import validate_component_pins
 from pcb_copilot.schematic.preview import schematic_files
+from tests.board_fixtures import board_source
 
 BOARDS = ('baro-bmp390', 'imu-icm42688', 'gnss-neom9n', 'tms-v3')
 
@@ -81,12 +82,12 @@ def _assert_accepted_parity(intent, source, baseline):
 def accepted_boards():
     from pathlib import Path
 
-    root = Path(__file__).resolve().parents[2] / 'projects'
+    root = Path(__file__).resolve().parents[2]
     return {
         board: (
-            load_schematic_intent(root / board / 'schematic-intent.yaml'),
-            tuple(sch_io.parse_file(path) for path in schematic_files(root / board / f'{board}.kicad_sch')),
-            json.loads((root / board / 'netmap.json').read_text(encoding='utf-8')),
+            load_schematic_intent(board_source(root, board) / 'schematic-intent.yaml'),
+            tuple(sch_io.parse_file(path) for path in schematic_files(board_source(root, board) / f'{board}.kicad_sch')),
+            json.loads((board_source(root, board) / 'netmap.json').read_text(encoding='utf-8')),
         )
         for board in BOARDS
     }

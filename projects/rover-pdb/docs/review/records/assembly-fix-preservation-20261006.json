@@ -1,0 +1,27 @@
+{
+  "segment": {
+    "before": 449,
+    "after": 449,
+    "identical": true
+  },
+  "via": {
+    "before": 168,
+    "after": 168,
+    "identical": true
+  },
+  "arc": {
+    "before": 0,
+    "after": 0,
+    "identical": true
+  },
+  "zone": {
+    "before": 9,
+    "after": 9,
+    "identical": true
+  },
+  "footprints": {
+    "count": 93,
+    "all_pad_properties_positions_uuids_identical": true
+  },
+  "schematics_unchanged": true
+}

@@ -137,11 +137,3 @@ def find_kicad_cli() -> Path | None:
             if candidate.is_file():
                 return candidate
     return None
-
-
-def cache_dir() -> Path:
-    """Per-user cache directory for the indexer."""
-    base = Path(os.environ.get("XDG_CACHE_HOME", Path.home() / ".cache"))
-    p = base / "kicad-claude"
-    p.mkdir(parents=True, exist_ok=True)
-    return p

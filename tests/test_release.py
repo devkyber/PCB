@@ -25,9 +25,11 @@ def exporter(monkeypatch):
         destination.mkdir()
         for name in ('board.gbr', 'board.drl', 'bom.csv', 'positions.csv'):
             (destination / name).write_text('fixture export\n')
-        return {'tool': 'fixture'}
+        return {'tool': 'fixture', 'assembly': {'passed': True}}
     monkeypatch.setattr(release, 'export_manufacturing', export)
     monkeypatch.setattr(release, 'review_project', lambda project: report(project))
+    monkeypatch.setattr(release, 'check_jlcpcb', lambda project: {'passed': True})
+    monkeypatch.setattr(release, 'check_stock', lambda *a, **k: {'passed': True})
     return export
 
 
@@ -56,7 +58,7 @@ def test_release_publishes_verified_snapshot_and_detects_tampering(project_copy,
 
 
 @pytest.mark.parametrize('changed', ['DEVIATIONS.md', 'review-profile.yaml', 'baro-bmp390.kicad_pro',
-                                   'evidence/index.yaml'])
+                                   'evidence/index.yaml', 'jlcpcb-assembly.yaml'])
 def test_release_is_stale_after_any_review_input_changes(project_copy, exporter, changed):
     project = load_project(project_copy)
     release.release_project(project)
@@ -120,9 +122,70 @@ def test_nested_source_json_is_covered_by_output_hashes(tmp_path):
     assert set(release.output_hashes(tmp_path)) == {'sources/SOURCE.json'}
 
 
+def test_preview_exports_blocked_review_without_granting_release(project_copy, exporter, monkeypatch):
+    project = load_project(project_copy)
+    monkeypatch.setattr(release, 'review_project', lambda project: report(project, True))
+    result = release.release_project(project, preview=True)
+    assert result['prepared'] and not result['released'] and result['review_blocked']
+    assert result['exit_code'] == 1
+    output = Path(result['output'])
+    assert (output / 'PREVIEW.txt').is_file()
+    manifest = json.loads((output / 'SOURCE.json').read_text())
+    assert manifest['purpose'] == 'upload-preview'
+    assert manifest['outputs'] == release.output_hashes(output)
+    assert not (project.root / 'fabrication').exists()
+    assert not (project.root / '.pcb-copilot/release.json').exists()
+    assert effective_lifecycle(project) is Lifecycle.DRAFT
+
+
+def test_preview_preserves_previous_release_and_state(project_copy, exporter, tree_hash):
+    project = load_project(project_copy)
+    release.release_project(project)
+    before = tree_hash(project.root / 'fabrication')
+    state = (project.root / '.pcb-copilot/release.json').read_bytes()
+    result = release.release_project(project, preview=True)
+    assert not result['released']
+    assert tree_hash(project.root / 'fabrication') == before
+    assert (project.root / '.pcb-copilot/release.json').read_bytes() == state
+    assert effective_lifecycle(project) is Lifecycle.RELEASED
+
+
+def test_failed_preview_preserves_previous_preview(project_copy, exporter, monkeypatch, tree_hash):
+    project = load_project(project_copy)
+    release.release_project(project, preview=True)
+    before = tree_hash(project_copy)
+    def fail(project, output):
+        output.mkdir()
+        (output / 'partial.gbr').write_text('partial')
+        raise RuntimeError('export failed')
+    monkeypatch.setattr(release, 'export_manufacturing', fail)
+    with pytest.raises(RuntimeError, match='export failed'):
+        release.release_project(project, preview=True)
+    assert tree_hash(project_copy) == before
+
+
+@pytest.mark.parametrize('gate', ['check_stock', 'check_jlcpcb'])
+def test_manufacturing_failure_preserves_release_but_publishes_marked_preview(
+    project_copy, exporter, monkeypatch, tree_hash, gate,
+):
+    project = load_project(project_copy)
+    release.release_project(project)
+    before = tree_hash(project.root / 'fabrication')
+    state = (project.root / '.pcb-copilot/release.json').read_bytes()
+    monkeypatch.setattr(release, gate, lambda *a, **k: {'passed': False})
+    result = release.release_project(project, quantity=5)
+    assert not result['released'] and result['exit_code'] == 1
+    assert tree_hash(project.root / 'fabrication') == before
+    preview = release.release_project(project, preview=True, quantity=5)
+    assert preview['prepared'] and preview['review_blocked'] and preview['board_quantity'] == 5
+    assert (Path(preview['output']) / 'jlcpcb-dfm.json').exists()
+    assert (project.root / '.pcb-copilot/release.json').read_bytes() == state
+    assert tree_hash(project.root / 'fabrication') == before
+
+
 @pytest.mark.slow
-def test_native_release_on_disposable_fixture(project_copy):
-    """Synthetic decisions exercise the gate; these are never real approvals."""
+def test_native_signoff_cannot_bypass_missing_assembly_contracts(project_copy):
+    """A generic signoff does not approve unknown vendor angles/model inventory."""
     from datetime import UTC, datetime
 
     import yaml
@@ -141,9 +204,25 @@ def test_native_release_on_disposable_fixture(project_copy):
                       signed_on=datetime.now(UTC).date().isoformat())
     worksheet.write_text(yaml.safe_dump(document), encoding='utf-8')
     result = release.release_project(project)
-    assert result['released'], result
-    assert effective_lifecycle(project) is Lifecycle.RELEASED
-    output = project.root / 'fabrication'
-    assert (output / 'gerbers/baro-bmp390-F_Cu.gbr').stat().st_size
-    assert (output / 'sources/review-signoff.yaml').read_bytes() == worksheet.read_bytes()
-    assert json.loads((output / 'SOURCE.json').read_text())['outputs'] == release.output_hashes(output)
+    assert not result['released'], result
+    assert not (project.root / 'fabrication').exists()
+    assert any(r['check_id'] == 'assembly_contracts' and not r['passed'] for r in result['review']['results'])
+
+
+def test_missing_supplier_assembly_review_blocks_release_and_preserves_previous(project_copy, exporter, monkeypatch, tree_hash):
+    project = load_project(project_copy)
+    release.release_project(project)
+    before = tree_hash(project.root / 'fabrication')
+
+    def unverified(snapshot, output):
+        result = exporter(snapshot, output)
+        result['assembly']['passed'] = False
+        return result
+
+    monkeypatch.setattr(release, 'export_manufacturing', unverified)
+    result = release.release_project(project)
+    assert not result['released'] and not result['assembly']['passed']
+    assert tree_hash(project.root / 'fabrication') == before
+    result = release.release_project(project, preview=True)
+    assert result['prepared'] and not result['assembly_passed']
+    assert 'supplier placement review unresolved' in (project.root / 'output/jlcpcb-preview/PREVIEW.txt').read_text(encoding='utf-8')

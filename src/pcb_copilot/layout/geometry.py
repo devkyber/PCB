@@ -49,10 +49,6 @@ from dataclasses import dataclass
 # Courtyard bounding box extraction
 # --------------------------------------------------------------------------- #
 
-def _extract_crtyd_block(text: str) -> str | None:
-    """Isolate the F.CrtYd (or B.CrtYd) portion of a raw .kicad_mod file."""
-    return text  # geometry elements are matched by proximity to the layer tag below
-
 
 def _iter_top_level_elements(text: str, tag: str):
     """Yield the full balanced-paren text of every `(tag ...)` element in
@@ -138,7 +134,7 @@ def get_courtyard_bbox_from_text(mod_text: str) -> tuple[float, float] | None:
 
 def get_courtyard_bbox(fp_def_node) -> tuple[float, float] | None:
     """Same as get_courtyard_bbox_from_text but takes a parsed sexpdata
-    footprint node (as returned by pcb_editor.fetch_footprint_def)."""
+    footprint node parsed from a native footprint library file."""
     import sexpdata
     text = sexpdata.dumps(fp_def_node)
     return get_courtyard_bbox_from_text(text)
@@ -147,8 +143,6 @@ def get_courtyard_bbox(fp_def_node) -> tuple[float, float] | None:
 def get_courtyard_bbox_from_file(mod_path) -> tuple[float, float] | None:
     from pathlib import Path
     return get_courtyard_bbox_from_text(Path(mod_path).read_text())
-
-
 
 
 # --------------------------------------------------------------------------- #

@@ -41,5 +41,6 @@ def test_all_checks_are_available_without_discovering_native_tools(monkeypatch):
     monkeypatch.setattr(checks, '_toolchain', lambda: pytest.fail('eager tool discovery'))
     assert {check.check_id for check in checks.current_checks()} == {
         'research', 'datasheets', 'erc', 'schematic_ownership', 'schematic_quality',
-        'netlist_parity', 'placement', 'design_rules', 'drc', 'signoff',
+        'netlist_parity', 'placement', 'design_rules', 'drc', 'signoff', 'routing_settings',
+        'routing_topology', 'jlcpcb_dfm', 'assembly_contracts',
     }

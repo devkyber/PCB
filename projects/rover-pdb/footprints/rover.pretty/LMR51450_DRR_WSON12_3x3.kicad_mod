@@ -1,0 +1,287 @@
+(footprint "LMR51450_DRR_WSON12_3x3"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "TI LMR51450 DRR0012G WSON-12 3x3 mm; TI SLUSEP7 Dec 2022 pp36-38, 4227052/A Aug 2021. EP13=PGND, solder required. Thermal vias are a layout-stage task.")
+	(tags "LMR51450 DRR0012G WSON12 3x3")
+	(property "Reference" "REF**"
+		(at 0 -2.4 0)
+		(layer "F.SilkS")
+		(uuid "6d3566dc-2aa4-46c9-a10e-8b7dc3ad230b")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "LMR51450_DRR_WSON12_3x3"
+		(at 0 2.4 0)
+		(layer "F.Fab")
+		(uuid "6ef269aa-3985-4053-89bc-6e630bdf8476")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" "https://www.ti.com/lit/ds/symlink/lmr51450.pdf"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "3ee8334b-3525-4a32-a6b7-2ffdcc56928c")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "24d5e4b3-0cf4-4e8b-904b-eabe9fae45a4")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "LCSC Part" "C6890985"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "bb47bb29-d343-414a-90e8-19225cb6605b")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -1.5 -1.65)
+		(end 1.5 -1.65)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "1af04e77-528b-4009-ab32-f9d22e26b1a2")
+	)
+	(fp_line
+		(start -1.5 1.65)
+		(end 1.5 1.65)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "533b88a9-2bbf-4f85-9dc2-d1cdfde3e82e")
+	)
+	(fp_circle
+		(center -1.4 -1.9)
+		(end -1.32 -1.9)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(fill yes)
+		(layer "F.SilkS")
+		(uuid "a5edfb8f-fa8d-4c07-ab36-6f773454e99e")
+	)
+	(fp_rect
+		(start -1.95 -1.8)
+		(end 1.95 1.8)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "9644d48c-9d11-4a29-a4a0-4a3a5a20e106")
+	)
+	(fp_line
+		(start -1.5 -1.1)
+		(end -1.1 -1.5)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "dc03940b-8330-4a10-b5e0-d5fb03e20837")
+	)
+	(fp_line
+		(start -1.5 1.5)
+		(end -1.5 -1.1)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "d71d93fa-d36e-4fc1-90db-75dac262dd82")
+	)
+	(fp_line
+		(start -1.1 -1.5)
+		(end 1.5 -1.5)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "d53aa7e5-7f15-435b-b11e-9b93a0d6d43b")
+	)
+	(fp_line
+		(start 1.5 -1.5)
+		(end 1.5 1.5)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "3ad9e963-fa6d-4a47-899e-6ad3b2c3e622")
+	)
+	(fp_line
+		(start 1.5 1.5)
+		(end -1.5 1.5)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "e01c13e4-ce7d-47ef-92a0-6509f357c109")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 0 90)
+		(layer "F.Fab")
+		(uuid "b4073397-2cfe-4e53-9865-1e45d210a881")
+		(effects
+			(font
+				(size 0.6 0.6)
+				(thickness 0.09)
+			)
+		)
+	)
+	(pad "" smd roundrect
+		(at 0 -0.65)
+		(size 1.21 1.1)
+		(layers "F.Paste")
+		(roundrect_rratio 0.0454545455)
+		(uuid "4541aca5-c376-4028-8a27-7a25645b9bb0")
+	)
+	(pad "" smd roundrect
+		(at 0 0.65)
+		(size 1.21 1.1)
+		(layers "F.Paste")
+		(roundrect_rratio 0.0454545455)
+		(uuid "c5a0d63b-51fb-4213-b64c-01b7ba407074")
+	)
+	(pad "1" smd roundrect
+		(at -1.39 -1.25)
+		(size 0.62 0.25)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.2)
+		(uuid "8f1fe91b-ae9c-48b8-bfc3-80bb8202b4d4")
+	)
+	(pad "2" smd roundrect
+		(at -1.39 -0.75)
+		(size 0.62 0.25)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.2)
+		(uuid "bc5ad973-a071-41e8-8207-ec60de734e8c")
+	)
+	(pad "3" smd roundrect
+		(at -1.39 -0.25)
+		(size 0.62 0.25)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.2)
+		(uuid "d5dff6a3-9a20-4550-996a-6e49da3bede9")
+	)
+	(pad "4" smd roundrect
+		(at -1.39 0.25)
+		(size 0.62 0.25)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.2)
+		(uuid "f80ad545-8e2d-405c-b9fc-088cda7c0c19")
+	)
+	(pad "5" smd roundrect
+		(at -1.39 0.75)
+		(size 0.62 0.25)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.2)
+		(uuid "b7900c1a-6a50-4e7e-bea9-764299fdab58")
+	)
+	(pad "6" smd roundrect
+		(at -1.39 1.25)
+		(size 0.62 0.25)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.2)
+		(uuid "72d56ca6-973f-4eb8-adb6-e056983bbc96")
+	)
+	(pad "7" smd roundrect
+		(at 1.39 1.25)
+		(size 0.62 0.25)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.2)
+		(uuid "749e95d8-7096-4c88-8294-3814a1087800")
+	)
+	(pad "8" smd roundrect
+		(at 1.39 0.75)
+		(size 0.62 0.25)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.2)
+		(uuid "b59891c7-d4eb-4dcd-9b2d-49226a260112")
+	)
+	(pad "9" smd roundrect
+		(at 1.39 0.25)
+		(size 0.62 0.25)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.2)
+		(uuid "d11408a0-5b1a-4649-86dc-26f7c2e9d387")
+	)
+	(pad "10" smd roundrect
+		(at 1.39 -0.25)
+		(size 0.62 0.25)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.2)
+		(uuid "e5ab1826-47c7-406b-8a3b-6512d458f4ee")
+	)
+	(pad "11" smd roundrect
+		(at 1.39 -0.75)
+		(size 0.62 0.25)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.2)
+		(uuid "7266f053-aeb8-416d-a84b-a212c8f610e2")
+	)
+	(pad "12" smd roundrect
+		(at 1.39 -1.25)
+		(size 0.62 0.25)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.2)
+		(uuid "e46f56e0-99f1-4190-a7fe-78a96448d9a8")
+	)
+	(pad "13" smd roundrect
+		(at 0 0)
+		(size 1.3 2.5)
+		(layers "F.Cu" "F.Mask")
+		(roundrect_rratio 0.0384615385)
+		(uuid "c761c8d6-878b-4665-978a-cbb8e939913a")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/libs/lcsc_C6890985.3dshapes/WSON-12_L3.0-W3.0-P0.50-TL-EP-2.wrl"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

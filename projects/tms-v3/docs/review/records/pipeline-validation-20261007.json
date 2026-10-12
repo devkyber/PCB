@@ -1,0 +1,697 @@
+{
+  "schema_version": 1,
+  "purpose": "Software pipeline validation on disposable copies of saved TMS CAD",
+  "started_at": "2026-10-07T10:54:32.909089+00:00",
+  "completed_at": "2026-10-07T10:58:48.828869+00:00",
+  "archive": "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259",
+  "source": "C:\\Users\\tae06\\CODE\\PCB\\projects\\tms-v3",
+  "source_input_count": 68,
+  "inputs": {
+    "controller-and-telemetry.kicad_sch": "d8ebb8903fda3d2aeb6e08698edd672e74abf8b6993e67adc67e9e6da8e8e1b6",
+    "DESIGN_BASIS.md": "404f04f391dd645357dc15e6e96a8d342edbceb79a264e911adfc7f26f2926d2",
+    "DEVIATIONS.md": "d9d45ede0f78821c6b0351bd05e9732603db2532361075116b06046078aedf07",
+    "evidence/files/1N4148WS_C57759.pdf": "3305a485d13b5135a2be83af66cc42f00504915802e444a0fa44ea4259c3c1bb",
+    "evidence/files/7.68MHz_8590903324206051328.pdf": "f460c56e5346b2033e1f94f11877bfd3d802d869b07693c79489b30be8b797c3",
+    "evidence/files/ADS1220_pc_ads1220_brk_06809c8c1335.sch": "06809c8c1335a3581d08cc29f73f9cbd5d76d59f864283c90997d73321750691",
+    "evidence/files/ADS1220_pc_ads1220_brk_30c797877574.brd": "30c7978775749e9178d67311229ada682460f87f777642532a6a854d5d07b790",
+    "evidence/files/ADS1220_pc_ads1220_brk_83c75b67b2f7.zip": "83c75b67b2f7d4c6f46f65f6b7bfc7647ddf0220fb10479eeedf8d0f6f659a5e",
+    "evidence/files/ADS1220_pc_ads1220_brk_891a4b71a749.pdf": "891a4b71a749d574a93fa67d03564ae00f6d13abf8c555b03d877303707cfa3b",
+    "evidence/files/ADS1220_ti.pdf": "ba264d1644fe9de625c075ddcee61eb4c59cce2780ba416cd831216c40f755cf",
+    "evidence/files/ADS1256_ti.pdf": "9da3323db162b59329ec1a865829441ff1605279cd802fe879649b6f54e100e6",
+    "evidence/files/card11a_rev4_web.pdf": "d8e8f77658a43eddd3254fcf7c248e200f8a83a398b990382ee1f71f500debf0",
+    "evidence/files/card11b_rev4_web.pdf": "9b258db98f6ef2a4afe21af4820fb599f1362adc1f600536955c3cd4f283c273",
+    "evidence/files/HF46F_C5274026.pdf": "329a8a5fa56dd44d356d90e14e11a33b6936ee1ab193b6eb568df17e2443c54a",
+    "evidence/files/HF46F_hongfa_en.pdf": "7b0def367684a55227bdc7f85fb88da930e788c6cf661b77e273cdd0e1d624a6",
+    "evidence/files/LM7805_C22467097.pdf": "2aec7bcd338fd68d60badcedd7fcb9b40e5124a04954e714e1dabc50f278868d",
+    "evidence/files/MMBT3904_C20526.pdf": "6c2034cb0bd0d85be51c9c4f82aad838a688aa70c20de1a71681be8ec02b659b",
+    "evidence/files/PESD5V0S2BT_C49338.pdf": "3dfa7d4ff7182ccb3e7303a13f06324d11dd232a575d29cf20c7edf5673650b6",
+    "evidence/files/SS54_C22452.pdf": "d90558a8db9d6ea0e8712c740ffea6d9c106544653faf724af75f1ab276dee66",
+    "evidence/files/U2__ADS1256__ADS1256IDBR_sbau090e.pdf": "1d5a17540e48f0739cb56687babc7b62d1e2d5058bcbd7ce4cba4268a51385df",
+    "evidence/files/U3__ADS1220__ADS1220IPWR_sbau203.pdf": "483b3351badfa960fcc9bbea1fab18e3ccfd21e0cb282c192950d26452feafc4",
+    "evidence/files/xbee3_hardware_ref.pdf": "a02aee173feaec9b7504a1794d94e579ae62ca01ae868217befb62b1638efcfa",
+    "evidence/files/XT60_XT60.pdf": "fe976e62e91341bde0782796a240d4feb804f9a0ed286d9a7d1ddde4c0f47174",
+    "evidence/index.yaml": "74cbb9c3edad835a3d3d395e5811002d8641eeba4084774cc39ee972aa4a07f9",
+    "external-connectors-and-test.kicad_sch": "7925431cee1b9738e48c43eddee8805e7dc70fb76ea44bec5f7033e90e29e173",
+    "fp-lib-table": "b79345a1dd1b24cab87e69c3e8d438f96c1218657bb1da5b4e1e6978dcb1cae2",
+    "ignition-control.kicad_sch": "aefad7d9cd1d2762655a0527056a474584349f6e175cb07bba53355bae0fd0d9",
+    "jlcpcb-assembly.yaml": null,
+    "layout-intent.yaml": "3e80f173e341a4b4406759381dd7ea546803b913f0e1d698b5d2840d70cf2ecb",
+    "libs/jlcpcb.3dshapes/CRYSTAL-SMD_L11.4-W4.7-LS12.4.step": "fbf90779cf15bf0ade437a193bd86b98f8c5970bf27010fa6d2068ad1f338c2d",
+    "libs/jlcpcb.3dshapes/CRYSTAL-SMD_L11.4-W4.7-LS12.4.wrl": "3785df9390a8a353af4c52b9d3e86556227d9791cf19b68ba300760dbb5d3af9",
+    "libs/jlcpcb.3dshapes/RELAY-TH_L20.5-W7.0-H15.0.step": "27a2d601c046a080cfae964d7cf66d89f9cea18d6e48ad7214478b42e1bb45d9",
+    "libs/jlcpcb.3dshapes/RELAY-TH_L20.5-W7.0-H15.0.wrl": "601493c4088cdecc9c1a1b5edd5cd3ae21ef9818b4c32ea5e592601ad23fa005",
+    "libs/jlcpcb.3dshapes/SMA_L4.4-W2.8-LS5.4-R-RD.step": "58d30fcb4477ccc5da957c6c68203d76bfbe6b408d28c4333ba08a2ce80e1a4b",
+    "libs/jlcpcb.3dshapes/SMA_L4.4-W2.8-LS5.4-R-RD.wrl": "bb2cc4e96e92cc63dbcdc5fbb78435251568dafdf36d4b7995f1e9e925f0a62b",
+    "libs/jlcpcb.3dshapes/SOD-323_L1.8-W1.3-LS2.5-RD-1.step": "45bf8064cdef8fd8661267c7546a4c082cdd7765fecad399ef31eb2e69716372",
+    "libs/jlcpcb.3dshapes/SOD-323_L1.8-W1.3-LS2.5-RD-1.wrl": "79408be02300aa6e13575bacbe30064931ac19a0e94985ec53ec3a31cc96c992",
+    "libs/jlcpcb.3dshapes/SOT-23-3P_L2.9-W1.3-H1.0-LS2.4-P0.95.step": "77ba908a82212855f2a6d38b120604e403137808eaba47113ce858f1831017e5",
+    "libs/jlcpcb.3dshapes/SOT-23-3P_L2.9-W1.3-H1.0-LS2.4-P0.95.wrl": "fb881f78652222defd7861812e88da49904f0947f933399d723909fe6875ae71",
+    "libs/jlcpcb.3dshapes/SSOP-28_L10.2-W5.3-H2.0-LS7.8-P0.65.step": "4af349489f18af9733d55acda758dd29f385cfbf92baa8796eadcd5e0dc99d6b",
+    "libs/jlcpcb.3dshapes/SSOP-28_L10.2-W5.3-H2.0-LS7.8-P0.65.wrl": "d368e9014652a2d900a21986833c5f87c2f4684e39844e3ff6b4418576c57489",
+    "libs/jlcpcb.3dshapes/TO-263-2_L10.1-W9.1-P5.08-LS15.2-BR-1.step": "8de35c91e90c8c65697796ca3258891141ea11b3c5e1a85fa7c04a13324ff4e2",
+    "libs/jlcpcb.3dshapes/TO-263-2_L10.1-W9.1-P5.08-LS15.2-BR-1.wrl": "1e522d17a347938576e995f442bc89eaa99f5767e262856f74051ced314e41e8",
+    "libs/jlcpcb.3dshapes/TSSOP-16_L5.0-W4.4-H1.0-LS6.4-P0.65.step": "684b2d11f7a055c38254eef824e203106e06c3dc151b194d126a8ebd59075f52",
+    "libs/jlcpcb.3dshapes/TSSOP-16_L5.0-W4.4-H1.0-LS6.4-P0.65.wrl": "a62083079172f9cfb5a3b24d0d285fee4f2f27b42c115bb81f233b0f09d76362",
+    "libs/jlcpcb.kicad_sym": "b757c9da0d804f20c3a839370068caa741f315b5fa7fa4ede7ad7414f5a2f0fe",
+    "libs/jlcpcb.pretty/CRYSTAL-SMD_L11.4-W4.7-LS12.4.kicad_mod": "b087d8ecb1580f6fb0029b431c5aea0f55a7cf496cd9dfa01f39b74b7bb56c6a",
+    "libs/jlcpcb.pretty/RELAYS-TH_HF46F-G-XX-HS1-XXX.kicad_mod": "41e8da1d1655470ff3bf60d979392c4dc428b0bac581f25df08868537ad97fa9",
+    "libs/jlcpcb.pretty/SMA_L4.4-W2.8-LS5.4-R-RD.kicad_mod": "d690aea13e7a8043aa98e1fddbe57a56b5b2bf8a0619627612e26b3a9429a046",
+    "libs/jlcpcb.pretty/SOD-323_L1.8-W1.3-LS2.5-RD-1.kicad_mod": "6713f57e5187f8b661e7b4dda5986ce0adc4c32c4bda18f667469e532dac647a",
+    "libs/jlcpcb.pretty/SOT-23-3_L2.9-W1.3-P1.90-LS2.4-BR.kicad_mod": "0cf478e29d57493bd9aab1f1272fe048515d63a8cbbfca9f17617153820c3ce1",
+    "libs/jlcpcb.pretty/SOT-23_L2.9-W1.3-P1.90-LS2.4-BR.kicad_mod": "1a86c2c3db6c37d1e2546d2413afc9655e0590651a31fe88ee4edb26807e64eb",
+    "libs/jlcpcb.pretty/SSOP-28_L10.2-W5.3-P0.65-LS7.8-BL.kicad_mod": "a10f51cea9b610d37ec0ab8f5c89166514433a40af2ac5d84e06ac81ef634e6e",
+    "libs/jlcpcb.pretty/TO-263-2_L10.1-W9.1-P5.08-LS15.2-BR-1.kicad_mod": "394ad6799270031a7fe69532e2b7073b96a9670b3d45395dbe6350b6b7344a80",
+    "libs/jlcpcb.pretty/TSSOP-16_L5.0-W4.4-P0.65-LS6.4-BL.kicad_mod": "5f64852a69a2eb3e9c074b5254c60ba3ca77f17649332cb30ed4dee96e21812c",
+    "libs/tms.pretty/XBee_THT_20pin_P2.00mm.kicad_mod": "d25456142dda10d02ef99864f49b3a8592e56fef93bfb6b3f8b0e2b6e0bad031",
+    "load-cell-ads1256.kicad_sch": "a72f08bd0f92039b914c7b55dfaa1ede4cc64c5b524202c6b3c5f01c298441ca",
+    "netmap.json": "876a62047e2fd55caa7f9570f15f55f172d3bcaaeab83a21a50354f573428d29",
+    "power-and-protection.kicad_sch": "14d72b7df979668ca9fe65a7e69c86a5984bce6df5302036f014fbb4a89da773",
+    "pressure-ads1220.kicad_sch": "aa69158d7f18bc266aabf96361123b5b3fc1926dde65efd4292f4253c7cfd609",
+    "project.yaml": "f0ca3a879a2e689b135f73c9642298c4cf654c7c834fdea2e3d9c2bed12b5a11",
+    "REFERENCE_REVIEW.md": "586c1ee251585701df60aa81a79b900fadb032003c0d4ac021204f9f34f2c4df",
+    "REQUIREMENTS.md": "a034a7d7d559c0e52c3a9f7d76e0c5aa30f9dc48e47cf95af44f5a86918336bc",
+    "review-profile.yaml": "a3bbad55446791a07b7d6f7eb842f15c068d8794ec013efd701088674354fea1",
+    "review-signoff.yaml": null,
+    "schematic-intent.yaml": "1d076aff3765f2f5c3686a1160bd942df2ed207baee3826fdd5433eebe45ed80",
+    "sym-lib-table": "0437215f30c046f430a130c40c2fe5fa48b9243f90b42e3992ad34dc0927f76d",
+    "tms-v3.kicad_dru": null,
+    "tms-v3.kicad_pcb": "70e52d1410792282c99cbd0c38ab1e32418a5cf34f19ddd37a43e8e6f520e3f1",
+    "tms-v3.kicad_pro": "4d13293e2f73fcaef523dc7ffe60fefae3dd765595a7f7cb13dd5a4612352d24",
+    "tms-v3.kicad_sch": "2cf0f081f8f571bb6e5f30e1afbf0f5e55fcdae12f088db68d3472e9ac09f224"
+  },
+  "schematic_sha256": "e973b95edbc81856b43a483361fad050aa3d19906ec3c839f5a2520b7d953771",
+  "pcb_sha256": "70e52d1410792282c99cbd0c38ab1e32418a5cf34f19ddd37a43e8e6f520e3f1",
+  "kicad_version": "10.0.6",
+  "git_head": "5f0f481b4c7602a92f296441c40f1f1924188f59",
+  "code_fingerprint_record": "metadata.json in the external archive (working tree includes uncommitted changes)",
+  "pipeline_source_unchanged_during_run": true,
+  "cli_commands_completed": 25,
+  "expected_exit_codes_verified": true,
+  "invariants": {
+    "completed_at": "2026-10-07T10:58:48.828869+00:00",
+    "original_all_files_unchanged": true,
+    "owner_scratch_preserved": true,
+    "source_input_count": 68,
+    "candidate_unchanged": true,
+    "fabrication_unchanged": true,
+    "preview_package_unchanged": true
+  },
+  "native_steps": [
+    {
+      "stage": "01-status",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "status",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\tms-v3"
+      ],
+      "returncode": 0,
+      "duration_seconds": 2.39,
+      "changed_project_inputs": [],
+      "original_inputs_unchanged": true,
+      "candidate_files_unchanged": true,
+      "fabrication_unchanged": true,
+      "preview_package_unchanged": true,
+      "operation_lock_released": true
+    },
+    {
+      "stage": "02-evidence-verify",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "research",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\tms-v3",
+        "--verify"
+      ],
+      "returncode": 0,
+      "duration_seconds": 1.33,
+      "changed_project_inputs": [],
+      "original_inputs_unchanged": true,
+      "candidate_files_unchanged": true,
+      "fabrication_unchanged": true,
+      "preview_package_unchanged": true,
+      "operation_lock_released": true
+    },
+    {
+      "stage": "03-search-plan",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "research",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\tms-v3",
+        "--search-plan",
+        "ADS1220"
+      ],
+      "returncode": 0,
+      "duration_seconds": 1.08,
+      "changed_project_inputs": [],
+      "original_inputs_unchanged": true,
+      "candidate_files_unchanged": true,
+      "fabrication_unchanged": true,
+      "preview_package_unchanged": true,
+      "operation_lock_released": true
+    },
+    {
+      "stage": "04-evidence-extract",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "research",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\tms-v3",
+        "--extract",
+        "ADS1220"
+      ],
+      "returncode": 0,
+      "duration_seconds": 1.2,
+      "changed_project_inputs": [],
+      "original_inputs_unchanged": true,
+      "candidate_files_unchanged": true,
+      "fabrication_unchanged": true,
+      "preview_package_unchanged": true,
+      "operation_lock_released": true
+    },
+    {
+      "stage": "05-reference-pair",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "research",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\tms-v3",
+        "--inspect-reference",
+        "sha256:06809c8c1335a3581d08cc29f73f9cbd5d76d59f864283c90997d73321750691",
+        "sha256:30c7978775749e9178d67311229ada682460f87f777642532a6a854d5d07b790"
+      ],
+      "returncode": 0,
+      "duration_seconds": 1.3,
+      "changed_project_inputs": [],
+      "original_inputs_unchanged": true,
+      "candidate_files_unchanged": true,
+      "fabrication_unchanged": true,
+      "preview_package_unchanged": true,
+      "operation_lock_released": true
+    },
+    {
+      "stage": "06-parts-lookup",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "parts",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\tms-v3",
+        "--lookup",
+        "C48263"
+      ],
+      "returncode": 0,
+      "duration_seconds": 1.79,
+      "changed_project_inputs": [],
+      "original_inputs_unchanged": true,
+      "candidate_files_unchanged": true,
+      "fabrication_unchanged": true,
+      "preview_package_unchanged": true,
+      "operation_lock_released": true
+    },
+    {
+      "stage": "07-schematic-preview",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "update-schematic",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\tms-v3",
+        "--candidate",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\native-candidate\\tms-v3.kicad_sch"
+      ],
+      "returncode": 1,
+      "duration_seconds": 43.25,
+      "changed_project_inputs": [],
+      "original_inputs_unchanged": true,
+      "candidate_files_unchanged": true,
+      "fabrication_unchanged": true,
+      "preview_package_unchanged": true,
+      "operation_lock_released": true
+    },
+    {
+      "stage": "08-schematic-blocked-apply",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "update-schematic",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\tms-v3",
+        "--candidate",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\native-candidate\\tms-v3.kicad_sch",
+        "--apply"
+      ],
+      "returncode": 2,
+      "duration_seconds": 2.31,
+      "changed_project_inputs": [],
+      "original_inputs_unchanged": true,
+      "candidate_files_unchanged": true,
+      "fabrication_unchanged": true,
+      "preview_package_unchanged": true,
+      "operation_lock_released": true
+    },
+    {
+      "stage": "09-layout-preview",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "update-layout",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\tms-v3",
+        "--candidate",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\native-candidate\\tms-v3.kicad_pcb"
+      ],
+      "returncode": 1,
+      "duration_seconds": 62.15,
+      "changed_project_inputs": [],
+      "original_inputs_unchanged": true,
+      "candidate_files_unchanged": true,
+      "fabrication_unchanged": true,
+      "preview_package_unchanged": true,
+      "operation_lock_released": true
+    },
+    {
+      "stage": "10-layout-blocked-apply",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "update-layout",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\tms-v3",
+        "--candidate",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\native-candidate\\tms-v3.kicad_pcb",
+        "--apply"
+      ],
+      "returncode": 2,
+      "duration_seconds": 1.97,
+      "changed_project_inputs": [],
+      "original_inputs_unchanged": true,
+      "candidate_files_unchanged": true,
+      "fabrication_unchanged": true,
+      "preview_package_unchanged": true,
+      "operation_lock_released": true
+    },
+    {
+      "stage": "11-review",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "review",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\tms-v3",
+        "--format",
+        "json",
+        "--output",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\tms-v3\\.pcb-copilot\\reports\\full-pipeline.json"
+      ],
+      "returncode": 1,
+      "duration_seconds": 34.04,
+      "changed_project_inputs": [],
+      "original_inputs_unchanged": true,
+      "candidate_files_unchanged": true,
+      "fabrication_unchanged": true,
+      "preview_package_unchanged": true,
+      "operation_lock_released": true
+    },
+    {
+      "stage": "12-prepare-signoff",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "prepare-signoff",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\tms-v3"
+      ],
+      "returncode": 0,
+      "duration_seconds": 1.92,
+      "changed_project_inputs": [
+        "review-signoff.yaml"
+      ],
+      "original_inputs_unchanged": true,
+      "candidate_files_unchanged": true,
+      "fabrication_unchanged": true,
+      "preview_package_unchanged": true,
+      "operation_lock_released": true
+    },
+    {
+      "stage": "13-signoff-overwrite-rejected",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "prepare-signoff",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\tms-v3"
+      ],
+      "returncode": 2,
+      "duration_seconds": 1.68,
+      "changed_project_inputs": [],
+      "original_inputs_unchanged": true,
+      "candidate_files_unchanged": true,
+      "fabrication_unchanged": true,
+      "preview_package_unchanged": true,
+      "operation_lock_released": true
+    },
+    {
+      "stage": "14-release-preview",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "release",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\tms-v3",
+        "--preview",
+        "--quantity",
+        "1"
+      ],
+      "returncode": 2,
+      "duration_seconds": 43.19,
+      "changed_project_inputs": [],
+      "original_inputs_unchanged": true,
+      "candidate_files_unchanged": true,
+      "fabrication_unchanged": true,
+      "preview_package_unchanged": true,
+      "operation_lock_released": true
+    },
+    {
+      "stage": "15-release-blocked",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "release",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\tms-v3"
+      ],
+      "returncode": 1,
+      "duration_seconds": 39.34,
+      "changed_project_inputs": [],
+      "original_inputs_unchanged": true,
+      "candidate_files_unchanged": true,
+      "fabrication_unchanged": true,
+      "preview_package_unchanged": true,
+      "operation_lock_released": true
+    },
+    {
+      "stage": "16-final-status",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "status",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\tms-v3"
+      ],
+      "returncode": 0,
+      "duration_seconds": 2.05,
+      "changed_project_inputs": [],
+      "original_inputs_unchanged": true,
+      "candidate_files_unchanged": true,
+      "fabrication_unchanged": true,
+      "preview_package_unchanged": true,
+      "operation_lock_released": true
+    },
+    {
+      "stage": "17-clean-preview",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "clean",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\tms-v3"
+      ],
+      "returncode": 0,
+      "duration_seconds": 2.39,
+      "changed_project_inputs": [],
+      "original_inputs_unchanged": true,
+      "candidate_files_unchanged": true,
+      "fabrication_unchanged": true,
+      "preview_package_unchanged": true,
+      "operation_lock_released": true
+    },
+    {
+      "stage": "18-clean-apply",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "clean",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\tms-v3",
+        "--apply"
+      ],
+      "returncode": 0,
+      "duration_seconds": 2.32,
+      "changed_project_inputs": [],
+      "original_inputs_unchanged": true,
+      "candidate_files_unchanged": true,
+      "fabrication_unchanged": true,
+      "preview_package_unchanged": true,
+      "operation_lock_released": true
+    },
+    {
+      "stage": "19-clean-idempotent",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "clean",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\tms-v3"
+      ],
+      "returncode": 0,
+      "duration_seconds": 1.53,
+      "changed_project_inputs": [],
+      "original_inputs_unchanged": true,
+      "candidate_files_unchanged": true,
+      "fabrication_unchanged": true,
+      "preview_package_unchanged": true,
+      "operation_lock_released": true
+    }
+  ],
+  "supplier_steps": [
+    {
+      "stage": "01-evidence-add",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "research",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\supplier-test\\tms-v3",
+        "--add",
+        "ADS1220",
+        "https://www.ti.com/lit/ds/symlink/ads1220.pdf",
+        "--role",
+        "datasheet"
+      ],
+      "returncode": 0,
+      "duration_seconds": 1.81,
+      "changed_inputs": [
+        "evidence/index.yaml"
+      ],
+      "original_unchanged": true,
+      "existing_library_assets_preserved": true
+    },
+    {
+      "stage": "02-evidence-verify",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "research",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\supplier-test\\tms-v3",
+        "--verify"
+      ],
+      "returncode": 0,
+      "duration_seconds": 1.31,
+      "changed_inputs": [],
+      "original_unchanged": true,
+      "existing_library_assets_preserved": true
+    },
+    {
+      "stage": "03-import",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "parts",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\supplier-test\\tms-v3",
+        "--import",
+        "C48263",
+        "--mpn",
+        "ADS1220IPWR"
+      ],
+      "returncode": 0,
+      "duration_seconds": 12.29,
+      "changed_inputs": [
+        "evidence/files/ADS1220IPWR_components_68294c2b9980.txt",
+        "evidence/index.yaml",
+        "fp-lib-table",
+        "libs/lcsc_C48263.3dshapes/TSSOP-16_L5.0-W4.4-H1.0-LS6.4-P0.65.step",
+        "libs/lcsc_C48263.3dshapes/TSSOP-16_L5.0-W4.4-H1.0-LS6.4-P0.65.wrl",
+        "libs/lcsc_C48263.kicad_sym",
+        "libs/lcsc_C48263.pretty/TSSOP-16_L5.0-W4.4-P0.65-LS6.4-BL.kicad_mod",
+        "sym-lib-table"
+      ],
+      "original_unchanged": true,
+      "existing_library_assets_preserved": true
+    },
+    {
+      "stage": "04-repeat-import-refused",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "parts",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\supplier-test\\tms-v3",
+        "--import",
+        "C48263",
+        "--mpn",
+        "ADS1220IPWR"
+      ],
+      "returncode": 2,
+      "duration_seconds": 1.92,
+      "changed_inputs": [],
+      "original_unchanged": true,
+      "existing_library_assets_preserved": true
+    },
+    {
+      "stage": "05-identity-mismatch-refused",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "parts",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\supplier-test\\tms-v3",
+        "--import",
+        "C48263",
+        "--mpn",
+        "NOT-THE-REQUESTED-MPN"
+      ],
+      "returncode": 2,
+      "duration_seconds": 1.58,
+      "changed_inputs": [],
+      "original_unchanged": true,
+      "existing_library_assets_preserved": true
+    },
+    {
+      "stage": "06-imported-evidence-verify",
+      "command": [
+        "C:\\Users\\tae06\\CODE\\PCB\\.venv\\Scripts\\pcb-copilot.exe",
+        "research",
+        "C:\\Users\\tae06\\.codex\\archives\\pcb\\tms-pipeline-validation-20261007-195259\\supplier-test\\tms-v3",
+        "--verify"
+      ],
+      "returncode": 0,
+      "duration_seconds": 1.15,
+      "changed_inputs": [],
+      "original_unchanged": true,
+      "existing_library_assets_preserved": true
+    }
+  ],
+  "review": {
+    "checks": 14,
+    "passed": 7,
+    "blocked": 7,
+    "results": [
+      {
+        "check_id": "research",
+        "passed": true,
+        "detail": "requirements, cited basis and archived evidence verified"
+      },
+      {
+        "check_id": "datasheets",
+        "passed": true,
+        "detail": "required datasheet bytes verified"
+      },
+      {
+        "check_id": "erc",
+        "passed": false,
+        "detail": "5 violation(s), 37 unspecified-pin warnings waived"
+      },
+      {
+        "check_id": "schematic_ownership",
+        "passed": false,
+        "detail": "netmap is stale for: R2, U4"
+      },
+      {
+        "check_id": "netlist_parity",
+        "passed": false,
+        "detail": "Ignition/NPN_BASE: schematic [('Q1', '1'), ('R1', '2')]; PCB [('Q1', '1'), ('R1', '2'), ('R2', '1')]\nPower/VBAT_PROT: schematic [('C15', '1'), ('D3', '2')]; PCB [('C15', '1'), ('D3', '2'), ('U4', '1')]\nunconnected-(R2-Pad1): schematic [('R2', '1')]; PCB []\nunconnected-(U4-IN-Pad1): schematic [('U4', '1')]; PCB []\nC1: missing schematic link; F8 would add a duplicate footprint\nC10: missing schematic link; F8 would add a duplicate footprint\nC11: missing schematic link; F8 would add a duplicate footprint\nC12: missing schematic link; F8 would add a duplicate footprint\nC13: missing schematic link; F8 would add a duplicate footprint\nC14: missing schematic link; F8 would add a duplicate footprint\nC15: missing schematic link; F8 would add a duplicate footprint\nC16: missing schematic link; F8 would add a duplicate footprint\nC17: missing schematic link; F8 would add a duplicate footprint\nC2: missing schematic link; F8 would add a duplicate footprint\nC3: missing schematic link; F8 would add a duplicate footprint\nC4: missing schematic link; F8 would add a duplicate footprint\nC5: missing schematic link; F8 would add a duplicate footprint\nC6: missing schematic link; F8 would add a duplicate footprint\nC7: missing schematic link; F8 would add a duplicate footprint\nC8: missing schematic link; F8 would add a duplicate footprint\nC9: missing schematic link; F8 would add a duplicate footprint\nD1: missing schematic link; F8 would add a duplicate footprint\nD2: missing schematic link; F8 would add a duplicate footprint\nD3: missing schematic link; F8 would add a duplicate footprint\nH1: missing schematic link; F8 would add a duplicate footprint\nH2: missing schematic link; F8 would add a duplicate footprint\nH3: missing schematic link; F8 would add a duplicate footprint\nH4: missing schematic link; F8 would add a duplicate footprint\nJ1: missing schematic link; F8 would add a duplicate footprint\nJ2: missing schematic link; F8 would add a duplicate footprint\nJ3: missing schematic link; F8 would add a duplicate footprint\nJ4: missing schematic link; F8 would add a duplicate footprint\nJ5: missing schematic link; F8 would add a duplicate footprint\nJ6: missing schematic link; F8 would add a duplicate footprint\nJ7: missing schematic link; F8 would add a duplicate footprint\nJ8: missing schematic link; F8 would add a duplicate footprint\nJ9: missing schematic link; F8 would add a duplicate footprint\nK1: missing schematic link; F8 would add a duplicate footprint\nL1: missing schematic link; F8 would add a duplicate footprint\nLED1: missing schematic link; F8 would add a duplicate footprint\nLED2: missing schematic link; F8 would add a duplicate footprint\nLED3: missing schematic link; F8 would add a duplicate footprint\nQ1: missing schematic link; F8 would add a duplicate footprint\nR1: missing schematic link; F8 would add a duplicate footprint\nR10: missing schematic link; F8 would add a duplicate footprint\nR11: missing schematic link; F8 would add a duplicate footprint\nR12: missing schematic link; F8 would add a duplicate footprint\nR13: missing schematic link; F8 would add a duplicate footprint\nR14: missing schematic link; F8 would add a duplicate footprint\nR2: missing schematic link; F8 would add a duplicate footprint\nR3: missing schematic link; F8 would add a duplicate footprint\nR4: missing schematic link; F8 would add a duplicate footprint\nR5: missing schematic link; F8 would add a duplicate footprint\nR6: missing schematic link; F8 would add a duplicate footprint\nR7: missing schematic link; F8 would add a duplicate footprint\nR8: missing schematic link; F8 would add a duplicate footprint\nR9: missing schematic link; F8 would add a duplicate footprint\nTP1: missing schematic link; F8 would add a duplicate footprint\nTP2: missing schematic link; F8 would add a duplicate footprint\nTP3: missing schematic link; F8 would add a duplicate footprint\nTP4: missing schematic link; F8 would add a duplicate footprint\nTP5: missing schematic link; F8 would add a duplicate footprint\nTP6: missing schematic link; F8 would add a duplicate footprint\nTP7: missing schematic link; F8 would add a duplicate footprint\nTP8: missing schematic link; F8 would add a duplicate footprint\nTP9: missing schematic link; F8 would add a duplicate footprint\nU2: missing schematic link; F8 would add a duplicate footprint\nU3: missing schematic link; F8 would add a duplicate footprint\nU4: missing schematic link; F8 would add a duplicate footprint\nY1: missing schematic link; F8 would add a duplicate footprint"
+      },
+      {
+        "check_id": "placement",
+        "passed": true,
+        "detail": "implemented placement checks pass"
+      },
+      {
+        "check_id": "design_rules",
+        "passed": true,
+        "detail": "=== docs/DESIGN_RULES.md geometric checks: C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-copilot-review-2hzqdn0y\\tms-v3\\tms-v3.kicad_pcb ===\n\n1 DECLARED DEVIATION(S) (DEVIATIONS.md):\n  [2.2 decoupling <=2mm]  U2.15 [+3V3] -> nearest C6 (100nF): 2.50mm  EXCEEDS 2mm\n      reason: DVDD. 2.3mm rather than 2.0mm. Pins 14 and 15 are on OPPOSITE sides of the SSOP-28 (1-14 down, 15-28 up), and the pin-15 side also carries XTAL1/XTAL2, where rule 5.1 gives the crystal first claim on the space. C6 is as close as the 0.5mm reflow clearance of rule 1.2 permits.\n\npassing:\n  [1.2 heat source >=15mm from analog]  2 ok\n  [2.2 decoupling <=2mm]  5 ok\n  [5.1 crystal <=5mm from IC]  1 ok\n  [5.1 load cap <=3mm from crystal]  2 ok\n  [6.1 regulator cap <=5mm]  1 ok\n\nRESULT: 0 violation(s), 11 check(s) passed\nSCOPE: geometric rules 1.2, 2.2, 5.1, 6.1 only (4 of 42 numbered subsections in docs/DESIGN_RULES.md). The remainder are not machine-checkable from the board file and are covered by the Phase 5 human review."
+      },
+      {
+        "check_id": "drc",
+        "passed": false,
+        "detail": "1 error(s), 15 warning(s), 4 unconnected; two refilled runs"
+      },
+      {
+        "check_id": "jlcpcb_dfm",
+        "passed": false,
+        "detail": "jlcpcb-2layer-1oz-green-2026-10-05: 244 error(s), 4 unconnected. Set solder-mask minimum web width to at least 0.10 mm.; Annular width (rule 'JLCPCB recommended component annular ring' min annular width 0.2500 mm; actual 0.2000 mm); Annular width (rule 'JLCPCB recommended component annular ring' min annular width 0.2500 mm; actual 0.2000 mm); Annular width (rule 'JLCPCB recommended component annular ring' min annular width 0.2500 mm; actual 0.2000 mm); Annular width (rule 'JLCPCB recommended component annular ring' min annular width 0.2500 mm; actual 0.2000 mm); Clearance violation (netclass 'Power' clearance 0.2000 mm; actual 0.1932 mm); Assertion failure (rule 'JLCPCB silkscreen graphic stroke'); Assertion failure (rule 'JLCPCB silkscreen graphic stroke'); Assertion failure (rule 'JLCPCB silkscreen graphic stroke')"
+      },
+      {
+        "check_id": "assembly_contracts",
+        "passed": false,
+        "detail": "conflicting values without an exact MPN: ['J1', 'J2']"
+      },
+      {
+        "check_id": "routing_settings",
+        "passed": true,
+        "detail": "Native routing: 509 segments, 0 arcs, 87 vias; 0 locked item(s). Default width: 0.254 mm; 0 positive width preset(s)."
+      },
+      {
+        "check_id": "routing_topology",
+        "passed": true,
+        "detail": "Inspected 509 straight tracks: {'short_track': 55, 'covered_track': 3}. Excluded 0 arcs and 0 custom/offset pads. Native DRC remains the connectivity gate; copper was not changed."
+      },
+      {
+        "check_id": "schematic_quality",
+        "passed": true,
+        "detail": "7 sheet(s) checked"
+      },
+      {
+        "check_id": "signoff",
+        "passed": false,
+        "detail": "0/12 current decisions: ignition-current unsigned; safe-state unsigned; current-path unsigned; controller-sockets unsigned; xbee-fit unsigned; adc-reference unsigned; thermal unsigned; isolated-return unsigned; mechanical unsigned; sourcing unsigned; shared.schematic-readability unsigned; shared.layout-handover unsigned"
+      }
+    ]
+  },
+  "signoff": {
+    "unsigned_items": 12,
+    "shared_items_present": true,
+    "overwrite_refused": true
+  },
+  "release": {
+    "released": false,
+    "review_blocked": true,
+    "fabrication_preserved": true,
+    "preview_prepared": false,
+    "preview_failure": "conflicting values without an exact MPN: J1, J2",
+    "previous_preview_preserved": true,
+    "release_state_created": false
+  },
+  "stock_probe": {
+    "scope": "One native TMS component, U3 / ADS1220IPWR / C48263, quantity one; not a complete TMS BOM",
+    "passed": true,
+    "observed_at": "2026-10-07T10:56:27.292713+00:00",
+    "response_sha256": "913e0a51b09635090fbf619909c506bded34f458abc06f1e5b80473a08a6d15b"
+  },
+  "visual": {
+    "page_count": 7,
+    "all_rendered_pages_match_previously_inspected_sheets": true,
+    "comparison": [
+      {
+        "page": 1,
+        "render_matches_previous_inspected_sheet": true,
+        "sha256": "2bb946e58449b8b83981835dc152c246ce2631af79d1ef7551e67c99e6bbacf5"
+      },
+      {
+        "page": 2,
+        "render_matches_previous_inspected_sheet": true,
+        "sha256": "ea1688269b760c7e243b31c07717474340ca03c991b31a0e973cca083509350d"
+      },
+      {
+        "page": 3,
+        "render_matches_previous_inspected_sheet": true,
+        "sha256": "926d859e54381bc54ff859af708a9199c87bdaee87d4e2613ee3df7371a4e076"
+      },
+      {
+        "page": 4,
+        "render_matches_previous_inspected_sheet": true,
+        "sha256": "913e6fabef7d04a75dcc77382cde18229acd8aa824342e369553ea9910520705"
+      },
+      {
+        "page": 5,
+        "render_matches_previous_inspected_sheet": true,
+        "sha256": "1ce193634fa98c01362b3f14e7075d8a0de7003fd8f787ff914cf22a9361fa2e"
+      },
+      {
+        "page": 6,
+        "render_matches_previous_inspected_sheet": true,
+        "sha256": "acfae28e33138272737a1f91db4fc36c139ccef94ac56224d22886ca58118a40"
+      },
+      {
+        "page": 7,
+        "render_matches_previous_inspected_sheet": true,
+        "sha256": "b4d7c58f9b3535474b39424cbdb49337b2cd181bdd7d1a427e2fd4143d2fae54"
+      }
+    ],
+    "layout_svg_opened_and_inspected": true,
+    "step_limit": "Native exporter reported missing J1/J2 models; pipeline retained partial-model advisory."
+  },
+  "cleanup": {
+    "allowlisted_files_removed": 12,
+    "bytes_removed": 13053843,
+    "second_plan_empty": true,
+    "unknown_scratch_and_retained_report_preserved": true
+  },
+  "coverage_limits": [
+    "Successful CAD application and fabrication publication were not reached on blocked TMS.",
+    "BOM/CPL completion, full-board stock, assembly models and preview publication were blocked by J1/J2 identity.",
+    "Historical intent redraw and optional autorouting were not invoked for this saved-native workflow.",
+    "No human decisions, circuit changes, fabrication approval or supplier order were made."
+  ]
+}

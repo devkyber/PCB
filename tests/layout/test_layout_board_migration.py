@@ -14,6 +14,7 @@ from pcb_copilot.layout.render import native_board, schematic_inventory
 from pcb_copilot.project import load_project
 from pcb_copilot.state import accepted_file_hashes
 from pcb_copilot.toolchain import discover_toolchain
+from tests.board_fixtures import board_source
 
 BOARDS = ["baro-bmp390", "imu-icm42688", "gnss-neom9n", "tms-v3"]
 MECHANICS = {
@@ -37,12 +38,12 @@ OWNER_CODES = {
 
 @pytest.mark.parametrize("name", BOARDS)
 def test_migration_intent_exists(repo_root, name):
-    assert (repo_root / "projects" / name / "layout-intent.yaml").is_file()
+    assert (board_source(repo_root, name) / "layout-intent.yaml").is_file()
 
 
 @pytest.fixture(params=BOARDS, ids=BOARDS)
 def migrated(request, repo_root, kipython):
-    project = load_project(repo_root / "projects" / request.param)
+    project = load_project(board_source(repo_root, request.param))
     path = project.root / "layout-intent.yaml"
     assert path.is_file(), f"missing migration intent: {request.param}"
     return project, load_layout_intent(path), discover_toolchain(repo_root)
@@ -68,7 +69,10 @@ def test_native_inventory_and_mechanics_are_preserved(migrated):
     assert len(intent.regions) > 1
     native_rules = _native(project.pcb_path, toolchain.kipython)["nets"]
     intended_rules = {net: cls for cls in intent.net_classes for net in cls.nets}
-    assert set(intended_rules) == set(nets)
+    # This migration contract preserves the saved PCB's routing rules. Live
+    # owner schematic edits can diverge; the separate native parity/review gate
+    # must report that rather than silently rewriting CAD to fit this fixture.
+    assert set(intended_rules) == set(native_rules) - {''}
     for net, cls in intended_rules.items():
         for field, native_field in (
             ("width_mm", "width"),
@@ -120,7 +124,16 @@ def test_fresh_human_draft_keeps_complete_native_inventory_and_reports_limits(
     assert "custom_rules_sha256" in constraints
     accepted = native_board(toolchain, copied.pcb_path)
     draft = native_board(toolchain, Path(report["pcb"]))
-    assert draft["footprints"] == accepted["footprints"]
+    parts, _ = schematic_inventory(toolchain, copied.schematic_path)
+    for ref, footprint in draft['footprints'].items():
+        original = accepted['footprints'][ref]
+        assert {k: v for k, v in footprint.items() if k != 'schematic_path'} == {
+            k: v for k, v in original.items() if k != 'schematic_path'}
+        if ref in parts and footprint['schematic_path'] != original['schematic_path']:
+            assert not original['schematic_path']
+            assert footprint['schematic_path'] in parts[ref]['schematic_paths']
+        else:
+            assert footprint['schematic_path'] == original['schematic_path']
     assert OWNER_CODES[project.manifest.name] <= {
         f["code"] for f in report["engineering_warnings"]
     }

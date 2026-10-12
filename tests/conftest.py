@@ -4,6 +4,8 @@ from pathlib import Path
 
 import pytest
 
+from tests.board_fixtures import board_source
+
 
 @pytest.fixture
 def repo_root() -> Path:
@@ -15,7 +17,7 @@ def project_copy(tmp_path: Path, repo_root: Path) -> Path:
     destination = tmp_path / "baro-bmp390"
     # Local previews, drafts and approvals are not part of the source fixture.
     shutil.copytree(
-        repo_root / "projects" / "baro-bmp390", destination,
+        board_source(repo_root, 'baro-bmp390'), destination,
         ignore=shutil.ignore_patterns(".pcb-copilot"),
     )
     return destination

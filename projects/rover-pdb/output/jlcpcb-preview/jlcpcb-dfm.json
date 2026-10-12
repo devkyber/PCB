@@ -1,0 +1,11 @@
+{
+  "profile": "jlcpcb-2layer-1oz-green-2026-10-05",
+  "source": "https://jlcpcb.com/capabilities/pcb-capabilities",
+  "baseline_sha256": "60a6f49d83a14d31dab58202c70c4fe4c191d3675dde7d78238585aae1f250de",
+  "passed": true,
+  "configuration_findings": [],
+  "errors": [],
+  "warnings": [],
+  "unconnected_items": [],
+  "scope": "Native geometry, declared two-layer / 1 oz / green-mask profile. Does not establish current capacity, physical fit, assembler acceptance or order settings."
+}

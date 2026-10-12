@@ -1,0 +1,3985 @@
+{
+  "applied": true,
+  "exit_code": 0,
+  "pcb": "C:\\Users\\tae06\\CODE\\PCB\\projects\\rover-pdb-readable\\rover-pdb.kicad_pcb",
+  "preview": "C:\\Users\\tae06\\CODE\\PCB\\projects\\rover-pdb-readable\\.pcb-copilot\\preview\\layout.svg",
+  "findings": [
+    {
+      "code": "step.unavailable",
+      "message": "step export failed: Cannot use VRML models when exporting to non-mesh formats.\nCannot use VRML models when exporting to non-mesh formats.\nCannot use VRML models when exporting to non-mesh formats.\nCannot use VRML models when exporting to non-mesh formats.\nCannot use VRML models when exporting to non-mesh formats.\nCannot use VRML models when exporting to non-mesh formats.\nCannot use VRML models when exporting to non-mesh formats.\n",
+      "reference": null,
+      "evidence_id": null,
+      "severity": "review"
+    },
+    {
+      "code": "step.model_review",
+      "message": "STEP may be partial or board-only; exporter success does not establish component model completeness or mechanical fit. Inspect exporter logs and KiCad 3D.",
+      "reference": null,
+      "evidence_id": null,
+      "severity": "review"
+    }
+  ],
+  "comparison": {
+    "before": {
+      "footprints": {
+        "H4": {
+          "lib_id": "MountingHole:MountingHole_3.2mm_M3",
+          "value": "M3",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ]
+          ]
+        },
+        "R21": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "1k / 1%",
+          "lcsc": "C17513",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/12 V Jetson supply/FF_2"
+            ],
+            [
+              "2",
+              "/12 V Jetson supply/FB_2"
+            ]
+          ]
+        },
+        "TP2": {
+          "lib_id": "TestPoint:TestPoint_Pad_D2.0mm",
+          "value": "VMOTOR",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/VMOTOR"
+            ]
+          ]
+        },
+        "C13": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "10u / 50V",
+          "lcsc": "C77102",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "J9": {
+          "lib_id": "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical",
+          "value": "EXP / DNP",
+          "lcsc": "C37208",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+3V3"
+            ],
+            [
+              "2",
+              "/Pico 2 and hobby servos/GP18"
+            ],
+            [
+              "3",
+              "/Pico 2 and hobby servos/GP19"
+            ],
+            [
+              "4",
+              "/Pico 2 and hobby servos/GP20"
+            ],
+            [
+              "5",
+              "/Pico 2 and hobby servos/GP21"
+            ],
+            [
+              "6",
+              "GND"
+            ]
+          ]
+        },
+        "H3": {
+          "lib_id": "MountingHole:MountingHole_3.2mm_M3",
+          "value": "M3",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ]
+          ]
+        },
+        "R24": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "22k / 1%",
+          "lcsc": "C17560",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/SW_SUPPLY"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/AGND_4"
+            ]
+          ]
+        },
+        "C16": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "10u / 50V",
+          "lcsc": "C77102",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "R5": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "10k",
+          "lcsc": "C84376",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/Pico 2 and hobby servos/PWM_PAN"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "R11": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "100k / 1%",
+          "lcsc": "C96346",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+5V"
+            ],
+            [
+              "2",
+              "/5 V servo supply/FB_3"
+            ]
+          ]
+        },
+        "C3": {
+          "lib_id": "Capacitor_SMD:C_0805_2012Metric",
+          "value": "100n / 50V",
+          "lcsc": "C1711",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+3V3"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "C2": {
+          "lib_id": "Capacitor_THT:CP_Radial_D8.0mm_P5.00mm",
+          "value": "470u / 16V",
+          "lcsc": "C1579437",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+5V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "F1": {
+          "lib_id": "rover:Fuseholder_Littelfuse_01530008Z",
+          "value": "10A MINI (provisional)",
+          "lcsc": "C206907",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ],
+            [
+              "1",
+              "/Battery input and INA226/VBAT_FUSED"
+            ],
+            [
+              "2",
+              "/Battery input and INA226/BAT_SWITCHED"
+            ]
+          ]
+        },
+        "R13": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "100k / 1%",
+          "lcsc": "C96346",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "/12 V Jetson supply/EN_2"
+            ]
+          ]
+        },
+        "C27": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "22u / 25V",
+          "lcsc": "C309062",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+5V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "C26": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "22u / 25V",
+          "lcsc": "C309062",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+5V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "C35": {
+          "lib_id": "Capacitor_SMD:C_0805_2012Metric",
+          "value": "100n / 50V",
+          "lcsc": "C1711",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/BOOT_4"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/SW_4"
+            ]
+          ]
+        },
+        "L1": {
+          "lib_id": "rover:SRP1265A_LeadFrame_13.5x12.5_P11.1",
+          "value": "6u8 / SRP1265A",
+          "lcsc": "C2041326",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+12V"
+            ],
+            [
+              "2",
+              "/12 V Jetson supply/SW_2"
+            ]
+          ]
+        },
+        "C41": {
+          "lib_id": "Capacitor_SMD:C_0603_1608Metric",
+          "value": "33p / 50V",
+          "lcsc": "C1663",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/FF_4"
+            ]
+          ]
+        },
+        "NT3": {
+          "lib_id": "rover:AGND_Tie_LMR51450",
+          "value": "AGND tie",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/AGND_4"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "L3": {
+          "lib_id": "rover:SRP1265A_LeadFrame_13.5x12.5_P11.1",
+          "value": "3u3 / SRP1265A",
+          "lcsc": "C1329348",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/SW_4"
+            ]
+          ]
+        },
+        "TP4": {
+          "lib_id": "TestPoint:TestPoint_Pad_D2.0mm",
+          "value": "+5V",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+5V"
+            ]
+          ]
+        },
+        "U3": {
+          "lib_id": "rover:LMR51450_DRR_WSON12_3x3",
+          "value": "LMR51450SDRRR",
+          "lcsc": "C6890985",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ],
+            [
+              "",
+              ""
+            ],
+            [
+              "1",
+              "/5 V servo supply/SW_3"
+            ],
+            [
+              "2",
+              "/5 V servo supply/SW_3"
+            ],
+            [
+              "3",
+              "/5 V servo supply/SW_3"
+            ],
+            [
+              "4",
+              "/5 V servo supply/BOOT_3"
+            ],
+            [
+              "5",
+              ""
+            ],
+            [
+              "6",
+              ""
+            ],
+            [
+              "7",
+              "/5 V servo supply/FB_3"
+            ],
+            [
+              "8",
+              "/5 V servo supply/AGND_3"
+            ],
+            [
+              "9",
+              "/5 V servo supply/EN_3"
+            ],
+            [
+              "10",
+              "/VBAT"
+            ],
+            [
+              "11",
+              "/VBAT"
+            ],
+            [
+              "12",
+              "/VBAT"
+            ],
+            [
+              "13",
+              "GND"
+            ]
+          ]
+        },
+        "H2": {
+          "lib_id": "MountingHole:MountingHole_3.2mm_M3",
+          "value": "M3",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ]
+          ]
+        },
+        "C1": {
+          "lib_id": "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm",
+          "value": "220u / 50V",
+          "lcsc": "C1579630",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "SKT1": {
+          "lib_id": "rover:Pico2_Sockets_LXWCONN_254PM_1x20",
+          "value": "Pico 2 / 2x20 sockets",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/Pico 2 and hobby servos/PWM_LIFT_A"
+            ],
+            [
+              "2",
+              "/Pico 2 and hobby servos/PWM_LIFT_B"
+            ],
+            [
+              "3",
+              "GND"
+            ],
+            [
+              "4",
+              "/Pico 2 and hobby servos/PWM_PAN"
+            ],
+            [
+              "5",
+              ""
+            ],
+            [
+              "6",
+              ""
+            ],
+            [
+              "7",
+              ""
+            ],
+            [
+              "8",
+              "GND"
+            ],
+            [
+              "9",
+              ""
+            ],
+            [
+              "10",
+              ""
+            ],
+            [
+              "11",
+              ""
+            ],
+            [
+              "12",
+              ""
+            ],
+            [
+              "13",
+              "GND"
+            ],
+            [
+              "14",
+              ""
+            ],
+            [
+              "15",
+              ""
+            ],
+            [
+              "16",
+              ""
+            ],
+            [
+              "17",
+              ""
+            ],
+            [
+              "18",
+              "GND"
+            ],
+            [
+              "19",
+              ""
+            ],
+            [
+              "20",
+              ""
+            ],
+            [
+              "21",
+              "/Battery input and INA226/I2C_SDA"
+            ],
+            [
+              "22",
+              "/Battery input and INA226/I2C_SCL"
+            ],
+            [
+              "23",
+              "GND"
+            ],
+            [
+              "24",
+              "/Pico 2 and hobby servos/GP18"
+            ],
+            [
+              "25",
+              "/Pico 2 and hobby servos/GP19"
+            ],
+            [
+              "26",
+              "/Pico 2 and hobby servos/GP20"
+            ],
+            [
+              "27",
+              "/Pico 2 and hobby servos/GP21"
+            ],
+            [
+              "28",
+              "GND"
+            ],
+            [
+              "29",
+              ""
+            ],
+            [
+              "30",
+              ""
+            ],
+            [
+              "31",
+              ""
+            ],
+            [
+              "32",
+              ""
+            ],
+            [
+              "33",
+              "GND"
+            ],
+            [
+              "34",
+              ""
+            ],
+            [
+              "35",
+              ""
+            ],
+            [
+              "36",
+              "+3V3"
+            ],
+            [
+              "37",
+              ""
+            ],
+            [
+              "38",
+              "GND"
+            ],
+            [
+              "39",
+              ""
+            ],
+            [
+              "40",
+              ""
+            ]
+          ]
+        },
+        "C24": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "22u / 25V",
+          "lcsc": "C309062",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+5V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "TP1": {
+          "lib_id": "TestPoint:TestPoint_Pad_D2.0mm",
+          "value": "VBAT",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ]
+          ]
+        },
+        "FID3": {
+          "lib_id": "Fiducial:Fiducial_1mm_Mask2mm",
+          "value": "Fiducial",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ]
+          ]
+        },
+        "U2": {
+          "lib_id": "rover:LMR51450_DRR_WSON12_3x3",
+          "value": "LMR51450SDRRR",
+          "lcsc": "C6890985",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ],
+            [
+              "",
+              ""
+            ],
+            [
+              "1",
+              "/12 V Jetson supply/SW_2"
+            ],
+            [
+              "2",
+              "/12 V Jetson supply/SW_2"
+            ],
+            [
+              "3",
+              "/12 V Jetson supply/SW_2"
+            ],
+            [
+              "4",
+              "/12 V Jetson supply/BOOT_2"
+            ],
+            [
+              "5",
+              ""
+            ],
+            [
+              "6",
+              ""
+            ],
+            [
+              "7",
+              "/12 V Jetson supply/FB_2"
+            ],
+            [
+              "8",
+              "/12 V Jetson supply/AGND_2"
+            ],
+            [
+              "9",
+              "/12 V Jetson supply/EN_2"
+            ],
+            [
+              "10",
+              "/VBAT"
+            ],
+            [
+              "11",
+              "/VBAT"
+            ],
+            [
+              "12",
+              "/VBAT"
+            ],
+            [
+              "13",
+              "GND"
+            ]
+          ]
+        },
+        "R20": {
+          "lib_id": "Resistor_SMD:R_1206_3216Metric",
+          "value": "3k9 / 0.25W",
+          "lcsc": "C137289",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/LED_A"
+            ]
+          ]
+        },
+        "C14": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "10u / 50V",
+          "lcsc": "C77102",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "R23": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "1k / 1%",
+          "lcsc": "C17513",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/FF_4"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/FB_4"
+            ]
+          ]
+        },
+        "U1": {
+          "lib_id": "Package_SO:MSOP-10_3x3mm_P0.5mm",
+          "value": "INA226AIDGSR",
+          "lcsc": "C49851",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "GND"
+            ],
+            [
+              "2",
+              "GND"
+            ],
+            [
+              "3",
+              ""
+            ],
+            [
+              "4",
+              "/Battery input and INA226/I2C_SDA"
+            ],
+            [
+              "5",
+              "/Battery input and INA226/I2C_SCL"
+            ],
+            [
+              "6",
+              "+3V3"
+            ],
+            [
+              "7",
+              "GND"
+            ],
+            [
+              "8",
+              "/VBAT"
+            ],
+            [
+              "9",
+              "/VBAT"
+            ],
+            [
+              "10",
+              "/Battery input and INA226/VBAT_FUSED"
+            ]
+          ]
+        },
+        "C17": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "10u / 50V",
+          "lcsc": "C77102",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "J6": {
+          "lib_id": "Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical",
+          "value": "RIGHT WHEELS",
+          "lcsc": "C160258",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "GND"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "3",
+              "/DYNAMIXEL distribution/DXL_D_PLUS"
+            ],
+            [
+              "4",
+              "/DYNAMIXEL distribution/DXL_D_MINUS"
+            ]
+          ]
+        },
+        "NT1": {
+          "lib_id": "rover:AGND_Tie_LMR51450",
+          "value": "AGND tie",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/12 V Jetson supply/AGND_2"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "C25": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "22u / 25V",
+          "lcsc": "C309062",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+5V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "R4": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "10k",
+          "lcsc": "C84376",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/Pico 2 and hobby servos/PWM_LIFT_B"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "TP3": {
+          "lib_id": "TestPoint:TestPoint_Pad_D2.0mm",
+          "value": "+12V",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+12V"
+            ]
+          ]
+        },
+        "P1": {
+          "lib_id": "rover:WirePads_2_6x8_P12",
+          "value": "BATTERY IN",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ],
+            [
+              "",
+              ""
+            ],
+            [
+              "1",
+              "/Battery input and INA226/BAT_SWITCHED"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "L2": {
+          "lib_id": "rover:SRP1265A_LeadFrame_13.5x12.5_P11.1",
+          "value": "4u7 / SRP1265A",
+          "lcsc": "C780205",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+5V"
+            ],
+            [
+              "2",
+              "/5 V servo supply/SW_3"
+            ]
+          ]
+        },
+        "P2": {
+          "lib_id": "rover:WirePads_2_5x6_P9",
+          "value": "JETSON / BARREL",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ],
+            [
+              "",
+              ""
+            ],
+            [
+              "1",
+              "+12V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "C15": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "10u / 50V",
+          "lcsc": "C77102",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "SW1": {
+          "lib_id": "Button_Switch_THT:SW_Slide_SPDT_Angled_CK_OS102011MA1Q",
+          "value": "MOTOR ENABLE",
+          "lcsc": "C226259",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ],
+            [
+              "",
+              ""
+            ],
+            [
+              "1",
+              "/22.19 V motor supply/SW_SUPPLY"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/MOTOR_EN"
+            ],
+            [
+              "3",
+              ""
+            ]
+          ]
+        },
+        "C21": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "22u / 25V",
+          "lcsc": "C309062",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+12V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "NT2": {
+          "lib_id": "rover:AGND_Tie_LMR51450",
+          "value": "AGND tie",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/5 V servo supply/AGND_3"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "C31": {
+          "lib_id": "Capacitor_SMD:C_0805_2012Metric",
+          "value": "100n / 50V",
+          "lcsc": "C1711",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "C23": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "22u / 25V",
+          "lcsc": "C309062",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+12V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "C40": {
+          "lib_id": "Capacitor_SMD:C_0603_1608Metric",
+          "value": "33p / 50V",
+          "lcsc": "C1663",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+5V"
+            ],
+            [
+              "2",
+              "/5 V servo supply/FF_3"
+            ]
+          ]
+        },
+        "C19": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "10u / 50V",
+          "lcsc": "C77102",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "J5": {
+          "lib_id": "Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical",
+          "value": "LEFT WHEELS",
+          "lcsc": "C160258",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "GND"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "3",
+              "/DYNAMIXEL distribution/DXL_D_PLUS"
+            ],
+            [
+              "4",
+              "/DYNAMIXEL distribution/DXL_D_MINUS"
+            ]
+          ]
+        },
+        "H1": {
+          "lib_id": "MountingHole:MountingHole_3.2mm_M3",
+          "value": "M3",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ]
+          ]
+        },
+        "RS1": {
+          "lib_id": "rover:CSS2H_2512_6.35x3.05",
+          "value": "2mR / 5W / 1%",
+          "lcsc": "C2093761",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "/Battery input and INA226/VBAT_FUSED"
+            ]
+          ]
+        },
+        "C18": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "10u / 50V",
+          "lcsc": "C77102",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "R10": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "100k / 1%",
+          "lcsc": "C96346",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+12V"
+            ],
+            [
+              "2",
+              "/12 V Jetson supply/FB_2"
+            ]
+          ]
+        },
+        "R18": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "3.74k / 1%",
+          "lcsc": "C65649",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/FB_4"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/AGND_4"
+            ]
+          ]
+        },
+        "C22": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "22u / 25V",
+          "lcsc": "C309062",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+12V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "C5": {
+          "lib_id": "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm",
+          "value": "220u / 50V",
+          "lcsc": "C1579630",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "R12": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "100k / 1%",
+          "lcsc": "C96346",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/FB_4"
+            ]
+          ]
+        },
+        "C28": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "22u / 25V",
+          "lcsc": "C309062",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+5V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "R16": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "19.1k / 1%",
+          "lcsc": "C17508",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/5 V servo supply/FB_3"
+            ],
+            [
+              "2",
+              "/5 V servo supply/AGND_3"
+            ]
+          ]
+        },
+        "R15": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "100k / 1%",
+          "lcsc": "C96346",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/MOTOR_EN"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/AGND_4"
+            ]
+          ]
+        },
+        "C10": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "10u / 50V",
+          "lcsc": "C77102",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "R14": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "100k / 1%",
+          "lcsc": "C96346",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "/5 V servo supply/EN_3"
+            ]
+          ]
+        },
+        "J1": {
+          "lib_id": "Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical",
+          "value": "U2D2 DATA IN",
+          "lcsc": "C160258",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "GND"
+            ],
+            [
+              "2",
+              ""
+            ],
+            [
+              "3",
+              "/DYNAMIXEL distribution/DXL_D_PLUS"
+            ],
+            [
+              "4",
+              "/DYNAMIXEL distribution/DXL_D_MINUS"
+            ]
+          ]
+        },
+        "C34": {
+          "lib_id": "Capacitor_SMD:C_0805_2012Metric",
+          "value": "100n / 50V",
+          "lcsc": "C1711",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/5 V servo supply/BOOT_3"
+            ],
+            [
+              "2",
+              "/5 V servo supply/SW_3"
+            ]
+          ]
+        },
+        "R2": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "4k7 / 1%",
+          "lcsc": "C60816",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+3V3"
+            ],
+            [
+              "2",
+              "/Battery input and INA226/I2C_SCL"
+            ]
+          ]
+        },
+        "R19": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "100k / 1%",
+          "lcsc": "C96346",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/SW_SUPPLY"
+            ]
+          ]
+        },
+        "FID2": {
+          "lib_id": "Fiducial:Fiducial_1mm_Mask2mm",
+          "value": "Fiducial",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ]
+          ]
+        },
+        "C12": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "10u / 50V",
+          "lcsc": "C77102",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "J7": {
+          "lib_id": "Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical",
+          "value": "HAMMER",
+          "lcsc": "C160258",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "GND"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "3",
+              "/DYNAMIXEL distribution/DXL_D_PLUS"
+            ],
+            [
+              "4",
+              "/DYNAMIXEL distribution/DXL_D_MINUS"
+            ]
+          ]
+        },
+        "J3": {
+          "lib_id": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+          "value": "LIFT B",
+          "lcsc": "C3335811",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/Pico 2 and hobby servos/PWM_LIFT_B"
+            ],
+            [
+              "2",
+              "+5V"
+            ],
+            [
+              "3",
+              "GND"
+            ]
+          ]
+        },
+        "J2": {
+          "lib_id": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+          "value": "LIFT A",
+          "lcsc": "C3335811",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/Pico 2 and hobby servos/PWM_LIFT_A"
+            ],
+            [
+              "2",
+              "+5V"
+            ],
+            [
+              "3",
+              "GND"
+            ]
+          ]
+        },
+        "R17": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "7.15k / 1%",
+          "lcsc": "C17806",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/12 V Jetson supply/FB_2"
+            ],
+            [
+              "2",
+              "/12 V Jetson supply/AGND_2"
+            ]
+          ]
+        },
+        "R22": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "1k / 1%",
+          "lcsc": "C17513",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/5 V servo supply/FF_3"
+            ],
+            [
+              "2",
+              "/5 V servo supply/FB_3"
+            ]
+          ]
+        },
+        "C11": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "10u / 50V",
+          "lcsc": "C77102",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "P4": {
+          "lib_id": "rover:WirePads_2_5x6_P9",
+          "value": "5V EXP / UNWIRED",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ],
+            [
+              "",
+              ""
+            ],
+            [
+              "1",
+              "+5V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "C32": {
+          "lib_id": "Capacitor_SMD:C_0805_2012Metric",
+          "value": "100n / 50V",
+          "lcsc": "C1711",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "R1": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "4k7 / 1%",
+          "lcsc": "C60816",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+3V3"
+            ],
+            [
+              "2",
+              "/Battery input and INA226/I2C_SDA"
+            ]
+          ]
+        },
+        "C33": {
+          "lib_id": "Capacitor_SMD:C_0805_2012Metric",
+          "value": "100n / 50V",
+          "lcsc": "C1711",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/12 V Jetson supply/BOOT_2"
+            ],
+            [
+              "2",
+              "/12 V Jetson supply/SW_2"
+            ]
+          ]
+        },
+        "D2": {
+          "lib_id": "rover:KT0805G_0805_A1_K2",
+          "value": "GREEN",
+          "lcsc": "C2297",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/LED_A"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "TP6": {
+          "lib_id": "TestPoint:TestPoint_Pad_D2.0mm",
+          "value": "GND",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "GND"
+            ]
+          ]
+        },
+        "C30": {
+          "lib_id": "Capacitor_SMD:C_0805_2012Metric",
+          "value": "100n / 50V",
+          "lcsc": "C1711",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "FID1": {
+          "lib_id": "Fiducial:Fiducial_1mm_Mask2mm",
+          "value": "Fiducial",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ]
+          ]
+        },
+        "J4": {
+          "lib_id": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+          "value": "CAMERA PAN",
+          "lcsc": "C3335811",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/Pico 2 and hobby servos/PWM_PAN"
+            ],
+            [
+              "2",
+              "+5V"
+            ],
+            [
+              "3",
+              "GND"
+            ]
+          ]
+        },
+        "C20": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "22u / 25V",
+          "lcsc": "C309062",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+12V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "TP5": {
+          "lib_id": "TestPoint:TestPoint_Pad_D2.0mm",
+          "value": "+3V3",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+3V3"
+            ]
+          ]
+        },
+        "C39": {
+          "lib_id": "Capacitor_SMD:C_0603_1608Metric",
+          "value": "33p / 50V",
+          "lcsc": "C1663",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+12V"
+            ],
+            [
+              "2",
+              "/12 V Jetson supply/FF_2"
+            ]
+          ]
+        },
+        "R3": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "10k",
+          "lcsc": "C84376",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/Pico 2 and hobby servos/PWM_LIFT_A"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "U4": {
+          "lib_id": "rover:LMR51450_DRR_WSON12_3x3",
+          "value": "LMR51450SDRRR",
+          "lcsc": "C6890985",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ],
+            [
+              "",
+              ""
+            ],
+            [
+              "1",
+              "/22.19 V motor supply/SW_4"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/SW_4"
+            ],
+            [
+              "3",
+              "/22.19 V motor supply/SW_4"
+            ],
+            [
+              "4",
+              "/22.19 V motor supply/BOOT_4"
+            ],
+            [
+              "5",
+              ""
+            ],
+            [
+              "6",
+              ""
+            ],
+            [
+              "7",
+              "/22.19 V motor supply/FB_4"
+            ],
+            [
+              "8",
+              "/22.19 V motor supply/AGND_4"
+            ],
+            [
+              "9",
+              "/22.19 V motor supply/MOTOR_EN"
+            ],
+            [
+              "10",
+              "/VBAT"
+            ],
+            [
+              "11",
+              "/VBAT"
+            ],
+            [
+              "12",
+              "/VBAT"
+            ],
+            [
+              "13",
+              "GND"
+            ]
+          ]
+        },
+        "P3": {
+          "lib_id": "rover:WirePads_2_5x6_P9",
+          "value": "12V EXP / UNWIRED",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ],
+            [
+              "",
+              ""
+            ],
+            [
+              "1",
+              "+12V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        }
+      },
+      "bounds": [
+        0.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "rectangular": true,
+      "tracks": 542,
+      "zones": 2,
+      "rule_areas": 8
+    },
+    "after": {
+      "footprints": {
+        "H4": {
+          "lib_id": "MountingHole:MountingHole_3.2mm_M3",
+          "value": "M3",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ]
+          ]
+        },
+        "R21": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "1k / 1%",
+          "lcsc": "C17513",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/12 V Jetson supply/FF_2"
+            ],
+            [
+              "2",
+              "/12 V Jetson supply/FB_2"
+            ]
+          ]
+        },
+        "TP2": {
+          "lib_id": "TestPoint:TestPoint_Pad_D2.0mm",
+          "value": "VMOTOR",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/VMOTOR"
+            ]
+          ]
+        },
+        "C13": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "10u / 50V",
+          "lcsc": "C77102",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "J9": {
+          "lib_id": "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical",
+          "value": "EXP / DNP",
+          "lcsc": "C37208",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+3V3"
+            ],
+            [
+              "2",
+              "/Pico 2 and hobby servos/GP18"
+            ],
+            [
+              "3",
+              "/Pico 2 and hobby servos/GP19"
+            ],
+            [
+              "4",
+              "/Pico 2 and hobby servos/GP20"
+            ],
+            [
+              "5",
+              "/Pico 2 and hobby servos/GP21"
+            ],
+            [
+              "6",
+              "GND"
+            ]
+          ]
+        },
+        "H3": {
+          "lib_id": "MountingHole:MountingHole_3.2mm_M3",
+          "value": "M3",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ]
+          ]
+        },
+        "R24": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "22k / 1%",
+          "lcsc": "C17560",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/SW_SUPPLY"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/AGND_4"
+            ]
+          ]
+        },
+        "C16": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "10u / 50V",
+          "lcsc": "C77102",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "R5": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "10k",
+          "lcsc": "C84376",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/Pico 2 and hobby servos/PWM_PAN"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "R11": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "100k / 1%",
+          "lcsc": "C96346",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+5V"
+            ],
+            [
+              "2",
+              "/5 V servo supply/FB_3"
+            ]
+          ]
+        },
+        "C3": {
+          "lib_id": "Capacitor_SMD:C_0805_2012Metric",
+          "value": "100n / 50V",
+          "lcsc": "C1711",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+3V3"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "C2": {
+          "lib_id": "Capacitor_THT:CP_Radial_D8.0mm_P5.00mm",
+          "value": "470u / 16V",
+          "lcsc": "C1579437",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+5V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "F1": {
+          "lib_id": "rover:Fuseholder_Littelfuse_01530008Z",
+          "value": "10A MINI (provisional)",
+          "lcsc": "C206907",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ],
+            [
+              "1",
+              "/Battery input and INA226/VBAT_FUSED"
+            ],
+            [
+              "2",
+              "/Battery input and INA226/BAT_SWITCHED"
+            ]
+          ]
+        },
+        "R13": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "100k / 1%",
+          "lcsc": "C96346",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "/12 V Jetson supply/EN_2"
+            ]
+          ]
+        },
+        "C27": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "22u / 25V",
+          "lcsc": "C309062",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+5V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "C26": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "22u / 25V",
+          "lcsc": "C309062",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+5V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "C35": {
+          "lib_id": "Capacitor_SMD:C_0805_2012Metric",
+          "value": "100n / 50V",
+          "lcsc": "C1711",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/BOOT_4"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/SW_4"
+            ]
+          ]
+        },
+        "L1": {
+          "lib_id": "rover:SRP1265A_LeadFrame_13.5x12.5_P11.1",
+          "value": "6u8 / SRP1265A",
+          "lcsc": "C2041326",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+12V"
+            ],
+            [
+              "2",
+              "/12 V Jetson supply/SW_2"
+            ]
+          ]
+        },
+        "C41": {
+          "lib_id": "Capacitor_SMD:C_0603_1608Metric",
+          "value": "33p / 50V",
+          "lcsc": "C1663",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/FF_4"
+            ]
+          ]
+        },
+        "NT3": {
+          "lib_id": "rover:AGND_Tie_LMR51450",
+          "value": "AGND tie",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/AGND_4"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "L3": {
+          "lib_id": "rover:SRP1265A_LeadFrame_13.5x12.5_P11.1",
+          "value": "3u3 / SRP1265A",
+          "lcsc": "C1329348",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/SW_4"
+            ]
+          ]
+        },
+        "TP4": {
+          "lib_id": "TestPoint:TestPoint_Pad_D2.0mm",
+          "value": "+5V",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+5V"
+            ]
+          ]
+        },
+        "U3": {
+          "lib_id": "rover:LMR51450_DRR_WSON12_3x3",
+          "value": "LMR51450SDRRR",
+          "lcsc": "C6890985",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ],
+            [
+              "",
+              ""
+            ],
+            [
+              "1",
+              "/5 V servo supply/SW_3"
+            ],
+            [
+              "2",
+              "/5 V servo supply/SW_3"
+            ],
+            [
+              "3",
+              "/5 V servo supply/SW_3"
+            ],
+            [
+              "4",
+              "/5 V servo supply/BOOT_3"
+            ],
+            [
+              "5",
+              ""
+            ],
+            [
+              "6",
+              ""
+            ],
+            [
+              "7",
+              "/5 V servo supply/FB_3"
+            ],
+            [
+              "8",
+              "/5 V servo supply/AGND_3"
+            ],
+            [
+              "9",
+              "/5 V servo supply/EN_3"
+            ],
+            [
+              "10",
+              "/VBAT"
+            ],
+            [
+              "11",
+              "/VBAT"
+            ],
+            [
+              "12",
+              "/VBAT"
+            ],
+            [
+              "13",
+              "GND"
+            ]
+          ]
+        },
+        "H2": {
+          "lib_id": "MountingHole:MountingHole_3.2mm_M3",
+          "value": "M3",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ]
+          ]
+        },
+        "C1": {
+          "lib_id": "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm",
+          "value": "220u / 50V",
+          "lcsc": "C1579630",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "SKT1": {
+          "lib_id": "rover:Pico2_Sockets_LXWCONN_254PM_1x20",
+          "value": "Pico 2 / 2x20 sockets",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/Pico 2 and hobby servos/PWM_LIFT_A"
+            ],
+            [
+              "2",
+              "/Pico 2 and hobby servos/PWM_LIFT_B"
+            ],
+            [
+              "3",
+              "GND"
+            ],
+            [
+              "4",
+              "/Pico 2 and hobby servos/PWM_PAN"
+            ],
+            [
+              "5",
+              ""
+            ],
+            [
+              "6",
+              ""
+            ],
+            [
+              "7",
+              ""
+            ],
+            [
+              "8",
+              "GND"
+            ],
+            [
+              "9",
+              ""
+            ],
+            [
+              "10",
+              ""
+            ],
+            [
+              "11",
+              ""
+            ],
+            [
+              "12",
+              ""
+            ],
+            [
+              "13",
+              "GND"
+            ],
+            [
+              "14",
+              ""
+            ],
+            [
+              "15",
+              ""
+            ],
+            [
+              "16",
+              ""
+            ],
+            [
+              "17",
+              ""
+            ],
+            [
+              "18",
+              "GND"
+            ],
+            [
+              "19",
+              ""
+            ],
+            [
+              "20",
+              ""
+            ],
+            [
+              "21",
+              "/Battery input and INA226/I2C_SDA"
+            ],
+            [
+              "22",
+              "/Battery input and INA226/I2C_SCL"
+            ],
+            [
+              "23",
+              "GND"
+            ],
+            [
+              "24",
+              "/Pico 2 and hobby servos/GP18"
+            ],
+            [
+              "25",
+              "/Pico 2 and hobby servos/GP19"
+            ],
+            [
+              "26",
+              "/Pico 2 and hobby servos/GP20"
+            ],
+            [
+              "27",
+              "/Pico 2 and hobby servos/GP21"
+            ],
+            [
+              "28",
+              "GND"
+            ],
+            [
+              "29",
+              ""
+            ],
+            [
+              "30",
+              ""
+            ],
+            [
+              "31",
+              ""
+            ],
+            [
+              "32",
+              ""
+            ],
+            [
+              "33",
+              "GND"
+            ],
+            [
+              "34",
+              ""
+            ],
+            [
+              "35",
+              ""
+            ],
+            [
+              "36",
+              "+3V3"
+            ],
+            [
+              "37",
+              ""
+            ],
+            [
+              "38",
+              "GND"
+            ],
+            [
+              "39",
+              ""
+            ],
+            [
+              "40",
+              ""
+            ]
+          ]
+        },
+        "C24": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "22u / 25V",
+          "lcsc": "C309062",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+5V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "TP1": {
+          "lib_id": "TestPoint:TestPoint_Pad_D2.0mm",
+          "value": "VBAT",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ]
+          ]
+        },
+        "FID3": {
+          "lib_id": "Fiducial:Fiducial_1mm_Mask2mm",
+          "value": "Fiducial",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ]
+          ]
+        },
+        "U2": {
+          "lib_id": "rover:LMR51450_DRR_WSON12_3x3",
+          "value": "LMR51450SDRRR",
+          "lcsc": "C6890985",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ],
+            [
+              "",
+              ""
+            ],
+            [
+              "1",
+              "/12 V Jetson supply/SW_2"
+            ],
+            [
+              "2",
+              "/12 V Jetson supply/SW_2"
+            ],
+            [
+              "3",
+              "/12 V Jetson supply/SW_2"
+            ],
+            [
+              "4",
+              "/12 V Jetson supply/BOOT_2"
+            ],
+            [
+              "5",
+              ""
+            ],
+            [
+              "6",
+              ""
+            ],
+            [
+              "7",
+              "/12 V Jetson supply/FB_2"
+            ],
+            [
+              "8",
+              "/12 V Jetson supply/AGND_2"
+            ],
+            [
+              "9",
+              "/12 V Jetson supply/EN_2"
+            ],
+            [
+              "10",
+              "/VBAT"
+            ],
+            [
+              "11",
+              "/VBAT"
+            ],
+            [
+              "12",
+              "/VBAT"
+            ],
+            [
+              "13",
+              "GND"
+            ]
+          ]
+        },
+        "R20": {
+          "lib_id": "Resistor_SMD:R_1206_3216Metric",
+          "value": "3k9 / 0.25W",
+          "lcsc": "C137289",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/LED_A"
+            ]
+          ]
+        },
+        "C14": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "10u / 50V",
+          "lcsc": "C77102",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "R23": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "1k / 1%",
+          "lcsc": "C17513",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/FF_4"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/FB_4"
+            ]
+          ]
+        },
+        "U1": {
+          "lib_id": "Package_SO:MSOP-10_3x3mm_P0.5mm",
+          "value": "INA226AIDGSR",
+          "lcsc": "C49851",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "GND"
+            ],
+            [
+              "2",
+              "GND"
+            ],
+            [
+              "3",
+              ""
+            ],
+            [
+              "4",
+              "/Battery input and INA226/I2C_SDA"
+            ],
+            [
+              "5",
+              "/Battery input and INA226/I2C_SCL"
+            ],
+            [
+              "6",
+              "+3V3"
+            ],
+            [
+              "7",
+              "GND"
+            ],
+            [
+              "8",
+              "/VBAT"
+            ],
+            [
+              "9",
+              "/VBAT"
+            ],
+            [
+              "10",
+              "/Battery input and INA226/VBAT_FUSED"
+            ]
+          ]
+        },
+        "C17": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "10u / 50V",
+          "lcsc": "C77102",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "J6": {
+          "lib_id": "Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical",
+          "value": "RIGHT WHEELS",
+          "lcsc": "C160258",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "GND"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "3",
+              "/DYNAMIXEL distribution/DXL_D_PLUS"
+            ],
+            [
+              "4",
+              "/DYNAMIXEL distribution/DXL_D_MINUS"
+            ]
+          ]
+        },
+        "NT1": {
+          "lib_id": "rover:AGND_Tie_LMR51450",
+          "value": "AGND tie",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/12 V Jetson supply/AGND_2"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "C25": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "22u / 25V",
+          "lcsc": "C309062",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+5V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "R4": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "10k",
+          "lcsc": "C84376",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/Pico 2 and hobby servos/PWM_LIFT_B"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "TP3": {
+          "lib_id": "TestPoint:TestPoint_Pad_D2.0mm",
+          "value": "+12V",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+12V"
+            ]
+          ]
+        },
+        "P1": {
+          "lib_id": "rover:WirePads_2_6x8_P12",
+          "value": "BATTERY IN",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ],
+            [
+              "",
+              ""
+            ],
+            [
+              "1",
+              "/Battery input and INA226/BAT_SWITCHED"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "L2": {
+          "lib_id": "rover:SRP1265A_LeadFrame_13.5x12.5_P11.1",
+          "value": "4u7 / SRP1265A",
+          "lcsc": "C780205",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+5V"
+            ],
+            [
+              "2",
+              "/5 V servo supply/SW_3"
+            ]
+          ]
+        },
+        "P2": {
+          "lib_id": "rover:WirePads_2_5x6_P9",
+          "value": "JETSON / BARREL",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ],
+            [
+              "",
+              ""
+            ],
+            [
+              "1",
+              "+12V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "C15": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "10u / 50V",
+          "lcsc": "C77102",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "SW1": {
+          "lib_id": "Button_Switch_THT:SW_Slide_SPDT_Angled_CK_OS102011MA1Q",
+          "value": "MOTOR ENABLE",
+          "lcsc": "C226259",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ],
+            [
+              "",
+              ""
+            ],
+            [
+              "1",
+              "/22.19 V motor supply/SW_SUPPLY"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/MOTOR_EN"
+            ],
+            [
+              "3",
+              ""
+            ]
+          ]
+        },
+        "C21": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "22u / 25V",
+          "lcsc": "C309062",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+12V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "NT2": {
+          "lib_id": "rover:AGND_Tie_LMR51450",
+          "value": "AGND tie",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/5 V servo supply/AGND_3"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "C31": {
+          "lib_id": "Capacitor_SMD:C_0805_2012Metric",
+          "value": "100n / 50V",
+          "lcsc": "C1711",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "C23": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "22u / 25V",
+          "lcsc": "C309062",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+12V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "C40": {
+          "lib_id": "Capacitor_SMD:C_0603_1608Metric",
+          "value": "33p / 50V",
+          "lcsc": "C1663",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+5V"
+            ],
+            [
+              "2",
+              "/5 V servo supply/FF_3"
+            ]
+          ]
+        },
+        "C19": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "10u / 50V",
+          "lcsc": "C77102",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "J5": {
+          "lib_id": "Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical",
+          "value": "LEFT WHEELS",
+          "lcsc": "C160258",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "GND"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "3",
+              "/DYNAMIXEL distribution/DXL_D_PLUS"
+            ],
+            [
+              "4",
+              "/DYNAMIXEL distribution/DXL_D_MINUS"
+            ]
+          ]
+        },
+        "H1": {
+          "lib_id": "MountingHole:MountingHole_3.2mm_M3",
+          "value": "M3",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ]
+          ]
+        },
+        "RS1": {
+          "lib_id": "rover:CSS2H_2512_6.35x3.05",
+          "value": "2mR / 5W / 1%",
+          "lcsc": "C2093761",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "/Battery input and INA226/VBAT_FUSED"
+            ]
+          ]
+        },
+        "C18": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "10u / 50V",
+          "lcsc": "C77102",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "R10": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "100k / 1%",
+          "lcsc": "C96346",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+12V"
+            ],
+            [
+              "2",
+              "/12 V Jetson supply/FB_2"
+            ]
+          ]
+        },
+        "R18": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "3.74k / 1%",
+          "lcsc": "C65649",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/FB_4"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/AGND_4"
+            ]
+          ]
+        },
+        "C22": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "22u / 25V",
+          "lcsc": "C309062",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+12V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "C5": {
+          "lib_id": "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm",
+          "value": "220u / 50V",
+          "lcsc": "C1579630",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "R12": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "100k / 1%",
+          "lcsc": "C96346",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/FB_4"
+            ]
+          ]
+        },
+        "C28": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "22u / 25V",
+          "lcsc": "C309062",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+5V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "R16": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "19.1k / 1%",
+          "lcsc": "C17508",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/5 V servo supply/FB_3"
+            ],
+            [
+              "2",
+              "/5 V servo supply/AGND_3"
+            ]
+          ]
+        },
+        "R15": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "100k / 1%",
+          "lcsc": "C96346",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/MOTOR_EN"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/AGND_4"
+            ]
+          ]
+        },
+        "C10": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "10u / 50V",
+          "lcsc": "C77102",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "R14": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "100k / 1%",
+          "lcsc": "C96346",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "/5 V servo supply/EN_3"
+            ]
+          ]
+        },
+        "J1": {
+          "lib_id": "Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical",
+          "value": "U2D2 DATA IN",
+          "lcsc": "C160258",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "GND"
+            ],
+            [
+              "2",
+              ""
+            ],
+            [
+              "3",
+              "/DYNAMIXEL distribution/DXL_D_PLUS"
+            ],
+            [
+              "4",
+              "/DYNAMIXEL distribution/DXL_D_MINUS"
+            ]
+          ]
+        },
+        "C34": {
+          "lib_id": "Capacitor_SMD:C_0805_2012Metric",
+          "value": "100n / 50V",
+          "lcsc": "C1711",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/5 V servo supply/BOOT_3"
+            ],
+            [
+              "2",
+              "/5 V servo supply/SW_3"
+            ]
+          ]
+        },
+        "R2": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "4k7 / 1%",
+          "lcsc": "C60816",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+3V3"
+            ],
+            [
+              "2",
+              "/Battery input and INA226/I2C_SCL"
+            ]
+          ]
+        },
+        "R19": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "100k / 1%",
+          "lcsc": "C96346",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/SW_SUPPLY"
+            ]
+          ]
+        },
+        "FID2": {
+          "lib_id": "Fiducial:Fiducial_1mm_Mask2mm",
+          "value": "Fiducial",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ]
+          ]
+        },
+        "C12": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "10u / 50V",
+          "lcsc": "C77102",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "J7": {
+          "lib_id": "Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical",
+          "value": "HAMMER",
+          "lcsc": "C160258",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "GND"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/VMOTOR"
+            ],
+            [
+              "3",
+              "/DYNAMIXEL distribution/DXL_D_PLUS"
+            ],
+            [
+              "4",
+              "/DYNAMIXEL distribution/DXL_D_MINUS"
+            ]
+          ]
+        },
+        "J3": {
+          "lib_id": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+          "value": "LIFT B",
+          "lcsc": "C3335811",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/Pico 2 and hobby servos/PWM_LIFT_B"
+            ],
+            [
+              "2",
+              "+5V"
+            ],
+            [
+              "3",
+              "GND"
+            ]
+          ]
+        },
+        "J2": {
+          "lib_id": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+          "value": "LIFT A",
+          "lcsc": "C3335811",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/Pico 2 and hobby servos/PWM_LIFT_A"
+            ],
+            [
+              "2",
+              "+5V"
+            ],
+            [
+              "3",
+              "GND"
+            ]
+          ]
+        },
+        "R17": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "7.15k / 1%",
+          "lcsc": "C17806",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/12 V Jetson supply/FB_2"
+            ],
+            [
+              "2",
+              "/12 V Jetson supply/AGND_2"
+            ]
+          ]
+        },
+        "R22": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "1k / 1%",
+          "lcsc": "C17513",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/5 V servo supply/FF_3"
+            ],
+            [
+              "2",
+              "/5 V servo supply/FB_3"
+            ]
+          ]
+        },
+        "C11": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "10u / 50V",
+          "lcsc": "C77102",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "P4": {
+          "lib_id": "rover:WirePads_2_5x6_P9",
+          "value": "5V EXP / UNWIRED",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ],
+            [
+              "",
+              ""
+            ],
+            [
+              "1",
+              "+5V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "C32": {
+          "lib_id": "Capacitor_SMD:C_0805_2012Metric",
+          "value": "100n / 50V",
+          "lcsc": "C1711",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "R1": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "4k7 / 1%",
+          "lcsc": "C60816",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+3V3"
+            ],
+            [
+              "2",
+              "/Battery input and INA226/I2C_SDA"
+            ]
+          ]
+        },
+        "C33": {
+          "lib_id": "Capacitor_SMD:C_0805_2012Metric",
+          "value": "100n / 50V",
+          "lcsc": "C1711",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/12 V Jetson supply/BOOT_2"
+            ],
+            [
+              "2",
+              "/12 V Jetson supply/SW_2"
+            ]
+          ]
+        },
+        "D2": {
+          "lib_id": "rover:KT0805G_0805_A1_K2",
+          "value": "GREEN",
+          "lcsc": "C2297",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/22.19 V motor supply/LED_A"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "TP6": {
+          "lib_id": "TestPoint:TestPoint_Pad_D2.0mm",
+          "value": "GND",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "GND"
+            ]
+          ]
+        },
+        "C30": {
+          "lib_id": "Capacitor_SMD:C_0805_2012Metric",
+          "value": "100n / 50V",
+          "lcsc": "C1711",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/VBAT"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "FID1": {
+          "lib_id": "Fiducial:Fiducial_1mm_Mask2mm",
+          "value": "Fiducial",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ]
+          ]
+        },
+        "J4": {
+          "lib_id": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+          "value": "CAMERA PAN",
+          "lcsc": "C3335811",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/Pico 2 and hobby servos/PWM_PAN"
+            ],
+            [
+              "2",
+              "+5V"
+            ],
+            [
+              "3",
+              "GND"
+            ]
+          ]
+        },
+        "C20": {
+          "lib_id": "Capacitor_SMD:C_1210_3225Metric",
+          "value": "22u / 25V",
+          "lcsc": "C309062",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+12V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "TP5": {
+          "lib_id": "TestPoint:TestPoint_Pad_D2.0mm",
+          "value": "+3V3",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+3V3"
+            ]
+          ]
+        },
+        "C39": {
+          "lib_id": "Capacitor_SMD:C_0603_1608Metric",
+          "value": "33p / 50V",
+          "lcsc": "C1663",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "+12V"
+            ],
+            [
+              "2",
+              "/12 V Jetson supply/FF_2"
+            ]
+          ]
+        },
+        "R3": {
+          "lib_id": "Resistor_SMD:R_0805_2012Metric",
+          "value": "10k",
+          "lcsc": "C84376",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "1",
+              "/Pico 2 and hobby servos/PWM_LIFT_A"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        },
+        "U4": {
+          "lib_id": "rover:LMR51450_DRR_WSON12_3x3",
+          "value": "LMR51450SDRRR",
+          "lcsc": "C6890985",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ],
+            [
+              "",
+              ""
+            ],
+            [
+              "1",
+              "/22.19 V motor supply/SW_4"
+            ],
+            [
+              "2",
+              "/22.19 V motor supply/SW_4"
+            ],
+            [
+              "3",
+              "/22.19 V motor supply/SW_4"
+            ],
+            [
+              "4",
+              "/22.19 V motor supply/BOOT_4"
+            ],
+            [
+              "5",
+              ""
+            ],
+            [
+              "6",
+              ""
+            ],
+            [
+              "7",
+              "/22.19 V motor supply/FB_4"
+            ],
+            [
+              "8",
+              "/22.19 V motor supply/AGND_4"
+            ],
+            [
+              "9",
+              "/22.19 V motor supply/MOTOR_EN"
+            ],
+            [
+              "10",
+              "/VBAT"
+            ],
+            [
+              "11",
+              "/VBAT"
+            ],
+            [
+              "12",
+              "/VBAT"
+            ],
+            [
+              "13",
+              "GND"
+            ]
+          ]
+        },
+        "P3": {
+          "lib_id": "rover:WirePads_2_5x6_P9",
+          "value": "12V EXP / UNWIRED",
+          "lcsc": "",
+          "layer": "F.Cu",
+          "rule_areas": 0,
+          "pads": [
+            [
+              "",
+              ""
+            ],
+            [
+              "",
+              ""
+            ],
+            [
+              "1",
+              "+12V"
+            ],
+            [
+              "2",
+              "GND"
+            ]
+          ]
+        }
+      },
+      "bounds": [
+        0.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "rectangular": true,
+      "tracks": 542,
+      "zones": 2,
+      "rule_areas": 8
+    },
+    "drc_runs": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  "lifecycle": "DRAFT"
+}

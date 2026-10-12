@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>JLCPCB 2-layer 1oz</title></head>
+<body>
+<h2>JLCPCB 2-layer / 1 oz baseline</h2>
+<p>KiCad 10 starting settings for new FR4 boards: two layers, 1.6 mm thickness,
+35 um copper per face, green mask, white legend and tented vias. Add the circuit
+and a closed board outline. KiCad creates the empty schematic automatically.</p>
+<p>In PCB Editor, use File &gt; Board Setup. Existing projects may selectively use
+Import Settings from Another Board, choosing this template's .kicad_pcb.
+Review imported constraints and custom rules before accepting them.</p>
+<table border="1" cellpadding="4">
+<tr><th>Setting</th><th>Baseline (mm)</th></tr>
+<tr><td>Track floor / normal signal routing width</td><td>0.15 / 0.25</td></tr>
+<tr><td>Copper clearance floor / Default netclass</td><td>0.15 / 0.20</td></tr>
+<tr><td>Copper to board edge</td><td>0.50</td></tr>
+<tr><td>Via diameter / drill / annular ring</td><td>0.60 / 0.30 / 0.15</td></tr>
+<tr><td>General drill clearance / hole spacing</td><td>0.25 / 0.25</td></tr>
+<tr><td>PTH hole to other-net copper / component hole spacing</td><td>0.28 / 0.45, scoped custom rules</td></tr>
+<tr><td>Recommended component PTH annular ring</td><td>0.25, separate from via rings</td></tr>
+<tr><td>NPTH round hole / NPTH slot / plated slot</td><td>0.50 / 1.00 / 0.50</td></tr>
+<tr><td>Mask expansion / mask web / mask to other copper</td><td>0.00 / 0.10 / 0.09</td></tr>
+<tr><td>Legend text height / stroke / pad clearance</td><td>1.00 / 0.15 / 0.15</td></tr>
+</table>
+<p>These are workspace defaults, some deliberately larger than factory minima.
+The custom rules also flag thin nonzero silkscreen strokes from imported
+footprints. Setting defaults does not redraw existing footprint graphics.</p>
+<p>Scope: 2-layer, 1 oz, green mask only. Check another profile for 2 oz, other
+mask colours, multilayer, high voltage, HDI or special processes. Set power-net
+widths from current and temperature requirements. Component spacing, paste and
+thermal-pad design, slot aspect ratios, routed cutouts, fiducials/rails,
+mechanical fit, part stock and rotations still require review. Choose and record
+surface finish per project; this template does not select it at checkout.</p>
+<p>Native DRC checks geometry; it does not establish circuit performance or grant
+fabrication approval. Run the workspace review/release workflow on each project.</p>
+<p>Sources checked 2026-10-05:
+<a href="https://jlcpcb.com/capabilities/pcb-capabilities">JLCPCB capabilities</a>,
+<a href="https://jlcpcb.com/help/article/minimum-spacing-for-smd-components">assembly spacing</a>,
+<a href="https://docs.kicad.org/10.0/en/pcbnew/pcbnew.html">KiCad Board Setup and custom rules</a>.</p>
+</body></html>

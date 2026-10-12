@@ -1,26 +1,16 @@
 #!/usr/bin/env python3
-"""
-PCB validation script â€” checks a .kicad_pcb file for common defects
-that our evaluation scorecard identified.
+"""Placement heuristics consumed by ``pcb-copilot review``.
 
-Usage:
-    pcb-copilot review projects/<board>
-
-Checks:
-  1. Placeholder footprints (Conn_01x* used for ICs)
-  2. Fiducials present (3 recommended for PCBA; JLCPCB auto-adds if absent)
-  3. Board dimensions vs component count (density check)
-  4. Silkscreen text present (board name, revision, author)
-  5. Edge clearance (components â‰¥1mm from edge)
-  6. Unrouted nets (checks for traces/segments existing)
-  7. Pads inside the board outline (real pad geometry, not the footprint anchor)
-  8. Courtyard collisions (components physically overlapping)
-  9. Module socket pinouts (flags for mandatory human sign-off)
- 10. DRC report present, fresh, and clean (absence of a report is a FAIL)
+The registered checks cover placeholder footprints, board dimensions/density,
+trace existence, edge/pad bounds, courtyard overlap, module sockets and
+connector-class claims. DRC and sign-off are separate pipeline checks.
+Fiducial suitability and silkscreen readability remain part of human DFM review.
 """
 
 import re
 import sys
+
+from pcb_copilot.copper_features import copper_feature_type
 
 # Hooks and piped commands on Windows can inherit a legacy console encoding.
 # Preserve the report instead of crashing on engineering symbols such as â‰¥.
@@ -60,21 +50,6 @@ def check_placeholders(text):
     return "PASS", f"All {len(fps)} footprints are specific (no generic connectors on ICs)"
 
 
-def check_fiducials(text):
-    """WARN (not FAIL) if <3 distinct fiducial footprint instances found.
-
-    JLCPCB auto-adds fiducials during panelization if a board has none, so this
-    is a placement-accuracy recommendation, not an order-acceptance requirement.
-    Self-placed fiducials still help, especially for fine-pitch (<0.5mm) parts.
-    """
-    count = len(re.findall(r'\(footprint\s+"[^"]*[Ff]iducial[^"]*"', text))
-    if count >= 3:
-        return "PASS", f"{count} fiducial footprint instances found"
-    if count > 0:
-        return "WARN", f"Only {count} fiducial(s) â€” 3 in an L-pattern recommended for best placement accuracy"
-    return "WARN", "No fiducials found â€” JLCPCB will auto-add its own for assembly, but for fine-pitch parts (<0.5mm) consider adding 3Ã— self-placed fiducials (1mm pad, 2mm mask opening) for better alignment"
-
-
 def check_board_dimensions(text):
     """Extract board outline and report dimensions + component density."""
     xs, ys = get_board_bounds(text)
@@ -94,24 +69,6 @@ def check_board_dimensions(text):
         else:
             density_note = f" â€” density ~{density:.0f}%"
     return "INFO", f"Board: {w:.1f}mm Ã— {h:.1f}mm = {area:.0f}mmÂ², {num_fps} components{density_note}"
-
-
-def check_silkscreen(text):
-    """Check for board identification text on silkscreen."""
-    silk_texts = re.findall(r'\(gr_text\s+"([^"]*)".*?\(layer\s+"[FB]\.SilkS"\)', text, re.DOTALL)
-    has_rev = any("rev" in t.lower() for t in silk_texts)
-
-    prop_texts = re.findall(r'\(property\s+"Value"\s+"([^"]+)"', text)
-
-    if not silk_texts and not prop_texts:
-        return "FAIL", "No silkscreen text found â€” add board name, revision, author"
-
-    issues = []
-    if not has_rev:
-        issues.append("no revision marking")
-    if issues:
-        return "WARN", f"Silkscreen present but: {', '.join(issues)}"
-    return "PASS", f"Silkscreen OK ({len(silk_texts)} text items)"
 
 
 def check_traces_exist(text):
@@ -354,6 +311,11 @@ def check_courtyard_overlap(text):
     """
     boxes = []
     for block in _iter_footprint_blocks(text):
+        if copper_feature_type(block) == 'net_tie':
+            # Native net-tie copper has no assembly body. Pad bounds and DRC
+            # still check it; do not call a deliberate copper bridge a package
+            # collision, or extend this exception to normal pads/packages.
+            continue
         crt = _courtyard_extents(block)
         pad = _pad_extents(block)
         cand = [e for e in (crt, pad) if e]
@@ -392,8 +354,6 @@ def check_courtyard_overlap(text):
             f"rotation artefact â€” confirm in KiCad): {_fmt(marginal)}"
         )
     return "PASS", f"No courtyard collisions across {len(boxes)} footprints"
-
-
 
 
 MODULE_HINTS = ("teensy", "xbee", "arduino", "esp", "raspberry", "pi", "feather",

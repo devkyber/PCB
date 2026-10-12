@@ -16,6 +16,29 @@ fabricator capability, stackup, and operating requirements—not from this file.
 Where sources conflict, record the conflict and its resolution in
 `DESIGN_BASIS.md`. Never silently choose the convenient value.
 
+## New JLCPCB boards
+
+For future new two-layer / 1 oz / green-mask JLCPCB designs, start from
+[`templates/jlcpcb-2layer-1oz`](../templates/jlcpcb-2layer-1oz/meta/info.html).
+Its native project settings and scoped custom rules are the workspace baseline;
+copy the three same-stem KiCad files and rename them to the new project's stem,
+or select **JLCPCB 2-layer 1oz** in KiCad 10's New Project template selector.
+KiCad creates an empty schematic if the template does not contain one.
+Use the normal project requirements, evidence and review workflow afterward.
+
+This is a dated, conservative geometry baseline, not a live supplier-rule feed.
+Recheck the linked capabilities when manufacturing options change. Power widths,
+voltage spacing, component spacing, stencil/thermal-pad details, fiducials/rails,
+physical fit and supplier stock/rotation remain project-specific reviews.
+The template does not set a universal board outline or select a surface finish.
+
+For an existing owner-edited board, prepare a scoped candidate, preserve its
+netclasses and stricter constraints, and run the normal preview/apply path.
+Do not replace its settings wholesale or redraw copper to make this template fit.
+In KiCad, the manual equivalent is **File > Board Setup > Import Settings from
+Another Board**, selecting only the intended categories, followed by DRC.
+Global Preferences do not apply manufacturing rules to every project.
+
 ## Pre-schematic completeness
 
 - Archive a datasheet for every non-passive part and any integration manual
@@ -29,14 +52,91 @@ Where sources conflict, record the conflict and its resolution in
 
 ## Schematic readability
 
+These conventions apply to every new schematic and every authorized schematic
+edit in this workspace. The owner adopted the drawing approaches in
+[Tiago Gala's guide](https://medium.com/@tiago.gala/the-art-of-drawing-good-schematics-be3e7e59eb40)
+and [Gregor Gross's guide](https://medium.com/@gregorgross/style-guide-for-schematics-if-you-like-your-schematics-to-be-understood-easily-7ed3452346cc)
+on 2026-09-30. Use them as presentation references; manufacturer requirements
+and the current owner CAD retain their authority over circuit decisions.
+
+- Begin a multi-sheet design with a system overview showing power domains,
+  interfaces, destinations and planning loads. Keep the hierarchy shallow.
+- Separate functional groups with whitespace and concise headings. Reserve
+  frames for actual hierarchy or a boundary that needs explanation. Avoid both
+  crowded pages and unnecessarily long wires across mostly empty pages.
+- Arrange symbols by electrical function rather than package perimeter:
+  inputs normally left, outputs right, positive supply above, returns below.
+  Power converters may take their input from the left. Bidirectional interfaces
+  and fixed connector pin order are legitimate exceptions; identify their role.
+- Keep familiar circuit shapes: vertical dividers and pull resistors, clear
+  feedback paths, and a short, visible bootstrap loop. Size symbols for their
+  connected circuitry; leave room between pins for actual support components.
+- Positive supply glyphs point upward; GND and negative supply glyphs downward.
+  Keep their text beside the glyph, clear of signal wires.
+- Use the KiCad 1.27 mm connection grid unless the library requires a finer
+  compatible grid. Leave visible wire between separate component terminals;
+  aim for at least two grid steps. Never use coincident terminals as a shortcut.
+- Use T junctions with visible dots. Stagger branches instead of four-way joins.
+  Minimize crossings; an unavoidable crossing must be distinct from a junction,
+  away from text and pin ends. Do not add a dot to a crossing of separate nets.
+- Label important wired nets above the line. Keep spelling and units consistent
+  within a project. New projects default to explicit units (100 nF, 10 kOhm,
+  6.8 uH), with ratings/tolerances where they inform selection or testing.
+  Do not change an existing part's electrical value to enforce typography.
+- Preserve local, global and hierarchical label scope. Use sheet navigation or
+  destination notes for interfaces; enable intersheet references when global
+  labels are used. Do not replace an established hierarchy solely for styling.
+- Annotate design intent near the block: nominal voltage, documented limits,
+  planning load, logic levels, address, configuration, feedback calculation,
+  useful probe values, and placement constraints. Distinguish assumptions and
+  calculated bounds from guarantees; never invent missing limits.
+- Include brief revision history and source references. Mark optional/DNP parts
+  and describe configuration changes without relying on colour alone.
+- Keep intentional no-connect marks explicit. An NC marker, an ERC exclusion
+  and a PWR_FLAG have different meanings: PWR_FLAG asserts a driven power net
+  and must never be used as an unused-pin marker or to conceal a real error.
+
 - Organize around functional blocks and left-to-right signal/power flow.
-- Use direct wires inside a block and labels at deliberate boundaries.
-- Use graphical power symbols for standard rails.
+- Draw the complete local circuit with direct wires. Keep each IC's bypass
+  capacitors, pull-ups, feedback divider, bootstrap network, straps, and other
+  supporting parts beside the pins they serve. A reader must be able to follow
+  the local circuit without matching detached groups of labels.
+- Use labels for deliberate boundaries: remote blocks, distant connectors, or
+  sheet interfaces. They remain useful; do not replace an easily drawn local
+  connection with repeated labels merely to simplify generation.
+- Attach hierarchical ports directly to the relevant circuit wires. Do not
+  create separate port-to-local-label islands at the top of the page.
+- Attach test points to the rails or signals they expose. Attach necessary
+  `PWR_FLAG` markers to the actual source/return wiring, rather than collecting
+  flags and labels in detached islands.
+- Use graphical power symbols for standard rails, with enough clearance that
+  the glyph and its text cannot appear to touch an unrelated wire. A crossing
+  without a junction dot is not a readability fix for an overlapping glyph.
+- Keep reference and value fields close to their own symbol, with consistent
+  orientation and separation from wires, pins, and neighboring fields. Do not
+  move fields far away to resolve a collision; rearrange the local group.
 - Attach wires and labels to actual symbol pin coordinates on the KiCad grid.
-- Prevent cross-net wire crossings, overlapping symbols/text, clipped content,
+- Minimize cross-net wire crossings; prevent overlapping symbols/text, clipped content,
   and ambiguous label placement.
 - Split crowded designs into hierarchy instead of shrinking until unreadable.
 - Use a complete title, revision, date, and project identity.
+
+Before handover, render and actually inspect every sheet at page scale and at
+readable circuit scale. Check the rules above, repair issues, then inspect fresh
+renders of changed sheets. Record which sheets were reviewed and any remaining
+issues. ERC, export success, geometry diagnostics, and connectivity parity do
+not establish visual readability. This is an author review requirement, not an
+automated certification or a replacement for the owner's engineering sign-off.
+
+For a presentation-only edit, record native pin-net and explicit-NC equivalence,
+preserved component values/MPNs/footprints and UUIDs, then review the final PDF at
+both page and circuit scale. Record any deliberate style exceptions. This is
+an authoring standard, not a reason to overwrite later manual owner edits.
+
+Release enforces the shared `shared.schematic-readability` human decision for
+every project, in addition to its local profile. The decision must describe the
+actual sheet inspection; an automated export cannot fill it. See the
+[shared enforcement map](ARCHITECTURE.md#rover-lessons-used-by-the-shared-pipeline).
 
 The existing helpers `SymbolPlacer`, `LabelPlacer`, coordinate conversion,
 title-block setup, and pin-position lookup are preserved because they already
@@ -79,6 +179,47 @@ and pad-local clearance in the collision envelope.
 - A stitching via helps only when it joins copper on at least two layers.
 - Inspect filled zones for islands, starved thermals, unintended slots, and
   broken high-frequency return paths.
+
+## Editable PCB handover
+
+- Preserve each footprint's schematic UUID path, including its hierarchical
+  sheet path. Matching references and nets alone do not preserve F8 updates.
+  A routine update must not propose adding footprints that already exist.
+  Infer a missing link only on a staged copy after complete part and pin-net
+  parity; a conflicting existing link needs explicit reconciliation.
+- For ordinary pad entries, route to the actual pad connection anchor using
+  native pad coordinates, including footprint rotation and side. A footprint's
+  origin or body centre is not a routing target. Offset entries, shared switch
+  pads, Kelvin branches and thermal connections can be intentional; inspect
+  those against their circuit purpose instead of moving them automatically.
+- Build continuous routes with exact shared endpoints and deliberate branch
+  junctions. Avoid tiny overlaid patch segments, fully covered duplicates and
+  visual-only joins. Rework the local route when needed; do not hide a gap with
+  another sliver or globally delete owner copper. Use interactive routing and
+  inspect any track-cleanup preview before committing it.
+- Run native DRC after refilling zones and after every routing edit. Also review
+  the routing-topology findings for covered straight tracks, segments shorter
+  than both 0.25 mm and their width, and contacted pads whose track centreline
+  misses the pad anchor by over 0.05 mm. These are drawing heuristics, not
+  electrical-open, clearance or current-capacity rules. The audit does not
+  cover via/arc/zone topology or custom/offset pad anchors.
+- Save useful net-class routing defaults and width/via presets in the project's
+  `.kicad_pro`; do not leave a power board with only a thin signal default.
+  Net-class widths guide new routing; they do not resize existing segments or
+  establish current ratings. Do not impose a trunk width on thin feedback,
+  Kelvin-sense or indicator branches merely because they share a power net.
+- Remove temporary authoring locks before handover unless a lock has a documented
+  purpose. Intentional owner locks must not be removed automatically.
+- Keep native tracks, vias, zones and footprints editable. A 3D body model is
+  separate from the electrical footprint; report absent models without implying
+  that the component has no pads or routing.
+- Render review images from a current disposable CAD snapshot and bind their
+  source/output hashes. Never put a fresh CAD hash on stale images. DRC, visual
+  inspection and mechanical/thermal verification are separate results.
+
+Every release also requires `shared.layout-handover`. Resolve topology and
+editability findings by inspecting the actual circuit purpose; neither a clean
+advisory report nor a netclass width establishes adequate load-current copper.
 
 ## Signals, clocks, and RF
 
@@ -124,6 +265,10 @@ and pad-local clearance in the collision envelope.
   panel/mechanical constraints.
 - Verify BOM part numbers from the accepted PCB properties and inspect CPL
   origins, rotations, and layers against the assembly preview.
+- Bind supplier corrections to the exact part, side and pad geometry. Check
+  physical pin 1, polarity, model transforms and printed wire-pad labels against
+  native numbered pad nets. Retail stock and local STEP models do not establish
+  supplier allocation or placement. Follow [JLCPCB assembly](JLCPCB_ASSEMBLY.md).
 
 ## Review protocol
 

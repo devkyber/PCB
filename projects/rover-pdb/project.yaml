@@ -1,0 +1,15 @@
+schema_version: 1
+name: rover-pdb
+lifecycle: DRAFT
+design:
+  schematic: rover-pdb.kicad_sch
+  pcb: rover-pdb.kicad_pcb
+  netmap: netmap.json
+evidence:
+  index: evidence/index.yaml
+manufacturing:
+  # Owner-edited PCB baseline: 78.5 x 100.5 mm, two copper layers, 1 oz copper.
+  # This profile enforces layer count, not copper weight or an order quotation.
+  # Exact manufacturing choices and review scope are in DESIGN_BASIS.md.
+  profile: jlcpcb_2layer_default
+safety_tags: [high-current, motor-regeneration, human-schematic-review, pcb-layout-review]

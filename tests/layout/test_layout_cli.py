@@ -278,6 +278,7 @@ def test_review_classifies_shorts_as_blocking_and_airwires_as_review(tmp_path):
             assert "--exclude-drawing-sheet" in command
             output.write_text("<svg></svg>")
         else:
+            assert "--subst-models" in command
             output.write_text("ISO-10303-21; partial")
             return SimpleNamespace(
                 returncode=2, stdout="partial STEP", stderr="missing model"

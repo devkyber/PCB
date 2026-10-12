@@ -1,0 +1,15 @@
+{
+  "buck-12v.kicad_sch": "6b8f24294eb223856c9230fe237386220eef2572b08ef34fcccbf2efda82a003",
+  "buck-5v.kicad_sch": "575bf6a99b3375b1a54ce3809281d06d6eca80bf242d3a6254d2499e3253b049",
+  "buck-motor.kicad_sch": "2ecd62becf9d151b10a42760f780f80e4c75b7b70591d1abd1788ce1fc36a73f",
+  "dxl-enable.kicad_sch": "322e6d8f3ef2a130673e50619ec4ff4dd7b6f62d9ac2c79f1f9f6cc4c4682973",
+  "input-monitor.kicad_sch": "9d63d40b39166f5be4357dd47d19ec4fcb747403bff46a2ef7bbc71cae630ab5",
+  "pico-servos.kicad_sch": "5b8c3cdcc55d8e142976dd011222af2d7073b67bdf667c6a83e7ccce30ccdee6",
+  "rover-pdb.kicad_dru": "fd6ec6cfd46f091c61ee7fa09ab3e1c5e29cb9b187e5045bcf055666f0239643",
+  "rover-pdb.kicad_pcb": "66929103bf0c38b567745b3df253a7b00421f4ce7b72103dd865abccc4b490cd",
+  "rover-pdb.kicad_prl": "7f176ec50e451b971ed82833acef2bc071c96ef856aaf442de9d6d015ced7449",
+  "rover-pdb.kicad_pro": "dcdcab785e3988ee8eeb84f040a368da62630ae6fd3b2af99134c206c43c95d4",
+  "rover-pdb.kicad_sch": "a27d68afeb305e780511914bdb3465616290096b2acffb7bcd85512275b0b7f2",
+  "~rover-pdb.kicad_pcb.lck": "524128577ab8ea2c9a9fe4f7428dd5289054afcd48cac3b0de5d9161c3330715",
+  "~rover-pdb.kicad_pro.lck": "524128577ab8ea2c9a9fe4f7428dd5289054afcd48cac3b0de5d9161c3330715"
+}

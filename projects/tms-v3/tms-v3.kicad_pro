@@ -241,7 +241,7 @@
       "internal_id": "",
       "mfg": "",
       "mpn": "",
-      "sch_revision": ""
+      "sch_revision": "working-1"
     },
     "layer_pairs": [],
     "layer_presets": [],
@@ -738,6 +738,30 @@
     [
       "03b2b354-fa85-4511-a0d8-16586629f88c",
       "tms-v3"
+    ],
+    [
+      "8b3d3b17-5e88-45ea-a27b-7d8ec4996ea7",
+      "Power"
+    ],
+    [
+      "692683f1-ea82-48ee-89d2-7d79a574d904",
+      "ADS1256 load cell"
+    ],
+    [
+      "abf218ef-7be9-409f-b412-25d4cc15d268",
+      "ADS1220 pressure"
+    ],
+    [
+      "c897661b-1872-4c78-a867-21f823748867",
+      "Controller and telemetry"
+    ],
+    [
+      "397d329e-7ee2-48d4-903a-e9647e88bcab",
+      "Ignition"
+    ],
+    [
+      "a6bfee63-9a7f-4290-aed8-b676422fc7d6",
+      "Connectors and test"
     ]
   ],
   "text_variables": {

@@ -1,0 +1,816 @@
+{
+  "board_quantity": 5,
+  "inputs": {
+    "DESIGN_BASIS.md": "90ca1b043f8ab43cf8cf2db10b937997431477608b4c9f2ff3bd459cf4fa036e",
+    "DEVIATIONS.md": "3450bab5bdd4bf43ceef1180714760568b35317c8b0ffd5bf787454f09ab02b6",
+    "REFERENCE_REVIEW.md": "2ad7cc19b506168847a6e65142fde981198a821ae8c7521d4401fc882c01e40a",
+    "REQUIREMENTS.md": "a65389900a7e1e2920e22f0e0c26d748bcb82e3504525cbdd712d0f2c64805f2",
+    "buck-12v.kicad_sch": "6b8f24294eb223856c9230fe237386220eef2572b08ef34fcccbf2efda82a003",
+    "buck-5v.kicad_sch": "575bf6a99b3375b1a54ce3809281d06d6eca80bf242d3a6254d2499e3253b049",
+    "buck-motor.kicad_sch": "2ecd62becf9d151b10a42760f780f80e4c75b7b70591d1abd1788ce1fc36a73f",
+    "dxl-enable.kicad_sch": "322e6d8f3ef2a130673e50619ec4ff4dd7b6f62d9ac2c79f1f9f6cc4c4682973",
+    "evidence/PDB_Design_Handover.md": "0115fda198001c86e08545682cc86de63730aadfbdcb9721cb9fbe8218a75a3c",
+    "evidence/assembly/C54431777-components-2026-10-06.json": "2e5c07eb9432f630b1c0fbaf02bcf601e7e9ddd0d3df5008254d90298764c1f2",
+    "evidence/assembly/orientation-preview-2026-10-06.png": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+    "evidence/characterization/CL32B226KAJNNN-curves.json": "f7b3bf18c15a11a04265812f19a7d06a1bb5da9061a8022d02a7f881c000ac11",
+    "evidence/characterization/CL32B226KAJNNN-manufacturer.html": "30b5f732cf8145dac6162e54ef8b2ec1aa93d47092eab73f5048bcacd6685972",
+    "evidence/characterization/CL32B226KAJNNN-provenance.json": "af899f97ae6bc0596339d8c849aa724ee84163bd1e3f5d61b7f96a0f4922ef03",
+    "evidence/characterization/GRM32ER71H106KA12-ADI-provenance.json": "13ddd5a1bc1a2c1a477b4a603fab6b09913086deb6da02311c136ef3b6ac6290",
+    "evidence/characterization/GRM32ER71H106KA12-ADI-web-extract.json": "45c955ccb9074cd4dacba292f6023c51c9e19aa45ea1f2376a0e93c50453d503",
+    "evidence/characterization/GRM32ER71H106KA12-DC-bias.png": "32dcc30eedbb9a5670923faa511aa14ab76da17d426a62cf52fdbf5c763eb01e",
+    "evidence/characterization/GRM32ER71H106KA12-Murata-provenance.json": "3834fc47e33b2953320d3f08c04714fa3b5146129835a8d007dfbdb94e9825f6",
+    "evidence/files/01530008Z_5dd658d7c0c120ed4252709c4e00b44b_dd28a686cd10.pdf": "dd28a686cd106b2228fb3e0ef107b580a8f58177765c71c08a16ebbac66415af",
+    "evidence/files/01530008Z_components_038492248339.txt": "03849224833909976715d61c81a63e22a81bae159978d19f1043732f6d1470a1",
+    "evidence/files/0297010.WXNV_6640fa58723348e000da25e795536560_cfd43f753274.pdf": "cfd43f753274bc97a027685b0a8a2867969272113cc8d41980242a1a949c2e9f",
+    "evidence/files/0805W8F1001T5E_components_fcc6d3130eae.txt": "fcc6d3130eae3bfb44c7b9c0486f3ad1a87557cc636a8d55a50acb1fed2219db",
+    "evidence/files/0805W8F1912T5E_components_79fd6539982f.txt": "79fd6539982f1d79ed3018e0a12171ace376531618d9b3be292fa6c34316ea3d",
+    "evidence/files/0805W8F2202T5E_components_b881e8433fdd.txt": "b881e8433fdd135185516817550c693872ca46933563aeccfb8cab05a871fa90",
+    "evidence/files/0805W8F3741T5E_components_f6e9d7b40fa5.txt": "f6e9d7b40fa5e096c6c8cf85ba055347bcdd4d4d8e096ca566b7c155293348c1",
+    "evidence/files/0805W8F7151T5E_0a975aaa49b7c97f38a963127be4a823_11cd644d5d8a.pdf": "11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef",
+    "evidence/files/0805W8F7151T5E_components_4c0fa2ed98d0.txt": "4c0fa2ed98d0f580651d003b779f36fb39b62cc28ddc014f50cc1a852b811674",
+    "evidence/files/2.54-1x6P_cb0770a379b121177c8c7d26dfb00406_013649a580c9.pdf": "013649a580c9ee0d2a54502601713be2b1811ff6d44e21887c8077307a7c2dea",
+    "evidence/files/2.54-1x6P_components_47044365dfa6.txt": "47044365dfa67edea30c22b574f71b2fdfd0bde188952771ba9b01d5a469c88b",
+    "evidence/files/254PM-1x20P-V_f0f6c3d8697d24302649e706e8fbe0d7_5778f815e84c.pdf": "5778f815e84ca5a0e1d490c5be5db4f228194b3df5b59abb1346ace54a11685d",
+    "evidence/files/APS1365M3R3DW_68d4a03c5920925210785d7848183ed4_a794e72576cd.pdf": "a794e72576cd6433b8b51d01831ba1f10941c8e2b2878077b7597d3c20c94de2",
+    "evidence/files/B4B-EH-A_LF_SN_eEH_9e35874bf275.pdf": "9e35874bf27505bab79d6af783118fa926ceef7a91b7cb8421f108ff69a1b7f2",
+    "evidence/files/CL10C330JB8NNNC_02336ea48ea44ca18c72517dd3cb7b47_96baebe4bd0c.pdf": "96baebe4bd0ce363e87be28b5b003f511f1502e084a6fc4f02333ded56c808f6",
+    "evidence/files/CL10C330JB8NNNC_CL10C330JB8NNNC_Spec_b3b5f1a6680a.pdf": "b3b5f1a6680a5f083fb5913555c82821d0cb2d1e540dcf250f9e5f0de071922e",
+    "evidence/files/CL10C330JB8NNNC_components_3afd8ebb8b5f.txt": "3afd8ebb8b5f42332bc6726820af872cd657dd6c85e14e82c99c5ec66e44556e",
+    "evidence/files/CSS2H-2512K-2L00F_css2h-2512_7e32b223f4b0.pdf": "7e32b223f4b0f086d9e08cd5a4fb42e9935cf119db3dd9cf3ea7969bdd643909",
+    "evidence/files/CSS2H-2512_b11b79a9d324.stp": "b11b79a9d3245b4634fd4a02dc9062700c637b0e0a8e435f60456296413ee491",
+    "evidence/files/DMG2305UX-7_DMG2305UX_7421a75157a2.pdf": "7421a75157a2e700a217d1a20d075216abed29e81192bf7609d3df6dbb08eb2d",
+    "evidence/files/DMG2305UX-7_components_a9248858bbeb.txt": "a9248858bbeb08d798204569f4cc794263e395d1a35717d850248020bf886626",
+    "evidence/files/EEU-FR1H221B_d9089262f7a6df5ba99d8a966a03ede0_bf99d179b367.pdf": "bf99d179b36759edbd615725840c0fb0c87640b0800ba9ecd967ed3172b2198c",
+    "evidence/files/GRM32ER71H106KA12_Murata_characteristics_20141111_9281c34a22b3.pdf": "9281c34a22b351bb841a7a23d0aaa1c58b4d633f6bf1a9c03d15475ac5d11f2e",
+    "evidence/files/INA226AIDGSR_ina226_c9b67f886d4a.pdf": "c9b67f886d4a5241a5e070723f7b61867409eeb27eed768b9cdd9cb17e03ca2d",
+    "evidence/files/INA226AIDGSR_sbou276_e5dc5b492908.pdf": "e5dc5b492908c656b6be0dd2ef0f8c829fd445a918a0839889fc1e3046a021ec",
+    "evidence/files/Jetson-Orin-Nano-Carrier_jetson_orin_nano_devkit_carrier_board_specification_sp_4a0f7ba948bc.pdf": "4a0f7ba948bce4881e176f0f8636ef3dbd40e3df9dd33134e6a7433359d18c02",
+    "evidence/files/KT-0805G_de342fde3322df0797012cd7a04e2194_853e6752f600.pdf": "853e6752f600e247475ba548092207fa4fc707a3f8a0b1562a834bc9a901a8d9",
+    "evidence/files/LM73606RNPR_components_84dd5258bfcf.txt": "84dd5258bfcf4e2fc532a38a03f5384d4e5a3dbb39213213438466c9d3850cc7",
+    "evidence/files/LM73606RNPR_lm73606_98c77e8b42dd.pdf": "98c77e8b42ddc52021083dae660e5277705cc82a2c469ae16a4ad4660d904a3c",
+    "evidence/files/LM73606RNPR_snvu579_0988f0efa67e.pdf": "0988f0efa67eeda38478578e8fb8b30e3adbbd73b6f5c15cbb79269ece0c8eb8",
+    "evidence/files/LMR51450SDRRR_SNVMCB2_e1fd811f3bcb.zip": "e1fd811f3bcb494bf528772421a5af4dd37b37f50461caaa5e834d3256ac1a40",
+    "evidence/files/LMR51450SDRRR_components_5009d4a2ce02.txt": "5009d4a2ce026741df9d81ce6d1f1dc5d399daa2816fe21778862eb2377b9aa5",
+    "evidence/files/LMR51450SDRRR_lmr51450_7f80073eb777.pdf": "7f80073eb7773dddd87df44808e8e78f5b83520b20e815cbb0a17018d1cae413",
+    "evidence/files/LMR51450SDRRR_snvu838a_6086805dfb70.pdf": "6086805dfb7070abce87077d95aa4ec9b2e2a7fd25af52ddeb7d0e457de655de",
+    "evidence/files/OS102011MA1QN1_9e68893bade4341f8dc17b91bf8fc979_96f8f741dec9.pdf": "96f8f741dec9336a05c73ffc78116f4aefba9c876e170b26f01505c80eb3cbc7",
+    "evidence/files/OS102011MA1QN1_components_b07e077150de.txt": "b07e077150dea4db0a7d7ce5023c7de60dfd49444675640f9c4bd2c0e262f974",
+    "evidence/files/PCB-width-screen_snva766_89d111dd96c8.pdf": "89d111dd96c8fe53c01451d52e60a3bca226ccc998ae1967e323dfca005b3267",
+    "evidence/files/Pico_2_pico-2-datasheet_cbcfaf881018.pdf": "cbcfaf881018c686495a2e53c7bd281e7e0a8217d79447d73eda7c8f74b7f675",
+    "evidence/files/PowerPAD-assembly_slma002h_cdab5db91631.pdf": "cdab5db916315b40c6b445a30ccff90de3d391d39231c3f519533113a8cb1f22",
+    "evidence/files/RC0805FR-07100KL_RC0805FR-07100KL_ce1449c65535.pdf": "ce1449c655356f5c0415d6b3aa72d28be6d26b08e45a0050fdae16d08c592120",
+    "evidence/files/RC0805FR-07100KL_components_6ac1220cb8d4.txt": "6ac1220cb8d45c5d1453642c051c48f8bc146b1aaa30f9323d9ec358c77b3b91",
+    "evidence/files/RC0805FR-0710KL_Yageo_specsheet_a12caa1d29a9.pdf": "a12caa1d29a94167f5c5526d5e608f7ebfae5761f169e790543246d48d0dbc02",
+    "evidence/files/RC1206FR-073K9L_RC1206FR-073K9L_496bcb915f16.pdf": "496bcb915f1683dbad13314e506756eacb78e9792e2655403987b36eaef22f88",
+    "evidence/files/RC1206FR-073K9L_components_7f63ec628a0a.txt": "7f63ec628a0ac346ff8d1176e02ccd5293d802e88275bad9098787f03d1c782e",
+    "evidence/files/Raspberry_Pi_Pico_hardware-design-with-rp2040_51c4f430153f.pdf": "51c4f430153fcdbf3209d9b3b41662c8527ff0150bc25777e3fcd6f5221a1c19",
+    "evidence/files/SRP1265A-3R3M_components_be7c4a1aad13.txt": "be7c4a1aad13d106277a386070850a01f4c436eb1811e8d2c32405460b6b6820",
+    "evidence/files/SRP1265A-4R7M_components_9a3de3ffe216.txt": "9a3de3ffe216c5ee56e0458b90602c35f93c94712adec490c3ec2d52357444df",
+    "evidence/files/SRP1265A-6R8M_components_9dda4654fb4d.txt": "9dda4654fb4d363ef71e786eab994e32c9ebd65ea02222a47daace02bd249781",
+    "evidence/files/SRP1265A-6R8M_srp1265a_30b470999b73.pdf": "30b470999b737a6350ce5b09a917a5f12090c2e0895a78ddc15285e3d44ec649",
+    "evidence/files/Sunlord_MWSA-S_55a6f5de0d34.pdf": "55a6f5de0d3424730210584c2a732f5209bba52cffa5c226885944f3d9e1be9a",
+    "evidence/files/TSW-103-07-G-S_tsw_th_3a5770b11668.pdf": "3a5770b11668f4e5a11ba9ceeb4817a23f467b8507e3592f55fb6bd8f96e71bc",
+    "evidence/index.yaml": "07aeb09f91cd50aec553a7737ff38964291025b18ab23ec0ba7162fad6d01818",
+    "footprints/rover.pretty/AGND_Tie_LMR51450.kicad_mod": "3a7f92c9441e3201a5b3a7dec917c707454bad07a226270193ee6cfa5233dfc0",
+    "footprints/rover.pretty/APS1365DW_13.8x12.6_P11.5.kicad_mod": "89f28693d36d1e35996b11db5ea93be30102cc3f30241942834213ff5c42f443",
+    "footprints/rover.pretty/CSS2H_2512_6.35x3.05.kicad_mod": "6754b94db83c9c57acdbb9cda82513eb5e6e0e075e0c63d9e9b2384ff8532a35",
+    "footprints/rover.pretty/Fuseholder_Littelfuse_01530008Z.kicad_mod": "3382ca81831b0d6861b5cbbf345b17fe38ca10eb30b442d79118a72eba533fe5",
+    "footprints/rover.pretty/KT0805G_0805_A1_K2.kicad_mod": "a4a8eec0020bcbc57b4990845f92cf94acf8a73c91d3df9b5cb814cce1baab97",
+    "footprints/rover.pretty/LMR51450_DRR_WSON12_3x3.kicad_mod": "fe744a74dc0837332a219ac9884d82bc79fda6140a562e9ea9f7972c75193c32",
+    "footprints/rover.pretty/Pico2_Sockets_LXWCONN_254PM_1x20.kicad_mod": "b2fbef9df833fae32f1871a901c0071eb582500657aa2102ef84b1c65764db54",
+    "footprints/rover.pretty/SRP1265A_LeadFrame_13.5x12.5_P11.1.kicad_mod": "37b4c019f8cc305dcb51f174e186271730df9554563dd418e178ee087cb945a0",
+    "footprints/rover.pretty/WirePads_2_5x6_P9.kicad_mod": "1f4f49598bf38ba3610f62c8d9c251118009b3b15c9a0ecdcd84532ba5ee80be",
+    "footprints/rover.pretty/WirePads_2_6x8_P12.kicad_mod": "fb9970d5eb38727d0abc4247245286aa6e85ac1573fbb3e7cd217bc280cef1ee",
+    "fp-lib-table": "1b81fdc2a81a6dfb349ca73b1485ef2be2251bbccc5111c6a01d32b7180a9ea8",
+    "input-monitor.kicad_sch": "9d63d40b39166f5be4357dd47d19ec4fcb747403bff46a2ef7bbc71cae630ab5",
+    "jlcpcb-assembly.yaml": "e2473290afcc1352b2deb90c8cb835625ddffa19d00a8bfd35e9698ffdca4d98",
+    "layout-intent.yaml": null,
+    "libs/Coilank_APS1365DW.3dshapes/APS1365DW-envelope.step": "3478c6172c157f88ef3312bf0c3150066a4d97b4e4ae5901fec7bcc08dc7f3e9",
+    "libs/Coilank_APS1365DW.3dshapes/README.md": "52fc3a5b20c2ba30634457e9105dc07ff646449da7a985390d95e7ef6ac90a40",
+    "libs/Coilank_APS1365DW.3dshapes/build_model.py": "3d66e0fc596545f71f1cc7849b75f09a69c0e16cc8889a2467ab578a6cbd4e0b",
+    "libs/lcsc_C2041326.3dshapes/IND-SMD_L12.6-W12.5-SRP1265A-220M.step": "9fcc8131b76980ef4d5f5ad6d2f4d6cc377c0fe930908bffa9156fec87654afe",
+    "libs/lcsc_C2041326.3dshapes/IND-SMD_L12.6-W12.5-SRP1265A-220M.wrl": "51319c13fa77db3d34d5501342e274fbfa960380977663df7a175e290f08f78b",
+    "libs/lcsc_C2041326.kicad_sym": "63d75d4c6d4ec450276d37d7d9bfba75dd6e9be3a746394523b1678c3c6abec7",
+    "libs/lcsc_C2041326.pretty/IND-SMD_L12.6-W12.5-SRP1265A-220M.kicad_mod": "6bc44b8110a1418f863420cfef8f76d2142f12d01457462650ee4f61a9cf8730",
+    "libs/lcsc_C206907.3dshapes/FUSE-TH_L17.2-W7.62-H12.9-P7.62-S3.45.step": "924631b81bfc9eb7359d4a0910472813bfbab86e92194ea8000de099989cba94",
+    "libs/lcsc_C206907.3dshapes/FUSE-TH_L17.2-W7.62-H12.9-P7.62-S3.45.wrl": "7940e01b96dfe077f28cee56bd432d23e4ed9fed254620955caab0802d6d5f7c",
+    "libs/lcsc_C206907.kicad_sym": "5c8774cf4c71c9790bb60d9630ad78f76730f349ddb63ac72cbcf17705bb26aa",
+    "libs/lcsc_C206907.pretty/01530008Z.kicad_mod": "59e42cb6247bb7d2500ed8b4c7c9da80034e9d3be3f822d83e255974bcd59145",
+    "libs/lcsc_C226259.3dshapes/SW-TH_OS102011MA1QN1.step": "87e65083cd2b7dc67399bb2740bde744bb1093ea7403d2d4669190891ff643a7",
+    "libs/lcsc_C226259.3dshapes/SW-TH_OS102011MA1QN1.wrl": "672993ab33dc72a8d0ff61afe89fb53f8d037947829347125eab2675fee1ba60",
+    "libs/lcsc_C226259.kicad_sym": "941a59af2d0666ccd2ef402214c9e508f734d8d5732d59aca2ab848ddcc54481",
+    "libs/lcsc_C226259.pretty/SW-TH_OS102011MA1QN1.kicad_mod": "6f70ce8097e8903630bff95b83b38c699038840219804a1f6c958bdcd31b374a",
+    "libs/lcsc_C544826.3dshapes/WQFN-30_L6.0-W4.0-H0.8-P0.50-BL-EP.step": "24ef6c81a36fb643b1a9ffe812db4a7d19cd5959b05882444cbfa7b68456bc2f",
+    "libs/lcsc_C544826.3dshapes/WQFN-30_L6.0-W4.0-H0.8-P0.50-BL-EP.wrl": "dd02423ace6107c9f51eb72f1199f7b155d53fa18dfa6ac15410a19a6a9f423c",
+    "libs/lcsc_C544826.kicad_sym": "18a4dbba46364268b735b2282e99e71a6593153c431d2bc9405c727c57489bb9",
+    "libs/lcsc_C544826.pretty/WQFN-30_L6.0-W4.0-P0.50-BL-EP.kicad_mod": "aa3427d9ab0ddc3233ff1fa8c4677a8f8a75b729325dd1238b942d7fa9bbfbce",
+    "libs/lcsc_C6890985.3dshapes/WSON-12_L3.0-W3.0-P0.50-TL-EP-2.step": "97a012cf3099189d0d1316ab03fb15ecd9af42033026b789bd384d113f00eee8",
+    "libs/lcsc_C6890985.3dshapes/WSON-12_L3.0-W3.0-P0.50-TL-EP-2.wrl": "041020fbf623c55586205517bee4a15bdf6b15752363823cea5a9d8e8034b507",
+    "libs/lcsc_C6890985.kicad_sym": "ad260d4363db2d457f4e6d7bbd75d317e1e3318d27025f856496860ac95689f3",
+    "libs/lcsc_C6890985.pretty/WSON-12_L3.0-W3.0-P0.50-TL-EP-2.kicad_mod": "0d62e02695bff9be1b480b6139e5f3ce7a2c3b9322804bacba92b44f24e9b14f",
+    "netmap.json": "eb68c69d34d122e59d42e954b034984ab1360077dd553a7b22c4f68fe0ab2d58",
+    "pico-servos.kicad_sch": "5b8c3cdcc55d8e142976dd011222af2d7073b67bdf667c6a83e7ccce30ccdee6",
+    "project.yaml": "bcbfca4ba6343d58c53f8400d4891eecca44406c1b7b12136bf7169b4d82581d",
+    "review-profile.yaml": "956c6f4421abd362f3db8835a6e30f5a167c06e08d875d8b86a5060220e6f0e0",
+    "review-signoff.yaml": null,
+    "rover-pdb.kicad_dru": "fd6ec6cfd46f091c61ee7fa09ab3e1c5e29cb9b187e5045bcf055666f0239643",
+    "rover-pdb.kicad_pcb": "9a4bcc77eb7786d7ee3356549f47a3d0c5a198fa8b2b474b5c6961d14509d457",
+    "rover-pdb.kicad_pro": "dcdcab785e3988ee8eeb84f040a368da62630ae6fd3b2af99134c206c43c95d4",
+    "rover-pdb.kicad_sch": "a27d68afeb305e780511914bdb3465616290096b2acffb7bcd85512275b0b7f2",
+    "schematic-intent.yaml": "8a9d442b9698b8bed7ed02c0630b40e8c50f89f94bb1650786cf9497ca016167",
+    "sym-lib-table": "809f1c8e1cca14f7c60d867aa18d84972f766a3e5620b1309fb8f52188b0b287",
+    "symbols/rover.kicad_sym": "5139018f6427a9e16a28e1b3838847c538b8cbb08e654a8d41a5be8bb2700a31"
+  },
+  "outputs": {
+    "ASSEMBLY.md": "e1d54de8ad1def6eb549327e24299aa2e4e5528cc5bbd030810510d701b09a45",
+    "PREVIEW.txt": "d250e4ff69e898f6375422f28adcf3eca498c94c8726e383217bfbfc7fcd437f",
+    "assembly-B.svg": "5bc13c725330e5e5c5a6d8a7aa35d4170ed51b8b47c68c9a7236d0baaac766cd",
+    "assembly-F.svg": "c5f0dfcba4d4d17a3da8d1424de6fe1aa197d07ecb7956102be670eeb49fd475",
+    "assembly-audit.json": "46ff49cd830b640f5d925afd555cae8951bc841eb6d60811e15a1af439f54666",
+    "assembly-top.png": "ea7ba4a34ff0b0ec9d0c1943d990a81d97bf64ea29a9fa9c032024077c7b2f84",
+    "assembly.json": "7c83275362fe1b4c93c3068c186917de8c616fe5c8bd2116680fbd55c1337a59",
+    "assembly.step": "75c8a176bf596010479c886ef845d67207aceddd4c39f6c6b3ce0fa9ac149b5e",
+    "bom.csv": "1c051c9020bcfb9c131686bbf6781a4b72ed9643d4d04e372deb1a53e0ab6887",
+    "cpl.csv": "61c7b6f24bca9448ea832339e874787070995c2d827d91fdca4e38ce7b88b9be",
+    "drill/rover-pdb-NPTH.drl": "8658962f5a886cedad6eff7d3e63d9f5beb06b5c2a67ca66397f0fbdbc2cb8c6",
+    "drill/rover-pdb-PTH.drl": "85e065bf1c018d195dc01123d54e3b5d1a7646c3e978049d2d72723cb6de8922",
+    "gerbers.zip": "f7f408658ac1576ac6235fe185fba3e47c8791e8bf973071033b9fecb23426d2",
+    "gerbers/rover-pdb-B_Cu.gbr": "7543890f8fefaa08408cd516cfc56a91ce0c1b4f3271728698db2d520d68bb2f",
+    "gerbers/rover-pdb-B_Mask.gbr": "86be0aa8a82021a925bd5048b66620c7fc01acd55f7a1ee6d9a6be8c8754f380",
+    "gerbers/rover-pdb-B_Paste.gbr": "db2d55459c0fb91441e2a85f8983aaaf44bb7f6f8ff2c934724cd527fba8427c",
+    "gerbers/rover-pdb-B_Silkscreen.gbr": "3cd4ab53cf6ce8488604132d125a731fe53edf3c10a831c3e9d3c0d1cb56ee89",
+    "gerbers/rover-pdb-Edge_Cuts.gbr": "cf84583fbc8e021130c49f065966f17232713943257fe234e4511de8967b9904",
+    "gerbers/rover-pdb-F_Cu.gbr": "8b4751cfb1001a8d4b2f6a98e3126a92a14cb534e7f26729ecba86cca6886ad0",
+    "gerbers/rover-pdb-F_Mask.gbr": "eeb329728b498b78f1a83f9cadc1baae0b7687114ca6e465151dd861d3e54b7e",
+    "gerbers/rover-pdb-F_Paste.gbr": "05eb3213c50134c3d28bb057358ba67632bf461f42b33c3a1845361c4cd798d1",
+    "gerbers/rover-pdb-F_Silkscreen.gbr": "ec819395108b88ecb2c66726bcfd4030bd7441b3f38609e490ed7cfc164dfe7f",
+    "gerbers/rover-pdb-job.gbrjob": "41e4fd1684fb7d53f06d231dccf566cac37e96c1bcd21407b5a7a019aa001294",
+    "jlcpcb-dfm.json": "940643a0a6ef1223a12326d462b756a349590fd51a848516caddd46e94c04162",
+    "model-export.json": "cba99c503a1cca77c8ca3a639b3a80c361f352c78b1da5ab9ea914d8f4a5509b",
+    "positions.csv": "ed1b0aed68505b4f984750ab964daf1d64b8e57650f1728fe6ab4789774569ea",
+    "review.json": "d33dcb13ffb0c7c6a4b0b35f532c917e833a1731b337614e7f772b6de488d257",
+    "rotation-audit.csv": "a839062434f094f352333c6c2c57d0e8262c43d66a08fcfb61785040f7a6336b",
+    "stock-sources/C137289-79266a88317c.html.gz": "23b618c1c650dcce4a38fdef727cffc4c9485376cff78432dff49e19f1e5beba",
+    "stock-sources/C1579437-77404c58a965.html.gz": "31b738d0f334d5aa0fac5cb34c831c976a22131831488cdcfb5cc67011eae27d",
+    "stock-sources/C1579630-fb2815ca2ca0.html.gz": "73594229c9396413526bdf3d87a983078c0e851832b9d26d01d2a39a03774eb6",
+    "stock-sources/C160258-d710b51f60fa.html.gz": "edb7cb2dcdc764b07958b4fcc7424f7b383bb58c8b3240b458825e7670a2c539",
+    "stock-sources/C1663-c4ec6a9d8a1a.html.gz": "abfde14459da80ffffa7e205fca60cfeba468ebf8f91bc2f65303df690e8da7c",
+    "stock-sources/C1711-38c4fbf9a500.html.gz": "ce285da791f7c1963ffaa99a5d01567f93eda2ef91202e7a4bba1187765332ac",
+    "stock-sources/C17508-85c73be0026c.html.gz": "89f70870c88da2d92fecd624e7099c28c61537391487a5e194694acf498f18f4",
+    "stock-sources/C17513-7dc129cc8be1.html.gz": "e63630556d80385c43330f19233bc738596bd2620c7a9970d7dd3d6b5d13a556",
+    "stock-sources/C17560-5aece5e8f516.html.gz": "044e9ca0fc91365d103a58e844c7aa45ed0d067391eb1888b06918e1ade805a1",
+    "stock-sources/C17806-d688b2f8fe6d.html.gz": "841ae56a77b8b4fcfeb2167e915d69b918f807d3723b201910fb91c5bfc2697f",
+    "stock-sources/C2041326-c7c91196a8f4.html.gz": "530b5c13433f78ae8d9de77211f2c72231353207a76602a6d0be99b0233f9c05",
+    "stock-sources/C2093761-4bf062a5064d.html.gz": "114a01c9e7cf34bdec0769a87db41d06ba8bfb2997206618031b910177265e46",
+    "stock-sources/C226259-38ec7ac194ec.html.gz": "3f55fe1a5be187cd187a9e98abcc9a741649b83035f370a6d224cbf5d48142af",
+    "stock-sources/C2297-c79e8a041ffa.html.gz": "d94dbff4c481c53ce24b4357bedcc4c166763bdd1b27e5c01b59f1224d57ca09",
+    "stock-sources/C309062-98133f7ea5de.html.gz": "532fa2ff32c6cba068e385430d087e8dc61d625a9200e22fced4593f41c1cc95",
+    "stock-sources/C3335811-f7fcfb7ebafc.html.gz": "b55a2330d6809da7a660d8d331e3ad20c9ae1e415a8b380b1fabc125de4192c5",
+    "stock-sources/C49851-cfd4f9c3c3ec.html.gz": "1757cd5319cfad25793623b0f3e4f20d19815cd3810cf77f4a36d61c6fe14e47",
+    "stock-sources/C54431777-a1e95020ec2a.html.gz": "399bd5f7d37ccd1609047004e101c8b909be272f014c759ea175a228f47e60ad",
+    "stock-sources/C60816-ea0199240c6b.html.gz": "0075acc0914f8b988d9fca6bc70f2328486f55cf5d08cde7fd1c3417b9354971",
+    "stock-sources/C65649-143417b4136c.html.gz": "a9c13c1a26cd3b522019185456eb2a38c74fbe0011ac918e2bab923547d80673",
+    "stock-sources/C6890985-3630ef118eff.html.gz": "8f68e1fe181347b778d1ba9dcdd77fed00b1c91e3e462943cb852762f8d22635",
+    "stock-sources/C77102-f6579c3a0f3c.html.gz": "837fcfa45332ba46d87dd9cf5adbb495ab1fc97e0b3b93a74074934a9838e09f",
+    "stock-sources/C780205-034946294ece.html.gz": "db19b1065a4ffaba3b055abd49f94850603b783974001120a3a7d399df1da689",
+    "stock-sources/C84376-9d93899063a3.html.gz": "e6b7f6f182cb7662a434a95a2d2880e6a0b96df03395b6abb16519dbc9d7d201",
+    "stock-sources/C96346-d9b26ef6acc0.html.gz": "d92271ba91e01f712729cf7a9542a660ec4a11f08eb3633d7b47f0158ddfa586",
+    "stock.csv": "1b3dd3231b5f82aa3156c7ba05824205745ac07b22bd06a825d7a37f9472d506",
+    "stock.json": "c37aa1df16915f5e59fdc2d75c2289b8845c6ad3ee6dbd120028114a7330fbc8"
+  },
+  "project": "rover-pdb",
+  "purpose": "upload-preview",
+  "schema_version": 1,
+  "toolchain": {
+    "assembly": {
+      "bom_rows": 25,
+      "centroid_corrections": [
+        {
+          "offset": {
+            "geometry_sha256": "3bc3de1dd6076697fc9dc892c7a37544d5d1127cb5dcdcd884d2b2fb6350a475",
+            "reason": "Center of embedded F.Fab capacitor body circle.",
+            "x_mm": 2.5,
+            "y_mm": 0
+          },
+          "reference": "C1"
+        },
+        {
+          "offset": {
+            "geometry_sha256": "d187050405800620f984c18a659bccb5c0a7d7bee1ca9efeedf09e89897cbabb",
+            "reason": "Center of embedded F.Fab capacitor body circle.",
+            "x_mm": 2.5,
+            "y_mm": 0
+          },
+          "reference": "C2"
+        },
+        {
+          "offset": {
+            "geometry_sha256": "3bc3de1dd6076697fc9dc892c7a37544d5d1127cb5dcdcd884d2b2fb6350a475",
+            "reason": "Center of embedded F.Fab capacitor body circle.",
+            "x_mm": 2.5,
+            "y_mm": 0
+          },
+          "reference": "C5"
+        },
+        {
+          "offset": {
+            "geometry_sha256": "3bc6897ce07dd39a0043713dcc64fc46c0974897491e1e87fae03b73032a9492",
+            "reason": "Center of embedded F.Fab JST housing rectangle.",
+            "x_mm": 3.75,
+            "y_mm": 0.3
+          },
+          "reference": "J1"
+        },
+        {
+          "offset": {
+            "geometry_sha256": "249673e04ba36e5e7953f43f7e440ee79df8ae3633182a1788a76b6b165ae8f4",
+            "reason": "Center of embedded F.Fab 1x3 header body.",
+            "x_mm": 0,
+            "y_mm": 2.54
+          },
+          "reference": "J2"
+        },
+        {
+          "offset": {
+            "geometry_sha256": "249673e04ba36e5e7953f43f7e440ee79df8ae3633182a1788a76b6b165ae8f4",
+            "reason": "Center of embedded F.Fab 1x3 header body.",
+            "x_mm": 0,
+            "y_mm": 2.54
+          },
+          "reference": "J3"
+        },
+        {
+          "offset": {
+            "geometry_sha256": "249673e04ba36e5e7953f43f7e440ee79df8ae3633182a1788a76b6b165ae8f4",
+            "reason": "Center of embedded F.Fab 1x3 header body.",
+            "x_mm": 0,
+            "y_mm": 2.54
+          },
+          "reference": "J4"
+        },
+        {
+          "offset": {
+            "geometry_sha256": "3bc6897ce07dd39a0043713dcc64fc46c0974897491e1e87fae03b73032a9492",
+            "reason": "Center of embedded F.Fab JST housing rectangle.",
+            "x_mm": 3.75,
+            "y_mm": 0.3
+          },
+          "reference": "J5"
+        },
+        {
+          "offset": {
+            "geometry_sha256": "3bc6897ce07dd39a0043713dcc64fc46c0974897491e1e87fae03b73032a9492",
+            "reason": "Center of embedded F.Fab JST housing rectangle.",
+            "x_mm": 3.75,
+            "y_mm": 0.3
+          },
+          "reference": "J6"
+        },
+        {
+          "offset": {
+            "geometry_sha256": "3bc6897ce07dd39a0043713dcc64fc46c0974897491e1e87fae03b73032a9492",
+            "reason": "Center of embedded F.Fab JST housing rectangle.",
+            "x_mm": 3.75,
+            "y_mm": 0.3
+          },
+          "reference": "J7"
+        },
+        {
+          "offset": {
+            "geometry_sha256": "249673e04ba36e5e7953f43f7e440ee79df8ae3633182a1788a76b6b165ae8f4",
+            "reason": "Center of embedded F.Fab 1x3 header body.",
+            "x_mm": 0,
+            "y_mm": 2.54
+          },
+          "reference": "J8"
+        },
+        {
+          "offset": {
+            "geometry_sha256": "b37130536603919b4821257657bcbeb0bcbdc8e46f249d3d52416581fdedfff8",
+            "reason": "Center of embedded F.Fab fixed switch housing; movable actuator excluded.",
+            "x_mm": 2,
+            "y_mm": 0
+          },
+          "reference": "SW1"
+        }
+      ],
+      "components": 71,
+      "local_checks_passed": true,
+      "manual_fit": {
+        "SKT1": {
+          "footprint": "rover:Pico2_Sockets_LXWCONN_254PM_1x20",
+          "reason": "Hand-fit two female sockets and the Pico module after factory assembly, per docs/design/BOM_NOTES.md."
+        }
+      },
+      "passed": false,
+      "rotation_corrections": [
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 0.0,
+          "native_angle": 0.0,
+          "offset_degrees": 0,
+          "reference": "C1"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 0.0,
+          "native_angle": 0.0,
+          "offset_degrees": 0,
+          "reference": "C2"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "C3"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 0.0,
+          "native_angle": 0.0,
+          "offset_degrees": 0,
+          "reference": "C5"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "C10"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "C11"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "C12"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "C13"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "C14"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "C15"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 270.0,
+          "native_angle": -90.0,
+          "offset_degrees": 0,
+          "reference": "C16"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 270.0,
+          "native_angle": -90.0,
+          "offset_degrees": 0,
+          "reference": "C17"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 270.0,
+          "native_angle": -90.0,
+          "offset_degrees": 0,
+          "reference": "C18"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 270.0,
+          "native_angle": -90.0,
+          "offset_degrees": 0,
+          "reference": "C19"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 270.0,
+          "native_angle": -90.0,
+          "offset_degrees": 0,
+          "reference": "C20"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 270.0,
+          "native_angle": -90.0,
+          "offset_degrees": 0,
+          "reference": "C21"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 270.0,
+          "native_angle": -90.0,
+          "offset_degrees": 0,
+          "reference": "C22"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 270.0,
+          "native_angle": -90.0,
+          "offset_degrees": 0,
+          "reference": "C23"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 270.0,
+          "native_angle": -90.0,
+          "offset_degrees": 0,
+          "reference": "C24"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 270.0,
+          "native_angle": -90.0,
+          "offset_degrees": 0,
+          "reference": "C25"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 270.0,
+          "native_angle": -90.0,
+          "offset_degrees": 0,
+          "reference": "C26"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 270.0,
+          "native_angle": -90.0,
+          "offset_degrees": 0,
+          "reference": "C27"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 270.0,
+          "native_angle": -90.0,
+          "offset_degrees": 0,
+          "reference": "C28"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 180.0,
+          "native_angle": 180.0,
+          "offset_degrees": 0,
+          "reference": "C30"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 180.0,
+          "native_angle": 180.0,
+          "offset_degrees": 0,
+          "reference": "C31"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 180.0,
+          "native_angle": 180.0,
+          "offset_degrees": 0,
+          "reference": "C32"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "C33"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "C34"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "C35"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "C39"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "C40"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "C41"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 180.0,
+          "native_angle": 180.0,
+          "offset_degrees": 0,
+          "reference": "D2"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 0.0,
+          "native_angle": 0.0,
+          "offset_degrees": 0,
+          "reference": "J1"
+        },
+        {
+          "basis": "derived_from_preview",
+          "jlcpcb_angle": 0.0,
+          "native_angle": 90.0,
+          "offset_degrees": -90,
+          "reference": "J2"
+        },
+        {
+          "basis": "derived_from_preview",
+          "jlcpcb_angle": 0.0,
+          "native_angle": 90.0,
+          "offset_degrees": -90,
+          "reference": "J3"
+        },
+        {
+          "basis": "derived_from_preview",
+          "jlcpcb_angle": 0.0,
+          "native_angle": 90.0,
+          "offset_degrees": -90,
+          "reference": "J4"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 0.0,
+          "native_angle": 0.0,
+          "offset_degrees": 0,
+          "reference": "J5"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 0.0,
+          "native_angle": 0.0,
+          "offset_degrees": 0,
+          "reference": "J6"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 0.0,
+          "native_angle": 0.0,
+          "offset_degrees": 0,
+          "reference": "J7"
+        },
+        {
+          "basis": "derived_from_preview",
+          "jlcpcb_angle": 0.0,
+          "native_angle": 90.0,
+          "offset_degrees": -90,
+          "reference": "J8"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 0.0,
+          "native_angle": 0.0,
+          "offset_degrees": 0,
+          "reference": "L1"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 0.0,
+          "native_angle": 0.0,
+          "offset_degrees": 0,
+          "reference": "L2"
+        },
+        {
+          "basis": "unverified",
+          "jlcpcb_angle": 0.0,
+          "native_angle": 0.0,
+          "offset_degrees": 0,
+          "reference": "L3"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 180.0,
+          "native_angle": 180.0,
+          "offset_degrees": 0,
+          "reference": "R1"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 180.0,
+          "native_angle": 180.0,
+          "offset_degrees": 0,
+          "reference": "R2"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 270.0,
+          "native_angle": -90.0,
+          "offset_degrees": 0,
+          "reference": "R3"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 270.0,
+          "native_angle": -90.0,
+          "offset_degrees": 0,
+          "reference": "R4"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 270.0,
+          "native_angle": -90.0,
+          "offset_degrees": 0,
+          "reference": "R5"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 270.0,
+          "native_angle": -90.0,
+          "offset_degrees": 0,
+          "reference": "R6"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "R10"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "R11"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "R12"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 180.0,
+          "native_angle": 180.0,
+          "offset_degrees": 0,
+          "reference": "R13"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 180.0,
+          "native_angle": 180.0,
+          "offset_degrees": 0,
+          "reference": "R14"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 180.0,
+          "native_angle": 180.0,
+          "offset_degrees": 0,
+          "reference": "R15"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "R16"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "R17"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "R18"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 180.0,
+          "native_angle": 180.0,
+          "offset_degrees": 0,
+          "reference": "R19"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "R20"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "R21"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "R22"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "R23"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 90.0,
+          "native_angle": 90.0,
+          "offset_degrees": 0,
+          "reference": "R24"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 180.0,
+          "native_angle": 180.0,
+          "offset_degrees": 0,
+          "reference": "RS1"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 180.0,
+          "native_angle": 180.0,
+          "offset_degrees": 0,
+          "reference": "SW1"
+        },
+        {
+          "basis": "derived_from_preview",
+          "jlcpcb_angle": 270.0,
+          "native_angle": 0.0,
+          "offset_degrees": -90,
+          "reference": "U1"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 0.0,
+          "native_angle": 0.0,
+          "offset_degrees": 0,
+          "reference": "U2"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 0.0,
+          "native_angle": 0.0,
+          "offset_degrees": 0,
+          "reference": "U3"
+        },
+        {
+          "basis": "observed",
+          "jlcpcb_angle": 0.0,
+          "native_angle": 0.0,
+          "offset_degrees": 0,
+          "reference": "U4"
+        }
+      ],
+      "supplier_review": {
+        "detail": "JLCPCB placement review has not been recorded for this upload.",
+        "passed": false
+      },
+      "supplier_rotation_verified": false,
+      "supplier_stock_verified": false,
+      "unsourced": []
+    },
+    "kicad": "10.0.6",
+    "manufacturing_profile": "jlcpcb"
+  }
+}

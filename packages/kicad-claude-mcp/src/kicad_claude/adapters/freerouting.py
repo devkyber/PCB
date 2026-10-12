@@ -130,12 +130,6 @@ def available_jars() -> list[tuple[tuple[int, int, int], Path]]:
     return sorted(((v, p) for p, v in found.items()), key=lambda t: t[0], reverse=True)
 
 
-def find_freerouting_jar() -> Path | None:
-    """The newest JAR present, regardless of whether its Java is installed."""
-    jars = available_jars()
-    return jars[0][1] if jars else None
-
-
 def jar_version(jar: Path) -> tuple[int, int, int] | None:
     """Read the JAR's version. Filename first, then the build date in the
     manifest (Freerouting does not stamp Implementation-Version)."""

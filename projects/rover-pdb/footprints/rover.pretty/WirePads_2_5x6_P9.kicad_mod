@@ -1,0 +1,103 @@
+(footprint "WirePads_2_5x6_P9"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Owner-selected hand-solder surface output pads, 5x6mm, 9mm pitch. No paste. NPTH pair for harness retention. No purchased connector.")
+	(property "Reference" "REF**"
+		(at 0 5.7 0)
+		(layer "F.SilkS")
+		(uuid "95ead87a-4a85-428f-a27e-6e647e5792d6")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "OUTPUT WIRE PADS"
+		(at 0 7.2 0)
+		(layer "F.Fab")
+		(uuid "8b1d3593-6887-4d83-b87e-2f8b937b00a4")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "30866cf3-3f73-4880-bc5c-88c5bc6fdc6d")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "87b1feb6-d8ce-4a89-8619-a7921bd3f0dc")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr smd exclude_from_pos_files exclude_from_bom)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_rect
+		(start -8.5 -4)
+		(end 8.5 4)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "9915f0c2-4971-4266-9de0-b2e40e9cb967")
+	)
+	(fp_text user "${SHORT_NET_NAME(1)}"
+		(at -4.5 4.2 0)
+		(layer "F.SilkS")
+		(uuid "03c6f851-1284-4fcf-9ef8-30ef9adad349")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+		)
+	)
+	(fp_text user "${SHORT_NET_NAME(2)}"
+		(at 4.5 4.2 0)
+		(layer "F.SilkS")
+		(uuid "68165ae1-8151-4ad3-af4a-8b3ce8b45c76")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" smd roundrect
+		(at -4.5 0)
+		(size 5 6)
+		(layers "F.Cu" "F.Mask")
+		(roundrect_rratio 0.1)
+		(solder_mask_margin 0)
+		(uuid "5a48b10e-4cda-473d-953d-0d272c5a9ec3")
+	)
+	(pad "2" smd roundrect
+		(at 4.5 0)
+		(size 5 6)
+		(layers "F.Cu" "F.Mask")
+		(roundrect_rratio 0.1)
+		(solder_mask_margin 0)
+		(uuid "90f32d26-ba4f-49b2-95b9-809a07d2bed0")
+	)
+	(embedded_fonts no)
+)

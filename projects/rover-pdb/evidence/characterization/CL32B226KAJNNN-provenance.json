@@ -1,0 +1,42 @@
+{
+  "retrieved_on": "2026-09-30",
+  "source_url": "https://product.samsungsem.com/mlcc/CL32B226KAJNNN.do",
+  "manufacturer": "Samsung Electro-Mechanics",
+  "part_family": "CL32B226KAJNNN",
+  "active_CAD_MPN": "CL32B226KAJNNNE",
+  "status": "Supplemental manufacturer HTML characterization; not registered in evidence/index.yaml",
+  "importer_limitation": "pcb-copilot research --add rejects HTML as InvalidEvidencePayload",
+  "files": {
+    "CL32B226KAJNNN-curves.json": {
+      "sha256": "f7b3bf18c15a11a04265812f19a7d06a1bb5da9061a8022d02a7f881c000ac11",
+      "bytes": 202689
+    },
+    "CL32B226KAJNNN-manufacturer.html": {
+      "sha256": "30b5f732cf8145dac6162e54ef8b2ec1aa93d47092eab73f5048bcacd6685972",
+      "bytes": 179572
+    }
+  },
+  "extraction": "Exact embedded datasheetData JSON array extracted from downloaded HTML; linear interpolation of DCBias points. No screenshot digitization.",
+  "conditions": {
+    "temperature_C": 25,
+    "measurement_frequency_Hz": 120,
+    "AC_measurement_Vrms": 0.5
+  },
+  "limitations": "Typical design-reference data, not guaranteed minimum capacitance. Tolerance, temperature under bias, aging and frequency response need separate treatment.",
+  "interpolated_operating_points": [
+    {
+      "voltage_V": 11.988811188811189,
+      "curve_delta_C_percent": -59.29911107059467,
+      "typical_each_uF": 8.954195564469174,
+      "count": 4,
+      "typical_bank_uF": 35.816782257876696
+    },
+    {
+      "voltage_V": 4.98848167539267,
+      "curve_delta_C_percent": -20.431368469210785,
+      "typical_each_uF": 17.505098936773628,
+      "count": 6,
+      "typical_bank_uF": 105.03059362064177
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+Owner-controlled Rover schematic, current revision A9, 2026-10-01.
+Current native CAD in this single active project is authoritative.
+U2-U4 use LMR51450SDRRR / C6890985. Motor EN derives from local VBAT;
+Pico is USB-only. Historical revisions do not override these decisions.
+The earlier comparison project is archived outside the repository.
+Do not regenerate current CAD or restore historical designs over owner edits.
+Explicit owner authorization is required for later schematic edits.
+Read AGENTS.md. This marker is a workflow guard, not a file lock.
+Owner reported positive A8 review in chat; A9 changes have separate author checks.
+No named, hash-bound fabrication sign-off or waiver is recorded.
+PCB work is authorized; follow AGENTS.md and preserve the reviewed circuit.

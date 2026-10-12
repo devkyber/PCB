@@ -7,6 +7,8 @@ from pathlib import Path
 
 import pytest
 
+from tests.board_fixtures import board_source
+
 
 def center_of(points):
     points = list(points)
@@ -158,5 +160,5 @@ def test_accepted_board_layout_metrics_match_baseline(
     baseline = json.loads(
         (repo_root / "tests/fixtures/baseline/layout_metrics.json").read_text(encoding="utf-8")
     )
-    pcb = repo_root / "projects" / board_name / f"{board_name}.kicad_pcb"
+    pcb = board_source(repo_root, board_name) / f"{board_name}.kicad_pcb"
     assert capture_layout_metrics_fn(pcb) == baseline[board_name]

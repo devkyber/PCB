@@ -12,6 +12,13 @@ Read [README](README.md), [Workflow](docs/WORKFLOW.md),
    footprints, electrical limits, owner inputs or engineering conclusions.
 4. Use the shared schematic/layout geometry helpers and the scoped parser in
    `src/pcb_copilot/deviations.py`. Keep netmap and native CAD parity current.
+   Apply the schematic readability rules in `docs/DESIGN_RULES.md` and inspect
+   every rendered sheet before handover. Preserve owner edits; generated intent
+   is not authority to replace current CAD.
+   For scoped edits, start from saved native CAD and use the native-candidate
+   update path. Intent generation is a redraw, not a merge of owner edits.
+   Save/close KiCad before external application; unsaved editor buffers are
+   unavailable to the file pipeline. Apply must match a successful current preview.
 5. Run relevant checks and fault tests. ERC, DRC and routing establish their
    stated scope; human visual, mechanical, RF, thermal and bench review remains.
 6. Human sign-off must be named, dated and bound to current CAD, rules, evidence,
@@ -22,12 +29,21 @@ Read [README](README.md), [Workflow](docs/WORKFLOW.md),
 8. Keep the repository limited to current designs, evidence, active code, focused
    tests and reader docs. Git is the history. Avoid agent-specific hooks,
    duplicated tool installations, generated status files and permanent draft trees.
+   Do not assume untracked owner files are recoverable from Git. Before deep
+   cleanup, verify an external backup and retain cited final evidence. Use
+   `pcb-copilot clean PROJECT` for ordinary preview cleanup; never blanket-delete
+   unknown `.pcb-copilot` contents. See the architecture retention policy.
+9. Apply the shared Rover lessons in `docs/ARCHITECTURE.md` to every board.
+   `review` and `release` always include the mandatory `shared.*` visual and
+   layout-handover decisions. Project profiles extend these requirements;
+   they cannot remove or weaken them. A policy change invalidates old sign-offs.
 
 ```powershell
 uv sync
-uv run pcb-copilot review projects/baro-bmp390
+uv run pcb-copilot review projects/tms-v3
 uv run pytest -q
 ```
 
-TMS ignition decisions and GNSS RF/antenna questions remain owner work. Consult
-project profiles before claiming any board is ready.
+Rover development is closed at the owner's request; keep its saved CAD intact.
+TMS is the active rework project. Consult its requirements and review profile
+before choosing a change or claiming readiness.

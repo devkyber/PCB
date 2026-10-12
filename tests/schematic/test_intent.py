@@ -113,7 +113,7 @@ def test_cross_block_net_requires_boundary_declaration():
 
 
 def test_template_round_trips_and_is_not_empty(repo_root: Path, tmp_path: Path):
-    source = repo_root / "projects/template/schematic-intent.yaml"
+    source = repo_root / "templates/project/schematic-intent.yaml"
     intent = load_schematic_intent(source)
     assert intent.blocks
     assert len(intent.components) >= 2

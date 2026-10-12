@@ -1,0 +1,23 @@
+{
+  "candidate_sha256": "1acf32b6759d6194a2fdb7d224eebd40b90e42636866098d98b1c4e39d66ff6f",
+  "source_files": {
+    "converter_cells.py": "ee579b652252954a0b6907b26044fe34a7b6a7f902ee36e8c531291d79e45f0a",
+    "quiet_routes.py": "f32d8412e57aab6df591004c9225b2cfc6aded2eec84641b348d0067f11f2f81",
+    "build_candidate.py": "97c7e231b4996d814216a9573c4f6c0eb42d1667abb925f39f3f807b558b80e0"
+  },
+  "intended_count": 107,
+  "actual_count": 107,
+  "changed": [
+    {
+      "xy": [
+        60.0,
+        33.0
+      ],
+      "intended": "GND",
+      "actual": "/Battery input and INA226/I2C_SDA",
+      "uuid": "9c5fc686-fe8d-4b6d-b316-d8dfced90f89"
+    }
+  ],
+  "missing": [],
+  "unexpected": []
+}

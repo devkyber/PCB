@@ -1,0 +1,39 @@
+Review: rover-pdb-readable
+Schematic: 34eb70c7a1f8  PCB: bc76965faae2
+[PASS] research: requirements, cited basis and archived evidence verified
+  proves: requirements, cited basis and source integrity
+  does not prove: engineering validity of those choices
+[PASS] datasheets: required datasheet bytes verified
+  proves: required datasheets are archived and verified
+  does not prove: interpretation of electrical limits
+[PASS] erc: 0 violation(s), 0 unspecified-pin warnings waived
+  proves: fresh KiCad electrical-rule findings
+  does not prove: circuit fitness or safe operation
+[PASS] schematic_ownership: netmap matches the current schematic
+  proves: netmap matches the current schematic
+  does not prove: circuit correctness
+[PASS] netlist_parity: exact schematic/PCB pin-net parity
+  proves: exact schematic/PCB pin-net agreement
+  does not prove: which circuit is correct
+[PASS] placement: implemented placement checks pass
+  proves: implemented placement geometry checks
+  does not prove: assembly or enclosure fit
+[PASS] design_rules: === docs/DESIGN_RULES.md geometric checks: C:\Users\tae06\AppData\Local\Temp\pcb-copilot-review-w7pftp9h\rover-pdb-readable\rover-pdb.kicad_pcb ===
+
+passing:
+  [2.2 decoupling <=2mm]  1 ok
+
+RESULT: 0 violation(s), 1 check(s) passed
+SCOPE: geometric rules 1.2, 2.2, 5.1, 6.1 only (4 of 42 numbered subsections in docs/DESIGN_RULES.md). The remainder are not machine-checkable from the board file and are covered by the Phase 5 human review.
+  proves: geometric rules 1.2, 2.2, 5.1 and 6.1
+  does not prove: all house rules or source applicability
+[PASS] drc: 0 error(s), 0 warning(s), 0 unconnected; two refilled runs
+  proves: two fresh zone-refilled DRC runs and routing completeness
+  does not prove: RF, thermal or functional behavior
+[PASS] schematic_quality: 7 sheet(s) checked
+  proves: all referenced sheets have title/revision and acceptable density
+  does not prove: visual readability, electrical correctness, or page-flow quality
+[FAIL] signoff: 0/5 current decisions: schematic-owner-review unsigned; motor-energy unsigned; parts-and-mechanics unsigned; power-and-protection unsigned; pcb-layout-and-assembly unsigned
+  proves: named, dated, project-specific decisions match the exact current design and review profile
+  does not prove: the reviewer inspected correctly, measured hardware, or made a safe decision
+RESULT: BLOCKED

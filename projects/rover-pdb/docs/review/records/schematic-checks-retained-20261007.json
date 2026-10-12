@@ -1,0 +1,32 @@
+{
+  "status": "SCHEMATIC REVIEW ONLY",
+  "kicad_version": "10.0.6",
+  "sheets": 7,
+  "physical_symbols": 86,
+  "connected_nets": 39,
+  "erc_errors": 0,
+  "erc_warnings": 0,
+  "initial_intent_differences": [
+    "KiCad pin inventory differs from intent: missing=[('F1', '1'), ('F1', '2')], extra=[('J8', '1'), ('J8', '2'), ('J8', '3'), ('R6', '1'), ('R6', '2'), ('SKT1', '5')]"
+  ],
+  "critical_connection_failures": [],
+  "component_failures": [],
+  "footprint_pin_failures": [],
+  "unassigned_footprints": [],
+  "preview_findings": [
+    "power-clearance-unchecked: dxl-enable.kicad_sch: #PWR7001 has unsupported power-glyph position/rotation 180; clearance was not checked"
+  ],
+  "input_sha256": {
+    "rover-pdb.kicad_sch": "a27d68afeb305e780511914bdb3465616290096b2acffb7bcd85512275b0b7f2",
+    "buck-motor.kicad_sch": "2ecd62becf9d151b10a42760f780f80e4c75b7b70591d1abd1788ce1fc36a73f",
+    "pico-servos.kicad_sch": "5b8c3cdcc55d8e142976dd011222af2d7073b67bdf667c6a83e7ccce30ccdee6",
+    "buck-5v.kicad_sch": "575bf6a99b3375b1a54ce3809281d06d6eca80bf242d3a6254d2499e3253b049",
+    "dxl-enable.kicad_sch": "322e6d8f3ef2a130673e50619ec4ff4dd7b6f62d9ac2c79f1f9f6cc4c4682973",
+    "buck-12v.kicad_sch": "6b8f24294eb223856c9230fe237386220eef2572b08ef34fcccbf2efda82a003",
+    "input-monitor.kicad_sch": "9d63d40b39166f5be4357dd47d19ec4fcb747403bff46a2ef7bbc71cae630ab5",
+    "rover-pdb.kicad_pro": "4004879bce2c0b4f0b482966ec983ca719515b7d2ba5917c9c58956f1cfed52e"
+  },
+  "cad_unchanged": true,
+  "pcb_created": false,
+  "human_signoff": "PENDING"
+}

@@ -1,0 +1,255 @@
+{
+  "baseline": [
+    {
+      "type": "clearance",
+      "severity": "error",
+      "description": "Clearance violation ( clearance 0.2000 mm; actual 0.1500 mm)",
+      "items": [
+        "Track [A] on F.Cu, length 0.6000 mm",
+        "Track [B] on F.Cu, length 0.6000 mm"
+      ],
+      "positions": [
+        {
+          "x": 15.0,
+          "y": 17.7
+        },
+        {
+          "x": 15.5,
+          "y": 17.7
+        }
+      ]
+    },
+    {
+      "type": "clearance",
+      "severity": "error",
+      "description": "Clearance violation ( clearance 0.2000 mm; actual 0.1500 mm)",
+      "items": [
+        "Pad 1 [A] of U6 on F.Cu",
+        "Track [B] on F.Cu, length 1.5000 mm"
+      ],
+      "positions": [
+        {
+          "x": 15.0,
+          "y": 13.0
+        },
+        {
+          "x": 15.5,
+          "y": 12.25
+        }
+      ]
+    },
+    {
+      "type": "clearance",
+      "severity": "error",
+      "description": "Clearance violation ( clearance 0.2000 mm; actual 0.1500 mm)",
+      "items": [
+        "Track [B] on F.Cu, length 0.6000 mm",
+        "Track [A] on F.Cu, length 0.6000 mm"
+      ],
+      "positions": [
+        {
+          "x": 3.0,
+          "y": 10.7
+        },
+        {
+          "x": 2.5,
+          "y": 10.7
+        }
+      ]
+    },
+    {
+      "type": "clearance",
+      "severity": "error",
+      "description": "Clearance violation ( clearance 0.2000 mm; actual 0.1500 mm)",
+      "items": [
+        "Track [B] on F.Cu, length 1.5000 mm",
+        "Pad 1 [A] of U2 on F.Cu"
+      ],
+      "positions": [
+        {
+          "x": 5.5,
+          "y": 12.25
+        },
+        {
+          "x": 5.0,
+          "y": 13.0
+        }
+      ]
+    },
+    {
+      "type": "clearance",
+      "severity": "error",
+      "description": "Clearance violation ( clearance 0.2000 mm; actual 0.1500 mm)",
+      "items": [
+        "Pad 1 [A] of U1 on F.Cu",
+        "Pad 2 [B] of U1 on F.Cu"
+      ],
+      "positions": [
+        {
+          "x": 5.0,
+          "y": 5.0
+        },
+        {
+          "x": 5.5,
+          "y": 5.0
+        }
+      ]
+    },
+    {
+      "type": "clearance",
+      "severity": "error",
+      "description": "Clearance violation ( clearance 0.2000 mm; actual 0.1500 mm)",
+      "items": [
+        "Pad 1 [A] of U5 on F.Cu",
+        "Pad 2 [B] of U5 on F.Cu"
+      ],
+      "positions": [
+        {
+          "x": 15.0,
+          "y": 5.0
+        },
+        {
+          "x": 15.5,
+          "y": 5.0
+        }
+      ]
+    }
+  ],
+  "local": [
+    {
+      "type": "clearance",
+      "severity": "error",
+      "description": "Clearance violation ( clearance 0.2000 mm; actual 0.1500 mm)",
+      "items": [
+        "Track [A] on F.Cu, length 0.6000 mm",
+        "Track [B] on F.Cu, length 0.6000 mm"
+      ],
+      "positions": [
+        {
+          "x": 15.0,
+          "y": 17.7
+        },
+        {
+          "x": 15.5,
+          "y": 17.7
+        }
+      ]
+    },
+    {
+      "type": "clearance",
+      "severity": "error",
+      "description": "Clearance violation ( clearance 0.2000 mm; actual 0.1500 mm)",
+      "items": [
+        "Track [A] on F.Cu, length 0.6000 mm",
+        "Track [B] on F.Cu, length 0.6000 mm"
+      ],
+      "positions": [
+        {
+          "x": 2.5,
+          "y": 10.7
+        },
+        {
+          "x": 3.0,
+          "y": 10.7
+        }
+      ]
+    },
+    {
+      "type": "clearance",
+      "severity": "error",
+      "description": "Clearance violation ( clearance 0.2000 mm; actual 0.1500 mm)",
+      "items": [
+        "Track [B] on F.Cu, length 1.5000 mm",
+        "Pad 1 [A] of U6 on F.Cu"
+      ],
+      "positions": [
+        {
+          "x": 15.5,
+          "y": 12.25
+        },
+        {
+          "x": 15.0,
+          "y": 13.0
+        }
+      ]
+    },
+    {
+      "type": "clearance",
+      "severity": "error",
+      "description": "Clearance violation ( clearance 0.2000 mm; actual 0.1500 mm)",
+      "items": [
+        "Pad 2 [B] of U5 on F.Cu",
+        "Pad 1 [A] of U5 on F.Cu"
+      ],
+      "positions": [
+        {
+          "x": 15.5,
+          "y": 5.0
+        },
+        {
+          "x": 15.0,
+          "y": 5.0
+        }
+      ]
+    }
+  ],
+  "custom": [
+    {
+      "type": "clearance",
+      "severity": "error",
+      "description": "Clearance violation (netclass 'Default' clearance 0.2000 mm; actual 0.1500 mm)",
+      "items": [
+        "Track [A] on F.Cu, length 0.6000 mm",
+        "Track [B] on F.Cu, length 0.6000 mm"
+      ],
+      "positions": [
+        {
+          "x": 15.0,
+          "y": 17.7
+        },
+        {
+          "x": 15.5,
+          "y": 17.7
+        }
+      ]
+    },
+    {
+      "type": "clearance",
+      "severity": "error",
+      "description": "Clearance violation (netclass 'Default' clearance 0.2000 mm; actual 0.1500 mm)",
+      "items": [
+        "Track [B] on F.Cu, length 1.5000 mm",
+        "Pad 1 [A] of U6 on F.Cu"
+      ],
+      "positions": [
+        {
+          "x": 15.5,
+          "y": 12.25
+        },
+        {
+          "x": 15.0,
+          "y": 13.0
+        }
+      ]
+    },
+    {
+      "type": "clearance",
+      "severity": "error",
+      "description": "Clearance violation (netclass 'Default' clearance 0.2000 mm; actual 0.1500 mm)",
+      "items": [
+        "Pad 2 [B] of U5 on F.Cu",
+        "Pad 1 [A] of U5 on F.Cu"
+      ],
+      "positions": [
+        {
+          "x": 15.5,
+          "y": 5.0
+        },
+        {
+          "x": 15.0,
+          "y": 5.0
+        }
+      ]
+    }
+  ]
+}

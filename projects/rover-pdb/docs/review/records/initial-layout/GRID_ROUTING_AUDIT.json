@@ -1,0 +1,66 @@
+[
+  {
+    "from": "R20.2",
+    "to": "D2.1",
+    "net": "/22.19 V motor supply/LED_A",
+    "via_count": 0,
+    "expected_vias": 0,
+    "track_count": 7,
+    "widths": [
+      0.25
+    ],
+    "extra_path_endpoints_connected": true,
+    "extra_graph_all_nodes_connected": true,
+    "from_pad_net": "/22.19 V motor supply/LED_A",
+    "to_pad_net": "/22.19 V motor supply/LED_A",
+    "length_mm": 8.499786798468909
+  },
+  {
+    "from": "R15.1",
+    "to": "SW1.2",
+    "net": "/22.19 V motor supply/MOTOR_EN",
+    "via_count": 1,
+    "expected_vias": 1,
+    "track_count": 17,
+    "widths": [
+      0.25
+    ],
+    "extra_path_endpoints_connected": true,
+    "extra_graph_all_nodes_connected": true,
+    "from_pad_net": "/22.19 V motor supply/MOTOR_EN",
+    "to_pad_net": "/22.19 V motor supply/MOTOR_EN",
+    "length_mm": 85.41664300673273
+  },
+  {
+    "from": "R19.2",
+    "to": "SW1.1",
+    "net": "/22.19 V motor supply/SW_SUPPLY",
+    "via_count": 2,
+    "expected_vias": 2,
+    "track_count": 21,
+    "widths": [
+      0.25
+    ],
+    "extra_path_endpoints_connected": true,
+    "extra_graph_all_nodes_connected": true,
+    "from_pad_net": "/22.19 V motor supply/SW_SUPPLY",
+    "to_pad_net": "/22.19 V motor supply/SW_SUPPLY",
+    "length_mm": 81.49704705744341
+  },
+  {
+    "from": "R20.1",
+    "to": "C5.1",
+    "net": "/22.19 V motor supply/VMOTOR",
+    "via_count": 3,
+    "expected_vias": 3,
+    "track_count": 12,
+    "widths": [
+      0.25
+    ],
+    "extra_path_endpoints_connected": true,
+    "extra_graph_all_nodes_connected": true,
+    "from_pad_net": "/22.19 V motor supply/VMOTOR",
+    "to_pad_net": "/22.19 V motor supply/VMOTOR",
+    "length_mm": 73.41050241024108
+  }
+]

@@ -8,12 +8,13 @@ from pcb_copilot.layout.footprints import resolve_footprint, verify_pin_pad_map
 from pcb_copilot.layout.models import PlacementItem
 from pcb_copilot.models import FootprintCandidate
 from pcb_copilot.project import load_project
+from tests.board_fixtures import board_source
 
 
 def test_bmp390_resolves_declared_import_as_real_without_geometry_evidence(
     repo_root: Path,
 ):
-    project = load_project(repo_root / "projects/baro-bmp390")
+    project = load_project(board_source(repo_root, 'baro-bmp390'))
 
     result = resolve_footprint(
         project, "U1", "jlcpcb:LGA-10_L2.0-W2.0-P0.50-BL"

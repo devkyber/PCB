@@ -59,7 +59,6 @@ text, which is what produced the doubled "GNONND" text.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from pathlib import Path
 
 GRID_MM = 1.27  # KiCad default schematic grid (50 mil)
 _STAGGER_STEPS = 4  # distinct stub lengths cycled across a pin column
@@ -131,14 +130,6 @@ POWER_LIB_SYMBOLS = {
 # rails: `+5V_FILT` and `VBAT_PROT` are real nodes *between* two stages,
 # not global rails, and drawing them as power symbols would wrongly imply
 # they're the same net as their unfiltered source.
-
-# Ground-style rails (drawn pointing down) vs supply-style (pointing up).
-# Informational only — power symbols are always placed unrotated, which
-# is what schematic convention wants; see LabelPlacer.POWER_ROTATION.
-def is_ground_rail(lib_symbol_name: str) -> bool:
-    n = lib_symbol_name.upper()
-    return n.startswith("GND") or n.startswith("EARTH") or n in {"VSS", "VSSA", "NEUT"}
-
 
 def resolve_power_symbol(net_name: str) -> str | None:
     """Map a net name onto a `power:` library symbol, or None if the net
@@ -1196,39 +1187,3 @@ def set_title_block(tree, title: str, rev: str, date: str = '',
     for i, c in enumerate(comments or [], start=1):
         tb.append([sym('comment'), i, c])
     tree.insert(paper_idx + 1, tb)
-
-
-def set_title_block_from_project(tree, pro_path, paper: str | None = None) -> None:
-    """Fill the title block from the project's own text variables.
-
-    The `.kicad_pro` already carries TITLE / REVISION / DATE / AUTHOR /
-    COMPANY, set once per board. Re-typing them into the generator would make
-    two copies of one fact and guarantee they drift — the same defect as two
-    build paths for one board. So this reads them, and the `.kicad_pro` stays
-    the single place a board is named and revised.
-
-    AUTHOR has no dedicated KiCad title-block field; it goes in comment 1,
-    which is where a hand-drawn sheet puts it.
-    """
-    import json
-    pro_path = Path(pro_path)
-    tv = {}
-    if pro_path.is_file():
-        try:
-            tv = json.loads(pro_path.read_text()).get('text_variables', {}) or {}
-        except Exception:                                    # noqa: BLE001
-            tv = {}
-    if not tv.get('TITLE'):
-        raise ValueError(
-            f'{pro_path.name} has no TITLE text variable — set it there rather '
-            'than hard-coding a title in the generator.')
-    author = tv.get('AUTHOR', '').strip()
-    set_title_block(
-        tree,
-        title=tv.get('TITLE', ''),
-        rev=tv.get('REVISION', '') or 'rev1',
-        date=tv.get('DATE', ''),
-        company=tv.get('COMPANY', ''),
-        comments=[author] if author else None,
-        paper=paper,
-    )

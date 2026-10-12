@@ -1,0 +1,13 @@
+{
+  "revision": "A9",
+  "date": "2026-10-01",
+  "sha256": {
+    "buck-12v.kicad_sch": "d56183c4a4c13f1a636730d3a56bbd8551bfefbd05a48b2ca2708ecfda425a9e",
+    "buck-5v.kicad_sch": "6668bfbd3ba638245618429223c82a9eb1e71a8b2187d53c046de25db8a394f0",
+    "buck-motor.kicad_sch": "1a885de1677d56aa69d59738e198c924eb6c6eade4dd4423f2fef4292a7d9005",
+    "dxl-enable.kicad_sch": "95ac0de112c4f20957c3290df8c64230e3d21e1ed6eafae8e2221fc743bdff24",
+    "input-monitor.kicad_sch": "c3d592a4d6d1b5ff21eb89d56357a7a59a19afafb7b3624295ac168bd67f5d0e",
+    "pico-servos.kicad_sch": "eff4fec1fd43f74dea87970d822ae4da9ed266488e4c64c9a8a30b7809f3589b",
+    "rover-pdb.kicad_sch": "4200d604fe479e47c27b7209dd070b100c7d727478924128bb419cc5fa08fb85"
+  }
+}

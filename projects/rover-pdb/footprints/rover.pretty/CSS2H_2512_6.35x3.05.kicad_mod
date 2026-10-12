@@ -1,0 +1,125 @@
+(footprint "CSS2H_2512_6.35x3.05"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Bourns CSS2H-2512 p2 recommended main lands: 1.80 x 3.40, 3.40 inner gap. Kelvin sense traces must leave inner land edges separately from force current. Sense-neck dimensions are not supplied by the manufacturer and are routed on the board.")
+	(tags "Bourns CSS2H 2512 shunt Kelvin")
+	(property "Reference" "REF**"
+		(at 0 -2.6 0)
+		(layer "F.SilkS")
+		(uuid "f5884c85-4c97-48f1-b087-8407fa6860a8")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "CSS2H-2512"
+		(at 0 2.6 0)
+		(layer "F.Fab")
+		(uuid "0afe4e1c-1c74-45f1-9fd9-ccb8b98b3c68")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "df21ce1b-642d-49a9-a3dd-bbeb1487790c")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "1ee79997-7c70-4864-a16a-0e87c1f0c727")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -1.45 -1.85)
+		(end 1.45 -1.85)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "16636519-9089-4c1c-993d-2983cb206af4")
+	)
+	(fp_line
+		(start -1.45 1.85)
+		(end 1.45 1.85)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "6db9231d-09f4-4665-840c-93e932d4c67b")
+	)
+	(fp_rect
+		(start -3.75 -1.95)
+		(end 3.75 1.95)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "f27eed93-e37f-4f55-ac9a-bfb6c0b81887")
+	)
+	(fp_rect
+		(start -3.175 -1.525)
+		(end 3.175 1.525)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "52e081f1-4f3c-48ea-aab5-dab92a14052c")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(uuid "76c37938-1084-46a8-b8a0-18594956b0b3")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.1)
+			)
+		)
+	)
+	(pad "1" smd rect
+		(at -2.6 0)
+		(size 1.8 3.4)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "c92519b5-a074-47e4-9706-ba2d700ee1cd")
+	)
+	(pad "2" smd rect
+		(at 2.6 0)
+		(size 1.8 3.4)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "99cdf056-880b-4d69-8278-2ce4931a8760")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/evidence/files/CSS2H-2512_b11b79a9d324.stp"
+	 (offset (xyz -3.17501 -1.525 0))
+	 (scale (xyz 1 1 1))
+	 (rotate (xyz -90 0 0))
+	)
+)

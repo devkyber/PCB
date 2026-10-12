@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import re
 import subprocess
+from dataclasses import replace
 from fnmatch import fnmatchcase
 from pathlib import Path
 
@@ -119,7 +120,7 @@ def reconcile_board_net_names(
     try:
         candidate_pcb.write_bytes(revised)
         candidate_pro.write_bytes(revised_settings)
-        error = candidate_board_parity(project, candidate_root)
+        error = candidate_board_parity(project, candidate_root, include_links=False)
         if error:
             raise ValueError(f'reconciled board still differs from schematic: {error}')
         if names:
@@ -140,17 +141,29 @@ def reconcile_board_net_names(
     return revised, revised_settings, names
 
 
-def candidate_board_parity(project: Project, candidate_root: Path) -> str | None:
-    """Compare native KiCad net groups on the candidate schematic and PCB."""
-    from pcb_copilot.schematic.netmap import schematic_nets
+def candidate_board_parity(project: Project, candidate_root: Path, *, include_links=True) -> str | None:
+    """Use the full update gate, or a pin-only check during name reconciliation."""
+    from pcb_copilot.review.checks import check_parity
 
     schematic = candidate_root / project.schematic_path.name
     pcb = candidate_root / project.pcb_path.relative_to(project.root)
     try:
-        expected = schematic_nets(schematic)
-        actual = read_board_net_groups(pcb)
-        differences = [name for name in sorted(set(expected) | set(actual))
-                       if expected.get(name) != actual.get(name)]
+        if include_links:
+            passed, detail = check_parity(replace(project, schematic_path=schematic, pcb_path=pcb))
+        else:
+            from pcb_copilot.layout.render import (
+                board_pin_nets,
+                native_board,
+                schematic_inventory,
+            )
+
+            tools = discover_toolchain(project.root)
+            parts, expected = schematic_inventory(tools, schematic)
+            actual = board_pin_nets(native_board(tools, pcb)['footprints'], parts)
+            differences = [name for name in sorted(set(expected) | set(actual))
+                           if expected.get(name) != actual.get(name)]
+            passed = not differences
+            detail = 'schematic/PCB pin membership differs: ' + ', '.join(differences)
     except (OSError, RuntimeError, ValueError, subprocess.SubprocessError) as exc:
         return f'board parity check failed: {exc}'
-    return 'schematic/PCB pin membership differs: ' + ', '.join(differences) if differences else None
+    return None if passed else detail

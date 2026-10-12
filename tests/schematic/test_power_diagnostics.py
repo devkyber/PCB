@@ -22,6 +22,7 @@ from pcb_copilot.schematic.power import power_clearance_findings
 from pcb_copilot.schematic.preview import render_schematic_preview, schematic_files
 from pcb_copilot.schematic.render import render_schematic_draft
 from pcb_copilot.toolchain import ToolchainPaths
+from tests.board_fixtures import board_source
 
 
 @pytest.fixture(scope='module')
@@ -32,7 +33,7 @@ def rendered_boards(tmp_path_factory):
     for board in ('baro-bmp390', 'imu-icm42688', 'gnss-neom9n', 'tms-v3'):
         root = base / board
         shutil.copytree(
-            repo_root / 'projects' / board,
+            board_source(repo_root, board),
             root,
             ignore=shutil.ignore_patterns('.pcb-copilot'),
         )
@@ -253,7 +254,7 @@ def test_preview_diagnostic_hook_is_not_skipped(
 def test_power_clearance_review_is_persisted_for_generated_bmp(repo_root, tmp_path):
     root = tmp_path / 'baro-bmp390'
     shutil.copytree(
-        repo_root / 'projects' / 'baro-bmp390',
+        board_source(repo_root, 'baro-bmp390'),
         root,
         ignore=shutil.ignore_patterns('.pcb-copilot'),
     )

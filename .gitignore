@@ -10,6 +10,8 @@ dist/
 # Local pipeline previews, transactions and fabrication outputs
 .pcb-copilot/
 projects/*/fabrication/
+# Restored on demand from the hash-verified manufacturer ZIP in evidence.
+projects/*/simulation/pspice/vendor/
 
 # KiCad local settings, backups and router intermediates
 *.kicad_prl

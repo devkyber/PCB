@@ -1,0 +1,3435 @@
+{
+  "revision": "PCB P5 / circuit A10",
+  "date": "2026-10-04",
+  "author_review": "Codex; not owner release sign-off",
+  "baseline_backup": "C:\\Users\\tae06\\.codex\\archives\\pcb\\rover-p5-a10-20261004-q65y1whz\\source",
+  "baseline_files_hash_verified": 161,
+  "initial_input_hashes": {
+    "buck-12v.kicad_sch": "2559a14a2dc411419187b6e05bf22c1e492789e10a1db25b4c60649318e13e6e",
+    "buck-5v.kicad_sch": "105b5f2506a49d16059023828e47d16bbd9ba35ac4c3964cd44c5c95fdbfbc6e",
+    "buck-motor.kicad_sch": "4895dc15bffb657a58f9cc712eaf67eb273f4696dff261054f482ddef90740bb",
+    "DESIGN_BASIS.md": "481498c51e14d511ed46f7bfc1448d7a35eadb3aeed1d7df4d15d10e4a200f3a",
+    "DEVIATIONS.md": "e81cf9b144f0f82b6223081f3aef64c67cb46b50f815764912428ae030e2d812",
+    "dxl-enable.kicad_sch": "95ac0de112c4f20957c3290df8c64230e3d21e1ed6eafae8e2221fc743bdff24",
+    "evidence/characterization/CL32B226KAJNNN-curves.json": "f7b3bf18c15a11a04265812f19a7d06a1bb5da9061a8022d02a7f881c000ac11",
+    "evidence/characterization/CL32B226KAJNNN-manufacturer.html": "30b5f732cf8145dac6162e54ef8b2ec1aa93d47092eab73f5048bcacd6685972",
+    "evidence/characterization/CL32B226KAJNNN-provenance.json": "af899f97ae6bc0596339d8c849aa724ee84163bd1e3f5d61b7f96a0f4922ef03",
+    "evidence/characterization/GRM32ER71H106KA12-ADI-provenance.json": "13ddd5a1bc1a2c1a477b4a603fab6b09913086deb6da02311c136ef3b6ac6290",
+    "evidence/characterization/GRM32ER71H106KA12-ADI-web-extract.json": "45c955ccb9074cd4dacba292f6023c51c9e19aa45ea1f2376a0e93c50453d503",
+    "evidence/characterization/GRM32ER71H106KA12-DC-bias.png": "32dcc30eedbb9a5670923faa511aa14ab76da17d426a62cf52fdbf5c763eb01e",
+    "evidence/characterization/GRM32ER71H106KA12-Murata-provenance.json": "3834fc47e33b2953320d3f08c04714fa3b5146129835a8d007dfbdb94e9825f6",
+    "evidence/files/01530008Z_5dd658d7c0c120ed4252709c4e00b44b_dd28a686cd10.pdf": "dd28a686cd106b2228fb3e0ef107b580a8f58177765c71c08a16ebbac66415af",
+    "evidence/files/01530008Z_components_038492248339.txt": "03849224833909976715d61c81a63e22a81bae159978d19f1043732f6d1470a1",
+    "evidence/files/0297010.WXNV_6640fa58723348e000da25e795536560_cfd43f753274.pdf": "cfd43f753274bc97a027685b0a8a2867969272113cc8d41980242a1a949c2e9f",
+    "evidence/files/0805W8F1001T5E_components_fcc6d3130eae.txt": "fcc6d3130eae3bfb44c7b9c0486f3ad1a87557cc636a8d55a50acb1fed2219db",
+    "evidence/files/0805W8F1912T5E_components_79fd6539982f.txt": "79fd6539982f1d79ed3018e0a12171ace376531618d9b3be292fa6c34316ea3d",
+    "evidence/files/0805W8F2202T5E_components_b881e8433fdd.txt": "b881e8433fdd135185516817550c693872ca46933563aeccfb8cab05a871fa90",
+    "evidence/files/0805W8F3741T5E_components_f6e9d7b40fa5.txt": "f6e9d7b40fa5e096c6c8cf85ba055347bcdd4d4d8e096ca566b7c155293348c1",
+    "evidence/files/0805W8F7151T5E_0a975aaa49b7c97f38a963127be4a823_11cd644d5d8a.pdf": "11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef",
+    "evidence/files/0805W8F7151T5E_components_4c0fa2ed98d0.txt": "4c0fa2ed98d0f580651d003b779f36fb39b62cc28ddc014f50cc1a852b811674",
+    "evidence/files/2.54-1x6P_cb0770a379b121177c8c7d26dfb00406_013649a580c9.pdf": "013649a580c9ee0d2a54502601713be2b1811ff6d44e21887c8077307a7c2dea",
+    "evidence/files/2.54-1x6P_components_47044365dfa6.txt": "47044365dfa67edea30c22b574f71b2fdfd0bde188952771ba9b01d5a469c88b",
+    "evidence/files/254PM-1x20P-V_f0f6c3d8697d24302649e706e8fbe0d7_5778f815e84c.pdf": "5778f815e84ca5a0e1d490c5be5db4f228194b3df5b59abb1346ace54a11685d",
+    "evidence/files/B4B-EH-A_LF_SN_eEH_9e35874bf275.pdf": "9e35874bf27505bab79d6af783118fa926ceef7a91b7cb8421f108ff69a1b7f2",
+    "evidence/files/CL10C330JB8NNNC_02336ea48ea44ca18c72517dd3cb7b47_96baebe4bd0c.pdf": "96baebe4bd0ce363e87be28b5b003f511f1502e084a6fc4f02333ded56c808f6",
+    "evidence/files/CL10C330JB8NNNC_CL10C330JB8NNNC_Spec_b3b5f1a6680a.pdf": "b3b5f1a6680a5f083fb5913555c82821d0cb2d1e540dcf250f9e5f0de071922e",
+    "evidence/files/CL10C330JB8NNNC_components_3afd8ebb8b5f.txt": "3afd8ebb8b5f42332bc6726820af872cd657dd6c85e14e82c99c5ec66e44556e",
+    "evidence/files/CSS2H-2512_b11b79a9d324.stp": "b11b79a9d3245b4634fd4a02dc9062700c637b0e0a8e435f60456296413ee491",
+    "evidence/files/CSS2H-2512K-2L00F_css2h-2512_7e32b223f4b0.pdf": "7e32b223f4b0f086d9e08cd5a4fb42e9935cf119db3dd9cf3ea7969bdd643909",
+    "evidence/files/DMG2305UX-7_components_a9248858bbeb.txt": "a9248858bbeb08d798204569f4cc794263e395d1a35717d850248020bf886626",
+    "evidence/files/DMG2305UX-7_DMG2305UX_7421a75157a2.pdf": "7421a75157a2e700a217d1a20d075216abed29e81192bf7609d3df6dbb08eb2d",
+    "evidence/files/EEU-FR1H221B_d9089262f7a6df5ba99d8a966a03ede0_bf99d179b367.pdf": "bf99d179b36759edbd615725840c0fb0c87640b0800ba9ecd967ed3172b2198c",
+    "evidence/files/GRM32ER71H106KA12_Murata_characteristics_20141111_9281c34a22b3.pdf": "9281c34a22b351bb841a7a23d0aaa1c58b4d633f6bf1a9c03d15475ac5d11f2e",
+    "evidence/files/INA226AIDGSR_ina226_c9b67f886d4a.pdf": "c9b67f886d4a5241a5e070723f7b61867409eeb27eed768b9cdd9cb17e03ca2d",
+    "evidence/files/INA226AIDGSR_sbou276_e5dc5b492908.pdf": "e5dc5b492908c656b6be0dd2ef0f8c829fd445a918a0839889fc1e3046a021ec",
+    "evidence/files/KT-0805G_de342fde3322df0797012cd7a04e2194_853e6752f600.pdf": "853e6752f600e247475ba548092207fa4fc707a3f8a0b1562a834bc9a901a8d9",
+    "evidence/files/LM73606RNPR_components_84dd5258bfcf.txt": "84dd5258bfcf4e2fc532a38a03f5384d4e5a3dbb39213213438466c9d3850cc7",
+    "evidence/files/LM73606RNPR_lm73606_98c77e8b42dd.pdf": "98c77e8b42ddc52021083dae660e5277705cc82a2c469ae16a4ad4660d904a3c",
+    "evidence/files/LM73606RNPR_snvu579_0988f0efa67e.pdf": "0988f0efa67eeda38478578e8fb8b30e3adbbd73b6f5c15cbb79269ece0c8eb8",
+    "evidence/files/LMR51450SDRRR_components_5009d4a2ce02.txt": "5009d4a2ce026741df9d81ce6d1f1dc5d399daa2816fe21778862eb2377b9aa5",
+    "evidence/files/LMR51450SDRRR_lmr51450_7f80073eb777.pdf": "7f80073eb7773dddd87df44808e8e78f5b83520b20e815cbb0a17018d1cae413",
+    "evidence/files/LMR51450SDRRR_SNVMCB2_e1fd811f3bcb.zip": "e1fd811f3bcb494bf528772421a5af4dd37b37f50461caaa5e834d3256ac1a40",
+    "evidence/files/LMR51450SDRRR_snvu838a_6086805dfb70.pdf": "6086805dfb7070abce87077d95aa4ec9b2e2a7fd25af52ddeb7d0e457de655de",
+    "evidence/files/OS102011MA1QN1_9e68893bade4341f8dc17b91bf8fc979_96f8f741dec9.pdf": "96f8f741dec9336a05c73ffc78116f4aefba9c876e170b26f01505c80eb3cbc7",
+    "evidence/files/OS102011MA1QN1_components_b07e077150de.txt": "b07e077150dea4db0a7d7ce5023c7de60dfd49444675640f9c4bd2c0e262f974",
+    "evidence/files/Pico_2_pico-2-datasheet_cbcfaf881018.pdf": "cbcfaf881018c686495a2e53c7bd281e7e0a8217d79447d73eda7c8f74b7f675",
+    "evidence/files/Raspberry_Pi_Pico_hardware-design-with-rp2040_51c4f430153f.pdf": "51c4f430153fcdbf3209d9b3b41662c8527ff0150bc25777e3fcd6f5221a1c19",
+    "evidence/files/RC0805FR-07100KL_components_6ac1220cb8d4.txt": "6ac1220cb8d45c5d1453642c051c48f8bc146b1aaa30f9323d9ec358c77b3b91",
+    "evidence/files/RC0805FR-07100KL_RC0805FR-07100KL_ce1449c65535.pdf": "ce1449c655356f5c0415d6b3aa72d28be6d26b08e45a0050fdae16d08c592120",
+    "evidence/files/RC0805FR-0710KL_Yageo_specsheet_a12caa1d29a9.pdf": "a12caa1d29a94167f5c5526d5e608f7ebfae5761f169e790543246d48d0dbc02",
+    "evidence/files/RC1206FR-073K9L_components_7f63ec628a0a.txt": "7f63ec628a0ac346ff8d1176e02ccd5293d802e88275bad9098787f03d1c782e",
+    "evidence/files/RC1206FR-073K9L_RC1206FR-073K9L_496bcb915f16.pdf": "496bcb915f1683dbad13314e506756eacb78e9792e2655403987b36eaef22f88",
+    "evidence/files/SRP1265A-3R3M_components_be7c4a1aad13.txt": "be7c4a1aad13d106277a386070850a01f4c436eb1811e8d2c32405460b6b6820",
+    "evidence/files/SRP1265A-4R7M_components_9a3de3ffe216.txt": "9a3de3ffe216c5ee56e0458b90602c35f93c94712adec490c3ec2d52357444df",
+    "evidence/files/SRP1265A-6R8M_components_9dda4654fb4d.txt": "9dda4654fb4d363ef71e786eab994e32c9ebd65ea02222a47daace02bd249781",
+    "evidence/files/SRP1265A-6R8M_srp1265a_30b470999b73.pdf": "30b470999b737a6350ce5b09a917a5f12090c2e0895a78ddc15285e3d44ec649",
+    "evidence/files/Sunlord_MWSA-S_55a6f5de0d34.pdf": "55a6f5de0d3424730210584c2a732f5209bba52cffa5c226885944f3d9e1be9a",
+    "evidence/files/TSW-103-07-G-S_tsw_th_3a5770b11668.pdf": "3a5770b11668f4e5a11ba9ceeb4817a23f467b8507e3592f55fb6bd8f96e71bc",
+    "evidence/index.yaml": "56df7d2c800873d7adc2be91803785ee49d69f0f1281105dac119cc4cfc77335",
+    "evidence/PDB_Design_Handover.md": "0115fda198001c86e08545682cc86de63730aadfbdcb9721cb9fbe8218a75a3c",
+    "footprints/rover.pretty/AGND_Tie_LMR51450.kicad_mod": "3a7f92c9441e3201a5b3a7dec917c707454bad07a226270193ee6cfa5233dfc0",
+    "footprints/rover.pretty/CSS2H_2512_6.35x3.05.kicad_mod": "6754b94db83c9c57acdbb9cda82513eb5e6e0e075e0c63d9e9b2384ff8532a35",
+    "footprints/rover.pretty/Fuseholder_Littelfuse_01530008Z.kicad_mod": "3382ca81831b0d6861b5cbbf345b17fe38ca10eb30b442d79118a72eba533fe5",
+    "footprints/rover.pretty/KT0805G_0805_A1_K2.kicad_mod": "a4a8eec0020bcbc57b4990845f92cf94acf8a73c91d3df9b5cb814cce1baab97",
+    "footprints/rover.pretty/LMR51450_DRR_WSON12_3x3.kicad_mod": "fe744a74dc0837332a219ac9884d82bc79fda6140a562e9ea9f7972c75193c32",
+    "footprints/rover.pretty/Pico2_Sockets_LXWCONN_254PM_1x20.kicad_mod": "b0539ba36fb9f4aeaa17335f97e8428110a2fd3b56e3a90e605118c7133f27a2",
+    "footprints/rover.pretty/SRP1265A_LeadFrame_13.5x12.5_P11.1.kicad_mod": "37b4c019f8cc305dcb51f174e186271730df9554563dd418e178ee087cb945a0",
+    "footprints/rover.pretty/WirePads_2_5x6_P9.kicad_mod": "dd02ae4b0f924f9d4133b7eff5eac32acdbe8d257224421242800b6f452680e4",
+    "footprints/rover.pretty/WirePads_2_6x8_P12.kicad_mod": "fb9970d5eb38727d0abc4247245286aa6e85ac1573fbb3e7cd217bc280cef1ee",
+    "fp-lib-table": "1b81fdc2a81a6dfb349ca73b1485ef2be2251bbccc5111c6a01d32b7180a9ea8",
+    "input-monitor.kicad_sch": "0e6b723d04e745da7dcda52ff780a29223f30da1a59219c603f44641a4b528fe",
+    "layout-intent.yaml": null,
+    "libs/lcsc_C2041326.3dshapes/IND-SMD_L12.6-W12.5-SRP1265A-220M.step": "9fcc8131b76980ef4d5f5ad6d2f4d6cc377c0fe930908bffa9156fec87654afe",
+    "libs/lcsc_C2041326.3dshapes/IND-SMD_L12.6-W12.5-SRP1265A-220M.wrl": "51319c13fa77db3d34d5501342e274fbfa960380977663df7a175e290f08f78b",
+    "libs/lcsc_C2041326.kicad_sym": "63d75d4c6d4ec450276d37d7d9bfba75dd6e9be3a746394523b1678c3c6abec7",
+    "libs/lcsc_C2041326.pretty/IND-SMD_L12.6-W12.5-SRP1265A-220M.kicad_mod": "6bc44b8110a1418f863420cfef8f76d2142f12d01457462650ee4f61a9cf8730",
+    "libs/lcsc_C206907.3dshapes/FUSE-TH_L17.2-W7.62-H12.9-P7.62-S3.45.step": "924631b81bfc9eb7359d4a0910472813bfbab86e92194ea8000de099989cba94",
+    "libs/lcsc_C206907.3dshapes/FUSE-TH_L17.2-W7.62-H12.9-P7.62-S3.45.wrl": "7940e01b96dfe077f28cee56bd432d23e4ed9fed254620955caab0802d6d5f7c",
+    "libs/lcsc_C206907.kicad_sym": "5c8774cf4c71c9790bb60d9630ad78f76730f349ddb63ac72cbcf17705bb26aa",
+    "libs/lcsc_C206907.pretty/01530008Z.kicad_mod": "59e42cb6247bb7d2500ed8b4c7c9da80034e9d3be3f822d83e255974bcd59145",
+    "libs/lcsc_C226259.3dshapes/SW-TH_OS102011MA1QN1.step": "87e65083cd2b7dc67399bb2740bde744bb1093ea7403d2d4669190891ff643a7",
+    "libs/lcsc_C226259.3dshapes/SW-TH_OS102011MA1QN1.wrl": "672993ab33dc72a8d0ff61afe89fb53f8d037947829347125eab2675fee1ba60",
+    "libs/lcsc_C226259.kicad_sym": "941a59af2d0666ccd2ef402214c9e508f734d8d5732d59aca2ab848ddcc54481",
+    "libs/lcsc_C226259.pretty/SW-TH_OS102011MA1QN1.kicad_mod": "6f70ce8097e8903630bff95b83b38c699038840219804a1f6c958bdcd31b374a",
+    "libs/lcsc_C544826.3dshapes/WQFN-30_L6.0-W4.0-H0.8-P0.50-BL-EP.step": "24ef6c81a36fb643b1a9ffe812db4a7d19cd5959b05882444cbfa7b68456bc2f",
+    "libs/lcsc_C544826.3dshapes/WQFN-30_L6.0-W4.0-H0.8-P0.50-BL-EP.wrl": "dd02423ace6107c9f51eb72f1199f7b155d53fa18dfa6ac15410a19a6a9f423c",
+    "libs/lcsc_C544826.kicad_sym": "18a4dbba46364268b735b2282e99e71a6593153c431d2bc9405c727c57489bb9",
+    "libs/lcsc_C544826.pretty/WQFN-30_L6.0-W4.0-P0.50-BL-EP.kicad_mod": "aa3427d9ab0ddc3233ff1fa8c4677a8f8a75b729325dd1238b942d7fa9bbfbce",
+    "libs/lcsc_C6890985.3dshapes/WSON-12_L3.0-W3.0-P0.50-TL-EP-2.step": "97a012cf3099189d0d1316ab03fb15ecd9af42033026b789bd384d113f00eee8",
+    "libs/lcsc_C6890985.3dshapes/WSON-12_L3.0-W3.0-P0.50-TL-EP-2.wrl": "041020fbf623c55586205517bee4a15bdf6b15752363823cea5a9d8e8034b507",
+    "libs/lcsc_C6890985.kicad_sym": "ad260d4363db2d457f4e6d7bbd75d317e1e3318d27025f856496860ac95689f3",
+    "libs/lcsc_C6890985.pretty/WSON-12_L3.0-W3.0-P0.50-TL-EP-2.kicad_mod": "0d62e02695bff9be1b480b6139e5f3ce7a2c3b9322804bacba92b44f24e9b14f",
+    "netmap.json": "02be17fba01395381290d2a0b73301b19ad8f0204d96f917ea4fa6a006101b0a",
+    "pico-servos.kicad_sch": "eeb5cc06ecdf62b2327d495270d68727a0ddd1394ad126b7b88163e2c8b5accf",
+    "project.yaml": "bcbfca4ba6343d58c53f8400d4891eecca44406c1b7b12136bf7169b4d82581d",
+    "REFERENCE_REVIEW.md": "2ad7cc19b506168847a6e65142fde981198a821ae8c7521d4401fc882c01e40a",
+    "REQUIREMENTS.md": "cdb0f657f3f5ad822c5522f1ba92c2bb17797f59dbad4c2a387f8c660227f5ba",
+    "review-profile.yaml": "be20b286bb3f83797b7f3bc5b67cd62c920600f6882019eb842c7b715b743c25",
+    "review-signoff.yaml": null,
+    "rover-pdb.kicad_dru": null,
+    "rover-pdb.kicad_pcb": "02312e6093be19c3b4c89f58daeb52bf62498f8ec676f714b12679a12d6aa11e",
+    "rover-pdb.kicad_pro": "2eb2b81dc4d1fcbf7830579cf301a21b61c14440832b31146e028f071b11a00b",
+    "rover-pdb.kicad_sch": "4200d604fe479e47c27b7209dd070b100c7d727478924128bb419cc5fa08fb85",
+    "schematic-intent.yaml": "8a9d442b9698b8bed7ed02c0630b40e8c50f89f94bb1650786cf9497ca016167",
+    "sym-lib-table": "809f1c8e1cca14f7c60d867aa18d84972f766a3e5620b1309fb8f52188b0b287",
+    "symbols/rover.kicad_sym": "5139018f6427a9e16a28e1b3838847c538b8cbb08e654a8d41a5be8bb2700a31"
+  },
+  "current_native_hashes": {
+    "buck-12v.kicad_sch": "2559a14a2dc411419187b6e05bf22c1e492789e10a1db25b4c60649318e13e6e",
+    "buck-5v.kicad_sch": "105b5f2506a49d16059023828e47d16bbd9ba35ac4c3964cd44c5c95fdbfbc6e",
+    "buck-motor.kicad_sch": "4895dc15bffb657a58f9cc712eaf67eb273f4696dff261054f482ddef90740bb",
+    "dxl-enable.kicad_sch": "95ac0de112c4f20957c3290df8c64230e3d21e1ed6eafae8e2221fc743bdff24",
+    "input-monitor.kicad_sch": "c10df3cad1de2162749526112bac60c796ae257aa458c9b8c022415e103a5d56",
+    "pico-servos.kicad_sch": "eeb5cc06ecdf62b2327d495270d68727a0ddd1394ad126b7b88163e2c8b5accf",
+    "rover-pdb.kicad_sch": "818f629444618cf18162fbcce1976a4b601dc0ae663a2fe7e75d618630e8ccf8",
+    "rover-pdb.kicad_pcb": "4cfc5eb7b2b986b471b8c3e80f0de72ce629481680a0ee062e0dff92b51660fe",
+    "rover-pdb.kicad_pro": "b88f5b7ef1f1badfab83a8378abcf14b01ba1b452cda6bceafc9fc8f5188df70"
+  },
+  "native_preview": {
+    "applied": false,
+    "schematic": "C:\\Users\\tae06\\CODE\\PCB\\projects\\rover-pdb\\rover-pdb.kicad_sch",
+    "source_mode": "native",
+    "intent_status": "historical; unchanged and not used to redraw CAD",
+    "human_review": "pending",
+    "preview": "C:\\Users\\tae06\\CODE\\PCB\\projects\\rover-pdb\\.pcb-copilot\\preview\\schematic.pdf",
+    "erc_report": "C:\\Users\\tae06\\CODE\\PCB\\projects\\rover-pdb\\.pcb-copilot\\preview\\schematic-erc.json",
+    "metrics": "C:\\Users\\tae06\\CODE\\PCB\\projects\\rover-pdb\\.pcb-copilot\\preview\\schematic-metrics.json",
+    "findings": [
+      {
+        "code": "step.unavailable",
+        "message": "step export failed: Cannot use VRML models when exporting to non-mesh formats.\nCannot use VRML models when exporting to non-mesh formats.\nCannot use VRML models when exporting to non-mesh formats.\nCannot use VRML models when exporting to non-mesh formats.\nCannot use VRML models when exporting to non-mesh formats.\nCannot use VRML models when exporting to non-mesh formats.\n",
+        "reference": null,
+        "evidence_id": null,
+        "severity": "review"
+      },
+      {
+        "code": "step.model_review",
+        "message": "STEP may be partial or board-only; exporter success does not establish component model completeness or mechanical fit. Inspect exporter logs and KiCad 3D.",
+        "reference": null,
+        "evidence_id": null,
+        "severity": "review"
+      }
+    ],
+    "exit_code": 0,
+    "preview_binding": {
+      "version": 1,
+      "project": "C:\\Users\\tae06\\CODE\\PCB\\projects\\rover-pdb",
+      "inputs": {
+        "buck-12v.kicad_sch": "2559a14a2dc411419187b6e05bf22c1e492789e10a1db25b4c60649318e13e6e",
+        "buck-5v.kicad_sch": "105b5f2506a49d16059023828e47d16bbd9ba35ac4c3964cd44c5c95fdbfbc6e",
+        "buck-motor.kicad_sch": "4895dc15bffb657a58f9cc712eaf67eb273f4696dff261054f482ddef90740bb",
+        "DESIGN_BASIS.md": "654c3e1bbd9c8aed7b2ec7b09b561311a0bb0bd8acb80e0588f0e946c4494ed0",
+        "DEVIATIONS.md": "e1daae4c1c1075fb9458c81f29d56f33d83faa299a32177a35587e51338dfa69",
+        "dxl-enable.kicad_sch": "95ac0de112c4f20957c3290df8c64230e3d21e1ed6eafae8e2221fc743bdff24",
+        "evidence/characterization/CL32B226KAJNNN-curves.json": "f7b3bf18c15a11a04265812f19a7d06a1bb5da9061a8022d02a7f881c000ac11",
+        "evidence/characterization/CL32B226KAJNNN-manufacturer.html": "30b5f732cf8145dac6162e54ef8b2ec1aa93d47092eab73f5048bcacd6685972",
+        "evidence/characterization/CL32B226KAJNNN-provenance.json": "af899f97ae6bc0596339d8c849aa724ee84163bd1e3f5d61b7f96a0f4922ef03",
+        "evidence/characterization/GRM32ER71H106KA12-ADI-provenance.json": "13ddd5a1bc1a2c1a477b4a603fab6b09913086deb6da02311c136ef3b6ac6290",
+        "evidence/characterization/GRM32ER71H106KA12-ADI-web-extract.json": "45c955ccb9074cd4dacba292f6023c51c9e19aa45ea1f2376a0e93c50453d503",
+        "evidence/characterization/GRM32ER71H106KA12-DC-bias.png": "32dcc30eedbb9a5670923faa511aa14ab76da17d426a62cf52fdbf5c763eb01e",
+        "evidence/characterization/GRM32ER71H106KA12-Murata-provenance.json": "3834fc47e33b2953320d3f08c04714fa3b5146129835a8d007dfbdb94e9825f6",
+        "evidence/files/01530008Z_5dd658d7c0c120ed4252709c4e00b44b_dd28a686cd10.pdf": "dd28a686cd106b2228fb3e0ef107b580a8f58177765c71c08a16ebbac66415af",
+        "evidence/files/01530008Z_components_038492248339.txt": "03849224833909976715d61c81a63e22a81bae159978d19f1043732f6d1470a1",
+        "evidence/files/0297010.WXNV_6640fa58723348e000da25e795536560_cfd43f753274.pdf": "cfd43f753274bc97a027685b0a8a2867969272113cc8d41980242a1a949c2e9f",
+        "evidence/files/0805W8F1001T5E_components_fcc6d3130eae.txt": "fcc6d3130eae3bfb44c7b9c0486f3ad1a87557cc636a8d55a50acb1fed2219db",
+        "evidence/files/0805W8F1912T5E_components_79fd6539982f.txt": "79fd6539982f1d79ed3018e0a12171ace376531618d9b3be292fa6c34316ea3d",
+        "evidence/files/0805W8F2202T5E_components_b881e8433fdd.txt": "b881e8433fdd135185516817550c693872ca46933563aeccfb8cab05a871fa90",
+        "evidence/files/0805W8F3741T5E_components_f6e9d7b40fa5.txt": "f6e9d7b40fa5e096c6c8cf85ba055347bcdd4d4d8e096ca566b7c155293348c1",
+        "evidence/files/0805W8F7151T5E_0a975aaa49b7c97f38a963127be4a823_11cd644d5d8a.pdf": "11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef",
+        "evidence/files/0805W8F7151T5E_components_4c0fa2ed98d0.txt": "4c0fa2ed98d0f580651d003b779f36fb39b62cc28ddc014f50cc1a852b811674",
+        "evidence/files/2.54-1x6P_cb0770a379b121177c8c7d26dfb00406_013649a580c9.pdf": "013649a580c9ee0d2a54502601713be2b1811ff6d44e21887c8077307a7c2dea",
+        "evidence/files/2.54-1x6P_components_47044365dfa6.txt": "47044365dfa67edea30c22b574f71b2fdfd0bde188952771ba9b01d5a469c88b",
+        "evidence/files/254PM-1x20P-V_f0f6c3d8697d24302649e706e8fbe0d7_5778f815e84c.pdf": "5778f815e84ca5a0e1d490c5be5db4f228194b3df5b59abb1346ace54a11685d",
+        "evidence/files/B4B-EH-A_LF_SN_eEH_9e35874bf275.pdf": "9e35874bf27505bab79d6af783118fa926ceef7a91b7cb8421f108ff69a1b7f2",
+        "evidence/files/CL10C330JB8NNNC_02336ea48ea44ca18c72517dd3cb7b47_96baebe4bd0c.pdf": "96baebe4bd0ce363e87be28b5b003f511f1502e084a6fc4f02333ded56c808f6",
+        "evidence/files/CL10C330JB8NNNC_CL10C330JB8NNNC_Spec_b3b5f1a6680a.pdf": "b3b5f1a6680a5f083fb5913555c82821d0cb2d1e540dcf250f9e5f0de071922e",
+        "evidence/files/CL10C330JB8NNNC_components_3afd8ebb8b5f.txt": "3afd8ebb8b5f42332bc6726820af872cd657dd6c85e14e82c99c5ec66e44556e",
+        "evidence/files/CSS2H-2512_b11b79a9d324.stp": "b11b79a9d3245b4634fd4a02dc9062700c637b0e0a8e435f60456296413ee491",
+        "evidence/files/CSS2H-2512K-2L00F_css2h-2512_7e32b223f4b0.pdf": "7e32b223f4b0f086d9e08cd5a4fb42e9935cf119db3dd9cf3ea7969bdd643909",
+        "evidence/files/DMG2305UX-7_components_a9248858bbeb.txt": "a9248858bbeb08d798204569f4cc794263e395d1a35717d850248020bf886626",
+        "evidence/files/DMG2305UX-7_DMG2305UX_7421a75157a2.pdf": "7421a75157a2e700a217d1a20d075216abed29e81192bf7609d3df6dbb08eb2d",
+        "evidence/files/EEU-FR1H221B_d9089262f7a6df5ba99d8a966a03ede0_bf99d179b367.pdf": "bf99d179b36759edbd615725840c0fb0c87640b0800ba9ecd967ed3172b2198c",
+        "evidence/files/GRM32ER71H106KA12_Murata_characteristics_20141111_9281c34a22b3.pdf": "9281c34a22b351bb841a7a23d0aaa1c58b4d633f6bf1a9c03d15475ac5d11f2e",
+        "evidence/files/INA226AIDGSR_ina226_c9b67f886d4a.pdf": "c9b67f886d4a5241a5e070723f7b61867409eeb27eed768b9cdd9cb17e03ca2d",
+        "evidence/files/INA226AIDGSR_sbou276_e5dc5b492908.pdf": "e5dc5b492908c656b6be0dd2ef0f8c829fd445a918a0839889fc1e3046a021ec",
+        "evidence/files/Jetson-Orin-Nano-Carrier_jetson_orin_nano_devkit_carrier_board_specification_sp_4a0f7ba948bc.pdf": "4a0f7ba948bce4881e176f0f8636ef3dbd40e3df9dd33134e6a7433359d18c02",
+        "evidence/files/KT-0805G_de342fde3322df0797012cd7a04e2194_853e6752f600.pdf": "853e6752f600e247475ba548092207fa4fc707a3f8a0b1562a834bc9a901a8d9",
+        "evidence/files/LM73606RNPR_components_84dd5258bfcf.txt": "84dd5258bfcf4e2fc532a38a03f5384d4e5a3dbb39213213438466c9d3850cc7",
+        "evidence/files/LM73606RNPR_lm73606_98c77e8b42dd.pdf": "98c77e8b42ddc52021083dae660e5277705cc82a2c469ae16a4ad4660d904a3c",
+        "evidence/files/LM73606RNPR_snvu579_0988f0efa67e.pdf": "0988f0efa67eeda38478578e8fb8b30e3adbbd73b6f5c15cbb79269ece0c8eb8",
+        "evidence/files/LMR51450SDRRR_components_5009d4a2ce02.txt": "5009d4a2ce026741df9d81ce6d1f1dc5d399daa2816fe21778862eb2377b9aa5",
+        "evidence/files/LMR51450SDRRR_lmr51450_7f80073eb777.pdf": "7f80073eb7773dddd87df44808e8e78f5b83520b20e815cbb0a17018d1cae413",
+        "evidence/files/LMR51450SDRRR_SNVMCB2_e1fd811f3bcb.zip": "e1fd811f3bcb494bf528772421a5af4dd37b37f50461caaa5e834d3256ac1a40",
+        "evidence/files/LMR51450SDRRR_snvu838a_6086805dfb70.pdf": "6086805dfb7070abce87077d95aa4ec9b2e2a7fd25af52ddeb7d0e457de655de",
+        "evidence/files/OS102011MA1QN1_9e68893bade4341f8dc17b91bf8fc979_96f8f741dec9.pdf": "96f8f741dec9336a05c73ffc78116f4aefba9c876e170b26f01505c80eb3cbc7",
+        "evidence/files/OS102011MA1QN1_components_b07e077150de.txt": "b07e077150dea4db0a7d7ce5023c7de60dfd49444675640f9c4bd2c0e262f974",
+        "evidence/files/PCB-width-screen_snva766_89d111dd96c8.pdf": "89d111dd96c8fe53c01451d52e60a3bca226ccc998ae1967e323dfca005b3267",
+        "evidence/files/Pico_2_pico-2-datasheet_cbcfaf881018.pdf": "cbcfaf881018c686495a2e53c7bd281e7e0a8217d79447d73eda7c8f74b7f675",
+        "evidence/files/PowerPAD-assembly_slma002h_cdab5db91631.pdf": "cdab5db916315b40c6b445a30ccff90de3d391d39231c3f519533113a8cb1f22",
+        "evidence/files/Raspberry_Pi_Pico_hardware-design-with-rp2040_51c4f430153f.pdf": "51c4f430153fcdbf3209d9b3b41662c8527ff0150bc25777e3fcd6f5221a1c19",
+        "evidence/files/RC0805FR-07100KL_components_6ac1220cb8d4.txt": "6ac1220cb8d45c5d1453642c051c48f8bc146b1aaa30f9323d9ec358c77b3b91",
+        "evidence/files/RC0805FR-07100KL_RC0805FR-07100KL_ce1449c65535.pdf": "ce1449c655356f5c0415d6b3aa72d28be6d26b08e45a0050fdae16d08c592120",
+        "evidence/files/RC0805FR-0710KL_Yageo_specsheet_a12caa1d29a9.pdf": "a12caa1d29a94167f5c5526d5e608f7ebfae5761f169e790543246d48d0dbc02",
+        "evidence/files/RC1206FR-073K9L_components_7f63ec628a0a.txt": "7f63ec628a0ac346ff8d1176e02ccd5293d802e88275bad9098787f03d1c782e",
+        "evidence/files/RC1206FR-073K9L_RC1206FR-073K9L_496bcb915f16.pdf": "496bcb915f1683dbad13314e506756eacb78e9792e2655403987b36eaef22f88",
+        "evidence/files/SRP1265A-3R3M_components_be7c4a1aad13.txt": "be7c4a1aad13d106277a386070850a01f4c436eb1811e8d2c32405460b6b6820",
+        "evidence/files/SRP1265A-4R7M_components_9a3de3ffe216.txt": "9a3de3ffe216c5ee56e0458b90602c35f93c94712adec490c3ec2d52357444df",
+        "evidence/files/SRP1265A-6R8M_components_9dda4654fb4d.txt": "9dda4654fb4d363ef71e786eab994e32c9ebd65ea02222a47daace02bd249781",
+        "evidence/files/SRP1265A-6R8M_srp1265a_30b470999b73.pdf": "30b470999b737a6350ce5b09a917a5f12090c2e0895a78ddc15285e3d44ec649",
+        "evidence/files/Sunlord_MWSA-S_55a6f5de0d34.pdf": "55a6f5de0d3424730210584c2a732f5209bba52cffa5c226885944f3d9e1be9a",
+        "evidence/files/TSW-103-07-G-S_tsw_th_3a5770b11668.pdf": "3a5770b11668f4e5a11ba9ceeb4817a23f467b8507e3592f55fb6bd8f96e71bc",
+        "evidence/index.yaml": "c45a1823e89f03ab99a368a2d4f895425f344648bae3f29a997a24b072aa324d",
+        "evidence/PDB_Design_Handover.md": "0115fda198001c86e08545682cc86de63730aadfbdcb9721cb9fbe8218a75a3c",
+        "footprints/rover.pretty/AGND_Tie_LMR51450.kicad_mod": "3a7f92c9441e3201a5b3a7dec917c707454bad07a226270193ee6cfa5233dfc0",
+        "footprints/rover.pretty/CSS2H_2512_6.35x3.05.kicad_mod": "6754b94db83c9c57acdbb9cda82513eb5e6e0e075e0c63d9e9b2384ff8532a35",
+        "footprints/rover.pretty/Fuseholder_Littelfuse_01530008Z.kicad_mod": "3382ca81831b0d6861b5cbbf345b17fe38ca10eb30b442d79118a72eba533fe5",
+        "footprints/rover.pretty/KT0805G_0805_A1_K2.kicad_mod": "a4a8eec0020bcbc57b4990845f92cf94acf8a73c91d3df9b5cb814cce1baab97",
+        "footprints/rover.pretty/LMR51450_DRR_WSON12_3x3.kicad_mod": "fe744a74dc0837332a219ac9884d82bc79fda6140a562e9ea9f7972c75193c32",
+        "footprints/rover.pretty/Pico2_Sockets_LXWCONN_254PM_1x20.kicad_mod": "b2fbef9df833fae32f1871a901c0071eb582500657aa2102ef84b1c65764db54",
+        "footprints/rover.pretty/SRP1265A_LeadFrame_13.5x12.5_P11.1.kicad_mod": "37b4c019f8cc305dcb51f174e186271730df9554563dd418e178ee087cb945a0",
+        "footprints/rover.pretty/WirePads_2_5x6_P9.kicad_mod": "dd02ae4b0f924f9d4133b7eff5eac32acdbe8d257224421242800b6f452680e4",
+        "footprints/rover.pretty/WirePads_2_6x8_P12.kicad_mod": "fb9970d5eb38727d0abc4247245286aa6e85ac1573fbb3e7cd217bc280cef1ee",
+        "fp-lib-table": "1b81fdc2a81a6dfb349ca73b1485ef2be2251bbccc5111c6a01d32b7180a9ea8",
+        "input-monitor.kicad_sch": "0e6b723d04e745da7dcda52ff780a29223f30da1a59219c603f44641a4b528fe",
+        "layout-intent.yaml": null,
+        "libs/lcsc_C2041326.3dshapes/IND-SMD_L12.6-W12.5-SRP1265A-220M.step": "9fcc8131b76980ef4d5f5ad6d2f4d6cc377c0fe930908bffa9156fec87654afe",
+        "libs/lcsc_C2041326.3dshapes/IND-SMD_L12.6-W12.5-SRP1265A-220M.wrl": "51319c13fa77db3d34d5501342e274fbfa960380977663df7a175e290f08f78b",
+        "libs/lcsc_C2041326.kicad_sym": "63d75d4c6d4ec450276d37d7d9bfba75dd6e9be3a746394523b1678c3c6abec7",
+        "libs/lcsc_C2041326.pretty/IND-SMD_L12.6-W12.5-SRP1265A-220M.kicad_mod": "6bc44b8110a1418f863420cfef8f76d2142f12d01457462650ee4f61a9cf8730",
+        "libs/lcsc_C206907.3dshapes/FUSE-TH_L17.2-W7.62-H12.9-P7.62-S3.45.step": "924631b81bfc9eb7359d4a0910472813bfbab86e92194ea8000de099989cba94",
+        "libs/lcsc_C206907.3dshapes/FUSE-TH_L17.2-W7.62-H12.9-P7.62-S3.45.wrl": "7940e01b96dfe077f28cee56bd432d23e4ed9fed254620955caab0802d6d5f7c",
+        "libs/lcsc_C206907.kicad_sym": "5c8774cf4c71c9790bb60d9630ad78f76730f349ddb63ac72cbcf17705bb26aa",
+        "libs/lcsc_C206907.pretty/01530008Z.kicad_mod": "59e42cb6247bb7d2500ed8b4c7c9da80034e9d3be3f822d83e255974bcd59145",
+        "libs/lcsc_C226259.3dshapes/SW-TH_OS102011MA1QN1.step": "87e65083cd2b7dc67399bb2740bde744bb1093ea7403d2d4669190891ff643a7",
+        "libs/lcsc_C226259.3dshapes/SW-TH_OS102011MA1QN1.wrl": "672993ab33dc72a8d0ff61afe89fb53f8d037947829347125eab2675fee1ba60",
+        "libs/lcsc_C226259.kicad_sym": "941a59af2d0666ccd2ef402214c9e508f734d8d5732d59aca2ab848ddcc54481",
+        "libs/lcsc_C226259.pretty/SW-TH_OS102011MA1QN1.kicad_mod": "6f70ce8097e8903630bff95b83b38c699038840219804a1f6c958bdcd31b374a",
+        "libs/lcsc_C544826.3dshapes/WQFN-30_L6.0-W4.0-H0.8-P0.50-BL-EP.step": "24ef6c81a36fb643b1a9ffe812db4a7d19cd5959b05882444cbfa7b68456bc2f",
+        "libs/lcsc_C544826.3dshapes/WQFN-30_L6.0-W4.0-H0.8-P0.50-BL-EP.wrl": "dd02423ace6107c9f51eb72f1199f7b155d53fa18dfa6ac15410a19a6a9f423c",
+        "libs/lcsc_C544826.kicad_sym": "18a4dbba46364268b735b2282e99e71a6593153c431d2bc9405c727c57489bb9",
+        "libs/lcsc_C544826.pretty/WQFN-30_L6.0-W4.0-P0.50-BL-EP.kicad_mod": "aa3427d9ab0ddc3233ff1fa8c4677a8f8a75b729325dd1238b942d7fa9bbfbce",
+        "libs/lcsc_C6890985.3dshapes/WSON-12_L3.0-W3.0-P0.50-TL-EP-2.step": "97a012cf3099189d0d1316ab03fb15ecd9af42033026b789bd384d113f00eee8",
+        "libs/lcsc_C6890985.3dshapes/WSON-12_L3.0-W3.0-P0.50-TL-EP-2.wrl": "041020fbf623c55586205517bee4a15bdf6b15752363823cea5a9d8e8034b507",
+        "libs/lcsc_C6890985.kicad_sym": "ad260d4363db2d457f4e6d7bbd75d317e1e3318d27025f856496860ac95689f3",
+        "libs/lcsc_C6890985.pretty/WSON-12_L3.0-W3.0-P0.50-TL-EP-2.kicad_mod": "0d62e02695bff9be1b480b6139e5f3ce7a2c3b9322804bacba92b44f24e9b14f",
+        "netmap.json": "02be17fba01395381290d2a0b73301b19ad8f0204d96f917ea4fa6a006101b0a",
+        "pico-servos.kicad_sch": "eeb5cc06ecdf62b2327d495270d68727a0ddd1394ad126b7b88163e2c8b5accf",
+        "project.yaml": "bcbfca4ba6343d58c53f8400d4891eecca44406c1b7b12136bf7169b4d82581d",
+        "REFERENCE_REVIEW.md": "2ad7cc19b506168847a6e65142fde981198a821ae8c7521d4401fc882c01e40a",
+        "REQUIREMENTS.md": "74113c434cee28834de3638c6879846c92200e41bd58cccf4e712faf84aa9c20",
+        "review-profile.yaml": "a4c5c9f436916ec0c68dff8f64a28960982c3f1fdbe67d57647aa566e865b41c",
+        "review-signoff.yaml": null,
+        "rover-pdb.kicad_dru": null,
+        "rover-pdb.kicad_pcb": "02312e6093be19c3b4c89f58daeb52bf62498f8ec676f714b12679a12d6aa11e",
+        "rover-pdb.kicad_pro": "2eb2b81dc4d1fcbf7830579cf301a21b61c14440832b31146e028f071b11a00b",
+        "rover-pdb.kicad_sch": "4200d604fe479e47c27b7209dd070b100c7d727478924128bb419cc5fa08fb85",
+        "schematic-intent.yaml": "8a9d442b9698b8bed7ed02c0630b40e8c50f89f94bb1650786cf9497ca016167",
+        "sym-lib-table": "809f1c8e1cca14f7c60d867aa18d84972f766a3e5620b1309fb8f52188b0b287",
+        "symbols/rover.kicad_sym": "5139018f6427a9e16a28e1b3838847c538b8cbb08e654a8d41a5be8bb2700a31"
+      },
+      "options": {
+        "mode": "native",
+        "paired_pcb": true
+      },
+      "sources": {
+        "schematic/rover-pdb.kicad_sch": {
+          "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\rover-pads-sockets-20261002-q65y1whz\\candidate\\rover-pdb.kicad_sch",
+          "sha256": "818f629444618cf18162fbcce1976a4b601dc0ae663a2fe7e75d618630e8ccf8"
+        },
+        "schematic/input-monitor.kicad_sch": {
+          "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\rover-pads-sockets-20261002-q65y1whz\\candidate\\input-monitor.kicad_sch",
+          "sha256": "c10df3cad1de2162749526112bac60c796ae257aa458c9b8c022415e103a5d56"
+        },
+        "schematic/buck-12v.kicad_sch": {
+          "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\rover-pads-sockets-20261002-q65y1whz\\candidate\\buck-12v.kicad_sch",
+          "sha256": "2559a14a2dc411419187b6e05bf22c1e492789e10a1db25b4c60649318e13e6e"
+        },
+        "schematic/buck-5v.kicad_sch": {
+          "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\rover-pads-sockets-20261002-q65y1whz\\candidate\\buck-5v.kicad_sch",
+          "sha256": "105b5f2506a49d16059023828e47d16bbd9ba35ac4c3964cd44c5c95fdbfbc6e"
+        },
+        "schematic/buck-motor.kicad_sch": {
+          "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\rover-pads-sockets-20261002-q65y1whz\\candidate\\buck-motor.kicad_sch",
+          "sha256": "4895dc15bffb657a58f9cc712eaf67eb273f4696dff261054f482ddef90740bb"
+        },
+        "schematic/pico-servos.kicad_sch": {
+          "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\rover-pads-sockets-20261002-q65y1whz\\candidate\\pico-servos.kicad_sch",
+          "sha256": "eeb5cc06ecdf62b2327d495270d68727a0ddd1394ad126b7b88163e2c8b5accf"
+        },
+        "schematic/dxl-enable.kicad_sch": {
+          "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\rover-pads-sockets-20261002-q65y1whz\\candidate\\dxl-enable.kicad_sch",
+          "sha256": "95ac0de112c4f20957c3290df8c64230e3d21e1ed6eafae8e2221fc743bdff24"
+        },
+        "candidate.kicad_pcb": {
+          "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\rover-pads-sockets-20261002-q65y1whz\\candidate\\rover-pdb.kicad_pcb",
+          "sha256": "4cfc5eb7b2b986b471b8c3e80f0de72ce629481680a0ee062e0dff92b51660fe"
+        },
+        "candidate.kicad_pro": {
+          "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\rover-pads-sockets-20261002-q65y1whz\\candidate\\rover-pdb.kicad_pro",
+          "sha256": "b88f5b7ef1f1badfab83a8378abcf14b01ba1b452cda6bceafc9fc8f5188df70"
+        },
+        "candidate.kicad_dru": {
+          "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\rover-pads-sockets-20261002-q65y1whz\\candidate\\rover-pdb.kicad_dru",
+          "sha256": null
+        }
+      }
+    }
+  },
+  "native_apply": {
+    "applied": true,
+    "schematic": "C:\\Users\\tae06\\CODE\\PCB\\projects\\rover-pdb\\rover-pdb.kicad_sch",
+    "source_mode": "native",
+    "intent_status": "historical; unchanged and not used to redraw CAD",
+    "human_review": "pending",
+    "preview": "C:\\Users\\tae06\\CODE\\PCB\\projects\\rover-pdb\\.pcb-copilot\\preview\\schematic.pdf",
+    "erc_report": "C:\\Users\\tae06\\CODE\\PCB\\projects\\rover-pdb\\.pcb-copilot\\preview\\schematic-erc.json",
+    "metrics": "C:\\Users\\tae06\\CODE\\PCB\\projects\\rover-pdb\\.pcb-copilot\\preview\\schematic-metrics.json",
+    "findings": [
+      {
+        "code": "step.unavailable",
+        "message": "step export failed: Cannot use VRML models when exporting to non-mesh formats.\nCannot use VRML models when exporting to non-mesh formats.\nCannot use VRML models when exporting to non-mesh formats.\nCannot use VRML models when exporting to non-mesh formats.\nCannot use VRML models when exporting to non-mesh formats.\nCannot use VRML models when exporting to non-mesh formats.\n",
+        "reference": null,
+        "evidence_id": null,
+        "severity": "review"
+      },
+      {
+        "code": "step.model_review",
+        "message": "STEP may be partial or board-only; exporter success does not establish component model completeness or mechanical fit. Inspect exporter logs and KiCad 3D.",
+        "reference": null,
+        "evidence_id": null,
+        "severity": "review"
+      }
+    ],
+    "exit_code": 0,
+    "preview_binding": {
+      "version": 1,
+      "project": "C:\\Users\\tae06\\CODE\\PCB\\projects\\rover-pdb",
+      "inputs": {
+        "buck-12v.kicad_sch": "2559a14a2dc411419187b6e05bf22c1e492789e10a1db25b4c60649318e13e6e",
+        "buck-5v.kicad_sch": "105b5f2506a49d16059023828e47d16bbd9ba35ac4c3964cd44c5c95fdbfbc6e",
+        "buck-motor.kicad_sch": "4895dc15bffb657a58f9cc712eaf67eb273f4696dff261054f482ddef90740bb",
+        "DESIGN_BASIS.md": "654c3e1bbd9c8aed7b2ec7b09b561311a0bb0bd8acb80e0588f0e946c4494ed0",
+        "DEVIATIONS.md": "e1daae4c1c1075fb9458c81f29d56f33d83faa299a32177a35587e51338dfa69",
+        "dxl-enable.kicad_sch": "95ac0de112c4f20957c3290df8c64230e3d21e1ed6eafae8e2221fc743bdff24",
+        "evidence/characterization/CL32B226KAJNNN-curves.json": "f7b3bf18c15a11a04265812f19a7d06a1bb5da9061a8022d02a7f881c000ac11",
+        "evidence/characterization/CL32B226KAJNNN-manufacturer.html": "30b5f732cf8145dac6162e54ef8b2ec1aa93d47092eab73f5048bcacd6685972",
+        "evidence/characterization/CL32B226KAJNNN-provenance.json": "af899f97ae6bc0596339d8c849aa724ee84163bd1e3f5d61b7f96a0f4922ef03",
+        "evidence/characterization/GRM32ER71H106KA12-ADI-provenance.json": "13ddd5a1bc1a2c1a477b4a603fab6b09913086deb6da02311c136ef3b6ac6290",
+        "evidence/characterization/GRM32ER71H106KA12-ADI-web-extract.json": "45c955ccb9074cd4dacba292f6023c51c9e19aa45ea1f2376a0e93c50453d503",
+        "evidence/characterization/GRM32ER71H106KA12-DC-bias.png": "32dcc30eedbb9a5670923faa511aa14ab76da17d426a62cf52fdbf5c763eb01e",
+        "evidence/characterization/GRM32ER71H106KA12-Murata-provenance.json": "3834fc47e33b2953320d3f08c04714fa3b5146129835a8d007dfbdb94e9825f6",
+        "evidence/files/01530008Z_5dd658d7c0c120ed4252709c4e00b44b_dd28a686cd10.pdf": "dd28a686cd106b2228fb3e0ef107b580a8f58177765c71c08a16ebbac66415af",
+        "evidence/files/01530008Z_components_038492248339.txt": "03849224833909976715d61c81a63e22a81bae159978d19f1043732f6d1470a1",
+        "evidence/files/0297010.WXNV_6640fa58723348e000da25e795536560_cfd43f753274.pdf": "cfd43f753274bc97a027685b0a8a2867969272113cc8d41980242a1a949c2e9f",
+        "evidence/files/0805W8F1001T5E_components_fcc6d3130eae.txt": "fcc6d3130eae3bfb44c7b9c0486f3ad1a87557cc636a8d55a50acb1fed2219db",
+        "evidence/files/0805W8F1912T5E_components_79fd6539982f.txt": "79fd6539982f1d79ed3018e0a12171ace376531618d9b3be292fa6c34316ea3d",
+        "evidence/files/0805W8F2202T5E_components_b881e8433fdd.txt": "b881e8433fdd135185516817550c693872ca46933563aeccfb8cab05a871fa90",
+        "evidence/files/0805W8F3741T5E_components_f6e9d7b40fa5.txt": "f6e9d7b40fa5e096c6c8cf85ba055347bcdd4d4d8e096ca566b7c155293348c1",
+        "evidence/files/0805W8F7151T5E_0a975aaa49b7c97f38a963127be4a823_11cd644d5d8a.pdf": "11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef",
+        "evidence/files/0805W8F7151T5E_components_4c0fa2ed98d0.txt": "4c0fa2ed98d0f580651d003b779f36fb39b62cc28ddc014f50cc1a852b811674",
+        "evidence/files/2.54-1x6P_cb0770a379b121177c8c7d26dfb00406_013649a580c9.pdf": "013649a580c9ee0d2a54502601713be2b1811ff6d44e21887c8077307a7c2dea",
+        "evidence/files/2.54-1x6P_components_47044365dfa6.txt": "47044365dfa67edea30c22b574f71b2fdfd0bde188952771ba9b01d5a469c88b",
+        "evidence/files/254PM-1x20P-V_f0f6c3d8697d24302649e706e8fbe0d7_5778f815e84c.pdf": "5778f815e84ca5a0e1d490c5be5db4f228194b3df5b59abb1346ace54a11685d",
+        "evidence/files/B4B-EH-A_LF_SN_eEH_9e35874bf275.pdf": "9e35874bf27505bab79d6af783118fa926ceef7a91b7cb8421f108ff69a1b7f2",
+        "evidence/files/CL10C330JB8NNNC_02336ea48ea44ca18c72517dd3cb7b47_96baebe4bd0c.pdf": "96baebe4bd0ce363e87be28b5b003f511f1502e084a6fc4f02333ded56c808f6",
+        "evidence/files/CL10C330JB8NNNC_CL10C330JB8NNNC_Spec_b3b5f1a6680a.pdf": "b3b5f1a6680a5f083fb5913555c82821d0cb2d1e540dcf250f9e5f0de071922e",
+        "evidence/files/CL10C330JB8NNNC_components_3afd8ebb8b5f.txt": "3afd8ebb8b5f42332bc6726820af872cd657dd6c85e14e82c99c5ec66e44556e",
+        "evidence/files/CSS2H-2512_b11b79a9d324.stp": "b11b79a9d3245b4634fd4a02dc9062700c637b0e0a8e435f60456296413ee491",
+        "evidence/files/CSS2H-2512K-2L00F_css2h-2512_7e32b223f4b0.pdf": "7e32b223f4b0f086d9e08cd5a4fb42e9935cf119db3dd9cf3ea7969bdd643909",
+        "evidence/files/DMG2305UX-7_components_a9248858bbeb.txt": "a9248858bbeb08d798204569f4cc794263e395d1a35717d850248020bf886626",
+        "evidence/files/DMG2305UX-7_DMG2305UX_7421a75157a2.pdf": "7421a75157a2e700a217d1a20d075216abed29e81192bf7609d3df6dbb08eb2d",
+        "evidence/files/EEU-FR1H221B_d9089262f7a6df5ba99d8a966a03ede0_bf99d179b367.pdf": "bf99d179b36759edbd615725840c0fb0c87640b0800ba9ecd967ed3172b2198c",
+        "evidence/files/GRM32ER71H106KA12_Murata_characteristics_20141111_9281c34a22b3.pdf": "9281c34a22b351bb841a7a23d0aaa1c58b4d633f6bf1a9c03d15475ac5d11f2e",
+        "evidence/files/INA226AIDGSR_ina226_c9b67f886d4a.pdf": "c9b67f886d4a5241a5e070723f7b61867409eeb27eed768b9cdd9cb17e03ca2d",
+        "evidence/files/INA226AIDGSR_sbou276_e5dc5b492908.pdf": "e5dc5b492908c656b6be0dd2ef0f8c829fd445a918a0839889fc1e3046a021ec",
+        "evidence/files/Jetson-Orin-Nano-Carrier_jetson_orin_nano_devkit_carrier_board_specification_sp_4a0f7ba948bc.pdf": "4a0f7ba948bce4881e176f0f8636ef3dbd40e3df9dd33134e6a7433359d18c02",
+        "evidence/files/KT-0805G_de342fde3322df0797012cd7a04e2194_853e6752f600.pdf": "853e6752f600e247475ba548092207fa4fc707a3f8a0b1562a834bc9a901a8d9",
+        "evidence/files/LM73606RNPR_components_84dd5258bfcf.txt": "84dd5258bfcf4e2fc532a38a03f5384d4e5a3dbb39213213438466c9d3850cc7",
+        "evidence/files/LM73606RNPR_lm73606_98c77e8b42dd.pdf": "98c77e8b42ddc52021083dae660e5277705cc82a2c469ae16a4ad4660d904a3c",
+        "evidence/files/LM73606RNPR_snvu579_0988f0efa67e.pdf": "0988f0efa67eeda38478578e8fb8b30e3adbbd73b6f5c15cbb79269ece0c8eb8",
+        "evidence/files/LMR51450SDRRR_components_5009d4a2ce02.txt": "5009d4a2ce026741df9d81ce6d1f1dc5d399daa2816fe21778862eb2377b9aa5",
+        "evidence/files/LMR51450SDRRR_lmr51450_7f80073eb777.pdf": "7f80073eb7773dddd87df44808e8e78f5b83520b20e815cbb0a17018d1cae413",
+        "evidence/files/LMR51450SDRRR_SNVMCB2_e1fd811f3bcb.zip": "e1fd811f3bcb494bf528772421a5af4dd37b37f50461caaa5e834d3256ac1a40",
+        "evidence/files/LMR51450SDRRR_snvu838a_6086805dfb70.pdf": "6086805dfb7070abce87077d95aa4ec9b2e2a7fd25af52ddeb7d0e457de655de",
+        "evidence/files/OS102011MA1QN1_9e68893bade4341f8dc17b91bf8fc979_96f8f741dec9.pdf": "96f8f741dec9336a05c73ffc78116f4aefba9c876e170b26f01505c80eb3cbc7",
+        "evidence/files/OS102011MA1QN1_components_b07e077150de.txt": "b07e077150dea4db0a7d7ce5023c7de60dfd49444675640f9c4bd2c0e262f974",
+        "evidence/files/PCB-width-screen_snva766_89d111dd96c8.pdf": "89d111dd96c8fe53c01451d52e60a3bca226ccc998ae1967e323dfca005b3267",
+        "evidence/files/Pico_2_pico-2-datasheet_cbcfaf881018.pdf": "cbcfaf881018c686495a2e53c7bd281e7e0a8217d79447d73eda7c8f74b7f675",
+        "evidence/files/PowerPAD-assembly_slma002h_cdab5db91631.pdf": "cdab5db916315b40c6b445a30ccff90de3d391d39231c3f519533113a8cb1f22",
+        "evidence/files/Raspberry_Pi_Pico_hardware-design-with-rp2040_51c4f430153f.pdf": "51c4f430153fcdbf3209d9b3b41662c8527ff0150bc25777e3fcd6f5221a1c19",
+        "evidence/files/RC0805FR-07100KL_components_6ac1220cb8d4.txt": "6ac1220cb8d45c5d1453642c051c48f8bc146b1aaa30f9323d9ec358c77b3b91",
+        "evidence/files/RC0805FR-07100KL_RC0805FR-07100KL_ce1449c65535.pdf": "ce1449c655356f5c0415d6b3aa72d28be6d26b08e45a0050fdae16d08c592120",
+        "evidence/files/RC0805FR-0710KL_Yageo_specsheet_a12caa1d29a9.pdf": "a12caa1d29a94167f5c5526d5e608f7ebfae5761f169e790543246d48d0dbc02",
+        "evidence/files/RC1206FR-073K9L_components_7f63ec628a0a.txt": "7f63ec628a0ac346ff8d1176e02ccd5293d802e88275bad9098787f03d1c782e",
+        "evidence/files/RC1206FR-073K9L_RC1206FR-073K9L_496bcb915f16.pdf": "496bcb915f1683dbad13314e506756eacb78e9792e2655403987b36eaef22f88",
+        "evidence/files/SRP1265A-3R3M_components_be7c4a1aad13.txt": "be7c4a1aad13d106277a386070850a01f4c436eb1811e8d2c32405460b6b6820",
+        "evidence/files/SRP1265A-4R7M_components_9a3de3ffe216.txt": "9a3de3ffe216c5ee56e0458b90602c35f93c94712adec490c3ec2d52357444df",
+        "evidence/files/SRP1265A-6R8M_components_9dda4654fb4d.txt": "9dda4654fb4d363ef71e786eab994e32c9ebd65ea02222a47daace02bd249781",
+        "evidence/files/SRP1265A-6R8M_srp1265a_30b470999b73.pdf": "30b470999b737a6350ce5b09a917a5f12090c2e0895a78ddc15285e3d44ec649",
+        "evidence/files/Sunlord_MWSA-S_55a6f5de0d34.pdf": "55a6f5de0d3424730210584c2a732f5209bba52cffa5c226885944f3d9e1be9a",
+        "evidence/files/TSW-103-07-G-S_tsw_th_3a5770b11668.pdf": "3a5770b11668f4e5a11ba9ceeb4817a23f467b8507e3592f55fb6bd8f96e71bc",
+        "evidence/index.yaml": "c45a1823e89f03ab99a368a2d4f895425f344648bae3f29a997a24b072aa324d",
+        "evidence/PDB_Design_Handover.md": "0115fda198001c86e08545682cc86de63730aadfbdcb9721cb9fbe8218a75a3c",
+        "footprints/rover.pretty/AGND_Tie_LMR51450.kicad_mod": "3a7f92c9441e3201a5b3a7dec917c707454bad07a226270193ee6cfa5233dfc0",
+        "footprints/rover.pretty/CSS2H_2512_6.35x3.05.kicad_mod": "6754b94db83c9c57acdbb9cda82513eb5e6e0e075e0c63d9e9b2384ff8532a35",
+        "footprints/rover.pretty/Fuseholder_Littelfuse_01530008Z.kicad_mod": "3382ca81831b0d6861b5cbbf345b17fe38ca10eb30b442d79118a72eba533fe5",
+        "footprints/rover.pretty/KT0805G_0805_A1_K2.kicad_mod": "a4a8eec0020bcbc57b4990845f92cf94acf8a73c91d3df9b5cb814cce1baab97",
+        "footprints/rover.pretty/LMR51450_DRR_WSON12_3x3.kicad_mod": "fe744a74dc0837332a219ac9884d82bc79fda6140a562e9ea9f7972c75193c32",
+        "footprints/rover.pretty/Pico2_Sockets_LXWCONN_254PM_1x20.kicad_mod": "b2fbef9df833fae32f1871a901c0071eb582500657aa2102ef84b1c65764db54",
+        "footprints/rover.pretty/SRP1265A_LeadFrame_13.5x12.5_P11.1.kicad_mod": "37b4c019f8cc305dcb51f174e186271730df9554563dd418e178ee087cb945a0",
+        "footprints/rover.pretty/WirePads_2_5x6_P9.kicad_mod": "dd02ae4b0f924f9d4133b7eff5eac32acdbe8d257224421242800b6f452680e4",
+        "footprints/rover.pretty/WirePads_2_6x8_P12.kicad_mod": "fb9970d5eb38727d0abc4247245286aa6e85ac1573fbb3e7cd217bc280cef1ee",
+        "fp-lib-table": "1b81fdc2a81a6dfb349ca73b1485ef2be2251bbccc5111c6a01d32b7180a9ea8",
+        "input-monitor.kicad_sch": "0e6b723d04e745da7dcda52ff780a29223f30da1a59219c603f44641a4b528fe",
+        "layout-intent.yaml": null,
+        "libs/lcsc_C2041326.3dshapes/IND-SMD_L12.6-W12.5-SRP1265A-220M.step": "9fcc8131b76980ef4d5f5ad6d2f4d6cc377c0fe930908bffa9156fec87654afe",
+        "libs/lcsc_C2041326.3dshapes/IND-SMD_L12.6-W12.5-SRP1265A-220M.wrl": "51319c13fa77db3d34d5501342e274fbfa960380977663df7a175e290f08f78b",
+        "libs/lcsc_C2041326.kicad_sym": "63d75d4c6d4ec450276d37d7d9bfba75dd6e9be3a746394523b1678c3c6abec7",
+        "libs/lcsc_C2041326.pretty/IND-SMD_L12.6-W12.5-SRP1265A-220M.kicad_mod": "6bc44b8110a1418f863420cfef8f76d2142f12d01457462650ee4f61a9cf8730",
+        "libs/lcsc_C206907.3dshapes/FUSE-TH_L17.2-W7.62-H12.9-P7.62-S3.45.step": "924631b81bfc9eb7359d4a0910472813bfbab86e92194ea8000de099989cba94",
+        "libs/lcsc_C206907.3dshapes/FUSE-TH_L17.2-W7.62-H12.9-P7.62-S3.45.wrl": "7940e01b96dfe077f28cee56bd432d23e4ed9fed254620955caab0802d6d5f7c",
+        "libs/lcsc_C206907.kicad_sym": "5c8774cf4c71c9790bb60d9630ad78f76730f349ddb63ac72cbcf17705bb26aa",
+        "libs/lcsc_C206907.pretty/01530008Z.kicad_mod": "59e42cb6247bb7d2500ed8b4c7c9da80034e9d3be3f822d83e255974bcd59145",
+        "libs/lcsc_C226259.3dshapes/SW-TH_OS102011MA1QN1.step": "87e65083cd2b7dc67399bb2740bde744bb1093ea7403d2d4669190891ff643a7",
+        "libs/lcsc_C226259.3dshapes/SW-TH_OS102011MA1QN1.wrl": "672993ab33dc72a8d0ff61afe89fb53f8d037947829347125eab2675fee1ba60",
+        "libs/lcsc_C226259.kicad_sym": "941a59af2d0666ccd2ef402214c9e508f734d8d5732d59aca2ab848ddcc54481",
+        "libs/lcsc_C226259.pretty/SW-TH_OS102011MA1QN1.kicad_mod": "6f70ce8097e8903630bff95b83b38c699038840219804a1f6c958bdcd31b374a",
+        "libs/lcsc_C544826.3dshapes/WQFN-30_L6.0-W4.0-H0.8-P0.50-BL-EP.step": "24ef6c81a36fb643b1a9ffe812db4a7d19cd5959b05882444cbfa7b68456bc2f",
+        "libs/lcsc_C544826.3dshapes/WQFN-30_L6.0-W4.0-H0.8-P0.50-BL-EP.wrl": "dd02423ace6107c9f51eb72f1199f7b155d53fa18dfa6ac15410a19a6a9f423c",
+        "libs/lcsc_C544826.kicad_sym": "18a4dbba46364268b735b2282e99e71a6593153c431d2bc9405c727c57489bb9",
+        "libs/lcsc_C544826.pretty/WQFN-30_L6.0-W4.0-P0.50-BL-EP.kicad_mod": "aa3427d9ab0ddc3233ff1fa8c4677a8f8a75b729325dd1238b942d7fa9bbfbce",
+        "libs/lcsc_C6890985.3dshapes/WSON-12_L3.0-W3.0-P0.50-TL-EP-2.step": "97a012cf3099189d0d1316ab03fb15ecd9af42033026b789bd384d113f00eee8",
+        "libs/lcsc_C6890985.3dshapes/WSON-12_L3.0-W3.0-P0.50-TL-EP-2.wrl": "041020fbf623c55586205517bee4a15bdf6b15752363823cea5a9d8e8034b507",
+        "libs/lcsc_C6890985.kicad_sym": "ad260d4363db2d457f4e6d7bbd75d317e1e3318d27025f856496860ac95689f3",
+        "libs/lcsc_C6890985.pretty/WSON-12_L3.0-W3.0-P0.50-TL-EP-2.kicad_mod": "0d62e02695bff9be1b480b6139e5f3ce7a2c3b9322804bacba92b44f24e9b14f",
+        "netmap.json": "02be17fba01395381290d2a0b73301b19ad8f0204d96f917ea4fa6a006101b0a",
+        "pico-servos.kicad_sch": "eeb5cc06ecdf62b2327d495270d68727a0ddd1394ad126b7b88163e2c8b5accf",
+        "project.yaml": "bcbfca4ba6343d58c53f8400d4891eecca44406c1b7b12136bf7169b4d82581d",
+        "REFERENCE_REVIEW.md": "2ad7cc19b506168847a6e65142fde981198a821ae8c7521d4401fc882c01e40a",
+        "REQUIREMENTS.md": "74113c434cee28834de3638c6879846c92200e41bd58cccf4e712faf84aa9c20",
+        "review-profile.yaml": "a4c5c9f436916ec0c68dff8f64a28960982c3f1fdbe67d57647aa566e865b41c",
+        "review-signoff.yaml": null,
+        "rover-pdb.kicad_dru": null,
+        "rover-pdb.kicad_pcb": "02312e6093be19c3b4c89f58daeb52bf62498f8ec676f714b12679a12d6aa11e",
+        "rover-pdb.kicad_pro": "2eb2b81dc4d1fcbf7830579cf301a21b61c14440832b31146e028f071b11a00b",
+        "rover-pdb.kicad_sch": "4200d604fe479e47c27b7209dd070b100c7d727478924128bb419cc5fa08fb85",
+        "schematic-intent.yaml": "8a9d442b9698b8bed7ed02c0630b40e8c50f89f94bb1650786cf9497ca016167",
+        "sym-lib-table": "809f1c8e1cca14f7c60d867aa18d84972f766a3e5620b1309fb8f52188b0b287",
+        "symbols/rover.kicad_sym": "5139018f6427a9e16a28e1b3838847c538b8cbb08e654a8d41a5be8bb2700a31"
+      },
+      "options": {
+        "mode": "native",
+        "paired_pcb": true
+      },
+      "sources": {
+        "schematic/rover-pdb.kicad_sch": {
+          "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\rover-pads-sockets-20261002-q65y1whz\\candidate\\rover-pdb.kicad_sch",
+          "sha256": "818f629444618cf18162fbcce1976a4b601dc0ae663a2fe7e75d618630e8ccf8"
+        },
+        "schematic/input-monitor.kicad_sch": {
+          "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\rover-pads-sockets-20261002-q65y1whz\\candidate\\input-monitor.kicad_sch",
+          "sha256": "c10df3cad1de2162749526112bac60c796ae257aa458c9b8c022415e103a5d56"
+        },
+        "schematic/buck-12v.kicad_sch": {
+          "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\rover-pads-sockets-20261002-q65y1whz\\candidate\\buck-12v.kicad_sch",
+          "sha256": "2559a14a2dc411419187b6e05bf22c1e492789e10a1db25b4c60649318e13e6e"
+        },
+        "schematic/buck-5v.kicad_sch": {
+          "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\rover-pads-sockets-20261002-q65y1whz\\candidate\\buck-5v.kicad_sch",
+          "sha256": "105b5f2506a49d16059023828e47d16bbd9ba35ac4c3964cd44c5c95fdbfbc6e"
+        },
+        "schematic/buck-motor.kicad_sch": {
+          "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\rover-pads-sockets-20261002-q65y1whz\\candidate\\buck-motor.kicad_sch",
+          "sha256": "4895dc15bffb657a58f9cc712eaf67eb273f4696dff261054f482ddef90740bb"
+        },
+        "schematic/pico-servos.kicad_sch": {
+          "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\rover-pads-sockets-20261002-q65y1whz\\candidate\\pico-servos.kicad_sch",
+          "sha256": "eeb5cc06ecdf62b2327d495270d68727a0ddd1394ad126b7b88163e2c8b5accf"
+        },
+        "schematic/dxl-enable.kicad_sch": {
+          "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\rover-pads-sockets-20261002-q65y1whz\\candidate\\dxl-enable.kicad_sch",
+          "sha256": "95ac0de112c4f20957c3290df8c64230e3d21e1ed6eafae8e2221fc743bdff24"
+        },
+        "candidate.kicad_pcb": {
+          "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\rover-pads-sockets-20261002-q65y1whz\\candidate\\rover-pdb.kicad_pcb",
+          "sha256": "4cfc5eb7b2b986b471b8c3e80f0de72ce629481680a0ee062e0dff92b51660fe"
+        },
+        "candidate.kicad_pro": {
+          "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\rover-pads-sockets-20261002-q65y1whz\\candidate\\rover-pdb.kicad_pro",
+          "sha256": "b88f5b7ef1f1badfab83a8378abcf14b01ba1b452cda6bceafc9fc8f5188df70"
+        },
+        "candidate.kicad_dru": {
+          "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\rover-pads-sockets-20261002-q65y1whz\\candidate\\rover-pdb.kicad_dru",
+          "sha256": null
+        }
+      }
+    },
+    "lifecycle": "DRAFT"
+  },
+  "width_changes": [
+    {
+      "uuid": "1aa38780-cc98-400f-ace6-18c393a6a0bb",
+      "net": "/VBAT",
+      "layer": "B.Cu",
+      "old_width_mm": 3.0,
+      "new_width_mm": 4.0,
+      "length_mm": 9.0,
+      "start_mm": [
+        157.315171,
+        69.0
+      ],
+      "end_mm": [
+        148.315171,
+        69.0
+      ]
+    },
+    {
+      "uuid": "49eb55db-f8f3-4382-8b09-4ede3bbba12e",
+      "net": "/VBAT",
+      "layer": "B.Cu",
+      "old_width_mm": 3.0,
+      "new_width_mm": 4.0,
+      "length_mm": 3.5,
+      "start_mm": [
+        157.315171,
+        65.5
+      ],
+      "end_mm": [
+        157.315171,
+        69.0
+      ]
+    },
+    {
+      "uuid": "cd3e27c7-d1a1-4e3a-a30b-b61f9729c0c8",
+      "net": "/VBAT",
+      "layer": "B.Cu",
+      "old_width_mm": 3.0,
+      "new_width_mm": 3.3,
+      "length_mm": 2.8284271247461903,
+      "start_mm": [
+        148.315171,
+        69.0
+      ],
+      "end_mm": [
+        146.315171,
+        71.0
+      ]
+    },
+    {
+      "uuid": "3406996b-1ee8-4558-a4b8-4d33def525fe",
+      "net": "/Battery input and INA226/VBAT_FUSED",
+      "layer": "F.Cu",
+      "old_width_mm": 2.8,
+      "new_width_mm": 4.0,
+      "length_mm": 4.9674574139333085,
+      "start_mm": [
+        128.565171,
+        69.79
+      ],
+      "end_mm": [
+        132.05,
+        66.25
+      ]
+    },
+    {
+      "uuid": "a01a3379-ee6b-43ee-9f74-ac4327af09c8",
+      "net": "/Battery input and INA226/VBAT_FUSED",
+      "layer": "F.Cu",
+      "old_width_mm": 2.8,
+      "new_width_mm": 3.0,
+      "length_mm": 13.015171,
+      "start_mm": [
+        132.05,
+        66.25
+      ],
+      "end_mm": [
+        145.065171,
+        66.25
+      ]
+    },
+    {
+      "uuid": "c1dde6f1-fc45-4d20-9713-78c1533c8ee7",
+      "net": "/Battery input and INA226/VBAT_FUSED",
+      "layer": "F.Cu",
+      "old_width_mm": 2.8,
+      "new_width_mm": 4.0,
+      "length_mm": 6.986214998123089,
+      "start_mm": [
+        123.625171,
+        74.73
+      ],
+      "end_mm": [
+        128.565171,
+        69.79
+      ]
+    }
+  ],
+  "pad_via_changes": [
+    {
+      "type": "via",
+      "uuid": "74fb536c-2311-4f4a-a41c-c25f1b3a873d",
+      "net": "/Battery input and INA226/BAT_SWITCHED",
+      "xy": [
+        111.565171,
+        65.0
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P1 positive pad to bottom heat/current copper"
+    },
+    {
+      "type": "via",
+      "uuid": "b7e2a94b-7bb7-417b-ab21-f3f726e17acd",
+      "net": "/Battery input and INA226/BAT_SWITCHED",
+      "xy": [
+        111.565171,
+        66.0
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P1 positive pad to bottom heat/current copper"
+    },
+    {
+      "type": "via",
+      "uuid": "183131be-66b5-4eff-96df-426137206ec9",
+      "net": "/Battery input and INA226/BAT_SWITCHED",
+      "xy": [
+        112.565171,
+        65.0
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P1 positive pad to bottom heat/current copper"
+    },
+    {
+      "type": "via",
+      "uuid": "21631047-d4fe-46bc-9789-e6d34a561549",
+      "net": "/Battery input and INA226/BAT_SWITCHED",
+      "xy": [
+        112.565171,
+        66.0
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P1 positive pad to bottom heat/current copper"
+    },
+    {
+      "type": "via",
+      "uuid": "c5d80568-5994-45ef-84ba-ec48a43fae11",
+      "net": "/Battery input and INA226/BAT_SWITCHED",
+      "xy": [
+        113.565171,
+        65.0
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P1 positive pad to bottom heat/current copper"
+    },
+    {
+      "type": "via",
+      "uuid": "48344aed-777a-41d7-94eb-dbb450312a1b",
+      "net": "/Battery input and INA226/BAT_SWITCHED",
+      "xy": [
+        113.565171,
+        66.0
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P1 positive pad to bottom heat/current copper"
+    },
+    {
+      "type": "via",
+      "uuid": "ea270afd-efda-4580-abcb-f821f33b3129",
+      "net": "+12V",
+      "xy": [
+        108.815171,
+        93.8
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P2 positive pad to masked bottom spreader"
+    },
+    {
+      "type": "via",
+      "uuid": "8fcf3403-273a-4b25-b3c8-ca6440f1c878",
+      "net": "+12V",
+      "xy": [
+        108.815171,
+        94.8
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P2 positive pad to masked bottom spreader"
+    },
+    {
+      "type": "via",
+      "uuid": "a33d497c-30f8-4893-8a9b-4ec567ee74df",
+      "net": "+12V",
+      "xy": [
+        108.815171,
+        95.8
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P2 positive pad to masked bottom spreader"
+    },
+    {
+      "type": "via",
+      "uuid": "bee85e7b-e326-4b38-ae78-710a34ceac0a",
+      "net": "+12V",
+      "xy": [
+        109.815171,
+        93.8
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P2 positive pad to masked bottom spreader"
+    },
+    {
+      "type": "via",
+      "uuid": "0c1d0376-eb43-4680-8801-f45cd37dfe44",
+      "net": "+12V",
+      "xy": [
+        109.815171,
+        94.8
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P2 positive pad to masked bottom spreader"
+    },
+    {
+      "type": "via",
+      "uuid": "de29ca8d-a505-4e4f-8c5a-b1dd1f7acaa8",
+      "net": "+12V",
+      "xy": [
+        109.815171,
+        95.8
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P2 positive pad to masked bottom spreader"
+    },
+    {
+      "type": "via",
+      "uuid": "8c86ce67-82c2-48fe-b210-e16c994d4170",
+      "net": "GND",
+      "xy": [
+        100.815171,
+        84.8
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P2 ground pad to bottom GND plane"
+    },
+    {
+      "type": "via",
+      "uuid": "db95b5b7-12f5-4f9d-a592-472c2f2bffa7",
+      "net": "GND",
+      "xy": [
+        100.815171,
+        85.8
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P2 ground pad to bottom GND plane"
+    },
+    {
+      "type": "via",
+      "uuid": "71e81011-464a-48dd-8c5e-30bb12f93f61",
+      "net": "GND",
+      "xy": [
+        100.815171,
+        86.8
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P2 ground pad to bottom GND plane"
+    },
+    {
+      "type": "via",
+      "uuid": "669cabe7-602e-432d-8050-72db26a98775",
+      "net": "GND",
+      "xy": [
+        101.815171,
+        84.8
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P2 ground pad to bottom GND plane"
+    },
+    {
+      "type": "via",
+      "uuid": "deea4677-3402-4f34-93e6-7965f861866e",
+      "net": "GND",
+      "xy": [
+        101.815171,
+        85.8
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P2 ground pad to bottom GND plane"
+    },
+    {
+      "type": "via",
+      "uuid": "b76ce645-59ce-4994-b695-b21b88507733",
+      "net": "GND",
+      "xy": [
+        101.815171,
+        86.8
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P2 ground pad to bottom GND plane"
+    },
+    {
+      "type": "via",
+      "uuid": "b2fd2d39-9a11-499e-bff8-ffa5985dad33",
+      "net": "+12V",
+      "xy": [
+        108.815171,
+        115.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P3 positive pad to masked bottom spreader"
+    },
+    {
+      "type": "via",
+      "uuid": "67b5866d-b934-4579-9082-8c79400dc3a2",
+      "net": "+12V",
+      "xy": [
+        108.815171,
+        116.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P3 positive pad to masked bottom spreader"
+    },
+    {
+      "type": "via",
+      "uuid": "c53164c1-ca7c-48b9-a685-0d551b23c2b7",
+      "net": "+12V",
+      "xy": [
+        108.815171,
+        117.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P3 positive pad to masked bottom spreader"
+    },
+    {
+      "type": "via",
+      "uuid": "c512cb34-f346-47d7-aff6-53563dd77b88",
+      "net": "+12V",
+      "xy": [
+        109.815171,
+        115.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P3 positive pad to masked bottom spreader"
+    },
+    {
+      "type": "via",
+      "uuid": "abdeddbd-8527-49d5-beaa-fb7601d16abf",
+      "net": "+12V",
+      "xy": [
+        109.815171,
+        116.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P3 positive pad to masked bottom spreader"
+    },
+    {
+      "type": "via",
+      "uuid": "42f6874c-d905-47b1-bf02-2c08aabcd7af",
+      "net": "+12V",
+      "xy": [
+        109.815171,
+        117.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P3 positive pad to masked bottom spreader"
+    },
+    {
+      "type": "via",
+      "uuid": "e51bcd39-7c03-49bb-90c2-4a8d29b8e740",
+      "net": "GND",
+      "xy": [
+        100.815171,
+        106.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P3 ground pad to bottom GND plane"
+    },
+    {
+      "type": "via",
+      "uuid": "f36c19fa-43ba-449e-a731-6dae86f3efac",
+      "net": "GND",
+      "xy": [
+        100.815171,
+        107.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P3 ground pad to bottom GND plane"
+    },
+    {
+      "type": "via",
+      "uuid": "9b3f9cce-7c18-4720-8134-bdcd0dc5a7d9",
+      "net": "GND",
+      "xy": [
+        100.815171,
+        108.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P3 ground pad to bottom GND plane"
+    },
+    {
+      "type": "via",
+      "uuid": "67ec11a4-1d75-45a9-b60a-20c8b0a19c4b",
+      "net": "GND",
+      "xy": [
+        101.815171,
+        106.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P3 ground pad to bottom GND plane"
+    },
+    {
+      "type": "via",
+      "uuid": "c36b0d41-65b0-4316-8b90-ff00861bde6d",
+      "net": "GND",
+      "xy": [
+        101.815171,
+        107.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P3 ground pad to bottom GND plane"
+    },
+    {
+      "type": "via",
+      "uuid": "19655a4f-0138-4e9d-9a90-9df515b98e9b",
+      "net": "GND",
+      "xy": [
+        101.815171,
+        108.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P3 ground pad to bottom GND plane"
+    },
+    {
+      "type": "via",
+      "uuid": "d47db24b-07b4-42c4-8b38-078f63eb9f22",
+      "net": "+5V",
+      "xy": [
+        100.815171,
+        136.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P4 positive pad to masked bottom spreader"
+    },
+    {
+      "type": "via",
+      "uuid": "e19f7e0e-b9d8-435c-92d6-c5364d64983d",
+      "net": "+5V",
+      "xy": [
+        100.815171,
+        137.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P4 positive pad to masked bottom spreader"
+    },
+    {
+      "type": "via",
+      "uuid": "5c175c58-9fba-4d1b-904f-bb3d7ce60083",
+      "net": "+5V",
+      "xy": [
+        100.815171,
+        138.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P4 positive pad to masked bottom spreader"
+    },
+    {
+      "type": "via",
+      "uuid": "0e68d2ef-be11-42c0-9301-c5a7991d9090",
+      "net": "+5V",
+      "xy": [
+        101.815171,
+        136.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P4 positive pad to masked bottom spreader"
+    },
+    {
+      "type": "via",
+      "uuid": "74b1fdcd-f67c-4d42-b8c8-1e41d0e32a90",
+      "net": "+5V",
+      "xy": [
+        101.815171,
+        137.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P4 positive pad to masked bottom spreader"
+    },
+    {
+      "type": "via",
+      "uuid": "11874f28-eb3f-4d7d-8625-39b3c29d8fb6",
+      "net": "+5V",
+      "xy": [
+        101.815171,
+        138.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P4 positive pad to masked bottom spreader"
+    },
+    {
+      "type": "via",
+      "uuid": "3fe975e6-2325-48c7-8a8e-415688045dd3",
+      "net": "GND",
+      "xy": [
+        100.815171,
+        127.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P4 ground pad to bottom GND plane"
+    },
+    {
+      "type": "via",
+      "uuid": "39e0a534-ca7f-45dd-b05c-4049e1552ea1",
+      "net": "GND",
+      "xy": [
+        100.815171,
+        128.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P4 ground pad to bottom GND plane"
+    },
+    {
+      "type": "via",
+      "uuid": "12642e95-7de0-461c-ab96-f5e1ff254771",
+      "net": "GND",
+      "xy": [
+        100.815171,
+        129.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P4 ground pad to bottom GND plane"
+    },
+    {
+      "type": "via",
+      "uuid": "956115a8-efa8-442c-bbc5-0d876d662b8a",
+      "net": "GND",
+      "xy": [
+        101.815171,
+        127.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P4 ground pad to bottom GND plane"
+    },
+    {
+      "type": "via",
+      "uuid": "f25c02db-1313-4bbd-a294-5a4d119c4d6c",
+      "net": "GND",
+      "xy": [
+        101.815171,
+        128.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P4 ground pad to bottom GND plane"
+    },
+    {
+      "type": "via",
+      "uuid": "1534f305-2ca8-42e1-a5bd-f3c18cc47c1b",
+      "net": "GND",
+      "xy": [
+        101.815171,
+        129.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "P4 ground pad to bottom GND plane"
+    },
+    {
+      "type": "via",
+      "uuid": "76c20d0f-9959-4a0f-9e30-82f7c5903e0d",
+      "net": "GND",
+      "xy": [
+        131.915171,
+        86.25
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "U2 short PGND heat path outside exposed and bypass solder lands"
+    },
+    {
+      "type": "via",
+      "uuid": "5f9711f3-272c-49a2-97a2-3108dd92825a",
+      "net": "GND",
+      "xy": [
+        132.715171,
+        86.25
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "U2 short PGND heat path outside exposed and bypass solder lands"
+    },
+    {
+      "type": "via",
+      "uuid": "33389762-5a66-4146-b1f2-255a6ccee95f",
+      "net": "GND",
+      "xy": [
+        131.915171,
+        108.25
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "U3 short PGND heat path outside exposed and bypass solder lands"
+    },
+    {
+      "type": "via",
+      "uuid": "9eb545a9-938f-4adc-ab1a-6685093c4370",
+      "net": "GND",
+      "xy": [
+        132.715171,
+        108.25
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "U3 short PGND heat path outside exposed and bypass solder lands"
+    },
+    {
+      "type": "via",
+      "uuid": "68ab2d7b-5ea5-4b7c-81cc-908306c968d5",
+      "net": "GND",
+      "xy": [
+        131.915171,
+        130.25
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "U4 short PGND heat path outside exposed and bypass solder lands"
+    },
+    {
+      "type": "via",
+      "uuid": "74132e9b-609b-4424-b79f-852c2480d944",
+      "net": "GND",
+      "xy": [
+        132.715171,
+        130.25
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tenting": "front and back",
+      "reason": "U4 short PGND heat path outside exposed and bypass solder lands"
+    }
+  ],
+  "fuse_schematic": {
+    "removed_reference": "F1",
+    "removed_uuid": "b96f1067-8379-45b2-af95-56ec87717a0f",
+    "connected_wire_uuid": "40125a0c-2083-469b-98b7-ef1f9a056ff4",
+    "new_endpoint_mm": [
+      92.71,
+      68.58
+    ],
+    "renamed_net": "VBAT_FUSED -> BAT_SWITCHED",
+    "modified_sheets": [
+      "input-monitor.kicad_sch",
+      "rover-pdb.kicad_sch"
+    ],
+    "other_sheets": "byte-identical"
+  },
+  "fuse_pcb": {
+    "source_sha256": "92c21c3c80f64603b8473486b9ea405ee7c63177ca7459dd459f72b554077668",
+    "removed_reference": "F1",
+    "net_merge": "VBAT_FUSED into BAT_SWITCHED",
+    "added_bridge": [
+      {
+        "uuid": "2cd0edc3-7ad3-4687-8332-c36a5726bc15",
+        "start_mm": [
+          116.005171,
+          71.27
+        ],
+        "end_mm": [
+          119.465171,
+          74.73
+        ],
+        "width_mm": 4,
+        "layer": "F.Cu"
+      },
+      {
+        "uuid": "62205b66-e4f3-488d-aae9-809607196528",
+        "start_mm": [
+          119.465171,
+          74.73
+        ],
+        "end_mm": [
+          123.625171,
+          74.73
+        ],
+        "width_mm": 4,
+        "layer": "F.Cu"
+      }
+    ]
+  },
+  "fuse_settings": {
+    "removed_unused_class": [
+      {
+        "bus_width": 12,
+        "clearance": 0.2,
+        "diff_pair_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "PDB_Fused",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 2.8,
+        "tuning_profile": "",
+        "via_diameter": 0.6,
+        "via_drill": 0.3,
+        "wire_width": 6
+      }
+    ],
+    "removed_unused_pattern": [
+      {
+        "netclass": "PDB_Fused",
+        "pattern": "/Battery input and INA226/VBAT_FUSED"
+      }
+    ],
+    "other_settings": "parsed equality preserved"
+  },
+  "socket_library": {
+    "file": "footprints\\rover.pretty\\Pico2_Sockets_LXWCONN_254PM_1x20.kicad_mod",
+    "old_sha256": "b0539ba36fb9f4aeaa17335f97e8428110a2fd3b56e3a90e605118c7133f27a2",
+    "new_sha256": "6cf73ebe85719168dbb913143db78fe8b65649ce29d2709e5c125eb500eab6d4",
+    "non_model_nodes_identical": true
+  },
+  "power_and_via_check": {
+    "method": "Independent native in-memory refill, remove all power-net tracks narrower than 0.8 mm, BFS via GetConnectedItems; no saves. Geometric via center must intersect same-net filled zone or real track on each copper layer. Pad bounding boxes are a conservative copper-land screen, not solder process validation.",
+    "p4_control": {
+      "sha256": "02312e6093be19c3b4c89f58daeb52bf62498f8ec676f714b12679a12d6aa11e",
+      "removed_count": 76,
+      "passed": 20,
+      "paths": [
+        {
+          "from": "P1.1",
+          "to": "F1.2",
+          "connected": true
+        },
+        {
+          "from": "F1.1",
+          "to": "RS1.2",
+          "connected": true
+        },
+        {
+          "from": "RS1.1",
+          "to": "C1.1",
+          "connected": true
+        },
+        {
+          "from": "RS1.1",
+          "to": "C10.1",
+          "connected": true
+        },
+        {
+          "from": "RS1.1",
+          "to": "C11.1",
+          "connected": true
+        },
+        {
+          "from": "RS1.1",
+          "to": "C12.1",
+          "connected": true
+        },
+        {
+          "from": "RS1.1",
+          "to": "C13.1",
+          "connected": true
+        },
+        {
+          "from": "RS1.1",
+          "to": "C14.1",
+          "connected": true
+        },
+        {
+          "from": "RS1.1",
+          "to": "C15.1",
+          "connected": true
+        },
+        {
+          "from": "C20.1",
+          "to": "P2.1",
+          "connected": true
+        },
+        {
+          "from": "C20.1",
+          "to": "P3.1",
+          "connected": true
+        },
+        {
+          "from": "C24.1",
+          "to": "P4.1",
+          "connected": true
+        },
+        {
+          "from": "C24.1",
+          "to": "C2.1",
+          "connected": true
+        },
+        {
+          "from": "C24.1",
+          "to": "J2.2",
+          "connected": true
+        },
+        {
+          "from": "C24.1",
+          "to": "J3.2",
+          "connected": true
+        },
+        {
+          "from": "C24.1",
+          "to": "J4.2",
+          "connected": true
+        },
+        {
+          "from": "C16.1",
+          "to": "C5.1",
+          "connected": true
+        },
+        {
+          "from": "C16.1",
+          "to": "J5.2",
+          "connected": true
+        },
+        {
+          "from": "C16.1",
+          "to": "J6.2",
+          "connected": true
+        },
+        {
+          "from": "C16.1",
+          "to": "J7.2",
+          "connected": true
+        }
+      ]
+    },
+    "p5_candidate": {
+      "sha256": "4cfc5eb7b2b986b471b8c3e80f0de72ce629481680a0ee062e0dff92b51660fe",
+      "removed_count": 76,
+      "passed": 19,
+      "paths": [
+        {
+          "from": "P1.1",
+          "to": "RS1.2",
+          "connected": true
+        },
+        {
+          "from": "RS1.1",
+          "to": "C1.1",
+          "connected": true
+        },
+        {
+          "from": "RS1.1",
+          "to": "C10.1",
+          "connected": true
+        },
+        {
+          "from": "RS1.1",
+          "to": "C11.1",
+          "connected": true
+        },
+        {
+          "from": "RS1.1",
+          "to": "C12.1",
+          "connected": true
+        },
+        {
+          "from": "RS1.1",
+          "to": "C13.1",
+          "connected": true
+        },
+        {
+          "from": "RS1.1",
+          "to": "C14.1",
+          "connected": true
+        },
+        {
+          "from": "RS1.1",
+          "to": "C15.1",
+          "connected": true
+        },
+        {
+          "from": "C20.1",
+          "to": "P2.1",
+          "connected": true
+        },
+        {
+          "from": "C20.1",
+          "to": "P3.1",
+          "connected": true
+        },
+        {
+          "from": "C24.1",
+          "to": "P4.1",
+          "connected": true
+        },
+        {
+          "from": "C24.1",
+          "to": "C2.1",
+          "connected": true
+        },
+        {
+          "from": "C24.1",
+          "to": "J2.2",
+          "connected": true
+        },
+        {
+          "from": "C24.1",
+          "to": "J3.2",
+          "connected": true
+        },
+        {
+          "from": "C24.1",
+          "to": "J4.2",
+          "connected": true
+        },
+        {
+          "from": "C16.1",
+          "to": "C5.1",
+          "connected": true
+        },
+        {
+          "from": "C16.1",
+          "to": "J5.2",
+          "connected": true
+        },
+        {
+          "from": "C16.1",
+          "to": "J6.2",
+          "connected": true
+        },
+        {
+          "from": "C16.1",
+          "to": "J7.2",
+          "connected": true
+        }
+      ]
+    },
+    "footprint_field_changes": [],
+    "only_removed_reference": [
+      "F1"
+    ],
+    "references_otherwise_identical": true,
+    "all_positions_pads_nets_values_attributes_identical": true,
+    "added_via_checks": [
+      {
+        "uuid": "12642e95-7de0-461c-ab96-f5e1ff254771",
+        "net": "GND",
+        "xy_mm": [
+          100.815171,
+          129.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P4.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 1.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 1.2
+      },
+      {
+        "uuid": "1534f305-2ca8-42e1-a5bd-f3c18cc47c1b",
+        "net": "GND",
+        "xy_mm": [
+          101.815171,
+          129.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P4.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.2
+      },
+      {
+        "uuid": "19655a4f-0138-4e9d-9a90-9df515b98e9b",
+        "net": "GND",
+        "xy_mm": [
+          101.815171,
+          108.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P3.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.2
+      },
+      {
+        "uuid": "33389762-5a66-4146-b1f2-255a6ccee95f",
+        "net": "GND",
+        "xy_mm": [
+          131.91517,
+          108.25
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [
+              "950c7058-4efe-4dd9-bc45-c6106b863efa"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "C31.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.275,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.125
+      },
+      {
+        "uuid": "39e0a534-ca7f-45dd-b05c-4049e1552ea1",
+        "net": "GND",
+        "xy_mm": [
+          100.815171,
+          128.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P4.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 1.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 1.2
+      },
+      {
+        "uuid": "3fe975e6-2325-48c7-8a8e-415688045dd3",
+        "net": "GND",
+        "xy_mm": [
+          100.815171,
+          127.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P4.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 1.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 1.2
+      },
+      {
+        "uuid": "5f9711f3-272c-49a2-97a2-3108dd92825a",
+        "net": "GND",
+        "xy_mm": [
+          132.715171,
+          86.25
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [
+              "387b84f1-8c09-4cc1-9963-be8a78a943ac"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "C30.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.275,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.125
+      },
+      {
+        "uuid": "669cabe7-602e-432d-8050-72db26a98775",
+        "net": "GND",
+        "xy_mm": [
+          101.815171,
+          84.8
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P2.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.2
+      },
+      {
+        "uuid": "67ec11a4-1d75-45a9-b60a-20c8b0a19c4b",
+        "net": "GND",
+        "xy_mm": [
+          101.815171,
+          106.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P3.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.2
+      },
+      {
+        "uuid": "68ab2d7b-5ea5-4b7c-81cc-908306c968d5",
+        "net": "GND",
+        "xy_mm": [
+          131.91517,
+          130.25
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [
+              "497b8485-704c-4fd8-98c0-16df3dd8d51e"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "C32.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.275,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.125
+      },
+      {
+        "uuid": "71e81011-464a-48dd-8c5e-30bb12f93f61",
+        "net": "GND",
+        "xy_mm": [
+          100.815171,
+          86.8
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P2.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 1.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 1.2
+      },
+      {
+        "uuid": "74132e9b-609b-4424-b79f-852c2480d944",
+        "net": "GND",
+        "xy_mm": [
+          132.715171,
+          130.25
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [
+              "497b8485-704c-4fd8-98c0-16df3dd8d51e"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "C32.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.275,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.125
+      },
+      {
+        "uuid": "76c20d0f-9959-4a0f-9e30-82f7c5903e0d",
+        "net": "GND",
+        "xy_mm": [
+          131.91517,
+          86.25
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [
+              "387b84f1-8c09-4cc1-9963-be8a78a943ac"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "C30.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.275,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.125
+      },
+      {
+        "uuid": "8c86ce67-82c2-48fe-b210-e16c994d4170",
+        "net": "GND",
+        "xy_mm": [
+          100.815171,
+          84.8
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P2.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 1.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 1.2
+      },
+      {
+        "uuid": "956115a8-efa8-442c-bbc5-0d876d662b8a",
+        "net": "GND",
+        "xy_mm": [
+          101.815171,
+          127.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P4.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.2
+      },
+      {
+        "uuid": "9b3f9cce-7c18-4720-8134-bdcd0dc5a7d9",
+        "net": "GND",
+        "xy_mm": [
+          100.815171,
+          108.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P3.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 1.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 1.2
+      },
+      {
+        "uuid": "9eb545a9-938f-4adc-ab1a-6685093c4370",
+        "net": "GND",
+        "xy_mm": [
+          132.715171,
+          108.25
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [
+              "950c7058-4efe-4dd9-bc45-c6106b863efa"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "C31.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.275,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.125
+      },
+      {
+        "uuid": "b76ce645-59ce-4994-b695-b21b88507733",
+        "net": "GND",
+        "xy_mm": [
+          101.815171,
+          86.8
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P2.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.2
+      },
+      {
+        "uuid": "c36b0d41-65b0-4316-8b90-ff00861bde6d",
+        "net": "GND",
+        "xy_mm": [
+          101.815171,
+          107.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P3.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.2
+      },
+      {
+        "uuid": "db95b5b7-12f5-4f9d-a592-472c2f2bffa7",
+        "net": "GND",
+        "xy_mm": [
+          100.815171,
+          85.8
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P2.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 1.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 1.2
+      },
+      {
+        "uuid": "deea4677-3402-4f34-93e6-7965f861866e",
+        "net": "GND",
+        "xy_mm": [
+          101.815171,
+          85.8
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P2.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.2
+      },
+      {
+        "uuid": "e51bcd39-7c03-49bb-90c2-4a8d29b8e740",
+        "net": "GND",
+        "xy_mm": [
+          100.815171,
+          106.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P3.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 1.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 1.2
+      },
+      {
+        "uuid": "f25c02db-1313-4bbd-a294-5a4d119c4d6c",
+        "net": "GND",
+        "xy_mm": [
+          101.815171,
+          128.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P4.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.2
+      },
+      {
+        "uuid": "f36c19fa-43ba-449e-a731-6dae86f3efac",
+        "net": "GND",
+        "xy_mm": [
+          100.815171,
+          107.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [
+              "3ff0c496-6327-427d-83fd-6156dd319c26"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "c1f76b9d-bf27-45f9-b17a-21f5caedcc42"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P3.2",
+        "drill_edge_clearance_to_pad_bbox_mm": 1.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 1.2
+      },
+      {
+        "uuid": "0e68d2ef-be11-42c0-9301-c5a7991d9090",
+        "net": "+5V",
+        "xy_mm": [
+          101.815171,
+          136.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "3e89ebce-8cc4-40bc-93a0-6cfca2a32fb1"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "4c4adc8f-9197-4675-9a40-a9a4bb243ad5"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P4.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.2
+      },
+      {
+        "uuid": "11874f28-eb3f-4d7d-8625-39b3c29d8fb6",
+        "net": "+5V",
+        "xy_mm": [
+          101.815171,
+          138.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "3e89ebce-8cc4-40bc-93a0-6cfca2a32fb1"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "4c4adc8f-9197-4675-9a40-a9a4bb243ad5"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P4.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.2
+      },
+      {
+        "uuid": "5c175c58-9fba-4d1b-904f-bb3d7ce60083",
+        "net": "+5V",
+        "xy_mm": [
+          100.815171,
+          138.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "3e89ebce-8cc4-40bc-93a0-6cfca2a32fb1"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "4c4adc8f-9197-4675-9a40-a9a4bb243ad5"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P4.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 1.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 1.2
+      },
+      {
+        "uuid": "74b1fdcd-f67c-4d42-b8c8-1e41d0e32a90",
+        "net": "+5V",
+        "xy_mm": [
+          101.815171,
+          137.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "3e89ebce-8cc4-40bc-93a0-6cfca2a32fb1"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "4c4adc8f-9197-4675-9a40-a9a4bb243ad5"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P4.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.2
+      },
+      {
+        "uuid": "d47db24b-07b4-42c4-8b38-078f63eb9f22",
+        "net": "+5V",
+        "xy_mm": [
+          100.815171,
+          136.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "3e89ebce-8cc4-40bc-93a0-6cfca2a32fb1"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "4c4adc8f-9197-4675-9a40-a9a4bb243ad5"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P4.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 1.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 1.2
+      },
+      {
+        "uuid": "e19f7e0e-b9d8-435c-92d6-c5364d64983d",
+        "net": "+5V",
+        "xy_mm": [
+          100.815171,
+          137.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "3e89ebce-8cc4-40bc-93a0-6cfca2a32fb1"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "4c4adc8f-9197-4675-9a40-a9a4bb243ad5"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P4.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 1.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 1.2
+      },
+      {
+        "uuid": "0c1d0376-eb43-4680-8801-f45cd37dfe44",
+        "net": "+12V",
+        "xy_mm": [
+          109.815171,
+          94.8
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "051bc4fc-7bc0-452c-8282-f153bb04c91f",
+              "657ffc7e-12cd-4631-84a2-b819bfeaddd4"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "47c5f467-e945-463d-886c-f9f9e9d4eec6"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P2.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 1.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 1.2
+      },
+      {
+        "uuid": "42f6874c-d905-47b1-bf02-2c08aabcd7af",
+        "net": "+12V",
+        "xy_mm": [
+          109.815171,
+          117.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "f7d8da48-5f07-4651-9a96-08e22fe22e66"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "51c9a113-d213-4cab-8ff4-f146c4ca3088"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P3.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 1.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 1.2
+      },
+      {
+        "uuid": "67b5866d-b934-4579-9082-8c79400dc3a2",
+        "net": "+12V",
+        "xy_mm": [
+          108.815171,
+          116.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "f7d8da48-5f07-4651-9a96-08e22fe22e66"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "51c9a113-d213-4cab-8ff4-f146c4ca3088"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P3.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.2
+      },
+      {
+        "uuid": "8fcf3403-273a-4b25-b3c8-ca6440f1c878",
+        "net": "+12V",
+        "xy_mm": [
+          108.815171,
+          94.8
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "051bc4fc-7bc0-452c-8282-f153bb04c91f",
+              "657ffc7e-12cd-4631-84a2-b819bfeaddd4"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "47c5f467-e945-463d-886c-f9f9e9d4eec6"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P2.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.2
+      },
+      {
+        "uuid": "a33d497c-30f8-4893-8a9b-4ec567ee74df",
+        "net": "+12V",
+        "xy_mm": [
+          108.815171,
+          95.8
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "051bc4fc-7bc0-452c-8282-f153bb04c91f",
+              "657ffc7e-12cd-4631-84a2-b819bfeaddd4"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "47c5f467-e945-463d-886c-f9f9e9d4eec6"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P2.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.2
+      },
+      {
+        "uuid": "abdeddbd-8527-49d5-beaa-fb7601d16abf",
+        "net": "+12V",
+        "xy_mm": [
+          109.815171,
+          116.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "f7d8da48-5f07-4651-9a96-08e22fe22e66"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "51c9a113-d213-4cab-8ff4-f146c4ca3088"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P3.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 1.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 1.2
+      },
+      {
+        "uuid": "b2fd2d39-9a11-499e-bff8-ffa5985dad33",
+        "net": "+12V",
+        "xy_mm": [
+          108.815171,
+          115.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "f7d8da48-5f07-4651-9a96-08e22fe22e66"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "51c9a113-d213-4cab-8ff4-f146c4ca3088"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P3.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.2
+      },
+      {
+        "uuid": "bee85e7b-e326-4b38-ae78-710a34ceac0a",
+        "net": "+12V",
+        "xy_mm": [
+          109.815171,
+          93.8
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "051bc4fc-7bc0-452c-8282-f153bb04c91f",
+              "657ffc7e-12cd-4631-84a2-b819bfeaddd4"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "47c5f467-e945-463d-886c-f9f9e9d4eec6"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P2.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 1.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 1.2
+      },
+      {
+        "uuid": "c512cb34-f346-47d7-aff6-53563dd77b88",
+        "net": "+12V",
+        "xy_mm": [
+          109.815171,
+          115.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "f7d8da48-5f07-4651-9a96-08e22fe22e66"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "51c9a113-d213-4cab-8ff4-f146c4ca3088"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P3.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 1.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 1.2
+      },
+      {
+        "uuid": "c53164c1-ca7c-48b9-a685-0d551b23c2b7",
+        "net": "+12V",
+        "xy_mm": [
+          108.815171,
+          117.5
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "f7d8da48-5f07-4651-9a96-08e22fe22e66"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "51c9a113-d213-4cab-8ff4-f146c4ca3088"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P3.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.2
+      },
+      {
+        "uuid": "de29ca8d-a505-4e4f-8c5a-b1dd1f7acaa8",
+        "net": "+12V",
+        "xy_mm": [
+          109.815171,
+          95.8
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "051bc4fc-7bc0-452c-8282-f153bb04c91f",
+              "657ffc7e-12cd-4631-84a2-b819bfeaddd4"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "47c5f467-e945-463d-886c-f9f9e9d4eec6"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P2.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 1.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 1.2
+      },
+      {
+        "uuid": "ea270afd-efda-4580-abcb-f821f33b3129",
+        "net": "+12V",
+        "xy_mm": [
+          108.815171,
+          93.8
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "051bc4fc-7bc0-452c-8282-f153bb04c91f",
+              "657ffc7e-12cd-4631-84a2-b819bfeaddd4"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "47c5f467-e945-463d-886c-f9f9e9d4eec6"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P2.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.35,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.2
+      },
+      {
+        "uuid": "183131be-66b5-4eff-96df-426137206ec9",
+        "net": "/Battery input and INA226/BAT_SWITCHED",
+        "xy_mm": [
+          112.565171,
+          65.0
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "20920b11-277a-4738-92c2-234a6ad945b8"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "e728cca6-a89a-4403-af25-98d68ac37dba"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P1.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.6,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.45
+      },
+      {
+        "uuid": "21631047-d4fe-46bc-9789-e6d34a561549",
+        "net": "/Battery input and INA226/BAT_SWITCHED",
+        "xy_mm": [
+          112.565171,
+          66.0
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "20920b11-277a-4738-92c2-234a6ad945b8"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "e728cca6-a89a-4403-af25-98d68ac37dba"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P1.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 1.6,
+        "annulus_edge_clearance_to_pad_bbox_mm": 1.45
+      },
+      {
+        "uuid": "48344aed-777a-41d7-94eb-dbb450312a1b",
+        "net": "/Battery input and INA226/BAT_SWITCHED",
+        "xy_mm": [
+          113.565171,
+          66.0
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "20920b11-277a-4738-92c2-234a6ad945b8"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "e728cca6-a89a-4403-af25-98d68ac37dba"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P1.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 1.6,
+        "annulus_edge_clearance_to_pad_bbox_mm": 1.45
+      },
+      {
+        "uuid": "74fb536c-2311-4f4a-a41c-c25f1b3a873d",
+        "net": "/Battery input and INA226/BAT_SWITCHED",
+        "xy_mm": [
+          111.565171,
+          65.0
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "20920b11-277a-4738-92c2-234a6ad945b8"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "e728cca6-a89a-4403-af25-98d68ac37dba"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P1.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.6,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.45
+      },
+      {
+        "uuid": "b7e2a94b-7bb7-417b-ab21-f3f726e17acd",
+        "net": "/Battery input and INA226/BAT_SWITCHED",
+        "xy_mm": [
+          111.565171,
+          66.0
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "20920b11-277a-4738-92c2-234a6ad945b8"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "e728cca6-a89a-4403-af25-98d68ac37dba"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P1.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 1.6,
+        "annulus_edge_clearance_to_pad_bbox_mm": 1.45
+      },
+      {
+        "uuid": "c5d80568-5994-45ef-84ba-ec48a43fae11",
+        "net": "/Battery input and INA226/BAT_SWITCHED",
+        "xy_mm": [
+          113.565171,
+          65.0
+        ],
+        "front_tenting_mode": 1,
+        "back_tenting_mode": 1,
+        "drill_mm": 0.3,
+        "diameter_mm": 0.6,
+        "layers": {
+          "F.Cu": {
+            "zones_at_via_center": [],
+            "tracks_at_via_center": [
+              "20920b11-277a-4738-92c2-234a6ad945b8"
+            ],
+            "useful_copper_here": true
+          },
+          "B.Cu": {
+            "zones_at_via_center": [
+              "e728cca6-a89a-4403-af25-98d68ac37dba"
+            ],
+            "tracks_at_via_center": [],
+            "useful_copper_here": true
+          }
+        },
+        "nearest_pad_bbox": "P1.1",
+        "drill_edge_clearance_to_pad_bbox_mm": 0.6,
+        "annulus_edge_clearance_to_pad_bbox_mm": 0.45
+      }
+    ],
+    "all_48_vias_tented_both_sides": true,
+    "all_48_vias_have_copper_on_both_layers": true,
+    "minimum_drill_to_pad_bbox_mm": 0.275,
+    "minimum_annulus_to_pad_bbox_mm": 0.125,
+    "board_saved": false,
+    "limits": "Connectivity and preserved geometry are verified; this does not certify current capacity, temperature, solderability, thermal transfer, EMI or loop stability."
+  },
+  "pico_fit": {
+    "source_sha256": "4cfc5eb7b2b986b471b8c3e80f0de72ce629481680a0ee062e0dff92b51660fe",
+    "official_source": "Pico 2 datasheet chapter3,Figs3-4 printedpp7-8,archived cbcfaf881018",
+    "pad_count": 40,
+    "pitch_mm": 2.54,
+    "row_spacing_mm": 17.78,
+    "row_span_mm": 48.26,
+    "module_body_mm": [
+      51,
+      21,
+      1
+    ],
+    "module_body_absolute_xy_mm": [
+      149.95517099999998,
+      75.66,
+      170.955171,
+      126.66
+    ],
+    "socket_drawing": "254PM-1x20P-V drawingp1,archived5778f815e84c",
+    "socket_nominal_body_mm": [
+      51.3,
+      2.5,
+      8.5
+    ],
+    "socket_max_body_mm": [
+      51.6,
+      2.65,
+      8.65
+    ],
+    "socket_footprint_drill_mm": 1.02,
+    "male_header": "Samtec TSW-120-07-G-S;0.635mm square post,5.84mm matinglength,2.54mmtail;install longpost toward female socket",
+    "pin_orientation": "USB toward negativeY;1top-left,20bottom-left,21bottom-right,40top-right;matchesofficialFigure4",
+    "neighbor_screen": {
+      "C1": {
+        "pcb_geometry_box_mm": [
+          131.157848,
+          67.725,
+          141.972494,
+          78.275
+        ],
+        "body_plan_gap_mm": 7.9827
+      },
+      "C2": {
+        "pcb_geometry_box_mm": [
+          147.345473,
+          128.025,
+          156.090171,
+          136.575
+        ],
+        "body_plan_gap_mm": 1.365
+      },
+      "C5": {
+        "pcb_geometry_box_mm": [
+          146.275525,
+          137.225,
+          157.090171,
+          147.775
+        ],
+        "body_plan_gap_mm": 10.565
+      },
+      "J2": {
+        "pcb_geometry_box_mm": [
+          160.520171,
+          129.205,
+          169.190171,
+          132.795
+        ],
+        "body_plan_gap_mm": 2.545
+      },
+      "J9": {
+        "pcb_geometry_box_mm": [
+          171.520171,
+          94.044999,
+          175.110171,
+          110.334999
+        ],
+        "body_plan_gap_mm": 0.565
+      },
+      "R19": {
+        "pcb_geometry_box_mm": [
+          142.410171,
+          132.525,
+          145.820171,
+          134.475
+        ],
+        "body_plan_gap_mm": 7.1761
+      }
+    },
+    "limits": [
+      "Native footprint pitch and numbering match Pico2; actual manufactured fit and contact engagement are not measured.",
+      "Bounding-box gap is a conservative plan-view screen of nearby PCB geometry,not exact3Dcollisionverification.",
+      "No tall component overlaps the module outline in native geometry; R1/R2 ahead of USB need realplugovermold/height/cablebendcheck.",
+      "Generic female socketSTEPs are visual approximations; use selectedpartmaxbodydimensions."
+    ]
+  },
+  "schematic_check": {
+    "status": "SCHEMATIC REVIEW ONLY",
+    "kicad_version": "10.0.6",
+    "sheets": 7,
+    "physical_symbols": 84,
+    "connected_nets": 38,
+    "erc_errors": 0,
+    "erc_warnings": 0,
+    "initial_intent_differences": [
+      "KiCad pin inventory differs from intent: missing=[('F1', '1'), ('F1', '2')], extra=[]"
+    ],
+    "critical_connection_failures": [],
+    "component_failures": [],
+    "footprint_pin_failures": [],
+    "unassigned_footprints": [],
+    "preview_findings": [],
+    "input_sha256": {
+      "rover-pdb.kicad_sch": "818f629444618cf18162fbcce1976a4b601dc0ae663a2fe7e75d618630e8ccf8",
+      "input-monitor.kicad_sch": "c10df3cad1de2162749526112bac60c796ae257aa458c9b8c022415e103a5d56",
+      "buck-12v.kicad_sch": "2559a14a2dc411419187b6e05bf22c1e492789e10a1db25b4c60649318e13e6e",
+      "buck-5v.kicad_sch": "105b5f2506a49d16059023828e47d16bbd9ba35ac4c3964cd44c5c95fdbfbc6e",
+      "buck-motor.kicad_sch": "4895dc15bffb657a58f9cc712eaf67eb273f4696dff261054f482ddef90740bb",
+      "pico-servos.kicad_sch": "eeb5cc06ecdf62b2327d495270d68727a0ddd1394ad126b7b88163e2c8b5accf",
+      "dxl-enable.kicad_sch": "95ac0de112c4f20957c3290df8c64230e3d21e1ed6eafae8e2221fc743bdff24",
+      "rover-pdb.kicad_pro": "b88f5b7ef1f1badfab83a8378abcf14b01ba1b452cda6bceafc9fc8f5188df70"
+    },
+    "cad_unchanged": true,
+    "pcb_created": false,
+    "human_signoff": "PENDING"
+  },
+  "full_review": {
+    "blocking": true,
+    "findings": [
+      {
+        "blocking": false,
+        "check_id": "routing_settings",
+        "detail": "+12V: existing tracks span 0.25–3 mm, but no stored non-Default class assignment provides a 3 mm routing width. Review the intended main-route default; smaller low-current branches on this net can be legitimate. This does not impose a net-wide minimum or assess ampacity.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_settings",
+        "detail": "+12V: existing 3 mm route width is absent from the saved width presets and assigned class widths; consider a matching preset for future manual routing. Custom rules and connected-track mode may still determine the actual router width.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_settings",
+        "detail": "+5V: existing tracks span 0.25–3 mm, but no stored non-Default class assignment provides a 3 mm routing width. Review the intended main-route default; smaller low-current branches on this net can be legitimate. This does not impose a net-wide minimum or assess ampacity.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_settings",
+        "detail": "+5V: existing 3 mm route width is absent from the saved width presets and assigned class widths; consider a matching preset for future manual routing. Custom rules and connected-track mode may still determine the actual router width.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_settings",
+        "detail": "/Battery input and INA226/BAT_SWITCHED: existing tracks span 0.25–4 mm, but no stored non-Default class assignment provides a 4 mm routing width. Review the intended main-route default; smaller low-current branches on this net can be legitimate. This does not impose a net-wide minimum or assess ampacity.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": true,
+        "check_id": "signoff",
+        "detail": "0/5 current decisions: schematic-owner-review unsigned; motor-energy unsigned; parts-and-mechanics unsigned; power-and-protection unsigned; pcb-layout-and-assembly unsigned",
+        "kind": "human_decision"
+      }
+    ],
+    "pcb_hash": "4cfc5eb7b2b986b471b8c3e80f0de72ce629481680a0ee062e0dff92b51660fe",
+    "project": "rover-pdb",
+    "results": [
+      {
+        "advisories": [],
+        "check_id": "research",
+        "detail": "requirements, cited basis and archived evidence verified",
+        "duration_ms": 190,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "engineering validity of those choices",
+          "proves": "requirements, cited basis and source integrity",
+          "requires_external_tool": false
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "datasheets",
+        "detail": "required datasheet bytes verified",
+        "duration_ms": 189,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "interpretation of electrical limits",
+          "proves": "required datasheets are archived and verified",
+          "requires_external_tool": false
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "erc",
+        "detail": "0 violation(s), 0 unspecified-pin warnings waived",
+        "duration_ms": 4409,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "circuit fitness or safe operation",
+          "proves": "fresh KiCad electrical-rule findings",
+          "requires_external_tool": true
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "schematic_ownership",
+        "detail": "netmap matches the current schematic",
+        "duration_ms": 650,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "circuit correctness",
+          "proves": "netmap matches the current schematic",
+          "requires_external_tool": true
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "netlist_parity",
+        "detail": "exact schematic/PCB pin-net parity",
+        "duration_ms": 1025,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "which circuit is correct",
+          "proves": "exact schematic/PCB pin-net agreement",
+          "requires_external_tool": true
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "placement",
+        "detail": "implemented placement checks pass",
+        "duration_ms": 256,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "assembly or enclosure fit",
+          "proves": "implemented placement geometry checks",
+          "requires_external_tool": false
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "design_rules",
+        "detail": "=== docs/DESIGN_RULES.md geometric checks: C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-copilot-review-m36x4f1t\\rover-pdb\\rover-pdb.kicad_pcb ===\n\npassing:\n  [2.2 decoupling <=2mm]  1 ok\n\nRESULT: 0 violation(s), 1 check(s) passed\nSCOPE: geometric rules 1.2, 2.2, 5.1, 6.1 only (4 of 42 numbered subsections in docs/DESIGN_RULES.md). The remainder are not machine-checkable from the board file and are covered by the Phase 5 human review.",
+        "duration_ms": 642,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "all house rules or source applicability",
+          "proves": "geometric rules 1.2, 2.2, 5.1 and 6.1",
+          "requires_external_tool": true
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "drc",
+        "detail": "0 error(s), 0 warning(s), 0 unconnected; two refilled runs",
+        "duration_ms": 4543,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": false,
+          "does_not_prove": "RF, thermal or functional behavior",
+          "proves": "two fresh zone-refilled DRC runs and routing completeness",
+          "requires_external_tool": true
+        }
+      },
+      {
+        "advisories": [
+          "+12V: existing tracks span 0.25–3 mm, but no stored non-Default class assignment provides a 3 mm routing width. Review the intended main-route default; smaller low-current branches on this net can be legitimate. This does not impose a net-wide minimum or assess ampacity.",
+          "+12V: existing 3 mm route width is absent from the saved width presets and assigned class widths; consider a matching preset for future manual routing. Custom rules and connected-track mode may still determine the actual router width.",
+          "+5V: existing tracks span 0.25–3 mm, but no stored non-Default class assignment provides a 3 mm routing width. Review the intended main-route default; smaller low-current branches on this net can be legitimate. This does not impose a net-wide minimum or assess ampacity.",
+          "+5V: existing 3 mm route width is absent from the saved width presets and assigned class widths; consider a matching preset for future manual routing. Custom rules and connected-track mode may still determine the actual router width.",
+          "/Battery input and INA226/BAT_SWITCHED: existing tracks span 0.25–4 mm, but no stored non-Default class assignment provides a 4 mm routing width. Review the intended main-route default; smaller low-current branches on this net can be legitimate. This does not impose a net-wide minimum or assess ampacity."
+        ],
+        "check_id": "routing_settings",
+        "detail": "Native routing: 482 segments, 0 arcs, 167 vias; 0 locked item(s). Default width: 0.25 mm; 24 positive width preset(s).",
+        "duration_ms": 169,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "ampacity, thermal margin, branch currents, effective custom rules or router UI selection",
+          "proves": "stored native routing widths/locks and project routing-setting coverage",
+          "requires_external_tool": false
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "schematic_quality",
+        "detail": "7 sheet(s) checked",
+        "duration_ms": 86,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "visual readability, electrical correctness, or page-flow quality",
+          "proves": "all referenced sheets have title/revision and acceptable density",
+          "requires_external_tool": false
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "signoff",
+        "detail": "0/5 current decisions: schematic-owner-review unsigned; motor-energy unsigned; parts-and-mechanics unsigned; power-and-protection unsigned; pcb-layout-and-assembly unsigned",
+        "duration_ms": 251,
+        "finding_kind": "human_decision",
+        "passed": false,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "the reviewer inspected correctly, measured hardware, or made a safe decision",
+          "proves": "named, dated, project-specific decisions match the exact current design and review profile",
+          "requires_external_tool": false
+        }
+      }
+    ],
+    "schema_version": 1,
+    "schematic_hash": "abae988c88cacd103cda88e293a4d39946ddc89652e7dba8d93840438eff62c8"
+  },
+  "visual_review": {
+    "schematic_sheets": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "pcb_pdf_pages": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "assembly_3d": "both socket bodies visible; module and cable absent"
+  },
+  "export_source_manifest": {
+    "schema_version": 1,
+    "source_hashes": {
+      "rover-pdb.kicad_pcb": "4cfc5eb7b2b986b471b8c3e80f0de72ce629481680a0ee062e0dff92b51660fe",
+      "rover-pdb.kicad_pro": "b88f5b7ef1f1badfab83a8378abcf14b01ba1b452cda6bceafc9fc8f5188df70",
+      "rover-pdb.kicad_dru": null
+    },
+    "svg_hashes": {
+      "assembly.svg": "d03a78555f563d7ef578f0ac7ca29339a5c17e905f16434844198af79a0e6df1",
+      "top-copper.svg": "d6a65395c07093efb0c359f567676c0f69604d4ee96cea5660a83cbc845209a0",
+      "bottom-copper.svg": "5fab1d15d375dd1295385a1527c0be582dcaa5b8b38e5a29ce60debe0bafc6a1"
+    },
+    "kicad_version": "10.0.6",
+    "view_orientation": {
+      "assembly.svg": "top",
+      "top-copper.svg": "top",
+      "bottom-copper.svg": "underside; mirrored relative to top"
+    },
+    "scope": "Fresh native review views; not a DRC, parity or fabrication approval"
+  },
+  "current_outputs": {
+    "output\\pdf\\rover-pdb-pcb-review.pdf": "90cadda2af37f1c855fd1f6cf40d2489d103c1633be8ad00f5d54ce3b461f216",
+    "output\\pdf\\rover-pdb-schematic-A10.pdf": "309bd7e3e7fe686f5b3d5a7d67f63a72ecbe5a5e09d0e697d7694256e75ac785",
+    "output\\review\\assembly-3d.png": "908ffa6e4f7920140b8e37038567051f546f5a323e59e03029f25d353f5beedc",
+    "output\\schematic-bom.csv": "8dc6dcf0f7645354920acb914973bef2527c2e93269ea425431d62bf51b7bd00"
+  },
+  "export_provenance_tests": ".......                                                                  [100%]\n7 passed in 0.25s",
+  "remaining_scope": [
+    "actual USB plug and socket/header engagement",
+    "motor energy handling",
+    "regulator transients and loaded startup",
+    "simultaneous-load temperature",
+    "external battery protection and harness restraint",
+    "five unsigned human release decisions"
+  ],
+  "fabrication_package_created": false,
+  "order_placed": false
+}

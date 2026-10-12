@@ -1,0 +1,30 @@
+{
+  "scope": "Owner-reported schematic review of pre-A9 design; not fabrication sign-off",
+  "owner_statement": "i think most of them looks good by human review. i checked everything. and it looks good.",
+  "reviewer": "Project owner, user in this conversation; personal name not supplied",
+  "reported_local_date": "2026-09-30",
+  "timezone": "Asia/Seoul",
+  "reviewed_revision": "A8",
+  "reviewed_CAD_sha256": {
+    "buck-12v.kicad_sch": "d56183c4a4c13f1a636730d3a56bbd8551bfefbd05a48b2ca2708ecfda425a9e",
+    "buck-5v.kicad_sch": "6668bfbd3ba638245618429223c82a9eb1e71a8b2187d53c046de25db8a394f0",
+    "buck-motor.kicad_sch": "f23727a117622bcff6a8eb66d21d13291b49a1c4f968992519e3baba61bc51e2",
+    "dxl-enable.kicad_sch": "95ac0de112c4f20957c3290df8c64230e3d21e1ed6eafae8e2221fc743bdff24",
+    "input-monitor.kicad_sch": "c3d592a4d6d1b5ff21eb89d56357a7a59a19afafb7b3624295ac168bd67f5d0e",
+    "pico-servos.kicad_sch": "39fd9478eb3550293d71187978e08e2ce7047fec8c0583ffd8fb3497e15ceef0",
+    "rover-pdb.kicad_pro": "e3566b3a06430868d71e9287dfd6c6c520a3da027aabea01951d407ee131dc2f",
+    "rover-pdb.kicad_sch": "3ac153fe0e3be9e4e7ef02b57f6d9d57181d31484736c5d0d2df2e1ab00810dd"
+  },
+  "review_context_sha256": {
+    "REQUIREMENTS.md": "29cfd0328aca940078bc1214c2fe09b63fe8b322d2ca3517ee6f066d5a39bf0d",
+    "DESIGN_BASIS.md": "b02e3f15e997fc83466502042c7a43b34db3408822f656cf2946e5e6d0c5715a",
+    "DEVIATIONS.md": "2d3537951f956890959818a2d30a115db542ca6fc3c1f872dde5048b81876cdc",
+    "review-profile.yaml": "7f40d0acb4a42f724070f2572b34db72a99643e202af0628b5ab34fd5b1a10cd",
+    "evidence/index.yaml": "e1994f712b3c617ec803415dd8d670f736550b0459ec6844ac73121c63df7943"
+  },
+  "later_authorized_revision": "A9",
+  "A9_personally_reinspected_by_owner": false,
+  "PCB_layout_authorized": false,
+  "manufacturing_release_authorized": false,
+  "note": "This records actual feedback and its scope. It is not a completed review-signoff.yaml and does not silently accept unresolved motor, thermal, protection or mechanical items."
+}

@@ -4,11 +4,12 @@ from pcb_copilot.evidence.extract import (
     extract_eagle_connections,
     render_pdf_pages,
 )
+from tests.board_fixtures import board_source
 
 
 def _evidence_path(repo_root, project, legacy, unified):
-    old = repo_root / "projects" / project / legacy
-    return old if old.exists() else repo_root / "projects" / project / unified
+    old = board_source(repo_root, project) / legacy
+    return old if old.exists() else board_source(repo_root, project) / unified
 
 
 def test_bmp390_eagle_extraction_keeps_source_identity(repo_root):

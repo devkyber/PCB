@@ -8,14 +8,22 @@ import shutil
 import tempfile
 from pathlib import Path
 
+from pcb_copilot.jlcpcb import check_jlcpcb
 from pcb_copilot.manufacturing import export_manufacturing
 from pcb_copilot.models import Project
 from pcb_copilot.project import load_project
 from pcb_copilot.review.commands import render_review_json, review_project
 from pcb_copilot.review.fingerprint import pcb_digest, schematic_digest
+from pcb_copilot.stock import check_stock
 from pcb_copilot.transaction import (
-    assert_current, contained, copy_inputs, input_hashes, project_lock, replace_bytes,
-    recovery_directory, RecoveryRequired,
+    RecoveryRequired,
+    assert_current,
+    contained,
+    copy_inputs,
+    input_hashes,
+    project_lock,
+    recovery_directory,
+    replace_bytes,
 )
 
 
@@ -28,9 +36,11 @@ def _write_state(path: Path, document: dict) -> None:
     replace_bytes(path, (json.dumps(document, indent=2, sort_keys=True) + '\n').encode())
 
 
-def release_project(project: Project) -> dict:
+def release_project(project: Project, *, preview: bool = False, quantity: int = 1) -> dict:
+    if isinstance(quantity, bool) or not isinstance(quantity, int) or quantity < 1:
+        raise ValueError('Board quantity must be a positive integer')
     expected = input_hashes(project)
-    destination = contained(project.root, project.root / 'fabrication')
+    destination = contained(project.root, project.root / ('output/jlcpcb-preview' if preview else 'fabrication'))
     with project_lock(project) as workspace:
         with tempfile.TemporaryDirectory(prefix='pcb-release-') as directory:
             staging = Path(directory)
@@ -38,7 +48,8 @@ def release_project(project: Project) -> dict:
             copy_inputs(project, snapshot_root, expected)
             snapshot = load_project(snapshot_root)
             report = review_project(snapshot)
-            if report.blocking or not report.results or any(not item.passed for item in report.results):
+            blocked = report.blocking or not report.results or any(not item.passed for item in report.results)
+            if blocked and not preview:
                 return {'released': False, 'exit_code': 1,
                         'review': json.loads(render_review_json(report))}
             if (report.schematic_hash != schematic_digest(snapshot.schematic_path)
@@ -46,12 +57,39 @@ def release_project(project: Project) -> dict:
                 raise RuntimeError('review does not describe the export snapshot')
             output = staging / 'output'
             tool_info = export_manufacturing(snapshot, output)
+            dfm = check_jlcpcb(snapshot)
+            (output / 'jlcpcb-dfm.json').write_text(json.dumps(dfm, indent=2) + '\n', encoding='utf-8')
+            stock = check_stock(output / 'bom.csv', output, quantity=quantity)
+            assembly = tool_info.get('assembly', {})
+            manufacturing_blocked = not dfm['passed'] or not stock['passed'] or not assembly.get('passed', False)
+            if manufacturing_blocked and not preview:
+                return {'released': False, 'exit_code': 1, 'review': json.loads(render_review_json(report)),
+                        'jlcpcb_dfm': dfm, 'stock': stock, 'assembly': assembly}
+            blocked = blocked or manufacturing_blocked
             if input_hashes(snapshot) != expected:
                 raise RuntimeError('export changed reviewed source inputs')
             (output / 'review.json').write_text(render_review_json(report) + '\n', encoding='utf-8')
-            copy_inputs(snapshot, output / 'sources', expected)
+            if preview:
+                failures = '\n'.join(f'- {item.check_id}: {item.detail}' for item in report.results if not item.passed)
+                if not dfm['passed']:
+                    failures += '\n- JLCPCB baseline failed; see jlcpcb-dfm.json.'
+                if not stock['passed']:
+                    failures += '\n- Retail stock shortage or unknown inventory; see stock.csv and stock.json.'
+                if not assembly.get('passed', False):
+                    failures += '\n- Assembly rules/models or supplier placement review unresolved; see assembly.json and assembly-audit.json.'
+                (output / 'PREVIEW.txt').write_text(
+                    'JLCPCB UPLOAD / QUOTATION REVIEW ONLY — NOT A FABRICATION RELEASE\n\n'
+                    'Files come from the saved native CAD. Review results are in review.json.\n'
+                    'The project lifecycle and any existing fabrication package are unchanged.\n'
+                    'Resolve release findings and verify supplier placement before ordering.\n\n'
+                    + (failures or 'No registered review failure; preview still does not grant release.') + '\n',
+                    encoding='utf-8')
+            else:
+                copy_inputs(snapshot, output / 'sources', expected)
             manifest = {
                 'schema_version': 1, 'project': project.manifest.name,
+                'purpose': 'upload-preview' if preview else 'fabrication-release',
+                'board_quantity': quantity,
                 'inputs': expected, 'outputs': output_hashes(output), 'toolchain': tool_info,
             }
             manifest_bytes = (json.dumps(manifest, indent=2, sort_keys=True) + '\n').encode()
@@ -82,12 +120,14 @@ def release_project(project: Project) -> dict:
                 published = False
                 try:
                     assert_current(project, expected)
+                    destination.parent.mkdir(parents=True, exist_ok=True)
                     if had_previous:
                         destination.rename(previous)
                     output.rename(destination)
                     published = True
                     assert_current(project, expected)
-                    _write_state(state, record)
+                    if not preview:
+                        _write_state(state, record)
                     assert_current(project, expected)
                 except BaseException:
                     try:
@@ -106,5 +146,9 @@ def release_project(project: Project) -> dict:
                         ) from None
                     shutil.rmtree(contained(project.root, recovery))
                     raise
-    return {'released': True, 'exit_code': 0, 'output': str(destination),
+    return {'released': not preview, 'prepared': True, 'review_blocked': bool(blocked),
+            'board_quantity': quantity, 'dfm_passed': dfm['passed'], 'retail_stock_passed': stock['passed'],
+            'assembly_inventory_confirmed': False,
+            'assembly_passed': assembly.get('passed', False),
+            'exit_code': int(bool(blocked)), 'output': str(destination),
             'manifest_sha256': record['manifest_sha256']}

@@ -452,7 +452,7 @@ def test_unresolved_owner_decisions_round_trip_as_findings(tmp_path: Path):
 
 
 def test_template_round_trips_and_empty_template_fails(repo_root: Path, tmp_path: Path):
-    source = repo_root / "projects/template/layout-intent.yaml"
+    source = repo_root / "templates/project/layout-intent.yaml"
     intent = load_layout_intent(source)
     assert len(intent.regions) == 2
     assert len(intent.placements) >= 2

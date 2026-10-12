@@ -1,0 +1,1766 @@
+{
+  "generated_utc": "2026-09-30T15:45:27.674721+00:00",
+  "engine": {
+    "path": "C:\\Program Files\\KiCad\\10.0\\bin\\ngspice.dll",
+    "sha256": "3238d82f02b6d08d8703a28ea894bcfdf59906dd4a59ad2e93eeec532a0454a3",
+    "version_log": "stderr Warning: can't find the initialization file spinit.\nstdout ******\nstdout ** ngspice-46 shared library\nstdout ** Creation Date: Apr 14 2026   05:15:29\nstdout ******\nstdout ******\nstdout ** ngspice-46 : Circuit level simulation program\nstdout ** Compiled with KLU Direct Linear Solver\nstdout ** The U. C. Berkeley CAD Group\nstdout ** Copyright 1985-1994, Regents of the University of California.\nstdout ** Copyright 2001-2025, The ngspice team.\nstdout ** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\nstdout ** Please file your bug-reports at https://ngspice.sourceforge.io/bugrep.html\nstdout ** Creation Date: Apr 14 2026   05:15:29\nstdout ******"
+  },
+  "cad_sha256": {
+    "buck-12v.kicad_sch": "d56183c4a4c13f1a636730d3a56bbd8551bfefbd05a48b2ca2708ecfda425a9e",
+    "buck-5v.kicad_sch": "6668bfbd3ba638245618429223c82a9eb1e71a8b2187d53c046de25db8a394f0",
+    "buck-motor.kicad_sch": "1a885de1677d56aa69d59738e198c924eb6c6eade4dd4423f2fef4292a7d9005",
+    "dxl-enable.kicad_sch": "95ac0de112c4f20957c3290df8c64230e3d21e1ed6eafae8e2221fc743bdff24",
+    "input-monitor.kicad_sch": "c3d592a4d6d1b5ff21eb89d56357a7a59a19afafb7b3624295ac168bd67f5d0e",
+    "pico-servos.kicad_sch": "eff4fec1fd43f74dea87970d822ae4da9ed266488e4c64c9a8a30b7809f3589b",
+    "rover-pdb.kicad_sch": "4200d604fe479e47c27b7209dd070b100c7d727478924128bb419cc5fa08fb85"
+  },
+  "cad_unchanged": true,
+  "case_count": 60,
+  "scope": "A9 external passive networks only; LMR51450 simulations have NOT RUN",
+  "cases": [
+    {
+      "name": "en_dc_mmm_0_-1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          21780.0,
+          99000.0
+        ],
+        "switch_on": false,
+        "leak_A": -1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "99bf5752f106eb7524a0915758c48e254d0583b72272aed347da3067b78e62b9",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 0.009900352498547335,
+        "en_max_V": 0.00990044890181476,
+        "switch_node_max_V": 4.544262214132462,
+        "analytic_max_error_V": 4.489018147601359e-07
+      }
+    },
+    {
+      "name": "en_dc_mmm_0_+0",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          21780.0,
+          99000.0
+        ],
+        "switch_on": false,
+        "leak_A": 0,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "c4b5b0cc37e387aea39365eec903a1982a38babcf7b15096e8cee202faa79696",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.5347864721974113e-07,
+        "en_max_V": 4.4988191464330703e-07,
+        "switch_node_max_V": 4.544262213955722,
+        "analytic_max_error_V": 4.4988191464330703e-07
+      }
+    },
+    {
+      "name": "en_dc_mmm_0_+1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          21780.0,
+          99000.0
+        ],
+        "switch_on": false,
+        "leak_A": 1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "e71ea43b525d8df214211192b3aa0a26592794afe3b16811e10ba48ddfb27b7b",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": -0.009899645541252895,
+        "en_max_V": -0.009899549137985473,
+        "switch_node_max_V": 4.544262213778983,
+        "analytic_max_error_V": 4.508620145265291e-07
+      }
+    },
+    {
+      "name": "en_dc_mmm_1_-1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          21780.0,
+          99000.0
+        ],
+        "switch_on": true,
+        "leak_A": -1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "d1797a1a10d842fc3c533f63d95fbb84f343e54cdcbcf6ee1a3158c165c0a2e4",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.0265122418277355,
+        "en_max_V": 3.8515121712213625,
+        "switch_node_max_V": 3.8515125592629964,
+        "analytic_max_error_V": 3.287786394245984e-07
+      }
+    },
+    {
+      "name": "en_dc_mmm_1_+0",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          21780.0,
+          99000.0
+        ],
+        "switch_on": true,
+        "leak_A": 0,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "f484ea5ab6a6235ef62e08c52e0b7568cafd6e621fed9731a9d9221f99ee987b",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.0249997411099585,
+        "en_max_V": 3.849999670503585,
+        "switch_node_max_V": 3.850000059392441,
+        "analytic_max_error_V": 3.2949641681767616e-07
+      }
+    },
+    {
+      "name": "en_dc_mmm_1_+1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          21780.0,
+          99000.0
+        ],
+        "switch_on": true,
+        "leak_A": 1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "9b05e6926f0b12174ea3a1f605312f90475e93b5e003f8cc3b99350b1b2e8cf7",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.023487240392181,
+        "en_max_V": 3.848487169785808,
+        "switch_node_max_V": 3.848487559521886,
+        "analytic_max_error_V": 3.302141937666647e-07
+      }
+    },
+    {
+      "name": "en_dc_mmp_0_-1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          21780.0,
+          101000.0
+        ],
+        "switch_on": false,
+        "leak_A": -1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "9df7191661a51c3b3fba9848acee70cd234a77bb2e4943c68746024a9e7e8097",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 0.010100359599529393,
+        "en_max_V": 0.010100457950337375,
+        "switch_node_max_V": 4.544262214136032,
+        "analytic_max_error_V": 4.579503373753485e-07
+      }
+    },
+    {
+      "name": "en_dc_mmp_0_+0",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          21780.0,
+          101000.0
+        ],
+        "switch_on": false,
+        "leak_A": 0,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "e6b3f6ff3b5a6b4640966038562478a9f2338d2a192f20eccef193e831c02887",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.606196292706179e-07,
+        "en_max_V": 4.589704372535139e-07,
+        "switch_node_max_V": 4.544262213955722,
+        "analytic_max_error_V": 4.589704372535139e-07
+      }
+    },
+    {
+      "name": "en_dc_mmp_0_+1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          21780.0,
+          101000.0
+        ],
+        "switch_on": false,
+        "leak_A": 1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "b0ccc7eaa2ebbe196e0ee692f6dfa86027ff46e5f87dea3ee7c14fe97ef261e8",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": -0.010099638360270852,
+        "en_max_V": -0.010099540009462869,
+        "switch_node_max_V": 4.544262213775412,
+        "analytic_max_error_V": 4.599905371310137e-07
+      }
+    },
+    {
+      "name": "en_dc_mmp_1_-1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          21780.0,
+          101000.0
+        ],
+        "switch_on": true,
+        "leak_A": -1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "de05acf1bb67324e6cdc1326583a9579dcea18c15b3bd6e552dd62c66e9e7fc7",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.035696145840525,
+        "en_max_V": 3.8631995246031634,
+        "switch_node_max_V": 3.8631999060981657,
+        "analytic_max_error_V": 3.236727010857976e-07
+      }
+    },
+    {
+      "name": "en_dc_mmp_1_+0",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          21780.0,
+          101000.0
+        ],
+        "switch_on": true,
+        "leak_A": 0,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "decd7c63adaf63fb29030f0c140c80ecd0f5a076d79d8a75c1dd670830827f91",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.034179055463001,
+        "en_max_V": 3.861682434225639,
+        "switch_node_max_V": 3.8616828165704344,
+        "analytic_max_error_V": 3.2439505304182603e-07
+      }
+    },
+    {
+      "name": "en_dc_mmp_1_+1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          21780.0,
+          101000.0
+        ],
+        "switch_on": true,
+        "leak_A": 1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "5011531f5c80d095b4622e7fc906be0a545308e76780defe342217d1232bc13d",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.032661965085476,
+        "en_max_V": 3.8601653438481143,
+        "switch_node_max_V": 3.8601657270427028,
+        "analytic_max_error_V": 3.251174054419437e-07
+      }
+    },
+    {
+      "name": "en_dc_mpm_0_-1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          22220.0,
+          99000.0
+        ],
+        "switch_on": false,
+        "leak_A": -1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "d0fb82a1b89cf699c4c368c5c4c4c870b59640995af5fa91acd4972056d1426a",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 0.009900358330565828,
+        "en_max_V": 0.009900456324383747,
+        "switch_node_max_V": 4.619237665900614,
+        "analytic_max_error_V": 4.563243837484021e-07
+      }
+    },
+    {
+      "name": "en_dc_mpm_0_+0",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          22220.0,
+          99000.0
+        ],
+        "switch_on": false,
+        "leak_A": 0,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "6f722970a905039b8e0d4db483f1b66309da425c59c1a9741ba13955b3282c6b",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.5931066571182424e-07,
+        "en_max_V": 4.573044836332311e-07,
+        "switch_node_max_V": 4.619237665720958,
+        "analytic_max_error_V": 4.573044836332311e-07
+      }
+    },
+    {
+      "name": "en_dc_mpm_0_+1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          22220.0,
+          99000.0
+        ],
+        "switch_on": false,
+        "leak_A": 1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "1a1903bf3504e3a143f1d726cb45e8302f0882d6ae392a56657ffd6f69ca1488",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": -0.009899639709234402,
+        "en_max_V": -0.009899541715416483,
+        "switch_node_max_V": 4.619237665541303,
+        "analytic_max_error_V": 4.5828458351653e-07
+      }
+    },
+    {
+      "name": "en_dc_mpm_1_-1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          22220.0,
+          99000.0
+        ],
+        "switch_on": true,
+        "leak_A": -1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "85d01d38d77ad006e866a6c348669bc1c82caba1a64cf7288dd03b09b8162f0b",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.068711241726272,
+        "en_max_V": 3.9052142377413155,
+        "switch_node_max_V": 3.9052146312074,
+        "analytic_max_error_V": 3.3281083400282796e-07
+      }
+    },
+    {
+      "name": "en_dc_mpm_1_+0",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          22220.0,
+          99000.0
+        ],
+        "switch_on": true,
+        "leak_A": 0,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "b6d4fd966cb7f6b5f7688f8ba02d580bd7b2186a131e320fd8e0c82682e28144",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.0671776520551526,
+        "en_max_V": 3.9036806480701958,
+        "switch_node_max_V": 3.9036810423813724,
+        "analytic_max_error_V": 3.3352489836602217e-07
+      }
+    },
+    {
+      "name": "en_dc_mpm_1_+1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          22220.0,
+          99000.0
+        ],
+        "switch_on": true,
+        "leak_A": 1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "9644d84888c509d601c0bdf440e091eee9a884da42111a790e98442b8d4519e5",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.065644062384033,
+        "en_max_V": 3.902147058399076,
+        "switch_node_max_V": 3.9021474535553446,
+        "analytic_max_error_V": 3.342389627292164e-07
+      }
+    },
+    {
+      "name": "en_dc_mpp_0_-1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          22220.0,
+          101000.0
+        ],
+        "switch_on": false,
+        "leak_A": -1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "6839ea8e5ecc9644aa49402371436e5be875607aa184e77443f8c882ddb265b2",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 0.010100365549366429,
+        "en_max_V": 0.01010046552285724,
+        "switch_node_max_V": 4.619237665904244,
+        "analytic_max_error_V": 4.655228572399833e-07
+      }
+    },
+    {
+      "name": "en_dc_mpp_0_+0",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          22220.0,
+          101000.0
+        ],
+        "switch_on": false,
+        "leak_A": 0,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "e12103f0720e1a306e60b97d94dd1f3151b432aaf93622831785e9df0fda5109",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.66569466306197e-07,
+        "en_max_V": 4.6654295711697824e-07,
+        "switch_node_max_V": 4.619237665720959,
+        "analytic_max_error_V": 4.6654295711697824e-07
+      }
+    },
+    {
+      "name": "en_dc_mpp_0_+1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          22220.0,
+          101000.0
+        ],
+        "switch_on": false,
+        "leak_A": 1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "06aefb0de9b34609f4b6d87b7e269fa64406e202e39df457dc45f0d6dc9431e5",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": -0.010099632410433814,
+        "en_max_V": -0.010099532436943006,
+        "switch_node_max_V": 4.619237665537674,
+        "analytic_max_error_V": 4.6756305699391376e-07
+      }
+    },
+    {
+      "name": "en_dc_mpp_1_-1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          22220.0,
+          101000.0
+        ],
+        "switch_on": true,
+        "leak_A": -1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "20638adba87ca71d84908fcceceb0bb648124309f24d679025c3e9dec8ce85cb",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.0781534350089217,
+        "en_max_V": 3.91723028771745,
+        "switch_node_max_V": 3.9172306745620324,
+        "analytic_max_error_V": 3.2766716762111514e-07
+      }
+    },
+    {
+      "name": "en_dc_mpp_1_+0",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          22220.0,
+          101000.0
+        ],
+        "switch_on": true,
+        "leak_A": 0,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "ddc9e0cc5b9baa9a6045dbe1b3fb797ab13cc842e9d4715922e237fb23373db7",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.0766151265979302,
+        "en_max_V": 3.915691979306459,
+        "switch_node_max_V": 3.915692366998734,
+        "analytic_max_error_V": 3.28385850956181e-07
+      }
+    },
+    {
+      "name": "en_dc_mpp_1_+1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          99000.0,
+          22220.0,
+          101000.0
+        ],
+        "switch_on": true,
+        "leak_A": 1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "73ceea04279ed16e41b40ae471a22a7a085af77907c4be4fccc71f6b273b778a",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.0750768181869392,
+        "en_max_V": 3.9141536708954674,
+        "switch_node_max_V": 3.9141540594354347,
+        "analytic_max_error_V": 3.291045347353361e-07
+      }
+    },
+    {
+      "name": "en_dc_pmm_0_-1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          21780.0,
+          99000.0
+        ],
+        "switch_on": false,
+        "leak_A": -1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "bb64fdc66cc2979131563ca33b27bf2f01dbda6bff2aa8b8b73d8de63330a277",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 0.009900346740628316,
+        "en_max_V": 0.009900441573554188,
+        "switch_node_max_V": 4.470239372766215,
+        "analytic_max_error_V": 4.4157355418884825e-07
+      }
+    },
+    {
+      "name": "en_dc_pmm_0_+0",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          21780.0,
+          99000.0
+        ],
+        "switch_on": false,
+        "leak_A": 0,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "fbf79148c8848ef62f56b0311f917a7cb9350abb2feae96bd8ae896dffda4c91",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.477207282005941e-07,
+        "en_max_V": 4.425536540734837e-07,
+        "switch_node_max_V": 4.470239372588842,
+        "analytic_max_error_V": 4.425536540734837e-07
+      }
+    },
+    {
+      "name": "en_dc_pmm_0_+1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          21780.0,
+          99000.0
+        ],
+        "switch_on": false,
+        "leak_A": 1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "11fe14d765c2b6c65006cb855043f5c769fbde7cd1c0ed2d8451d5ad32306713",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": -0.009899651299171914,
+        "en_max_V": -0.009899556466246042,
+        "switch_node_max_V": 4.470239372411469,
+        "analytic_max_error_V": 4.4353375395697614e-07
+      }
+    },
+    {
+      "name": "en_dc_pmm_1_-1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          21780.0,
+          99000.0
+        ],
+        "switch_on": true,
+        "leak_A": -1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "a5cdcd9524fa439cd5b6f4201e357d0eb856b0c2e82379b1c192eaf74dfa4c72",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 2.9756133879515128,
+        "en_max_V": 3.786730560018575,
+        "switch_node_max_V": 3.7867309415166117,
+        "analytic_max_error_V": 3.227400475758202e-07
+      }
+    },
+    {
+      "name": "en_dc_pmm_1_+0",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          21780.0,
+          99000.0
+        ],
+        "switch_on": true,
+        "leak_A": 0,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "55e9d0c29f1f89960e88971a3158fa5c6afe48008a708167b19cf4864aac596b",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 2.9740962975792216,
+        "en_max_V": 3.7852134696462834,
+        "switch_node_max_V": 3.7852138519910783,
+        "analytic_max_error_V": 3.2345716682868897e-07
+      }
+    },
+    {
+      "name": "en_dc_pmm_1_+1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          21780.0,
+          99000.0
+        ],
+        "switch_on": true,
+        "leak_A": 1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "6393a4a634fc34c64b762e805863a68c0a9a30628c943efcd1e5d49542b85818",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 2.97257920720693,
+        "en_max_V": 3.783696379273992,
+        "switch_node_max_V": 3.7836967624655458,
+        "analytic_max_error_V": 3.241742851933793e-07
+      }
+    },
+    {
+      "name": "en_dc_pmp_0_-1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          21780.0,
+          101000.0
+        ],
+        "switch_on": false,
+        "leak_A": -1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "40b111c20de0a9971b81412289ec3425c6e16f8c3f7772fd66f961e76528dd52",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 0.010100353725288789,
+        "en_max_V": 0.010100450474031152,
+        "switch_node_max_V": 4.4702393727697975,
+        "analytic_max_error_V": 4.504740311519345e-07
+      }
+    },
+    {
+      "name": "en_dc_pmp_0_+0",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          21780.0,
+          101000.0
+        ],
+        "switch_on": false,
+        "leak_A": 0,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "7c286738f51ae65f3e4bedc6025a50c046e5e8a8ded7cfd3d469d13889311545",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.5474538866687303e-07,
+        "en_max_V": 4.514941310305659e-07,
+        "switch_node_max_V": 4.470239372588842,
+        "analytic_max_error_V": 4.514941310305659e-07
+      }
+    },
+    {
+      "name": "en_dc_pmp_0_+1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          21780.0,
+          101000.0
+        ],
+        "switch_on": false,
+        "leak_A": 1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "c615f340c30542895225d854c40f5bc6ff56d92d67b487006883b40b8945c03b",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": -0.010099644234511455,
+        "en_max_V": -0.010099547485769092,
+        "switch_node_max_V": 4.470239372407886,
+        "analytic_max_error_V": 4.525142309075997e-07
+      }
+    },
+    {
+      "name": "en_dc_pmp_1_-1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          21780.0,
+          101000.0
+        ],
+        "switch_on": true,
+        "leak_A": -1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "fb6afce78e915f795aaaf436027a2891df56a74e6df6e5dba78ac4b4e5dbdd2c",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 2.9846703232863514,
+        "en_max_V": 3.7982563092813697,
+        "switch_node_max_V": 3.7982566843463506,
+        "analytic_max_error_V": 3.177247203112188e-07
+      }
+    },
+    {
+      "name": "en_dc_pmp_1_+0",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          21780.0,
+          101000.0
+        ],
+        "switch_on": true,
+        "leak_A": 0,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "042fc8cdc873d9763b63137812448851c67e9d921f61061b5b5499594ae26591",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 2.983148615315062,
+        "en_max_V": 3.79673460131008,
+        "switch_node_max_V": 3.7967349772243963,
+        "analytic_max_error_V": 3.1844642522926847e-07
+      }
+    },
+    {
+      "name": "en_dc_pmp_1_+1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          21780.0,
+          101000.0
+        ],
+        "switch_on": true,
+        "leak_A": 1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "4394c0ccbc0a901bf8849e608294a48d5eb7bf5ceaca5289dbd97f9c385cfe81",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 2.981626907343772,
+        "en_max_V": 3.7952128933387903,
+        "switch_node_max_V": 3.795213270102443,
+        "analytic_max_error_V": 3.1916812970322894e-07
+      }
+    },
+    {
+      "name": "en_dc_ppm_0_-1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          22220.0,
+          99000.0
+        ],
+        "switch_on": false,
+        "leak_A": -1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "b369e13372359ddf89d7751cabbde989e81375c92d7d531a6ded1d450d30e2b2",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 0.009900352498547208,
+        "en_max_V": 0.009900448901814596,
+        "switch_node_max_V": 4.5442622124971175,
+        "analytic_max_error_V": 4.489018145970719e-07
+      }
+    },
+    {
+      "name": "en_dc_ppm_0_+0",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          22220.0,
+          99000.0
+        ],
+        "switch_on": false,
+        "leak_A": 0,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "815bbf810d154e09c459e1099b652bc28183239953c4d822e34dc23de323d585",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.5347864709225695e-07,
+        "en_max_V": 4.498819144810545e-07,
+        "switch_node_max_V": 4.5442622123168075,
+        "analytic_max_error_V": 4.498819144810545e-07
+      }
+    },
+    {
+      "name": "en_dc_ppm_0_+1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          22220.0,
+          99000.0
+        ],
+        "switch_on": false,
+        "leak_A": 1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "d1debbbf993d27d5595955f8880dd3ea5a1581f87fb4ba43e7a0ca1f6ffe3ca9",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": -0.009899645541253024,
+        "en_max_V": -0.009899549137985634,
+        "switch_node_max_V": 4.5442622121364975,
+        "analytic_max_error_V": 4.508620143651998e-07
+      }
+    },
+    {
+      "name": "en_dc_ppm_1_-1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          22220.0,
+          99000.0
+        ],
+        "switch_on": true,
+        "leak_A": -1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "5e5f1ff1c0d768af506038e4af868d9c0d680a50a81a5b5a4e703161d49c6a86",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.017230358673693,
+        "en_max_V": 3.8396918269286267,
+        "switch_node_max_V": 3.8396922137762863,
+        "analytic_max_error_V": 3.269175294917659e-07
+      }
+    },
+    {
+      "name": "en_dc_ppm_1_+0",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          22220.0,
+          99000.0
+        ],
+        "switch_on": true,
+        "leak_A": 0,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "f9af9731bac350f9d781b70a2b83ba9924727284f5af0416ba4fe07b03f0949a",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.015692050268082,
+        "en_max_V": 3.838153518523016,
+        "switch_node_max_V": 3.838153906215291,
+        "analytic_max_error_V": 3.276308326860544e-07
+      }
+    },
+    {
+      "name": "en_dc_ppm_1_+1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          22220.0,
+          99000.0
+        ],
+        "switch_on": true,
+        "leak_A": 1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "1598d2bb01654b2477396594153e21a2ab0f6eed1df7b2e44c4de4f30b62944d",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.0141537418624718,
+        "en_max_V": 3.836615210117405,
+        "switch_node_max_V": 3.836615598654295,
+        "analytic_max_error_V": 3.2834413543625374e-07
+      }
+    },
+    {
+      "name": "en_dc_ppp_0_-1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          22220.0,
+          101000.0
+        ],
+        "switch_on": false,
+        "leak_A": -1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "5039309d347871c53b94e418516b85e4f517937db4b4578e2e9ba7671f028d96",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 0.010100359599529263,
+        "en_max_V": 0.01010045795033721,
+        "switch_node_max_V": 4.54426221250076,
+        "analytic_max_error_V": 4.579503372105498e-07
+      }
+    },
+    {
+      "name": "en_dc_ppp_0_+0",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          22220.0,
+          101000.0
+        ],
+        "switch_on": false,
+        "leak_A": 0,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "bfbc6bcf4b42c8e44922cdbe7e8dd3787f72517ba4d8745d0a7619c350a93a80",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.6061962914055833e-07,
+        "en_max_V": 4.589704370879835e-07,
+        "switch_node_max_V": 4.5442622123168075,
+        "analytic_max_error_V": 4.589704370879835e-07
+      }
+    },
+    {
+      "name": "en_dc_ppp_0_+1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          22220.0,
+          101000.0
+        ],
+        "switch_on": false,
+        "leak_A": 1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "fb053173b4f75cf851cd3907dfc6042bdd3a44c4fe450022f4c074287e9f3d8d",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": -0.01009963836027098,
+        "en_max_V": -0.010099540009463033,
+        "switch_node_max_V": 4.544262212132855,
+        "analytic_max_error_V": 4.5999053696621495e-07
+      }
+    },
+    {
+      "name": "en_dc_ppp_1_-1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          22220.0,
+          101000.0
+        ],
+        "switch_on": true,
+        "leak_A": -1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "40d7408ecb36a587f503e24e421d52ca815f4a0b3f957a39c9e187fc9818937d",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.0265428028143657,
+        "en_max_V": 3.851542733689153,
+        "switch_node_max_V": 3.8515431140300174,
+        "analytic_max_error_V": 3.218664046400477e-07
+      }
+    },
+    {
+      "name": "en_dc_ppp_1_+0",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          22220.0,
+          101000.0
+        ],
+        "switch_on": true,
+        "leak_A": 0,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "f1cedd3d706dd5db6295c19b33a1fa13565f5a48d50d6239356f06e579402f4c",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.0249997465408778,
+        "en_max_V": 3.849999677415665,
+        "switch_node_max_V": 3.8500000586037517,
+        "analytic_max_error_V": 3.225843370202597e-07
+      }
+    },
+    {
+      "name": "en_dc_ppp_1_+1",
+      "scope": "A9 motor-enable DC resistor-corner check",
+      "assumptions": {
+        "resistors_ohm": [
+          101000.0,
+          22220.0,
+          101000.0
+        ],
+        "switch_on": true,
+        "leak_A": 1e-07,
+        "leak_scope": "typical-magnitude signed sensitivity, not guaranteed bound"
+      },
+      "deck_sha256": "b09fe80dcea7de38533e9f84cee0d44643ff0563fd01f17a755abdec0e1f54cd",
+      "samples": 19,
+      "metrics": {
+        "en_min_V": 3.02345669026739,
+        "en_max_V": 3.848456621142177,
+        "switch_node_max_V": 3.848457003177486,
+        "analytic_max_error_V": 3.233022694004717e-07
+      }
+    },
+    {
+      "name": "en_switch_100pF",
+      "scope": "A9 SW1 closure/opening with assumed EN-node parasitic capacitance",
+      "assumptions": {
+        "Cpar_F": 1e-10,
+        "Cpar_scope": "assumed wiring and pin capacitance, not measured",
+        "switch_transition_s": 1e-06,
+        "leak_A": 0
+      },
+      "deck_sha256": "0dc680d7b17a35a743ae1cf14db4a3f1460ac5055d84008c80e675bd7eeb2518",
+      "samples": 20079,
+      "metrics": {
+        "delay_to_EN_below_0p8V_us": 15.700000000007808,
+        "expected_RC_delay_us": 15.712166996139025
+      }
+    },
+    {
+      "name": "en_switch_1000pF",
+      "scope": "A9 SW1 closure/opening with assumed EN-node parasitic capacitance",
+      "assumptions": {
+        "Cpar_F": 1e-09,
+        "Cpar_scope": "assumed wiring and pin capacitance, not measured",
+        "switch_transition_s": 1e-06,
+        "leak_A": 0
+      },
+      "deck_sha256": "1238d47553501900d998dec024635b57b0e1403836f4f10e1b0dc33574e45991",
+      "samples": 20066,
+      "metrics": {
+        "delay_to_EN_below_0p8V_us": 157.1000000000879,
+        "expected_RC_delay_us": 157.12166996139027
+      }
+    },
+    {
+      "name": "en_battery_fall_100pF_10us",
+      "scope": "A9 EN response to an imposed local-VBAT fall",
+      "assumptions": {
+        "Cpar_F": 1e-10,
+        "fall_s": 1e-05,
+        "source_scope": "imposed local-VBAT waveform, not a modeled battery/cable",
+        "IC_clamps": "not modeled; this is external-network sensitivity only"
+      },
+      "deck_sha256": "c13982f3aad9b6e7c22771880d6fc4102e29a84c80e6ad878ec799f35fb969fb",
+      "samples": 15051,
+      "metrics": {
+        "max_EN_minus_VIN_V": 0.5873572257960041,
+        "exceeds_VIN_plus_0p3_in_external_network": true
+      }
+    },
+    {
+      "name": "en_battery_fall_100pF_1000us",
+      "scope": "A9 EN response to an imposed local-VBAT fall",
+      "assumptions": {
+        "Cpar_F": 1e-10,
+        "fall_s": 0.001,
+        "source_scope": "imposed local-VBAT waveform, not a modeled battery/cable",
+        "IC_clamps": "not modeled; this is external-network sensitivity only"
+      },
+      "deck_sha256": "976d4cd5a8a9503878be2d00e645def402074ee8bedabac8da86622def7180ad",
+      "samples": 15027,
+      "metrics": {
+        "max_EN_minus_VIN_V": 0.00588194670953755,
+        "exceeds_VIN_plus_0p3_in_external_network": false
+      }
+    },
+    {
+      "name": "en_battery_fall_1000pF_10us",
+      "scope": "A9 EN response to an imposed local-VBAT fall",
+      "assumptions": {
+        "Cpar_F": 1e-09,
+        "fall_s": 1e-05,
+        "source_scope": "imposed local-VBAT waveform, not a modeled battery/cable",
+        "IC_clamps": "not modeled; this is external-network sensitivity only"
+      },
+      "deck_sha256": "55b5b1ffcd39ce102a235a6838baa11eb1b2f1872158dd6b269e81322ae73f8e",
+      "samples": 15016,
+      "metrics": {
+        "max_EN_minus_VIN_V": 2.8252511945039154,
+        "exceeds_VIN_plus_0p3_in_external_network": true
+      }
+    },
+    {
+      "name": "en_battery_fall_1000pF_1000us",
+      "scope": "A9 EN response to an imposed local-VBAT fall",
+      "assumptions": {
+        "Cpar_F": 1e-09,
+        "fall_s": 0.001,
+        "source_scope": "imposed local-VBAT waveform, not a modeled battery/cable",
+        "IC_clamps": "not modeled; this is external-network sensitivity only"
+      },
+      "deck_sha256": "bf2003fe8cf087d8008ea919074af16e475ceb7d9712983321b2eef894de0047",
+      "samples": 15016,
+      "metrics": {
+        "max_EN_minus_VIN_V": 0.05881946709617759,
+        "exceeds_VIN_plus_0p3_in_external_network": false
+      }
+    },
+    {
+      "name": "regen_typical_0.1A",
+      "scope": "Injected current into isolated motor output capacitors; NOT IC regeneration validation",
+      "assumptions": {
+        "ceramic_F": 2.56e-05,
+        "bulk_F": 0.00022,
+        "bulk_series_resistance_ohm": 0.03,
+        "resistance_scope": "Panasonic 100kHz impedance used only as a constant-resistance proxy",
+        "current_A": 0.1,
+        "pulse_flat_s": 0.001,
+        "edge_s": 1e-06,
+        "omitted": "converter/reverse paths, load/LED, capacitor ESL/leakage, nonlinear C, actual motor"
+      },
+      "deck_sha256": "4a8aafa40b11dca31b77bf537805eb2245e1043bcb663348de2783a2a01732b1",
+      "samples": 6026,
+      "metrics": {
+        "final_V": 22.597947289619462,
+        "peak_V": 22.60016771836335,
+        "charge_C": 0.0001001,
+        "charge_conservation_error_V": -2.828173251145927e-10,
+        "time_to_24V_after_pulse_start_ms": null,
+        "24V_scope": "comparison marker only, not a verified actuator maximum"
+      }
+    },
+    {
+      "name": "regen_typical_0.5A",
+      "scope": "Injected current into isolated motor output capacitors; NOT IC regeneration validation",
+      "assumptions": {
+        "ceramic_F": 2.56e-05,
+        "bulk_F": 0.00022,
+        "bulk_series_resistance_ohm": 0.03,
+        "resistance_scope": "Panasonic 100kHz impedance used only as a constant-resistance proxy",
+        "current_A": 0.5,
+        "pulse_flat_s": 0.001,
+        "edge_s": 1e-06,
+        "omitted": "converter/reverse paths, load/LED, capacitor ESL/leakage, nonlinear C, actual motor"
+      },
+      "deck_sha256": "5c0ad399e2dc75a376333de9300f57cdeb1e415e7163109466f4ad1f563722ae",
+      "samples": 6026,
+      "metrics": {
+        "final_V": 24.228240449210155,
+        "peak_V": 24.239342592575273,
+        "charge_C": 0.0005005,
+        "charge_conservation_error_V": -3.012452509665309e-10,
+        "time_to_24V_after_pulse_start_ms": 0.8837500000001168,
+        "24V_scope": "comparison marker only, not a verified actuator maximum"
+      }
+    },
+    {
+      "name": "regen_typical_1A",
+      "scope": "Injected current into isolated motor output capacitors; NOT IC regeneration validation",
+      "assumptions": {
+        "ceramic_F": 2.56e-05,
+        "bulk_F": 0.00022,
+        "bulk_series_resistance_ohm": 0.03,
+        "resistance_scope": "Panasonic 100kHz impedance used only as a constant-resistance proxy",
+        "current_A": 1.0,
+        "pulse_flat_s": 0.001,
+        "edge_s": 1e-06,
+        "omitted": "converter/reverse paths, load/LED, capacitor ESL/leakage, nonlinear C, actual motor"
+      },
+      "deck_sha256": "3cde91c16bb2fae35f68d1d7da2f87a08e7513a2c9e8063ea2e30416f1a31165",
+      "samples": 6026,
+      "metrics": {
+        "final_V": 26.266106898711367,
+        "peak_V": 26.288311185341882,
+        "charge_C": 0.001001,
+        "charge_conservation_error_V": -3.114308810836519e-10,
+        "time_to_24V_after_pulse_start_ms": 0.43925000000005787,
+        "24V_scope": "comparison marker only, not a verified actuator maximum"
+      }
+    },
+    {
+      "name": "regen_screen_0.1A",
+      "scope": "Injected current into isolated motor output capacitors; NOT IC regeneration validation",
+      "assumptions": {
+        "ceramic_F": 1.9583999999999997e-05,
+        "bulk_F": 0.000176,
+        "bulk_series_resistance_ohm": 0.03,
+        "resistance_scope": "Panasonic 100kHz impedance used only as a constant-resistance proxy",
+        "current_A": 0.1,
+        "pulse_flat_s": 0.001,
+        "edge_s": 1e-06,
+        "omitted": "converter/reverse paths, load/LED, capacitor ESL/leakage, nonlinear C, actual motor"
+      },
+      "deck_sha256": "069e1b713b28a589d7134ca84e858f58ea3823b04a9874d636df50c4f6a38520",
+      "samples": 6026,
+      "metrics": {
+        "final_V": 22.702174555944506,
+        "peak_V": 22.7043684857141,
+        "charge_C": 0.0001001,
+        "charge_conservation_error_V": -3.382147895081289e-10,
+        "time_to_24V_after_pulse_start_ms": null,
+        "24V_scope": "comparison marker only, not a verified actuator maximum"
+      }
+    },
+    {
+      "name": "regen_screen_0.5A",
+      "scope": "Injected current into isolated motor output capacitors; NOT IC regeneration validation",
+      "assumptions": {
+        "ceramic_F": 1.9583999999999997e-05,
+        "bulk_F": 0.000176,
+        "bulk_series_resistance_ohm": 0.03,
+        "resistance_scope": "Panasonic 100kHz impedance used only as a constant-resistance proxy",
+        "current_A": 0.5,
+        "pulse_flat_s": 0.001,
+        "edge_s": 1e-06,
+        "omitted": "converter/reverse paths, load/LED, capacitor ESL/leakage, nonlinear C, actual motor"
+      },
+      "deck_sha256": "67e60d88258d554685f94e3b960a9ecaffe719361164b556e22292f300b0d038",
+      "samples": 6026,
+      "metrics": {
+        "final_V": 24.749376781057766,
+        "peak_V": 24.760346429472605,
+        "charge_C": 0.0005005,
+        "charge_conservation_error_V": -3.5584335478233697e-10,
+        "time_to_24V_after_pulse_start_ms": 0.703750000000093,
+        "24V_scope": "comparison marker only, not a verified actuator maximum"
+      }
+    },
+    {
+      "name": "regen_screen_1A",
+      "scope": "Injected current into isolated motor output capacitors; NOT IC regeneration validation",
+      "assumptions": {
+        "ceramic_F": 1.9583999999999997e-05,
+        "bulk_F": 0.000176,
+        "bulk_series_resistance_ohm": 0.03,
+        "resistance_scope": "Panasonic 100kHz impedance used only as a constant-resistance proxy",
+        "current_A": 1.0,
+        "pulse_flat_s": 0.001,
+        "edge_s": 1e-06,
+        "omitted": "converter/reverse paths, load/LED, capacitor ESL/leakage, nonlinear C, actual motor"
+      },
+      "deck_sha256": "5d422f855f3fc89c296cdeae57b1dcaf04b1d044b3a0b5ea20f67a98636ef976",
+      "samples": 6026,
+      "metrics": {
+        "final_V": 27.308379562458136,
+        "peak_V": 27.330318859160773,
+        "charge_C": 0.001001,
+        "charge_conservation_error_V": -3.6908787137690524e-10,
+        "time_to_24V_after_pulse_start_ms": 0.34975000000004597,
+        "24V_scope": "comparison marker only, not a verified actuator maximum"
+      }
+    }
+  ],
+  "dc_summary": [
+    {
+      "on": 0,
+      "leak_A": -1e-07,
+      "en_min_V": 0.009900352498547335,
+      "en_max_V": 0.00990044890181476,
+      "switch_node_max_V": 4.544262214132462,
+      "analytic_max_error_V": 4.489018147601359e-07
+    },
+    {
+      "on": 0,
+      "leak_A": 0,
+      "en_min_V": 3.5347864721974113e-07,
+      "en_max_V": 4.4988191464330703e-07,
+      "switch_node_max_V": 4.544262213955722,
+      "analytic_max_error_V": 4.4988191464330703e-07
+    },
+    {
+      "on": 0,
+      "leak_A": 1e-07,
+      "en_min_V": -0.009899645541252895,
+      "en_max_V": -0.009899549137985473,
+      "switch_node_max_V": 4.544262213778983,
+      "analytic_max_error_V": 4.508620145265291e-07
+    },
+    {
+      "on": 1,
+      "leak_A": -1e-07,
+      "en_min_V": 3.0265122418277355,
+      "en_max_V": 3.8515121712213625,
+      "switch_node_max_V": 3.8515125592629964,
+      "analytic_max_error_V": 3.287786394245984e-07
+    },
+    {
+      "on": 1,
+      "leak_A": 0,
+      "en_min_V": 3.0249997411099585,
+      "en_max_V": 3.849999670503585,
+      "switch_node_max_V": 3.850000059392441,
+      "analytic_max_error_V": 3.2949641681767616e-07
+    },
+    {
+      "on": 1,
+      "leak_A": 1e-07,
+      "en_min_V": 3.023487240392181,
+      "en_max_V": 3.848487169785808,
+      "switch_node_max_V": 3.848487559521886,
+      "analytic_max_error_V": 3.302141937666647e-07
+    },
+    {
+      "on": 0,
+      "leak_A": -1e-07,
+      "en_min_V": 0.010100359599529393,
+      "en_max_V": 0.010100457950337375,
+      "switch_node_max_V": 4.544262214136032,
+      "analytic_max_error_V": 4.579503373753485e-07
+    },
+    {
+      "on": 0,
+      "leak_A": 0,
+      "en_min_V": 3.606196292706179e-07,
+      "en_max_V": 4.589704372535139e-07,
+      "switch_node_max_V": 4.544262213955722,
+      "analytic_max_error_V": 4.589704372535139e-07
+    },
+    {
+      "on": 0,
+      "leak_A": 1e-07,
+      "en_min_V": -0.010099638360270852,
+      "en_max_V": -0.010099540009462869,
+      "switch_node_max_V": 4.544262213775412,
+      "analytic_max_error_V": 4.599905371310137e-07
+    },
+    {
+      "on": 1,
+      "leak_A": -1e-07,
+      "en_min_V": 3.035696145840525,
+      "en_max_V": 3.8631995246031634,
+      "switch_node_max_V": 3.8631999060981657,
+      "analytic_max_error_V": 3.236727010857976e-07
+    },
+    {
+      "on": 1,
+      "leak_A": 0,
+      "en_min_V": 3.034179055463001,
+      "en_max_V": 3.861682434225639,
+      "switch_node_max_V": 3.8616828165704344,
+      "analytic_max_error_V": 3.2439505304182603e-07
+    },
+    {
+      "on": 1,
+      "leak_A": 1e-07,
+      "en_min_V": 3.032661965085476,
+      "en_max_V": 3.8601653438481143,
+      "switch_node_max_V": 3.8601657270427028,
+      "analytic_max_error_V": 3.251174054419437e-07
+    },
+    {
+      "on": 0,
+      "leak_A": -1e-07,
+      "en_min_V": 0.009900358330565828,
+      "en_max_V": 0.009900456324383747,
+      "switch_node_max_V": 4.619237665900614,
+      "analytic_max_error_V": 4.563243837484021e-07
+    },
+    {
+      "on": 0,
+      "leak_A": 0,
+      "en_min_V": 3.5931066571182424e-07,
+      "en_max_V": 4.573044836332311e-07,
+      "switch_node_max_V": 4.619237665720958,
+      "analytic_max_error_V": 4.573044836332311e-07
+    },
+    {
+      "on": 0,
+      "leak_A": 1e-07,
+      "en_min_V": -0.009899639709234402,
+      "en_max_V": -0.009899541715416483,
+      "switch_node_max_V": 4.619237665541303,
+      "analytic_max_error_V": 4.5828458351653e-07
+    },
+    {
+      "on": 1,
+      "leak_A": -1e-07,
+      "en_min_V": 3.068711241726272,
+      "en_max_V": 3.9052142377413155,
+      "switch_node_max_V": 3.9052146312074,
+      "analytic_max_error_V": 3.3281083400282796e-07
+    },
+    {
+      "on": 1,
+      "leak_A": 0,
+      "en_min_V": 3.0671776520551526,
+      "en_max_V": 3.9036806480701958,
+      "switch_node_max_V": 3.9036810423813724,
+      "analytic_max_error_V": 3.3352489836602217e-07
+    },
+    {
+      "on": 1,
+      "leak_A": 1e-07,
+      "en_min_V": 3.065644062384033,
+      "en_max_V": 3.902147058399076,
+      "switch_node_max_V": 3.9021474535553446,
+      "analytic_max_error_V": 3.342389627292164e-07
+    },
+    {
+      "on": 0,
+      "leak_A": -1e-07,
+      "en_min_V": 0.010100365549366429,
+      "en_max_V": 0.01010046552285724,
+      "switch_node_max_V": 4.619237665904244,
+      "analytic_max_error_V": 4.655228572399833e-07
+    },
+    {
+      "on": 0,
+      "leak_A": 0,
+      "en_min_V": 3.66569466306197e-07,
+      "en_max_V": 4.6654295711697824e-07,
+      "switch_node_max_V": 4.619237665720959,
+      "analytic_max_error_V": 4.6654295711697824e-07
+    },
+    {
+      "on": 0,
+      "leak_A": 1e-07,
+      "en_min_V": -0.010099632410433814,
+      "en_max_V": -0.010099532436943006,
+      "switch_node_max_V": 4.619237665537674,
+      "analytic_max_error_V": 4.6756305699391376e-07
+    },
+    {
+      "on": 1,
+      "leak_A": -1e-07,
+      "en_min_V": 3.0781534350089217,
+      "en_max_V": 3.91723028771745,
+      "switch_node_max_V": 3.9172306745620324,
+      "analytic_max_error_V": 3.2766716762111514e-07
+    },
+    {
+      "on": 1,
+      "leak_A": 0,
+      "en_min_V": 3.0766151265979302,
+      "en_max_V": 3.915691979306459,
+      "switch_node_max_V": 3.915692366998734,
+      "analytic_max_error_V": 3.28385850956181e-07
+    },
+    {
+      "on": 1,
+      "leak_A": 1e-07,
+      "en_min_V": 3.0750768181869392,
+      "en_max_V": 3.9141536708954674,
+      "switch_node_max_V": 3.9141540594354347,
+      "analytic_max_error_V": 3.291045347353361e-07
+    },
+    {
+      "on": 0,
+      "leak_A": -1e-07,
+      "en_min_V": 0.009900346740628316,
+      "en_max_V": 0.009900441573554188,
+      "switch_node_max_V": 4.470239372766215,
+      "analytic_max_error_V": 4.4157355418884825e-07
+    },
+    {
+      "on": 0,
+      "leak_A": 0,
+      "en_min_V": 3.477207282005941e-07,
+      "en_max_V": 4.425536540734837e-07,
+      "switch_node_max_V": 4.470239372588842,
+      "analytic_max_error_V": 4.425536540734837e-07
+    },
+    {
+      "on": 0,
+      "leak_A": 1e-07,
+      "en_min_V": -0.009899651299171914,
+      "en_max_V": -0.009899556466246042,
+      "switch_node_max_V": 4.470239372411469,
+      "analytic_max_error_V": 4.4353375395697614e-07
+    },
+    {
+      "on": 1,
+      "leak_A": -1e-07,
+      "en_min_V": 2.9756133879515128,
+      "en_max_V": 3.786730560018575,
+      "switch_node_max_V": 3.7867309415166117,
+      "analytic_max_error_V": 3.227400475758202e-07
+    },
+    {
+      "on": 1,
+      "leak_A": 0,
+      "en_min_V": 2.9740962975792216,
+      "en_max_V": 3.7852134696462834,
+      "switch_node_max_V": 3.7852138519910783,
+      "analytic_max_error_V": 3.2345716682868897e-07
+    },
+    {
+      "on": 1,
+      "leak_A": 1e-07,
+      "en_min_V": 2.97257920720693,
+      "en_max_V": 3.783696379273992,
+      "switch_node_max_V": 3.7836967624655458,
+      "analytic_max_error_V": 3.241742851933793e-07
+    },
+    {
+      "on": 0,
+      "leak_A": -1e-07,
+      "en_min_V": 0.010100353725288789,
+      "en_max_V": 0.010100450474031152,
+      "switch_node_max_V": 4.4702393727697975,
+      "analytic_max_error_V": 4.504740311519345e-07
+    },
+    {
+      "on": 0,
+      "leak_A": 0,
+      "en_min_V": 3.5474538866687303e-07,
+      "en_max_V": 4.514941310305659e-07,
+      "switch_node_max_V": 4.470239372588842,
+      "analytic_max_error_V": 4.514941310305659e-07
+    },
+    {
+      "on": 0,
+      "leak_A": 1e-07,
+      "en_min_V": -0.010099644234511455,
+      "en_max_V": -0.010099547485769092,
+      "switch_node_max_V": 4.470239372407886,
+      "analytic_max_error_V": 4.525142309075997e-07
+    },
+    {
+      "on": 1,
+      "leak_A": -1e-07,
+      "en_min_V": 2.9846703232863514,
+      "en_max_V": 3.7982563092813697,
+      "switch_node_max_V": 3.7982566843463506,
+      "analytic_max_error_V": 3.177247203112188e-07
+    },
+    {
+      "on": 1,
+      "leak_A": 0,
+      "en_min_V": 2.983148615315062,
+      "en_max_V": 3.79673460131008,
+      "switch_node_max_V": 3.7967349772243963,
+      "analytic_max_error_V": 3.1844642522926847e-07
+    },
+    {
+      "on": 1,
+      "leak_A": 1e-07,
+      "en_min_V": 2.981626907343772,
+      "en_max_V": 3.7952128933387903,
+      "switch_node_max_V": 3.795213270102443,
+      "analytic_max_error_V": 3.1916812970322894e-07
+    },
+    {
+      "on": 0,
+      "leak_A": -1e-07,
+      "en_min_V": 0.009900352498547208,
+      "en_max_V": 0.009900448901814596,
+      "switch_node_max_V": 4.5442622124971175,
+      "analytic_max_error_V": 4.489018145970719e-07
+    },
+    {
+      "on": 0,
+      "leak_A": 0,
+      "en_min_V": 3.5347864709225695e-07,
+      "en_max_V": 4.498819144810545e-07,
+      "switch_node_max_V": 4.5442622123168075,
+      "analytic_max_error_V": 4.498819144810545e-07
+    },
+    {
+      "on": 0,
+      "leak_A": 1e-07,
+      "en_min_V": -0.009899645541253024,
+      "en_max_V": -0.009899549137985634,
+      "switch_node_max_V": 4.5442622121364975,
+      "analytic_max_error_V": 4.508620143651998e-07
+    },
+    {
+      "on": 1,
+      "leak_A": -1e-07,
+      "en_min_V": 3.017230358673693,
+      "en_max_V": 3.8396918269286267,
+      "switch_node_max_V": 3.8396922137762863,
+      "analytic_max_error_V": 3.269175294917659e-07
+    },
+    {
+      "on": 1,
+      "leak_A": 0,
+      "en_min_V": 3.015692050268082,
+      "en_max_V": 3.838153518523016,
+      "switch_node_max_V": 3.838153906215291,
+      "analytic_max_error_V": 3.276308326860544e-07
+    },
+    {
+      "on": 1,
+      "leak_A": 1e-07,
+      "en_min_V": 3.0141537418624718,
+      "en_max_V": 3.836615210117405,
+      "switch_node_max_V": 3.836615598654295,
+      "analytic_max_error_V": 3.2834413543625374e-07
+    },
+    {
+      "on": 0,
+      "leak_A": -1e-07,
+      "en_min_V": 0.010100359599529263,
+      "en_max_V": 0.01010045795033721,
+      "switch_node_max_V": 4.54426221250076,
+      "analytic_max_error_V": 4.579503372105498e-07
+    },
+    {
+      "on": 0,
+      "leak_A": 0,
+      "en_min_V": 3.6061962914055833e-07,
+      "en_max_V": 4.589704370879835e-07,
+      "switch_node_max_V": 4.5442622123168075,
+      "analytic_max_error_V": 4.589704370879835e-07
+    },
+    {
+      "on": 0,
+      "leak_A": 1e-07,
+      "en_min_V": -0.01009963836027098,
+      "en_max_V": -0.010099540009463033,
+      "switch_node_max_V": 4.544262212132855,
+      "analytic_max_error_V": 4.5999053696621495e-07
+    },
+    {
+      "on": 1,
+      "leak_A": -1e-07,
+      "en_min_V": 3.0265428028143657,
+      "en_max_V": 3.851542733689153,
+      "switch_node_max_V": 3.8515431140300174,
+      "analytic_max_error_V": 3.218664046400477e-07
+    },
+    {
+      "on": 1,
+      "leak_A": 0,
+      "en_min_V": 3.0249997465408778,
+      "en_max_V": 3.849999677415665,
+      "switch_node_max_V": 3.8500000586037517,
+      "analytic_max_error_V": 3.225843370202597e-07
+    },
+    {
+      "on": 1,
+      "leak_A": 1e-07,
+      "en_min_V": 3.02345669026739,
+      "en_max_V": 3.848456621142177,
+      "switch_node_max_V": 3.848457003177486,
+      "analytic_max_error_V": 3.233022694004717e-07
+    }
+  ],
+  "regen_summary": [
+    {
+      "bank": "typical",
+      "current_A": 0.1,
+      "final_V": 22.597947289619462,
+      "peak_V": 22.60016771836335,
+      "charge_C": 0.0001001,
+      "charge_conservation_error_V": -2.828173251145927e-10,
+      "time_to_24V_after_pulse_start_ms": null,
+      "24V_scope": "comparison marker only, not a verified actuator maximum"
+    },
+    {
+      "bank": "typical",
+      "current_A": 0.5,
+      "final_V": 24.228240449210155,
+      "peak_V": 24.239342592575273,
+      "charge_C": 0.0005005,
+      "charge_conservation_error_V": -3.012452509665309e-10,
+      "time_to_24V_after_pulse_start_ms": 0.8837500000001168,
+      "24V_scope": "comparison marker only, not a verified actuator maximum"
+    },
+    {
+      "bank": "typical",
+      "current_A": 1.0,
+      "final_V": 26.266106898711367,
+      "peak_V": 26.288311185341882,
+      "charge_C": 0.001001,
+      "charge_conservation_error_V": -3.114308810836519e-10,
+      "time_to_24V_after_pulse_start_ms": 0.43925000000005787,
+      "24V_scope": "comparison marker only, not a verified actuator maximum"
+    },
+    {
+      "bank": "screen",
+      "current_A": 0.1,
+      "final_V": 22.702174555944506,
+      "peak_V": 22.7043684857141,
+      "charge_C": 0.0001001,
+      "charge_conservation_error_V": -3.382147895081289e-10,
+      "time_to_24V_after_pulse_start_ms": null,
+      "24V_scope": "comparison marker only, not a verified actuator maximum"
+    },
+    {
+      "bank": "screen",
+      "current_A": 0.5,
+      "final_V": 24.749376781057766,
+      "peak_V": 24.760346429472605,
+      "charge_C": 0.0005005,
+      "charge_conservation_error_V": -3.5584335478233697e-10,
+      "time_to_24V_after_pulse_start_ms": 0.703750000000093,
+      "24V_scope": "comparison marker only, not a verified actuator maximum"
+    },
+    {
+      "bank": "screen",
+      "current_A": 1.0,
+      "final_V": 27.308379562458136,
+      "peak_V": 27.330318859160773,
+      "charge_C": 0.001001,
+      "charge_conservation_error_V": -3.6908787137690524e-10,
+      "time_to_24V_after_pulse_start_ms": 0.34975000000004597,
+      "24V_scope": "comparison marker only, not a verified actuator maximum"
+    }
+  ]
+}

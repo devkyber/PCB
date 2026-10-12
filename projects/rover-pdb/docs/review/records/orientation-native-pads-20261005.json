@@ -1,0 +1,5819 @@
+{
+  "R21": {
+    "footprint": "Resistor_SMD:R_0805_2012Metric",
+    "at": [
+      139.815171,
+      92.3,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "R21",
+      "Value": "1k / 1%",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "0805W8F1001T5E",
+      "LCSC Part": "C17513",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "R_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 139.815171,
+        "y": 93.2125,
+        "local": [
+          -0.9125,
+          0.0
+        ],
+        "net": "/12 V Jetson supply/FF_2",
+        "size": [
+          1.025,
+          1.4
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 139.815171,
+        "y": 91.3875,
+        "local": [
+          0.9125,
+          0.0
+        ],
+        "net": "/12 V Jetson supply/FB_2",
+        "size": [
+          1.025,
+          1.4
+        ]
+      }
+    ]
+  },
+  "TP2": {
+    "footprint": "TestPoint:TestPoint_Pad_D2.0mm",
+    "at": [
+      143.2,
+      141.9
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "TP2",
+      "Value": "VMOTOR",
+      "Datasheet": "",
+      "Description": "",
+      "MPN": "VMOTOR",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "Pin* Test*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 143.2,
+        "y": 141.9,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/VMOTOR",
+        "size": [
+          2,
+          2
+        ]
+      }
+    ]
+  },
+  "C13": {
+    "footprint": "Capacitor_SMD:C_1210_3225Metric",
+    "at": [
+      141.115171,
+      107.6,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "C13",
+      "Value": "10u / 50V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "GRM32ER71H106KA12L",
+      "LCSC Part": "C77102",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 141.115171,
+        "y": 109.075,
+        "local": [
+          -1.475,
+          0.0
+        ],
+        "net": "/VBAT",
+        "size": [
+          1.15,
+          2.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 141.115171,
+        "y": 106.125,
+        "local": [
+          1.475,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.15,
+          2.7
+        ]
+      }
+    ]
+  },
+  "J9": {
+    "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical",
+    "at": [
+      173.315171,
+      108.539999,
+      180
+    ],
+    "angle": 180.0,
+    "properties": {
+      "Reference": "J9",
+      "Value": "EXP / DNP",
+      "Datasheet": "https://datasheet.lcsc.com/datasheet/pdf/ef925872f018742b6a20866906a51efd.pdf?productCode=C37208",
+      "Description": "",
+      "KiLib_Generator": "connector/pin_header_socket",
+      "MPN": "2.54-1x6P\u76f4\u9488",
+      "LCSC Part": "C37208",
+      "ki_fp_filters": "Connector*:*_1x??_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 173.315171,
+        "y": 108.539999,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "+3V3",
+        "size": [
+          1.7,
+          1.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 173.315171,
+        "y": 105.999999,
+        "local": [
+          0.0,
+          2.54
+        ],
+        "net": "/Pico 2 and hobby servos/GP18",
+        "size": [
+          1.7,
+          1.7
+        ]
+      },
+      {
+        "pin": "3",
+        "x": 173.315171,
+        "y": 103.459999,
+        "local": [
+          0.0,
+          5.08
+        ],
+        "net": "/Pico 2 and hobby servos/GP19",
+        "size": [
+          1.7,
+          1.7
+        ]
+      },
+      {
+        "pin": "4",
+        "x": 173.315171,
+        "y": 100.919999,
+        "local": [
+          0.0,
+          7.62
+        ],
+        "net": "/Pico 2 and hobby servos/GP20",
+        "size": [
+          1.7,
+          1.7
+        ]
+      },
+      {
+        "pin": "5",
+        "x": 173.315171,
+        "y": 98.379999,
+        "local": [
+          0.0,
+          10.16
+        ],
+        "net": "/Pico 2 and hobby servos/GP21",
+        "size": [
+          1.7,
+          1.7
+        ]
+      },
+      {
+        "pin": "6",
+        "x": 173.315171,
+        "y": 95.839999,
+        "local": [
+          0.0,
+          12.7
+        ],
+        "net": "GND",
+        "size": [
+          1.7,
+          1.7
+        ]
+      }
+    ]
+  },
+  "R24": {
+    "footprint": "Resistor_SMD:R_0805_2012Metric",
+    "at": [
+      142.315171,
+      136.2,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "R24",
+      "Value": "22k / 1%",
+      "Datasheet": "https://datasheet.lcsc.com/datasheet/pdf/0a975aaa49b7c97f38a963127be4a823.pdf",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "0805W8F2202T5E",
+      "LCSC Part": "C17560",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "R_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 142.315171,
+        "y": 137.1125,
+        "local": [
+          -0.9125,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/SW_SUPPLY",
+        "size": [
+          1.025,
+          1.4
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 142.315171,
+        "y": 135.2875,
+        "local": [
+          0.9125,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/AGND_4",
+        "size": [
+          1.025,
+          1.4
+        ]
+      }
+    ]
+  },
+  "C16": {
+    "footprint": "Capacitor_SMD:C_1210_3225Metric",
+    "at": [
+      115.815171,
+      140.5,
+      -90
+    ],
+    "angle": -90.0,
+    "properties": {
+      "Reference": "C16",
+      "Value": "10u / 50V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "GRM32ER71H106KA12L",
+      "LCSC Part": "C77102",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 115.815171,
+        "y": 139.025,
+        "local": [
+          -1.475,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/VMOTOR",
+        "size": [
+          1.15,
+          2.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 115.815171,
+        "y": 141.975,
+        "local": [
+          1.475,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.15,
+          2.7
+        ]
+      }
+    ]
+  },
+  "R5": {
+    "footprint": "Resistor_SMD:R_0805_2012Metric",
+    "at": [
+      163.1,
+      138.9,
+      -90
+    ],
+    "angle": -90.0,
+    "properties": {
+      "Reference": "R5",
+      "Value": "10k",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "RC0805FR-0710KL",
+      "LCSC Part": "C84376",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "R_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 163.1,
+        "y": 137.9875,
+        "local": [
+          -0.9125,
+          0.0
+        ],
+        "net": "/Pico 2 and hobby servos/PWM_PAN",
+        "size": [
+          1.025,
+          1.4
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 163.1,
+        "y": 139.8125,
+        "local": [
+          0.9125,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.025,
+          1.4
+        ]
+      }
+    ]
+  },
+  "R11": {
+    "footprint": "Resistor_SMD:R_0805_2012Metric",
+    "at": [
+      136.315171,
+      116.9,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "R11",
+      "Value": "100k / 1%",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "RC0805FR-07100KL",
+      "LCSC Part": "C96346",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "R_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 136.315171,
+        "y": 117.8125,
+        "local": [
+          -0.9125,
+          0.0
+        ],
+        "net": "+5V",
+        "size": [
+          1.025,
+          1.4
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 136.315171,
+        "y": 115.9875,
+        "local": [
+          0.9125,
+          0.0
+        ],
+        "net": "/5 V servo supply/FB_3",
+        "size": [
+          1.025,
+          1.4
+        ]
+      }
+    ]
+  },
+  "C3": {
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "at": [
+      154.7,
+      68.3,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "C3",
+      "Value": "100n / 50V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "CL21B104KBCNNNC",
+      "LCSC Part": "C1711",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 154.7,
+        "y": 69.25,
+        "local": [
+          -0.95,
+          0.0
+        ],
+        "net": "+3V3",
+        "size": [
+          1,
+          1.45
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 154.7,
+        "y": 67.35,
+        "local": [
+          0.95,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1,
+          1.45
+        ]
+      }
+    ]
+  },
+  "C2": {
+    "footprint": "Capacitor_THT:CP_Radial_D8.0mm_P5.00mm",
+    "at": [
+      149.5,
+      132.3
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "C2",
+      "Value": "470u / 16V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "capacitor/THT/other",
+      "MPN": "EEU-FR1C471B",
+      "LCSC Part": "C1579437",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "CP_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 149.5,
+        "y": 132.3,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "+5V",
+        "size": [
+          1.6,
+          1.6
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 154.5,
+        "y": 132.3,
+        "local": [
+          5.0,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.6,
+          1.6
+        ]
+      }
+    ]
+  },
+  "R13": {
+    "footprint": "Resistor_SMD:R_0805_2012Metric",
+    "at": [
+      139.315171,
+      89.5,
+      180
+    ],
+    "angle": 180.0,
+    "properties": {
+      "Reference": "R13",
+      "Value": "100k / 1%",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "RC0805FR-07100KL",
+      "LCSC Part": "C96346",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "R_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 140.227671,
+        "y": 89.5,
+        "local": [
+          -0.9125,
+          0.0
+        ],
+        "net": "/VBAT",
+        "size": [
+          1.025,
+          1.4
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 138.402671,
+        "y": 89.5,
+        "local": [
+          0.9125,
+          0.0
+        ],
+        "net": "/12 V Jetson supply/EN_2",
+        "size": [
+          1.025,
+          1.4
+        ]
+      }
+    ]
+  },
+  "C27": {
+    "footprint": "Capacitor_SMD:C_1210_3225Metric",
+    "at": [
+      127.815171,
+      118.5,
+      -90
+    ],
+    "angle": -90.0,
+    "properties": {
+      "Reference": "C27",
+      "Value": "22u / 25V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "CL32B226KAJNNNE",
+      "LCSC Part": "C309062",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 127.815171,
+        "y": 117.025,
+        "local": [
+          -1.475,
+          0.0
+        ],
+        "net": "+5V",
+        "size": [
+          1.15,
+          2.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 127.815171,
+        "y": 119.975,
+        "local": [
+          1.475,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.15,
+          2.7
+        ]
+      }
+    ]
+  },
+  "C26": {
+    "footprint": "Capacitor_SMD:C_1210_3225Metric",
+    "at": [
+      123.815171,
+      118.5,
+      -90
+    ],
+    "angle": -90.0,
+    "properties": {
+      "Reference": "C26",
+      "Value": "22u / 25V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "CL32B226KAJNNNE",
+      "LCSC Part": "C309062",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 123.815171,
+        "y": 117.025,
+        "local": [
+          -1.475,
+          0.0
+        ],
+        "net": "+5V",
+        "size": [
+          1.15,
+          2.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 123.815171,
+        "y": 119.975,
+        "local": [
+          1.475,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.15,
+          2.7
+        ]
+      }
+    ]
+  },
+  "C35": {
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "at": [
+      129.315171,
+      132.75,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "C35",
+      "Value": "100n / 50V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "CL21B104KBCNNNC",
+      "LCSC Part": "C1711",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 129.315171,
+        "y": 133.7,
+        "local": [
+          -0.95,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/BOOT_4",
+        "size": [
+          1,
+          1.45
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 129.315171,
+        "y": 131.8,
+        "local": [
+          0.95,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/SW_4",
+        "size": [
+          1,
+          1.45
+        ]
+      }
+    ]
+  },
+  "L1": {
+    "footprint": "rover:SRP1265A_LeadFrame_13.5x12.5_P11.1",
+    "at": [
+      120.815171,
+      87.25
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "L1",
+      "Value": "6u8 / SRP1265A",
+      "Datasheet": "https://www.bourns.com/docs/product-datasheets/srp1265a.pdf",
+      "Description": "",
+      "MPN": "SRP1265A-6R8M",
+      "LCSC Part": "C2041326",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "Choke_* *Coil* Inductor_* L_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 115.265171,
+        "y": 87.25,
+        "local": [
+          -5.55,
+          0.0
+        ],
+        "net": "+12V",
+        "size": [
+          3.1,
+          5
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 126.365171,
+        "y": 87.25,
+        "local": [
+          5.55,
+          0.0
+        ],
+        "net": "/12 V Jetson supply/SW_2",
+        "size": [
+          3.1,
+          5
+        ]
+      }
+    ]
+  },
+  "C41": {
+    "footprint": "Capacitor_SMD:C_0603_1608Metric",
+    "at": [
+      139.815171,
+      139.8,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "C41",
+      "Value": "33p / 50V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "CL10C330JB8NNNC",
+      "LCSC Part": "C1663",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 139.815171,
+        "y": 140.575,
+        "local": [
+          -0.775,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/VMOTOR",
+        "size": [
+          0.9,
+          0.95
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 139.815171,
+        "y": 139.025,
+        "local": [
+          0.775,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/FF_4",
+        "size": [
+          0.9,
+          0.95
+        ]
+      }
+    ]
+  },
+  "NT3": {
+    "footprint": "rover:AGND_Tie_LMR51450",
+    "at": [
+      132.315171,
+      132.75
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "NT3",
+      "Value": "AGND tie",
+      "Datasheet": "",
+      "Description": "",
+      "ki_fp_filters": "Net*Tie*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 133.305171,
+        "y": 132.75,
+        "local": [
+          0.99,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/AGND_4",
+        "size": [
+          0.2,
+          0.2
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 133.035171,
+        "y": 132.75,
+        "local": [
+          0.72,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          0.2,
+          0.2
+        ]
+      }
+    ]
+  },
+  "L3": {
+    "footprint": "rover:APS1365DW_13.8x12.6_P11.5",
+    "at": [
+      120.665171,
+      131.25
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "L3",
+      "Value": "3u3 / APS1365DW",
+      "Datasheet": "https://datasheet.lcsc.com/datasheet/pdf/68d4a03c5920925210785d7848183ed4.pdf?productCode=C54431777",
+      "Description": "",
+      "MPN": "APS1365M3R3DW",
+      "LCSC Part": "C54431777",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "Choke_* *Coil* Inductor_* L_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 114.915171,
+        "y": 131.25,
+        "local": [
+          -5.75,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/VMOTOR",
+        "size": [
+          3.2,
+          5
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 126.415171,
+        "y": 131.25,
+        "local": [
+          5.75,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/SW_4",
+        "size": [
+          3.2,
+          5
+        ]
+      }
+    ]
+  },
+  "TP4": {
+    "footprint": "TestPoint:TestPoint_Pad_D2.0mm",
+    "at": [
+      111.45,
+      129.9
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "TP4",
+      "Value": "+5V",
+      "Datasheet": "",
+      "Description": "",
+      "MPN": "+5V",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "Pin* Test*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 111.45,
+        "y": 129.9,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "+5V",
+        "size": [
+          2,
+          2
+        ]
+      }
+    ]
+  },
+  "U3": {
+    "footprint": "rover:LMR51450_DRR_WSON12_3x3",
+    "at": [
+      132.315171,
+      110
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "U3",
+      "Value": "LMR51450SDRRR",
+      "Datasheet": "https://www.ti.com/lit/ds/symlink/lmr51450.pdf",
+      "Description": "",
+      "LCSC Part": "C6890985",
+      "MPN": "LMR51450SDRRR",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED"
+    },
+    "pads": [
+      {
+        "pin": "",
+        "x": 132.315171,
+        "y": 109.35,
+        "local": [
+          0.0,
+          -0.65
+        ],
+        "net": "",
+        "size": [
+          1.21,
+          1.1
+        ]
+      },
+      {
+        "pin": "",
+        "x": 132.315171,
+        "y": 110.65,
+        "local": [
+          0.0,
+          0.65
+        ],
+        "net": "",
+        "size": [
+          1.21,
+          1.1
+        ]
+      },
+      {
+        "pin": "1",
+        "x": 130.925171,
+        "y": 108.75,
+        "local": [
+          -1.39,
+          -1.25
+        ],
+        "net": "/5 V servo supply/SW_3",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 130.925171,
+        "y": 109.25,
+        "local": [
+          -1.39,
+          -0.75
+        ],
+        "net": "/5 V servo supply/SW_3",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "3",
+        "x": 130.925171,
+        "y": 109.75,
+        "local": [
+          -1.39,
+          -0.25
+        ],
+        "net": "/5 V servo supply/SW_3",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "4",
+        "x": 130.925171,
+        "y": 110.25,
+        "local": [
+          -1.39,
+          0.25
+        ],
+        "net": "/5 V servo supply/BOOT_3",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "5",
+        "x": 130.925171,
+        "y": 110.75,
+        "local": [
+          -1.39,
+          0.75
+        ],
+        "net": "unconnected-(U3-PG-Pad5)",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "6",
+        "x": 130.925171,
+        "y": 111.25,
+        "local": [
+          -1.39,
+          1.25
+        ],
+        "net": "unconnected-(U3-RT-Pad6)",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "7",
+        "x": 133.705171,
+        "y": 111.25,
+        "local": [
+          1.39,
+          1.25
+        ],
+        "net": "/5 V servo supply/FB_3",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "8",
+        "x": 133.705171,
+        "y": 110.75,
+        "local": [
+          1.39,
+          0.75
+        ],
+        "net": "/5 V servo supply/AGND_3",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "9",
+        "x": 133.705171,
+        "y": 110.25,
+        "local": [
+          1.39,
+          0.25
+        ],
+        "net": "/5 V servo supply/EN_3",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "10",
+        "x": 133.705171,
+        "y": 109.75,
+        "local": [
+          1.39,
+          -0.25
+        ],
+        "net": "/VBAT",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "11",
+        "x": 133.705171,
+        "y": 109.25,
+        "local": [
+          1.39,
+          -0.75
+        ],
+        "net": "/VBAT",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "12",
+        "x": 133.705171,
+        "y": 108.75,
+        "local": [
+          1.39,
+          -1.25
+        ],
+        "net": "/VBAT",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "13",
+        "x": 132.315171,
+        "y": 110.0,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.3,
+          2.5
+        ]
+      }
+    ]
+  },
+  "R6": {
+    "footprint": "Resistor_SMD:R_0805_2012Metric",
+    "at": [
+      163,
+      144.2,
+      -90
+    ],
+    "angle": -90.0,
+    "properties": {
+      "Reference": "R6",
+      "Value": "10k",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "RC0805FR-0710KL",
+      "LCSC Part": "C84376",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "R_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 163.0,
+        "y": 143.2875,
+        "local": [
+          -0.9125,
+          0.0
+        ],
+        "net": "/Pico 2 and hobby servos/PWM_AUX",
+        "size": [
+          1.025,
+          1.4
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 163.0,
+        "y": 145.1125,
+        "local": [
+          0.9125,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.025,
+          1.4
+        ]
+      }
+    ]
+  },
+  "C1": {
+    "footprint": "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm",
+    "at": [
+      134.197494,
+      73
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "C1",
+      "Value": "220u / 50V",
+      "Datasheet": "https://datasheet.lcsc.com/datasheet/pdf/d9089262f7a6df5ba99d8a966a03ede0.pdf?productCode=C178407",
+      "Description": "",
+      "KiLib_Generator": "capacitor/THT/other",
+      "MPN": "EEU-FR1H221B",
+      "LCSC Part": "C1579630",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "CP_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 134.197494,
+        "y": 73.0,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "/VBAT",
+        "size": [
+          2,
+          2
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 139.197494,
+        "y": 73.0,
+        "local": [
+          5.0,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          2,
+          2
+        ]
+      }
+    ]
+  },
+  "SKT1": {
+    "footprint": "rover:Pico2_Sockets_LXWCONN_254PM_1x20",
+    "at": [
+      151.52,
+      73
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "SKT1",
+      "Value": "Pico 2 / 2x20 sockets",
+      "Datasheet": "https://datasheets.raspberrypi.com/pico/pico-2-datasheet.pdf",
+      "Description": "",
+      "MPN": "Pico 2",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "RaspberryPi?Pico?Common* RaspberryPi?Pico?SMD*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 151.52,
+        "y": 73.0,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "/Pico 2 and hobby servos/PWM_LIFT_A",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 151.52,
+        "y": 75.54,
+        "local": [
+          0.0,
+          2.54
+        ],
+        "net": "/Pico 2 and hobby servos/PWM_LIFT_B",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "3",
+        "x": 151.52,
+        "y": 78.08,
+        "local": [
+          0.0,
+          5.08
+        ],
+        "net": "GND",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "4",
+        "x": 151.52,
+        "y": 80.62,
+        "local": [
+          0.0,
+          7.62
+        ],
+        "net": "/Pico 2 and hobby servos/PWM_PAN",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "5",
+        "x": 151.52,
+        "y": 83.16,
+        "local": [
+          0.0,
+          10.16
+        ],
+        "net": "/Pico 2 and hobby servos/PWM_AUX",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "6",
+        "x": 151.52,
+        "y": 85.7,
+        "local": [
+          0.0,
+          12.7
+        ],
+        "net": "unconnected-(SKT1-GPIO4-Pad6)",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "7",
+        "x": 151.52,
+        "y": 88.24,
+        "local": [
+          0.0,
+          15.24
+        ],
+        "net": "unconnected-(SKT1-GPIO5-Pad7)",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "8",
+        "x": 151.52,
+        "y": 90.78,
+        "local": [
+          0.0,
+          17.78
+        ],
+        "net": "GND",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "9",
+        "x": 151.52,
+        "y": 93.32,
+        "local": [
+          0.0,
+          20.32
+        ],
+        "net": "unconnected-(SKT1-GPIO6-Pad9)",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "10",
+        "x": 151.52,
+        "y": 95.86,
+        "local": [
+          0.0,
+          22.86
+        ],
+        "net": "unconnected-(SKT1-GPIO7-Pad10)",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "11",
+        "x": 151.52,
+        "y": 98.4,
+        "local": [
+          0.0,
+          25.4
+        ],
+        "net": "unconnected-(SKT1-GPIO8-Pad11)",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "12",
+        "x": 151.52,
+        "y": 100.94,
+        "local": [
+          0.0,
+          27.94
+        ],
+        "net": "unconnected-(SKT1-GPIO9-Pad12)",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "13",
+        "x": 151.52,
+        "y": 103.48,
+        "local": [
+          0.0,
+          30.48
+        ],
+        "net": "GND",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "14",
+        "x": 151.52,
+        "y": 106.02,
+        "local": [
+          0.0,
+          33.02
+        ],
+        "net": "unconnected-(SKT1-GPIO10-Pad14)",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "15",
+        "x": 151.52,
+        "y": 108.56,
+        "local": [
+          0.0,
+          35.56
+        ],
+        "net": "unconnected-(SKT1-GPIO11-Pad15)",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "16",
+        "x": 151.52,
+        "y": 111.1,
+        "local": [
+          0.0,
+          38.1
+        ],
+        "net": "unconnected-(SKT1-GPIO12-Pad16)",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "17",
+        "x": 151.52,
+        "y": 113.64,
+        "local": [
+          0.0,
+          40.64
+        ],
+        "net": "unconnected-(SKT1-GPIO13-Pad17)",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "18",
+        "x": 151.52,
+        "y": 116.18,
+        "local": [
+          0.0,
+          43.18
+        ],
+        "net": "GND",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "19",
+        "x": 151.52,
+        "y": 118.72,
+        "local": [
+          0.0,
+          45.72
+        ],
+        "net": "unconnected-(SKT1-GPIO14-Pad19)",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "20",
+        "x": 151.52,
+        "y": 121.26,
+        "local": [
+          0.0,
+          48.26
+        ],
+        "net": "unconnected-(SKT1-GPIO15-Pad20)",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "21",
+        "x": 169.3,
+        "y": 121.26,
+        "local": [
+          17.78,
+          48.26
+        ],
+        "net": "/Battery input and INA226/I2C_SDA",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "22",
+        "x": 169.3,
+        "y": 118.72,
+        "local": [
+          17.78,
+          45.72
+        ],
+        "net": "/Battery input and INA226/I2C_SCL",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "23",
+        "x": 169.3,
+        "y": 116.18,
+        "local": [
+          17.78,
+          43.18
+        ],
+        "net": "GND",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "24",
+        "x": 169.3,
+        "y": 113.64,
+        "local": [
+          17.78,
+          40.64
+        ],
+        "net": "/Pico 2 and hobby servos/GP18",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "25",
+        "x": 169.3,
+        "y": 111.1,
+        "local": [
+          17.78,
+          38.1
+        ],
+        "net": "/Pico 2 and hobby servos/GP19",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "26",
+        "x": 169.3,
+        "y": 108.56,
+        "local": [
+          17.78,
+          35.56
+        ],
+        "net": "/Pico 2 and hobby servos/GP20",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "27",
+        "x": 169.3,
+        "y": 106.02,
+        "local": [
+          17.78,
+          33.02
+        ],
+        "net": "/Pico 2 and hobby servos/GP21",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "28",
+        "x": 169.3,
+        "y": 103.48,
+        "local": [
+          17.78,
+          30.48
+        ],
+        "net": "GND",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "29",
+        "x": 169.3,
+        "y": 100.94,
+        "local": [
+          17.78,
+          27.94
+        ],
+        "net": "unconnected-(SKT1-GPIO22-Pad29)",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "30",
+        "x": 169.3,
+        "y": 98.4,
+        "local": [
+          17.78,
+          25.4
+        ],
+        "net": "unconnected-(SKT1-RUN-Pad30)",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "31",
+        "x": 169.3,
+        "y": 95.86,
+        "local": [
+          17.78,
+          22.86
+        ],
+        "net": "unconnected-(SKT1-GPIO26_ADC0-Pad31)",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "32",
+        "x": 169.3,
+        "y": 93.32,
+        "local": [
+          17.78,
+          20.32
+        ],
+        "net": "unconnected-(SKT1-GPIO27_ADC1-Pad32)",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "33",
+        "x": 169.3,
+        "y": 90.78,
+        "local": [
+          17.78,
+          17.78
+        ],
+        "net": "GND",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "34",
+        "x": 169.3,
+        "y": 88.24,
+        "local": [
+          17.78,
+          15.24
+        ],
+        "net": "unconnected-(SKT1-GPIO28_ADC2-Pad34)",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "35",
+        "x": 169.3,
+        "y": 85.7,
+        "local": [
+          17.78,
+          12.7
+        ],
+        "net": "unconnected-(SKT1-ADC_VREF-Pad35)",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "36",
+        "x": 169.3,
+        "y": 83.16,
+        "local": [
+          17.78,
+          10.16
+        ],
+        "net": "+3V3",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "37",
+        "x": 169.3,
+        "y": 80.62,
+        "local": [
+          17.78,
+          7.62
+        ],
+        "net": "unconnected-(SKT1-3V3_EN-Pad37)",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "38",
+        "x": 169.3,
+        "y": 78.08,
+        "local": [
+          17.78,
+          5.08
+        ],
+        "net": "GND",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "39",
+        "x": 169.3,
+        "y": 75.54,
+        "local": [
+          17.78,
+          2.54
+        ],
+        "net": "unconnected-(SKT1-VSYS-Pad39)",
+        "size": [
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "pin": "40",
+        "x": 169.3,
+        "y": 73.0,
+        "local": [
+          17.78,
+          0.0
+        ],
+        "net": "unconnected-(SKT1-VBUS-Pad40)",
+        "size": [
+          1.8,
+          1.8
+        ]
+      }
+    ]
+  },
+  "C24": {
+    "footprint": "Capacitor_SMD:C_1210_3225Metric",
+    "at": [
+      115.815171,
+      118.5,
+      -90
+    ],
+    "angle": -90.0,
+    "properties": {
+      "Reference": "C24",
+      "Value": "22u / 25V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "CL32B226KAJNNNE",
+      "LCSC Part": "C309062",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 115.815171,
+        "y": 117.025,
+        "local": [
+          -1.475,
+          0.0
+        ],
+        "net": "+5V",
+        "size": [
+          1.15,
+          2.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 115.815171,
+        "y": 119.975,
+        "local": [
+          1.475,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.15,
+          2.7
+        ]
+      }
+    ]
+  },
+  "TP1": {
+    "footprint": "TestPoint:TestPoint_Pad_D2.0mm",
+    "at": [
+      160.9,
+      58.5
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "TP1",
+      "Value": "VBAT",
+      "Datasheet": "",
+      "Description": "",
+      "MPN": "VBAT",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "Pin* Test*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 160.9,
+        "y": 58.5,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "/VBAT",
+        "size": [
+          2,
+          2
+        ]
+      }
+    ]
+  },
+  "FID3": {
+    "footprint": "Fiducial:Fiducial_1mm_Mask2mm",
+    "at": [
+      109,
+      144.2
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "FID3",
+      "Value": "Fiducial",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "fiducial"
+    },
+    "pads": [
+      {
+        "pin": "",
+        "x": 109.0,
+        "y": 144.2,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "",
+        "size": [
+          1,
+          1
+        ]
+      }
+    ]
+  },
+  "U2": {
+    "footprint": "rover:LMR51450_DRR_WSON12_3x3",
+    "at": [
+      132.315171,
+      88
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "U2",
+      "Value": "LMR51450SDRRR",
+      "Datasheet": "https://www.ti.com/lit/ds/symlink/lmr51450.pdf",
+      "Description": "",
+      "LCSC Part": "C6890985",
+      "MPN": "LMR51450SDRRR",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED"
+    },
+    "pads": [
+      {
+        "pin": "",
+        "x": 132.315171,
+        "y": 87.35,
+        "local": [
+          0.0,
+          -0.65
+        ],
+        "net": "",
+        "size": [
+          1.21,
+          1.1
+        ]
+      },
+      {
+        "pin": "",
+        "x": 132.315171,
+        "y": 88.65,
+        "local": [
+          0.0,
+          0.65
+        ],
+        "net": "",
+        "size": [
+          1.21,
+          1.1
+        ]
+      },
+      {
+        "pin": "1",
+        "x": 130.925171,
+        "y": 86.75,
+        "local": [
+          -1.39,
+          -1.25
+        ],
+        "net": "/12 V Jetson supply/SW_2",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 130.925171,
+        "y": 87.25,
+        "local": [
+          -1.39,
+          -0.75
+        ],
+        "net": "/12 V Jetson supply/SW_2",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "3",
+        "x": 130.925171,
+        "y": 87.75,
+        "local": [
+          -1.39,
+          -0.25
+        ],
+        "net": "/12 V Jetson supply/SW_2",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "4",
+        "x": 130.925171,
+        "y": 88.25,
+        "local": [
+          -1.39,
+          0.25
+        ],
+        "net": "/12 V Jetson supply/BOOT_2",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "5",
+        "x": 130.925171,
+        "y": 88.75,
+        "local": [
+          -1.39,
+          0.75
+        ],
+        "net": "unconnected-(U2-PG-Pad5)",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "6",
+        "x": 130.925171,
+        "y": 89.25,
+        "local": [
+          -1.39,
+          1.25
+        ],
+        "net": "unconnected-(U2-RT-Pad6)",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "7",
+        "x": 133.705171,
+        "y": 89.25,
+        "local": [
+          1.39,
+          1.25
+        ],
+        "net": "/12 V Jetson supply/FB_2",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "8",
+        "x": 133.705171,
+        "y": 88.75,
+        "local": [
+          1.39,
+          0.75
+        ],
+        "net": "/12 V Jetson supply/AGND_2",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "9",
+        "x": 133.705171,
+        "y": 88.25,
+        "local": [
+          1.39,
+          0.25
+        ],
+        "net": "/12 V Jetson supply/EN_2",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "10",
+        "x": 133.705171,
+        "y": 87.75,
+        "local": [
+          1.39,
+          -0.25
+        ],
+        "net": "/VBAT",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "11",
+        "x": 133.705171,
+        "y": 87.25,
+        "local": [
+          1.39,
+          -0.75
+        ],
+        "net": "/VBAT",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "12",
+        "x": 133.705171,
+        "y": 86.75,
+        "local": [
+          1.39,
+          -1.25
+        ],
+        "net": "/VBAT",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "13",
+        "x": 132.315171,
+        "y": 88.0,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.3,
+          2.5
+        ]
+      }
+    ]
+  },
+  "R20": {
+    "footprint": "Resistor_SMD:R_1206_3216Metric",
+    "at": [
+      145.815171,
+      58,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "R20",
+      "Value": "3k9 / 0.25W",
+      "Datasheet": "https://www.yageogroup.com/component-documentation/download/specsheet/RC1206FR-073K9L",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "RC1206FR-073K9L",
+      "LCSC Part": "C137289",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "R_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 145.815171,
+        "y": 59.4625,
+        "local": [
+          -1.4625,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/VMOTOR",
+        "size": [
+          1.125,
+          1.75
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 145.815171,
+        "y": 56.5375,
+        "local": [
+          1.4625,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/LED_A",
+        "size": [
+          1.125,
+          1.75
+        ]
+      }
+    ]
+  },
+  "J8": {
+    "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+    "at": [
+      166.704829,
+      143.3,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "J8",
+      "Value": "SERVO AUX",
+      "Datasheet": "https://suddendocs.samtec.com/catalog_english/tsw_th.pdf",
+      "Description": "",
+      "KiLib_Generator": "connector/pin_header_socket",
+      "MPN": "TSW-103-07-G-S",
+      "LCSC Part": "C3335811",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "Connector*:*_1x??_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 166.704829,
+        "y": 143.3,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "/Pico 2 and hobby servos/PWM_AUX",
+        "size": [
+          1.7,
+          1.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 169.244829,
+        "y": 143.3,
+        "local": [
+          0.0,
+          2.54
+        ],
+        "net": "+5V",
+        "size": [
+          1.7,
+          1.7
+        ]
+      },
+      {
+        "pin": "3",
+        "x": 171.784829,
+        "y": 143.3,
+        "local": [
+          0.0,
+          5.08
+        ],
+        "net": "GND",
+        "size": [
+          1.7,
+          1.7
+        ]
+      }
+    ]
+  },
+  "C14": {
+    "footprint": "Capacitor_SMD:C_1210_3225Metric",
+    "at": [
+      137.115171,
+      129.6,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "C14",
+      "Value": "10u / 50V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "GRM32ER71H106KA12L",
+      "LCSC Part": "C77102",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 137.115171,
+        "y": 131.075,
+        "local": [
+          -1.475,
+          0.0
+        ],
+        "net": "/VBAT",
+        "size": [
+          1.15,
+          2.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 137.115171,
+        "y": 128.125,
+        "local": [
+          1.475,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.15,
+          2.7
+        ]
+      }
+    ]
+  },
+  "R23": {
+    "footprint": "Resistor_SMD:R_0805_2012Metric",
+    "at": [
+      139.815171,
+      136.3,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "R23",
+      "Value": "1k / 1%",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "0805W8F1001T5E",
+      "LCSC Part": "C17513",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "R_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 139.815171,
+        "y": 137.2125,
+        "local": [
+          -0.9125,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/FF_4",
+        "size": [
+          1.025,
+          1.4
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 139.815171,
+        "y": 135.3875,
+        "local": [
+          0.9125,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/FB_4",
+        "size": [
+          1.025,
+          1.4
+        ]
+      }
+    ]
+  },
+  "U1": {
+    "footprint": "Package_SO:MSOP-10_3x3mm_P0.5mm",
+    "at": [
+      150.3,
+      68.1
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "U1",
+      "Value": "INA226AIDGSR",
+      "Datasheet": "https://www.ti.com/lit/ds/symlink/ina226.pdf",
+      "Description": "",
+      "KiLib_Generator": "package/gullwing",
+      "MPN": "INA226AIDGSR",
+      "LCSC Part": "C49851",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "*TSSOP*3x3mm?P0.5mm*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 148.2,
+        "y": 67.1,
+        "local": [
+          -2.1,
+          -1.0
+        ],
+        "net": "GND",
+        "size": [
+          1.5,
+          0.35
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 148.2,
+        "y": 67.6,
+        "local": [
+          -2.1,
+          -0.5
+        ],
+        "net": "GND",
+        "size": [
+          1.5,
+          0.35
+        ]
+      },
+      {
+        "pin": "3",
+        "x": 148.2,
+        "y": 68.1,
+        "local": [
+          -2.1,
+          0.0
+        ],
+        "net": "unconnected-(U1-~{Alert}-Pad3)",
+        "size": [
+          1.5,
+          0.35
+        ]
+      },
+      {
+        "pin": "4",
+        "x": 148.2,
+        "y": 68.6,
+        "local": [
+          -2.1,
+          0.5
+        ],
+        "net": "/Battery input and INA226/I2C_SDA",
+        "size": [
+          1.5,
+          0.35
+        ]
+      },
+      {
+        "pin": "5",
+        "x": 148.2,
+        "y": 69.1,
+        "local": [
+          -2.1,
+          1.0
+        ],
+        "net": "/Battery input and INA226/I2C_SCL",
+        "size": [
+          1.5,
+          0.35
+        ]
+      },
+      {
+        "pin": "6",
+        "x": 152.4,
+        "y": 69.1,
+        "local": [
+          2.1,
+          1.0
+        ],
+        "net": "+3V3",
+        "size": [
+          1.5,
+          0.35
+        ]
+      },
+      {
+        "pin": "7",
+        "x": 152.4,
+        "y": 68.6,
+        "local": [
+          2.1,
+          0.5
+        ],
+        "net": "GND",
+        "size": [
+          1.5,
+          0.35
+        ]
+      },
+      {
+        "pin": "8",
+        "x": 152.4,
+        "y": 68.1,
+        "local": [
+          2.1,
+          0.0
+        ],
+        "net": "/VBAT",
+        "size": [
+          1.5,
+          0.35
+        ]
+      },
+      {
+        "pin": "9",
+        "x": 152.4,
+        "y": 67.6,
+        "local": [
+          2.1,
+          -0.5
+        ],
+        "net": "/VBAT",
+        "size": [
+          1.5,
+          0.35
+        ]
+      },
+      {
+        "pin": "10",
+        "x": 152.4,
+        "y": 67.1,
+        "local": [
+          2.1,
+          -1.0
+        ],
+        "net": "/Battery input and INA226/BAT_SWITCHED",
+        "size": [
+          1.5,
+          0.35
+        ]
+      }
+    ]
+  },
+  "C17": {
+    "footprint": "Capacitor_SMD:C_1210_3225Metric",
+    "at": [
+      119.815171,
+      140.5,
+      -90
+    ],
+    "angle": -90.0,
+    "properties": {
+      "Reference": "C17",
+      "Value": "10u / 50V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "GRM32ER71H106KA12L",
+      "LCSC Part": "C77102",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 119.815171,
+        "y": 139.025,
+        "local": [
+          -1.475,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/VMOTOR",
+        "size": [
+          1.15,
+          2.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 119.815171,
+        "y": 141.975,
+        "local": [
+          1.475,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.15,
+          2.7
+        ]
+      }
+    ]
+  },
+  "J6": {
+    "footprint": "Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical",
+    "at": [
+      155.5,
+      150.2
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "J6",
+      "Value": "RIGHT WHEELS",
+      "Datasheet": "https://www.jst-mfg.com/product/pdf/eng/eEH.pdf",
+      "Description": "",
+      "KiLib_Generator": "connector/JST",
+      "MPN": "B4B-EH-A(LF)(SN)",
+      "LCSC Part": "C160258",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "Connector*:*_1x??_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 155.5,
+        "y": 150.2,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.7,
+          1.95
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 158.0,
+        "y": 150.2,
+        "local": [
+          2.5,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/VMOTOR",
+        "size": [
+          1.7,
+          1.95
+        ]
+      },
+      {
+        "pin": "3",
+        "x": 160.5,
+        "y": 150.2,
+        "local": [
+          5.0,
+          0.0
+        ],
+        "net": "/DYNAMIXEL distribution/DXL_D_PLUS",
+        "size": [
+          1.7,
+          1.95
+        ]
+      },
+      {
+        "pin": "4",
+        "x": 163.0,
+        "y": 150.2,
+        "local": [
+          7.5,
+          0.0
+        ],
+        "net": "/DYNAMIXEL distribution/DXL_D_MINUS",
+        "size": [
+          1.7,
+          1.95
+        ]
+      }
+    ]
+  },
+  "NT1": {
+    "footprint": "rover:AGND_Tie_LMR51450",
+    "at": [
+      132.315171,
+      88.75
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "NT1",
+      "Value": "AGND tie",
+      "Datasheet": "",
+      "Description": "",
+      "ki_fp_filters": "Net*Tie*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 133.305171,
+        "y": 88.75,
+        "local": [
+          0.99,
+          0.0
+        ],
+        "net": "/12 V Jetson supply/AGND_2",
+        "size": [
+          0.2,
+          0.2
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 133.035171,
+        "y": 88.75,
+        "local": [
+          0.72,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          0.2,
+          0.2
+        ]
+      }
+    ]
+  },
+  "C25": {
+    "footprint": "Capacitor_SMD:C_1210_3225Metric",
+    "at": [
+      119.815171,
+      118.5,
+      -90
+    ],
+    "angle": -90.0,
+    "properties": {
+      "Reference": "C25",
+      "Value": "22u / 25V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "CL32B226KAJNNNE",
+      "LCSC Part": "C309062",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 119.815171,
+        "y": 117.025,
+        "local": [
+          -1.475,
+          0.0
+        ],
+        "net": "+5V",
+        "size": [
+          1.15,
+          2.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 119.815171,
+        "y": 119.975,
+        "local": [
+          1.475,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.15,
+          2.7
+        ]
+      }
+    ]
+  },
+  "R4": {
+    "footprint": "Resistor_SMD:R_0805_2012Metric",
+    "at": [
+      163.1,
+      132.9125,
+      -90
+    ],
+    "angle": -90.0,
+    "properties": {
+      "Reference": "R4",
+      "Value": "10k",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "RC0805FR-0710KL",
+      "LCSC Part": "C84376",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "R_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 163.1,
+        "y": 132.0,
+        "local": [
+          -0.9125,
+          0.0
+        ],
+        "net": "/Pico 2 and hobby servos/PWM_LIFT_B",
+        "size": [
+          1.025,
+          1.4
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 163.1,
+        "y": 133.825,
+        "local": [
+          0.9125,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.025,
+          1.4
+        ]
+      }
+    ]
+  },
+  "TP3": {
+    "footprint": "TestPoint:TestPoint_Pad_D2.0mm",
+    "at": [
+      108.6,
+      100.5
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "TP3",
+      "Value": "+12V",
+      "Datasheet": "",
+      "Description": "",
+      "MPN": "+12V",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "Pin* Test*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 108.6,
+        "y": 100.5,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "+12V",
+        "size": [
+          2,
+          2
+        ]
+      }
+    ]
+  },
+  "P1": {
+    "footprint": "rover:WirePads_2_6x8_P12",
+    "at": [
+      118.565171,
+      60.25
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "P1",
+      "Value": "BATTERY IN",
+      "Datasheet": "",
+      "Description": "",
+      "MPN": "BATTERY IN",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "Connector*:*_1x??_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 112.565171,
+        "y": 60.25,
+        "local": [
+          -6.0,
+          0.0
+        ],
+        "net": "/Battery input and INA226/BAT_SWITCHED",
+        "size": [
+          6,
+          8
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 124.565171,
+        "y": 60.25,
+        "local": [
+          6.0,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          6,
+          8
+        ]
+      }
+    ]
+  },
+  "L2": {
+    "footprint": "rover:SRP1265A_LeadFrame_13.5x12.5_P11.1",
+    "at": [
+      120.815171,
+      109.25
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "L2",
+      "Value": "4u7 / SRP1265A",
+      "Datasheet": "https://www.bourns.com/docs/product-datasheets/srp1265a.pdf",
+      "Description": "",
+      "MPN": "SRP1265A-4R7M",
+      "LCSC Part": "C780205",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "Choke_* *Coil* Inductor_* L_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 115.265171,
+        "y": 109.25,
+        "local": [
+          -5.55,
+          0.0
+        ],
+        "net": "+5V",
+        "size": [
+          3.1,
+          5
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 126.365171,
+        "y": 109.25,
+        "local": [
+          5.55,
+          0.0
+        ],
+        "net": "/5 V servo supply/SW_3",
+        "size": [
+          3.1,
+          5
+        ]
+      }
+    ]
+  },
+  "P2": {
+    "footprint": "rover:WirePads_2_5x6_P9",
+    "at": [
+      104.6,
+      90.1,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "P2",
+      "Value": "JETSON / BARREL",
+      "Datasheet": "",
+      "Description": "",
+      "MPN": "JETSON / BARREL",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "Connector*:*_1x??_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 104.6,
+        "y": 94.6,
+        "local": [
+          -4.5,
+          0.0
+        ],
+        "net": "+12V",
+        "size": [
+          5,
+          6
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 104.6,
+        "y": 85.6,
+        "local": [
+          4.5,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          5,
+          6
+        ]
+      }
+    ]
+  },
+  "C15": {
+    "footprint": "Capacitor_SMD:C_1210_3225Metric",
+    "at": [
+      141.115171,
+      129.6,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "C15",
+      "Value": "10u / 50V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "GRM32ER71H106KA12L",
+      "LCSC Part": "C77102",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 141.115171,
+        "y": 131.075,
+        "local": [
+          -1.475,
+          0.0
+        ],
+        "net": "/VBAT",
+        "size": [
+          1.15,
+          2.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 141.115171,
+        "y": 128.125,
+        "local": [
+          1.475,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.15,
+          2.7
+        ]
+      }
+    ]
+  },
+  "SW1": {
+    "footprint": "Button_Switch_THT:SW_Slide_SPDT_Angled_CK_OS102011MA1Q",
+    "at": [
+      139.9,
+      61.4,
+      180
+    ],
+    "angle": 180.0,
+    "properties": {
+      "Reference": "SW1",
+      "Value": "MOTOR ENABLE",
+      "Datasheet": "https://datasheet.lcsc.com/datasheet/pdf/9e68893bade4341f8dc17b91bf8fc979.pdf?productCode=C226259",
+      "Description": "",
+      "MPN": "OS102011MA1QN1",
+      "LCSC Part": "C226259",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED"
+    },
+    "pads": [
+      {
+        "pin": "",
+        "x": 142.0,
+        "y": 61.4,
+        "local": [
+          -2.1,
+          0.0
+        ],
+        "net": "",
+        "size": [
+          2.2,
+          3.5
+        ]
+      },
+      {
+        "pin": "",
+        "x": 133.8,
+        "y": 61.4,
+        "local": [
+          6.1,
+          0.0
+        ],
+        "net": "",
+        "size": [
+          2.2,
+          3.5
+        ]
+      },
+      {
+        "pin": "1",
+        "x": 139.9,
+        "y": 61.4,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/SW_SUPPLY",
+        "size": [
+          1.5,
+          2.5
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 137.9,
+        "y": 61.4,
+        "local": [
+          2.0,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/MOTOR_EN",
+        "size": [
+          1.5,
+          2.5
+        ]
+      },
+      {
+        "pin": "3",
+        "x": 135.9,
+        "y": 61.4,
+        "local": [
+          4.0,
+          0.0
+        ],
+        "net": "unconnected-(SW1-C-Pad3)",
+        "size": [
+          1.5,
+          2.5
+        ]
+      }
+    ]
+  },
+  "C21": {
+    "footprint": "Capacitor_SMD:C_1210_3225Metric",
+    "at": [
+      119.815171,
+      96.5,
+      -90
+    ],
+    "angle": -90.0,
+    "properties": {
+      "Reference": "C21",
+      "Value": "22u / 25V",
+      "Datasheet": "https://product.samsungsem.com/mlcc/CL32B226KAJNNN.do",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "CL32B226KAJNNNE",
+      "LCSC Part": "C309062",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 119.815171,
+        "y": 95.025,
+        "local": [
+          -1.475,
+          0.0
+        ],
+        "net": "+12V",
+        "size": [
+          1.15,
+          2.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 119.815171,
+        "y": 97.975,
+        "local": [
+          1.475,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.15,
+          2.7
+        ]
+      }
+    ]
+  },
+  "NT2": {
+    "footprint": "rover:AGND_Tie_LMR51450",
+    "at": [
+      132.315171,
+      110.75
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "NT2",
+      "Value": "AGND tie",
+      "Datasheet": "",
+      "Description": "",
+      "ki_fp_filters": "Net*Tie*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 133.305171,
+        "y": 110.75,
+        "local": [
+          0.99,
+          0.0
+        ],
+        "net": "/5 V servo supply/AGND_3",
+        "size": [
+          0.2,
+          0.2
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 133.035171,
+        "y": 110.75,
+        "local": [
+          0.72,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          0.2,
+          0.2
+        ]
+      }
+    ]
+  },
+  "C31": {
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "at": [
+      133.265171,
+      107.1,
+      180
+    ],
+    "angle": 180.0,
+    "properties": {
+      "Reference": "C31",
+      "Value": "100n / 50V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "CL21B104KBCNNNC",
+      "LCSC Part": "C1711",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 134.215171,
+        "y": 107.1,
+        "local": [
+          -0.95,
+          0.0
+        ],
+        "net": "/VBAT",
+        "size": [
+          1,
+          1.45
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 132.315171,
+        "y": 107.1,
+        "local": [
+          0.95,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1,
+          1.45
+        ]
+      }
+    ]
+  },
+  "C23": {
+    "footprint": "Capacitor_SMD:C_1210_3225Metric",
+    "at": [
+      127.815171,
+      96.5,
+      -90
+    ],
+    "angle": -90.0,
+    "properties": {
+      "Reference": "C23",
+      "Value": "22u / 25V",
+      "Datasheet": "https://product.samsungsem.com/mlcc/CL32B226KAJNNN.do",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "CL32B226KAJNNNE",
+      "LCSC Part": "C309062",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 127.815171,
+        "y": 95.025,
+        "local": [
+          -1.475,
+          0.0
+        ],
+        "net": "+12V",
+        "size": [
+          1.15,
+          2.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 127.815171,
+        "y": 97.975,
+        "local": [
+          1.475,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.15,
+          2.7
+        ]
+      }
+    ]
+  },
+  "H2": {
+    "footprint": "MountingHole:MountingHole_3.2mm_M3",
+    "at": [
+      172,
+      59.2
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "H2",
+      "Value": "MountingHole_3.2mm_M3",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "mounting_hardware/mounting_hole"
+    },
+    "pads": [
+      {
+        "pin": "",
+        "x": 172.0,
+        "y": 59.2,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "",
+        "size": [
+          3.2,
+          3.2
+        ]
+      }
+    ]
+  },
+  "C40": {
+    "footprint": "Capacitor_SMD:C_0603_1608Metric",
+    "at": [
+      139.815171,
+      117.6,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "C40",
+      "Value": "33p / 50V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "CL10C330JB8NNNC",
+      "LCSC Part": "C1663",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 139.815171,
+        "y": 118.375,
+        "local": [
+          -0.775,
+          0.0
+        ],
+        "net": "+5V",
+        "size": [
+          0.9,
+          0.95
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 139.815171,
+        "y": 116.825,
+        "local": [
+          0.775,
+          0.0
+        ],
+        "net": "/5 V servo supply/FF_3",
+        "size": [
+          0.9,
+          0.95
+        ]
+      }
+    ]
+  },
+  "C19": {
+    "footprint": "Capacitor_SMD:C_1210_3225Metric",
+    "at": [
+      127.815171,
+      140.5,
+      -90
+    ],
+    "angle": -90.0,
+    "properties": {
+      "Reference": "C19",
+      "Value": "10u / 50V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "GRM32ER71H106KA12L",
+      "LCSC Part": "C77102",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 127.815171,
+        "y": 139.025,
+        "local": [
+          -1.475,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/VMOTOR",
+        "size": [
+          1.15,
+          2.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 127.815171,
+        "y": 141.975,
+        "local": [
+          1.475,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.15,
+          2.7
+        ]
+      }
+    ]
+  },
+  "J5": {
+    "footprint": "Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical",
+    "at": [
+      125.815171,
+      150.4
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "J5",
+      "Value": "LEFT WHEELS",
+      "Datasheet": "https://www.jst-mfg.com/product/pdf/eng/eEH.pdf",
+      "Description": "",
+      "KiLib_Generator": "connector/JST",
+      "MPN": "B4B-EH-A(LF)(SN)",
+      "LCSC Part": "C160258",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "Connector*:*_1x??_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 125.815171,
+        "y": 150.4,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.7,
+          1.95
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 128.315171,
+        "y": 150.4,
+        "local": [
+          2.5,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/VMOTOR",
+        "size": [
+          1.7,
+          1.95
+        ]
+      },
+      {
+        "pin": "3",
+        "x": 130.815171,
+        "y": 150.4,
+        "local": [
+          5.0,
+          0.0
+        ],
+        "net": "/DYNAMIXEL distribution/DXL_D_PLUS",
+        "size": [
+          1.7,
+          1.95
+        ]
+      },
+      {
+        "pin": "4",
+        "x": 133.315171,
+        "y": 150.4,
+        "local": [
+          7.5,
+          0.0
+        ],
+        "net": "/DYNAMIXEL distribution/DXL_D_MINUS",
+        "size": [
+          1.7,
+          1.95
+        ]
+      }
+    ]
+  },
+  "RS1": {
+    "footprint": "rover:CSS2H_2512_6.35x3.05",
+    "at": [
+      152.6,
+      61.3,
+      180
+    ],
+    "angle": 180.0,
+    "properties": {
+      "Reference": "RS1",
+      "Value": "2mR / 5W / 1%",
+      "Datasheet": "https://www.bourns.com/docs/product-datasheets/css2h-2512.pdf",
+      "Description": "",
+      "MPN": "CSS2H-2512K-2L00F",
+      "LCSC Part": "C2093761",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "R_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 155.2,
+        "y": 61.3,
+        "local": [
+          -2.6,
+          0.0
+        ],
+        "net": "/VBAT",
+        "size": [
+          1.8,
+          3.4
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 150.0,
+        "y": 61.3,
+        "local": [
+          2.6,
+          0.0
+        ],
+        "net": "/Battery input and INA226/BAT_SWITCHED",
+        "size": [
+          1.8,
+          3.4
+        ]
+      }
+    ]
+  },
+  "H4": {
+    "footprint": "MountingHole:MountingHole_3.2mm_M3",
+    "at": [
+      172,
+      150.2
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "H4",
+      "Value": "MountingHole_3.2mm_M3",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "mounting_hardware/mounting_hole"
+    },
+    "pads": [
+      {
+        "pin": "",
+        "x": 172.0,
+        "y": 150.2,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "",
+        "size": [
+          3.2,
+          3.2
+        ]
+      }
+    ]
+  },
+  "C18": {
+    "footprint": "Capacitor_SMD:C_1210_3225Metric",
+    "at": [
+      123.815171,
+      140.5,
+      -90
+    ],
+    "angle": -90.0,
+    "properties": {
+      "Reference": "C18",
+      "Value": "10u / 50V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "GRM32ER71H106KA12L",
+      "LCSC Part": "C77102",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 123.815171,
+        "y": 139.025,
+        "local": [
+          -1.475,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/VMOTOR",
+        "size": [
+          1.15,
+          2.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 123.815171,
+        "y": 141.975,
+        "local": [
+          1.475,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.15,
+          2.7
+        ]
+      }
+    ]
+  },
+  "R10": {
+    "footprint": "Resistor_SMD:R_0805_2012Metric",
+    "at": [
+      136.315171,
+      94.9,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "R10",
+      "Value": "100k / 1%",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "RC0805FR-07100KL",
+      "LCSC Part": "C96346",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "R_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 136.315171,
+        "y": 95.8125,
+        "local": [
+          -0.9125,
+          0.0
+        ],
+        "net": "+12V",
+        "size": [
+          1.025,
+          1.4
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 136.315171,
+        "y": 93.9875,
+        "local": [
+          0.9125,
+          0.0
+        ],
+        "net": "/12 V Jetson supply/FB_2",
+        "size": [
+          1.025,
+          1.4
+        ]
+      }
+    ]
+  },
+  "R18": {
+    "footprint": "Resistor_SMD:R_0805_2012Metric",
+    "at": [
+      136.315171,
+      135.2,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "R18",
+      "Value": "3.74k / 1%",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "0805W8F3741T5E",
+      "LCSC Part": "C65649",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "R_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 136.315171,
+        "y": 136.1125,
+        "local": [
+          -0.9125,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/FB_4",
+        "size": [
+          1.025,
+          1.4
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 136.315171,
+        "y": 134.2875,
+        "local": [
+          0.9125,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/AGND_4",
+        "size": [
+          1.025,
+          1.4
+        ]
+      }
+    ]
+  },
+  "C22": {
+    "footprint": "Capacitor_SMD:C_1210_3225Metric",
+    "at": [
+      123.815171,
+      96.5,
+      -90
+    ],
+    "angle": -90.0,
+    "properties": {
+      "Reference": "C22",
+      "Value": "22u / 25V",
+      "Datasheet": "https://product.samsungsem.com/mlcc/CL32B226KAJNNN.do",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "CL32B226KAJNNNE",
+      "LCSC Part": "C309062",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 123.815171,
+        "y": 95.025,
+        "local": [
+          -1.475,
+          0.0
+        ],
+        "net": "+12V",
+        "size": [
+          1.15,
+          2.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 123.815171,
+        "y": 97.975,
+        "local": [
+          1.475,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.15,
+          2.7
+        ]
+      }
+    ]
+  },
+  "C5": {
+    "footprint": "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm",
+    "at": [
+      149.315171,
+      142.5
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "C5",
+      "Value": "220u / 50V",
+      "Datasheet": "https://datasheet.lcsc.com/datasheet/pdf/d9089262f7a6df5ba99d8a966a03ede0.pdf?productCode=C178407",
+      "Description": "",
+      "KiLib_Generator": "capacitor/THT/other",
+      "MPN": "EEU-FR1H221B",
+      "LCSC Part": "C1579630",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "CP_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 149.315171,
+        "y": 142.5,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/VMOTOR",
+        "size": [
+          2,
+          2
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 154.315171,
+        "y": 142.5,
+        "local": [
+          5.0,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          2,
+          2
+        ]
+      }
+    ]
+  },
+  "R12": {
+    "footprint": "Resistor_SMD:R_0805_2012Metric",
+    "at": [
+      136.315171,
+      138.9,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "R12",
+      "Value": "100k / 1%",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "RC0805FR-07100KL",
+      "LCSC Part": "C96346",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "R_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 136.315171,
+        "y": 139.8125,
+        "local": [
+          -0.9125,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/VMOTOR",
+        "size": [
+          1.025,
+          1.4
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 136.315171,
+        "y": 137.9875,
+        "local": [
+          0.9125,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/FB_4",
+        "size": [
+          1.025,
+          1.4
+        ]
+      }
+    ]
+  },
+  "C28": {
+    "footprint": "Capacitor_SMD:C_1210_3225Metric",
+    "at": [
+      131.815171,
+      118.5,
+      -90
+    ],
+    "angle": -90.0,
+    "properties": {
+      "Reference": "C28",
+      "Value": "22u / 25V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "CL32B226KAJNNNE",
+      "LCSC Part": "C309062",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 131.815171,
+        "y": 117.025,
+        "local": [
+          -1.475,
+          0.0
+        ],
+        "net": "+5V",
+        "size": [
+          1.15,
+          2.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 131.815171,
+        "y": 119.975,
+        "local": [
+          1.475,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.15,
+          2.7
+        ]
+      }
+    ]
+  },
+  "R16": {
+    "footprint": "Resistor_SMD:R_0805_2012Metric",
+    "at": [
+      136.315171,
+      113.2,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "R16",
+      "Value": "19.1k / 1%",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "0805W8F1912T5E",
+      "LCSC Part": "C17508",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "R_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 136.315171,
+        "y": 114.1125,
+        "local": [
+          -0.9125,
+          0.0
+        ],
+        "net": "/5 V servo supply/FB_3",
+        "size": [
+          1.025,
+          1.4
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 136.315171,
+        "y": 112.2875,
+        "local": [
+          0.9125,
+          0.0
+        ],
+        "net": "/5 V servo supply/AGND_3",
+        "size": [
+          1.025,
+          1.4
+        ]
+      }
+    ]
+  },
+  "R15": {
+    "footprint": "Resistor_SMD:R_0805_2012Metric",
+    "at": [
+      139.315171,
+      133.5,
+      180
+    ],
+    "angle": 180.0,
+    "properties": {
+      "Reference": "R15",
+      "Value": "100k / 1%",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "RC0805FR-07100KL",
+      "LCSC Part": "C96346",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "R_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 140.227671,
+        "y": 133.5,
+        "local": [
+          -0.9125,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/MOTOR_EN",
+        "size": [
+          1.025,
+          1.4
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 138.402671,
+        "y": 133.5,
+        "local": [
+          0.9125,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/AGND_4",
+        "size": [
+          1.025,
+          1.4
+        ]
+      }
+    ]
+  },
+  "C10": {
+    "footprint": "Capacitor_SMD:C_1210_3225Metric",
+    "at": [
+      137.115171,
+      85.6,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "C10",
+      "Value": "10u / 50V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "GRM32ER71H106KA12L",
+      "LCSC Part": "C77102",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 137.115171,
+        "y": 87.075,
+        "local": [
+          -1.475,
+          0.0
+        ],
+        "net": "/VBAT",
+        "size": [
+          1.15,
+          2.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 137.115171,
+        "y": 84.125,
+        "local": [
+          1.475,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.15,
+          2.7
+        ]
+      }
+    ]
+  },
+  "R14": {
+    "footprint": "Resistor_SMD:R_0805_2012Metric",
+    "at": [
+      139.315171,
+      111.5,
+      180
+    ],
+    "angle": 180.0,
+    "properties": {
+      "Reference": "R14",
+      "Value": "100k / 1%",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "RC0805FR-07100KL",
+      "LCSC Part": "C96346",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "R_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 140.227671,
+        "y": 111.5,
+        "local": [
+          -0.9125,
+          0.0
+        ],
+        "net": "/VBAT",
+        "size": [
+          1.025,
+          1.4
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 138.402671,
+        "y": 111.5,
+        "local": [
+          0.9125,
+          0.0
+        ],
+        "net": "/5 V servo supply/EN_3",
+        "size": [
+          1.025,
+          1.4
+        ]
+      }
+    ]
+  },
+  "J1": {
+    "footprint": "Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical",
+    "at": [
+      110.5,
+      150.3
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "J1",
+      "Value": "U2D2 DATA IN",
+      "Datasheet": "https://www.jst-mfg.com/product/pdf/eng/eEH.pdf",
+      "Description": "",
+      "KiLib_Generator": "connector/JST",
+      "MPN": "B4B-EH-A(LF)(SN)",
+      "LCSC Part": "C160258",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "Connector*:*_1x??_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 110.5,
+        "y": 150.3,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.7,
+          1.95
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 113.0,
+        "y": 150.3,
+        "local": [
+          2.5,
+          0.0
+        ],
+        "net": "unconnected-(J1-Pin_2-Pad2)",
+        "size": [
+          1.7,
+          1.95
+        ]
+      },
+      {
+        "pin": "3",
+        "x": 115.5,
+        "y": 150.3,
+        "local": [
+          5.0,
+          0.0
+        ],
+        "net": "/DYNAMIXEL distribution/DXL_D_PLUS",
+        "size": [
+          1.7,
+          1.95
+        ]
+      },
+      {
+        "pin": "4",
+        "x": 118.0,
+        "y": 150.3,
+        "local": [
+          7.5,
+          0.0
+        ],
+        "net": "/DYNAMIXEL distribution/DXL_D_MINUS",
+        "size": [
+          1.7,
+          1.95
+        ]
+      }
+    ]
+  },
+  "C34": {
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "at": [
+      129.315171,
+      110.75,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "C34",
+      "Value": "100n / 50V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "CL21B104KBCNNNC",
+      "LCSC Part": "C1711",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 129.315171,
+        "y": 111.7,
+        "local": [
+          -0.95,
+          0.0
+        ],
+        "net": "/5 V servo supply/BOOT_3",
+        "size": [
+          1,
+          1.45
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 129.315171,
+        "y": 109.8,
+        "local": [
+          0.95,
+          0.0
+        ],
+        "net": "/5 V servo supply/SW_3",
+        "size": [
+          1,
+          1.45
+        ]
+      }
+    ]
+  },
+  "H1": {
+    "footprint": "MountingHole:MountingHole_3.2mm_M3",
+    "at": [
+      103,
+      59.2
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "H1",
+      "Value": "MountingHole_3.2mm_M3",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "mounting_hardware/mounting_hole"
+    },
+    "pads": [
+      {
+        "pin": "",
+        "x": 103.0,
+        "y": 59.2,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "",
+        "size": [
+          3.2,
+          3.2
+        ]
+      }
+    ]
+  },
+  "R2": {
+    "footprint": "Resistor_SMD:R_0805_2012Metric",
+    "at": [
+      165.9,
+      67.8,
+      180
+    ],
+    "angle": 180.0,
+    "properties": {
+      "Reference": "R2",
+      "Value": "4k7 / 1%",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "RC0805FR-074K7L",
+      "LCSC Part": "C60816",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "R_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 166.8125,
+        "y": 67.8,
+        "local": [
+          -0.9125,
+          0.0
+        ],
+        "net": "+3V3",
+        "size": [
+          1.025,
+          1.4
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 164.9875,
+        "y": 67.8,
+        "local": [
+          0.9125,
+          0.0
+        ],
+        "net": "/Battery input and INA226/I2C_SCL",
+        "size": [
+          1.025,
+          1.4
+        ]
+      }
+    ]
+  },
+  "R19": {
+    "footprint": "Resistor_SMD:R_0805_2012Metric",
+    "at": [
+      145.8,
+      135.9,
+      180
+    ],
+    "angle": 180.0,
+    "properties": {
+      "Reference": "R19",
+      "Value": "100k / 1%",
+      "Datasheet": "https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-07100KL",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "RC0805FR-07100KL",
+      "LCSC Part": "C96346",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "R_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 146.7125,
+        "y": 135.9,
+        "local": [
+          -0.9125,
+          0.0
+        ],
+        "net": "/VBAT",
+        "size": [
+          1.025,
+          1.4
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 144.8875,
+        "y": 135.9,
+        "local": [
+          0.9125,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/SW_SUPPLY",
+        "size": [
+          1.025,
+          1.4
+        ]
+      }
+    ]
+  },
+  "FID2": {
+    "footprint": "Fiducial:Fiducial_1mm_Mask2mm",
+    "at": [
+      171,
+      65.7
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "FID2",
+      "Value": "Fiducial",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "fiducial"
+    },
+    "pads": [
+      {
+        "pin": "",
+        "x": 171.0,
+        "y": 65.7,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "",
+        "size": [
+          1,
+          1
+        ]
+      }
+    ]
+  },
+  "C12": {
+    "footprint": "Capacitor_SMD:C_1210_3225Metric",
+    "at": [
+      137.115171,
+      107.6,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "C12",
+      "Value": "10u / 50V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "GRM32ER71H106KA12L",
+      "LCSC Part": "C77102",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 137.115171,
+        "y": 109.075,
+        "local": [
+          -1.475,
+          0.0
+        ],
+        "net": "/VBAT",
+        "size": [
+          1.15,
+          2.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 137.115171,
+        "y": 106.125,
+        "local": [
+          1.475,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.15,
+          2.7
+        ]
+      }
+    ]
+  },
+  "H3": {
+    "footprint": "MountingHole:MountingHole_3.2mm_M3",
+    "at": [
+      103,
+      150.2
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "H3",
+      "Value": "MountingHole_3.2mm_M3",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "mounting_hardware/mounting_hole"
+    },
+    "pads": [
+      {
+        "pin": "",
+        "x": 103.0,
+        "y": 150.2,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "",
+        "size": [
+          3.2,
+          3.2
+        ]
+      }
+    ]
+  },
+  "J7": {
+    "footprint": "Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical",
+    "at": [
+      140.6,
+      150.3
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "J7",
+      "Value": "HAMMER",
+      "Datasheet": "https://www.jst-mfg.com/product/pdf/eng/eEH.pdf",
+      "Description": "",
+      "KiLib_Generator": "connector/JST",
+      "MPN": "B4B-EH-A(LF)(SN)",
+      "LCSC Part": "C160258",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "Connector*:*_1x??_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 140.6,
+        "y": 150.3,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.7,
+          1.95
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 143.1,
+        "y": 150.3,
+        "local": [
+          2.5,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/VMOTOR",
+        "size": [
+          1.7,
+          1.95
+        ]
+      },
+      {
+        "pin": "3",
+        "x": 145.6,
+        "y": 150.3,
+        "local": [
+          5.0,
+          0.0
+        ],
+        "net": "/DYNAMIXEL distribution/DXL_D_PLUS",
+        "size": [
+          1.7,
+          1.95
+        ]
+      },
+      {
+        "pin": "4",
+        "x": 148.1,
+        "y": 150.3,
+        "local": [
+          7.5,
+          0.0
+        ],
+        "net": "/DYNAMIXEL distribution/DXL_D_MINUS",
+        "size": [
+          1.7,
+          1.95
+        ]
+      }
+    ]
+  },
+  "J3": {
+    "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+    "at": [
+      166.804829,
+      132.6,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "J3",
+      "Value": "LIFT B",
+      "Datasheet": "https://suddendocs.samtec.com/catalog_english/tsw_th.pdf",
+      "Description": "",
+      "KiLib_Generator": "connector/pin_header_socket",
+      "MPN": "TSW-103-07-G-S",
+      "LCSC Part": "C3335811",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "Connector*:*_1x??_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 166.804829,
+        "y": 132.6,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "/Pico 2 and hobby servos/PWM_LIFT_B",
+        "size": [
+          1.7,
+          1.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 169.344829,
+        "y": 132.6,
+        "local": [
+          0.0,
+          2.54
+        ],
+        "net": "+5V",
+        "size": [
+          1.7,
+          1.7
+        ]
+      },
+      {
+        "pin": "3",
+        "x": 171.884829,
+        "y": 132.6,
+        "local": [
+          0.0,
+          5.08
+        ],
+        "net": "GND",
+        "size": [
+          1.7,
+          1.7
+        ]
+      }
+    ]
+  },
+  "J2": {
+    "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+    "at": [
+      166.804829,
+      127.2,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "J2",
+      "Value": "LIFT A",
+      "Datasheet": "https://suddendocs.samtec.com/catalog_english/tsw_th.pdf",
+      "Description": "",
+      "KiLib_Generator": "connector/pin_header_socket",
+      "MPN": "TSW-103-07-G-S",
+      "LCSC Part": "C3335811",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "Connector*:*_1x??_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 166.804829,
+        "y": 127.2,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "/Pico 2 and hobby servos/PWM_LIFT_A",
+        "size": [
+          1.7,
+          1.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 169.344829,
+        "y": 127.2,
+        "local": [
+          0.0,
+          2.54
+        ],
+        "net": "+5V",
+        "size": [
+          1.7,
+          1.7
+        ]
+      },
+      {
+        "pin": "3",
+        "x": 171.884829,
+        "y": 127.2,
+        "local": [
+          0.0,
+          5.08
+        ],
+        "net": "GND",
+        "size": [
+          1.7,
+          1.7
+        ]
+      }
+    ]
+  },
+  "R17": {
+    "footprint": "Resistor_SMD:R_0805_2012Metric",
+    "at": [
+      136.315171,
+      91.2,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "R17",
+      "Value": "7.15k / 1%",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "0805W8F7151T5E",
+      "LCSC Part": "C17806",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "R_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 136.315171,
+        "y": 92.1125,
+        "local": [
+          -0.9125,
+          0.0
+        ],
+        "net": "/12 V Jetson supply/FB_2",
+        "size": [
+          1.025,
+          1.4
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 136.315171,
+        "y": 90.2875,
+        "local": [
+          0.9125,
+          0.0
+        ],
+        "net": "/12 V Jetson supply/AGND_2",
+        "size": [
+          1.025,
+          1.4
+        ]
+      }
+    ]
+  },
+  "R22": {
+    "footprint": "Resistor_SMD:R_0805_2012Metric",
+    "at": [
+      139.815171,
+      114.3,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "R22",
+      "Value": "1k / 1%",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "0805W8F1001T5E",
+      "LCSC Part": "C17513",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "R_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 139.815171,
+        "y": 115.2125,
+        "local": [
+          -0.9125,
+          0.0
+        ],
+        "net": "/5 V servo supply/FF_3",
+        "size": [
+          1.025,
+          1.4
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 139.815171,
+        "y": 113.3875,
+        "local": [
+          0.9125,
+          0.0
+        ],
+        "net": "/5 V servo supply/FB_3",
+        "size": [
+          1.025,
+          1.4
+        ]
+      }
+    ]
+  },
+  "C11": {
+    "footprint": "Capacitor_SMD:C_1210_3225Metric",
+    "at": [
+      141.115171,
+      85.6,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "C11",
+      "Value": "10u / 50V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "GRM32ER71H106KA12L",
+      "LCSC Part": "C77102",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 141.115171,
+        "y": 87.075,
+        "local": [
+          -1.475,
+          0.0
+        ],
+        "net": "/VBAT",
+        "size": [
+          1.15,
+          2.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 141.115171,
+        "y": 84.125,
+        "local": [
+          1.475,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.15,
+          2.7
+        ]
+      }
+    ]
+  },
+  "P4": {
+    "footprint": "rover:WirePads_2_5x6_P9",
+    "at": [
+      104.8,
+      133.1,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "P4",
+      "Value": "5V EXP / UNWIRED",
+      "Datasheet": "",
+      "Description": "",
+      "MPN": "5V EXP / UNWIRED",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "Connector*:*_1x??_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 104.8,
+        "y": 137.6,
+        "local": [
+          -4.5,
+          0.0
+        ],
+        "net": "+5V",
+        "size": [
+          5,
+          6
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 104.8,
+        "y": 128.6,
+        "local": [
+          4.5,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          5,
+          6
+        ]
+      }
+    ]
+  },
+  "C32": {
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "at": [
+      133.265171,
+      129.1,
+      180
+    ],
+    "angle": 180.0,
+    "properties": {
+      "Reference": "C32",
+      "Value": "100n / 50V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "CL21B104KBCNNNC",
+      "LCSC Part": "C1711",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 134.215171,
+        "y": 129.1,
+        "local": [
+          -0.95,
+          0.0
+        ],
+        "net": "/VBAT",
+        "size": [
+          1,
+          1.45
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 132.315171,
+        "y": 129.1,
+        "local": [
+          0.95,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1,
+          1.45
+        ]
+      }
+    ]
+  },
+  "R1": {
+    "footprint": "Resistor_SMD:R_0805_2012Metric",
+    "at": [
+      161.4,
+      66.3,
+      180
+    ],
+    "angle": 180.0,
+    "properties": {
+      "Reference": "R1",
+      "Value": "4k7 / 1%",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "RC0805FR-074K7L",
+      "LCSC Part": "C60816",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "R_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 162.3125,
+        "y": 66.3,
+        "local": [
+          -0.9125,
+          0.0
+        ],
+        "net": "+3V3",
+        "size": [
+          1.025,
+          1.4
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 160.4875,
+        "y": 66.3,
+        "local": [
+          0.9125,
+          0.0
+        ],
+        "net": "/Battery input and INA226/I2C_SDA",
+        "size": [
+          1.025,
+          1.4
+        ]
+      }
+    ]
+  },
+  "C33": {
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "at": [
+      129.315171,
+      88.75,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "C33",
+      "Value": "100n / 50V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "CL21B104KBCNNNC",
+      "LCSC Part": "C1711",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 129.315171,
+        "y": 89.7,
+        "local": [
+          -0.95,
+          0.0
+        ],
+        "net": "/12 V Jetson supply/BOOT_2",
+        "size": [
+          1,
+          1.45
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 129.315171,
+        "y": 87.8,
+        "local": [
+          0.95,
+          0.0
+        ],
+        "net": "/12 V Jetson supply/SW_2",
+        "size": [
+          1,
+          1.45
+        ]
+      }
+    ]
+  },
+  "D2": {
+    "footprint": "rover:KT0805G_0805_A1_K2",
+    "at": [
+      149.815171,
+      58,
+      180
+    ],
+    "angle": 180.0,
+    "properties": {
+      "Reference": "D2",
+      "Value": "GREEN",
+      "Datasheet": "https://datasheet.lcsc.com/datasheet/pdf/de342fde3322df0797012cd7a04e2194.pdf?productCode=C2297",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "KT-0805G",
+      "LCSC Part": "C2297",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "LED* LED_SMD:* LED_THT:*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 148.865171,
+        "y": 58.0,
+        "local": [
+          0.95,
+          0.0
+        ],
+        "net": "/22.19 V motor supply/LED_A",
+        "size": [
+          1,
+          1.4
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 150.765171,
+        "y": 58.0,
+        "local": [
+          -0.95,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1,
+          1.4
+        ]
+      }
+    ]
+  },
+  "TP6": {
+    "footprint": "TestPoint:TestPoint_Pad_D2.0mm",
+    "at": [
+      173,
+      117.6
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "TP6",
+      "Value": "GND",
+      "Datasheet": "",
+      "Description": "",
+      "MPN": "GND",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "Pin* Test*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 173.0,
+        "y": 117.6,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          2,
+          2
+        ]
+      }
+    ]
+  },
+  "C30": {
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "at": [
+      133.265171,
+      85.1,
+      180
+    ],
+    "angle": 180.0,
+    "properties": {
+      "Reference": "C30",
+      "Value": "100n / 50V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "CL21B104KBCNNNC",
+      "LCSC Part": "C1711",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 134.215171,
+        "y": 85.1,
+        "local": [
+          -0.95,
+          0.0
+        ],
+        "net": "/VBAT",
+        "size": [
+          1,
+          1.45
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 132.315171,
+        "y": 85.1,
+        "local": [
+          0.95,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1,
+          1.45
+        ]
+      }
+    ]
+  },
+  "FID1": {
+    "footprint": "Fiducial:Fiducial_1mm_Mask2mm",
+    "at": [
+      104.4,
+      69.1
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "FID1",
+      "Value": "Fiducial",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "fiducial"
+    },
+    "pads": [
+      {
+        "pin": "",
+        "x": 104.4,
+        "y": 69.1,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "",
+        "size": [
+          1,
+          1
+        ]
+      }
+    ]
+  },
+  "J4": {
+    "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+    "at": [
+      166.804829,
+      138,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "J4",
+      "Value": "CAMERA PAN",
+      "Datasheet": "https://suddendocs.samtec.com/catalog_english/tsw_th.pdf",
+      "Description": "",
+      "KiLib_Generator": "connector/pin_header_socket",
+      "MPN": "TSW-103-07-G-S",
+      "LCSC Part": "C3335811",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "Connector*:*_1x??_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 166.804829,
+        "y": 138.0,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "/Pico 2 and hobby servos/PWM_PAN",
+        "size": [
+          1.7,
+          1.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 169.344829,
+        "y": 138.0,
+        "local": [
+          0.0,
+          2.54
+        ],
+        "net": "+5V",
+        "size": [
+          1.7,
+          1.7
+        ]
+      },
+      {
+        "pin": "3",
+        "x": 171.884829,
+        "y": 138.0,
+        "local": [
+          0.0,
+          5.08
+        ],
+        "net": "GND",
+        "size": [
+          1.7,
+          1.7
+        ]
+      }
+    ]
+  },
+  "C20": {
+    "footprint": "Capacitor_SMD:C_1210_3225Metric",
+    "at": [
+      115.815171,
+      96.5,
+      -90
+    ],
+    "angle": -90.0,
+    "properties": {
+      "Reference": "C20",
+      "Value": "22u / 25V",
+      "Datasheet": "https://product.samsungsem.com/mlcc/CL32B226KAJNNN.do",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "CL32B226KAJNNNE",
+      "LCSC Part": "C309062",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 115.815171,
+        "y": 95.025,
+        "local": [
+          -1.475,
+          0.0
+        ],
+        "net": "+12V",
+        "size": [
+          1.15,
+          2.7
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 115.815171,
+        "y": 97.975,
+        "local": [
+          1.475,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.15,
+          2.7
+        ]
+      }
+    ]
+  },
+  "TP5": {
+    "footprint": "TestPoint:TestPoint_Pad_D2.0mm",
+    "at": [
+      164.6,
+      58.4
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "TP5",
+      "Value": "+3V3",
+      "Datasheet": "",
+      "Description": "",
+      "MPN": "+3V3",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "Pin* Test*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 164.6,
+        "y": 58.4,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "+3V3",
+        "size": [
+          2,
+          2
+        ]
+      }
+    ]
+  },
+  "C39": {
+    "footprint": "Capacitor_SMD:C_0603_1608Metric",
+    "at": [
+      139.815171,
+      95.6,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "C39",
+      "Value": "33p / 50V",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "CL10C330JB8NNNC",
+      "LCSC Part": "C1663",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "C_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 139.815171,
+        "y": 96.375,
+        "local": [
+          -0.775,
+          0.0
+        ],
+        "net": "+12V",
+        "size": [
+          0.9,
+          0.95
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 139.815171,
+        "y": 94.825,
+        "local": [
+          0.775,
+          0.0
+        ],
+        "net": "/12 V Jetson supply/FF_2",
+        "size": [
+          0.9,
+          0.95
+        ]
+      }
+    ]
+  },
+  "R3": {
+    "footprint": "Resistor_SMD:R_0805_2012Metric",
+    "at": [
+      163.1,
+      127.0125,
+      -90
+    ],
+    "angle": -90.0,
+    "properties": {
+      "Reference": "R3",
+      "Value": "10k",
+      "Datasheet": "",
+      "Description": "",
+      "KiLib_Generator": "SMD_2terminal_chip_molded",
+      "MPN": "RC0805FR-0710KL",
+      "LCSC Part": "C84376",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "R_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 163.1,
+        "y": 126.1,
+        "local": [
+          -0.9125,
+          0.0
+        ],
+        "net": "/Pico 2 and hobby servos/PWM_LIFT_A",
+        "size": [
+          1.025,
+          1.4
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 163.1,
+        "y": 127.925,
+        "local": [
+          0.9125,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.025,
+          1.4
+        ]
+      }
+    ]
+  },
+  "U4": {
+    "footprint": "rover:LMR51450_DRR_WSON12_3x3",
+    "at": [
+      132.315171,
+      132
+    ],
+    "angle": 0,
+    "properties": {
+      "Reference": "U4",
+      "Value": "LMR51450SDRRR",
+      "Datasheet": "https://www.ti.com/lit/ds/symlink/lmr51450.pdf",
+      "Description": "",
+      "LCSC Part": "C6890985",
+      "MPN": "LMR51450SDRRR",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED"
+    },
+    "pads": [
+      {
+        "pin": "",
+        "x": 132.315171,
+        "y": 131.35,
+        "local": [
+          0.0,
+          -0.65
+        ],
+        "net": "",
+        "size": [
+          1.21,
+          1.1
+        ]
+      },
+      {
+        "pin": "",
+        "x": 132.315171,
+        "y": 132.65,
+        "local": [
+          0.0,
+          0.65
+        ],
+        "net": "",
+        "size": [
+          1.21,
+          1.1
+        ]
+      },
+      {
+        "pin": "1",
+        "x": 130.925171,
+        "y": 130.75,
+        "local": [
+          -1.39,
+          -1.25
+        ],
+        "net": "/22.19 V motor supply/SW_4",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 130.925171,
+        "y": 131.25,
+        "local": [
+          -1.39,
+          -0.75
+        ],
+        "net": "/22.19 V motor supply/SW_4",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "3",
+        "x": 130.925171,
+        "y": 131.75,
+        "local": [
+          -1.39,
+          -0.25
+        ],
+        "net": "/22.19 V motor supply/SW_4",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "4",
+        "x": 130.925171,
+        "y": 132.25,
+        "local": [
+          -1.39,
+          0.25
+        ],
+        "net": "/22.19 V motor supply/BOOT_4",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "5",
+        "x": 130.925171,
+        "y": 132.75,
+        "local": [
+          -1.39,
+          0.75
+        ],
+        "net": "unconnected-(U4-PG-Pad5)",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "6",
+        "x": 130.925171,
+        "y": 133.25,
+        "local": [
+          -1.39,
+          1.25
+        ],
+        "net": "unconnected-(U4-RT-Pad6)",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "7",
+        "x": 133.705171,
+        "y": 133.25,
+        "local": [
+          1.39,
+          1.25
+        ],
+        "net": "/22.19 V motor supply/FB_4",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "8",
+        "x": 133.705171,
+        "y": 132.75,
+        "local": [
+          1.39,
+          0.75
+        ],
+        "net": "/22.19 V motor supply/AGND_4",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "9",
+        "x": 133.705171,
+        "y": 132.25,
+        "local": [
+          1.39,
+          0.25
+        ],
+        "net": "/22.19 V motor supply/MOTOR_EN",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "10",
+        "x": 133.705171,
+        "y": 131.75,
+        "local": [
+          1.39,
+          -0.25
+        ],
+        "net": "/VBAT",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "11",
+        "x": 133.705171,
+        "y": 131.25,
+        "local": [
+          1.39,
+          -0.75
+        ],
+        "net": "/VBAT",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "12",
+        "x": 133.705171,
+        "y": 130.75,
+        "local": [
+          1.39,
+          -1.25
+        ],
+        "net": "/VBAT",
+        "size": [
+          0.62,
+          0.25
+        ]
+      },
+      {
+        "pin": "13",
+        "x": 132.315171,
+        "y": 132.0,
+        "local": [
+          0.0,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          1.3,
+          2.5
+        ]
+      }
+    ]
+  },
+  "P3": {
+    "footprint": "rover:WirePads_2_5x6_P9",
+    "at": [
+      104.7,
+      111.9,
+      90
+    ],
+    "angle": 90.0,
+    "properties": {
+      "Reference": "P3",
+      "Value": "12V EXP / UNWIRED",
+      "Datasheet": "",
+      "Description": "",
+      "MPN": "12V EXP / UNWIRED",
+      "Review status": "SCHEMATIC REVIEW - NOT RELEASED",
+      "ki_fp_filters": "Connector*:*_1x??_*"
+    },
+    "pads": [
+      {
+        "pin": "1",
+        "x": 104.7,
+        "y": 116.4,
+        "local": [
+          -4.5,
+          0.0
+        ],
+        "net": "GND",
+        "size": [
+          5,
+          6
+        ]
+      },
+      {
+        "pin": "2",
+        "x": 104.7,
+        "y": 107.4,
+        "local": [
+          4.5,
+          0.0
+        ],
+        "net": "+12V",
+        "size": [
+          5,
+          6
+        ]
+      }
+    ]
+  }
+}

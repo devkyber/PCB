@@ -28,7 +28,7 @@ def inspect_layout(project, intent, pcb, toolchain):
         validate_layout_intent(intent, set(parts), set(nets))
     except ValueError as exc:
         findings.append(Finding("layout.intent", str(exc)))
-    if _board_nets(board) != nets:
+    if _board_nets(board, parts) != nets:
         findings.append(
             Finding(
                 "layout.parity", "Schematic/PCB qualified pin-net assignments differ"
@@ -288,7 +288,7 @@ def render_layout_preview(toolchain, pcb: Path, output: Path):
         findings.append(Finding("preview.failed", str(exc)))
         plot.unlink(missing_ok=True)
     try:
-        run("step", ["pcb", "export", "step", "--force", "-o", str(step), str(pcb)])
+        run("step", ["pcb", "export", "step", "--subst-models", "--force", "-o", str(step), str(pcb)])
         if not step.is_file():
             raise ValueError("No STEP file produced")
     except (OSError, ValueError, subprocess.TimeoutExpired) as exc:

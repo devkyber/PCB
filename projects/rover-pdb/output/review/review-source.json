@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "source_hashes": {
+    "rover-pdb.kicad_pcb": "4cfc5eb7b2b986b471b8c3e80f0de72ce629481680a0ee062e0dff92b51660fe",
+    "rover-pdb.kicad_pro": "b88f5b7ef1f1badfab83a8378abcf14b01ba1b452cda6bceafc9fc8f5188df70",
+    "rover-pdb.kicad_dru": null
+  },
+  "svg_hashes": {
+    "assembly.svg": "d03a78555f563d7ef578f0ac7ca29339a5c17e905f16434844198af79a0e6df1",
+    "top-copper.svg": "d6a65395c07093efb0c359f567676c0f69604d4ee96cea5660a83cbc845209a0",
+    "bottom-copper.svg": "5fab1d15d375dd1295385a1527c0be582dcaa5b8b38e5a29ce60debe0bafc6a1"
+  },
+  "kicad_version": "10.0.6",
+  "view_orientation": {
+    "assembly.svg": "top",
+    "top-copper.svg": "top",
+    "bottom-copper.svg": "underside; mirrored relative to top"
+  },
+  "scope": "Fresh native review views; not a DRC, parity or fabrication approval"
+}

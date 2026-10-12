@@ -9,11 +9,16 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from pcb_copilot import deviations
+from pcb_copilot.copper_features import copper_feature_type
 from pcb_copilot.evidence.checks import Part, check_evidence
-from pcb_copilot.evidence.inventory import MODULE_HINTS, inventory
+from pcb_copilot.evidence.inventory import MODULE_HINTS, _blocks, _prop, inventory
+from pcb_copilot.layout.render import board_pin_nets, native_board, schematic_inventory
+from pcb_copilot.layout.schematic_links import compare_schematic_links
 from pcb_copilot.models import Project
-from pcb_copilot.layout.render import native_board, schematic_inventory
+from pcb_copilot.jlcpcb import check_jlcpcb_review
 from pcb_copilot.review.models import CheckResult, CheckScope
+from pcb_copilot.review.routing_settings import RoutingSettingsCheck
+from pcb_copilot.review.routing_topology import RoutingTopologyCheck
 from pcb_copilot.review.schematic_quality import SchematicQualityCheck
 from pcb_copilot.review.signoff import SignoffCheck
 from pcb_copilot.schematic.netmap import extract
@@ -90,19 +95,18 @@ def check_netmap(project: Project) -> tuple[bool, str]:
                            f'netmap is stale for: {", ".join(differing)}')
 
 
-def check_parity(project: Project) -> tuple[bool, str]:
+def check_parity(project: Project, *, include_links: bool = True) -> tuple[bool, str]:
     toolchain = _toolchain()
     parts, schematic = schematic_inventory(toolchain, project.schematic_path)
     footprints = native_board(toolchain, project.pcb_path)['footprints']
-    board = {}
-    for ref, footprint in footprints.items():
-        for pin, net in footprint['pads']:
-            if net:
-                board.setdefault(net.lstrip('/'), set()).add((ref, pin))
+    board = board_pin_nets(footprints, parts)
     differences = [f'{name}: schematic {sorted(schematic.get(name, set()))}; PCB {sorted(board.get(name, set()))}'
                    for name in sorted(set(schematic) | set(board)) if schematic.get(name) != board.get(name)]
     differences.extend(compare_physical_parts(parts, footprints))
-    return not differences, ('exact schematic/PCB pin-net parity' if not differences else '\n'.join(differences))
+    if include_links:
+        differences.extend(compare_schematic_links(parts, footprints))
+    detail = 'exact schematic/PCB pin-net parity' + (' and schematic links' if include_links else '')
+    return not differences, detail if not differences else '\n'.join(differences)
 
 
 def compare_physical_parts(parts, footprints) -> list[str]:
@@ -144,8 +148,13 @@ def check_design_rules(project: Project) -> tuple[bool, str]:
 
 
 def _parts(project: Project, *, datasheets=False):
-    items = inventory(project.pcb_path.read_text(encoding='utf-8'))
+    text = project.pcb_path.read_text(encoding='utf-8')
+    copper = {_prop(block, 'Reference') for block in _blocks(text)
+              if copper_feature_type(block)}
+    items = inventory(text)
     for ref, value, _pads, _lcsc, key in items:
+        if ref in copper:
+            continue  # Fabricated copper has no purchased-component datasheet.
         module = any(hint in value.lower() for hint in MODULE_HINTS)
         prefix = re.match(r'[A-Za-z]+', ref)
         exempt = prefix and prefix.group() in {'R', 'C', 'L', 'TP', 'FID', 'H', 'LED', 'J'} and not module
@@ -194,15 +203,22 @@ class MachineCheck:
 
 
 def current_checks() -> tuple:
+    from pcb_copilot.assembly import check_assembly
     entries = (
         ('research', check_research, 'requirements, cited basis and source integrity', 'engineering validity of those choices', False),
         ('datasheets', check_datasheets, 'required datasheets are archived and verified', 'interpretation of electrical limits', False),
         ('erc', check_erc, 'fresh KiCad electrical-rule findings', 'circuit fitness or safe operation', True),
         ('schematic_ownership', check_netmap, 'netmap matches the current schematic', 'circuit correctness', True),
-        ('netlist_parity', check_parity, 'exact schematic/PCB pin-net agreement', 'which circuit is correct', True),
+        ('netlist_parity', check_parity, 'exact schematic/PCB pin-net agreement and forward-annotation links', 'which circuit is correct', True),
         ('placement', check_placement, 'implemented placement geometry checks', 'assembly or enclosure fit', False),
         ('design_rules', check_design_rules, 'geometric rules 1.2, 2.2, 5.1 and 6.1', 'all house rules or source applicability', True),
         ('drc', check_drc, 'two fresh zone-refilled DRC runs and routing completeness', 'RF, thermal or functional behavior', True),
+        ('jlcpcb_dfm', check_jlcpcb_review, 'independent dated JLCPCB geometry and declared stackup checks',
+         'assembly eligibility, current capacity or supplier order acceptance', True),
+        ('assembly_contracts', check_assembly, 'exact-part rotation rules, local model files and wire-pad label/net association',
+         'supplier preview approval, mechanical fit or model shape correctness', False),
     )
     return tuple(MachineCheck(name, fn, CheckScope(proves, limit, name != 'drc', external))
-                 for name, fn, proves, limit, external in entries) + (SchematicQualityCheck(), SignoffCheck())
+                 for name, fn, proves, limit, external in entries) + (
+                     RoutingSettingsCheck(), RoutingTopologyCheck(), SchematicQualityCheck(), SignoffCheck(),
+                 )

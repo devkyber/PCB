@@ -30,7 +30,7 @@ def input_hashes(project: Project, *, include_signoff: bool = True) -> dict[str,
     paths.update(project.root / name for name in (
         'REQUIREMENTS.md', 'DESIGN_BASIS.md', 'REFERENCE_REVIEW.md', 'DEVIATIONS.md',
         'review-profile.yaml', 'schematic-intent.yaml', 'layout-intent.yaml',
-        'sym-lib-table', 'fp-lib-table',
+        'sym-lib-table', 'fp-lib-table', 'jlcpcb-assembly.yaml',
     ))
     if include_signoff:
         paths.add(project.root / 'review-signoff.yaml')
@@ -55,6 +55,19 @@ def inputs_digest(project: Project) -> str:
 def assert_current(project: Project, expected: dict) -> None:
     if input_hashes(project) != expected:
         raise RuntimeError('project inputs changed during the operation; rerun on the current design')
+
+
+def assert_editors_closed(project: Project) -> None:
+    """Avoid overwriting saved CAD while KiCad may hold newer unsaved edits."""
+    paths = set(schematic_files(project.schematic_path))
+    paths.update((project.pcb_path, project.pcb_path.with_suffix('.kicad_pro'),
+                  project.schematic_path.with_suffix('.kicad_pro')))
+    locks = sorted({lock for path in paths for lock in (
+        path.with_name('~' + path.name + '.lck'), path.with_name(path.name + '.lck'),
+    ) if lock.exists()})
+    if locks:
+        raise RuntimeError('KiCad editor lock present: ' + ', '.join(str(path) for path in locks)
+                           + '; save and close the editor, then run preview again against saved current CAD')
 
 
 def copy_inputs(project: Project, destination: Path, expected: dict) -> None:
@@ -107,14 +120,29 @@ def project_lock(project: Project):
 
 
 def replace_bytes(target: Path, payload: bytes) -> None:
+    _publish_bytes(target, payload, replace=True)
+
+
+def create_bytes(target: Path, payload: bytes) -> None:
+    """Publish a complete new file without replacing a concurrent creation."""
+    _publish_bytes(target, payload, replace=False)
+
+
+def _publish_bytes(target: Path, payload: bytes, *, replace: bool) -> None:
     target.parent.mkdir(parents=True, exist_ok=True)
     temporary = target.with_name(target.name + '.transaction-tmp')
+    stream = temporary.open('xb')
     try:
-        with temporary.open('xb') as stream:
+        with stream:
             stream.write(payload)
             stream.flush()
             os.fsync(stream.fileno())
-        os.replace(temporary, target)
+        if replace:
+            os.replace(temporary, target)
+        else:
+            # A same-directory hard link publishes the complete staged file
+            # atomically and fails if another writer created the destination.
+            os.link(temporary, target)
     finally:
         temporary.unlink(missing_ok=True)
 
@@ -123,7 +151,8 @@ def _bytes(path: Path) -> bytes | None:
     return path.read_bytes() if path.is_file() else None
 
 
-def apply_files(project: Project, changes: dict[Path, bytes | None], expected: dict) -> None:
+def apply_files(project: Project, changes: dict[Path, bytes | None], expected: dict,
+                *, expected_targets: dict[Path, str | None] | None = None) -> None:
     """Keep originals on disk until every write and input check succeeds."""
     assert_current(project, expected)
     changes = dict(changes)
@@ -133,6 +162,18 @@ def apply_files(project: Project, changes: dict[Path, bytes | None], expected: d
         contained(project.root, path)
     before = {path: _bytes(path) for path in changes}
     wanted = dict(expected)
+    for path, digest in (expected_targets or {}).items():
+        contained(project.root, path)
+        relative = path.relative_to(project.root).as_posix()
+        if relative in wanted and wanted[relative] != digest:
+            raise ValueError(f'target precondition disagrees with project baseline: {relative}')
+        # Validate the bytes captured for rollback themselves. Checking first
+        # and then recapturing would accept an owner file created in between.
+        payload = before[path] if path in before else _bytes(path)
+        actual = hashlib.sha256(payload).hexdigest() if payload is not None else None
+        if actual != digest:
+            raise RuntimeError(f'concurrent edit preserved: target precondition changed: {relative}')
+        wanted[relative] = digest
     attempted = []
 
     def check_inputs():
@@ -157,9 +198,18 @@ def apply_files(project: Project, changes: dict[Path, bytes | None], expected: d
                 check_inputs()
                 if _bytes(path) != before[path]:
                     raise RuntimeError(f'concurrent edit preserved: {path}')
+                if payload is None and before[path] is None:
+                    wanted[path.relative_to(project.root).as_posix()] = None
+                    continue
                 attempted.append(path)
                 if payload is None:
                     path.unlink(missing_ok=True)
+                elif before[path] is None:
+                    try:
+                        create_bytes(path, payload)
+                    except FileExistsError as error:
+                        attempted.pop()  # Exclusive publication did not touch this owner file.
+                        raise RuntimeError(f'concurrent edit preserved: {path}') from error
                 else:
                     replace_bytes(path, payload)
                 wanted[path.relative_to(project.root).as_posix()] = (

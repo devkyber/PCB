@@ -5,20 +5,21 @@ from kicad_claude.adapters import sch_editor as ed
 from kicad_claude.adapters import sch_io
 from kicad_claude.utils.geometry import mcp_to_kicad_xy
 from kicad_claude.utils.kicad_paths import find_symbol_lib_dirs
+
 from pcb_copilot.schematic.geometry import (
     GRID_MM,
     LabelPlacer,
     StubCrossingError,
     SymbolPlacer,
 )
-
 from pcb_copilot.schematic.power import power_stub_length
+from tests.board_fixtures import board_source
 
 
 @pytest.fixture
 def imu_tree(repo_root):
     return sch_io.parse_file(
-        repo_root / 'projects/imu-icm42688/imu-icm42688.kicad_sch'
+        board_source(repo_root, 'imu-icm42688') / 'imu-icm42688.kicad_sch'
     )
 
 
@@ -76,7 +77,7 @@ def test_staggered_stub_still_refuses_an_electrical_crossing(imu_tree):
 ])
 def test_power_value_text_clears_adjacent_real_power_glyph(repo_root, board, rails):
     """Catch a stagger that clears pins but puts a rail name on a triangle."""
-    imu_tree = sch_io.parse_file(repo_root / f'projects/{board}/{board}.kicad_sch')
+    imu_tree = sch_io.parse_file(board_source(repo_root, board) / f'{board}.kicad_sch')
     library = find_symbol_lib_dirs()[0] / 'power.kicad_sym'
     placed = []
 

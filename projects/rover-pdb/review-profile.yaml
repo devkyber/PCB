@@ -1,0 +1,27 @@
+schema_version: 1
+items:
+  - id: schematic-owner-review
+    prompt: Review every schematic sheet and resolve the listed circuit questions.
+    rationale: The owner specifically requested a schematic review before layout.
+    evidence_refs: [REQUIREMENTS.md, DESIGN_BASIS.md, docs/review/SCHEMATIC_REVIEW.md]
+    safety_tags: [human-schematic-review]
+  - id: motor-energy
+    prompt: Establish acceptable motor voltage and braking-energy handling over the battery range.
+    rationale: The selected PFM buck and output capacitors do not guarantee a voltage clamp or acceptable externally driven output behavior.
+    evidence_refs: [DESIGN_BASIS.md, docs/review/SCHEMATIC_REVIEW.md]
+    safety_tags: [motor-regeneration]
+  - id: parts-and-mechanics
+    prompt: Verify physical connector polarity, sockets, footprints and retention.
+    rationale: Library geometry and logical pin mapping need physical confirmation.
+    evidence_refs: [DESIGN_BASIS.md, docs/design/PCB_DESIGN.md, REQUIREMENTS.md]
+    safety_tags: [assembly, mechanical]
+  - id: power-and-protection
+    prompt: Verify LMR51450 loop stability, loaded startup, enable sequencing, dropout, transient and thermal behavior, external battery protection and wiring. F1 is removed; no onboard input fuse is fitted.
+    rationale: ERC cannot establish high-current system performance; the 5 A replacement and retained LC banks need application-specific review.
+    evidence_refs: [REQUIREMENTS.md, docs/review/SCHEMATIC_REVIEW.md]
+    safety_tags: [high-current, power]
+  - id: pcb-layout-and-assembly
+    prompt: Inspect the final copper, switch loops, Kelvin sensing, ground returns, current paths, thermal vias, mounting clearances, solder pads and assembly orientation for the owner-edited 77.5 x 100 mm two-layer 1 oz board, including the actual socketed Pico USB plug clearance. Confirm JLCPCB matched MPNs, live assembly availability/preorder, attrition quantities, through-hole eligibility and pin-1/polarity in the placement preview; LCSC retail stock is not an assembly reservation.
+    rationale: Native parity and DRC do not establish power-loop quality, continuous-current capacity, thermal performance, harness retention or correct assembler rotation.
+    evidence_refs: [REQUIREMENTS.md, DESIGN_BASIS.md, docs/design/PCB_DESIGN.md, docs/review/PCB_VERIFICATION.md]
+    safety_tags: [pcb-layout-review, high-current, assembly, mechanical]

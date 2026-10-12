@@ -96,23 +96,11 @@ def get_symbol_property(symbol_node: list, name: str) -> str | None:
     return None
 
 
-def set_symbol_property(symbol_node: list, name: str, value: str) -> None:
-    for prop in find_children(symbol_node, "property"):
-        if len(prop) >= 3 and prop[1] == name:
-            prop[2] = value
-            return
-    raise KeyError(f"property {name!r} not found on symbol")
-
-
 def find_symbol_by_reference(tree: list, reference: str) -> list | None:
     for s_node in iter_instance_symbols(tree):
         if get_symbol_property(s_node, "Reference") == reference:
             return s_node
     return None
-
-
-def all_references(tree: list) -> list[str]:
-    return [get_symbol_property(s, "Reference") or "?" for s in iter_instance_symbols(tree)]
 
 
 # --------------------------------------------------------------------------- #
@@ -334,19 +322,6 @@ def add_symbol(
     return instance
 
 
-def remove_symbol(tree: list, reference: str) -> bool:
-    """Remove the first symbol matching `reference`. Returns True if removed."""
-    for i, child in enumerate(tree):
-        if (
-            is_call(child, "symbol")
-            and find_child(child, "lib_id")
-            and get_symbol_property(child, "Reference") == reference
-        ):
-            tree.pop(i)
-            return True
-    return False
-
-
 def move_symbol(
     tree: list,
     reference: str,
@@ -431,92 +406,6 @@ def add_no_connect(tree: list, x_mm: float, y_mm: float) -> list:
         [sym("at"), round_mm(xk), round_mm(yk)],
         [sym("uuid"), str(uuid.uuid4())],
     ]
-    tree.append(node)
-    return node
-
-
-# --------------------------------------------------------------------------- #
-# Buses (visual grouping of multiple nets)
-# --------------------------------------------------------------------------- #
-
-
-def add_bus_segment(
-    tree: list,
-    x1_mm: float,
-    y1_mm: float,
-    x2_mm: float,
-    y2_mm: float,
-) -> list:
-    """Append a `(bus ...)` line — visually identical to a wire but thicker."""
-    page_h = page_height_mm(tree)
-    x1k, y1k = mcp_to_kicad_xy(x1_mm, y1_mm, page_h)
-    x2k, y2k = mcp_to_kicad_xy(x2_mm, y2_mm, page_h)
-    node = [
-        sym("bus"),
-        [
-            sym("pts"),
-            [sym("xy"), round_mm(x1k), round_mm(y1k)],
-            [sym("xy"), round_mm(x2k), round_mm(y2k)],
-        ],
-        [sym("stroke"), [sym("width"), 0], [sym("type"), sym("default")]],
-        [sym("uuid"), str(uuid.uuid4())],
-    ]
-    tree.append(node)
-    return node
-
-
-def add_bus_entry(
-    tree: list,
-    x_mm: float,
-    y_mm: float,
-    direction: str = "right_down",
-) -> list:
-    """Append a `(bus_entry ...)` — the diagonal line connecting a bus to a wire.
-
-    `direction` controls the size vector (the offset from `at` to the wire side):
-        "right_down" → (+2.54, +2.54)  (default; bus above-left, wire below-right)
-        "right_up"   → (+2.54, -2.54)
-        "left_down"  → (-2.54, +2.54)
-        "left_up"    → (-2.54, -2.54)
-    """
-    deltas = {
-        "right_down": (2.54, 2.54),
-        "right_up": (2.54, -2.54),
-        "left_down": (-2.54, 2.54),
-        "left_up": (-2.54, -2.54),
-    }
-    if direction not in deltas:
-        raise ValueError(
-            f"direction must be one of {list(deltas)} (got {direction!r})"
-        )
-    dx, dy = deltas[direction]
-    page_h = page_height_mm(tree)
-    xk, yk = mcp_to_kicad_xy(x_mm, y_mm, page_h)
-    node = [
-        sym("bus_entry"),
-        [sym("at"), round_mm(xk), round_mm(yk)],
-        [sym("size"), dx, dy],
-        [sym("stroke"), [sym("width"), 0], [sym("type"), sym("default")]],
-        [sym("uuid"), str(uuid.uuid4())],
-    ]
-    tree.append(node)
-    return node
-
-
-def add_bus_alias(tree: list, alias_name: str, members: list[str]) -> list:
-    """Declare `(bus_alias "NAME" (members "M0" "M1" ...))`.
-
-    Aliases let you label a bus with a short name on the wire (e.g. "MEM")
-    instead of writing out `MEM[0..7]`. Members must be exact net names.
-    """
-    if not alias_name:
-        raise ValueError("alias_name must be non-empty")
-    if not members:
-        raise ValueError("alias needs at least one member net")
-    members_node: list = [sym("members")]
-    for m in members:
-        members_node.append(str(m))
-    node = [sym("bus_alias"), alias_name, members_node]
     tree.append(node)
     return node
 
@@ -633,13 +522,6 @@ def get_sheet_uuid(sheet_node: list) -> str:
     if not u or len(u) < 2 or not isinstance(u[1], str):
         raise ValueError("sheet has no uuid")
     return u[1]
-
-
-def get_sheet_filename(sheet_node: list) -> str | None:
-    for prop in find_children(sheet_node, "property"):
-        if len(prop) >= 3 and prop[1] == "Sheetfile" and isinstance(prop[2], str):
-            return prop[2]
-    return None
 
 
 def list_sheets(tree: list) -> list[dict]:

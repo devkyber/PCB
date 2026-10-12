@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-import shutil
 import tempfile
 from collections.abc import Sequence
 from dataclasses import asdict
@@ -14,19 +13,21 @@ from pcb_copilot.project import load_project
 from pcb_copilot.review.checks import current_checks
 from pcb_copilot.review.models import ReviewReport
 from pcb_copilot.review.registry import Check, run_checks
+from pcb_copilot.transaction import assert_current, copy_inputs, input_hashes
 
 
 def review_project(project: Project, checks: Sequence[Check] | None = None) -> ReviewReport:
-    """Run all checks on a disposable byte copy of the current project."""
+    """Review declared design inputs without copying reports or working history."""
     selected = tuple(current_checks() if checks is None else checks)
+    expected = input_hashes(project)
     with tempfile.TemporaryDirectory(prefix='pcb-copilot-review-') as temporary:
         staged_root = Path(temporary) / project.root.name
-        shutil.copytree(
-            project.root, staged_root,
-            ignore=shutil.ignore_patterns('.pcb-copilot', 'fabrication',
-                                          '__pycache__', '.history', '.backups'),
-        )
-        return run_checks(load_project(staged_root), selected)
+        copy_inputs(project, staged_root, expected)
+        report = run_checks(load_project(staged_root), selected)
+        # A result from an earlier snapshot must not be presented as a review of
+        # a design the owner changed while the checks were running.
+        assert_current(project, expected)
+        return report
 
 
 def render_review_json(report: ReviewReport) -> str:

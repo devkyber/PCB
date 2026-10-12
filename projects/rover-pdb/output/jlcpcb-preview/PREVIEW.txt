@@ -1,0 +1,9 @@
+JLCPCB UPLOAD / QUOTATION REVIEW ONLY — NOT A FABRICATION RELEASE
+
+Files come from the saved native CAD. Review results are in review.json.
+The project lifecycle and any existing fabrication package are unchanged.
+Resolve release findings and verify supplier placement before ordering.
+
+- signoff: 0/5 current decisions: schematic-owner-review unsigned; motor-energy unsigned; parts-and-mechanics unsigned; power-and-protection unsigned; pcb-layout-and-assembly unsigned
+- Retail stock shortage or unknown inventory; see stock.csv and stock.json.
+- Assembly rules/models or supplier placement review unresolved; see assembly.json and assembly-audit.json.

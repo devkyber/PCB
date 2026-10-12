@@ -1,0 +1,161 @@
+{
+  "released": false,
+  "exit_code": 1,
+  "review": {
+    "blocking": true,
+    "findings": [
+      {
+        "blocking": true,
+        "check_id": "signoff",
+        "detail": "0/5 current decisions: schematic-owner-review unsigned; motor-energy unsigned; parts-and-mechanics unsigned; power-and-protection unsigned; pcb-layout-and-assembly unsigned",
+        "kind": "human_decision"
+      }
+    ],
+    "pcb_hash": "bc76965faae2cb058e0833d09b7b02b2386fb78ce860a72562eb3a1fe837a624",
+    "project": "rover-pdb-readable",
+    "results": [
+      {
+        "advisories": [],
+        "check_id": "research",
+        "detail": "requirements, cited basis and archived evidence verified",
+        "duration_ms": 854,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "engineering validity of those choices",
+          "proves": "requirements, cited basis and source integrity",
+          "requires_external_tool": false
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "datasheets",
+        "detail": "required datasheet bytes verified",
+        "duration_ms": 173,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "interpretation of electrical limits",
+          "proves": "required datasheets are archived and verified",
+          "requires_external_tool": false
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "erc",
+        "detail": "0 violation(s), 0 unspecified-pin warnings waived",
+        "duration_ms": 1768,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "circuit fitness or safe operation",
+          "proves": "fresh KiCad electrical-rule findings",
+          "requires_external_tool": true
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "schematic_ownership",
+        "detail": "netmap matches the current schematic",
+        "duration_ms": 586,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "circuit correctness",
+          "proves": "netmap matches the current schematic",
+          "requires_external_tool": true
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "netlist_parity",
+        "detail": "exact schematic/PCB pin-net parity",
+        "duration_ms": 909,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "which circuit is correct",
+          "proves": "exact schematic/PCB pin-net agreement",
+          "requires_external_tool": true
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "placement",
+        "detail": "implemented placement checks pass",
+        "duration_ms": 218,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "assembly or enclosure fit",
+          "proves": "implemented placement geometry checks",
+          "requires_external_tool": false
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "design_rules",
+        "detail": "=== docs/DESIGN_RULES.md geometric checks: C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-copilot-review-n162fx8u\\rover-pdb-readable\\rover-pdb.kicad_pcb ===\n\npassing:\n  [2.2 decoupling <=2mm]  1 ok\n\nRESULT: 0 violation(s), 1 check(s) passed\nSCOPE: geometric rules 1.2, 2.2, 5.1, 6.1 only (4 of 42 numbered subsections in docs/DESIGN_RULES.md). The remainder are not machine-checkable from the board file and are covered by the Phase 5 human review.",
+        "duration_ms": 613,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "all house rules or source applicability",
+          "proves": "geometric rules 1.2, 2.2, 5.1 and 6.1",
+          "requires_external_tool": true
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "drc",
+        "detail": "0 error(s), 0 warning(s), 0 unconnected; two refilled runs",
+        "duration_ms": 4124,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": false,
+          "does_not_prove": "RF, thermal or functional behavior",
+          "proves": "two fresh zone-refilled DRC runs and routing completeness",
+          "requires_external_tool": true
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "schematic_quality",
+        "detail": "7 sheet(s) checked",
+        "duration_ms": 83,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "visual readability, electrical correctness, or page-flow quality",
+          "proves": "all referenced sheets have title/revision and acceptable density",
+          "requires_external_tool": false
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "signoff",
+        "detail": "0/5 current decisions: schematic-owner-review unsigned; motor-energy unsigned; parts-and-mechanics unsigned; power-and-protection unsigned; pcb-layout-and-assembly unsigned",
+        "duration_ms": 1666,
+        "finding_kind": "human_decision",
+        "passed": false,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "the reviewer inspected correctly, measured hardware, or made a safe decision",
+          "proves": "named, dated, project-specific decisions match the exact current design and review profile",
+          "requires_external_tool": false
+        }
+      }
+    ],
+    "schema_version": 1,
+    "schematic_hash": "34eb70c7a1f8f8be3734ab0b48d8f84d6fca7021c6f69fd122134ac54fc0de7e"
+  }
+}

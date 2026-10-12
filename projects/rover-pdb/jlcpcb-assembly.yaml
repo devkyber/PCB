@@ -1,0 +1,328 @@
+# Exact-part export and model contracts. Native copper is independent of CPL angles.
+schema_version: 2
+manual_fit:
+  SKT1:
+    footprint: rover:Pico2_Sockets_LXWCONN_254PM_1x20
+    reason: Hand-fit two female sockets and the Pico module after factory assembly, per docs/design/BOM_NOTES.md.
+centroid_offsets:
+  Capacitor_THT:CP_Radial_D10.0mm_P5.00mm:
+    x_mm: 2.5
+    y_mm: 0
+    geometry_sha256: 3bc3de1dd6076697fc9dc892c7a37544d5d1127cb5dcdcd884d2b2fb6350a475
+    reason: Center of embedded F.Fab capacitor body circle.
+  Capacitor_THT:CP_Radial_D8.0mm_P5.00mm:
+    x_mm: 2.5
+    y_mm: 0
+    geometry_sha256: d187050405800620f984c18a659bccb5c0a7d7bee1ca9efeedf09e89897cbabb
+    reason: Center of embedded F.Fab capacitor body circle.
+  Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical:
+    x_mm: 3.75
+    y_mm: 0.3
+    geometry_sha256: 3bc6897ce07dd39a0043713dcc64fc46c0974897491e1e87fae03b73032a9492
+    reason: Center of embedded F.Fab JST housing rectangle.
+  Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical:
+    x_mm: 0
+    y_mm: 2.54
+    geometry_sha256: 249673e04ba36e5e7953f43f7e440ee79df8ae3633182a1788a76b6b165ae8f4
+    reason: Center of embedded F.Fab 1x3 header body.
+  Button_Switch_THT:SW_Slide_SPDT_Angled_CK_OS102011MA1Q:
+    x_mm: 2
+    y_mm: 0
+    geometry_sha256: b37130536603919b4821257657bcbeb0bcbdc8e46f249d3d52416581fdedfff8
+    reason: Center of embedded F.Fab fixed switch housing; movable actuator excluded.
+rotation_offsets:
+  C1579630:
+    mpn: EEU-FR1H221B
+    footprint: Capacitor_THT:CP_Radial_D10.0mm_P5.00mm
+    side: top
+    pad_geometry_sha256: 6e6e7ad64d025d17133b941cf5de254fe7fb2515859912d5158698af55ff22d9
+    degrees: 0
+    basis: observed
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation
+      audit. Recheck new upload.
+  C77102:
+    mpn: GRM32ER71H106KA12L
+    footprint: Capacitor_SMD:C_1210_3225Metric
+    side: top
+    pad_geometry_sha256: 1fc035246ec00f3f09c02dd45db1558199ef8ff446ca7c5de0f9313c797ca25e
+    degrees: 0
+    basis: observed
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation
+      audit. Recheck new upload.
+  C1579437:
+    mpn: EEU-FR1C471B
+    footprint: Capacitor_THT:CP_Radial_D8.0mm_P5.00mm
+    side: top
+    pad_geometry_sha256: 20c8873ea9143e415d68dd8d393bf97e678caacdf68a784a35c9dc357f894103
+    degrees: 0
+    basis: observed
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation
+      audit. Recheck new upload.
+  C309062:
+    mpn: CL32B226KAJNNNE
+    footprint: Capacitor_SMD:C_1210_3225Metric
+    side: top
+    pad_geometry_sha256: 1fc035246ec00f3f09c02dd45db1558199ef8ff446ca7c5de0f9313c797ca25e
+    degrees: 0
+    basis: observed
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation
+      audit. Recheck new upload.
+  C1711:
+    mpn: CL21B104KBCNNNC
+    footprint: Capacitor_SMD:C_0805_2012Metric
+    side: top
+    pad_geometry_sha256: e23b7f8288c43927399b5454e37c84926ed6b6dd6e434394332b44bca08522fc
+    degrees: 0
+    basis: observed
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation
+      audit. Recheck new upload.
+  C1663:
+    mpn: CL10C330JB8NNNC
+    footprint: Capacitor_SMD:C_0603_1608Metric
+    side: top
+    pad_geometry_sha256: 9468b147a13da2a6d32984d2bc2829d44f5a6fcf918099e81a6dc94a4e104bda
+    degrees: 0
+    basis: observed
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation
+      audit. Recheck new upload.
+  C2297:
+    mpn: KT-0805G
+    footprint: rover:KT0805G_0805_A1_K2
+    side: top
+    pad_geometry_sha256: 37cf7f5f0a22daac586939f604c79c56913c5b8b851c4b1b0364a41457c6e819
+    degrees: 0
+    basis: observed
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation
+      audit. Recheck new upload.
+  C160258:
+    mpn: B4B-EH-A(LF)(SN)
+    footprint: Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical
+    side: top
+    pad_geometry_sha256: b6982d376bee51611f0e6b349acdcb294dd545bc4e8390e3c4e7d9e9b2216719
+    degrees: 0
+    basis: observed
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation
+      audit. Recheck new upload.
+  C3335811:
+    mpn: TSW-103-07-G-S
+    footprint: Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical
+    side: top
+    pad_geometry_sha256: 2d75db74ab835426c530017ba5842c35d9397b02ab420880024e838ca819e3f1
+    degrees: -90
+    basis: derived_from_preview
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Unshrouded three-pin header axis must be horizontal. Old CPL 90 shows vertical. Apply -90;
+      fresh supplier preview required.
+  C2041326:
+    mpn: SRP1265A-6R8M
+    footprint: rover:SRP1265A_LeadFrame_13.5x12.5_P11.1
+    side: top
+    pad_geometry_sha256: 5263391fa54fb8e035e41fe5f29a30f628f16cf1592ad7b4a8a878718155e434
+    degrees: 0
+    basis: observed
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation
+      audit. Recheck new upload.
+  C780205:
+    mpn: SRP1265A-4R7M
+    footprint: rover:SRP1265A_LeadFrame_13.5x12.5_P11.1
+    side: top
+    pad_geometry_sha256: 5263391fa54fb8e035e41fe5f29a30f628f16cf1592ad7b4a8a878718155e434
+    degrees: 0
+    basis: observed
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation
+      audit. Recheck new upload.
+  C54431777:
+    mpn: APS1365M3R3DW
+    footprint: rover:APS1365DW_13.8x12.6_P11.5
+    side: top
+    pad_geometry_sha256: 368b3020dad47a95397a29f91ca31c3b04fe3bc041c603f47ebc9922f38edc8f
+    degrees: 0
+    basis: unverified
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: No JLC model is shown for L3. Native terminal axis is horizontal; 0 is unverified until supplier
+      2D/engineering placement check.
+  C60816:
+    mpn: RC0805FR-074K7L
+    footprint: Resistor_SMD:R_0805_2012Metric
+    side: top
+    pad_geometry_sha256: b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a
+    degrees: 0
+    basis: observed
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation
+      audit. Recheck new upload.
+  C96346:
+    mpn: RC0805FR-07100KL
+    footprint: Resistor_SMD:R_0805_2012Metric
+    side: top
+    pad_geometry_sha256: b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a
+    degrees: 0
+    basis: observed
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation
+      audit. Recheck new upload.
+  C17508:
+    mpn: 0805W8F1912T5E
+    footprint: Resistor_SMD:R_0805_2012Metric
+    side: top
+    pad_geometry_sha256: b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a
+    degrees: 0
+    basis: observed
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation
+      audit. Recheck new upload.
+  C17806:
+    mpn: 0805W8F7151T5E
+    footprint: Resistor_SMD:R_0805_2012Metric
+    side: top
+    pad_geometry_sha256: b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a
+    degrees: 0
+    basis: observed
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation
+      audit. Recheck new upload.
+  C65649:
+    mpn: 0805W8F3741T5E
+    footprint: Resistor_SMD:R_0805_2012Metric
+    side: top
+    pad_geometry_sha256: b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a
+    degrees: 0
+    basis: observed
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation
+      audit. Recheck new upload.
+  C137289:
+    mpn: RC1206FR-073K9L
+    footprint: Resistor_SMD:R_1206_3216Metric
+    side: top
+    pad_geometry_sha256: c5471cc25a34ffbe6605b86fe232dcaecc82d31dda139553362472549155e153
+    degrees: 0
+    basis: observed
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation
+      audit. Recheck new upload.
+  C17513:
+    mpn: 0805W8F1001T5E
+    footprint: Resistor_SMD:R_0805_2012Metric
+    side: top
+    pad_geometry_sha256: b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a
+    degrees: 0
+    basis: observed
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation
+      audit. Recheck new upload.
+  C17560:
+    mpn: 0805W8F2202T5E
+    footprint: Resistor_SMD:R_0805_2012Metric
+    side: top
+    pad_geometry_sha256: b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a
+    degrees: 0
+    basis: observed
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation
+      audit. Recheck new upload.
+  C84376:
+    mpn: RC0805FR-0710KL
+    footprint: Resistor_SMD:R_0805_2012Metric
+    side: top
+    pad_geometry_sha256: b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a
+    degrees: 0
+    basis: observed
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation
+      audit. Recheck new upload.
+  C2093761:
+    mpn: CSS2H-2512K-2L00F
+    footprint: rover:CSS2H_2512_6.35x3.05
+    side: top
+    pad_geometry_sha256: 8421f65133997e484edfd2c36a01833834bc553d0eacf167f5c95251fbb96adf
+    degrees: 0
+    basis: observed
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation
+      audit. Recheck new upload.
+  C226259:
+    mpn: OS102011MA1QN1
+    footprint: Button_Switch_THT:SW_Slide_SPDT_Angled_CK_OS102011MA1Q
+    side: top
+    pad_geometry_sha256: c31913d4a093cc3c1d5b600fdfd76044814ad6ed578dc9810ba1ce809fbd4e02
+    degrees: 0
+    basis: observed
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation
+      audit. Recheck new upload.
+  C49851:
+    mpn: INA226AIDGSR
+    footprint: Package_SO:MSOP-10_3x3mm_P0.5mm
+    side: top
+    pad_geometry_sha256: 9585fc98b69ca8ce3002616edad1025025c227782de0b868f7e1e45085497646
+    degrees: -90
+    basis: derived_from_preview
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: 'U1: physical pin 1 must be upper-left; old CPL 0 shows pin 1 lower-left. Apply -90; fresh
+      supplier preview required.'
+  C6890985:
+    mpn: LMR51450SDRRR
+    footprint: rover:LMR51450_DRR_WSON12_3x3
+    side: top
+    pad_geometry_sha256: 336680520fb9f199fa9a155e6dfb41b2745e37739be891766e7f3b9cbfe277fa
+    degrees: 0
+    basis: observed
+    evidence: evidence/assembly/orientation-preview-2026-10-06.png
+    evidence_sha256: 1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba
+    reason: Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation
+      audit. Recheck new upload.
+model_contracts:
+  C54431777:
+    mpn: APS1365M3R3DW
+    footprint: rover:APS1365DW_13.8x12.6_P11.5
+    path: ${KIPRJMOD}/libs/Coilank_APS1365DW.3dshapes/APS1365DW-envelope.step
+    sha256: 3478c6172c157f88ef3312bf0c3150066a4d97b4e4ae5901fec7bcc08dc7f3e9
+    scale:
+    - 1
+    - 1
+    - 1
+    offset:
+    - 0
+    - 0
+    - 0
+    rotate:
+    - 0
+    - 0
+    - 0
+    fidelity: datasheet-derived maximum envelope, 13.8 x 12.9 x 6.5 mm; terminal relief simplified
+supplier_review: null

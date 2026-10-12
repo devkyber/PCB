@@ -1,0 +1,815 @@
+schema_version: 1
+records:
+- id: sha256:013649a580c9ee0d2a54502601713be2b1811ff6d44e21887c8077307a7c2dea
+  manufacturer: BOOMELE
+  part_numbers:
+  - 2.54-1x6P
+  title: 2.54-1xNA-H2.5-L11.2 pin header manufacturer drawing, n=6 for C37208
+  revision: null
+  source_url: https://datasheet.lcsc.com/datasheet/pdf/cb0770a379b121177c8c7d26dfb00406.pdf?productCode=C37208
+  retrieved_on: '2026-09-30'
+  path: files/2.54-1x6P_cb0770a379b121177c8c7d26dfb00406_013649a580c9.pdf
+  sha256: 013649a580c9ee0d2a54502601713be2b1811ff6d44e21887c8077307a7c2dea
+  media_type: application/pdf
+  roles:
+  - footprint_drawing
+  trust_tier: manufacturer
+  component_refs:
+  - J9
+- id: sha256:03849224833909976715d61c81a63e22a81bae159978d19f1043732f6d1470a1
+  manufacturer: Littelfuse(美国力特)
+  part_numbers:
+  - 01530008Z
+  title: C206907 supplier CAD for 01530008Z
+  revision: null
+  source_url: https://easyeda.com/api/products/C206907/components
+  retrieved_on: '2026-09-29'
+  path: files/01530008Z_components_038492248339.txt
+  sha256: 03849224833909976715d61c81a63e22a81bae159978d19f1043732f6d1470a1
+  media_type: text/plain
+  roles:
+  - cad_library
+  trust_tier: supplier
+  component_refs: []
+- id: sha256:0988f0efa67eeda38478578e8fb8b30e3adbbd73b6f5c15cbb79269ece0c8eb8
+  manufacturer: Texas Instruments
+  part_numbers:
+  - LM73606RNPR
+  title: snvu579.pdf
+  revision: null
+  source_url: https://www.ti.com/lit/ug/snvu579/snvu579.pdf
+  retrieved_on: '2026-09-29'
+  path: files/LM73606RNPR_snvu579_0988f0efa67e.pdf
+  sha256: 0988f0efa67eeda38478578e8fb8b30e3adbbd73b6f5c15cbb79269ece0c8eb8
+  media_type: application/pdf
+  roles:
+  - reference_design
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
+  manufacturer: Uniroyal Electronics Global Co., Ltd.
+  part_numbers:
+  - 0805W8F1001T5E
+  - 0805W8F1912T5E
+  - 0805W8F2202T5E
+  - 0805W8F3741T5E
+  - 0805W8F7151T5E
+  title: Thick Film Chip Resistors, 01005 through 2512 series
+  revision: V.3, 2019-02-12
+  source_url: https://datasheet.lcsc.com/datasheet/pdf/0a975aaa49b7c97f38a963127be4a823.pdf
+  retrieved_on: '2026-09-29'
+  path: files/0805W8F7151T5E_0a975aaa49b7c97f38a963127be4a823_11cd644d5d8a.pdf
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - R24
+- id: sha256:30b470999b737a6350ce5b09a917a5f12090c2e0895a78ddc15285e3d44ec649
+  manufacturer: Bourns
+  part_numbers:
+  - SRP1265A-3R3M
+  - SRP1265A-4R7M
+  - SRP1265A-6R8M
+  title: srp1265a.pdf
+  revision: null
+  source_url: https://www.bourns.com/docs/product-datasheets/srp1265a.pdf
+  retrieved_on: '2026-09-29'
+  path: files/SRP1265A-6R8M_srp1265a_30b470999b73.pdf
+  sha256: 30b470999b737a6350ce5b09a917a5f12090c2e0895a78ddc15285e3d44ec649
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - L2
+  - L3
+- id: sha256:3a5770b11668f4e5a11ba9ceeb4817a23f467b8507e3592f55fb6bd8f96e71bc
+  manufacturer: null
+  part_numbers:
+  - TSW-103-07-G-S
+  title: tsw_th.pdf
+  revision: null
+  source_url: https://suddendocs.samtec.com/catalog_english/tsw_th.pdf
+  retrieved_on: '2026-09-29'
+  path: files/TSW-103-07-G-S_tsw_th_3a5770b11668.pdf
+  sha256: 3a5770b11668f4e5a11ba9ceeb4817a23f467b8507e3592f55fb6bd8f96e71bc
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:3afd8ebb8b5f42332bc6726820af872cd657dd6c85e14e82c99c5ec66e44556e
+  manufacturer: null
+  part_numbers:
+  - CL10C330JB8NNNC
+  title: components
+  revision: null
+  source_url: https://easyeda.com/api/products/C1663/components
+  retrieved_on: '2026-09-29'
+  path: files/CL10C330JB8NNNC_components_3afd8ebb8b5f.txt
+  sha256: 3afd8ebb8b5f42332bc6726820af872cd657dd6c85e14e82c99c5ec66e44556e
+  media_type: text/plain
+  roles:
+  - cad_library
+  trust_tier: supplier
+  component_refs: []
+- id: sha256:47044365dfa67edea30c22b574f71b2fdfd0bde188952771ba9b01d5a469c88b
+  manufacturer: BOOMELE(博穆精密)
+  part_numbers:
+  - 2.54-1x6P直针
+  title: components
+  revision: null
+  source_url: https://easyeda.com/api/products/C37208/components
+  retrieved_on: '2026-09-30'
+  path: files/2.54-1x6P_components_47044365dfa6.txt
+  sha256: 47044365dfa67edea30c22b574f71b2fdfd0bde188952771ba9b01d5a469c88b
+  media_type: text/plain
+  roles:
+  - cad_library
+  trust_tier: supplier
+  component_refs: []
+- id: sha256:496bcb915f1683dbad13314e506756eacb78e9792e2655403987b36eaef22f88
+  manufacturer: Yageo
+  part_numbers:
+  - RC1206FR-073K9L
+  title: RC1206FR-073K9L
+  revision: null
+  source_url: https://www.yageogroup.com/component-documentation/download/specsheet/RC1206FR-073K9L
+  retrieved_on: '2026-09-30'
+  path: files/RC1206FR-073K9L_RC1206FR-073K9L_496bcb915f16.pdf
+  sha256: 496bcb915f1683dbad13314e506756eacb78e9792e2655403987b36eaef22f88
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - R20
+- id: sha256:4a0f7ba948bce4881e176f0f8636ef3dbd40e3df9dd33134e6a7433359d18c02
+  manufacturer: null
+  part_numbers:
+  - Jetson-Orin-Nano-Carrier
+  title: jetson_orin_nano_devkit_carrier_board_specification_sp.pdf
+  revision: null
+  source_url: https://developer.nvidia.com/downloads/assets/embedded/secure/jetson/orin_nano/docs/jetson_orin_nano_devkit_carrier_board_specification_sp.pdf
+  retrieved_on: '2026-10-04'
+  path: files/Jetson-Orin-Nano-Carrier_jetson_orin_nano_devkit_carrier_board_specification_sp_4a0f7ba948bc.pdf
+  sha256: 4a0f7ba948bce4881e176f0f8636ef3dbd40e3df9dd33134e6a7433359d18c02
+  media_type: application/pdf
+  roles:
+  - integration_manual
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:4c0fa2ed98d0f580651d003b779f36fb39b62cc28ddc014f50cc1a852b811674
+  manufacturer: null
+  part_numbers:
+  - 0805W8F7151T5E
+  title: components
+  revision: null
+  source_url: https://easyeda.com/api/products/C17806/components
+  retrieved_on: '2026-09-29'
+  path: files/0805W8F7151T5E_components_4c0fa2ed98d0.txt
+  sha256: 4c0fa2ed98d0f580651d003b779f36fb39b62cc28ddc014f50cc1a852b811674
+  media_type: text/plain
+  roles:
+  - cad_library
+  trust_tier: supplier
+  component_refs: []
+- id: sha256:5009d4a2ce026741df9d81ce6d1f1dc5d399daa2816fe21778862eb2377b9aa5
+  manufacturer: TI(德州仪器)
+  part_numbers:
+  - LMR51450SDRRR
+  title: C6890985 supplier CAD for LMR51450SDRRR
+  revision: null
+  source_url: https://easyeda.com/api/products/C6890985/components
+  retrieved_on: '2026-09-29'
+  path: files/LMR51450SDRRR_components_5009d4a2ce02.txt
+  sha256: 5009d4a2ce026741df9d81ce6d1f1dc5d399daa2816fe21778862eb2377b9aa5
+  media_type: text/plain
+  roles:
+  - cad_library
+  trust_tier: supplier
+  component_refs: []
+- id: sha256:51c4f430153fcdbf3209d9b3b41662c8527ff0150bc25777e3fcd6f5221a1c19
+  manufacturer: Raspberry Pi
+  part_numbers:
+  - Raspberry Pi Pico
+  title: Hardware design with RP2040; manufacturer Pico carrier demo, limited compatible-pinout
+    comparison
+  revision: null
+  source_url: https://datasheets.raspberrypi.com/rp2040/hardware-design-with-rp2040.pdf
+  retrieved_on: '2026-10-01'
+  path: files/Raspberry_Pi_Pico_hardware-design-with-rp2040_51c4f430153f.pdf
+  sha256: 51c4f430153fcdbf3209d9b3b41662c8527ff0150bc25777e3fcd6f5221a1c19
+  media_type: application/pdf
+  roles:
+  - reference_design
+  trust_tier: manufacturer_evm
+  component_refs:
+  - SKT1
+- id: sha256:55a6f5de0d3424730210584c2a732f5209bba52cffa5c226885944f3d9e1be9a
+  manufacturer: Sunlord
+  part_numbers:
+  - MWSA1004S-4R7MT
+  - MWSA1005S-3R3MT
+  - MWSA1205S-6R8MT
+  title: MWSA-S series SMD power inductors; alternative-part research, not adopted
+  revision: null
+  source_url: https://www.sunlordinc.com/uploads/files/20230303/MWSA-S%C2%A0series%C2%A0of%C2%A0SMD%C2%A0Power%C2%A0Inductor.pdf
+  retrieved_on: '2026-10-01'
+  path: files/Sunlord_MWSA-S_55a6f5de0d34.pdf
+  sha256: 55a6f5de0d3424730210584c2a732f5209bba52cffa5c226885944f3d9e1be9a
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:5778f815e84ca5a0e1d490c5be5db4f228194b3df5b59abb1346ace54a11685d
+  manufacturer: LXWCONN
+  part_numbers:
+  - 254PM-1x20P-V
+  title: f0f6c3d8697d24302649e706e8fbe0d7.pdf
+  revision: null
+  source_url: https://datasheet.lcsc.com/datasheet/pdf/f0f6c3d8697d24302649e706e8fbe0d7.pdf?productCode=C53202183
+  retrieved_on: '2026-09-29'
+  path: files/254PM-1x20P-V_f0f6c3d8697d24302649e706e8fbe0d7_5778f815e84c.pdf
+  sha256: 5778f815e84ca5a0e1d490c5be5db4f228194b3df5b59abb1346ace54a11685d
+  media_type: application/pdf
+  roles:
+  - footprint_drawing
+  trust_tier: manufacturer
+  component_refs:
+  - SKT1
+- id: sha256:6086805dfb7070abce87077d95aa4ec9b2e2a7fd25af52ddeb7d0e457de655de
+  manufacturer: Texas Instruments
+  part_numbers:
+  - LMR51450SDRRR
+  title: LMR51450 EVM User Guide
+  revision: SNVU838A, November 2022
+  source_url: https://www.ti.com/lit/ug/snvu838a/snvu838a.pdf
+  retrieved_on: '2026-09-29'
+  path: files/LMR51450SDRRR_snvu838a_6086805dfb70.pdf
+  sha256: 6086805dfb7070abce87077d95aa4ec9b2e2a7fd25af52ddeb7d0e457de655de
+  media_type: application/pdf
+  roles:
+  - reference_design
+  trust_tier: manufacturer_evm
+  component_refs: []
+- id: sha256:6ac1220cb8d45c5d1453642c051c48f8bc146b1aaa30f9323d9ec358c77b3b91
+  manufacturer: YAGEO(国巨)
+  part_numbers:
+  - RC0805FR-07100KL
+  title: components
+  revision: null
+  source_url: https://easyeda.com/api/products/C96346/components
+  retrieved_on: '2026-09-30'
+  path: files/RC0805FR-07100KL_components_6ac1220cb8d4.txt
+  sha256: 6ac1220cb8d45c5d1453642c051c48f8bc146b1aaa30f9323d9ec358c77b3b91
+  media_type: text/plain
+  roles:
+  - cad_library
+  trust_tier: supplier
+  component_refs: []
+- id: sha256:7421a75157a2e700a217d1a20d075216abed29e81192bf7609d3df6dbb08eb2d
+  manufacturer: Diodes Incorporated
+  part_numbers:
+  - DMG2305UX-7
+  title: DMG2305UX.pdf
+  revision: null
+  source_url: https://www.diodes.com/datasheet/download/DMG2305UX.pdf
+  retrieved_on: '2026-09-30'
+  path: files/DMG2305UX-7_DMG2305UX_7421a75157a2.pdf
+  sha256: 7421a75157a2e700a217d1a20d075216abed29e81192bf7609d3df6dbb08eb2d
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - Q1
+- id: sha256:79fd6539982f1d79ed3018e0a12171ace376531618d9b3be292fa6c34316ea3d
+  manufacturer: null
+  part_numbers:
+  - 0805W8F1912T5E
+  title: components
+  revision: null
+  source_url: https://easyeda.com/api/products/C17508/components
+  retrieved_on: '2026-09-29'
+  path: files/0805W8F1912T5E_components_79fd6539982f.txt
+  sha256: 79fd6539982f1d79ed3018e0a12171ace376531618d9b3be292fa6c34316ea3d
+  media_type: text/plain
+  roles:
+  - cad_library
+  trust_tier: supplier
+  component_refs: []
+- id: sha256:7e32b223f4b0f086d9e08cd5a4fb42e9935cf119db3dd9cf3ea7969bdd643909
+  manufacturer: Bourns
+  part_numbers:
+  - CSS2H-2512K-2L00F
+  title: css2h-2512.pdf
+  revision: null
+  source_url: https://www.bourns.com/docs/product-datasheets/css2h-2512.pdf
+  retrieved_on: '2026-09-29'
+  path: files/CSS2H-2512K-2L00F_css2h-2512_7e32b223f4b0.pdf
+  sha256: 7e32b223f4b0f086d9e08cd5a4fb42e9935cf119db3dd9cf3ea7969bdd643909
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - RS1
+- id: sha256:7f63ec628a0ac346ff8d1176e02ccd5293d802e88275bad9098787f03d1c782e
+  manufacturer: Yageo
+  part_numbers:
+  - RC1206FR-073K9L
+  title: C137289 supplier identity
+  revision: null
+  source_url: https://easyeda.com/api/products/C137289/components
+  retrieved_on: '2026-09-30'
+  path: files/RC1206FR-073K9L_components_7f63ec628a0a.txt
+  sha256: 7f63ec628a0ac346ff8d1176e02ccd5293d802e88275bad9098787f03d1c782e
+  media_type: text/plain
+  roles:
+  - cad_library
+  trust_tier: supplier
+  component_refs:
+  - R20
+- id: sha256:7f80073eb7773dddd87df44808e8e78f5b83520b20e815cbb0a17018d1cae413
+  manufacturer: Texas Instruments
+  part_numbers:
+  - LMR51450SDRRR
+  title: LMR514x0 36-V 4-A/5-A Synchronous Step-Down DC/DC Converter With Low IQ
+  revision: SLUSEP7, December 2022
+  source_url: https://www.ti.com/lit/ds/symlink/lmr51450.pdf
+  retrieved_on: '2026-09-29'
+  path: files/LMR51450SDRRR_lmr51450_7f80073eb777.pdf
+  sha256: 7f80073eb7773dddd87df44808e8e78f5b83520b20e815cbb0a17018d1cae413
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:84dd5258bfcf4e2fc532a38a03f5384d4e5a3dbb39213213438466c9d3850cc7
+  manufacturer: TI(德州仪器)
+  part_numbers:
+  - LM73606RNPR
+  title: C544826 supplier CAD for LM73606RNPR
+  revision: null
+  source_url: https://easyeda.com/api/products/C544826/components
+  retrieved_on: '2026-09-29'
+  path: files/LM73606RNPR_components_84dd5258bfcf.txt
+  sha256: 84dd5258bfcf4e2fc532a38a03f5384d4e5a3dbb39213213438466c9d3850cc7
+  media_type: text/plain
+  roles:
+  - cad_library
+  trust_tier: supplier
+  component_refs: []
+- id: sha256:853e6752f600e247475ba548092207fa4fc707a3f8a0b1562a834bc9a901a8d9
+  manufacturer: null
+  part_numbers:
+  - KT-0805G
+  title: de342fde3322df0797012cd7a04e2194.pdf
+  revision: null
+  source_url: https://datasheet.lcsc.com/datasheet/pdf/de342fde3322df0797012cd7a04e2194.pdf?productCode=C2297
+  retrieved_on: '2026-09-29'
+  path: files/KT-0805G_de342fde3322df0797012cd7a04e2194_853e6752f600.pdf
+  sha256: 853e6752f600e247475ba548092207fa4fc707a3f8a0b1562a834bc9a901a8d9
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - D2
+- id: sha256:89d111dd96c8fe53c01451d52e60a3bca226ccc998ae1967e323dfca005b3267
+  manufacturer: null
+  part_numbers:
+  - PCB-width-screen
+  title: snva766.pdf
+  revision: null
+  source_url: https://www.ti.com/lit/an/snva766/snva766.pdf
+  retrieved_on: '2026-10-04'
+  path: files/PCB-width-screen_snva766_89d111dd96c8.pdf
+  sha256: 89d111dd96c8fe53c01451d52e60a3bca226ccc998ae1967e323dfca005b3267
+  media_type: application/pdf
+  roles:
+  - application_note
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:9281c34a22b351bb841a7a23d0aaa1c58b4d633f6bf1a9c03d15475ac5d11f2e
+  manufacturer: Murata
+  part_numbers:
+  - GRM32ER71H106KA12K
+  - GRM32ER71H106KA12L
+  title: Murata GRM32ER71H106KA12 product sheet and characteristic curves (RS mirror)
+  revision: '2014-11-11'
+  source_url: https://docs.rs-online.com/2a0d/0900766b813885a3.pdf
+  retrieved_on: '2026-09-30'
+  path: files/GRM32ER71H106KA12_Murata_characteristics_20141111_9281c34a22b3.pdf
+  sha256: 9281c34a22b351bb841a7a23d0aaa1c58b4d633f6bf1a9c03d15475ac5d11f2e
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - C10
+  - C11
+  - C12
+  - C13
+  - C14
+  - C15
+  - C16
+  - C17
+  - C18
+  - C19
+- id: sha256:96baebe4bd0ce363e87be28b5b003f511f1502e084a6fc4f02333ded56c808f6
+  manufacturer: Samsung Electro-Mechanics
+  part_numbers:
+  - CL10C330JB8NNNC
+  title: MLCC catalog, November 2015; general series reference
+  revision: November 2015
+  source_url: https://datasheet.lcsc.com/datasheet/pdf/02336ea48ea44ca18c72517dd3cb7b47.pdf
+  retrieved_on: '2026-09-29'
+  path: files/CL10C330JB8NNNC_02336ea48ea44ca18c72517dd3cb7b47_96baebe4bd0c.pdf
+  sha256: 96baebe4bd0ce363e87be28b5b003f511f1502e084a6fc4f02333ded56c808f6
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:96f8f741dec9336a05c73ffc78116f4aefba9c876e170b26f01505c80eb3cbc7
+  manufacturer: null
+  part_numbers:
+  - OS102011MA1QN1
+  title: 9e68893bade4341f8dc17b91bf8fc979.pdf
+  revision: null
+  source_url: https://datasheet.lcsc.com/datasheet/pdf/9e68893bade4341f8dc17b91bf8fc979.pdf?productCode=C226259
+  retrieved_on: '2026-09-29'
+  path: files/OS102011MA1QN1_9e68893bade4341f8dc17b91bf8fc979_96f8f741dec9.pdf
+  sha256: 96f8f741dec9336a05c73ffc78116f4aefba9c876e170b26f01505c80eb3cbc7
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - SW1
+- id: sha256:98c77e8b42ddc52021083dae660e5277705cc82a2c469ae16a4ad4660d904a3c
+  manufacturer: Texas Instruments
+  part_numbers:
+  - LM73606RNPR
+  title: lm73606.pdf
+  revision: null
+  source_url: https://www.ti.com/lit/ds/symlink/lm73606.pdf
+  retrieved_on: '2026-09-29'
+  path: files/LM73606RNPR_lm73606_98c77e8b42dd.pdf
+  sha256: 98c77e8b42ddc52021083dae660e5277705cc82a2c469ae16a4ad4660d904a3c
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:9a3de3ffe216c5ee56e0458b90602c35f93c94712adec490c3ec2d52357444df
+  manufacturer: Bourns
+  part_numbers:
+  - SRP1265A-4R7M
+  title: C780205 supplier CAD identity for SRP1265A-4R7M
+  revision: null
+  source_url: https://easyeda.com/api/products/C780205/components
+  retrieved_on: '2026-09-30'
+  path: files/SRP1265A-4R7M_components_9a3de3ffe216.txt
+  sha256: 9a3de3ffe216c5ee56e0458b90602c35f93c94712adec490c3ec2d52357444df
+  media_type: text/plain
+  roles:
+  - cad_library
+  trust_tier: supplier
+  component_refs:
+  - L2
+- id: sha256:9dda4654fb4d363ef71e786eab994e32c9ebd65ea02222a47daace02bd249781
+  manufacturer: BOURNS
+  part_numbers:
+  - SRP1265A-6R8M
+  title: C2041326 supplier CAD for SRP1265A-6R8M
+  revision: null
+  source_url: https://easyeda.com/api/products/C2041326/components
+  retrieved_on: '2026-09-29'
+  path: files/SRP1265A-6R8M_components_9dda4654fb4d.txt
+  sha256: 9dda4654fb4d363ef71e786eab994e32c9ebd65ea02222a47daace02bd249781
+  media_type: text/plain
+  roles:
+  - cad_library
+  trust_tier: supplier
+  component_refs: []
+- id: sha256:9e35874bf27505bab79d6af783118fa926ceef7a91b7cb8421f108ff69a1b7f2
+  manufacturer: JST
+  part_numbers:
+  - B4B-EH-A(LF)(SN)
+  title: eEH.pdf
+  revision: null
+  source_url: https://www.jst-mfg.com/product/pdf/eng/eEH.pdf
+  retrieved_on: '2026-09-29'
+  path: files/B4B-EH-A_LF_SN_eEH_9e35874bf275.pdf
+  sha256: 9e35874bf27505bab79d6af783118fa926ceef7a91b7cb8421f108ff69a1b7f2
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:a12caa1d29a94167f5c5526d5e608f7ebfae5761f169e790543246d48d0dbc02
+  manufacturer: Yageo
+  part_numbers:
+  - RC0805FR-0710KL
+  title: RC0805FR-0710KL manufacturer specification sheet
+  revision: Generated 2026-09-29
+  source_url: https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL
+  retrieved_on: '2026-09-30'
+  path: files/RC0805FR-0710KL_Yageo_specsheet_a12caa1d29a9.pdf
+  sha256: a12caa1d29a94167f5c5526d5e608f7ebfae5761f169e790543246d48d0dbc02
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - R19
+  - R20
+- id: sha256:a794e72576cd6433b8b51d01831ba1f10941c8e2b2878077b7597d3c20c94de2
+  manufacturer: Coilank
+  part_numbers:
+  - APS1365M3R3DW
+  title: APS1365DW dimensions and electrical specifications
+  revision: null
+  source_url: https://datasheet.lcsc.com/datasheet/pdf/68d4a03c5920925210785d7848183ed4.pdf?productCode=C54431777
+  retrieved_on: '2026-10-05'
+  path: files/APS1365M3R3DW_68d4a03c5920925210785d7848183ed4_a794e72576cd.pdf
+  sha256: a794e72576cd6433b8b51d01831ba1f10941c8e2b2878077b7597d3c20c94de2
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - L3
+- id: sha256:a9248858bbeb08d798204569f4cc794263e395d1a35717d850248020bf886626
+  manufacturer: Diodes Incorporated
+  part_numbers:
+  - DMG2305UX-7
+  title: C150470 supplier identity
+  revision: null
+  source_url: https://easyeda.com/api/products/C150470/components
+  retrieved_on: '2026-09-30'
+  path: files/DMG2305UX-7_components_a9248858bbeb.txt
+  sha256: a9248858bbeb08d798204569f4cc794263e395d1a35717d850248020bf886626
+  media_type: text/plain
+  roles:
+  - cad_library
+  trust_tier: supplier
+  component_refs:
+  - Q1
+- id: sha256:b07e077150dea4db0a7d7ce5023c7de60dfd49444675640f9c4bd2c0e262f974
+  manufacturer: C&K
+  part_numbers:
+  - OS102011MA1QN1
+  title: C226259 supplier CAD for OS102011MA1QN1
+  revision: null
+  source_url: https://easyeda.com/api/products/C226259/components
+  retrieved_on: '2026-09-29'
+  path: files/OS102011MA1QN1_components_b07e077150de.txt
+  sha256: b07e077150dea4db0a7d7ce5023c7de60dfd49444675640f9c4bd2c0e262f974
+  media_type: text/plain
+  roles:
+  - cad_library
+  trust_tier: supplier
+  component_refs: []
+- id: sha256:b11b79a9d3245b4634fd4a02dc9062700c637b0e0a8e435f60456296413ee491
+  manufacturer: Bourns
+  part_numbers:
+  - CSS2H-2512K-2L00F
+  title: CSS2H-2512 manufacturer family STEP model (typical geometry)
+  revision: STEP header 2016-03-18
+  source_url: https://www.bourns.com/engineering/css2h-2512/CSS2H-2512.stp
+  retrieved_on: '2026-10-01'
+  path: files/CSS2H-2512_b11b79a9d324.stp
+  sha256: b11b79a9d3245b4634fd4a02dc9062700c637b0e0a8e435f60456296413ee491
+  media_type: text/plain
+  roles:
+  - cad_library
+  trust_tier: manufacturer
+  component_refs:
+  - RS1
+- id: sha256:b3b5f1a6680a5f083fb5913555c82821d0cb2d1e540dcf250f9e5f0de071922e
+  manufacturer: Samsung Electro-Mechanics
+  part_numbers:
+  - CL10C330JB8NNNC
+  title: CL10C330JB8NNNC specification reference sheet
+  revision: null
+  source_url: https://media.digikey.com/pdf/Data%20Sheets/Samsung%20PDFs/CL10C330JB8NNNC_Spec.pdf
+  retrieved_on: '2026-09-29'
+  path: files/CL10C330JB8NNNC_CL10C330JB8NNNC_Spec_b3b5f1a6680a.pdf
+  sha256: b3b5f1a6680a5f083fb5913555c82821d0cb2d1e540dcf250f9e5f0de071922e
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:b881e8433fdd135185516817550c693872ca46933563aeccfb8cab05a871fa90
+  manufacturer: UNI-ROYAL(厚声)
+  part_numbers:
+  - 0805W8F2202T5E
+  title: components
+  revision: null
+  source_url: https://easyeda.com/api/products/C17560/components
+  retrieved_on: '2026-09-30'
+  path: files/0805W8F2202T5E_components_b881e8433fdd.txt
+  sha256: b881e8433fdd135185516817550c693872ca46933563aeccfb8cab05a871fa90
+  media_type: text/plain
+  roles:
+  - cad_library
+  trust_tier: supplier
+  component_refs: []
+- id: sha256:be7c4a1aad13d106277a386070850a01f4c436eb1811e8d2c32405460b6b6820
+  manufacturer: Bourns
+  part_numbers:
+  - SRP1265A-3R3M
+  title: C1329348 supplier identity for SRP1265A-3R3M
+  revision: null
+  source_url: https://easyeda.com/api/products/C1329348/components
+  retrieved_on: '2026-09-30'
+  path: files/SRP1265A-3R3M_components_be7c4a1aad13.txt
+  sha256: be7c4a1aad13d106277a386070850a01f4c436eb1811e8d2c32405460b6b6820
+  media_type: text/plain
+  roles:
+  - cad_library
+  trust_tier: supplier
+  component_refs:
+  - L3
+- id: sha256:bf99d179b36759edbd615725840c0fb0c87640b0800ba9ecd967ed3172b2198c
+  manufacturer: Panasonic
+  part_numbers:
+  - EEU-FR1H221B
+  title: d9089262f7a6df5ba99d8a966a03ede0.pdf
+  revision: null
+  source_url: https://datasheet.lcsc.com/datasheet/pdf/d9089262f7a6df5ba99d8a966a03ede0.pdf?productCode=C178407
+  retrieved_on: '2026-09-29'
+  path: files/EEU-FR1H221B_d9089262f7a6df5ba99d8a966a03ede0_bf99d179b367.pdf
+  sha256: bf99d179b36759edbd615725840c0fb0c87640b0800ba9ecd967ed3172b2198c
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - C5
+- id: sha256:c9b67f886d4a5241a5e070723f7b61867409eeb27eed768b9cdd9cb17e03ca2d
+  manufacturer: Texas Instruments
+  part_numbers:
+  - INA226AIDGSR
+  title: ina226.pdf
+  revision: null
+  source_url: https://www.ti.com/lit/ds/symlink/ina226.pdf
+  retrieved_on: '2026-09-29'
+  path: files/INA226AIDGSR_ina226_c9b67f886d4a.pdf
+  sha256: c9b67f886d4a5241a5e070723f7b61867409eeb27eed768b9cdd9cb17e03ca2d
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:cbcfaf881018c686495a2e53c7bd281e7e0a8217d79447d73eda7c8f74b7f675
+  manufacturer: Raspberry Pi
+  part_numbers:
+  - Pico 2
+  title: pico-2-datasheet.pdf
+  revision: null
+  source_url: https://datasheets.raspberrypi.com/pico/pico-2-datasheet.pdf
+  retrieved_on: '2026-09-29'
+  path: files/Pico_2_pico-2-datasheet_cbcfaf881018.pdf
+  sha256: cbcfaf881018c686495a2e53c7bd281e7e0a8217d79447d73eda7c8f74b7f675
+  media_type: application/pdf
+  roles:
+  - datasheet
+  - integration_manual
+  - module_pinout
+  trust_tier: manufacturer
+  component_refs:
+  - SKT1
+- id: sha256:cdab5db916315b40c6b445a30ccff90de3d391d39231c3f519533113a8cb1f22
+  manufacturer: null
+  part_numbers:
+  - PowerPAD-assembly
+  title: slma002h.pdf
+  revision: null
+  source_url: https://www.ti.com/lit/an/slma002h/slma002h.pdf
+  retrieved_on: '2026-10-04'
+  path: files/PowerPAD-assembly_slma002h_cdab5db91631.pdf
+  sha256: cdab5db916315b40c6b445a30ccff90de3d391d39231c3f519533113a8cb1f22
+  media_type: application/pdf
+  roles:
+  - application_note
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:ce1449c655356f5c0415d6b3aa72d28be6d26b08e45a0050fdae16d08c592120
+  manufacturer: Yageo
+  part_numbers:
+  - RC0805FR-07100KL
+  title: RC0805FR-07100KL
+  revision: null
+  source_url: https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-07100KL
+  retrieved_on: '2026-09-30'
+  path: files/RC0805FR-07100KL_RC0805FR-07100KL_ce1449c65535.pdf
+  sha256: ce1449c655356f5c0415d6b3aa72d28be6d26b08e45a0050fdae16d08c592120
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - R15
+  - R19
+- id: sha256:cfd43f753274bc97a027685b0a8a2867969272113cc8d41980242a1a949c2e9f
+  manufacturer: null
+  part_numbers:
+  - 0297010.WXNV
+  title: 6640fa58723348e000da25e795536560.pdf
+  revision: null
+  source_url: https://datasheet.lcsc.com/datasheet/pdf/6640fa58723348e000da25e795536560.pdf?productCode=C151094
+  retrieved_on: '2026-09-29'
+  path: files/0297010.WXNV_6640fa58723348e000da25e795536560_cfd43f753274.pdf
+  sha256: cfd43f753274bc97a027685b0a8a2867969272113cc8d41980242a1a949c2e9f
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - F1
+- id: sha256:dd28a686cd106b2228fb3e0ef107b580a8f58177765c71c08a16ebbac66415af
+  manufacturer: Littelfuse
+  part_numbers:
+  - 01530008Z
+  title: 5dd658d7c0c120ed4252709c4e00b44b.pdf
+  revision: null
+  source_url: https://datasheet.lcsc.com/datasheet/pdf/5dd658d7c0c120ed4252709c4e00b44b.pdf?productCode=C206907
+  retrieved_on: '2026-09-29'
+  path: files/01530008Z_5dd658d7c0c120ed4252709c4e00b44b_dd28a686cd10.pdf
+  sha256: dd28a686cd106b2228fb3e0ef107b580a8f58177765c71c08a16ebbac66415af
+  media_type: application/pdf
+  roles:
+  - footprint_drawing
+  trust_tier: manufacturer
+  component_refs:
+  - F1
+- id: sha256:e1fd811f3bcb494bf528772421a5af4dd37b37f50461caaa5e834d3256ac1a40
+  manufacturer: null
+  part_numbers:
+  - LMR51450SDRRR
+  title: SNVMCB2
+  revision: null
+  source_url: https://www.ti.com/lit/zip/SNVMCB2
+  retrieved_on: '2026-09-30'
+  path: files/LMR51450SDRRR_SNVMCB2_e1fd811f3bcb.zip
+  sha256: e1fd811f3bcb494bf528772421a5af4dd37b37f50461caaa5e834d3256ac1a40
+  media_type: application/zip
+  roles:
+  - reference_design
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:e5dc5b492908c656b6be0dd2ef0f8c829fd445a918a0839889fc1e3046a021ec
+  manufacturer: Texas Instruments
+  part_numbers:
+  - INA226AIDGSR
+  title: INA226EVM User's Guide
+  revision: SBOU276, January 2023
+  source_url: https://www.ti.com/lit/ug/sbou276/sbou276.pdf
+  retrieved_on: '2026-10-01'
+  path: files/INA226AIDGSR_sbou276_e5dc5b492908.pdf
+  sha256: e5dc5b492908c656b6be0dd2ef0f8c829fd445a918a0839889fc1e3046a021ec
+  media_type: application/pdf
+  roles:
+  - reference_design
+  trust_tier: manufacturer_evm
+  component_refs:
+  - U1
+- id: sha256:f6e9d7b40fa5e096c6c8cf85ba055347bcdd4d4d8e096ca566b7c155293348c1
+  manufacturer: null
+  part_numbers:
+  - 0805W8F3741T5E
+  title: components
+  revision: null
+  source_url: https://easyeda.com/api/products/C65649/components
+  retrieved_on: '2026-09-29'
+  path: files/0805W8F3741T5E_components_f6e9d7b40fa5.txt
+  sha256: f6e9d7b40fa5e096c6c8cf85ba055347bcdd4d4d8e096ca566b7c155293348c1
+  media_type: text/plain
+  roles:
+  - cad_library
+  trust_tier: supplier
+  component_refs: []
+- id: sha256:fcc6d3130eae3bfb44c7b9c0486f3ad1a87557cc636a8d55a50acb1fed2219db
+  manufacturer: null
+  part_numbers:
+  - 0805W8F1001T5E
+  title: components
+  revision: null
+  source_url: https://easyeda.com/api/products/C17513/components
+  retrieved_on: '2026-09-29'
+  path: files/0805W8F1001T5E_components_fcc6d3130eae.txt
+  sha256: fcc6d3130eae3bfb44c7b9c0486f3ad1a87557cc636a8d55a50acb1fed2219db
+  media_type: text/plain
+  roles:
+  - cad_library
+  trust_tier: supplier
+  component_refs: []

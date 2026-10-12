@@ -1,0 +1,2864 @@
+{
+  "passed": true,
+  "issues": [],
+  "rotation_rules": [
+    {
+      "reference": "C1",
+      "lcsc": "C1579630",
+      "rule": {
+        "mpn": "EEU-FR1H221B",
+        "footprint": "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm",
+        "side": "top",
+        "pad_geometry_sha256": "6e6e7ad64d025d17133b941cf5de254fe7fb2515859912d5158698af55ff22d9",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C10",
+      "lcsc": "C77102",
+      "rule": {
+        "mpn": "GRM32ER71H106KA12L",
+        "footprint": "Capacitor_SMD:C_1210_3225Metric",
+        "side": "top",
+        "pad_geometry_sha256": "1fc035246ec00f3f09c02dd45db1558199ef8ff446ca7c5de0f9313c797ca25e",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C11",
+      "lcsc": "C77102",
+      "rule": {
+        "mpn": "GRM32ER71H106KA12L",
+        "footprint": "Capacitor_SMD:C_1210_3225Metric",
+        "side": "top",
+        "pad_geometry_sha256": "1fc035246ec00f3f09c02dd45db1558199ef8ff446ca7c5de0f9313c797ca25e",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C12",
+      "lcsc": "C77102",
+      "rule": {
+        "mpn": "GRM32ER71H106KA12L",
+        "footprint": "Capacitor_SMD:C_1210_3225Metric",
+        "side": "top",
+        "pad_geometry_sha256": "1fc035246ec00f3f09c02dd45db1558199ef8ff446ca7c5de0f9313c797ca25e",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C13",
+      "lcsc": "C77102",
+      "rule": {
+        "mpn": "GRM32ER71H106KA12L",
+        "footprint": "Capacitor_SMD:C_1210_3225Metric",
+        "side": "top",
+        "pad_geometry_sha256": "1fc035246ec00f3f09c02dd45db1558199ef8ff446ca7c5de0f9313c797ca25e",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C14",
+      "lcsc": "C77102",
+      "rule": {
+        "mpn": "GRM32ER71H106KA12L",
+        "footprint": "Capacitor_SMD:C_1210_3225Metric",
+        "side": "top",
+        "pad_geometry_sha256": "1fc035246ec00f3f09c02dd45db1558199ef8ff446ca7c5de0f9313c797ca25e",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C15",
+      "lcsc": "C77102",
+      "rule": {
+        "mpn": "GRM32ER71H106KA12L",
+        "footprint": "Capacitor_SMD:C_1210_3225Metric",
+        "side": "top",
+        "pad_geometry_sha256": "1fc035246ec00f3f09c02dd45db1558199ef8ff446ca7c5de0f9313c797ca25e",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C16",
+      "lcsc": "C77102",
+      "rule": {
+        "mpn": "GRM32ER71H106KA12L",
+        "footprint": "Capacitor_SMD:C_1210_3225Metric",
+        "side": "top",
+        "pad_geometry_sha256": "1fc035246ec00f3f09c02dd45db1558199ef8ff446ca7c5de0f9313c797ca25e",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C17",
+      "lcsc": "C77102",
+      "rule": {
+        "mpn": "GRM32ER71H106KA12L",
+        "footprint": "Capacitor_SMD:C_1210_3225Metric",
+        "side": "top",
+        "pad_geometry_sha256": "1fc035246ec00f3f09c02dd45db1558199ef8ff446ca7c5de0f9313c797ca25e",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C18",
+      "lcsc": "C77102",
+      "rule": {
+        "mpn": "GRM32ER71H106KA12L",
+        "footprint": "Capacitor_SMD:C_1210_3225Metric",
+        "side": "top",
+        "pad_geometry_sha256": "1fc035246ec00f3f09c02dd45db1558199ef8ff446ca7c5de0f9313c797ca25e",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C19",
+      "lcsc": "C77102",
+      "rule": {
+        "mpn": "GRM32ER71H106KA12L",
+        "footprint": "Capacitor_SMD:C_1210_3225Metric",
+        "side": "top",
+        "pad_geometry_sha256": "1fc035246ec00f3f09c02dd45db1558199ef8ff446ca7c5de0f9313c797ca25e",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C2",
+      "lcsc": "C1579437",
+      "rule": {
+        "mpn": "EEU-FR1C471B",
+        "footprint": "Capacitor_THT:CP_Radial_D8.0mm_P5.00mm",
+        "side": "top",
+        "pad_geometry_sha256": "20c8873ea9143e415d68dd8d393bf97e678caacdf68a784a35c9dc357f894103",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C20",
+      "lcsc": "C309062",
+      "rule": {
+        "mpn": "CL32B226KAJNNNE",
+        "footprint": "Capacitor_SMD:C_1210_3225Metric",
+        "side": "top",
+        "pad_geometry_sha256": "1fc035246ec00f3f09c02dd45db1558199ef8ff446ca7c5de0f9313c797ca25e",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C21",
+      "lcsc": "C309062",
+      "rule": {
+        "mpn": "CL32B226KAJNNNE",
+        "footprint": "Capacitor_SMD:C_1210_3225Metric",
+        "side": "top",
+        "pad_geometry_sha256": "1fc035246ec00f3f09c02dd45db1558199ef8ff446ca7c5de0f9313c797ca25e",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C22",
+      "lcsc": "C309062",
+      "rule": {
+        "mpn": "CL32B226KAJNNNE",
+        "footprint": "Capacitor_SMD:C_1210_3225Metric",
+        "side": "top",
+        "pad_geometry_sha256": "1fc035246ec00f3f09c02dd45db1558199ef8ff446ca7c5de0f9313c797ca25e",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C23",
+      "lcsc": "C309062",
+      "rule": {
+        "mpn": "CL32B226KAJNNNE",
+        "footprint": "Capacitor_SMD:C_1210_3225Metric",
+        "side": "top",
+        "pad_geometry_sha256": "1fc035246ec00f3f09c02dd45db1558199ef8ff446ca7c5de0f9313c797ca25e",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C24",
+      "lcsc": "C309062",
+      "rule": {
+        "mpn": "CL32B226KAJNNNE",
+        "footprint": "Capacitor_SMD:C_1210_3225Metric",
+        "side": "top",
+        "pad_geometry_sha256": "1fc035246ec00f3f09c02dd45db1558199ef8ff446ca7c5de0f9313c797ca25e",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C25",
+      "lcsc": "C309062",
+      "rule": {
+        "mpn": "CL32B226KAJNNNE",
+        "footprint": "Capacitor_SMD:C_1210_3225Metric",
+        "side": "top",
+        "pad_geometry_sha256": "1fc035246ec00f3f09c02dd45db1558199ef8ff446ca7c5de0f9313c797ca25e",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C26",
+      "lcsc": "C309062",
+      "rule": {
+        "mpn": "CL32B226KAJNNNE",
+        "footprint": "Capacitor_SMD:C_1210_3225Metric",
+        "side": "top",
+        "pad_geometry_sha256": "1fc035246ec00f3f09c02dd45db1558199ef8ff446ca7c5de0f9313c797ca25e",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C27",
+      "lcsc": "C309062",
+      "rule": {
+        "mpn": "CL32B226KAJNNNE",
+        "footprint": "Capacitor_SMD:C_1210_3225Metric",
+        "side": "top",
+        "pad_geometry_sha256": "1fc035246ec00f3f09c02dd45db1558199ef8ff446ca7c5de0f9313c797ca25e",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C28",
+      "lcsc": "C309062",
+      "rule": {
+        "mpn": "CL32B226KAJNNNE",
+        "footprint": "Capacitor_SMD:C_1210_3225Metric",
+        "side": "top",
+        "pad_geometry_sha256": "1fc035246ec00f3f09c02dd45db1558199ef8ff446ca7c5de0f9313c797ca25e",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C3",
+      "lcsc": "C1711",
+      "rule": {
+        "mpn": "CL21B104KBCNNNC",
+        "footprint": "Capacitor_SMD:C_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "e23b7f8288c43927399b5454e37c84926ed6b6dd6e434394332b44bca08522fc",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C30",
+      "lcsc": "C1711",
+      "rule": {
+        "mpn": "CL21B104KBCNNNC",
+        "footprint": "Capacitor_SMD:C_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "e23b7f8288c43927399b5454e37c84926ed6b6dd6e434394332b44bca08522fc",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C31",
+      "lcsc": "C1711",
+      "rule": {
+        "mpn": "CL21B104KBCNNNC",
+        "footprint": "Capacitor_SMD:C_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "e23b7f8288c43927399b5454e37c84926ed6b6dd6e434394332b44bca08522fc",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C32",
+      "lcsc": "C1711",
+      "rule": {
+        "mpn": "CL21B104KBCNNNC",
+        "footprint": "Capacitor_SMD:C_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "e23b7f8288c43927399b5454e37c84926ed6b6dd6e434394332b44bca08522fc",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C33",
+      "lcsc": "C1711",
+      "rule": {
+        "mpn": "CL21B104KBCNNNC",
+        "footprint": "Capacitor_SMD:C_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "e23b7f8288c43927399b5454e37c84926ed6b6dd6e434394332b44bca08522fc",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C34",
+      "lcsc": "C1711",
+      "rule": {
+        "mpn": "CL21B104KBCNNNC",
+        "footprint": "Capacitor_SMD:C_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "e23b7f8288c43927399b5454e37c84926ed6b6dd6e434394332b44bca08522fc",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C35",
+      "lcsc": "C1711",
+      "rule": {
+        "mpn": "CL21B104KBCNNNC",
+        "footprint": "Capacitor_SMD:C_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "e23b7f8288c43927399b5454e37c84926ed6b6dd6e434394332b44bca08522fc",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C39",
+      "lcsc": "C1663",
+      "rule": {
+        "mpn": "CL10C330JB8NNNC",
+        "footprint": "Capacitor_SMD:C_0603_1608Metric",
+        "side": "top",
+        "pad_geometry_sha256": "9468b147a13da2a6d32984d2bc2829d44f5a6fcf918099e81a6dc94a4e104bda",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C40",
+      "lcsc": "C1663",
+      "rule": {
+        "mpn": "CL10C330JB8NNNC",
+        "footprint": "Capacitor_SMD:C_0603_1608Metric",
+        "side": "top",
+        "pad_geometry_sha256": "9468b147a13da2a6d32984d2bc2829d44f5a6fcf918099e81a6dc94a4e104bda",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C41",
+      "lcsc": "C1663",
+      "rule": {
+        "mpn": "CL10C330JB8NNNC",
+        "footprint": "Capacitor_SMD:C_0603_1608Metric",
+        "side": "top",
+        "pad_geometry_sha256": "9468b147a13da2a6d32984d2bc2829d44f5a6fcf918099e81a6dc94a4e104bda",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "C5",
+      "lcsc": "C1579630",
+      "rule": {
+        "mpn": "EEU-FR1H221B",
+        "footprint": "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm",
+        "side": "top",
+        "pad_geometry_sha256": "6e6e7ad64d025d17133b941cf5de254fe7fb2515859912d5158698af55ff22d9",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "D2",
+      "lcsc": "C2297",
+      "rule": {
+        "mpn": "KT-0805G",
+        "footprint": "rover:KT0805G_0805_A1_K2",
+        "side": "top",
+        "pad_geometry_sha256": "37cf7f5f0a22daac586939f604c79c56913c5b8b851c4b1b0364a41457c6e819",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "J1",
+      "lcsc": "C160258",
+      "rule": {
+        "mpn": "B4B-EH-A(LF)(SN)",
+        "footprint": "Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical",
+        "side": "top",
+        "pad_geometry_sha256": "b6982d376bee51611f0e6b349acdcb294dd545bc4e8390e3c4e7d9e9b2216719",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "J2",
+      "lcsc": "C3335811",
+      "rule": {
+        "mpn": "TSW-103-07-G-S",
+        "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+        "side": "top",
+        "pad_geometry_sha256": "2d75db74ab835426c530017ba5842c35d9397b02ab420880024e838ca819e3f1",
+        "degrees": -90,
+        "basis": "derived_from_preview",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Unshrouded three-pin header axis must be horizontal. Old CPL 90 shows vertical. Apply -90; fresh supplier preview required."
+      }
+    },
+    {
+      "reference": "J3",
+      "lcsc": "C3335811",
+      "rule": {
+        "mpn": "TSW-103-07-G-S",
+        "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+        "side": "top",
+        "pad_geometry_sha256": "2d75db74ab835426c530017ba5842c35d9397b02ab420880024e838ca819e3f1",
+        "degrees": -90,
+        "basis": "derived_from_preview",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Unshrouded three-pin header axis must be horizontal. Old CPL 90 shows vertical. Apply -90; fresh supplier preview required."
+      }
+    },
+    {
+      "reference": "J4",
+      "lcsc": "C3335811",
+      "rule": {
+        "mpn": "TSW-103-07-G-S",
+        "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+        "side": "top",
+        "pad_geometry_sha256": "2d75db74ab835426c530017ba5842c35d9397b02ab420880024e838ca819e3f1",
+        "degrees": -90,
+        "basis": "derived_from_preview",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Unshrouded three-pin header axis must be horizontal. Old CPL 90 shows vertical. Apply -90; fresh supplier preview required."
+      }
+    },
+    {
+      "reference": "J5",
+      "lcsc": "C160258",
+      "rule": {
+        "mpn": "B4B-EH-A(LF)(SN)",
+        "footprint": "Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical",
+        "side": "top",
+        "pad_geometry_sha256": "b6982d376bee51611f0e6b349acdcb294dd545bc4e8390e3c4e7d9e9b2216719",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "J6",
+      "lcsc": "C160258",
+      "rule": {
+        "mpn": "B4B-EH-A(LF)(SN)",
+        "footprint": "Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical",
+        "side": "top",
+        "pad_geometry_sha256": "b6982d376bee51611f0e6b349acdcb294dd545bc4e8390e3c4e7d9e9b2216719",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "J7",
+      "lcsc": "C160258",
+      "rule": {
+        "mpn": "B4B-EH-A(LF)(SN)",
+        "footprint": "Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical",
+        "side": "top",
+        "pad_geometry_sha256": "b6982d376bee51611f0e6b349acdcb294dd545bc4e8390e3c4e7d9e9b2216719",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "J8",
+      "lcsc": "C3335811",
+      "rule": {
+        "mpn": "TSW-103-07-G-S",
+        "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+        "side": "top",
+        "pad_geometry_sha256": "2d75db74ab835426c530017ba5842c35d9397b02ab420880024e838ca819e3f1",
+        "degrees": -90,
+        "basis": "derived_from_preview",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Unshrouded three-pin header axis must be horizontal. Old CPL 90 shows vertical. Apply -90; fresh supplier preview required."
+      }
+    },
+    {
+      "reference": "L1",
+      "lcsc": "C2041326",
+      "rule": {
+        "mpn": "SRP1265A-6R8M",
+        "footprint": "rover:SRP1265A_LeadFrame_13.5x12.5_P11.1",
+        "side": "top",
+        "pad_geometry_sha256": "5263391fa54fb8e035e41fe5f29a30f628f16cf1592ad7b4a8a878718155e434",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "L2",
+      "lcsc": "C780205",
+      "rule": {
+        "mpn": "SRP1265A-4R7M",
+        "footprint": "rover:SRP1265A_LeadFrame_13.5x12.5_P11.1",
+        "side": "top",
+        "pad_geometry_sha256": "5263391fa54fb8e035e41fe5f29a30f628f16cf1592ad7b4a8a878718155e434",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "L3",
+      "lcsc": "C54431777",
+      "rule": {
+        "mpn": "APS1365M3R3DW",
+        "footprint": "rover:APS1365DW_13.8x12.6_P11.5",
+        "side": "top",
+        "pad_geometry_sha256": "368b3020dad47a95397a29f91ca31c3b04fe3bc041c603f47ebc9922f38edc8f",
+        "degrees": 0,
+        "basis": "unverified",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "No JLC model is shown for L3. Native terminal axis is horizontal; 0 is unverified until supplier 2D/engineering placement check."
+      }
+    },
+    {
+      "reference": "R1",
+      "lcsc": "C60816",
+      "rule": {
+        "mpn": "RC0805FR-074K7L",
+        "footprint": "Resistor_SMD:R_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "R10",
+      "lcsc": "C96346",
+      "rule": {
+        "mpn": "RC0805FR-07100KL",
+        "footprint": "Resistor_SMD:R_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "R11",
+      "lcsc": "C96346",
+      "rule": {
+        "mpn": "RC0805FR-07100KL",
+        "footprint": "Resistor_SMD:R_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "R12",
+      "lcsc": "C96346",
+      "rule": {
+        "mpn": "RC0805FR-07100KL",
+        "footprint": "Resistor_SMD:R_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "R13",
+      "lcsc": "C96346",
+      "rule": {
+        "mpn": "RC0805FR-07100KL",
+        "footprint": "Resistor_SMD:R_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "R14",
+      "lcsc": "C96346",
+      "rule": {
+        "mpn": "RC0805FR-07100KL",
+        "footprint": "Resistor_SMD:R_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "R15",
+      "lcsc": "C96346",
+      "rule": {
+        "mpn": "RC0805FR-07100KL",
+        "footprint": "Resistor_SMD:R_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "R16",
+      "lcsc": "C17508",
+      "rule": {
+        "mpn": "0805W8F1912T5E",
+        "footprint": "Resistor_SMD:R_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "R17",
+      "lcsc": "C17806",
+      "rule": {
+        "mpn": "0805W8F7151T5E",
+        "footprint": "Resistor_SMD:R_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "R18",
+      "lcsc": "C65649",
+      "rule": {
+        "mpn": "0805W8F3741T5E",
+        "footprint": "Resistor_SMD:R_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "R19",
+      "lcsc": "C96346",
+      "rule": {
+        "mpn": "RC0805FR-07100KL",
+        "footprint": "Resistor_SMD:R_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "R2",
+      "lcsc": "C60816",
+      "rule": {
+        "mpn": "RC0805FR-074K7L",
+        "footprint": "Resistor_SMD:R_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "R20",
+      "lcsc": "C137289",
+      "rule": {
+        "mpn": "RC1206FR-073K9L",
+        "footprint": "Resistor_SMD:R_1206_3216Metric",
+        "side": "top",
+        "pad_geometry_sha256": "c5471cc25a34ffbe6605b86fe232dcaecc82d31dda139553362472549155e153",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "R21",
+      "lcsc": "C17513",
+      "rule": {
+        "mpn": "0805W8F1001T5E",
+        "footprint": "Resistor_SMD:R_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "R22",
+      "lcsc": "C17513",
+      "rule": {
+        "mpn": "0805W8F1001T5E",
+        "footprint": "Resistor_SMD:R_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "R23",
+      "lcsc": "C17513",
+      "rule": {
+        "mpn": "0805W8F1001T5E",
+        "footprint": "Resistor_SMD:R_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "R24",
+      "lcsc": "C17560",
+      "rule": {
+        "mpn": "0805W8F2202T5E",
+        "footprint": "Resistor_SMD:R_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "R3",
+      "lcsc": "C84376",
+      "rule": {
+        "mpn": "RC0805FR-0710KL",
+        "footprint": "Resistor_SMD:R_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "R4",
+      "lcsc": "C84376",
+      "rule": {
+        "mpn": "RC0805FR-0710KL",
+        "footprint": "Resistor_SMD:R_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "R5",
+      "lcsc": "C84376",
+      "rule": {
+        "mpn": "RC0805FR-0710KL",
+        "footprint": "Resistor_SMD:R_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "R6",
+      "lcsc": "C84376",
+      "rule": {
+        "mpn": "RC0805FR-0710KL",
+        "footprint": "Resistor_SMD:R_0805_2012Metric",
+        "side": "top",
+        "pad_geometry_sha256": "b036f911eb095ba2821f3459f3f0f49652e7a16dbf0cad923b39720afdd0347a",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "RS1",
+      "lcsc": "C2093761",
+      "rule": {
+        "mpn": "CSS2H-2512K-2L00F",
+        "footprint": "rover:CSS2H_2512_6.35x3.05",
+        "side": "top",
+        "pad_geometry_sha256": "8421f65133997e484edfd2c36a01833834bc553d0eacf167f5c95251fbb96adf",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "SW1",
+      "lcsc": "C226259",
+      "rule": {
+        "mpn": "OS102011MA1QN1",
+        "footprint": "Button_Switch_THT:SW_Slide_SPDT_Angled_CK_OS102011MA1Q",
+        "side": "top",
+        "pad_geometry_sha256": "c31913d4a093cc3c1d5b600fdfd76044814ad6ed578dc9810ba1ce809fbd4e02",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "U1",
+      "lcsc": "C49851",
+      "rule": {
+        "mpn": "INA226AIDGSR",
+        "footprint": "Package_SO:MSOP-10_3x3mm_P0.5mm",
+        "side": "top",
+        "pad_geometry_sha256": "9585fc98b69ca8ce3002616edad1025025c227782de0b868f7e1e45085497646",
+        "degrees": -90,
+        "basis": "derived_from_preview",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "U1: physical pin 1 must be upper-left; old CPL 0 shows pin 1 lower-left. Apply -90; fresh supplier preview required."
+      }
+    },
+    {
+      "reference": "U2",
+      "lcsc": "C6890985",
+      "rule": {
+        "mpn": "LMR51450SDRRR",
+        "footprint": "rover:LMR51450_DRR_WSON12_3x3",
+        "side": "top",
+        "pad_geometry_sha256": "336680520fb9f199fa9a155e6dfb41b2745e37739be891766e7f3b9cbfe277fa",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "U3",
+      "lcsc": "C6890985",
+      "rule": {
+        "mpn": "LMR51450SDRRR",
+        "footprint": "rover:LMR51450_DRR_WSON12_3x3",
+        "side": "top",
+        "pad_geometry_sha256": "336680520fb9f199fa9a155e6dfb41b2745e37739be891766e7f3b9cbfe277fa",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    },
+    {
+      "reference": "U4",
+      "lcsc": "C6890985",
+      "rule": {
+        "mpn": "LMR51450SDRRR",
+        "footprint": "rover:LMR51450_DRR_WSON12_3x3",
+        "side": "top",
+        "pad_geometry_sha256": "336680520fb9f199fa9a155e6dfb41b2745e37739be891766e7f3b9cbfe277fa",
+        "degrees": 0,
+        "basis": "observed",
+        "evidence": "evidence/assembly/orientation-preview-2026-10-06.png",
+        "evidence_sha256": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+        "reason": "Axis/polarity or nonpolar symmetry agrees with archived preview and the per-reference orientation audit. Recheck new upload."
+      }
+    }
+  ],
+  "polarity_labels": [
+    {
+      "reference": "P1",
+      "pad": "1",
+      "net": "/Battery input and INA226/BAT_SWITCHED",
+      "text": "+",
+      "shown": "+",
+      "passed": true
+    },
+    {
+      "reference": "P1",
+      "pad": "2",
+      "net": "GND",
+      "text": "GND",
+      "shown": "GND",
+      "passed": true
+    },
+    {
+      "reference": "P2",
+      "pad": "2",
+      "net": "GND",
+      "text": "${SHORT_NET_NAME(2)}",
+      "shown": "GND",
+      "passed": true
+    },
+    {
+      "reference": "P2",
+      "pad": "1",
+      "net": "+12V",
+      "text": "${SHORT_NET_NAME(1)}",
+      "shown": "+12V",
+      "passed": true
+    },
+    {
+      "reference": "P4",
+      "pad": "2",
+      "net": "GND",
+      "text": "${SHORT_NET_NAME(2)}",
+      "shown": "GND",
+      "passed": true
+    },
+    {
+      "reference": "P4",
+      "pad": "1",
+      "net": "+5V",
+      "text": "${SHORT_NET_NAME(1)}",
+      "shown": "+5V",
+      "passed": true
+    },
+    {
+      "reference": "P3",
+      "pad": "2",
+      "net": "+12V",
+      "text": "${SHORT_NET_NAME(2)}",
+      "shown": "+12V",
+      "passed": true
+    },
+    {
+      "reference": "P3",
+      "pad": "1",
+      "net": "GND",
+      "text": "${SHORT_NET_NAME(1)}",
+      "shown": "GND",
+      "passed": true
+    }
+  ],
+  "models": [
+    {
+      "reference": "C1",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_THT.3dshapes/CP_Radial_D10.0mm_P5.00mm.step",
+      "passed": true,
+      "sha256": "7367f35dd5439e325ba3912de65e9200831fdc6698080ffd056cd268649ba41d",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C10",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_1210_3225Metric.step",
+      "passed": true,
+      "sha256": "f8510481c5044113cf49b0fa6dd54ddab9224508bd6808e1afab8ef0cefdefc9",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C11",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_1210_3225Metric.step",
+      "passed": true,
+      "sha256": "f8510481c5044113cf49b0fa6dd54ddab9224508bd6808e1afab8ef0cefdefc9",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C12",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_1210_3225Metric.step",
+      "passed": true,
+      "sha256": "f8510481c5044113cf49b0fa6dd54ddab9224508bd6808e1afab8ef0cefdefc9",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C13",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_1210_3225Metric.step",
+      "passed": true,
+      "sha256": "f8510481c5044113cf49b0fa6dd54ddab9224508bd6808e1afab8ef0cefdefc9",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C14",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_1210_3225Metric.step",
+      "passed": true,
+      "sha256": "f8510481c5044113cf49b0fa6dd54ddab9224508bd6808e1afab8ef0cefdefc9",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C15",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_1210_3225Metric.step",
+      "passed": true,
+      "sha256": "f8510481c5044113cf49b0fa6dd54ddab9224508bd6808e1afab8ef0cefdefc9",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C16",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_1210_3225Metric.step",
+      "passed": true,
+      "sha256": "f8510481c5044113cf49b0fa6dd54ddab9224508bd6808e1afab8ef0cefdefc9",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C17",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_1210_3225Metric.step",
+      "passed": true,
+      "sha256": "f8510481c5044113cf49b0fa6dd54ddab9224508bd6808e1afab8ef0cefdefc9",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C18",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_1210_3225Metric.step",
+      "passed": true,
+      "sha256": "f8510481c5044113cf49b0fa6dd54ddab9224508bd6808e1afab8ef0cefdefc9",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C19",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_1210_3225Metric.step",
+      "passed": true,
+      "sha256": "f8510481c5044113cf49b0fa6dd54ddab9224508bd6808e1afab8ef0cefdefc9",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C2",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_THT.3dshapes/CP_Radial_D8.0mm_P5.00mm.step",
+      "passed": true,
+      "sha256": "8ad0e28738ea6814b22ec31802ee0883d6f88dff2b8fc8883e81d7d70653ccb5",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C20",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_1210_3225Metric.step",
+      "passed": true,
+      "sha256": "f8510481c5044113cf49b0fa6dd54ddab9224508bd6808e1afab8ef0cefdefc9",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C21",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_1210_3225Metric.step",
+      "passed": true,
+      "sha256": "f8510481c5044113cf49b0fa6dd54ddab9224508bd6808e1afab8ef0cefdefc9",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C22",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_1210_3225Metric.step",
+      "passed": true,
+      "sha256": "f8510481c5044113cf49b0fa6dd54ddab9224508bd6808e1afab8ef0cefdefc9",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C23",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_1210_3225Metric.step",
+      "passed": true,
+      "sha256": "f8510481c5044113cf49b0fa6dd54ddab9224508bd6808e1afab8ef0cefdefc9",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C24",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_1210_3225Metric.step",
+      "passed": true,
+      "sha256": "f8510481c5044113cf49b0fa6dd54ddab9224508bd6808e1afab8ef0cefdefc9",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C25",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_1210_3225Metric.step",
+      "passed": true,
+      "sha256": "f8510481c5044113cf49b0fa6dd54ddab9224508bd6808e1afab8ef0cefdefc9",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C26",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_1210_3225Metric.step",
+      "passed": true,
+      "sha256": "f8510481c5044113cf49b0fa6dd54ddab9224508bd6808e1afab8ef0cefdefc9",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C27",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_1210_3225Metric.step",
+      "passed": true,
+      "sha256": "f8510481c5044113cf49b0fa6dd54ddab9224508bd6808e1afab8ef0cefdefc9",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C28",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_1210_3225Metric.step",
+      "passed": true,
+      "sha256": "f8510481c5044113cf49b0fa6dd54ddab9224508bd6808e1afab8ef0cefdefc9",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C3",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "9a669c1a2f1ea25b88b401acef6efeaa80a067bd7da9db6993de719a7fbe155c",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C30",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "9a669c1a2f1ea25b88b401acef6efeaa80a067bd7da9db6993de719a7fbe155c",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C31",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "9a669c1a2f1ea25b88b401acef6efeaa80a067bd7da9db6993de719a7fbe155c",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C32",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "9a669c1a2f1ea25b88b401acef6efeaa80a067bd7da9db6993de719a7fbe155c",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C33",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "9a669c1a2f1ea25b88b401acef6efeaa80a067bd7da9db6993de719a7fbe155c",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C34",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "9a669c1a2f1ea25b88b401acef6efeaa80a067bd7da9db6993de719a7fbe155c",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C35",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "9a669c1a2f1ea25b88b401acef6efeaa80a067bd7da9db6993de719a7fbe155c",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C39",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0603_1608Metric.step",
+      "passed": true,
+      "sha256": "4857b3dc717675bf1fb22edda622ac3b3ae03cf44d81eefaf3fa3ba3a86d84c1",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C40",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0603_1608Metric.step",
+      "passed": true,
+      "sha256": "4857b3dc717675bf1fb22edda622ac3b3ae03cf44d81eefaf3fa3ba3a86d84c1",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C41",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0603_1608Metric.step",
+      "passed": true,
+      "sha256": "4857b3dc717675bf1fb22edda622ac3b3ae03cf44d81eefaf3fa3ba3a86d84c1",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "C5",
+      "path": "${KICAD10_3DMODEL_DIR}/Capacitor_THT.3dshapes/CP_Radial_D10.0mm_P5.00mm.step",
+      "passed": true,
+      "sha256": "7367f35dd5439e325ba3912de65e9200831fdc6698080ffd056cd268649ba41d",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "D2",
+      "path": "${KICAD10_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "0aa8b791804f5d72a2fc7d1bf231dd9959207d83df8ad801176fbc459f575b98",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "J1",
+      "path": "${KICAD10_3DMODEL_DIR}/Connector_JST.3dshapes/JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical.step",
+      "passed": true,
+      "sha256": "b31435643c9c989721c0ebabed78115ec3779ea291ff6ba64b6dcffbc12d03ba",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "J2",
+      "path": "${KICAD10_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x03_P2.54mm_Vertical.step",
+      "passed": true,
+      "sha256": "b91b4ac5acf1a0d28a676703db972d17b8f11ef26a85b58d60786a69246b921b",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "J3",
+      "path": "${KICAD10_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x03_P2.54mm_Vertical.step",
+      "passed": true,
+      "sha256": "b91b4ac5acf1a0d28a676703db972d17b8f11ef26a85b58d60786a69246b921b",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "J4",
+      "path": "${KICAD10_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x03_P2.54mm_Vertical.step",
+      "passed": true,
+      "sha256": "b91b4ac5acf1a0d28a676703db972d17b8f11ef26a85b58d60786a69246b921b",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "J5",
+      "path": "${KICAD10_3DMODEL_DIR}/Connector_JST.3dshapes/JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical.step",
+      "passed": true,
+      "sha256": "b31435643c9c989721c0ebabed78115ec3779ea291ff6ba64b6dcffbc12d03ba",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "J6",
+      "path": "${KICAD10_3DMODEL_DIR}/Connector_JST.3dshapes/JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical.step",
+      "passed": true,
+      "sha256": "b31435643c9c989721c0ebabed78115ec3779ea291ff6ba64b6dcffbc12d03ba",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "J7",
+      "path": "${KICAD10_3DMODEL_DIR}/Connector_JST.3dshapes/JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical.step",
+      "passed": true,
+      "sha256": "b31435643c9c989721c0ebabed78115ec3779ea291ff6ba64b6dcffbc12d03ba",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "J8",
+      "path": "${KICAD10_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x03_P2.54mm_Vertical.step",
+      "passed": true,
+      "sha256": "b91b4ac5acf1a0d28a676703db972d17b8f11ef26a85b58d60786a69246b921b",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "L1",
+      "path": "${KIPRJMOD}/libs/lcsc_C2041326.3dshapes/IND-SMD_L12.6-W12.5-SRP1265A-220M.wrl",
+      "passed": true,
+      "sha256": "51319c13fa77db3d34d5501342e274fbfa960380977663df7a175e290f08f78b",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "step_substitute": {
+        "path": "${KIPRJMOD}/libs/lcsc_C2041326.3dshapes/IND-SMD_L12.6-W12.5-SRP1265A-220M.step",
+        "sha256": "9fcc8131b76980ef4d5f5ad6d2f4d6cc377c0fe930908bffa9156fec87654afe"
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "L2",
+      "path": "${KIPRJMOD}/libs/lcsc_C2041326.3dshapes/IND-SMD_L12.6-W12.5-SRP1265A-220M.wrl",
+      "passed": true,
+      "sha256": "51319c13fa77db3d34d5501342e274fbfa960380977663df7a175e290f08f78b",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "step_substitute": {
+        "path": "${KIPRJMOD}/libs/lcsc_C2041326.3dshapes/IND-SMD_L12.6-W12.5-SRP1265A-220M.step",
+        "sha256": "9fcc8131b76980ef4d5f5ad6d2f4d6cc377c0fe930908bffa9156fec87654afe"
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "L3",
+      "path": "${KIPRJMOD}/libs/Coilank_APS1365DW.3dshapes/APS1365DW-envelope.step",
+      "passed": true,
+      "sha256": "3478c6172c157f88ef3312bf0c3150066a4d97b4e4ae5901fec7bcc08dc7f3e9",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "datasheet-derived maximum envelope, 13.8 x 12.9 x 6.5 mm; terminal relief simplified"
+    },
+    {
+      "reference": "R1",
+      "path": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "R10",
+      "path": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "R11",
+      "path": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "R12",
+      "path": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "R13",
+      "path": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "R14",
+      "path": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "R15",
+      "path": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "R16",
+      "path": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "R17",
+      "path": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "R18",
+      "path": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "R19",
+      "path": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "R2",
+      "path": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "R20",
+      "path": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_1206_3216Metric.step",
+      "passed": true,
+      "sha256": "f5d1ea5c47935091292bd1c6c698e0df88d3d4bbf92bf66b4c97e49df5be9ebc",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "R21",
+      "path": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "R22",
+      "path": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "R23",
+      "path": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "R24",
+      "path": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "R3",
+      "path": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "R4",
+      "path": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "R5",
+      "path": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "R6",
+      "path": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step",
+      "passed": true,
+      "sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "RS1",
+      "path": "${KIPRJMOD}/evidence/files/CSS2H-2512_b11b79a9d324.stp",
+      "passed": true,
+      "sha256": "b11b79a9d3245b4634fd4a02dc9062700c637b0e0a8e435f60456296413ee491",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          -3.17501,
+          -1.525,
+          0.0
+        ],
+        "rotate": [
+          -90.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "SW1",
+      "path": "${KICAD10_3DMODEL_DIR}/Button_Switch_THT.3dshapes/SW_Slide_SPDT_Angled_CK_OS102011MA1Q.step",
+      "passed": true,
+      "sha256": "6bac2138a54083f176b64841cb4b012dd5e3404216fe9cafc739289e1a399256",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "U1",
+      "path": "${KICAD10_3DMODEL_DIR}/Package_SO.3dshapes/MSOP-10_3x3mm_P0.5mm.step",
+      "passed": true,
+      "sha256": "b8f88eac3ce221c2ccb0b5048f9ad49c2ef4af148f8ae50c4e232e357683f547",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "U2",
+      "path": "${KIPRJMOD}/libs/lcsc_C6890985.3dshapes/WSON-12_L3.0-W3.0-P0.50-TL-EP-2.wrl",
+      "passed": true,
+      "sha256": "041020fbf623c55586205517bee4a15bdf6b15752363823cea5a9d8e8034b507",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "step_substitute": {
+        "path": "${KIPRJMOD}/libs/lcsc_C6890985.3dshapes/WSON-12_L3.0-W3.0-P0.50-TL-EP-2.step",
+        "sha256": "97a012cf3099189d0d1316ab03fb15ecd9af42033026b789bd384d113f00eee8"
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "U3",
+      "path": "${KIPRJMOD}/libs/lcsc_C6890985.3dshapes/WSON-12_L3.0-W3.0-P0.50-TL-EP-2.wrl",
+      "passed": true,
+      "sha256": "041020fbf623c55586205517bee4a15bdf6b15752363823cea5a9d8e8034b507",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "step_substitute": {
+        "path": "${KIPRJMOD}/libs/lcsc_C6890985.3dshapes/WSON-12_L3.0-W3.0-P0.50-TL-EP-2.step",
+        "sha256": "97a012cf3099189d0d1316ab03fb15ecd9af42033026b789bd384d113f00eee8"
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    },
+    {
+      "reference": "U4",
+      "path": "${KIPRJMOD}/libs/lcsc_C6890985.3dshapes/WSON-12_L3.0-W3.0-P0.50-TL-EP-2.wrl",
+      "passed": true,
+      "sha256": "041020fbf623c55586205517bee4a15bdf6b15752363823cea5a9d8e8034b507",
+      "transforms": {
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "step_substitute": {
+        "path": "${KIPRJMOD}/libs/lcsc_C6890985.3dshapes/WSON-12_L3.0-W3.0-P0.50-TL-EP-2.step",
+        "sha256": "97a012cf3099189d0d1316ab03fb15ecd9af42033026b789bd384d113f00eee8"
+      },
+      "fidelity": "library model; dimensional accuracy not certified by file check"
+    }
+  ],
+  "scope": "Rule identity, local model files/transforms and wire-pad label/net association; not supplier orientation approval, component fit, model shape correctness or circuit safety."
+}

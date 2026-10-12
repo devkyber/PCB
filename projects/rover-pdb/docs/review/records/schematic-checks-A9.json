@@ -1,0 +1,169 @@
+{
+  "revision": "A9",
+  "physical_components": 85,
+  "connected_nets": 39,
+  "exact_connection_delta_pass": true,
+  "retained_UUIDs_pass": true,
+  "unchanged_child_sheets": [
+    "input-monitor",
+    "buck-12v",
+    "buck-5v",
+    "dxl-enable"
+  ],
+  "removed": [
+    "Q1"
+  ],
+  "added": [
+    "R24"
+  ],
+  "changed": [
+    "R19 selection/connection",
+    "SW1 connection",
+    "J9 supplier identity",
+    "SKT1 39/40 intentionally NC"
+  ],
+  "CAD_sha256": {
+    "rover-pdb.kicad_sch": "4200d604fe479e47c27b7209dd070b100c7d727478924128bb419cc5fa08fb85",
+    "input-monitor.kicad_sch": "c3d592a4d6d1b5ff21eb89d56357a7a59a19afafb7b3624295ac168bd67f5d0e",
+    "buck-12v.kicad_sch": "d56183c4a4c13f1a636730d3a56bbd8551bfefbd05a48b2ca2708ecfda425a9e",
+    "buck-5v.kicad_sch": "6668bfbd3ba638245618429223c82a9eb1e71a8b2187d53c046de25db8a394f0",
+    "buck-motor.kicad_sch": "1a885de1677d56aa69d59738e198c924eb6c6eade4dd4423f2fef4292a7d9005",
+    "pico-servos.kicad_sch": "eff4fec1fd43f74dea87970d822ae4da9ed266488e4c64c9a8a30b7809f3589b",
+    "dxl-enable.kicad_sch": "95ac0de112c4f20957c3290df8c64230e3d21e1ed6eafae8e2221fc743bdff24"
+  },
+  "native_audit": {
+    "status": "SCHEMATIC REVIEW ONLY",
+    "kicad_version": "10.0.6",
+    "sheets": 7,
+    "physical_symbols": 85,
+    "connected_nets": 39,
+    "erc_errors": 0,
+    "erc_warnings": 0,
+    "initial_intent_differences": [],
+    "critical_connection_failures": [],
+    "component_failures": [],
+    "footprint_pin_failures": [],
+    "unassigned_footprints": [
+      "P1",
+      "P2",
+      "P3",
+      "P4"
+    ],
+    "preview_findings": [],
+    "input_sha256": {
+      "rover-pdb.kicad_sch": "4200d604fe479e47c27b7209dd070b100c7d727478924128bb419cc5fa08fb85",
+      "input-monitor.kicad_sch": "c3d592a4d6d1b5ff21eb89d56357a7a59a19afafb7b3624295ac168bd67f5d0e",
+      "buck-12v.kicad_sch": "d56183c4a4c13f1a636730d3a56bbd8551bfefbd05a48b2ca2708ecfda425a9e",
+      "buck-5v.kicad_sch": "6668bfbd3ba638245618429223c82a9eb1e71a8b2187d53c046de25db8a394f0",
+      "buck-motor.kicad_sch": "1a885de1677d56aa69d59738e198c924eb6c6eade4dd4423f2fef4292a7d9005",
+      "pico-servos.kicad_sch": "eff4fec1fd43f74dea87970d822ae4da9ed266488e4c64c9a8a30b7809f3589b",
+      "dxl-enable.kicad_sch": "95ac0de112c4f20957c3290df8c64230e3d21e1ed6eafae8e2221fc743bdff24",
+      "rover-pdb.kicad_pro": "e3566b3a06430868d71e9287dfd6c6c520a3da027aabea01951d407ee131dc2f"
+    },
+    "cad_unchanged": true,
+    "pcb_created": false,
+    "human_signoff": "PENDING"
+  },
+  "visual_review": {
+    "revision": "A9",
+    "reviewed_utc": "2026-09-30T15:01:36.459345+00:00",
+    "reviewer": "Codex author review",
+    "pdf_sha256": "5068853fce9fd262a744469ddc50778fe05430f3d4a6916781e995aa1fcfc2db",
+    "sheets": [
+      "overview",
+      "battery/INA226",
+      "12V",
+      "5V",
+      "motor/local enable",
+      "Pico/servos/expansion",
+      "DXL distribution"
+    ],
+    "result": "All seven pages visually inspected; enlarged input/converter/enable/Pico details inspected. Moved SW_SUPPLY label clear of switch pin number and re-inspected fresh render. Native DNP cross on J9 is deliberate. Final date-only title edits on root/Pico do not alter circuitry.",
+    "owner_review_scope": "User reported inspecting preceding A8; A9 delta authorized, not yet personally re-inspected. No PCB or manufacturing approval."
+  },
+  "final_export_matches_reviewed_pages": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "no_connect_check": {
+    "added": [
+      [
+        "SKT1",
+        "39"
+      ],
+      [
+        "SKT1",
+        "40"
+      ]
+    ],
+    "retained_count": 29,
+    "final_count": 31,
+    "all_other_NCs_preserved": true
+  },
+  "fault_checks": {
+    "held_up_5V_reintroduced": {
+      "detected": true,
+      "failures": [
+        "R19.1: expected 'VBAT', got '+5V'"
+      ]
+    },
+    "battery_direct_to_12V_switch": {
+      "detected": true,
+      "failures": [
+        "SW1.1: expected 'SW_SUPPLY', got 'VBAT'"
+      ]
+    },
+    "open_EN_pulldown": {
+      "detected": true,
+      "failures": [
+        "R15.2: expected 'AGND_4', got None"
+      ]
+    },
+    "PDB_shorted_to_USB_VBUS": {
+      "detected": true,
+      "failures": [
+        "SKT1.40: expected None, got '+5V'"
+      ]
+    },
+    "expansion_pin_miswire": {
+      "detected": true,
+      "failures": [
+        "J9.2: expected 'GP18', got 'GP19'"
+      ]
+    }
+  },
+  "bom_audit": {
+    "physical_symbols": 85,
+    "C_number_count": 71,
+    "copper_features_without_purchase": [
+      "NT1",
+      "NT2",
+      "NT3",
+      "P1",
+      "P2",
+      "P3",
+      "P4",
+      "TP1",
+      "TP2",
+      "TP3",
+      "TP4",
+      "TP5",
+      "TP6"
+    ],
+    "assembly_ref": "SKT1; separate module/sockets in BOM_NOTES.md",
+    "fitted_discretes_missing_LCSC": [],
+    "J9": "C37208; DNP initially; final mechanical check pending"
+  },
+  "evidence_integrity": {
+    "records_verified": 41,
+    "machine_failures": []
+  },
+  "pdf": ".pcb-copilot\\preview\\rover-pdb-schematic-A9.pdf",
+  "pdf_sha256": "d9093383ab5c013f99adaf36d627edf55e785faa80407d8511eb0629be7dc9a4",
+  "scope": "Completed requested schematic finalization. No PCB or manufacturing release; see owner-review.json for actual human review scope."
+}

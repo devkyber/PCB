@@ -3,7 +3,8 @@
 from __future__ import annotations
 
 import hashlib
-from dataclasses import dataclass
+import json
+from dataclasses import asdict, dataclass
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 from typing import Literal
@@ -29,6 +30,32 @@ class ReviewProfile:
     items: tuple[ReviewItem, ...]
 
 
+COMMON_REVIEW_ITEMS = (
+    ReviewItem(
+        id='shared.schematic-readability',
+        prompt=('Inspect every current schematic sheet at page and circuit scale; '
+                'record the sheet list, functional pin arrangement, local support '
+                'circuits, readable junctions/labels, on-sheet assumptions and '
+                'remaining issues. Inspect fresh renders after corrections.'),
+        rationale=('ERC and successful export cannot establish visual readability; '
+                   'author review does not substitute for this human release decision.'),
+        evidence_refs=('REQUIREMENTS.md', 'DESIGN_BASIS.md'),
+        safety_tags=('schematic', 'visual'),
+    ),
+    ReviewItem(
+        id='shared.layout-handover',
+        prompt=('Inspect current source-bound PCB views, pad entries, critical '
+                'power/return and sense paths, routing-topology findings, useful '
+                'width/via presets and intentional locks. Confirm native copper '
+                'remains editable and record unresolved fit/thermal/load checks.'),
+        rationale=('DRC, default widths and connectivity alone do not establish '
+                   'current capacity, return quality, mechanical fit or editability.'),
+        evidence_refs=('REQUIREMENTS.md', 'DESIGN_BASIS.md'),
+        safety_tags=('layout', 'visual', 'power'),
+    ),
+)
+
+
 @dataclass(frozen=True)
 class SignoffRecord:
     item_id: str
@@ -51,7 +78,13 @@ SCOPE = CheckScope(
 
 
 def profile_digest(root: Path) -> str:
-    return hashlib.sha256((root / 'review-profile.yaml').read_bytes()).hexdigest()
+    # A shared-policy change invalidates prior decisions just like a local
+    # profile change. Local YAML cannot weaken or omit these release items.
+    common = json.dumps([asdict(item) for item in COMMON_REVIEW_ITEMS],
+                        sort_keys=True, separators=(',', ':')).encode('utf-8')
+    digest = hashlib.sha256(b'pcb-copilot-review-profile-v2\0' + common + b'\0')
+    digest.update((root / 'review-profile.yaml').read_bytes())
+    return digest.hexdigest()
 
 
 def load_review_profile(root: Path) -> ReviewProfile:
@@ -76,7 +109,9 @@ def load_review_profile(root: Path) -> ReviewProfile:
         items.append(item)
     if len({item.id for item in items}) != len(items):
         raise ValueError('review profile has duplicate item IDs')
-    return ReviewProfile(tuple(items))
+    if any(item.id.startswith('shared.') for item in items):
+        raise ValueError('review profile cannot override reserved shared.* review items')
+    return ReviewProfile((*items, *COMMON_REVIEW_ITEMS))
 
 
 def prepare_signoff(project: Project) -> Path:

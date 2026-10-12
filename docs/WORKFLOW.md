@@ -1,16 +1,42 @@
 # Working with a board
 
+## Saved CAD and assisted edits
+
+The root `.kicad_sch` hierarchy and `.kicad_pcb` are the current design, including
+owner edits. The pipeline reads saved files; it cannot read unsaved changes in
+an open KiCad editor. Save and close the editors before applying external edits,
+then reopen the project. Read-only review and explanation do not rewrite CAD.
+
+For a scoped change, copy the current saved design and edit that native copy.
+Preserve unrelated objects, UUIDs, placement and routing. Use
+`update-schematic --candidate` for native sheets or `update-layout --candidate`
+for a native PCB. An intent-driven command generates a new candidate from YAML;
+it is not a merge of manual drawing or routing edits. Reserve it for a new design
+or an explicitly requested redraw. Old authoring scripts and exported PDF/SVG
+images are never the starting point for edits to an existing board.
+
+Every update needs a successful preview without `--apply`, followed by the same
+command with `--apply`. Apply is bound to the preview's exact saved project,
+candidate/intent files, companion settings and options. A later edit invalidates
+the preview; rerun it on the current saved design. This detects stale inputs,
+not whether a requested circuit change is a good engineering decision. During
+application, input hashes are rechecked and originals retained for rollback.
+
 Open the root schematic and PCB under `projects/BOARD/`; TMS has six child sheets.
 Read its requirements, design basis, reference review, deviations and review profile.
 
 ## 1. Check the current state and sources
 
+Replace `PROJECT` with the selected project folder, such as `projects/tms-v3`.
+Part examples below use Rover's exact converter identity; choose the actual
+part for the board being worked on.
+
 ```powershell
 uv sync
-uv run pcb-copilot status projects/baro-bmp390
-uv run pcb-copilot research projects/baro-bmp390 --verify
-uv run pcb-copilot research projects/baro-bmp390 --search-plan BMP390
-uv run pcb-copilot research projects/baro-bmp390 --extract BMP390
+uv run pcb-copilot status PROJECT
+uv run pcb-copilot research PROJECT --verify
+uv run pcb-copilot research PROJECT --search-plan LMR51450
+uv run pcb-copilot research PROJECT --extract LMR51450
 ```
 
 Archive documents with `research PROJECT --add PART URL --role ROLE` before citing
@@ -22,8 +48,8 @@ in `DESIGN_BASIS.md`. Hash verification proves archive identity, not suitability
 ### LCSC parts and library import
 
 ```powershell
-uv run pcb-copilot parts projects/baro-bmp390 --lookup C5124834
-uv run pcb-copilot parts projects/baro-bmp390 --import C5124834 --mpn BMP390
+uv run pcb-copilot parts PROJECT --lookup C6890985
+uv run pcb-copilot parts PROJECT --import C6890985 --mpn LMR51450SDRRR
 ```
 
 Lookup fetches the exact supplier record for a C-number. Import requires a
@@ -35,7 +61,7 @@ Supplier JSON is archived as `cad_library` evidence with `supplier` provenance.
 It does not satisfy a datasheet or reference-design requirement.
 
 Use the returned `symbol` and `footprint` IDs in schematic intent; the optional
-component `lcsc: C5124834` field verifies/preserves sourcing identity. Imported
+component `lcsc: C6890985` field verifies/preserves sourcing identity. Imported
 library sourcing properties survive schematic generation. Update the PCB from
 the schematic in KiCad and supply it with `--pcb`; BOM export reads its LCSC field.
 Review blocks release if a selected schematic C-number differs from the PCB.
@@ -45,11 +71,39 @@ not a live stock/price quote or a keyword catalog search.
 
 ## 2. Update the schematic
 
+Read the current root schematic and all child sheets before editing. Preserve
+owner edits; an older intent or generator must never overwrite newer CAD. A
+request for PCB layout alone does not authorize schematic changes. If the owner
+requests a second schematic for comparison, create a separate editable copy
+from the current CAD and leave the original unchanged.
+
 ```powershell
-uv run pcb-copilot update-schematic projects/baro-bmp390 --intent projects/baro-bmp390/schematic-intent.yaml
+uv run pcb-copilot update-schematic PROJECT --candidate C:/work/BOARD/BOARD.kicad_sch
+uv run pcb-copilot update-schematic PROJECT --intent PROJECT/schematic-intent.yaml
 ```
 
-Inspect the PDF, native ERC and findings at the returned paths. Add `--apply` to
+Prefer `--candidate` for owner-edited sheets. Supply the root sheet with the same
+filename and its complete hierarchy in a separate working copy. Native sheet
+bytes are preserved; the connectivity snapshot is derived from those sheets.
+The historical YAML intent is not replayed or rewritten. A paired `--pcb` can
+provide matching routed CAD for a circuit change. Inspect every preview sheet
+before repeating the command with `--apply`.
+
+Inspect every rendered sheet against
+[Schematic readability](DESIGN_RULES.md#schematic-readability), plus native ERC
+and findings at the returned paths. Apply the adopted Gala/Gross conventions:
+functional symbol geometry, readable flow, clear junctions, voltage/load
+assumptions and local calculation notes. Judge the actual drawing, not just a
+checklist or its resemblance to a screenshot. Local support parts, test points, power flags,
+and sheet ports should be incorporated into their circuits. A PDF file existing
+is not evidence that its pages have been inspected. For drawing-only changes,
+compare native exported pin-to-net membership, component properties, footprint
+assignments, and intentional no-connects before and after; stop if the circuit
+changes unexpectedly. After the final edits, rerun ERC and render the changed
+sheets again. Record the reviewed sheet list and remaining issues in the project
+review notes; do not record author visual review as owner sign-off.
+
+Add `--apply` to
 install a checked candidate. The command preserves the root design on failure,
 updates hierarchical sheets and netmap together, and returns the lifecycle to
 `DRAFT`. It requires exact PCB connectivity. `--reconcile-board-names` handles
@@ -57,7 +111,7 @@ hierarchy-qualified net renames only when pad membership and native rules agree.
 For a circuit change, supply its matching, routed PCB with the new intent:
 
 ```powershell
-uv run pcb-copilot update-schematic projects/baro-bmp390 --intent C:/designs/new-intent.yaml --pcb C:/designs/new-board.kicad_pcb --apply
+uv run pcb-copilot update-schematic PROJECT --intent C:/designs/new-intent.yaml --pcb C:/designs/new-board.kicad_pcb --apply
 ```
 
 This checks the PCB against the generated schematic, refills zones, runs DRC and
@@ -67,11 +121,18 @@ is not used to constrain a different circuit. Update that intent before future
 placement generation. Manual KiCad edits remain possible; reconcile intent and
 netmap afterward.
 
+Both schematic update paths also verify PCB schematic UUID links. When complete
+part and pin-net parity proves an unlinked legacy board matches, preview reports
+the missing IDs and apply installs only that PCB metadata with the schematic.
+Already linked boards keep their PCB bytes during drawing-only native updates.
+A conflicting existing link blocks; an intentional redraw that changes symbol
+identities needs an explicitly reconciled native schematic/PCB candidate.
+
 ## 3. Update the layout
 
 ```powershell
-uv run pcb-copilot update-layout projects/baro-bmp390 --intent projects/baro-bmp390/layout-intent.yaml
-uv run pcb-copilot update-layout projects/baro-bmp390 --candidate C:/designs/baro-bmp390.kicad_pcb
+uv run pcb-copilot update-layout PROJECT --intent PROJECT/layout-intent.yaml
+uv run pcb-copilot update-layout PROJECT --candidate C:/designs/BOARD.kicad_pcb
 ```
 
 An intent produces placement/routing candidates. Default `human` routing does not
@@ -82,36 +143,86 @@ blocked rather than silently routing other nets.
 
 `--candidate` checks a board edited and routed in KiCad, using companion project
 settings/custom rules when supplied. Both paths fill zones, check physical parts
-and connectivity, run fresh DRC twice, compare copper/footprints/pours and render
-preview artifacts. Review those artifacts, then use `--apply`. A candidate with
+and connectivity, verify schematic UUID links, run fresh DRC twice, compare
+copper/footprints/pours and render preview artifacts. After complete part and
+pin-net parity, absent schematic links are filled on the staged candidate with
+the native netlist's sheet/symbol UUID paths. Copper, footprint UUIDs and
+positions are preserved. Conflicting nonempty links block the update; the
+pipeline does not silently re-link them by reference.
+
+KiCad's F8 placeholder net for an explicitly unconnected pin is equivalent to
+an empty PCB net only when the native schematic supplies the exact name and
+pin and the PCB net contains that pin alone. Extra members still fail parity.
+
+`routing-topology.json` identifies fully covered straight-track segments, very
+short segments and off-centre pad contacts by UUID, net, layer and coordinates.
+These findings are advisory: a pad edge contact can be electrically valid and
+some short escapes are intentional. Inspect the local route and use KiCad's
+interactive router for any authorized repair. Native DRC remains the gate for
+unconnected copper; topology advice does not certify current capacity.
+
+Review those artifacts, then use `--apply`. A candidate with
 unconnected items, missing parts or lost routing cannot replace the current board.
 Applying is a working-design update and invalidates prior release state.
 
 ## 4. Review and record human decisions
 
 ```powershell
-uv run pcb-copilot review projects/baro-bmp390
-uv run pcb-copilot review projects/baro-bmp390 --format json
-uv run pcb-copilot prepare-signoff projects/baro-bmp390
+uv run pcb-copilot review PROJECT
+uv run pcb-copilot review PROJECT --format json
+uv run pcb-copilot prepare-signoff PROJECT
 ```
 
-Review runs ten checks against a disposable copy: research, datasheets, ERC,
+Review runs fourteen checks against a disposable copy: research, datasheets, ERC,
 netmap freshness, physical/net parity, placement, geometric house rules, DRC,
-schematic quality and sign-off. Each result names its scope. A failed check does
-not hide later results. Optional `--output` creates a new JSON/Markdown report
+schematic quality, routing/editability settings, routing topology, independent JLCPCB geometry,
+assembly contracts and sign-off.
+Routing topology, defaults and locked-copper findings are advisory; they do not
+certify ampacity or enforce a uniform minimum on mixed power/sense branches.
+Each result names its scope. A failed check does not hide later results.
+Optional `--output` creates a new JSON/Markdown report
 under `.pcb-copilot/reports/` without overwriting earlier reports.
 
 `prepare-signoff` creates an unsigned `review-signoff.yaml` only when absent.
+The shared policy always adds `shared.schematic-readability` and
+`shared.layout-handover` to the local profile. These require actual inspection
+of every sheet and current layout views; record the reviewed sheets and
+remaining issues in the decision note or referenced review record. Local YAML
+cannot omit or override them.
+
 The responsible human completes each profile item with a reviewer, ISO date,
 `accepted`/`rejected` decision and note after actual inspection or measurement.
-Hashes bind decisions to the current inputs. If inputs change, preserve the old
+Hashes bind decisions to the current inputs and the shared policy. A policy
+change also invalidates old decisions. If inputs change, preserve the old
 record in Git, remove the stale worksheet and prepare a new one; do not merely
 refresh hashes under an old signature.
 
 ## 5. Release
 
+For a JLCPCB quotation/placement review before final sign-off, run
+`uv run pcb-copilot release PROJECT --preview --quantity 5`. Replace 5 with the
+number of boards to assemble; the default is one. It prepares `output/jlcpcb-preview/`
+with a Gerber-and-drill ZIP, grouped BOM, matching CPL and current review findings.
+It does not grant release or replace `fabrication/`; a blocked review returns exit
+code 1 even when the preview package was prepared. `jlcpcb-assembly.yaml`
+records explicit manual-fit exclusions, geometry-bound centroid corrections,
+exact-part rotation rules, model contracts and a separate supplier placement
+review. Missing rotation coverage/models or missing/stale supplier review blocks
+release. The file is included in source and sign-off fingerprints. See
+[the assembly workflow](JLCPCB_ASSEMBLY.md) for editing and review instructions.
+
+Review independently runs the dated JLCPCB two-layer / 1 oz / green-mask geometry
+baseline on a disposable copy. It cannot be weakened by project exclusions or
+ignored manufacturing errors. The normal project DRC also runs. Release includes
+`jlcpcb-dfm.json` plus fresh `stock.csv`, `stock.json` and hashed supplier responses.
+Stock checks exact C-number/MPN identity and BOM quantity times board count. Unknown
+or insufficient stock blocks release. This is LCSC retail stock, not JLCPCB assembly
+allocation; extra assembly attrition, eligibility, preorder and rotations need
+confirmation in the actual order. Nothing is reserved. The supplier profile is
+dated and must be reviewed when process choices or capabilities change.
+
 ```powershell
-uv run pcb-copilot release projects/baro-bmp390
+uv run pcb-copilot release PROJECT
 ```
 
 Release reruns the complete review, including current human decisions. A blocked
@@ -140,3 +251,30 @@ retains the previous fabrication package and state. If a process is forcibly
 terminated before any recovery journal exists, confirm no pipeline process is
 running before removing its stale lock. Keep a copy of recovery data until the
 restored design has been checked.
+
+## Keep the workspace understandable
+
+The project README is the entry point. Keep current CAD and declared inputs at
+the project root, detailed calculations under `docs/design/`, retained review
+conclusions and measured reports under `docs/review/`, and human-facing exports
+under `output/`. Store exact cited sources in `evidence/`, never scratch folders.
+The Rover project demonstrates this structure; small projects need not create
+empty subdirectories or duplicate its board-specific notes.
+
+```powershell
+uv run pcb-copilot clean projects/rover-pdb
+uv run pcb-copilot clean projects/rover-pdb --apply
+```
+
+The first command lists the exact files and sizes. The second rescans and removes
+only known reproducible previews, invalidating their apply authorizations. Unknown
+files, current CAD, source archives, drafts, acceptance originals, recovery and
+fabrication packages are retained. Active operations and unresolved recovery
+block it. Save a useful final review report outside scratch before cleaning.
+
+One-time historical cleanup needs a dependency/reference audit and a verified
+external backup for untracked or owner-edited material. Extract useful assertions
+and engineering lessons before removing old authoring scripts. Do not delete
+code solely because Rover did not use it: shared intent generation and optional
+routing still serve other projects. See [Architecture](ARCHITECTURE.md) for the
+L0–L4 map, command internals and the completed Rover cleanup's recovery location.

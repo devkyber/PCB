@@ -1,0 +1,34 @@
+[
+  {
+    "from": "R20.2",
+    "to": "D2.1",
+    "net": "/22.19 V motor supply/LED_A",
+    "vias": 0,
+    "expanded_nodes": 499,
+    "path_points": 36
+  },
+  {
+    "from": "R15.1",
+    "to": "SW1.2",
+    "net": "/22.19 V motor supply/MOTOR_EN",
+    "vias": 1,
+    "expanded_nodes": 34044,
+    "path_points": 372
+  },
+  {
+    "from": "R19.2",
+    "to": "SW1.1",
+    "net": "/22.19 V motor supply/SW_SUPPLY",
+    "vias": 2,
+    "expanded_nodes": 39941,
+    "path_points": 365
+  },
+  {
+    "from": "R20.1",
+    "to": "C5.1",
+    "net": "/22.19 V motor supply/VMOTOR",
+    "vias": 3,
+    "expanded_nodes": 30646,
+    "path_points": 334
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "source_url": "https://www.analog.com/en/resources/reference-designs/maxrefdes1092.html",
+  "retrieved_on": "2026-09-30",
+  "artifact": "GRM32ER71H106KA12-ADI-web-extract.json",
+  "sha256": "45c955ccb9074cd4dacba292f6023c51c9e19aa45ea1f2376a0e93c50453d503",
+  "format": "Exact serialized web-tool text extraction, not original HTML bytes. Direct HTML request timed out.",
+  "scope": "ADI names the exact Murata family and applies 48% loss at 28V. Cross-check only; not a guaranteed Murata DC-bias curve.",
+  "murata_curve_status": "Not retrieved; public manufacturer endpoints returned 403/404."
+}

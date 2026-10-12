@@ -8,11 +8,12 @@ from kicad_claude.adapters import sch_io
 from kicad_claude.utils.geometry import kicad_to_mcp_xy
 
 from pcb_copilot.schematic.render import LabelPlacer, SymbolPlacer
+from tests.board_fixtures import board_source
 
 
 @pytest.fixture
 def gnss_fields(repo_root):
-    tree = sch_io.parse_file(repo_root / 'projects/gnss-neom9n/gnss-neom9n.kicad_sch')
+    tree = sch_io.parse_file(board_source(repo_root, 'gnss-neom9n') / 'gnss-neom9n.kicad_sch')
     symbols = SymbolPlacer(ed, tree)
     labels = LabelPlacer(ed, tree, symbols=symbols)
     return tree, symbols, labels

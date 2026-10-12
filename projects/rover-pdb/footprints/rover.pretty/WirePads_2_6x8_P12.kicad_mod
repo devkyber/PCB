@@ -1,0 +1,103 @@
+(footprint "WirePads_2_6x8_P12"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Owner-selected hand-solder surface wire pads, 6x8mm, 12mm pitch. No paste. NPTH pair for separate harness retention. Engineering footprint, no purchased connector.")
+	(property "Reference" "REF**"
+		(at 0 6 0)
+		(layer "F.SilkS")
+		(uuid "2ff4bf1e-bdec-48b0-bff9-c2b45c66ea33")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "BATTERY WIRE PADS"
+		(at 0 7.5 0)
+		(layer "F.Fab")
+		(uuid "f2fd8923-40f3-4f44-afc8-76dbbcedfaa5")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "6814fff8-8526-4638-8de3-0968c708e8bb")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "20e2a04e-f4a3-49d9-bc37-3e4acc2143d1")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr smd exclude_from_pos_files exclude_from_bom)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_rect
+		(start -10 -5)
+		(end 10 5)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "c1aef354-1fa1-4f29-b4fc-059bc5ee276b")
+	)
+	(fp_text user "+"
+		(at -6 5.1 0)
+		(layer "F.SilkS")
+		(uuid "538480d8-f906-44c8-9739-96431b68ee52")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+		)
+	)
+	(fp_text user "GND"
+		(at 6 5.1 0)
+		(layer "F.SilkS")
+		(uuid "45442498-6601-48ae-901d-94a0a5fe41ca")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" smd roundrect
+		(at -6 0)
+		(size 6 8)
+		(layers "F.Cu" "F.Mask")
+		(roundrect_rratio 0.1)
+		(solder_mask_margin 0)
+		(uuid "d1f5bf99-de07-4055-b139-835bd60cfb9a")
+	)
+	(pad "2" smd roundrect
+		(at 6 0)
+		(size 6 8)
+		(layers "F.Cu" "F.Mask")
+		(roundrect_rratio 0.1)
+		(solder_mask_margin 0)
+		(uuid "a31c297a-b482-482f-8af9-c70f9e3345c7")
+	)
+	(embedded_fonts no)
+)

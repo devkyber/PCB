@@ -1,0 +1,902 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "249f92ce-0626-42c7-937d-e98e7e0c53cf")
+	(paper "A3")
+	(title_block
+		(title "ROVER PDB | System overview")
+		(date "2026-10-04")
+		(rev "A10")
+		(company "KSRC Lunar Rover")
+		(comment 1 "Schematic only. Owner edits are authoritative.")
+		(comment 2 "HUMAN REVIEW - not approved for fabrication.")
+	)
+	(lib_symbols)
+	(text "ROVER POWER DISTRIBUTION BOARD"
+		(exclude_from_sim no)
+		(at 20.32 15.24 0)
+		(effects
+			(font
+				(size 3 3)
+			)
+			(justify left top)
+		)
+		(uuid "0a633c08-d935-437e-91c3-6fce6c6ed071")
+	)
+	(text "3  12 V converter"
+		(exclude_from_sim no)
+		(at 327.66 73.66 0)
+		(effects
+			(font
+				(size 1.52 1.52)
+			)
+			(justify left top)
+		)
+		(uuid "0b5a0393-3d23-41c2-8eff-f1521b6ea13f")
+	)
+	(text "RS1 + U1"
+		(exclude_from_sim no)
+		(at 35.56 73.66 0)
+		(effects
+			(font
+				(size 1.8 1.8)
+			)
+			(justify left top)
+		)
+		(uuid "0c16f898-fda4-4c8c-86a1-ffde3bfb2550")
+	)
+	(text "Planning range; not a cutoff setting."
+		(exclude_from_sim no)
+		(at 35.56 101.6 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "0f84d216-6175-4bf3-9bdc-e77fc0b6d5f8")
+	)
+	(text ""
+		(exclude_from_sim no)
+		(at 327.66 99.06 0)
+		(effects
+			(font
+				(size 1.52 1.52)
+			)
+			(justify left top)
+		)
+		(uuid "2af523c0-f1e2-4671-90a6-7c73434a71d4")
+	)
+	(text "REVISION NOTES  |  2026-09-30"
+		(exclude_from_sim no)
+		(at 20.32 256.54 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "35cc2d5c-583a-4709-a00c-928cfe224e2b")
+	)
+	(text "U4 | 22.190 V | 3.5 A load"
+		(exclude_from_sim no)
+		(at 203.2 184.15 0)
+		(effects
+			(font
+				(size 1.8 1.8)
+			)
+			(justify left top)
+		)
+		(uuid "36ef5a68-46e6-4fc4-a7eb-6beedfaf098d")
+	)
+	(text "U2 | 11.989 V | 3 A load"
+		(exclude_from_sim no)
+		(at 203.2 72.39 0)
+		(effects
+			(font
+				(size 1.8 1.8)
+			)
+			(justify left top)
+		)
+		(uuid "432e36fe-c3df-422d-9cb2-a91a063f1c7d")
+	)
+	(text "Loads are planning figures,"
+		(exclude_from_sim no)
+		(at 327.66 104.14 0)
+		(effects
+			(font
+				(size 1.52 1.52)
+			)
+			(justify left top)
+		)
+		(uuid "58abd855-d012-41b0-aca1-8bb9494974e7")
+	)
+	(text "Jetson + 12 V expansion"
+		(exclude_from_sim no)
+		(at 203.2 88.9 0)
+		(effects
+			(font
+				(size 1.6 1.6)
+			)
+			(justify left top)
+		)
+		(uuid "5e17d512-71e6-4d7f-a4c4-0d1680ec8460")
+	)
+	(text "A9: VIN-derived motor enable; USB-only Pico; sourced optional GPIO header. Stop before PCB layout."
+		(exclude_from_sim no)
+		(at 20.32 266.7 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "64646cfd-a818-46ee-97cb-21454deaacab")
+	)
+	(text "U3 | 4.988 V | 2.4 A load"
+		(exclude_from_sim no)
+		(at 203.2 128.27 0)
+		(effects
+			(font
+				(size 1.8 1.8)
+			)
+			(justify left top)
+		)
+		(uuid "66b36276-4a2e-4202-8968-63be3b7bc8b5")
+	)
+	(text "not validated PCB ratings."
+		(exclude_from_sim no)
+		(at 327.66 109.22 0)
+		(effects
+			(font
+				(size 1.52 1.52)
+			)
+			(justify left top)
+		)
+		(uuid "6ddd64a6-7537-439e-91bb-5ccd40e24b2c")
+	)
+	(text "SKT1 + J2-J4"
+		(exclude_from_sim no)
+		(at 35.56 184.15 0)
+		(effects
+			(font
+				(size 1.8 1.8)
+			)
+			(justify left top)
+		)
+		(uuid "70575bf1-6f90-4fc8-be27-7fc381b2f5ee")
+	)
+	(text "5  Motor converter"
+		(exclude_from_sim no)
+		(at 327.66 83.82 0)
+		(effects
+			(font
+				(size 1.52 1.52)
+			)
+			(justify left top)
+		)
+		(uuid "743f96ee-85a4-4775-a9f7-7f62a93e88a7")
+	)
+	(text "11.99 V: Jetson     |     4.99 V: hobby servos     |     22.19 V: DYNAMIXEL"
+		(exclude_from_sim no)
+		(at 20.32 35.56 0)
+		(effects
+			(font
+				(size 1.6 1.6)
+			)
+			(justify left top)
+		)
+		(uuid "76b636d9-b611-4e28-b345-5b17d6ab0d6a")
+	)
+	(text "Motor supply + SW1 + rail indicator"
+		(exclude_from_sim no)
+		(at 200.66 215.9 0)
+		(effects
+			(font
+				(size 1.6 1.6)
+			)
+			(justify left top)
+		)
+		(uuid "7e68b0fa-a558-44da-86e2-739708abdbb6")
+	)
+	(text "Pico: USB power/data; 4 GPIO expansion"
+		(exclude_from_sim no)
+		(at 35.56 215.9 0)
+		(effects
+			(font
+				(size 1.6 1.6)
+			)
+			(justify left top)
+		)
+		(uuid "7eaf8fd1-5f6c-42f5-b31a-13935011e45d")
+	)
+	(text "2  Battery + INA226"
+		(exclude_from_sim no)
+		(at 327.66 68.58 0)
+		(effects
+			(font
+				(size 1.52 1.52)
+			)
+			(justify left top)
+		)
+		(uuid "84276ec8-653c-4a70-a8db-303724fe5a97")
+	)
+	(text "Shared motor power and data bus"
+		(exclude_from_sim no)
+		(at 332.74 215.9 0)
+		(effects
+			(font
+				(size 1.6 1.6)
+			)
+			(justify left top)
+		)
+		(uuid "907ff070-5e74-4295-9553-91fc296bc4d2")
+	)
+	(text "A1: integrated drawing.  A2: LMR51450 converter circuit."
+		(exclude_from_sim no)
+		(at 20.32 261.62 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "93eb3b06-60af-4bee-ad94-751f25181fc3")
+	)
+	(text "6  Pico + servos"
+		(exclude_from_sim no)
+		(at 327.66 88.9 0)
+		(effects
+			(font
+				(size 1.52 1.52)
+			)
+			(justify left top)
+		)
+		(uuid "9891d65f-19f7-46c1-b128-26cd7cff8218")
+	)
+	(text "Three servos + 5 V expansion"
+		(exclude_from_sim no)
+		(at 200.66 144.78 0)
+		(effects
+			(font
+				(size 1.6 1.6)
+			)
+			(justify left top)
+		)
+		(uuid "ab83ee0b-ddcb-41e2-b594-c745c0967999")
+	)
+	(text "REVIEW HOLD: motor braking energy / output overshoot; external battery protection; servo pinout; DC-bias capacitance."
+		(exclude_from_sim no)
+		(at 20.32 238.76 0)
+		(effects
+			(font
+				(size 1.35 1.35)
+			)
+			(justify left top)
+		)
+		(uuid "b975e243-6e87-4187-8eee-51210208407f")
+	)
+	(text "READING THIS SCHEMATIC"
+		(exclude_from_sim no)
+		(at 327.66 63.5 0)
+		(effects
+			(font
+				(size 1.52 1.52)
+			)
+			(justify left top)
+		)
+		(uuid "c82ddeca-adb1-4364-b199-b1a6fa1c1515")
+	)
+	(text "Battery voltage / current"
+		(exclude_from_sim no)
+		(at 35.56 83.82 0)
+		(effects
+			(font
+				(size 1.6 1.6)
+			)
+			(justify left top)
+		)
+		(uuid "cc8c9c05-55aa-46c7-aff7-43a7d0f08a6c")
+	)
+	(text "J1 -> J5/J6/J7"
+		(exclude_from_sim no)
+		(at 335.28 184.15 0)
+		(effects
+			(font
+				(size 1.8 1.8)
+			)
+			(justify left top)
+		)
+		(uuid "d1e83e51-5414-4da6-bf4a-416b89bd9834")
+	)
+	(text "6S: (19.8, 22.2, 25.2) V"
+		(exclude_from_sim no)
+		(at 35.56 96.52 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "d1fc52e0-33c4-4767-b448-ce3b7c57dfe2")
+	)
+	(text "Pico uses Jetson USB power and data. Motor enable follows VBAT through a switch-safe resistor network."
+		(exclude_from_sim no)
+		(at 20.32 246.38 0)
+		(effects
+			(font
+				(size 1.35 1.35)
+			)
+			(justify left top)
+		)
+		(uuid "dc095713-2ed8-486b-852c-432cc1a12191")
+	)
+	(text "4  5 V converter"
+		(exclude_from_sim no)
+		(at 327.66 78.74 0)
+		(effects
+			(font
+				(size 1.52 1.52)
+			)
+			(justify left top)
+		)
+		(uuid "e988e32b-54be-4273-a81a-06bf2deb7ace")
+	)
+	(text "7  DYNAMIXEL distribution"
+		(exclude_from_sim no)
+		(at 327.66 93.98 0)
+		(effects
+			(font
+				(size 1.52 1.52)
+			)
+			(justify left top)
+		)
+		(uuid "f09d61e2-7856-4da8-b3bc-e1750b2a5a3a")
+	)
+	(text "6S battery  ->  shunt  ->  three LMR51450 converters"
+		(exclude_from_sim no)
+		(at 20.32 26.67 0)
+		(effects
+			(font
+				(size 1.8 1.8)
+			)
+			(justify left top)
+		)
+		(uuid "ff9650c9-13e5-471e-884f-105553fd6968")
+	)
+	(junction
+		(at 165.1 135.89)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0551ca67-be79-4b7b-9a59-120ddfdd0d18")
+	)
+	(junction
+		(at 165.1 80.01)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9f2a6fbe-1d26-481a-be2a-9af06d16ac65")
+	)
+	(wire
+		(pts
+			(xy 127 110.49) (xy 152.4 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "02da5c67-dcb7-4ccc-a96a-79276eba6589")
+	)
+	(wire
+		(pts
+			(xy 165.1 80.01) (xy 165.1 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "396c09d1-6927-4461-82b8-f37f60374cd4")
+	)
+	(wire
+		(pts
+			(xy 142.24 195.58) (xy 127 195.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3d9c5586-8e65-494a-b283-702234e637b0")
+	)
+	(wire
+		(pts
+			(xy 152.4 110.49) (xy 152.4 205.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7863dd79-bf04-4337-a268-44632ad4ea14")
+	)
+	(wire
+		(pts
+			(xy 165.1 80.01) (xy 190.5 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7c10ab96-0256-4b07-9c77-e1fea335aa8f")
+	)
+	(wire
+		(pts
+			(xy 165.1 135.89) (xy 165.1 191.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7d67d557-55b2-42ce-b4d4-390f45d04312")
+	)
+	(wire
+		(pts
+			(xy 165.1 191.77) (xy 190.5 191.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "95a2dc1a-9ec9-4d0c-8504-ccbf70f54652")
+	)
+	(wire
+		(pts
+			(xy 142.24 100.33) (xy 142.24 195.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9d7b3b2b-24b3-4f44-8c45-69a5f75208ea")
+	)
+	(wire
+		(pts
+			(xy 165.1 135.89) (xy 190.5 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a52f776d-a0b0-43d7-9de8-6ec9c3ca1b0a")
+	)
+	(wire
+		(pts
+			(xy 152.4 205.74) (xy 127 205.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a95b43e8-131c-4d78-b406-09400e732ab3")
+	)
+	(wire
+		(pts
+			(xy 281.94 191.77) (xy 325.12 191.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "acbc5251-2dca-4939-a9f3-5b97183f3c04")
+	)
+	(wire
+		(pts
+			(xy 127 80.01) (xy 165.1 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f7315a19-0e0b-4229-98af-c8ad92f48655")
+	)
+	(wire
+		(pts
+			(xy 127 100.33) (xy 142.24 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fb2254a1-bdee-40bd-9939-95a6d18a7c1d")
+	)
+	(label "VBAT"
+		(at 170.18 80.01 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c76126b2-a261-43ca-8ea6-725eee225b2e")
+	)
+	(sheet
+		(at 190.5 175.26)
+		(size 91.44 48.26)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "037accc2-ad31-469a-8f0d-691b090870db")
+		(property "Sheetname" "22.19 V motor supply"
+			(at 190.5 172.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "buck-motor.kicad_sch"
+			(at 190.5 226.06 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(pin "VBAT" bidirectional
+			(at 190.5 191.77 180)
+			(uuid "d3fcec33-f39c-40f4-a229-c7dcbd2357e2")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "VMOTOR" bidirectional
+			(at 281.94 191.77 0)
+			(uuid "4395f305-82a9-45f1-a9c8-447da0c4fe9f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "rover-pdb"
+				(path "/249f92ce-0626-42c7-937d-e98e7e0c53cf"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 25.4 175.26)
+		(size 101.6 48.26)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "0fcf33e9-9ff1-4b54-9657-39a63d8777f4")
+		(property "Sheetname" "Pico 2 and hobby servos"
+			(at 25.4 172.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "pico-servos.kicad_sch"
+			(at 25.4 226.06 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(pin "I2C_SDA" bidirectional
+			(at 127 195.58 0)
+			(uuid "7d188bb5-18ae-426a-8ddd-c706c7304a23")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "I2C_SCL" bidirectional
+			(at 127 205.74 0)
+			(uuid "fc366d5e-5125-4e31-be22-648648f64011")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "rover-pdb"
+				(path "/249f92ce-0626-42c7-937d-e98e7e0c53cf"
+					(page "6")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 190.5 119.38)
+		(size 91.44 35.56)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "0ff9a297-7945-48a6-aa05-d015192cf56a")
+		(property "Sheetname" "5 V servo supply"
+			(at 190.5 116.84 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "buck-5v.kicad_sch"
+			(at 190.5 157.48 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(pin "VBAT" bidirectional
+			(at 190.5 135.89 180)
+			(uuid "48e5c1b3-a025-4048-9bbd-5966b19a5017")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "rover-pdb"
+				(path "/249f92ce-0626-42c7-937d-e98e7e0c53cf"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 325.12 175.26)
+		(size 73.66 48.26)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "66bca288-298c-40a3-9b59-775036700a60")
+		(property "Sheetname" "DYNAMIXEL distribution"
+			(at 325.12 172.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "dxl-enable.kicad_sch"
+			(at 325.12 226.06 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(pin "VMOTOR" bidirectional
+			(at 325.12 191.77 180)
+			(uuid "151c58f6-d43a-421e-8430-ace401cb87c0")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "rover-pdb"
+				(path "/249f92ce-0626-42c7-937d-e98e7e0c53cf"
+					(page "7")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 190.5 63.5)
+		(size 91.44 35.56)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "72a423b4-c6a9-4874-9cd9-0db9e0069dff")
+		(property "Sheetname" "12 V Jetson supply"
+			(at 190.5 60.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "buck-12v.kicad_sch"
+			(at 190.5 101.6 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(pin "VBAT" bidirectional
+			(at 190.5 80.01 180)
+			(uuid "16250ed0-e13e-4eba-8a0c-d7806847c801")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "rover-pdb"
+				(path "/249f92ce-0626-42c7-937d-e98e7e0c53cf"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 25.4 63.5)
+		(size 101.6 58.42)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "98e8a914-fc31-44c2-aae1-d911ae137201")
+		(property "Sheetname" "Battery input and INA226"
+			(at 25.4 60.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "input-monitor.kicad_sch"
+			(at 25.4 124.46 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(pin "VBAT" bidirectional
+			(at 127 80.01 0)
+			(uuid "8abe8736-3c28-491a-aa8b-2ad4f7265178")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "I2C_SDA" bidirectional
+			(at 127 100.33 0)
+			(uuid "fd646b52-6493-4976-b831-6c7e7ee47b4c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "I2C_SCL" bidirectional
+			(at 127 110.49 0)
+			(uuid "3ee254e8-9d4b-4fa0-96e5-1ee0626bcd90")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "rover-pdb"
+				(path "/249f92ce-0626-42c7-937d-e98e7e0c53cf"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)

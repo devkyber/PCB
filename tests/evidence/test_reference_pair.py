@@ -6,10 +6,11 @@ from pcb_copilot.evidence.commands import inspect_reference_pair
 from pcb_copilot.evidence.index import load_evidence_index
 from pcb_copilot.evidence.references import inspect_eagle_pair, reference_search_plan
 from pcb_copilot.project import load_project
+from tests.board_fixtures import board_source
 
 
 def sources(repo_root):
-    root = repo_root / 'projects/baro-bmp390/evidence/files'
+    root = board_source(repo_root, 'baro-bmp390') / 'evidence/files'
     return root / 'BMP390_Adafruit_20BMP390.sch', root / 'BMP390_Adafruit_20BMP390.brd'
 
 

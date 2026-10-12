@@ -1,0 +1,119 @@
+{
+  "scope": "Footprint properties only; circuit revision A9 unchanged",
+  "draft_id": "20260930T160712Z-schematic-f46a1405",
+  "changes": {
+    "P1": {
+      "sheet": "input-monitor.kicad_sch",
+      "old": "~",
+      "new": "rover:WirePads_2_6x8_P12"
+    },
+    "RS1": {
+      "sheet": "input-monitor.kicad_sch",
+      "old": "Resistor_SMD:R_2512_6332Metric",
+      "new": "rover:CSS2H_2512_6.35x3.05"
+    },
+    "L1": {
+      "sheet": "buck-12v.kicad_sch",
+      "old": "lcsc_C2041326:IND-SMD_L12.6-W12.5-SRP1265A-220M",
+      "new": "rover:SRP1265A_LeadFrame_13.5x12.5_P11.1"
+    },
+    "NT1": {
+      "sheet": "buck-12v.kicad_sch",
+      "old": "NetTie:NetTie-2_SMD_Pad0.5mm",
+      "new": "rover:AGND_Tie_LMR51450"
+    },
+    "L2": {
+      "sheet": "buck-5v.kicad_sch",
+      "old": "lcsc_C2041326:IND-SMD_L12.6-W12.5-SRP1265A-220M",
+      "new": "rover:SRP1265A_LeadFrame_13.5x12.5_P11.1"
+    },
+    "NT2": {
+      "sheet": "buck-5v.kicad_sch",
+      "old": "NetTie:NetTie-2_SMD_Pad0.5mm",
+      "new": "rover:AGND_Tie_LMR51450"
+    },
+    "L3": {
+      "sheet": "buck-motor.kicad_sch",
+      "old": "lcsc_C2041326:IND-SMD_L12.6-W12.5-SRP1265A-220M",
+      "new": "rover:SRP1265A_LeadFrame_13.5x12.5_P11.1"
+    },
+    "NT3": {
+      "sheet": "buck-motor.kicad_sch",
+      "old": "NetTie:NetTie-2_SMD_Pad0.5mm",
+      "new": "rover:AGND_Tie_LMR51450"
+    },
+    "SKT1": {
+      "sheet": "pico-servos.kicad_sch",
+      "old": "Module:RaspberryPi_Pico_Common_THT",
+      "new": "rover:Pico2_Sockets_LXWCONN_254PM_1x20"
+    },
+    "P2": {
+      "sheet": "pico-servos.kicad_sch",
+      "old": "~",
+      "new": "rover:WirePads_2_5x6_P9"
+    },
+    "P3": {
+      "sheet": "pico-servos.kicad_sch",
+      "old": "~",
+      "new": "rover:WirePads_2_5x6_P9"
+    },
+    "P4": {
+      "sheet": "pico-servos.kicad_sch",
+      "old": "~",
+      "new": "rover:WirePads_2_5x6_P9"
+    }
+  },
+  "physical_parts": 85,
+  "connected_nets": 39,
+  "native_pin_net_membership_equal": true,
+  "non_footprint_native_properties_equal": true,
+  "all_other_schematic_bytes_equal": true,
+  "intent_non_footprint_fields_equal": true,
+  "schematic_before_sha256": {
+    "rover-pdb.kicad_sch": "4200d604fe479e47c27b7209dd070b100c7d727478924128bb419cc5fa08fb85",
+    "input-monitor.kicad_sch": "c3d592a4d6d1b5ff21eb89d56357a7a59a19afafb7b3624295ac168bd67f5d0e",
+    "buck-12v.kicad_sch": "d56183c4a4c13f1a636730d3a56bbd8551bfefbd05a48b2ca2708ecfda425a9e",
+    "buck-5v.kicad_sch": "6668bfbd3ba638245618429223c82a9eb1e71a8b2187d53c046de25db8a394f0",
+    "buck-motor.kicad_sch": "1a885de1677d56aa69d59738e198c924eb6c6eade4dd4423f2fef4292a7d9005",
+    "pico-servos.kicad_sch": "eff4fec1fd43f74dea87970d822ae4da9ed266488e4c64c9a8a30b7809f3589b",
+    "dxl-enable.kicad_sch": "95ac0de112c4f20957c3290df8c64230e3d21e1ed6eafae8e2221fc743bdff24"
+  },
+  "schematic_after_sha256": {
+    "rover-pdb.kicad_sch": "4200d604fe479e47c27b7209dd070b100c7d727478924128bb419cc5fa08fb85",
+    "input-monitor.kicad_sch": "0e6b723d04e745da7dcda52ff780a29223f30da1a59219c603f44641a4b528fe",
+    "buck-12v.kicad_sch": "2559a14a2dc411419187b6e05bf22c1e492789e10a1db25b4c60649318e13e6e",
+    "buck-5v.kicad_sch": "105b5f2506a49d16059023828e47d16bbd9ba35ac4c3964cd44c5c95fdbfbc6e",
+    "buck-motor.kicad_sch": "4895dc15bffb657a58f9cc712eaf67eb273f4696dff261054f482ddef90740bb",
+    "pico-servos.kicad_sch": "eeb5cc06ecdf62b2327d495270d68727a0ddd1394ad126b7b88163e2c8b5accf",
+    "dxl-enable.kicad_sch": "95ac0de112c4f20957c3290df8c64230e3d21e1ed6eafae8e2221fc743bdff24"
+  },
+  "seven_sheet_render_pixels_equal": true,
+  "sheet_pixel_hashes": [
+    "7cb9dd590142a25f91b82460e8792df20b5f7345c5aebc89367019a75f2d8628",
+    "fe790510b3c88641e060530a3a24bebaf0111a54d587b5f6da07fd36158fae02",
+    "f9c31d2ad6d833a8f2316f0de8051d144b0f1d230b98b2289f1d06178dba0af4",
+    "1e59e497dcb8f6836918a88e944d63648f114e178a0f0480da60d75854efe05b",
+    "09cad2690641ec4d728768fe0e942dac5d6dbbd42d0ab10d6f8512b0cc9d8cc2",
+    "d5e1f382e5d760ee5043b6726fdd09860ebf1b01c300004040675d68e4f18a82",
+    "664e09248d997539b72c193f44406c46e883776efd0edda90432628f1b5a2c84"
+  ],
+  "author_visual_review": "all seven rendered sheets inspected",
+  "applied": true,
+  "intent_before_sha256": "27afc964a98ea2efe444cc9b67ebe60b083c040284db7a9a624a65e1d4da8b59",
+  "bom_before_sha256": "de4d077bb54db94c567a0a4767da62b3e3e0afbbb248b58db78f7b2853cf4061",
+  "reviewed_sheets": [
+    "System overview",
+    "Battery input and INA226",
+    "12 V Jetson supply",
+    "5 V servo supply",
+    "22.19 V motor supply",
+    "Pico 2 and hobby servos",
+    "DYNAMIXEL distribution"
+  ],
+  "reviewed_date": "2026-10-01",
+  "acceptance_backup": "C:\\Users\\tae06\\CODE\\PCB\\projects\\rover-pdb-readable\\.pcb-copilot\\acceptances\\20260930T160712Z-schematic-f46a1405",
+  "accepted_hash": "f46a1405f997",
+  "erc_errors": 0,
+  "erc_warnings": 0,
+  "application_command": "uv run python projects/rover-pdb-readable/.pcb-copilot/footprint-review/assign_footprints.py --apply --draft 20260930T160712Z-schematic-f46a1405"
+}

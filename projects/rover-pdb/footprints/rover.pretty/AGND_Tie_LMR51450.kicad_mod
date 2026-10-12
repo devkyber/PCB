@@ -1,0 +1,81 @@
+(footprint "AGND_Tie_LMR51450"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Local copper bridge between LMR51450 AGND pin8 and EP13. Place origin at IC x, IC y+0.75 in unrotated footprint coordinates. AGND pad1 at x0.99, GND pad2 at x0.72; bridge stays inside the gap between EP right edge0.65 and pin8 inner edge1.08. Rotate with the IC. No purchased part and no stencil opening.")
+	(property "Reference" "REF**"
+		(at 0 -1 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "4594920d-b5a8-43d8-879d-89252f63f6d1")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.08)
+			)
+		)
+	)
+	(property "Value" "AGND tie"
+		(at 0 1 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "25928061-262e-46b1-b9de-0887c6838481")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.08)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "0c1c2dc7-c968-4ff4-9659-eea6cf6d71f1")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "97079f96-39f4-48bf-be20-84aa3e4a4da0")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr exclude_from_pos_files exclude_from_bom allow_missing_courtyard)
+	(net_tie_pad_groups "1, 2")
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_poly
+		(pts
+			(xy 0.62 -0.1) (xy 1.09 -0.1) (xy 1.09 0.1) (xy 0.62 0.1)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill yes)
+		(layer "F.Cu")
+		(uuid "cb734725-7d65-4210-80d8-d90f3c67f338")
+	)
+	(pad "1" smd rect
+		(at 0.99 0)
+		(size 0.2 0.2)
+		(layers "F.Cu")
+		(uuid "c2680115-b03f-470d-94b1-8dc3dcad2513")
+	)
+	(pad "2" smd rect
+		(at 0.72 0)
+		(size 0.2 0.2)
+		(layers "F.Cu")
+		(uuid "cbef8d81-efd2-4b36-a4df-70d03f7f397b")
+	)
+	(embedded_fonts no)
+)

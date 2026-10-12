@@ -1,0 +1,23 @@
+%TF.GenerationSoftware,KiCad,Pcbnew,10.0.6*%
+%TF.CreationDate,2026-10-06T00:37:47+09:00*%
+%TF.ProjectId,rover-pdb,726f7665-722d-4706-9462-2e6b69636164,PCB P5 / circuit A10*%
+%TF.SameCoordinates,Original*%
+%TF.FileFunction,Profile,NP*%
+%FSLAX46Y46*%
+G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
+G04 Created by KiCad (PCBNEW 10.0.6) date 2026-10-06 00:37:47*
+%MOMM*%
+%LPD*%
+G01*
+G04 APERTURE LIST*
+%TA.AperFunction,Profile*%
+%ADD10C,0.050000*%
+%TD*%
+G04 APERTURE END LIST*
+D10*
+X99000000Y-54200000D02*
+X176500000Y-54200000D01*
+X176500000Y-154200000D01*
+X99000000Y-154200000D01*
+X99000000Y-54200000D01*
+M02*

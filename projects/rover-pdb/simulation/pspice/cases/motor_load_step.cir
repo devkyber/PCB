@@ -1,0 +1,61 @@
+Rover PDB A9 motor load_step -- PREPARED, NOT RUN
+* Authentic encrypted TI LMR51450 model. PSpice required.
+* Component/model assumptions and limitations: ../README.md
+.LIB "../vendor/LMR51450_PSPICE_TRANS/LMR51450_TRANS.lib"
+.PARAM VIN_POINT=25.2 I_FULL=3.5 V_TARGET=22.190374332
+* Sensitivity parameters; defaults are approximate, not production bounds.
+.PARAM C_SCALE=1 CER_ESR=5m BULK_SCALE=1 BULK_ESR_SCALE=1
+.PARAM SOURCE_R=50m L_SCALE=1
+V_BAT SOURCE 0 PWL(0 0 1m {VIN_POINT} 30m {VIN_POINT})
+* Single-rail upstream source approximation; other rails and C1 omitted.
+R_SOURCE SOURCE VIN {SOURCE_R}
+R_ESR_C14 VIN C14_ESR {CER_ESR}
+C_C14 C14_ESR 0 {5.75u*C_SCALE}
+R_ESR_C15 VIN C15_ESR {CER_ESR}
+C_C15 C15_ESR 0 {5.75u*C_SCALE}
+R_ESR_C32 VIN C32_ESR {CER_ESR}
+C_C32 C32_ESR 0 100n
+R_R19 VIN SW_SUPPLY 100k
+R_R24 SW_SUPPLY 0 22k
+R_R15 EN 0 100k
+* SW1 closed; 50m contact resistance is an assumed testbench parasitic.
+R_SW1 SW_SUPPLY EN 50m
+* Model pin order: AGND BOOT EN FB GND PGOOD RT SW1 SW2 SW3 VIN1 VIN2 VIN3
+* Both ground domains tied at 0 per TI model; cannot evaluate return layout.
+* RT_NC and PG_NC intentionally have no external parts, matching A9.
+X_U4 0 BOOT EN FB 0 PG_NC RT_NC SW SW SW VIN VIN VIN LMR51450_TRANS PARAMS: MODE=0
+C_C35 BOOT SW 100n
+L_L3 SW L_DCR {3.3u*L_SCALE}
+R_DCR L_DCR VOUT 6.8m
+R_R12 VOUT FB 100k
+R_R18 FB 0 3.74k
+C_C41 VOUT FF 33p
+R_R23 FF FB 1k
+R_ESR_C16 VOUT C16_ESR {CER_ESR}
+C_C16 C16_ESR 0 {6.4u*C_SCALE}
+R_ESR_C17 VOUT C17_ESR {CER_ESR}
+C_C17 C17_ESR 0 {6.4u*C_SCALE}
+R_ESR_C18 VOUT C18_ESR {CER_ESR}
+C_C18 C18_ESR 0 {6.4u*C_SCALE}
+R_ESR_C19 VOUT C19_ESR {CER_ESR}
+C_C19 C19_ESR 0 {6.4u*C_SCALE}
+* Bulk ESR approximates published 100kHz impedance; not a guaranteed ESR model.
+R_ESR_C5 VOUT C5_ESR {30m*BULK_ESR_SCALE}
+C_C5 C5_ESR 0 {220u*BULK_SCALE}
+* D2/R20 indicator is excluded; about 5mA must be added to actual motor load.
+* Unloaded startup, then 0 -> planning load -> 0; 10us edges are assumed.
+I_LOAD VOUT 0 PWL(0 0 12m 0 12.01m {I_FULL} 18m {I_FULL} 18.01m 0 25m 0)
+.MEAS TRAN STEP_UP_MIN MIN V(VOUT) FROM=12m TO=17m
+.MEAS TRAN STEP_UP_MAX MAX V(VOUT) FROM=12m TO=17m
+.MEAS TRAN STEP_DOWN_MAX MAX V(VOUT) FROM=18m TO=23m
+.MEAS TRAN LOADED_AVG AVG V(VOUT) FROM=16m TO=17m
+.MEAS TRAN LOADED_RIPPLE PP V(VOUT) FROM=16m TO=17m
+R_NUMERICAL VOUT 0 1G
+.TRAN 0 25m 0 20n
+.OPTIONS ADVCONV
+.OPTIONS ITL4=20
+.PROBE64 V(VIN) V(VOUT) V(EN) V(BOOT) V(SW) V(FB)
++ I(L_L3) I(V_BAT)
+.MEAS TRAN VOUT_MAX MAX V(VOUT)
+.MEAS TRAN IL_MAX MAX I(L_L3)
+.END

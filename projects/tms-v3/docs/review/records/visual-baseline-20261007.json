@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-07",
+  "reviewer_role": "Codex author visual inspection; no human sign-off",
+  "source_sheets": {
+    "controller-and-telemetry.kicad_sch": "d8ebb8903fda3d2aeb6e08698edd672e74abf8b6993e67adc67e9e6da8e8e1b6",
+    "external-connectors-and-test.kicad_sch": "7925431cee1b9738e48c43eddee8805e7dc70fb76ea44bec5f7033e90e29e173",
+    "ignition-control.kicad_sch": "aefad7d9cd1d2762655a0527056a474584349f6e175cb07bba53355bae0fd0d9",
+    "load-cell-ads1256.kicad_sch": "a72f08bd0f92039b914c7b55dfaa1ede4cc64c5b524202c6b3c5f01c298441ca",
+    "power-and-protection.kicad_sch": "14d72b7df979668ca9fe65a7e69c86a5984bce6df5302036f014fbb4a89da773",
+    "pressure-ads1220.kicad_sch": "aa69158d7f18bc266aabf96361123b5b3fc1926dde65efd4292f4253c7cfd609",
+    "tms-v3.kicad_sch": "2cf0f081f8f571bb6e5f30e1afbf0f5e55fcdae12f088db68d3472e9ac09f224"
+  },
+  "source_unchanged_from_pre_cleanup_backup": true,
+  "native_export": {
+    "tool": "KiCad CLI 10.0.6 sch export pdf",
+    "path": "C:\\Users\\tae06\\.codex\\archives\\pcb\\cleanup-20261007\\tms-visual\\tms-v3-saved-schematic.pdf",
+    "sha256": "7d89db4205b49c02faf9593e0d8aec8aac9c574d6082b67940906bd46d0720f8"
+  },
+  "reviewed_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "inspection_scales": [
+    "full page",
+    "circuit detail"
+  ],
+  "rendered_images": {
+    "detail-1.png": "2f558536630b2435631b9757f1612e5849f9035fded34b9aa1d716773d986f07",
+    "detail-2.png": "7bd46e5bd8c5dfa5c56a8ee65b14399799997e1986af1508b296c45398bfc1d4",
+    "detail-3.png": "418a8bccc7e77dbff877b5e43f5aeeb89fd191b187496875df3d8e82d47e4b99",
+    "detail-4.png": "145862813c5bf6e7d89273c93453c0dff7d67edabfa84a410b2ce97c1ebe6b12",
+    "detail-5.png": "fc2779b23af673596559b3114b7406cb9d0de33fa9b79c9966e0279c3ff5403a",
+    "detail-6.png": "0830c92a62496868a09a09980beb9927185377cfafee4522fc55466738914d6d",
+    "detail-7.png": "1441baa39172b1cee0b40c62380756cece06b00f7bb5bb362a026dc57a3feb82",
+    "sheet-1.png": "6107f598fa8fbc87919a9a4525e9598abaae6ec065be06cea83b6a4fcbc614d9",
+    "sheet-2.png": "d9cc8117194f4a5e52d23b48c48dfdffcbfa16b7416b716d58cfee10c6febf1d",
+    "sheet-3.png": "816778df77a3abd5fad0a6e15dd251a5b646cf8703ee70b72a21d229c0766d31",
+    "sheet-4.png": "0c94b67b4b73fbe37e722b134d052a5b298fd2548b80387efaafef8382723ebd",
+    "sheet-5.png": "5735f7d278ed2c3c34de9f86804a6092eb74ce660129157d33316f79b599ab54",
+    "sheet-6.png": "3e0c2ab0d0da4b5316ba0edccc1c0a4312df77100c4ea6356ea5de1a4e9d3a97",
+    "sheet-7.png": "6c0d9d5ae7106a88d98ec29a19e70621b8177b41f0dad1e7e4185529927527be"
+  },
+  "disposition": "Readability work remains; native CAD unchanged. Findings are in ../../../README.md and the retained shared review."
+}

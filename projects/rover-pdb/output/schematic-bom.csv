@@ -1,0 +1,85 @@
+Reference,Value,MPN,LCSC,Footprint,DNP,InBOM,Sheet
+C1,220u / 50V,EEU-FR1H221B,C1579630,Capacitor_THT:CP_Radial_D10.0mm_P5.00mm,no,yes,input-monitor.kicad_sch
+C2,470u / 16V,EEU-FR1C471B,C1579437,Capacitor_THT:CP_Radial_D8.0mm_P5.00mm,no,yes,pico-servos.kicad_sch
+C3,100n / 50V,CL21B104KBCNNNC,C1711,Capacitor_SMD:C_0805_2012Metric,no,yes,input-monitor.kicad_sch
+C5,220u / 50V,EEU-FR1H221B,C1579630,Capacitor_THT:CP_Radial_D10.0mm_P5.00mm,no,yes,buck-motor.kicad_sch
+C10,10u / 50V,GRM32ER71H106KA12L,C77102,Capacitor_SMD:C_1210_3225Metric,no,yes,buck-12v.kicad_sch
+C11,10u / 50V,GRM32ER71H106KA12L,C77102,Capacitor_SMD:C_1210_3225Metric,no,yes,buck-12v.kicad_sch
+C12,10u / 50V,GRM32ER71H106KA12L,C77102,Capacitor_SMD:C_1210_3225Metric,no,yes,buck-5v.kicad_sch
+C13,10u / 50V,GRM32ER71H106KA12L,C77102,Capacitor_SMD:C_1210_3225Metric,no,yes,buck-5v.kicad_sch
+C14,10u / 50V,GRM32ER71H106KA12L,C77102,Capacitor_SMD:C_1210_3225Metric,no,yes,buck-motor.kicad_sch
+C15,10u / 50V,GRM32ER71H106KA12L,C77102,Capacitor_SMD:C_1210_3225Metric,no,yes,buck-motor.kicad_sch
+C16,10u / 50V,GRM32ER71H106KA12L,C77102,Capacitor_SMD:C_1210_3225Metric,no,yes,buck-motor.kicad_sch
+C17,10u / 50V,GRM32ER71H106KA12L,C77102,Capacitor_SMD:C_1210_3225Metric,no,yes,buck-motor.kicad_sch
+C18,10u / 50V,GRM32ER71H106KA12L,C77102,Capacitor_SMD:C_1210_3225Metric,no,yes,buck-motor.kicad_sch
+C19,10u / 50V,GRM32ER71H106KA12L,C77102,Capacitor_SMD:C_1210_3225Metric,no,yes,buck-motor.kicad_sch
+C20,22u / 25V,CL32B226KAJNNNE,C309062,Capacitor_SMD:C_1210_3225Metric,no,yes,buck-12v.kicad_sch
+C21,22u / 25V,CL32B226KAJNNNE,C309062,Capacitor_SMD:C_1210_3225Metric,no,yes,buck-12v.kicad_sch
+C22,22u / 25V,CL32B226KAJNNNE,C309062,Capacitor_SMD:C_1210_3225Metric,no,yes,buck-12v.kicad_sch
+C23,22u / 25V,CL32B226KAJNNNE,C309062,Capacitor_SMD:C_1210_3225Metric,no,yes,buck-12v.kicad_sch
+C24,22u / 25V,CL32B226KAJNNNE,C309062,Capacitor_SMD:C_1210_3225Metric,no,yes,buck-5v.kicad_sch
+C25,22u / 25V,CL32B226KAJNNNE,C309062,Capacitor_SMD:C_1210_3225Metric,no,yes,buck-5v.kicad_sch
+C26,22u / 25V,CL32B226KAJNNNE,C309062,Capacitor_SMD:C_1210_3225Metric,no,yes,buck-5v.kicad_sch
+C27,22u / 25V,CL32B226KAJNNNE,C309062,Capacitor_SMD:C_1210_3225Metric,no,yes,buck-5v.kicad_sch
+C28,22u / 25V,CL32B226KAJNNNE,C309062,Capacitor_SMD:C_1210_3225Metric,no,yes,buck-5v.kicad_sch
+C30,100n / 50V,CL21B104KBCNNNC,C1711,Capacitor_SMD:C_0805_2012Metric,no,yes,buck-12v.kicad_sch
+C31,100n / 50V,CL21B104KBCNNNC,C1711,Capacitor_SMD:C_0805_2012Metric,no,yes,buck-5v.kicad_sch
+C32,100n / 50V,CL21B104KBCNNNC,C1711,Capacitor_SMD:C_0805_2012Metric,no,yes,buck-motor.kicad_sch
+C33,100n / 50V,CL21B104KBCNNNC,C1711,Capacitor_SMD:C_0805_2012Metric,no,yes,buck-12v.kicad_sch
+C34,100n / 50V,CL21B104KBCNNNC,C1711,Capacitor_SMD:C_0805_2012Metric,no,yes,buck-5v.kicad_sch
+C35,100n / 50V,CL21B104KBCNNNC,C1711,Capacitor_SMD:C_0805_2012Metric,no,yes,buck-motor.kicad_sch
+C39,33p / 50V,CL10C330JB8NNNC,C1663,Capacitor_SMD:C_0603_1608Metric,no,yes,buck-12v.kicad_sch
+C40,33p / 50V,CL10C330JB8NNNC,C1663,Capacitor_SMD:C_0603_1608Metric,no,yes,buck-5v.kicad_sch
+C41,33p / 50V,CL10C330JB8NNNC,C1663,Capacitor_SMD:C_0603_1608Metric,no,yes,buck-motor.kicad_sch
+D2,GREEN,KT-0805G,C2297,rover:KT0805G_0805_A1_K2,no,yes,buck-motor.kicad_sch
+J1,U2D2 DATA IN,B4B-EH-A(LF)(SN),C160258,Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical,no,yes,dxl-enable.kicad_sch
+J2,LIFT A,TSW-103-07-G-S,C3335811,Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical,no,yes,pico-servos.kicad_sch
+J3,LIFT B,TSW-103-07-G-S,C3335811,Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical,no,yes,pico-servos.kicad_sch
+J4,CAMERA PAN,TSW-103-07-G-S,C3335811,Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical,no,yes,pico-servos.kicad_sch
+J5,LEFT WHEELS,B4B-EH-A(LF)(SN),C160258,Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical,no,yes,dxl-enable.kicad_sch
+J6,RIGHT WHEELS,B4B-EH-A(LF)(SN),C160258,Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical,no,yes,dxl-enable.kicad_sch
+J7,HAMMER,B4B-EH-A(LF)(SN),C160258,Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical,no,yes,dxl-enable.kicad_sch
+J9,EXP / DNP,2.54-1x6P直针,C37208,Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical,yes,yes,pico-servos.kicad_sch
+L1,6u8 / SRP1265A,SRP1265A-6R8M,C2041326,rover:SRP1265A_LeadFrame_13.5x12.5_P11.1,no,yes,buck-12v.kicad_sch
+L2,4u7 / SRP1265A,SRP1265A-4R7M,C780205,rover:SRP1265A_LeadFrame_13.5x12.5_P11.1,no,yes,buck-5v.kicad_sch
+L3,3u3 / SRP1265A,SRP1265A-3R3M,C1329348,rover:SRP1265A_LeadFrame_13.5x12.5_P11.1,no,yes,buck-motor.kicad_sch
+NT1,AGND tie,,,rover:AGND_Tie_LMR51450,no,no,buck-12v.kicad_sch
+NT2,AGND tie,,,rover:AGND_Tie_LMR51450,no,no,buck-5v.kicad_sch
+NT3,AGND tie,,,rover:AGND_Tie_LMR51450,no,no,buck-motor.kicad_sch
+P1,BATTERY IN,BATTERY IN,,rover:WirePads_2_6x8_P12,no,no,input-monitor.kicad_sch
+P2,JETSON / BARREL,JETSON / BARREL,,rover:WirePads_2_5x6_P9,no,no,pico-servos.kicad_sch
+P3,12V EXP / UNWIRED,12V EXP / UNWIRED,,rover:WirePads_2_5x6_P9,no,no,pico-servos.kicad_sch
+P4,5V EXP / UNWIRED,5V EXP / UNWIRED,,rover:WirePads_2_5x6_P9,no,no,pico-servos.kicad_sch
+R1,4k7 / 1%,RC0805FR-074K7L,C60816,Resistor_SMD:R_0805_2012Metric,no,yes,input-monitor.kicad_sch
+R2,4k7 / 1%,RC0805FR-074K7L,C60816,Resistor_SMD:R_0805_2012Metric,no,yes,input-monitor.kicad_sch
+R3,10k,RC0805FR-0710KL,C84376,Resistor_SMD:R_0805_2012Metric,no,yes,pico-servos.kicad_sch
+R4,10k,RC0805FR-0710KL,C84376,Resistor_SMD:R_0805_2012Metric,no,yes,pico-servos.kicad_sch
+R5,10k,RC0805FR-0710KL,C84376,Resistor_SMD:R_0805_2012Metric,no,yes,pico-servos.kicad_sch
+R10,100k / 1%,RC0805FR-07100KL,C96346,Resistor_SMD:R_0805_2012Metric,no,yes,buck-12v.kicad_sch
+R11,100k / 1%,RC0805FR-07100KL,C96346,Resistor_SMD:R_0805_2012Metric,no,yes,buck-5v.kicad_sch
+R12,100k / 1%,RC0805FR-07100KL,C96346,Resistor_SMD:R_0805_2012Metric,no,yes,buck-motor.kicad_sch
+R13,100k / 1%,RC0805FR-07100KL,C96346,Resistor_SMD:R_0805_2012Metric,no,yes,buck-12v.kicad_sch
+R14,100k / 1%,RC0805FR-07100KL,C96346,Resistor_SMD:R_0805_2012Metric,no,yes,buck-5v.kicad_sch
+R15,100k / 1%,RC0805FR-07100KL,C96346,Resistor_SMD:R_0805_2012Metric,no,yes,buck-motor.kicad_sch
+R16,19.1k / 1%,0805W8F1912T5E,C17508,Resistor_SMD:R_0805_2012Metric,no,yes,buck-5v.kicad_sch
+R17,7.15k / 1%,0805W8F7151T5E,C17806,Resistor_SMD:R_0805_2012Metric,no,yes,buck-12v.kicad_sch
+R18,3.74k / 1%,0805W8F3741T5E,C65649,Resistor_SMD:R_0805_2012Metric,no,yes,buck-motor.kicad_sch
+R19,100k / 1%,RC0805FR-07100KL,C96346,Resistor_SMD:R_0805_2012Metric,no,yes,buck-motor.kicad_sch
+R20,3k9 / 0.25W,RC1206FR-073K9L,C137289,Resistor_SMD:R_1206_3216Metric,no,yes,buck-motor.kicad_sch
+R21,1k / 1%,0805W8F1001T5E,C17513,Resistor_SMD:R_0805_2012Metric,no,yes,buck-12v.kicad_sch
+R22,1k / 1%,0805W8F1001T5E,C17513,Resistor_SMD:R_0805_2012Metric,no,yes,buck-5v.kicad_sch
+R23,1k / 1%,0805W8F1001T5E,C17513,Resistor_SMD:R_0805_2012Metric,no,yes,buck-motor.kicad_sch
+R24,22k / 1%,0805W8F2202T5E,C17560,Resistor_SMD:R_0805_2012Metric,no,yes,buck-motor.kicad_sch
+RS1,2mR / 5W / 1%,CSS2H-2512K-2L00F,C2093761,rover:CSS2H_2512_6.35x3.05,no,yes,input-monitor.kicad_sch
+SKT1,Pico 2 / 2x20 sockets,Pico 2,,rover:Pico2_Sockets_LXWCONN_254PM_1x20,no,yes,pico-servos.kicad_sch
+SW1,MOTOR ENABLE,OS102011MA1QN1,C226259,Button_Switch_THT:SW_Slide_SPDT_Angled_CK_OS102011MA1Q,no,yes,buck-motor.kicad_sch
+TP1,VBAT,VBAT,,TestPoint:TestPoint_Pad_D2.0mm,no,no,input-monitor.kicad_sch
+TP2,VMOTOR,VMOTOR,,TestPoint:TestPoint_Pad_D2.0mm,no,no,buck-motor.kicad_sch
+TP3,+12V,+12V,,TestPoint:TestPoint_Pad_D2.0mm,no,no,pico-servos.kicad_sch
+TP4,+5V,+5V,,TestPoint:TestPoint_Pad_D2.0mm,no,no,pico-servos.kicad_sch
+TP5,+3V3,+3V3,,TestPoint:TestPoint_Pad_D2.0mm,no,no,pico-servos.kicad_sch
+TP6,GND,GND,,TestPoint:TestPoint_Pad_D2.0mm,no,no,input-monitor.kicad_sch
+U1,INA226AIDGSR,INA226AIDGSR,C49851,Package_SO:MSOP-10_3x3mm_P0.5mm,no,yes,input-monitor.kicad_sch
+U2,LMR51450SDRRR,LMR51450SDRRR,C6890985,rover:LMR51450_DRR_WSON12_3x3,no,yes,buck-12v.kicad_sch
+U3,LMR51450SDRRR,LMR51450SDRRR,C6890985,rover:LMR51450_DRR_WSON12_3x3,no,yes,buck-5v.kicad_sch
+U4,LMR51450SDRRR,LMR51450SDRRR,C6890985,rover:LMR51450_DRR_WSON12_3x3,no,yes,buck-motor.kicad_sch

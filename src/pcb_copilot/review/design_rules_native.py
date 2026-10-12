@@ -32,8 +32,6 @@ import re
 import sys
 from collections import defaultdict
 
-import pcbnew
-
 # The rules this script can actually decide from board geometry, and the
 # size of the document it is named after. Kept next to each other on
 # purpose: the gap between them is the honest limit of the check.
@@ -45,13 +43,25 @@ POWER_RE = re.compile(r'^(\+|VDD|VCC|AVDD|DVDD|VREF|VA|VD|\d+V)', re.I)
 
 
 def val_to_farads(v: str) -> float:
-    m = re.match(r'([\d.]+)\s*([munp]?)F?$', v.strip(), re.I)
+    # Schematic values may include ratings, e.g. "100n / 50V". Ratings
+    # do not change capacitance and must not make a valid bypass disappear
+    # from the geometric checks. Keep the value token strict so a resistor,
+    # voltage rating, malformed number or free-form note is not a capacitor.
+    token = v.partition('/')[0].strip().replace('\u00b5', 'u').replace('\u03bc', 'u')
+    m = re.fullmatch(r'(\d+(?:\.\d*)?|\.\d+)\s*([munp]?)\s*F?', token, re.IGNORECASE)
     if not m:
-        return 0.0
+        # Common KiCad engineering notation: 2u2 == 2.2 uF.
+        embedded = re.fullmatch(r'(\d+)([munp])(\d+)\s*F?', token, re.IGNORECASE)
+        if not embedded:
+            return 0.0
+        number = float(embedded.group(1) + '.' + embedded.group(3))
+        return number * {'m': 1e-3, 'u': 1e-6, 'n': 1e-9, 'p': 1e-12}[embedded.group(2).lower()]
     return float(m.group(1)) * {'': 1, 'm': 1e-3, 'u': 1e-6, 'n': 1e-9, 'p': 1e-12}[m.group(2).lower()]
 
 
 def main() -> None:
+    import pcbnew
+
     board = pcbnew.LoadBoard(sys.argv[1])
     pads = []
     meta = {}

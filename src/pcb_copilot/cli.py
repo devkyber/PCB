@@ -32,9 +32,16 @@ def main(
     subparsers = parser.add_subparsers(dest="command")
     status_parser = subparsers.add_parser("status", help="show read-only project status")
     status_parser.add_argument("project_path", type=Path)
+    clean_parser = subparsers.add_parser(
+        'clean', help='preview removal of reproducible project preview files'
+    )
+    clean_parser.add_argument('project_path', type=Path)
+    clean_parser.add_argument('--apply', action='store_true')
     update_parser = subparsers.add_parser('update-schematic', help='preview or apply the current schematic')
     update_parser.add_argument('project_path', type=Path)
-    update_parser.add_argument('--intent', required=True, type=Path)
+    schematic_source = update_parser.add_mutually_exclusive_group(required=True)
+    schematic_source.add_argument('--intent', type=Path)
+    schematic_source.add_argument('--candidate', type=Path, help='owner-edited native root KiCad schematic and its child sheets')
     update_parser.add_argument('--apply', action='store_true')
     update_parser.add_argument('--reconcile-board-names', action='store_true')
     update_parser.add_argument('--pcb', type=Path, help='matching routed PCB for an atomic circuit change')
@@ -53,6 +60,10 @@ def main(
     layout_parser.add_argument('--apply', action='store_true')
     release_parser = subparsers.add_parser('release', help='review and export the exact current design')
     release_parser.add_argument('project_path', type=Path)
+    release_parser.add_argument('--quantity', type=int, default=1,
+                                help='board count for fresh BOM stock checks (default: 1; no attrition allowance)')
+    release_parser.add_argument('--preview', action='store_true',
+                                help='prepare JLCPCB upload/review files without granting fabrication release')
     research_parser = subparsers.add_parser(
         "research", help="verify, archive, or extract cited project evidence"
     )
@@ -95,6 +106,15 @@ def main(
         except (ValueError, OSError, RuntimeError) as exc:
             parser.error(str(exc))
         print(json.dumps(result, indent=2))
+    elif args.command == 'clean':
+        from pcb_copilot.cleanup import clean_project
+
+        try:
+            result = clean_project(load_project(args.project_path), apply=args.apply)
+        except (ValueError, OSError, RuntimeError) as exc:
+            parser.error(str(exc))
+        print(json.dumps(result, indent=2))
+        return 0
     elif args.command == "status":
         try:
             project = load_project(args.project_path)
@@ -106,11 +126,21 @@ def main(
         from pcb_copilot.toolchain import ToolchainDiscoveryError
 
         try:
-            result = update_schematic(
-                load_project(args.project_path), args.intent, args.apply,
-                reconcile_names=args.reconcile_board_names,
-                pcb_candidate=args.pcb,
-            )
+            if args.candidate:
+                if args.reconcile_board_names:
+                    raise ValueError('--reconcile-board-names is supported only with --intent')
+                from pcb_copilot.schematic.native_candidate import (
+                    update_native_schematic,
+                )
+
+                result = update_native_schematic(load_project(args.project_path), args.candidate,
+                                                 args.apply, pcb_candidate=args.pcb)
+            else:
+                result = update_schematic(
+                    load_project(args.project_path), args.intent, args.apply,
+                    reconcile_names=args.reconcile_board_names,
+                    pcb_candidate=args.pcb,
+                )
         except (ValueError, OSError, RuntimeError, ToolchainDiscoveryError) as exc:
             parser.error(str(exc))
         print(json.dumps(result, indent=2))
@@ -162,7 +192,7 @@ def main(
     elif args.command == 'release':
         from pcb_copilot.release import release_project
         try:
-            result = release_project(load_project(args.project_path))
+            result = release_project(load_project(args.project_path), preview=args.preview, quantity=args.quantity)
         except (ValueError, OSError, RuntimeError) as exc:
             parser.error(str(exc))
         print(json.dumps(result, indent=2))
