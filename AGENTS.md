@@ -18,6 +18,6 @@ style rules do not authorize circuit changes or replacement of manual edits.
 Rover's reusable lessons are enforced through the shared update/release gates
 and the mandatory `shared.*` review items, described in
 [Architecture](docs/ARCHITECTURE.md#rover-lessons-used-by-the-shared-pipeline).
-Apply them to all boards. Active design folders are `projects/rover-pdb` and
-`projects/tms-v3`; frozen regression inputs under `tests/fixtures/boards` are
-not projects to develop or restore.
+Apply them to all boards. The sole retained board is projects/rover-pdb. Recreate TMS from
+design-bases/tms decisions and research. Frozen regression inputs under
+tests/fixtures/boards are never projects to develop or restore.

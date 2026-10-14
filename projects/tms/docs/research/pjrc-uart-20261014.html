@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Teensyduino: Using the UART (real serial) with Teensy on the Arduino IDE</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="/favicon.ico">
+<style>
+body,td,p {font-family: Arial, Helvetica, sans-serif;}
+html { scroll-behavior: smooth; }
+img { max-width:100%; height:auto; }
+nav.left { float:left; width:172px; }
+.logoimg { display:block; padding-left:40px; }
+.notmobile {/* display:normal */}
+.navtopwidth { width=100%; max-width:calc(185px + 1080px); }
+.headertop { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:2px }
+.navtop { display:flex; justify-content:space-around; background-color:#D0E0FF; }
+.navtopitem { padding:6px; }
+.navbreadcrumb { background-color:#F0F0F0; }
+main { float:left; margin-left:10px; width:calc(100% - 185px); max-width:1080px; }
+aside { float:right; }
+figure { display:table; }
+figcaption { display:table-caption; caption-side:bottom; font-size:0.8em; font-weight:bold; }
+@media only screen and (max-width:960px) {
+	aside { float:none; display:table; margin:auto; }
+}
+@media only screen and (max-width:600px) {
+	nav.left { display:none; }
+	.notmobile { display:none; }
+	.logoimg { padding-left:6px; }
+	main { width:100%; margin-left:0; }
+	table { font-size:75%; }
+}
+.center { margin: auto; }
+h1 {font-size: 200% }
+h2 {font-size: 160% }
+h3 {font-size: 140% }
+h4 {font-size: 120% }
+h5 {font-size: 110% }
+dl.featurelist dt {
+	font-weight: bold;
+	font-size: 130%;
+	margin-left: 2em;
+	display: list-item;
+	list-style-type: disc;
+}
+dl.featurelist dd {
+	margin-left: 4em;
+	padding-bottom: 0.75em;
+}
+ul.subfeaturelist {
+	padding-top: 0.4em;
+}
+ul.subfeaturelist li {
+	font-size: 90%;
+	padding-bottom: 0.25em;
+}
+.orderButton {
+	background:linear-gradient(to bottom, #c5f7be 5%, #cae0b3 100%);
+	background-color:#c5f7be;
+	border-radius:6px;
+	cursor:pointer;
+	padding:8px 20px;
+}
+.orderButton:hover {
+	background:linear-gradient(to bottom, #cae0b3 5%, #c5f7be 100%);
+	background-color:#cae0b3;
+}
+.orderButton:active {
+	position:relative;
+	top:1px;
+}
+tr.top {background-color:#C0C0C0}
+tr.odd {background-color:#F0F0F0}
+tr.even {background-color:#E0E0E0}
+p.desc {padding-left:3em; margin:0px; padding-top:0.2em; padding-bottom:0.8em; font-size:0.75em}
+span.literal {color: #006666}
+span.comment {color: #777755}
+span.keyword {color: #cc6600}
+span.function {color: #996600}
+span.mainfunction {color: #993300; font-weight: bolder}
+span.footnote {vertical-align: super; font-size: smaller; color: #ff0000;}
+a.footnote:link {text-decoration: none}
+a.footnote:visited {text-decoration: none}
+</style>
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#0000D0" vlink="#202080">
+<!--nav begin-->
+<header class="headertop navtopwidth">
+<div><a href="/"><img src="/img/logo.gif" alt="PJRC" width=276 height=31 class=logoimg></a></div>
+<div>
+<small>
+<a href="https://www.pjrc.com/cart/cart.php">Shopping&nbsp;Cart</a>
+<span class=notmobile><img src="/img/a.gif" width=10 height=10 alt="">
+<a href="/cgi-bin/archive/summary">Download&nbsp;Website</a></span>
+</small>
+</div>
+</header>
+<nav class="navtop navtopwidth">
+<div class=navtopitem><a href="/">Home</a></div>
+<div class=navtopitem><a href="/store/">Products</a></div>
+<div class=navtopitem><a href="/teensy/">Teensy</a></div>
+<div class=navtopitem><a href="/blog/">Blog</a></div>
+<div class=navtopitem><a href="https://forum.pjrc.com/">Forum</a></div>
+</nav>
+<nav class="navbreadcrumb navtopwidth">
+<small><span class=notmobile>You are here:</span>
+<a href="/teensy/">Teensy</a>
+<img src="/img/b.gif" width=10 height=10 alt="">
+<a href="teensyduino.html">Teensyduino</a>
+<img src="/img/b.gif" width=10 height=10 alt="">
+<span style="background-color: #B0E4A8">Serial</span>
+</small></nav>
+<p>
+<nav class=left>
+<table width=172 border=0 cellspacing=0 cellpadding=6>
+<tr><td bgcolor="#D0E0FF" align=center>
+<big><b>PJRC Store</b></big>
+</td></tr>
+<tr><td bgcolor="#F0F0F0">
+<small>
+<img src="/img/a.gif" width=10 height=10 alt="" align=middle>
+<a href="/store/teensy41.html">Teensy 4.1</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="" align=middle>
+<a href="/store/teensy40.html">Teensy 4.0</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="" align=middle>
+<a href="/store/ic_mkl02_t4.html">Chips for PCB</a><br>
+</small></td></tr>
+<tr><td height=15></td></tr>
+<tr><td bgcolor="#D0E0FF" align=center>
+<big><b>Teensy</b></big>
+</td></tr>
+<tr><td bgcolor="#F0F0F0" style="line-height: 96%">
+<small>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="index.html">Main Page</a><br>
+<a href="techspecs.html"><img src="/img/c.gif" width=10 height=10 alt="" border=0>
+<b>Hardware</b></a><br>
+<a href="first_use.html"><img src="/img/c.gif" width=10 height=10 alt="" border=0>
+<b>Getting Started</b></a><br>
+<a href="tutorial.html"><img src="/img/c.gif" width=10 height=10 alt="" border=0>
+<b>Tutorial</b></a><br>
+<a href="pins.html"><img src="/img/c.gif" width=10 height=10 alt="" border=0>
+<b>How-To Tips</b></a><br>
+<a href="usb_debug_only.html"><img src="/img/c.gif" width=10 height=10 alt="" border=0>
+<b>Code Library</b></a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="projects.html">Projects</a><br>
+<img src="/img/b.gif" width=10 height=10 alt="">
+<b>Teensyduino</b><br>
+</small>
+<div style="padding-left: 1.2em">
+<small>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="teensyduino.html">Main</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_download.html">Download+Install</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_usage.html">Basic Usage</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_digital.html">Digital I/O</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_pulse.html">PWM & Tone</a><br>
+<a href="td_timing.html"><img src="/img/c.gif" width=10 height=10 alt="" border=0>
+<b>Timing</b></a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_code_security.html">Code Security</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_startup.html">Startup</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_crashreport.html">CrashReport</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_serial.html">USB Serial</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_keyboard.html">USB Keyboard</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_mouse.html">USB Mouse</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_joystick.html">USB Joystick</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_midi.html">USB MIDI</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_flightsim.html">USB Flight Sim</a><br>
+<img src="/img/b.gif" width=10 height=10 alt="selected">
+<span style="background-color: #B0E4A8">Serial</span><br>
+<a href="td_libs.html"><img src="/img/c.gif" width=10 height=10 alt="" border=0>
+<b>Libraries</b></a><br>
+</small>
+</div>
+<small>
+<a href="pinout.html"><img src="/img/c.gif" width=10 height=10 alt="" border=0>
+<b>Reference</b></a><br>
+</small></td></tr>
+<tr><td height=60></td></tr>
+</table><br>
+<a name="navend"> </a>
+</nav>
+<!--nav end-->
+
+
+<main>
+<h1>Using the Hardware Serial Ports</h1>
+
+The Teensy boards have 1 to 8 hardware serial ports, which may be used to
+connect to serial devices, like GPS receivers, XBee &amp; ESP Wifi modules,
+Modbus controllers, serial interface displays and many other serial devices.
+<p>
+The most common issue with serial ports on Teensy
+is use of code designed for Arduino Uno with
+<span style="color: #CC6600;"><b>Serial</b></span>
+within the code.  On Teensy,
+<span style="color: #CC6600;"><b>Serial</b></span>
+accesses the USB only.  USB and Serial1 (pins 0 &amp; 1) are not shared on Teensy.
+For hardware serial ports,
+<span style="color: #CC6600;"><b>Serial1</b></span>,
+<span style="color: #CC6600;"><b>Serial2</b></span>,
+<span style="color: #CC6600;"><b>Serial3</b></span>,
+<span style="color: #CC6600;"><b>Serial4</b></span>,
+<span style="color: #CC6600;"><b>Serial5</b></span>,
+<span style="color: #CC6600;"><b>Serial6</b></span>,
+<span style="color: #CC6600;"><b>Serial7</b></span> or
+<span style="color: #CC6600;"><b>Serial8</b></span>
+must be used.
+
+
+<h2>Hardware</h2>
+<p>
+<p>
+<table align=center cellpadding=2>
+<tr class=top><th>Serial Port</th><th>Signal</th><th>Teensy<br>1.0</th><th>Teensy<br>2.0</th><th>Teensy++<br>1.0 &amp; 2.0</th><th>Teensy<br>LC</th><th>Teensy<br>3.0, 3.1, 3.2</th><th>Teensy<br>3.5 &amp; 3.6</th><th>Teensy<br>4.0</th><th>Teensy<br>4.1</th></tr>
+<tr><td height=0></td></tr>
+<tr class=odd><td rowspan=5 align=center><span style="color: #CC6600;"><b>Serial1</b></span></td><td>Receive</td><td align=center>2</td><td align=center>7</td><td align=center>2</td><td align=center>0, 3, 21, 25</td><td align=center>0, 21</td><td align=center>0, 21, 27</td><td align=center>0,(xbar)</td><td align=center>0,52,(xbar)</td></tr>
+<tr class=odd><td>Transmit</td><td align=center>3</td><td align=center>8</td><td align=center>3</td><td align=center>1, 4, 5, 24</td><td align=center>1, 5</td><td align=center>1, 5, 26</td><td align=center>1</td><td align=center>1,53</td></tr>
+<tr class=odd style="font-size:smaller"><td>Transmit Enable</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td></tr>
+<tr class=odd style="font-size:smaller"><td>RTS</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td></tr>
+<tr class=odd style="font-size:smaller"><td>CTS</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>18, 20</td><td align=center>18, 20</td><td align=center>(xbar<a href="#cts" class=footnote><span class=footnote>*</span></a>)</td><td align=center>(xbar<a href="#cts" class=footnote><span class=footnote>*</span></a>)</td></tr>
+<tr><td height=0></td></tr>
+<tr class=odd><td rowspan=5 align=center><span style="color: #CC6600;"><b>Serial2</b></span></td><td>Receive</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>9</td><td align=center>9, 26</td><td align=center>9</td><td align=center>7,(xbar)</td><td align=center>7,(xbar)</td></tr>
+<tr class=odd><td>Transmit</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>10</td><td align=center>10, 31</td><td align=center>10</td><td align=center>8</td><td align=center>8</td></tr>
+<tr class=odd style="font-size:smaller"><td>Transmit Enable</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td></tr>
+<tr class=odd style="font-size:smaller"><td>RTS</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td></tr>
+<tr class=odd style="font-size:smaller"><td>CTS</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>23</td><td align=center>23</td><td align=center>(xbar<a href="#cts" class=footnote><span class=footnote>*</span></a>)</td><td align=center>(xbar<a href="#cts" class=footnote><span class=footnote>*</span></a>)</td></tr>
+<tr><td height=0></td></tr>
+<tr class=odd><td rowspan=5 align=center><span style="color: #CC6600;"><b>Serial3</b></span></td><td>Receive</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>7, 6</td><td align=center>7</td><td align=center>7</td><td align=center>15,(xbar)</td><td align=center>15,(xbar)</td></tr>
+<tr class=odd><td>Transmit</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>8, 20</td><td align=center>8</td><td align=center>8</td><td align=center>14</td><td align=center>14</td></tr>
+<tr class=odd style="font-size:smaller"><td>Transmit Enable</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td></tr>
+<tr class=odd style="font-size:smaller"><td>RTS</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td></tr>
+<tr class=odd style="font-size:smaller"><td>CTS</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>14</td><td align=center>14</td><td align=center>19,(xbar<a href="#cts" class=footnote><span class=footnote>*</span></a>)</td><td align=center>19,(xbar<a href="#cts" class=footnote><span class=footnote>*</span></a>)</td></tr>
+<tr><td height=0></td></tr>
+<tr class=odd><td rowspan=5 align=center><span style="color: #CC6600;"><b>Serial4</b></span></td><td>Receive</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>31</td><td align=center>16,(xbar)</td><td align=center>16,(xbar)</td></tr>
+<tr class=odd><td>Transmit</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>32</td><td align=center>17</td><td align=center>17</td></tr>
+<tr class=odd style="font-size:smaller"><td>Transmit Enable</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td></tr>
+<tr class=odd style="font-size:smaller"><td>RTS</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td></tr>
+<tr class=odd style="font-size:smaller"><td>CTS</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>(xbar<a href="#cts" class=footnote><span class=footnote>*</span></a>)</td><td align=center>(xbar<a href="#cts" class=footnote><span class=footnote>*</span></a>)</td></tr>
+<tr><td height=0></td></tr>
+<tr class=odd><td rowspan=5 align=center><span style="color: #CC6600;"><b>Serial5</b></span></td><td>Receive</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>34</td><td align=center>21,38,(xbar)</td><td align=center>21,46,(xbar)</td></tr>
+<tr class=odd><td>Transmit</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>33</td><td align=center>20,39</td><td align=center>20,47</td></tr>
+<tr class=odd style="font-size:smaller"><td>Transmit Enable</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td></tr>
+<tr class=odd style="font-size:smaller"><td>RTS</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td></tr>
+<tr class=odd style="font-size:smaller"><td>CTS</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>24</td><td align=center>35,(xbar<a href="#cts" class=footnote><span class=footnote>*</span></a>)</td><td align=center>43,(xbar<a href="#cts" class=footnote><span class=footnote>*</span></a>)</td></tr>
+<tr><td height=0></td></tr>
+<tr class=odd><td rowspan=5 align=center><span style="color: #CC6600;"><b>Serial6</b></span></td><td>Receive</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>47</td><td align=center>25,(xbar)</td><td align=center>25,(xbar)</td></tr>
+<tr class=odd><td>Transmit</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>48</td><td align=center>24</td><td align=center>24</td></tr>
+<tr class=odd style="font-size:smaller"><td>Transmit Enable</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td></tr>
+<tr class=odd style="font-size:smaller"><td>RTS</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>Any</td><td align=center>Any</td><td align=center>Any</td></tr>
+<tr class=odd style="font-size:smaller"><td>CTS</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>56</td><td align=center>(xbar<a href="#cts" class=footnote><span class=footnote>*</span></a>)</td><td align=center>(xbar<a href="#cts" class=footnote><span class=footnote>*</span></a>)</td></tr>
+<tr><td height=0></td></tr>
+<tr class=odd><td rowspan=5 align=center><span style="color: #CC6600;"><b>Serial7</b></span></td><td>Receive</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>28,(xbar)</td><td align=center>28,(xbar)</td></tr>
+<tr class=odd><td>Transmit</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>29</td><td align=center>29</td></tr>
+<tr class=odd style="font-size:smaller"><td>Transmit Enable</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>Any</td><td align=center>Any</td></tr>
+<tr class=odd style="font-size:smaller"><td>RTS</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>Any</td><td align=center>Any</td></tr>
+<tr class=odd style="font-size:smaller"><td>CTS</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>(xbar<a href="#cts" class=footnote><span class=footnote>*</span></a>)</td><td align=center>(xbar<a href="#cts" class=footnote><span class=footnote>*</span></a>)</td></tr>
+<tr><td height=0></td></tr>
+<tr class=odd><td rowspan=5 align=center><span style="color: #CC6600;"><b>Serial8</b></span></td><td>Receive</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>34,48,(xbar)</td></tr>
+<tr class=odd><td>Transmit</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>35</td></tr>
+<tr class=odd style="font-size:smaller"><td>Transmit Enable</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>Any</td></tr>
+<tr class=odd style="font-size:smaller"><td>RTS</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>Any</td></tr>
+<tr class=odd style="font-size:smaller"><td>CTS</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>-</td><td align=center>50,(xbar<a href="#cts" class=footnote><span class=footnote>*</span></a>)</td></tr>
+
+
+
+</table>
+<p>
+XBAR pins may be used with attachCts() or setRX().  Each serial port can make only one
+connection to the XBAR for flexible pin routing, so on each port you can assign an XBAR pin to
+either CTS or RX, but not both.  XBAR alternate pins each override use of one of the primary
+pins, so care should be used to avoid conflicts if using alt pins.
+<ul>
+<li><b>Teensy 4.0</b>: Primary XBAR Pins 1, 2, 3, 4, 5, 7, 8, 30, 31, 32, 33 - Alt Pins: 0, 34, 35, 36, 37, 38, 39
+<li><b>Teensy 4.1</b>: Primary XBAR Pins 1, 2, 3, 4, 5, 7, 8, 30, 31, 32, 33 - Alt Pins: 0, 36, 37, 42, 43, 44, 45, 46, 47
+<li><b>MicroMod Teensy</b>: Primary XBAR Pins 1, 2, 3, 4, 5, 7, 8, 30, 31, 32, 33 - Alt Pins: 0, 34, 35, 36, 37, 38, 39
+</ul>
+<p>
+<span class=footnote style="font-size: 100%; font-weight: bold;"><a name="cts">*</a></span>
+CTS polarity is inverted when connected through XBAR.  Normally CTS is active low,
+meaning Teensy is allowed to transmit data when CTS is low, and must pause when CTS
+is driven high.  But when using XBAR, Teensy transmits when the pin is logic high
+and pauses transmission while the pin is low.
+<p>
+The serial signals on the Rx and Tx pins are "TTL level".  To convert to RS-232 level
+a MAX232 or similar chip is needed.
+<p>
+<table align=center><tr><td><img src="td_uart.jpg"></td></tr></table>
+<p>
+<table align=center><tr><td><img src="schematic_rs232.gif"></td></tr></table>
+<p>
+<table align=right width=200>
+<tr><td><img src="serial_wiring_fail.jpg"></td></tr>
+<tr><td><small>Serial connection confusion is so common that
+Shawn Hymel
+<a href="https://twitter.com/pdp7/status/1332811991128305664">designed this badge</a>
+and Drew Fustini
+<a href="https://twitter.com/pdp7/status/1336844875271028736">made a purple PCB</a>.
+Don't feel bad if you get it mixed up.  You're not alone!
+</small></td></tr>
+</table>
+On Teensy 3.2, 3.5, 3.6, Serial1 and Serial2 have 8 byte transmit and receive FIFOs,
+which allow for higher speed baud rates, even when other libraries create interrupt
+latency.  All serial ports on Teensy 4.0 and 4.1 have 4 byte transmit and receive FIFOs.
+<p>
+All serial ports on all Teensy boards use interrupt-based transmit and receive buffering,
+to allow your program to avoid waiting when writing short messages, and to allow
+data to be reliably received even if your program must spend time performing
+other tasks.
+<p>
+On Teensy 3.6 when running faster than 120 MHz, writing to
+<a href="td_libs_EEPROM.html">EEPROM</a>
+may momentarily interfere with Serial1 and Serial2 baud rates.
+Reading EEPROM does not interfere.  Serial3 to Serial6 are not affected.
+
+<h2>Commonly Used Serial Protocols</h2>
+
+<ul>
+<li><a href="td_libs_MIDI.html">MIDI</a>
+<li>ESP8266 (with fast baud rate and RTS/CTS flow control)
+<li><a href="https://forum.pjrc.com/threads/36106-SBUS-Library">SBUS</a>
+<li><a href="https://forum.pjrc.com/threads/37018-Modbus-RTU">Modbus RTU</a>  (see RS-485 transmitterEnable function)
+<li><a href="https://forum.pjrc.com/threads/40629-Is-there-an-M-Bus-meter-Bus-implementation-for-Teensy-available">M-Bus</a>
+<li>Robotis Dynamixel <a href="https://github.com/KurtE/BioloidSerial">AX and MX-T</a>
+<li><a href="td_libs_TinyGPS.html">GPS NMEA0183</a>
+<li><a href="td_libs_DmxSimple.html">DMX Lighting</a>
+<li><a href="https://forum.pjrc.com/threads/40444-Serial-communication-to-Arduino-boards-not-working?p=125595&viewfull=1#post125595">EasyTransfer library</a>
+<li>BlueSMiRF
+<li><a href="td_libs_XBee.html">XBee</a>
+</ul>
+
+<h2>Example Code</h2>
+
+This simple example shows how to use both the UART and USB Serial at the
+same time.  Both are monitored for incoming bytes, and when either receives
+data, the results are printed to both.
+
+<pre>
+<font color="#434f54">&#47;&#47; set this to the hardware serial port you wish to use</font>
+<font color="#5e6d03">#define</font> <font color="#000000">HWSERIAL</font> <b><font color="#d35400">Serial1</font></b>
+
+<font color="#00979c">void</font> <font color="#5e6d03">setup</font><font color="#000000">(</font><font color="#000000">)</font> <font color="#000000">{</font>
+ &nbsp;<b><font color="#d35400">Serial</font></b><font color="#434f54">.</font><font color="#d35400">begin</font><font color="#000000">(</font><font color="#000000">9600</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#000000">HWSERIAL</font><font color="#434f54">.</font><font color="#d35400">begin</font><font color="#000000">(</font><font color="#000000">9600</font><font color="#000000">)</font><font color="#000000">;</font>
+<font color="#000000">}</font>
+
+<font color="#00979c">void</font> <font color="#5e6d03">loop</font><font color="#000000">(</font><font color="#000000">)</font> <font color="#000000">{</font>
+ &nbsp;<font color="#00979c">int</font> <font color="#000000">incomingByte</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#5e6d03">if</font> <font color="#000000">(</font><b><font color="#d35400">Serial</font></b><font color="#434f54">.</font><font color="#d35400">available</font><font color="#000000">(</font><font color="#000000">)</font> <font color="#434f54">&gt;</font> <font color="#000000">0</font><font color="#000000">)</font> <font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">incomingByte</font> <font color="#434f54">=</font> <b><font color="#d35400">Serial</font></b><font color="#434f54">.</font><font color="#d35400">read</font><font color="#000000">(</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<b><font color="#d35400">Serial</font></b><font color="#434f54">.</font><font color="#d35400">print</font><font color="#000000">(</font><font color="#005c5f">&#34;USB received: &#34;</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<b><font color="#d35400">Serial</font></b><font color="#434f54">.</font><font color="#d35400">println</font><font color="#000000">(</font><font color="#000000">incomingByte</font><font color="#434f54">,</font> <font color="#00979c">DEC</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">HWSERIAL</font><font color="#434f54">.</font><font color="#d35400">print</font><font color="#000000">(</font><font color="#005c5f">&#34;USB received:&#34;</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">HWSERIAL</font><font color="#434f54">.</font><font color="#d35400">println</font><font color="#000000">(</font><font color="#000000">incomingByte</font><font color="#434f54">,</font> <font color="#00979c">DEC</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#000000">}</font>
+ &nbsp;<font color="#5e6d03">if</font> <font color="#000000">(</font><font color="#000000">HWSERIAL</font><font color="#434f54">.</font><font color="#d35400">available</font><font color="#000000">(</font><font color="#000000">)</font> <font color="#434f54">&gt;</font> <font color="#000000">0</font><font color="#000000">)</font> <font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">incomingByte</font> <font color="#434f54">=</font> <font color="#000000">HWSERIAL</font><font color="#434f54">.</font><font color="#d35400">read</font><font color="#000000">(</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<b><font color="#d35400">Serial</font></b><font color="#434f54">.</font><font color="#d35400">print</font><font color="#000000">(</font><font color="#005c5f">&#34;UART received: &#34;</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<b><font color="#d35400">Serial</font></b><font color="#434f54">.</font><font color="#d35400">println</font><font color="#000000">(</font><font color="#000000">incomingByte</font><font color="#434f54">,</font> <font color="#00979c">DEC</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">HWSERIAL</font><font color="#434f54">.</font><font color="#d35400">print</font><font color="#000000">(</font><font color="#005c5f">&#34;UART received:&#34;</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">HWSERIAL</font><font color="#434f54">.</font><font color="#d35400">println</font><font color="#000000">(</font><font color="#000000">incomingByte</font><font color="#434f54">,</font> <font color="#00979c">DEC</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#000000">}</font>
+<font color="#000000">}</font>
+</pre>
+
+<h2>Standard Serial Functions</h2>
+
+All of the standard Serial functions are supported.
+
+
+<h3>Serial1.begin(baud)</h3>
+
+Initialize the Uart object.  The baud rate must be given.
+<p>
+If begin(baud) is called after serial data is already incoming, any 0 data
+bit may be mistakenly detected as the first start bit, resulting in corrupted
+reception.  If started out of sync, the receiver needs an idle time of 9 bits
+between a stop bit and the next start bit to "get into sync".
+Certain
+<a href="https://forum.pjrc.com/threads/67454-UART-I2C-display-gt-not-working-over-1200-baud-rate-for-UART?p=281054#post281054">100% bandwidth utilization patterns may never sync</a>,
+which is a fundamental limitation of serial communication.
+
+
+<h3>Serial1.print(data) and Serial1.println(data)</h3>
+
+Print a number or string.  Serial1.print() prints only the number or string, and
+Serial1.println() prints it with a newline character.
+
+<pre>
+ &nbsp;<font color="#434f54">&#47;&#47; Serial1.print() can print many different types</font>
+ &nbsp;<font color="#00979c">int</font> <font color="#000000">number</font> <font color="#434f54">=</font> <font color="#000000">1234</font><font color="#000000">;</font>
+ &nbsp;<b><font color="#d35400">Serial1</font></b><font color="#434f54">.</font><font color="#d35400">println</font><font color="#000000">(</font><font color="#005c5f">&#34;string&#34;</font><font color="#000000">)</font><font color="#000000">;</font> &nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47; string</font>
+ &nbsp;<b><font color="#d35400">Serial1</font></b><font color="#434f54">.</font><font color="#d35400">println</font><font color="#000000">(</font><font color="#00979c">&#39;a&#39;</font><font color="#000000">)</font><font color="#000000">;</font> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47; single character</font>
+ &nbsp;<b><font color="#d35400">Serial1</font></b><font color="#434f54">.</font><font color="#d35400">println</font><font color="#000000">(</font><font color="#000000">number</font><font color="#000000">)</font><font color="#000000">;</font> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47; number (base 10 if 16 or 32 bit)</font>
+ &nbsp;<b><font color="#d35400">Serial1</font></b><font color="#434f54">.</font><font color="#d35400">println</font><font color="#000000">(</font><font color="#000000">number</font><font color="#434f54">,</font> <font color="#00979c">DEC</font><font color="#000000">)</font><font color="#000000">;</font> &nbsp;<font color="#434f54">&#47;&#47; number, base 10 (default)</font>
+ &nbsp;<b><font color="#d35400">Serial1</font></b><font color="#434f54">.</font><font color="#d35400">println</font><font color="#000000">(</font><font color="#000000">number</font><font color="#434f54">,</font> <font color="#00979c">HEX</font><font color="#000000">)</font><font color="#000000">;</font> &nbsp;<font color="#434f54">&#47;&#47; number, base 16&#47;hexidecimal</font>
+ &nbsp;<b><font color="#d35400">Serial1</font></b><font color="#434f54">.</font><font color="#d35400">println</font><font color="#000000">(</font><font color="#000000">number</font><font color="#434f54">,</font> <font color="#00979c">OCT</font><font color="#000000">)</font><font color="#000000">;</font> &nbsp;<font color="#434f54">&#47;&#47; number, base 8&#47;octal</font>
+ &nbsp;<b><font color="#d35400">Serial1</font></b><font color="#434f54">.</font><font color="#d35400">println</font><font color="#000000">(</font><font color="#000000">number</font><font color="#434f54">,</font> <font color="#00979c">BIN</font><font color="#000000">)</font><font color="#000000">;</font> &nbsp;<font color="#434f54">&#47;&#47; number, base 2&#47;binary</font>
+ &nbsp;<b><font color="#d35400">Serial1</font></b><font color="#434f54">.</font><font color="#d35400">println</font><font color="#000000">(</font><font color="#000000">3.14</font><font color="#000000">)</font><font color="#000000">;</font> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47; number in floating point, 2 digits</font>
+</pre>
+
+<h3>Serial1.availableForWrite()</h3>
+
+Returns the number of bytes that may be written without significant delay.
+If you write more than this number, Serial1.write() may need to wait for
+data to transmit before it can place your data into the transmit buffer.
+
+<h3>Serial1.write(byte)</h3>
+
+Transmit a byte.
+
+<h3>Serial1.available()</h3>
+
+Returns true if at least 1 byte is available, or false if nothing has been received.
+<p>
+
+<h3>Serial1.read()</h3>
+
+Read 1 byte (0 to 255), if available, or -1 if nothing available.  Normally Serial1.read()
+is used after Serial1.available().  For example:
+<p>
+<pre>
+ &nbsp;<font color="#5e6d03">if</font> <font color="#000000">(</font><b><font color="#d35400">Serial1</font></b><font color="#434f54">.</font><font color="#d35400">available</font><font color="#000000">(</font><font color="#000000">)</font><font color="#000000">)</font> <font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">incomingByte</font> <font color="#434f54">=</font> <b><font color="#d35400">Serial1</font></b><font color="#434f54">.</font><font color="#d35400">read</font><font color="#000000">(</font><font color="#000000">)</font><font color="#000000">;</font> &nbsp;<font color="#434f54">&#47;&#47; will not be -1</font>
+ &nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47; actually do something with incomingByte</font>
+ &nbsp;<font color="#000000">}</font>
+</pre>
+<p>
+In 9 bit mode, the return value is 0 to 511, or -1 if nothing available.
+
+<h3>Serial1.flush()</h3>
+
+Wait for any transmitted data still in buffers to actually transmit.  If no data
+is waiting in a buffer to transmit, flush() returns immediately.
+
+<h3>Serial1.clear()</h3>
+
+Discard any received data that has not been read.
+
+<h3>Serial1.setTX(pin)</h3>
+
+Configure the serial port to use an alternate transmit pin.  Teensy LC
+and 3.x support only specific alternate pins.  This function may be called
+before Serial1.begin(baud), to pre-configure the pin used.  It may also
+be used while the serial port is active.  Physical pullup resistors are
+recommended for applications which change pins while running.
+
+<h3>Serial1.setRX(pin)</h3>
+
+Configure the serial port to use an alternate receive pin.  Teensy LC
+and 3.x support only specific alternate pins.  This function may be called
+before Serial1.begin(baud), to pre-configure the pin used.  It may also
+be used while the serial port is active.  Physical pullup resistors are
+recommended for applications which change pins while running.
+
+<h3>Serial1.transmitterEnable(pin)</h3>
+
+Use a pin to automatically enable a RS-485 transceiver chip.  This pin
+outputs a logic HIGH when transmitting data.  It goes LOW after the
+last stop bit, to allow reception when not transmitting.
+<p>
+Most RS-485 chips have 2 control signals, an active-high transmitter
+enable and an active-low receiver enable.  Normally those 2 signals
+are wired together and connected to the transmitter enable output.
+
+<h3>Serial1.addMemoryForRead(buffer, size)</h3>
+
+Increase the amount of buffer memory between reception of bytes by
+the serial hardware and the available() and read() functions.  This is
+useful when your program must spend lengthy times performing other
+work, like writing to a SD card, before it can return to reading
+the incoming serial data.
+<p>
+The buffer array must be a global or static variable.  Maximum total
+bufer size is 64K.
+
+<h3>Serial1.addMemoryForWrite(buffer, size)</h3>
+
+Increase the amount of buffer memory between print(), write() and
+actual hardware serial transmission.  This can be useful when your
+program needs to print or write a large amount of data, without
+waiting.
+<p>
+The buffer array must be a global or static variable.  Maximum total
+bufer size is 64K.
+
+<h3>Serial1.attachRts(pin)</h3>
+
+Enable RTS flow control.  The specified pin becomes an output.  Low
+indicates the Teensy is ready to recieve data.  High is a request for
+the other device to pause transmission.  RTS is driven high before
+Teensy's receive buffer is full, to allow tolerance for devices which
+do not immediately pause transmission in response to RTS.
+<p>
+This function must be called after Serial1.begin();
+<p>
+The RTS output from Teensy should be connected to the CTS input on
+the other serial device, similarly to the TX output connecting to
+the other device's RX input.  Do not simply connect same-named
+signals with serial.
+<p>
+Supported only on Teensy LC, 3.x, 4.x.  Any digital pin may be used.
+
+<h3>Serial1.attachCts(pin)</h3>
+
+Enable CTS flow control.  When this pin is driven high, Teensy will
+pause transmission after the currently transmitting byte (if any)
+is completed.
+<p>
+This function must be called after Serial1.begin();
+<p>
+The CTS input from Teensy should be connected to the RTS output on
+the other serial device, similarly to the RX input connecting to
+the other device's TX output.  Do not simply connect same-named
+signals with serial.
+<p>
+Supported only on Teensy 3.x, 4.x.  Only specific pins may be used.
+
+<h3>Serial1.begin(baud, format)</h3>
+
+Initialize the serial object with a baud rate and data format.
+Supported only on Teensy LC, 3.0, 3.1, 3.2, 3.5, 3.6.
+<p>
+<table border>
+<tr><th>Format Name</th><th>Data Bits</th><th>Parity</th><th>Stop Bits</th><th>RX Polarity</th><th>TX Polarity</th></tr>
+<tr><td><span style="color: #006699;">SERIAL_7E1</span></td><td align=center>7</td><td align=center>Even</td><td align=center></td><td rowspan=6 align=center>Normal</td><td rowspan=6 align=center>Normal</td></tr>
+<tr><td><span style="color: #006699;">SERIAL_7O1</span></td><td align=center>7</td><td align=center>Odd</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_8N1</span></td><td align=center>8</td><td align=center>None</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_8N2</span></td><td align=center>8</td><td align=center>None</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_8E1</span></td><td align=center>8</td><td align=center>Even</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_8O1</span></td><td align=center>8</td><td align=center>Odd</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_7E1_RXINV</span></td><td align=center>7</td><td align=center>Even</td><td align=center></td><td rowspan=6 align=center>Inverted</td><td rowspan=6 align=center>Normal</td></tr>
+<tr><td><span style="color: #006699;">SERIAL_7O1_RXINV</span></td><td align=center>7</td><td align=center>Odd</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_8N1_RXINV</span></td><td align=center>8</td><td align=center>None</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_8N2_RXINV</span></td><td align=center>8</td><td align=center>None</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_8E1_RXINV</span></td><td align=center>8</td><td align=center>Even</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_8O1_RXINV</span></td><td align=center>8</td><td align=center>Odd</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_7E1_TXINV</span></td><td align=center>8</td><td align=center>Even</td><td align=center></td><td rowspan=6 align=center>Normal</td><td rowspan=6 align=center>Inverted</td></tr>
+<tr><td><span style="color: #006699;">SERIAL_7O1_TXINV</span></td><td align=center>8</td><td align=center>Odd</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_8N1_TXINV</span></td><td align=center>8</td><td align=center>None</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_8N2_TXINV</span></td><td align=center>8</td><td align=center>None</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_8E1_TXINV</span></td><td align=center>8</td><td align=center>Even</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_8O1_TXINV</span></td><td align=center>8</td><td align=center>Odd</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_7E1_RXINV_TXINV</span></td><td align=center>7</td><td align=center>Even</td><td align=center></td><td rowspan=6 align=center>Inverted</td><td rowspan=6 align=center>Inverted</td></tr>
+<tr><td><span style="color: #006699;">SERIAL_7O1_RXINV_TXINV</span></td><td align=center>7</td><td align=center>Odd</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_8N1_RXINV_TXINV</span></td><td align=center>8</td><td align=center>None</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_8N2_RXINV_TXINV</span></td><td align=center>8</td><td align=center>None</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_8E1_RXINV_TXINV</span></td><td align=center>8</td><td align=center>Even</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_8O1_RXINV_TXINV</span></td><td align=center>8</td><td align=center>Odd</td><td align=center></td></tr>
+<tr><td colspan=6 align=center>The following formats are available when<br>
+HardwareSerial.h is edited with SERIAL_9BIT_SUPPORT</td></tr>
+<tr><td><span style="color: #006699;">SERIAL_9N1</span></td><td align=center>9</td><td align=center>None</td><td align=center></td><td rowspan=3 align=center>Normal</td><td rowspan=3 align=center>Normal</td></tr>
+<tr><td><span style="color: #006699;">SERIAL_9E1</span></td><td align=center>9</td><td align=center>Even</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_9O1</span></td><td align=center>9</td><td align=center>Odd</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_9N1_RXINV</span></td><td align=center>9</td><td align=center>None</td><td align=center></td><td rowspan=3 align=center>Inverted</td><td rowspan=3 align=center>Normal</td></tr>
+<tr><td><span style="color: #006699;">SERIAL_9E1_RXINV</span></td><td align=center>9</td><td align=center>Even</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_9O1_RXINV</span></td><td align=center>9</td><td align=center>Odd</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_9N1_TXINV</span></td><td align=center>9</td><td align=center>None</td><td align=center></td><td rowspan=3 align=center>Normal</td><td rowspan=3 align=center>Inverted</td></tr>
+<tr><td><span style="color: #006699;">SERIAL_9E1_TXINV</span></td><td align=center>9</td><td align=center>Even</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_9O1_TXINV</span></td><td align=center>9</td><td align=center>Odd</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_9N1_RXINV_TXINV</span></td><td align=center>9</td><td align=center>None</td><td align=center></td><td rowspan=3 align=center>Inverted</td><td rowspan=3 align=center>Inverted</td></tr>
+<tr><td><span style="color: #006699;">SERIAL_9E1_RXINV_TXINV</span></td><td align=center>9</td><td align=center>Even</td><td align=center></td></tr>
+<tr><td><span style="color: #006699;">SERIAL_9O1_RXINV_TXINV</span></td><td align=center>9</td><td align=center>Odd</td><td align=center></td></tr>
+</table>
+
+
+<h3>Serial1.write9bit(word)</h3>
+
+Transmit 9 bit data.  The "word" may have the 9th bit set or cleared.
+<p>
+Teensy 3.0, 3.1, 3.2 support 9 bit mode on Serial1, Serial2 and Serial3.<br>
+Teensy 3.5, 3.6 support 9 bit mode on Serial1, Serial2, Serial3, Serial4, Serial5 and Serial6.<br>
+Teensy LC supports 9 bit mode only on Serial1.  Serial2 and Serial3 do not have 9 bit mode.
+<p>
+In 7 and 8 bit modes, this function is the same as write(byte).
+
+
+<h2>Usable Baud Rates</h2>
+
+Serial communcation can tolerate about 2.5% error.  Because the baud rates
+are created using the CPU clock, which is not an exact multiple of standard
+baud rates, higher speed baud rates can not be used if the clock is set
+(in the Tools &gt; CPU Speed menu) to slower speeds.  
+<p>
+
+
+<table align=center cellpadding=6>
+<tr class=top><th>Intended<br>Baud Rate</th>
+	<th>Teensy 3.6<br>Error at<br>180 MHz<br>Serial 1-2</th>
+	<th>Teensy 3.6<br>Error at<br>180 MHz<br>Serial 3-6</th>
+	<th>Teensy 3.5<br>Error at<br>120 MHz<br>Serial 1-2</th>
+	<th>Teensy 3.5<br>Error at<br>120 MHz<br>Serial 3-6</th>
+	<th>Teensy 3.2<br>Error at<br>96 MHz<br>Serial 1-2</th>
+	<th>Teensy 3.2<br>Error at<br>96 MHz<br>Serial 3</th>
+	<th>Teensy LC<br>Error at<br>48 MHz<br>Serial 1-3</th>
+</tr>
+<tr class=odd><td>4608000</td>
+	<td align=center>0.16%</td><td align=center>0.16%</td>
+	<td align=center>0.16%</td><td align=center>0.16%</td>
+	<td align=center>-0.79%</td><td align=center>-0.79%</td>
+	<td align=center bgcolor="#ffd0d0">-65.45%</td>
+</tr>
+<tr class=odd><td>2000000</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center bgcolor="#ffd0d0">-25.00%</td>
+</tr>
+<tr class=odd><td>1000000</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center bgcolor="#ffd0d0">-25.00%</td>
+</tr>
+<tr class=odd><td>921600</td>
+	<td align=center>-0.10%</td><td align=center>0.16%</td>
+	<td align=center>0.16%</td><td align=center>0.16%</td>
+	<td align=center>0.16%</td><td align=center>0.16%</td>
+	<td align=center bgcolor="#ffd0d0">-18.62%</td>
+</tr>
+<tr class=odd><td>500000</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td>
+</tr>
+<tr class=odd><td>460800</td>
+	<td align=center>+0.03%</td><td align=center>0.16%</td>
+	<td align=center>-0.03%</td><td align=center>0.16%</td>
+	<td align=center>-0.08%</td><td align=center>0.16%</td>
+	<td align=center bgcolor="#ffd0d0">8.51%</td>
+</tr>
+<tr class=odd><td>250000 (DMX)</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td>
+</tr>
+<tr class=odd><td>230400</td>
+	<td align=center>-0.03%</td><td align=center>-0.03%</td>
+	<td align=center>-0.03%</td><td align=center>-0.03%</td>
+	<td align=center>0.04%</td><td align=center>-0.08%</td>
+	<td align=center bgcolor="#ffd0d0">-6.99%</td>
+</tr>
+<tr class=odd><td>115200</td>
+	<td align=center>0.00%</td><td align=center>-0.03%</td>
+	<td align=center>0.02%</td><td align=center>-0.03%</td>
+	<td align=center>-0.02%</td><td align=center>0.04%</td>
+	<td align=center>0.16%</td>
+</tr>
+<tr class=odd><td>57600</td>
+	<td align=center>0.00%</td><td align=center>0.02%</td>
+	<td align=center>0.01%</td><td align=center>0.02%</td>
+	<td align=center>0.01%</td><td align=center>-0.02%</td>
+	<td align=center>0.16%</td>
+</tr>
+<tr class=odd><td>38400</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.16%</td>
+</tr>
+<tr class=odd><td>31250 (MIDI)</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td>
+</tr>
+<tr class=odd><td>19200</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.16%</td>
+</tr>
+<tr class=odd><td>9600</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.16%</td>
+</tr>
+<tr class=odd><td>4800</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>-0.16%</td>
+</tr>
+<tr class=odd><td>2400</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td>
+</tr>
+<tr class=odd><td>1200</td>
+	<td align=center bgcolor="#ffd0d0">14.44%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td><td align=center>0.00%</td>
+	<td align=center>0.00%</td>
+</tr>
+<tr class=odd><td>300</td>
+	<td align=center bgcolor="#ffd0d0">357.77%</td><td align=center bgcolor="#ffd0d0">52.59%</td>
+	<td align=center bgcolor="#ffd0d0">205.18%</td><td align=center bgcolor="#ffd0d0">52.59%</td>
+	<td align=center bgcolor="#ffd0d0">144.14%</td><td align=center bgcolor="#ffd0d0">22.07%</td>
+	<td align=center>0.00%</td>
+</tr>
+
+</table>
+<p>
+<table align=center cellpadding=6>
+<tr class=top><th>Intended<br>Baud Rate</th><th>Teensy 3.0<br>Error at<br>48 MHz</th><th>Teensy 3.0<br>Error at<br>24 MHz</th><th>Teensy 2.0<br>Error at<br>16 MHz</th><th>Teensy 2.0<br>Error at<br>8 MHz</th><th>Teensy 2.0<br>Error at<br>4 MHz</th><th>Teensy 2.0<br>Error at<br>2 MHz</th><th>Teensy 2.0<br>Error at<br>1 MHz</th></tr>
+<tr class=odd><td>115200</td><td align=center>+0.04%</td><td align=center>-0.08%</td><td align=center>+2.12%</td><td align=center bgcolor="#ffd0d0">-3.55%</td><td align=center bgcolor="#ffd0d0">+8.51%</td><td align=center bgcolor="#ffd0d0">+8.51%</td><td align=center bgcolor="#ffd0d0">+8.51%</td></tr>
+<tr class=odd><td>57600</td><td align=center>-0.02%</td><td align=center>+0.04%</td><td align=center>-0.79%</td><td align=center>+2.12%</td><td align=center bgcolor="#ffd0d0">-3.55%</td><td align=center bgcolor="#ffd0d0">+8.51%</td><td align=center bgcolor="#ffd0d0">+8.51%</td></tr>
+<tr class=odd><td>38400</td><td align=center>+0.00%</td><td align=center>+0.00%</td><td align=center>+0.16%</td><td align=center>+0.16%</td><td align=center>+0.16%</td><td align=center bgcolor="#ffd0d0">-6.99%</td><td align=center bgcolor="#ffd0d0">+8.51%</td></tr>
+<tr class=odd><td>31250 (MIDI)</td><td align=center>+0.00%</td><td align=center>+0.00%</td><td align=center>+0.00%</td><td align=center>+0.00%</td><td align=center>+0.00%</td><td align=center>+0.00%</td><td align=center>+0.00%</td></tr>
+<tr class=odd><td>19200</td><td align=center>+0.00%</td><td align=center>+0.00%</td><td align=center>+0.16%</td><td align=center>+0.16%</td><td align=center>+0.16%</td><td align=center>+0.16%</td><td align=center bgcolor="#ffd0d0">-6.99%</td></tr>
+<tr class=odd><td>9600</td><td align=center>+0.00%</td><td align=center>+0.00%</td><td align=center>+0.16%</td><td align=center>+0.16%</td><td align=center>+0.16%</td><td align=center>+0.16%</td><td align=center>+0.16%</td></tr>
+<tr class=odd><td>4800</td><td align=center>+0.00%</td><td align=center>+0.00%</td><td align=center>-0.08%</td><td align=center>+0.16%</td><td align=center>+0.16%</td><td align=center>+0.16%</td><td align=center>+0.16%</td></tr>
+<tr class=odd><td>2400</td><td align=center>+0.00%</td><td align=center>+0.00%</td><td align=center>+0.04%</td><td align=center>-0.08%</td><td align=center>+0.16%</td><td align=center>+0.16%</td><td align=center>+0.16%</td></tr>
+<tr class=odd><td>1200</td><td align=center>+0.00%</td><td align=center>+0.00%</td><td align=center>-0.02%</td><td align=center>+0.04%</td><td align=center>-0.08%</td><td align=center>+0.16%</td><td align=center>+0.16%</td></tr>
+<tr class=odd><td>300</td><td align=center bgcolor="#ffd0d0">+22.07%</td><td align=center>+0.00%</td><td align=center>+0.01%</td><td align=center>+0.01%</td><td align=center>-0.02%</td><td align=center>+0.04%</td><td align=center>-0.08%</td></tr>
+</table>
+<!--
+#! /usr/bin/perl
+$clock = 8000000;
+while (<>) {
+        $baud = $_ + 0;
+        $count = int((($clock / 8) + int($baud / 2)) / $baud);
+        if (($count & 1) && $count <= 4096) {
+                $actual = $clock / 8 / $count;
+        } else {
+                $actual = $clock / 16 / ($count >> 1);
+        }
+        $error = ($actual - $baud) / $baud;
+        $percent = sprintf("%+.2f", $error * 100);
+        print "$baud\t$percent\n";
+}
+#! /usr/bin/perl
+$clock = 180000000;
+while (<>) {
+        $baud = $_ + 0;
+        $count = int((($clock * 2) + int($baud / 2)) / $baud);
+        $count = 262143 if $count > 262143;
+        $actual = $clock / 16 / ($count / 32); # factional baud :-)
+        $error = ($actual - $baud) / $baud;
+        $percent = sprintf("%+.2f", $error * 100);
+        print "$baud\t$percent%\n";
+}
+#! /usr/bin/perl
+$clock = 24000000;
+while (<>) {
+        $baud = $_ + 0;
+        $count = int((($clock / 16) + int($baud / 2)) / $baud);
+        $count = 1 if $count < 1;
+        $count = 8191 if $count > 8191;
+        $actual = $clock / 16 / ($count); # Teensy LC
+        $error = ($actual - $baud) / $baud;
+        $percent = sprintf("%+.2f", $error * 100);
+        print "$baud\t$percent%\n";
+}
+
+-->
+<p>
+
+<h3>High Speed Baud Rates</h3>
+
+Serial1 and Serial2 on Teensy 3.2, 3.5 and 3.6 have FIFOs, which reduce interrupt
+overhead when used at high baud rates.  These first 2 ports also run from a higher
+clock speed, for higher accuracy at very fast baud rates.  All serial ports on
+Teensy 4.0, Teensy 4.1 and MicroMod Teensy have FIFOs.
+<p>
+At very high baud rates, even small software delays can allow a recive buffer to
+overflow which causing incoming data to be lost.  RTS/CTS flow control offers the
+very best solution to data loss, but requires 2 extra signals and proper RTS/CTS
+support by the other device communicating with Teensy.  The alternative is to
+use addMemoryForRead() to increase the receive buffer size large enough to
+capture all incoming data during times your program is busy with other work.
+<p>
+On Teensy 4 boards, the serial ports normally are limited to 6 Mbit/sec baud rate.
+However, <a href="https://forum.pjrc.com/threads/67150-Teensy4-1-MAX-baud-rate">maximum
+baud rate can be increased to 20 Mbit/sec</a> by reconfiguring the UART clock source.
+
+
+
+<h3>Arduino Uno at 57600 Baud - It's Actually 58824</h3>
+
+Arduino Uno creates the same baud rates as Teensyduino, except at 57600,
+where Arduino's error is +2.12%.  When communicating with an Arduino
+board, the combined +2.12% and -0.79% error is too much.  Successful
+communication with Arduino requires 58824 baud.
+<p>
+<pre>
+<font color="#00979c">void</font> <font color="#5e6d03">setup</font><font color="#000000">(</font><font color="#000000">)</font> <font color="#000000">{</font>
+ &nbsp;<b><font color="#d35400">Serial1</font></b><font color="#434f54">.</font><font color="#d35400">begin</font><font color="#000000">(</font><font color="#000000">58824</font><font color="#000000">)</font><font color="#000000">;</font> &nbsp;<font color="#434f54">&#47;&#47; Arduino 57600 is actually 58824</font>
+<font color="#000000">}</font>
+</pre>
+<p>
+Alternately, if you edit the Arduino code to use "Serial.begin(57601)", Arduino
+will create a baud rate with only -0.79% error, which exactly matches Teensy.
+<p>
+The Arduino bootloader on Duemilanove and Diecimila, and the 8u2 or 16u2 chip
+on Arduino Uno when set to 57600, are always 58824 baud.  These
+are not easily reconfigured, so setting Teensy to 58824 baud is the best
+solution if you must <a href="http://dorkbotpdx.org/blog/paul/teensy_as_benito_at_57600_baud">communicate with these</a>.
+
+
+
+<h3><a name="altlibs">Alternate Hardware Serial Libraries</a></h3>
+
+<ul>
+<li><a href="https://github.com/PaulStoffregen/FlexIO_t4">FlexIO_t4 / FlexSerial</a> - Can emulate many more serial ports using FlexIO hardware.  Usable <a href="https://forum.pjrc.com/index.php?threads/midi-library-define-alternate-tx-rx-pins.75818/#post-349384">with MIDI</a> library, <a href="https://forum.pjrc.com/index.php?threads/midi-library-define-alternate-tx-rx-pins.75818/#post-358840">6 additional ports (14 serial total)_confirmed working</a>.
+
+<li><a href="https://github.com/alihares99/DmaSerialTeensy4_0">DMA Serial Library for Teensy 4.0</a> - Uses DMA with same Arduino API as normal Serial1 to Serial7
+
+<li><a href="https://forum.pjrc.com/index.php?threads/using-dma-to-store-uart-byte-directly-in-teensy-3-5.71466/#post-315663">DMA_UARTs_Nov2022_SD.zip</a>
+
+<li><a href="https://forum.pjrc.com/index.php?threads/dma-serial-library-for-teensy-3-6-and-teensy-4-0.73974/#post-335412">DMA_UARTs_test_RX_idle-231023a.zip</a> - Supports special hardware features, 1-wire mode, RS485 direction control, interrupt on Rx idle, and 9 bit data.
+
+<li><a href="https://forum.pjrc.com/index.php?threads/teensy-4-1-uart-dma-interfering-with-delay-functionality.75915/#post-350807">exo_sensor_handling.ino</a> - Receives data from FUTEK LSB206 Load cells with UART output.
+
+<li><a href="https://github.com/PaulStoffregen/WS2812Serial">WS2812Serial</a> - Meant for addressable, transmits LED data using serial with DMA.  No receive capability, but <a href="https://github.com/PaulStoffregen/WS2812Capture">WS2812Capture</a> can receive LED data using FlexPWM timers.
+
+</ul>
+
+
+
+
+</main>
+</body>
+</html>

@@ -104,7 +104,7 @@ def test_text_field_envelope_rejects_rotated_text_outside_power_value_scope(gnss
 def test_tvs_fields_clear_body_wider_than_pin_column(repo_root):
     from pcb_copilot.schematic.fields import place_component_fields
 
-    tree = sch_io.parse_file(repo_root / 'projects/tms-v3/load-cell-ads1256.kicad_sch')
+    tree = sch_io.parse_file(board_source(repo_root, 'tms-v3') / 'load-cell-ads1256.kicad_sch')
     symbols = SymbolPlacer(ed, tree)
     labels = LabelPlacer(ed, tree, symbols=symbols)
     origin = symbols._origin('D2')

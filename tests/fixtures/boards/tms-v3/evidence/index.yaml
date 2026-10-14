@@ -1,0 +1,333 @@
+schema_version: 1
+records:
+- id: sha256:06809c8c1335a3581d08cc29f73f9cbd5d76d59f864283c90997d73321750691
+  manufacturer: ProtoCentral
+  part_numbers:
+  - ADS1220
+  title: ProtoCentral ADS1220 breakout sch extracted verbatim from pinned ZIP
+  revision: 3db37824948f75e60ca93cc8aacef5c5abad9a48
+  source_url: https://raw.githubusercontent.com/Protocentral/Protocentral_ADS1220/3db37824948f75e60ca93cc8aacef5c5abad9a48/hardware/pc_ads1220_brk.zip#pc_ads1220_brk/pc_ads1220_brk.sch
+  retrieved_on: '2026-09-17'
+  path: files/ADS1220_pc_ads1220_brk_06809c8c1335.sch
+  sha256: 06809c8c1335a3581d08cc29f73f9cbd5d76d59f864283c90997d73321750691
+  media_type: application/vnd.eagle+xml
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs:
+  - U3
+- id: sha256:1d5a17540e48f0739cb56687babc7b62d1e2d5058bcbd7ce4cba4268a51385df
+  manufacturer: null
+  part_numbers:
+  - ADS1256
+  - ADS1256IDBR
+  title: U2__ADS1256__ADS1256IDBR_sbau090e
+  revision: null
+  source_url: https://www.ti.com/lit/ug/sbau090e/sbau090e.pdf
+  retrieved_on: '2026-08-26'
+  path: files/U2__ADS1256__ADS1256IDBR_sbau090e.pdf
+  sha256: 1d5a17540e48f0739cb56687babc7b62d1e2d5058bcbd7ce4cba4268a51385df
+  media_type: application/pdf
+  roles:
+  - reference_design
+  trust_tier: manufacturer_evm
+  component_refs:
+  - U2
+- id: sha256:2aec7bcd338fd68d60badcedd7fcb9b40e5124a04954e714e1dabc50f278868d
+  manufacturer: null
+  part_numbers:
+  - LM7805
+  title: LM7805_C22467097
+  revision: null
+  source_url: https://www.lcsc.com/product-detail/C22467097.html
+  retrieved_on: '2026-08-25'
+  path: files/LM7805_C22467097.pdf
+  sha256: 2aec7bcd338fd68d60badcedd7fcb9b40e5124a04954e714e1dabc50f278868d
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - U4
+- id: sha256:30c7978775749e9178d67311229ada682460f87f777642532a6a854d5d07b790
+  manufacturer: ProtoCentral
+  part_numbers:
+  - ADS1220
+  title: ProtoCentral ADS1220 breakout brd extracted verbatim from pinned ZIP
+  revision: 3db37824948f75e60ca93cc8aacef5c5abad9a48
+  source_url: https://raw.githubusercontent.com/Protocentral/Protocentral_ADS1220/3db37824948f75e60ca93cc8aacef5c5abad9a48/hardware/pc_ads1220_brk.zip#pc_ads1220_brk/pc_ads1220_brk.brd
+  retrieved_on: '2026-09-17'
+  path: files/ADS1220_pc_ads1220_brk_30c797877574.brd
+  sha256: 30c7978775749e9178d67311229ada682460f87f777642532a6a854d5d07b790
+  media_type: application/vnd.eagle+xml
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs:
+  - U3
+- id: sha256:329a8a5fa56dd44d356d90e14e11a33b6936ee1ab193b6eb568df17e2443c54a
+  manufacturer: null
+  part_numbers:
+  - HF46F-G/5-HS1T
+  title: HF46F_C5274026
+  revision: null
+  source_url: https://www.lcsc.com/product-detail/C5274026.html
+  retrieved_on: '2026-08-25'
+  path: files/HF46F_C5274026.pdf
+  sha256: 329a8a5fa56dd44d356d90e14e11a33b6936ee1ab193b6eb568df17e2443c54a
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - K1
+- id: sha256:3305a485d13b5135a2be83af66cc42f00504915802e444a0fa44ea4259c3c1bb
+  manufacturer: null
+  part_numbers:
+  - 1N4148WS
+  title: 1N4148WS_C57759
+  revision: null
+  source_url: https://www.lcsc.com/product-detail/C57759.html
+  retrieved_on: '2026-08-25'
+  path: files/1N4148WS_C57759.pdf
+  sha256: 3305a485d13b5135a2be83af66cc42f00504915802e444a0fa44ea4259c3c1bb
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - D1
+- id: sha256:3dfa7d4ff7182ccb3e7303a13f06324d11dd232a575d29cf20c7edf5673650b6
+  manufacturer: null
+  part_numbers:
+  - PESD5V0S2BT
+  title: PESD5V0S2BT_C49338
+  revision: null
+  source_url: https://www.lcsc.com/product-detail/C49338.html
+  retrieved_on: '2026-08-25'
+  path: files/PESD5V0S2BT_C49338.pdf
+  sha256: 3dfa7d4ff7182ccb3e7303a13f06324d11dd232a575d29cf20c7edf5673650b6
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - D2
+- id: sha256:483b3351badfa960fcc9bbea1fab18e3ccfd21e0cb282c192950d26452feafc4
+  manufacturer: null
+  part_numbers:
+  - ADS1220
+  - ADS1220IPWR
+  title: U3__ADS1220__ADS1220IPWR_sbau203
+  revision: null
+  source_url: https://www.ti.com/lit/pdf/sbau203
+  retrieved_on: '2026-08-26'
+  path: files/U3__ADS1220__ADS1220IPWR_sbau203.pdf
+  sha256: 483b3351badfa960fcc9bbea1fab18e3ccfd21e0cb282c192950d26452feafc4
+  media_type: application/pdf
+  roles:
+  - reference_design
+  trust_tier: manufacturer_evm
+  component_refs:
+  - U3
+- id: sha256:6c2034cb0bd0d85be51c9c4f82aad838a688aa70c20de1a71681be8ec02b659b
+  manufacturer: null
+  part_numbers:
+  - MMBT3904
+  title: MMBT3904_C20526
+  revision: null
+  source_url: https://www.lcsc.com/product-detail/C20526.html
+  retrieved_on: '2026-08-25'
+  path: files/MMBT3904_C20526.pdf
+  sha256: 6c2034cb0bd0d85be51c9c4f82aad838a688aa70c20de1a71681be8ec02b659b
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - Q1
+- id: sha256:7b0def367684a55227bdc7f85fb88da930e788c6cf661b77e273cdd0e1d624a6
+  manufacturer: null
+  part_numbers:
+  - HF46F-G/5-HS1T
+  title: HF46F_hongfa_en
+  revision: null
+  source_url: http://www.hongfaamerica.com/hq/PDF/HF46F_en.pdf
+  retrieved_on: '2026-08-25'
+  path: files/HF46F_hongfa_en.pdf
+  sha256: 7b0def367684a55227bdc7f85fb88da930e788c6cf661b77e273cdd0e1d624a6
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - K1
+- id: sha256:83c75b67b2f7d4c6f46f65f6b7bfc7647ddf0220fb10479eeedf8d0f6f659a5e
+  manufacturer: ProtoCentral
+  part_numbers:
+  - ADS1220
+  title: ProtoCentral ADS1220 breakout native Eagle pair archive
+  revision: 3db37824948f75e60ca93cc8aacef5c5abad9a48
+  source_url: https://raw.githubusercontent.com/Protocentral/Protocentral_ADS1220/3db37824948f75e60ca93cc8aacef5c5abad9a48/hardware/pc_ads1220_brk.zip
+  retrieved_on: '2026-09-17'
+  path: files/ADS1220_pc_ads1220_brk_83c75b67b2f7.zip
+  sha256: 83c75b67b2f7d4c6f46f65f6b7bfc7647ddf0220fb10479eeedf8d0f6f659a5e
+  media_type: application/zip
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs:
+  - U3
+- id: sha256:891a4b71a749d574a93fa67d03564ae00f6d13abf8c555b03d877303707cfa3b
+  manufacturer: ProtoCentral
+  part_numbers:
+  - ADS1220
+  title: ProtoCentral ADS1220 breakout schematic PDF
+  revision: 3db37824948f75e60ca93cc8aacef5c5abad9a48
+  source_url: https://raw.githubusercontent.com/Protocentral/Protocentral_ADS1220/3db37824948f75e60ca93cc8aacef5c5abad9a48/hardware/pc_ads1220_brk.pdf
+  retrieved_on: '2026-09-17'
+  path: files/ADS1220_pc_ads1220_brk_891a4b71a749.pdf
+  sha256: 891a4b71a749d574a93fa67d03564ae00f6d13abf8c555b03d877303707cfa3b
+  media_type: application/pdf
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs:
+  - U3
+- id: sha256:9b258db98f6ef2a4afe21af4820fb599f1362adc1f600536955c3cd4f283c273
+  manufacturer: null
+  part_numbers:
+  - TEENSY-BACK
+  title: card11b_rev4_web
+  revision: null
+  source_url: https://www.pjrc.com/teensy/card11b_rev4_web.pdf
+  retrieved_on: '2026-08-25'
+  path: files/card11b_rev4_web.pdf
+  sha256: 9b258db98f6ef2a4afe21af4820fb599f1362adc1f600536955c3cd4f283c273
+  media_type: application/pdf
+  roles:
+  - datasheet
+  - module_pinout
+  trust_tier: manufacturer
+  component_refs:
+  - J7
+  - J8
+- id: sha256:9da3323db162b59329ec1a865829441ff1605279cd802fe879649b6f54e100e6
+  manufacturer: null
+  part_numbers:
+  - ADS1256IDBR
+  title: ADS1256_ti
+  revision: null
+  source_url: https://www.ti.com/lit/ds/symlink/ads1256.pdf
+  retrieved_on: '2026-08-25'
+  path: files/ADS1256_ti.pdf
+  sha256: 9da3323db162b59329ec1a865829441ff1605279cd802fe879649b6f54e100e6
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - U2
+- id: sha256:a02aee173feaec9b7504a1794d94e579ae62ca01ae868217befb62b1638efcfa
+  manufacturer: null
+  part_numbers:
+  - XBee
+  - XBEE3
+  - XBee_THT_20pin
+  title: xbee3_hardware_ref
+  revision: null
+  source_url: https://www.digi.com/resources/documentation/digidocs/pdfs/90001543.pdf
+  retrieved_on: '2026-08-25'
+  path: files/xbee3_hardware_ref.pdf
+  sha256: a02aee173feaec9b7504a1794d94e579ae62ca01ae868217befb62b1638efcfa
+  media_type: application/pdf
+  roles:
+  - datasheet
+  - module_pinout
+  - reference_design
+  trust_tier: manufacturer_evm
+  component_refs:
+  - J9
+- id: sha256:ba264d1644fe9de625c075ddcee61eb4c59cce2780ba416cd831216c40f755cf
+  manufacturer: null
+  part_numbers:
+  - ADS1220IPWR
+  title: ADS1220_ti
+  revision: null
+  source_url: https://www.ti.com/lit/ds/symlink/ads1220.pdf
+  retrieved_on: '2026-08-25'
+  path: files/ADS1220_ti.pdf
+  sha256: ba264d1644fe9de625c075ddcee61eb4c59cce2780ba416cd831216c40f755cf
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - U3
+- id: sha256:d8e8f77658a43eddd3254fcf7c248e200f8a83a398b990382ee1f71f500debf0
+  manufacturer: null
+  part_numbers:
+  - TEENSY
+  - TEENSY-L
+  - TEENSY-R
+  title: card11a_rev4_web
+  revision: null
+  source_url: https://www.pjrc.com/teensy/card11a_rev4_web.pdf
+  retrieved_on: '2026-08-25'
+  path: files/card11a_rev4_web.pdf
+  sha256: d8e8f77658a43eddd3254fcf7c248e200f8a83a398b990382ee1f71f500debf0
+  media_type: application/pdf
+  roles:
+  - datasheet
+  - module_pinout
+  - reference_design
+  trust_tier: manufacturer_evm
+  component_refs:
+  - J7
+  - J8
+- id: sha256:d90558a8db9d6ea0e8712c740ffea6d9c106544653faf724af75f1ab276dee66
+  manufacturer: null
+  part_numbers:
+  - SS54
+  title: SS54_C22452
+  revision: null
+  source_url: https://www.lcsc.com/product-detail/C22452.html
+  retrieved_on: '2026-08-25'
+  path: files/SS54_C22452.pdf
+  sha256: d90558a8db9d6ea0e8712c740ffea6d9c106544653faf724af75f1ab276dee66
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - D3
+- id: sha256:f460c56e5346b2033e1f94f11877bfd3d802d869b07693c79489b30be8b797c3
+  manufacturer: null
+  part_numbers:
+  - 7.68MHz
+  title: 7.68MHz_8590903324206051328
+  revision: null
+  source_url: https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8590903324206051328
+  retrieved_on: '2026-08-25'
+  path: files/7.68MHz_8590903324206051328.pdf
+  sha256: f460c56e5346b2033e1f94f11877bfd3d802d869b07693c79489b30be8b797c3
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:fe976e62e91341bde0782796a240d4feb804f9a0ed286d9a7d1ddde4c0f47174
+  manufacturer: null
+  part_numbers:
+  - XT60
+  title: XT60_XT60
+  revision: null
+  source_url: https://www.handsontec.com/dataspecs/connector/XT60.pdf
+  retrieved_on: '2026-08-26'
+  path: files/XT60_XT60.pdf
+  sha256: fe976e62e91341bde0782796a240d4feb804f9a0ed286d9a7d1ddde4c0f47174
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []

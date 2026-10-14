@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-14",
+  "author": "Codex",
+  "status": "Installed A1 circuit inventory; F01-F10 open",
+  "owner_engineering_signoff": false,
+  "components": 98,
+  "physical_pin_records": 321,
+  "explicit_nc_records": 45,
+  "guide_pages": 30,
+  "component_register_coverage_differences": [],
+  "source_sha256": {
+    "tms.kicad_sch": "35fdcf8d13525811eb0f9b031d8da34a7461a6182850f7cf767853e655a22020",
+    "power.kicad_sch": "9e5c149b9f75b50c18b6c95c3129de2c6f4dbdc8425ade2ac6ea71b33652f905",
+    "controller.kicad_sch": "e21bd24d5c5767e8840d53694caa04d69a51ba26c522b63cc0c85adc6b09c5d5",
+    "thrust.kicad_sch": "be5627697e8fab44740a16474614778440f169eba18ae09d1454d4ef1d98669a",
+    "reference.kicad_sch": "263aa95e0447e11dfd13ffa139acb07f7b0f311dec07635a025aa985f1e853d5",
+    "pressure.kicad_sch": "8c228d8575d2a2f1a87ee31f814b6e469fb74d5ca8de6f9dbf0f357749cff6b3",
+    "radio.kicad_sch": "a789122412b5604d1fa4e4a3333c25a0a421d9f3ecfaff0cca7892c7dbae4888",
+    "ignition.kicad_sch": "e00d866db93b03c74fb0f2bbc19beb46b5a2a7ae9410ac4c3fe9d97dfe36ec83"
+  },
+  "guide_visual_review": "Changed pages 1,24,25,26 inspected after regeneration; other 26 pages unchanged and inspected in prior audit",
+  "outputs": {
+    "output/component-verification.pdf": "3362403bd5abf4be9a145af6860d2e5f65c02335bd6da191f1f7808cea5faf20",
+    "output/component-verification.csv": "8bcba79d4cc63269e8ff654c08c53eca4114307c61ea66557ef4c6b6a691dd59",
+    "output/pin-connections.csv": "83e601948298882e7ef7266fef98baf2f115028cc48220411c8510c2ed3a8454",
+    "output/external-system-parts.csv": "2d09a014c508f04ff6835147fc3dc2ade2ed01a32945d2dfc9037e841445c0a7",
+    "output/schematic-bom.csv": "b31bbe809062226e07b42557080c0bf3a47bcf6a59f077c6139ed012c6b64d75",
+    "output/tms-schematic.pdf": "b6b50639149c23f7338f79275c1e2ecdd4bed6637d0da5000bb754d179cdced1"
+  },
+  "historical_audit": "component-audit-20261014.json"
+}

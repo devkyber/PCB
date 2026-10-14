@@ -1,0 +1,63 @@
+References,Quantity,Value,MPN or selection specification,Footprint,Status
+"C10,C6,C7,C8,C51,C27",6,10 uF,C0805C106K4PACTU,Capacitor_SMD:C_0805_2012Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+D10,1,GREEN,APTD1608LCGCK,LED_SMD:LED_0603_1608Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+D11,1,RED,APTD1608LSURCK,LED_SMD:LED_0603_1608Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+D12,1,YELLOW,APTD1608LSYCK,LED_SMD:LED_0603_1608Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+JP1,1,VIN POWER LINK,TSW-102-07-L-S,Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+"R10,R11,R12,R60,R20,R21",6,1 kOhm,CRCW06031K00FKEA,Resistor_SMD:R_0603_1608Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+TP3,1,+3V3,+3V3,TestPoint:TestPoint_Pad_D2.0mm,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+U1,1,TEENSY41,TEENSY41,TMS:Teensy41_Socket,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+D60,1,1N4148WS,1N4148WS,Diode_SMD:D_SOD-323,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+"J4,J1",2,XT30PW-F,XT30PW-F,Connector_AMASS:AMASS_XT30PW-F_1x02_P2.50mm_Horizontal,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+J5,1,ARM / WJ500V-5.08-2P,WJ500V-5.08-2P-14-00A,TMS:WJ500V_5.08_2P_14_00A,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+J6,1,XT60PW-F,XT60PW-F,Connector_AMASS:AMASS_XT60PW-F_1x02_P7.20mm_Horizontal,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+K1,1,HF46F-G/5-HS1T,HF46F-G/5-HS1T,TMS:HF46F_Type1,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+Q1,1,AO3400A,AO3400A,Package_TO_SOT_SMD:SOT-23,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+"R61,R45,R50,R51,R32,R27",6,10 kOhm,CRCW060310K0FKEA,Resistor_SMD:R_0603_1608Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+TP10,1,COIL_LOW,COIL_LOW,TestPoint:TestPoint_Pad_D2.0mm,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+"C1,C4,C5,C11,C12,C13,C14,C15,C16,C17,C18,C19,C29",13,10 uF,C1210C106K5RACTU,Capacitor_SMD:C_1210_3225Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+"C2,C3,C41,C42,C43,C53,C54,C31,C33,C21,C23,C24",12,100 nF,C0603C104K5RACTU,Capacitor_SMD:C_0603_1608Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+D1,1,SS54,SS54,Diode_SMD:D_SMA,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+D2,1,SMBJ18A,SMBJ18A-13-F,Diode_SMD:D_SMB,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+FB1,1,BLM21PG601SN1D,BLM21PG601SN1D,Inductor_SMD:L_0805_2012Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+L1,1,3.3 uH / SRP1038A-3R3M,SRP1038A-3R3M,TMS:L_SRP1038A,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+R1,1,511 kOhm,CRCW0603511KFKEA,Resistor_SMD:R_0603_1608Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+R2,1,105 kOhm,CRCW0603105KFKEA,Resistor_SMD:R_0603_1608Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+"R3,R40",2,100 kOhm,TNPW0603100KBEEA,Resistor_SMD:R_0603_1608Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+R4,1,13.7 kOhm,TNPW060313K7BEEA,Resistor_SMD:R_0603_1608Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+R5,1,49.9 Ohm,CRCW060349R9FKEA,Resistor_SMD:R_0603_1608Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+TP1,1,VBAT,VBAT,TestPoint:TestPoint_Pad_D2.0mm,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+TP2,1,+5V,+5V,TestPoint:TestPoint_Pad_D2.0mm,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+U2,1,LMR51430YFDDCR,LMR51430YFDDCR,Package_TO_SOT_SMD:TSOT-23-6,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+U3,1,TLV75533PDBVR,TLV75533PDBVR,Package_TO_SOT_SMD:SOT-23-5,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+C40,1,47 nF,C1206C473J5GACTU,Capacitor_SMD:C_1206_3216Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+"C44,C22",2,10 nF,VJ0603A103JXACW1BC,Capacitor_SMD:C_0603_1608Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+"D40,D21,D22",3,BAV199,BAV199,Package_TO_SOT_SMD:SOT-23,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+"D41,D20",2,TPD2E2U06DCKR,TPD2E2U06DCKR,Package_TO_SOT_SMD:SOT-323_SC-70,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+J3,1,B3B-XH-A,B3B-XH-A,Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+R41,1,33.2 kOhm,TNPW060333K2BEEA,Resistor_SMD:R_0603_1608Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+"R42,R43,R44,R24,R25,R26",6,33 Ohm,CRCW060333R0FKEA,Resistor_SMD:R_0603_1608Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+"R46,R22,R23",3,47 Ohm,CRCW060347R0FKEA,Resistor_SMD:R_0603_1608Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+TP6,1,P_DIV,P_DIV,TestPoint:TestPoint_Pad_D2.0mm,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+TP7,1,P_DRDY_N,P_DRDY_N,TestPoint:TestPoint_Pad_D2.0mm,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+U7,1,ADS1220IPWR,ADS1220IPWR,Package_SO:TSSOP-16_4.4x5mm_P0.65mm,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+U10,1,OPA388IDBVR,OPA388IDBVR,Package_TO_SOT_SMD:SOT-23-5,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+"C50,C30,C28",3,1 uF,C0603C105K4RACTU,Capacitor_SMD:C_0603_1608Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+C52,1,47 pF,VJ0603A470JXACW1BC,Capacitor_SMD:C_0603_1608Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+"R52,R53,R54,R55",4,100 kOhm,CRCW0603100KFKEA,Resistor_SMD:R_0603_1608Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+TP8,1,XB_RESET_N,XB_RESET_N,TestPoint:TestPoint_Pad_D2.0mm,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+TP9,1,XB_SLEEP_RQ,XB_SLEEP_RQ,TestPoint:TestPoint_Pad_D2.0mm,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+U8,1,XB3-24AST-J,XB3-24AST-J,TMS:XBee3_RPSMA_Socket,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+U9,1,TXU0204PWR,TXU0204PWR,Package_SO:TSSOP-14_4.4x5mm_P0.65mm,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+C32,1,47 uF / 16 V AL,EEEFT1C470AR,Capacitor_SMD:CP_Elec_4x5.8,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+C34,1,100 uF / 16 V AL,EEEFT1C101AR,Capacitor_SMD:CP_Elec_5x5.8,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+"R30,R31",2,10 kOhm,TNPU060310K0HWEA00,Resistor_SMD:R_0603_1608Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+TP5,1,LC_VREF,LC_VREF,TestPoint:TestPoint_Pad_D2.0mm,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+U6,1,OPA350UA,OPA350UA,Package_SO:SOIC-8_3.9x4.9mm_P1.27mm,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+C20,1,220 nF,C0603C224K4RACTU,Capacitor_SMD:C_0603_1608Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+"C25,C26",2,30 pF,C0603C300J5GACTU,Capacitor_SMD:C_0603_1608Metric,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+J2,1,B5B-XH-A,B5B-XH-A,Connector_JST:JST_XH_B5B-XH-A_1x05_P2.50mm_Vertical,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+TP4,1,LC_DRDY_N,LC_DRDY_N,TestPoint:TestPoint_Pad_D2.0mm,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+U4,1,OPA2388IDR,OPA2388IDR,Package_SO:SOIC-8_3.9x4.9mm_P1.27mm,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+U5,1,ADS1256IDBR,ADS1256IDBR,Package_SO:SSOP-28_5.3x10.2mm_P0.65mm,Selected schematic inventory; stock/assembly/physical-fit qualification pending
+Y1,1,7.680 MHz / CL 18 pF,ABLS-7.680MHZ-D-4-Y-T,Crystal:Crystal_SMD_HC49-SD,Selected schematic inventory; stock/assembly/physical-fit qualification pending

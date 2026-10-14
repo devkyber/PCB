@@ -1,0 +1,160 @@
+{
+  "pcb_path": "/Users/leetaeho/CODE/PCB/projects/tms-v3/tms-v3.kicad_pcb",
+  "steps": [
+    "export_dsn",
+    "inject_keepouts(18)",
+    "freerouting",
+    "import_ses",
+    "fill_zones",
+    "bond_ground"
+  ],
+  "backup": "/Users/leetaeho/CODE/PCB/projects/tms-v3/.backups/20260827-195626_tms-v3.kicad_pcb",
+  "dsn_path": "/Users/leetaeho/CODE/PCB/projects/tms-v3/tms-v3.dsn",
+  "keepouts_injected": 18,
+  "freerouting": {
+    "jar_version": "2.3.0",
+    "java": "/Users/leetaeho/Library/Java/JavaVirtualMachines/jdk-25.0.4.1+1/Contents/Home/bin/java",
+    "stats": {
+      "passes_done": 1,
+      "score": 983.86,
+      "version": "2.3.0",
+      "reported_unrouted": 2,
+      "reported_violations": 0,
+      "unrouted_nets": [
+        {
+          "net": "VBAT",
+          "connections": 1
+        },
+        {
+          "net": "PRES_RAW",
+          "connections": 1
+        }
+      ],
+      "stagnated": true,
+      "optimizer_multithreaded_warning": false
+    },
+    "returncode": 0,
+    "args": [
+      "-de",
+      "/Users/leetaeho/CODE/PCB/projects/tms-v3/tms-v3.dsn",
+      "-do",
+      "/Users/leetaeho/CODE/PCB/projects/tms-v3/tms-v3.ses",
+      "-mp",
+      "50",
+      "-mt",
+      "1",
+      "-da",
+      "--gui.enabled=false",
+      "--feature_flags.multi_threading=false",
+      "--router.layers.preferred_direction_horizontal=true,false",
+      "--router.scoring.via_costs=50",
+      "--router.fanout.enabled=true",
+      "--router.automatic_neckdown=true"
+    ]
+  },
+  "pour_nets": [
+    "GND"
+  ],
+  "unconnected_after_route": 4,
+  "ground_bond": {
+    "islands": {},
+    "stitch_vias": [],
+    "unstitchable": [],
+    "escapes": [
+      {
+        "ref": "C13",
+        "pad": "2",
+        "x_mm": 37.305,
+        "y_mm": 121.724,
+        "stub_mm": 0.7
+      }
+    ],
+    "unescapable": [],
+    "added_via_count": 1
+  },
+  "unconnected": 4,
+  "unconnected_resolved_by_bonding": 0,
+  "drc": {
+    "errors": 1,
+    "warnings": 15,
+    "total_violations": 16,
+    "unconnected_items_count": 4,
+    "raw_path": "/Users/leetaeho/CODE/PCB/projects/tms-v3/tms-v3.drc.json"
+  },
+  "remaining_pour_items": [
+    {
+      "nets": [
+        "GND"
+      ],
+      "descriptions": [
+        "Pad 2 [GND] of C13 on F.Cu",
+        "Track [GND] on F.Cu, length 0.9796 mm"
+      ],
+      "positions": [
+        [
+          37.655,
+          122.33
+        ],
+        [
+          36.255,
+          125.13
+        ]
+      ]
+    }
+  ],
+  "remaining_signal_items": [
+    {
+      "nets": [],
+      "descriptions": [
+        "Track [GND] on F.Cu, length 0.6736 mm",
+        "Track [GND] on F.Cu, length 1.3362 mm"
+      ],
+      "positions": [
+        [
+          38.5579,
+          151.6011
+        ],
+        [
+          42.93,
+          146.54
+        ]
+      ]
+    },
+    {
+      "nets": [],
+      "descriptions": [
+        "Track [VBAT] on B.Cu, length 5.1818 mm",
+        "Track [VBAT] on F.Cu, length 11.3137 mm"
+      ],
+      "positions": [
+        [
+          12.3359,
+          161.6641
+        ],
+        [
+          25.3017,
+          104.0
+        ]
+      ]
+    },
+    {
+      "nets": [],
+      "descriptions": [
+        "PTH pad 2 [PRES_RAW] of J4",
+        "Track [PRES_RAW] on F.Cu, length 0.8287 mm"
+      ],
+      "positions": [
+        [
+          16.5,
+          187.5
+        ],
+        [
+          30.0,
+          132.0
+        ]
+      ]
+    }
+  ],
+  "passed": false,
+  "summary": "Freerouting 2.3.0; 4 unconnected after bonding (was 4 after routing); router could not route: VBAT, PRES_RAW; 3 signal-net items need routing; 1 pour items need manual bonding"
+}

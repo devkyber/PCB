@@ -1,0 +1,989 @@
+{
+  "before_parts": 98,
+  "after_parts": 120,
+  "added": [
+    "C11",
+    "C12",
+    "C13",
+    "C14",
+    "C15",
+    "C16",
+    "C17",
+    "C18",
+    "C19",
+    "C29",
+    "C43",
+    "C44",
+    "C52",
+    "C53",
+    "C54",
+    "D2",
+    "R46",
+    "R52",
+    "R53",
+    "R54",
+    "R55",
+    "U10",
+    "U9"
+  ],
+  "removed": [
+    "C9"
+  ],
+  "preserved_UUIDs": 97,
+  "UUID_mismatches": [],
+  "changes": [
+    {
+      "reference": "C1",
+      "properties": {
+        "Footprint": {
+          "before": "Capacitor_SMD:C_1206_3216Metric",
+          "after": "Capacitor_SMD:C_1210_3225Metric"
+        },
+        "MPN": {
+          "before": "10 uF 50 V X7R",
+          "after": "C1210C106K5RACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C1210C106K5RACTU"
+        }
+      }
+    },
+    {
+      "reference": "C10",
+      "properties": {
+        "Footprint": {
+          "before": "Capacitor_SMD:C_0603_1608Metric",
+          "after": "Capacitor_SMD:C_0805_2012Metric"
+        },
+        "MPN": {
+          "before": "10 uF 16 V",
+          "after": "C0805C106K4PACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C0805C106K4PACTU"
+        }
+      }
+    },
+    {
+      "reference": "C2",
+      "properties": {
+        "MPN": {
+          "before": "100 nF 50 V X7R",
+          "after": "C0603C104K5RACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C0603C104K5RACTU"
+        }
+      }
+    },
+    {
+      "reference": "C20",
+      "properties": {
+        "MPN": {
+          "before": "220 nF 16 V X7R",
+          "after": "C0603C224K4RACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C0603C224K4RACTU"
+        }
+      }
+    },
+    {
+      "reference": "C21",
+      "properties": {
+        "MPN": {
+          "before": "100 nF 16 V",
+          "after": "C0603C104K5RACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C0603C104K5RACTU"
+        }
+      }
+    },
+    {
+      "reference": "C22",
+      "properties": {
+        "MPN": {
+          "before": "10 nF 50 V C0G",
+          "after": "VJ0603A103JXACW1BC"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/28548/vjw1bcbascomseries.pdf"
+        }
+      }
+    },
+    {
+      "reference": "C23",
+      "properties": {
+        "MPN": {
+          "before": "100 nF 16 V",
+          "after": "C0603C104K5RACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C0603C104K5RACTU"
+        }
+      }
+    },
+    {
+      "reference": "C24",
+      "properties": {
+        "MPN": {
+          "before": "100 nF 16 V",
+          "after": "C0603C104K5RACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C0603C104K5RACTU"
+        }
+      }
+    },
+    {
+      "reference": "C25",
+      "properties": {
+        "MPN": {
+          "before": "30 pF 50 V C0G",
+          "after": "C0603C300J5GACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C0603C300J5GACTU"
+        }
+      }
+    },
+    {
+      "reference": "C26",
+      "properties": {
+        "MPN": {
+          "before": "30 pF 50 V C0G",
+          "after": "C0603C300J5GACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C0603C300J5GACTU"
+        }
+      }
+    },
+    {
+      "reference": "C27",
+      "properties": {
+        "MPN": {
+          "before": "10 uF 16 V X7R",
+          "after": "C0805C106K4PACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C0805C106K4PACTU"
+        }
+      }
+    },
+    {
+      "reference": "C28",
+      "properties": {
+        "MPN": {
+          "before": "1 uF 16 V",
+          "after": "C0603C105K4RACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C0603C105K4RACTU"
+        }
+      }
+    },
+    {
+      "reference": "C3",
+      "properties": {
+        "MPN": {
+          "before": "100 nF 16 V",
+          "after": "C0603C104K5RACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C0603C104K5RACTU"
+        }
+      }
+    },
+    {
+      "reference": "C30",
+      "properties": {
+        "MPN": {
+          "before": "1 uF 16 V X7R",
+          "after": "C0603C105K4RACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C0603C105K4RACTU"
+        }
+      }
+    },
+    {
+      "reference": "C31",
+      "properties": {
+        "MPN": {
+          "before": "100 nF 16 V",
+          "after": "C0603C104K5RACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C0603C104K5RACTU"
+        }
+      }
+    },
+    {
+      "reference": "C32",
+      "properties": {
+        "Footprint": {
+          "before": "Capacitor_SMD:CP_Elec_5x5.8",
+          "after": "Capacitor_SMD:CP_Elec_4x5.8"
+        },
+        "MPN": {
+          "before": "47 uF 10 V aluminum electrolytic; ESR qualification required",
+          "after": "EEEFT1C470AR"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1240.pdf"
+        },
+        "Value": {
+          "before": "47 uF / 10 V AL",
+          "after": "47 uF / 16 V AL"
+        }
+      }
+    },
+    {
+      "reference": "C33",
+      "properties": {
+        "MPN": {
+          "before": "100 nF 16 V X7R",
+          "after": "C0603C104K5RACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C0603C104K5RACTU"
+        }
+      }
+    },
+    {
+      "reference": "C34",
+      "properties": {
+        "MPN": {
+          "before": "100 uF 10 V aluminum electrolytic; ESR qualification required",
+          "after": "EEEFT1C101AR"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1240.pdf"
+        },
+        "Value": {
+          "before": "100 uF / 10 V AL",
+          "after": "100 uF / 16 V AL"
+        }
+      }
+    },
+    {
+      "reference": "C4",
+      "properties": {
+        "Footprint": {
+          "before": "Capacitor_SMD:C_1206_3216Metric",
+          "after": "Capacitor_SMD:C_1210_3225Metric"
+        },
+        "MPN": {
+          "before": "22 uF 16 V X7R",
+          "after": "C1210C106K5RACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C1210C106K5RACTU"
+        },
+        "Value": {
+          "before": "22 uF",
+          "after": "10 uF"
+        }
+      }
+    },
+    {
+      "reference": "C40",
+      "properties": {
+        "Footprint": {
+          "before": "Capacitor_SMD:C_0603_1608Metric",
+          "after": "Capacitor_SMD:C_1206_3216Metric"
+        },
+        "MPN": {
+          "before": "47 nF 50 V C0G",
+          "after": "C1206C473J5GACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C1206C473J5GACTU"
+        }
+      }
+    },
+    {
+      "reference": "C41",
+      "properties": {
+        "MPN": {
+          "before": "100 nF 16 V",
+          "after": "C0603C104K5RACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C0603C104K5RACTU"
+        }
+      }
+    },
+    {
+      "reference": "C42",
+      "properties": {
+        "MPN": {
+          "before": "100 nF 16 V",
+          "after": "C0603C104K5RACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C0603C104K5RACTU"
+        }
+      }
+    },
+    {
+      "reference": "C5",
+      "properties": {
+        "Footprint": {
+          "before": "Capacitor_SMD:C_1206_3216Metric",
+          "after": "Capacitor_SMD:C_1210_3225Metric"
+        },
+        "MPN": {
+          "before": "22 uF 16 V X7R",
+          "after": "C1210C106K5RACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C1210C106K5RACTU"
+        },
+        "Value": {
+          "before": "22 uF",
+          "after": "10 uF"
+        }
+      }
+    },
+    {
+      "reference": "C50",
+      "properties": {
+        "MPN": {
+          "before": "1 uF 16 V",
+          "after": "C0603C105K4RACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C0603C105K4RACTU"
+        }
+      }
+    },
+    {
+      "reference": "C51",
+      "properties": {
+        "MPN": {
+          "before": "10 uF 10 V X7R",
+          "after": "C0805C106K4PACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C0805C106K4PACTU"
+        }
+      }
+    },
+    {
+      "reference": "C6",
+      "properties": {
+        "MPN": {
+          "before": "10 uF 16 V X7R",
+          "after": "C0805C106K4PACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C0805C106K4PACTU"
+        }
+      }
+    },
+    {
+      "reference": "C7",
+      "properties": {
+        "Footprint": {
+          "before": "Capacitor_SMD:C_0603_1608Metric",
+          "after": "Capacitor_SMD:C_0805_2012Metric"
+        },
+        "MPN": {
+          "before": "1 uF 16 V",
+          "after": "C0805C106K4PACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C0805C106K4PACTU"
+        },
+        "Value": {
+          "before": "1 uF",
+          "after": "10 uF"
+        }
+      }
+    },
+    {
+      "reference": "C8",
+      "properties": {
+        "Footprint": {
+          "before": "Capacitor_SMD:C_0603_1608Metric",
+          "after": "Capacitor_SMD:C_0805_2012Metric"
+        },
+        "MPN": {
+          "before": "10 uF 16 V",
+          "after": "C0805C106K4PACTU"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://search.kemet.com/download/specsheet/C0805C106K4PACTU"
+        }
+      }
+    },
+    {
+      "reference": "J1",
+      "pins": {
+        "1": {
+          "before": "+",
+          "after": "-"
+        },
+        "2": {
+          "before": "-",
+          "after": "+"
+        }
+      }
+    },
+    {
+      "reference": "J4",
+      "pins": {
+        "1": {
+          "before": "+",
+          "after": "-"
+        },
+        "2": {
+          "before": "-",
+          "after": "+"
+        }
+      }
+    },
+    {
+      "reference": "J5",
+      "properties": {
+        "Footprint": {
+          "before": "lcsc_C8465:CONN-TH_2P-P5.00_WJ500V-5.08-2P",
+          "after": "TMS:WJ500V_5.08_2P_14_00A"
+        },
+        "MPN": {
+          "before": "WJ500V-5.08-2P",
+          "after": "WJ500V-5.08-2P-14-00A"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://datasheet.lcsc.com/datasheet/pdf/5a3d038c44f6e3872ef57456c5bdf975.pdf?productCode=C8465"
+        },
+        "Value": {
+          "before": "WJ500V-5.08-2P",
+          "after": "ARM / WJ500V-5.08-2P"
+        }
+      }
+    },
+    {
+      "reference": "J6",
+      "properties": {
+        "Footprint": {
+          "before": "Connector_AMASS:AMASS_XT60-F_1x02_P7.20mm_Vertical",
+          "after": "Connector_AMASS:AMASS_XT60PW-F_1x02_P7.20mm_Horizontal"
+        },
+        "MPN": {
+          "before": "XT60-F",
+          "after": "XT60PW-F"
+        },
+        "Datasheet": {
+          "before": "https://www.handsontec.com/dataspecs/connector/XT60.pdf",
+          "after": "https://www.bto.pl/pdf/08039/XT60PW-F.pdf"
+        },
+        "Value": {
+          "before": "XT60-F",
+          "after": "XT60PW-F"
+        }
+      },
+      "pins": {
+        "1": {
+          "before": "+",
+          "after": "-"
+        },
+        "2": {
+          "before": "-",
+          "after": "+"
+        }
+      }
+    },
+    {
+      "reference": "JP1",
+      "properties": {
+        "MPN": {
+          "before": "VIN POWER LINK",
+          "after": "TSW-102-07-L-S"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://suddendocs.samtec.com/catalog_english/tsw_th.pdf"
+        }
+      }
+    },
+    {
+      "reference": "L1",
+      "properties": {
+        "MPN": {
+          "before": "SRP1038A-100M",
+          "after": "SRP1038A-3R3M"
+        },
+        "Value": {
+          "before": "10 uH / SRP1038A-100M",
+          "after": "3.3 uH / SRP1038A-3R3M"
+        }
+      }
+    },
+    {
+      "reference": "R1",
+      "properties": {
+        "MPN": {
+          "before": "511 kOhm 1%",
+          "after": "CRCW0603511KFKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R10",
+      "properties": {
+        "MPN": {
+          "before": "1 kOhm 1%",
+          "after": "CRCW06031K00FKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R11",
+      "properties": {
+        "MPN": {
+          "before": "1 kOhm 1%",
+          "after": "CRCW06031K00FKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R12",
+      "properties": {
+        "MPN": {
+          "before": "1 kOhm 1%",
+          "after": "CRCW06031K00FKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R2",
+      "properties": {
+        "MPN": {
+          "before": "105 kOhm 1%",
+          "after": "CRCW0603105KFKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R20",
+      "properties": {
+        "MPN": {
+          "before": "1 kOhm 1%",
+          "after": "CRCW06031K00FKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R21",
+      "properties": {
+        "MPN": {
+          "before": "1 kOhm 1%",
+          "after": "CRCW06031K00FKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R22",
+      "properties": {
+        "MPN": {
+          "before": "47 Ohm 1%",
+          "after": "CRCW060347R0FKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R23",
+      "properties": {
+        "MPN": {
+          "before": "47 Ohm 1%",
+          "after": "CRCW060347R0FKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R24",
+      "properties": {
+        "MPN": {
+          "before": "33 Ohm 1%",
+          "after": "CRCW060333R0FKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R25",
+      "properties": {
+        "MPN": {
+          "before": "33 Ohm 1%",
+          "after": "CRCW060333R0FKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R26",
+      "properties": {
+        "MPN": {
+          "before": "33 Ohm 1%",
+          "after": "CRCW060333R0FKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R27",
+      "properties": {
+        "MPN": {
+          "before": "10 kOhm 1%",
+          "after": "CRCW060310K0FKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R3",
+      "properties": {
+        "MPN": {
+          "before": "100 kOhm 0.1%",
+          "after": "TNPW0603100KBEEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/28758/tnpw_e3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R30",
+      "properties": {
+        "MPN": {
+          "before": "10 kOhm 0.01% 10 ppm/C",
+          "after": "TNPU060310K0HWEA00"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/28779/tnpue3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R31",
+      "properties": {
+        "MPN": {
+          "before": "10 kOhm 0.01% 10 ppm/C",
+          "after": "TNPU060310K0HWEA00"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/28779/tnpue3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R32",
+      "properties": {
+        "MPN": {
+          "before": "10 kOhm 1%",
+          "after": "CRCW060310K0FKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R4",
+      "properties": {
+        "MPN": {
+          "before": "13.6 kOhm 0.1%",
+          "after": "TNPW060313K7BEEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/28758/tnpw_e3.pdf"
+        },
+        "Value": {
+          "before": "13.6 kOhm",
+          "after": "13.7 kOhm"
+        }
+      }
+    },
+    {
+      "reference": "R40",
+      "properties": {
+        "MPN": {
+          "before": "100 kOhm 0.1%",
+          "after": "TNPW0603100KBEEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/28758/tnpw_e3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R41",
+      "properties": {
+        "MPN": {
+          "before": "33.2 kOhm 0.1%",
+          "after": "TNPW060333K2BEEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/28758/tnpw_e3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R42",
+      "properties": {
+        "MPN": {
+          "before": "33 Ohm 1%",
+          "after": "CRCW060333R0FKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R43",
+      "properties": {
+        "MPN": {
+          "before": "33 Ohm 1%",
+          "after": "CRCW060333R0FKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R44",
+      "properties": {
+        "MPN": {
+          "before": "33 Ohm 1%",
+          "after": "CRCW060333R0FKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R45",
+      "properties": {
+        "MPN": {
+          "before": "10 kOhm 1%",
+          "after": "CRCW060310K0FKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R5",
+      "properties": {
+        "MPN": {
+          "before": "49.9 Ohm 1%",
+          "after": "CRCW060349R9FKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R50",
+      "properties": {
+        "MPN": {
+          "before": "10 kOhm 1%",
+          "after": "CRCW060310K0FKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R51",
+      "properties": {
+        "MPN": {
+          "before": "10 kOhm 1%",
+          "after": "CRCW060310K0FKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R60",
+      "properties": {
+        "MPN": {
+          "before": "1 kOhm 1%",
+          "after": "CRCW06031K00FKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "R61",
+      "properties": {
+        "MPN": {
+          "before": "10 kOhm 1%",
+          "after": "CRCW060310K0FKEA"
+        },
+        "Datasheet": {
+          "before": "~",
+          "after": "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+        }
+      }
+    },
+    {
+      "reference": "U1",
+      "pins": {
+        "D18": {
+          "before": "D18",
+          "after": "D18 / RTS OUT"
+        },
+        "D14": {
+          "before": "D14 / CTS IN",
+          "after": "D14 / TX3"
+        },
+        "D15": {
+          "before": "D15 / RTS OUT",
+          "after": "D15 / RX3"
+        },
+        "D8": {
+          "before": "D8 / TX2",
+          "after": "D8"
+        },
+        "D7": {
+          "before": "D7 / RX2",
+          "after": "D7"
+        },
+        "D19": {
+          "before": "D19",
+          "after": "D19 / CTS3 IN"
+        }
+      }
+    },
+    {
+      "reference": "U2",
+      "properties": {
+        "MPN": {
+          "before": "TPS54302DDCR",
+          "after": "LMR51430YFDDCR"
+        },
+        "Datasheet": {
+          "before": "https://www.ti.com/lit/ds/symlink/tps54302.pdf",
+          "after": "https://www.ti.com/lit/ds/symlink/lmr51430.pdf"
+        },
+        "Value": {
+          "before": "TPS54302DDCR",
+          "after": "LMR51430YFDDCR"
+        }
+      },
+      "pins": {
+        "6": {
+          "before": "BOOT",
+          "after": "CB"
+        }
+      }
+    }
+  ]
+}

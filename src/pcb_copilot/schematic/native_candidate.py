@@ -64,7 +64,7 @@ def update_native_schematic(project: Project, candidate: Path, apply: bool = Fal
         guard = begin_update(project, workspace, 'schematic', sources,
                              {'mode': 'native', 'paired_pcb': pcb_candidate is not None}, apply=apply)
         with tempfile.TemporaryDirectory(prefix='pcb-native-sch-') as directory:
-            temporary = Path(directory)
+            temporary = Path(directory).resolve()
             staged = guard.stage(temporary / 'request')
             # Parse the captured hierarchy, not a mix of later source edits and old sheets.
             captured = schematic_files(staged['schematic/' + candidate.name])

@@ -13,10 +13,13 @@ from kicad_claude.adapters import sch_io
 from kicad_claude.utils.kicad_paths import find_footprint_lib_dirs
 
 from pcb_copilot.evidence.checks import Finding
+from pcb_copilot.layout import geometry as _layout_helpers
+from pcb_copilot.layout.footprint_provenance import (
+    DRAWING_DERIVED_DESCRIPTION,
+    drawing_receipt,
+)
 from pcb_copilot.layout.lib_ids import split_footprint_lib_id
 from pcb_copilot.models import FootprintCandidate, Project
-
-from pcb_copilot.layout import geometry as _layout_helpers
 
 _REAL_LOCAL_DESCRIPTIONS = {
     "real lcsc footprints via easyeda2kicad",
@@ -316,6 +319,9 @@ def _fidelity(project: Project, path: Path, description: str) -> str:
         return "placeholder"
     if provenance in _REAL_LOCAL_DESCRIPTIONS:
         return "real"
+    if provenance == DRAWING_DERIVED_DESCRIPTION:
+        drawing_receipt(project, path)
+        return "real"
     raise ValueError(
         f"project-local footprint {path} has no declared provenance; "
         "it cannot be classified as real"
@@ -333,14 +339,15 @@ def resolve_footprint(project: Project, ref: str, lib_id: str) -> FootprintCandi
 
     path, source, description = _resolve_path(project, library, footprint)
     _, extents = _footprint_data(path)
+    receipt = (drawing_receipt(project, path)
+               if ' '.join(description.casefold().split()) == DRAWING_DERIVED_DESCRIPTION else None)
     return FootprintCandidate(
         lib_id=lib_id,
         path=path,
-        source=source,
+        source=(source + '; hash-bound author derivation, physical fit unqualified' if receipt else source),
         fidelity=_fidelity(project, path, description),
         extents_mm=extents,
-        # No current project stores a receipt or integrity record for footprint bytes.
-        evidence_id=None,
+        evidence_id=receipt['evidence_ids'][0] if receipt else None,
     )
 
 

@@ -58,6 +58,34 @@ def verify_evidence(project: Project) -> ResearchResult:
     )
 
 
+def verify_schematic_evidence(project: Project) -> ResearchResult:
+    """Require actual selected-part identity coverage, also for passives."""
+    from pcb_copilot.evidence.schematic_inventory import schematic_parts
+
+    parts = schematic_parts(project, include_passives=True)
+    findings = check_evidence(project, ())
+    failures = [f'{item.code}: {item.message}' for item in findings]
+    index = load_evidence_index(project.evidence_index_path)
+    required = [part for part in parts if part.requires_datasheet or part.is_module]
+    for part in required:
+        records = [record for record in index.records if any(
+            _normal(number) == _normal(part.part_number) for number in record.part_numbers)]
+        roles = {role for record in records for role in record.roles}
+        if part.requires_datasheet and EvidenceRole.DATASHEET not in roles:
+            failures.append(f'{part.reference} ({part.part_number}): selected-part datasheet missing; '
+                            'a reference-only association is insufficient')
+        if part.is_module and not roles.intersection(
+            {EvidenceRole.MODULE_PINOUT, EvidenceRole.INTEGRATION_MANUAL}
+        ):
+            failures.append(f'{part.reference} ({part.part_number}): selected module pinout/manual missing')
+    return ResearchResult(
+        headline=f'{len(parts)} physical schematic parts; {len(required)} require selected-part evidence',
+        machine_failures=tuple(failures),
+        review_required=(('Coverage and archive identity do not verify pin interpretation, component values, '
+                          'circuit performance or physical fit.'),),
+    )
+
+
 def add_evidence(
     project: Project,
     part_number: str,

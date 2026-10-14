@@ -48,7 +48,7 @@ def test_all_existing_board_manifests_resolve_accepted_designs(repo_root, board_
 
 
 def test_tms_manifest_identifies_high_consequence_design(repo_root):
-    project = load_project(repo_root / "projects" / "tms-v3")
+    project = load_project(board_source(repo_root, 'tms-v3'))
     assert set(project.manifest.safety_tags) == {"pyrotechnic", "high_current"}
 
 

@@ -1,0 +1,20 @@
+{
+  "scope": "All physical pin membership and explicit NCs; not performance/fit/release",
+  "parts": 120,
+  "pins": 380,
+  "NCs": 59,
+  "expected_nodes": 69,
+  "failures": [],
+  "source_sha256": {
+    "tms.kicad_sch": "b223dae4a302c11ec85cfc6b55508ac235b52d75b5e9b05472f50c0b16d067cc",
+    "power.kicad_sch": "70a8241385e5dcb8251d52b750d269aa6bd6a0eb390cbe7643881d061d7274aa",
+    "controller.kicad_sch": "d6a15ac75d86a9e5ca9b28e394378dd24fb3e6313198975d959a510c13fc9447",
+    "thrust.kicad_sch": "3cb2c8b6ab6019f7fc80a20972cc034fa643f147289089533bb2cbd2a2608060",
+    "reference.kicad_sch": "0754d9efb4c8d20b8aa3a307178abc568a9804e088c39a3a367851ac72028a79",
+    "pressure.kicad_sch": "ae63d77b289a54fe3a2cfcf176b641f66a6e81294bd6164bd426c3e3ef27d9db",
+    "radio.kicad_sch": "f2f263ba4c2f7c6d5d0bf24a6e9ba4830d77555c7a6998c44875625d406b2c39",
+    "ignition.kicad_sch": "8fd6a5e6095c877913527794d4567adb945eb0e7d42e5c5aaa9381f10c9114a1"
+  },
+  "author_check": "Codex",
+  "owner_signoff": false
+}

@@ -1,0 +1,44 @@
+{
+  "scope": "Deliberately corrupted native copies; saved candidate unchanged",
+  "cases": [
+    {
+      "case": "short_EN_to_battery",
+      "rejected": true,
+      "finding_types": [
+        "unexpected_connections"
+      ]
+    },
+    {
+      "case": "missing_RF_bypass",
+      "rejected": true,
+      "finding_types": [
+        "uncovered_or_missing_pins",
+        "unexpected_connections"
+      ]
+    },
+    {
+      "case": "wrong_pressure_clock_NC",
+      "rejected": true,
+      "finding_types": [
+        "NC_difference",
+        "unexpected_connections"
+      ]
+    },
+    {
+      "case": "unsupported_CTS_pin",
+      "rejected": true,
+      "finding_types": [
+        "NC_difference",
+        "unexpected_connections"
+      ]
+    },
+    {
+      "case": "reversed_connector_polarity",
+      "rejected": true,
+      "finding_types": [
+        "connector_polarity_mismatch",
+        "unexpected_connections"
+      ]
+    }
+  ]
+}

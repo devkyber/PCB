@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-14",
+  "author": "Codex",
+  "owner_signoff": false,
+  "status": "Review candidate not installed; audit findings open",
+  "components": 98,
+  "physical_pin_records": 321,
+  "explicit_nc_records": 45,
+  "guide_pages": 30,
+  "component_register_coverage_differences": [],
+  "source_baseline_sha256": {
+    "ignition.kicad_sch": "56c41d6ab4748306d446a7b1ebe001e64835aac02d6aa975fbe9e4037bcca7da",
+    "radio.kicad_sch": "41d20a4eca23194873e227ed669e442e946a8500197c9a793163db3214c65b61",
+    "power.kicad_sch": "7642da6e2c7161f6cc2d94d726c7a5b917261d8b4c3aeb3cc95ff8a2135788db",
+    "reference.kicad_sch": "562c89228a4c387e45a33207a100e2c43fd8f692d9329a1e322f964dcbe22cf3",
+    "tms.kicad_sch": "b75baf206b13471737537b97a8a3b7cf21d5e47f99f32dde5aa60e7dd3a3bdf8",
+    "controller.kicad_sch": "1e16d8d8c03904fd6cdf2162fdb834a3c49c2e10e8340657c2cb0c53e120ff39",
+    "thrust.kicad_sch": "110f0d1981c73dd081b66a35048858c6f372d85825a2b14b65d3edff6b43fa79",
+    "pressure.kicad_sch": "430008808c99ae4a3d0756a50206bf69af2ee44177ca1571300996a4ec124f98"
+  },
+  "candidate_sha256": {
+    "tms.kicad_sch": "35fdcf8d13525811eb0f9b031d8da34a7461a6182850f7cf767853e655a22020",
+    "power.kicad_sch": "9e5c149b9f75b50c18b6c95c3129de2c6f4dbdc8425ade2ac6ea71b33652f905",
+    "controller.kicad_sch": "e21bd24d5c5767e8840d53694caa04d69a51ba26c522b63cc0c85adc6b09c5d5",
+    "thrust.kicad_sch": "be5627697e8fab44740a16474614778440f169eba18ae09d1454d4ef1d98669a",
+    "reference.kicad_sch": "263aa95e0447e11dfd13ffa139acb07f7b0f311dec07635a025aa985f1e853d5",
+    "pressure.kicad_sch": "8c228d8575d2a2f1a87ee31f814b6e469fb74d5ca8de6f9dbf0f357749cff6b3",
+    "radio.kicad_sch": "a789122412b5604d1fa4e4a3333c25a0a421d9f3ecfaff0cca7892c7dbae4888",
+    "ignition.kicad_sch": "e00d866db93b03c74fb0f2bbc19beb46b5a2a7ae9410ac4c3fe9d97dfe36ec83"
+  },
+  "outputs": {
+    "tms-schematic-A1-review.pdf": "b6b50639149c23f7338f79275c1e2ecdd4bed6637d0da5000bb754d179cdced1",
+    "external-system-parts.csv": "2d09a014c508f04ff6835147fc3dc2ade2ed01a32945d2dfc9037e841445c0a7",
+    "component-verification.csv": "6d8e9333ff7b7806ac4bb2b2c8f6c9dca885af77497a9d3a57b95ae713446f9f",
+    "pin-connections.csv": "e98d592e8a6acd739a23b6c1a355ea3d8b7fc6783a17a55d44dd2213f5c30b92",
+    "schematic-bom.csv": "b31bbe809062226e07b42557080c0bf3a47bcf6a59f077c6139ed012c6b64d75",
+    "component-verification.pdf": "e98c41a3c40675f54da8653d1a039e76c8add1e99cb496cd103c26b8e0ca4a52",
+    "tms-schematic.pdf": "c73c7985fb87b111203c0b86116e2f1fa7250be64805c94d43925bd6e55e7d7c"
+  },
+  "native_preview_attempt": {
+    "exit_code": 2,
+    "stderr": "usage: pcb-copilot [-h] [--version]\n                   {status,clean,views,update-schematic,review,prepare-signoff,update-layout,release,research,parts} ...\npcb-copilot: error: native PCB operation failed: ./src/common/stdpbase.cpp(59): assert \"\"traits\"\" failed in Get(): create wxApp before calling this\nTraceback (most recent call last):\n  File \"<string>\", line 55, in <module>\nRuntimeError: Cannot obtain native board outline\n\n",
+    "reason": "Empty PCB has no native outline; normal checked preview/apply unavailable"
+  },
+  "author_visual_review": {
+    "schematic_sheets": [
+      "tms.kicad_sch",
+      "power.kicad_sch",
+      "controller.kicad_sch",
+      "thrust.kicad_sch",
+      "reference.kicad_sch",
+      "pressure.kicad_sch",
+      "radio.kicad_sch",
+      "ignition.kicad_sch"
+    ],
+    "scope": "All eight final sheets at page and circuit scale; all final guide pages inspected; no owner acceptance"
+  }
+}

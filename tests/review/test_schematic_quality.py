@@ -3,10 +3,11 @@ from shutil import copy2
 
 from pcb_copilot.review.checks import current_checks
 from pcb_copilot.review.schematic_quality import check_schematic_sheets
+from tests.board_fixtures import board_source
 
 
 def test_hierarchical_quality_covers_child_sheets(tmp_path):
-    source = Path('projects/tms-v3')
+    source = board_source(Path(__file__).resolve().parents[2], 'tms-v3')
     for schematic in source.glob('*.kicad_sch'):
         copy2(schematic, tmp_path / schematic.name)
 
@@ -18,7 +19,7 @@ def test_hierarchical_quality_covers_child_sheets(tmp_path):
 
 
 def test_missing_child_title_blocks_hierarchical_quality(tmp_path):
-    source = Path('projects/tms-v3')
+    source = board_source(Path(__file__).resolve().parents[2], 'tms-v3')
     for schematic in source.glob('*.kicad_sch'):
         copy2(schematic, tmp_path / schematic.name)
     child = tmp_path / 'power-and-protection.kicad_sch'

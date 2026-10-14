@@ -40,10 +40,11 @@ Read [README](README.md), [Workflow](docs/WORKFLOW.md),
 
 ```powershell
 uv sync
-uv run pcb-copilot review projects/tms-v3
+uv run pcb-copilot review projects/rover-pdb
 uv run pytest -q
 ```
 
-Rover development is closed at the owner's request; keep its saved CAD intact.
-TMS is the active rework project. Consult its requirements and review profile
-before choosing a change or claiming readiness.
+Rover is the sole retained board. Preserve its saved CAD and owner boundaries.
+The owner requested recreating TMS from requirements on 2026-10-13. Start with
+design-bases/tms/README.md; never use the frozen TMS fixture as a starting design.
+Carry forward recorded decisions and ask only about unresolved choices.

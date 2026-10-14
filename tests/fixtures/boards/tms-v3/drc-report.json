@@ -1,0 +1,458 @@
+{
+    "$schema": "https://schemas.kicad.org/drc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-08-27T19:59:53",
+    "ignored_checks": [
+        {
+            "description": "Footprint has no courtyard defined",
+            "key": "missing_courtyard"
+        },
+        {
+            "description": "Track endpoint not centered on via",
+            "key": "track_not_centered_on_via"
+        },
+        {
+            "description": "Tuning profile track geometries",
+            "key": "tuning_profile_track_geometries"
+        },
+        {
+            "description": "Footprint doesn't match symbol's footprint filters",
+            "key": "footprint_filters_mismatch"
+        },
+        {
+            "description": "Footprint component type doesn't match footprint pads",
+            "key": "footprint_type_mismatch"
+        }
+    ],
+    "included_severities": [
+        "error",
+        "warning"
+    ],
+    "kicad_version": "10.0.5",
+    "schematic_parity": [],
+    "source": "tms-v3.kicad_pcb",
+    "unconnected_items": [
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Track [GND] on F.Cu, length 0.9796 mm",
+                    "pos": {
+                        "x": 36.255,
+                        "y": 125.13
+                    },
+                    "uuid": "ff9355f6-3fab-4361-8a7d-76f83a9ea991"
+                },
+                {
+                    "description": "Pad 2 [GND] of C13 on F.Cu",
+                    "pos": {
+                        "x": 37.655,
+                        "y": 122.33
+                    },
+                    "uuid": "932fa139-0849-4ff8-ad94-1593cb83b330"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Track [GND] on F.Cu, length 0.0321 mm",
+                    "pos": {
+                        "x": 42.93,
+                        "y": 147.8762
+                    },
+                    "uuid": "27164ad7-a4dc-40cf-976a-0e7d420f57d9"
+                },
+                {
+                    "description": "Track [GND] on F.Cu, length 0.6736 mm",
+                    "pos": {
+                        "x": 38.5579,
+                        "y": 151.6011
+                    },
+                    "uuid": "9055e081-8882-4a6b-bc18-a49b489a2015"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "PTH pad 1 [IGN_BATT+] of J2",
+                    "pos": {
+                        "x": 16.0,
+                        "y": 138.0
+                    },
+                    "uuid": "571f3cb6-f888-4d95-8d81-b0437fe7a050"
+                },
+                {
+                    "description": "Track [VBAT] on F.Cu, length 1.1983 mm",
+                    "pos": {
+                        "x": 33.3017,
+                        "y": 112.0
+                    },
+                    "uuid": "3311ee76-4bd8-465d-9221-03d243ab849a"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "PTH pad 2 [PRES_RAW] of J4",
+                    "pos": {
+                        "x": 16.5,
+                        "y": 187.5
+                    },
+                    "uuid": "cb8a1416-bab0-4753-b45e-2f983580d534"
+                },
+                {
+                    "description": "Track [PRES_RAW] on F.Cu, length 0.8287 mm",
+                    "pos": {
+                        "x": 30.0,
+                        "y": 132.0
+                    },
+                    "uuid": "fa1e531b-f944-4e9e-81cb-6850575de70d"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        }
+    ],
+    "violations": [
+        {
+            "description": "Clearance violation (netclass 'Power' clearance 0.2000 mm; actual 0.1932 mm)",
+            "items": [
+                {
+                    "description": "Track [+3V3] on B.Cu, length 0.7027 mm",
+                    "pos": {
+                        "x": 42.6497,
+                        "y": 123.3022
+                    },
+                    "uuid": "35f3ff74-edd3-43dd-8531-f07fe36c45c7"
+                },
+                {
+                    "description": "Via [+5V] on F.Cu - B.Cu",
+                    "pos": {
+                        "x": 41.8493,
+                        "y": 122.9809
+                    },
+                    "uuid": "f98701a0-addd-4e23-937e-bbb4e55fc202"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Footprint 'CRYSTAL-SMD_L11.4-W4.7-LS12.4' does not match copy in library 'jlcpcb'",
+            "items": [
+                {
+                    "description": "Footprint Y1",
+                    "pos": {
+                        "x": 48.13,
+                        "y": 146.54
+                    },
+                    "uuid": "24ae1436-a9f8-4260-ba07-eb0a4e2f4e13"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_0402_1005Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C11",
+                    "pos": {
+                        "x": 39.4,
+                        "y": 122.7
+                    },
+                    "uuid": "73dfa3c9-9aaf-4b18-8394-682864311921"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_0402_1005Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C10",
+                    "pos": {
+                        "x": 41.0,
+                        "y": 122.7
+                    },
+                    "uuid": "a0f7f735-b2a0-4fa6-94a2-615f3cae07e0"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'PinSocket_1x24_P2.54mm_Vertical' does not match copy in library 'Connector_PinSocket_2.54mm'",
+            "items": [
+                {
+                    "description": "Footprint J8",
+                    "pos": {
+                        "x": 36.0,
+                        "y": 166.76
+                    },
+                    "uuid": "ac1a5b34-f5d7-49c8-ae9f-7bb97a0d412d"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'PinSocket_1x24_P2.54mm_Vertical' does not match copy in library 'Connector_PinSocket_2.54mm'",
+            "items": [
+                {
+                    "description": "Footprint J7",
+                    "pos": {
+                        "x": 36.0,
+                        "y": 182.0
+                    },
+                    "uuid": "f9cbcb80-958e-40ab-a9c1-871d88f00dc3"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Silkscreen clearance",
+            "items": [
+                {
+                    "description": "PCB text 'E-MATCH' on F.Silkscreen",
+                    "pos": {
+                        "x": 21.0,
+                        "y": 126.0
+                    },
+                    "uuid": "46dc39c0-c08c-49ca-bd2f-e2a412953b58"
+                },
+                {
+                    "description": "Segment of J2 on F.Silkscreen",
+                    "pos": {
+                        "x": 23.03,
+                        "y": 123.84
+                    },
+                    "uuid": "c92840a2-ad2e-4d11-a9ca-458dc76c3b5f"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen clearance",
+            "items": [
+                {
+                    "description": "PCB text 'IGN BATT' on F.Silkscreen",
+                    "pos": {
+                        "x": 21.0,
+                        "y": 146.0
+                    },
+                    "uuid": "84ef5c0b-4e2f-46a1-a675-425d5efbde9a"
+                },
+                {
+                    "description": "Segment of J2 on F.Silkscreen",
+                    "pos": {
+                        "x": 23.03,
+                        "y": 123.84
+                    },
+                    "uuid": "c92840a2-ad2e-4d11-a9ca-458dc76c3b5f"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen clearance",
+            "items": [
+                {
+                    "description": "PCB text 'BATT 4S' on F.Silkscreen",
+                    "pos": {
+                        "x": 21.0,
+                        "y": 187.0
+                    },
+                    "uuid": "484242f1-6318-4969-a192-b403248fc501"
+                },
+                {
+                    "description": "Segment of J4 on F.Silkscreen",
+                    "pos": {
+                        "x": 21.55,
+                        "y": 187.3
+                    },
+                    "uuid": "d75909c9-1af6-4501-b63b-2af268baf4b3"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen clearance",
+            "items": [
+                {
+                    "description": "Segment of J9 on F.Silkscreen",
+                    "pos": {
+                        "x": 83.8,
+                        "y": 161.2
+                    },
+                    "uuid": "1051add3-41f2-4296-a5b4-1468ad382972"
+                },
+                {
+                    "description": "Reference field of J5",
+                    "pos": {
+                        "x": 102.54,
+                        "y": 161.68
+                    },
+                    "uuid": "cd0f0efd-ed3d-4acb-8697-b17af404254c"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "PCB text 'ARM SW' on F.Silkscreen",
+                    "pos": {
+                        "x": 21.0,
+                        "y": 136.0
+                    },
+                    "uuid": "a798f15d-5f63-48c4-beaf-1583d3b58449"
+                },
+                {
+                    "description": "PTH pad 2 [IGN_GND] of J2",
+                    "pos": {
+                        "x": 21.0,
+                        "y": 138.0
+                    },
+                    "uuid": "1cae0270-809d-4f73-be8e-9e5dcaa1e347"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "PCB text 'BATT 4S' on F.Silkscreen",
+                    "pos": {
+                        "x": 21.0,
+                        "y": 187.0
+                    },
+                    "uuid": "484242f1-6318-4969-a192-b403248fc501"
+                },
+                {
+                    "description": "PTH pad 3 [GND] of J4",
+                    "pos": {
+                        "x": 19.0,
+                        "y": 187.5
+                    },
+                    "uuid": "5f0af19b-b5d9-45cf-978f-1f16e045228c"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Segment of Y1 on F.Silkscreen",
+                    "pos": {
+                        "x": 45.72,
+                        "y": 152.26
+                    },
+                    "uuid": "1828d8f2-b72c-4eae-b42a-50f2e3c4c877"
+                },
+                {
+                    "description": "Pad 1 [XTAL1] of Y1 on F.Cu",
+                    "pos": {
+                        "x": 48.13,
+                        "y": 151.04
+                    },
+                    "uuid": "8e3e451a-815e-4416-9c6b-01e41683c7ab"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Segment of Y1 on F.Silkscreen",
+                    "pos": {
+                        "x": 45.72,
+                        "y": 152.26
+                    },
+                    "uuid": "1828d8f2-b72c-4eae-b42a-50f2e3c4c877"
+                },
+                {
+                    "description": "Pad 2 [XTAL2] of Y1 on F.Cu",
+                    "pos": {
+                        "x": 48.13,
+                        "y": 142.04
+                    },
+                    "uuid": "c0c83582-33c8-4945-85fd-a69bb0576319"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Segment of Y1 on F.Silkscreen",
+                    "pos": {
+                        "x": 50.54,
+                        "y": 140.7
+                    },
+                    "uuid": "8e5dbf18-b234-4712-9e38-73d2d7b0fa47"
+                },
+                {
+                    "description": "Pad 1 [XTAL1] of Y1 on F.Cu",
+                    "pos": {
+                        "x": 48.13,
+                        "y": 151.04
+                    },
+                    "uuid": "8e3e451a-815e-4416-9c6b-01e41683c7ab"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Segment of Y1 on F.Silkscreen",
+                    "pos": {
+                        "x": 50.54,
+                        "y": 140.7
+                    },
+                    "uuid": "8e5dbf18-b234-4712-9e38-73d2d7b0fa47"
+                },
+                {
+                    "description": "Pad 2 [XTAL2] of Y1 on F.Cu",
+                    "pos": {
+                        "x": 48.13,
+                        "y": 142.04
+                    },
+                    "uuid": "c0c83582-33c8-4945-85fd-a69bb0576319"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        }
+    ]
+}

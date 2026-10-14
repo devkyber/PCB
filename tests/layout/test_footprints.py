@@ -94,7 +94,7 @@ def test_model_and_resolver_reject_the_same_unsafe_ids(project_copy: Path, lib_i
 
 def test_tms_sod323_resolves_with_silkscreen_polygons(repo_root: Path):
     result = resolve_footprint(
-        load_project(repo_root / "projects/tms-v3"),
+        load_project(board_source(repo_root, 'tms-v3')),
         "D1",
         "jlcpcb:SOD-323_L1.8-W1.3-LS2.5-RD-1",
     )
@@ -536,7 +536,7 @@ def test_external_generic_named_footprint_is_standard(
 
 
 def test_hand_authored_library_pointer_does_not_verify_each_footprint(repo_root: Path):
-    project = load_project(repo_root / "projects/tms-v3")
+    project = load_project(board_source(repo_root, 'tms-v3'))
 
     with pytest.raises(ValueError, match="has no declared provenance"):
         resolve_footprint(

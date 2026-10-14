@@ -41,7 +41,7 @@ def test_current_schematic_metrics_match_baseline(
 
 
 def test_tms_hierarchy_preserves_components_and_stays_within_page_capacity(repo_root):
-    root = repo_root / "projects/tms-v3/tms-v3.kicad_sch"
+    root = board_source(repo_root, 'tms-v3') / 'tms-v3.kicad_sch'
     sheets = schematic_files(root)
     metrics = [analyse_schematic(path) for path in sheets]
 

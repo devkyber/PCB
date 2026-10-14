@@ -37,6 +37,8 @@ def main(
     )
     clean_parser.add_argument('project_path', type=Path)
     clean_parser.add_argument('--apply', action='store_true')
+    views_parser = subparsers.add_parser('views', help='export fresh source-bound assembly and copper SVGs')
+    views_parser.add_argument('project_path', type=Path)
     update_parser = subparsers.add_parser('update-schematic', help='preview or apply the current schematic')
     update_parser.add_argument('project_path', type=Path)
     schematic_source = update_parser.add_mutually_exclusive_group(required=True)
@@ -70,6 +72,8 @@ def main(
     research_parser.add_argument("project_path", type=Path)
     operation = research_parser.add_mutually_exclusive_group(required=True)
     operation.add_argument("--verify", action="store_true")
+    operation.add_argument('--verify-schematic-parts', action='store_true',
+                           help='verify selected-part evidence for every purchased schematic part, including passives')
     operation.add_argument("--add", nargs=2, metavar=("PART", "URL"))
     operation.add_argument("--extract", metavar="PART")
     operation.add_argument('--inspect-reference', nargs=2, metavar=('SCHEMATIC_ID', 'PCB_ID'))
@@ -106,6 +110,15 @@ def main(
         except (ValueError, OSError, RuntimeError) as exc:
             parser.error(str(exc))
         print(json.dumps(result, indent=2))
+    elif args.command == 'views':
+        from pcb_copilot.review.views import export_review_views
+
+        try:
+            path = export_review_views(load_project(args.project_path))
+        except (ValueError, OSError, RuntimeError) as exc:
+            parser.error(str(exc))
+        print(path)
+        return 0
     elif args.command == 'clean':
         from pcb_copilot.cleanup import clean_project
 
@@ -230,6 +243,10 @@ def main(
             )
         elif args.extract:
             result = extract_evidence(project, args.extract)
+        elif args.verify_schematic_parts:
+            from pcb_copilot.evidence.commands import verify_schematic_evidence
+
+            result = verify_schematic_evidence(project)
         else:
             result = verify_evidence(project)
         print(render_research_result(result))

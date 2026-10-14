@@ -1,0 +1,17 @@
+(fp_lib_table
+	(version 7)
+	(lib
+		(name "TMS")
+		(type "KiCad")
+		(uri "${KIPRJMOD}/libs/TMS.pretty")
+		(options "")
+		(descr "manufacturer drawing-derived footprints; see libs/footprint-provenance.yaml")
+	)
+	(lib
+		(name "lcsc_C8465")
+		(type "KiCad")
+		(uri "${KIPRJMOD}/libs/lcsc_C8465.pretty")
+		(options "")
+		(descr "Real LCSC footprints via easyeda2kicad")
+	)
+)

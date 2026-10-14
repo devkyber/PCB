@@ -12,6 +12,7 @@ from pcb_copilot.schematic.wiring import (
     WireCorridor,
     connect_local,
 )
+from tests.board_fixtures import board_source
 
 
 def test_renderer_uses_wires_inside_blocks_and_labels_between_blocks(rendered):
@@ -102,7 +103,7 @@ def test_rows_leave_rail_space_below_tall_symbol(repo_root, tmp_path):
     )
 
     root = tmp_path / 'tms-v3'
-    shutil.copytree(repo_root / 'projects/tms-v3', root, ignore=shutil.ignore_patterns('.pcb-copilot'))
+    shutil.copytree(board_source(repo_root, 'tms-v3'), root, ignore=shutil.ignore_patterns('.pcb-copilot'))
     original = load_schematic_intent(root / 'schematic-intent.yaml')
     parts = []
     for ref in ('U2', 'C1'):

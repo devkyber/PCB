@@ -1,5 +1,19 @@
 # Working with a board
 
+## Start a new board
+
+For TMS, start with [the restart basis](../design-bases/tms/README.md); never
+copy its retired test CAD. Copy templates/project into a new project folder,
+set manifest names/paths, fill requirements and project review items, and
+archive exact datasheets/reference circuits before drawing. Do not inherit
+old netmaps, placement recipes, waivers or sign-offs.
+
+Create fresh native KiCad files and local library tables in that folder.
+The dated templates/jlcpcb-2layer-1oz files can seed native geometry/rules.
+Ordinary KiCad capture and forward annotation establish the first circuit.
+Optional intent previews can help. Complete routed CAD is required for checked
+application and release; a missing-CAD or placement-only project cannot pass.
+
 ## Saved CAD and assisted edits
 
 The root `.kicad_sch` hierarchy and `.kicad_pcb` are the current design, including
@@ -22,12 +36,12 @@ the preview; rerun it on the current saved design. This detects stale inputs,
 not whether a requested circuit change is a good engineering decision. During
 application, input hashes are rechecked and originals retained for rollback.
 
-Open the root schematic and PCB under `projects/BOARD/`; TMS has six child sheets.
+Open the root schematic and PCB under `projects/BOARD/`.
 Read its requirements, design basis, reference review, deviations and review profile.
 
 ## 1. Check the current state and sources
 
-Replace `PROJECT` with the selected project folder, such as `projects/tms-v3`.
+Replace `PROJECT` with the selected project folder, such as `projects/rover-pdb`.
 Part examples below use Rover's exact converter identity; choose the actual
 part for the board being worked on.
 
@@ -35,6 +49,7 @@ part for the board being worked on.
 uv sync
 uv run pcb-copilot status PROJECT
 uv run pcb-copilot research PROJECT --verify
+uv run pcb-copilot research PROJECT --verify-schematic-parts
 uv run pcb-copilot research PROJECT --search-plan LMR51450
 uv run pcb-copilot research PROJECT --extract LMR51450
 ```
@@ -44,6 +59,26 @@ them. Reference schematic/PCB pairs can be compared with `--inspect-reference
 SCHEMATIC_ID PCB_ID`. Search plans propose queries, not live search results.
 The datasheet outranks a reference circuit. Record adopted choices and disagreements
 in `DESIGN_BASIS.md`. Hash verification proves archive identity, not suitability.
+
+`--verify-schematic-parts` reads the complete saved native hierarchy, including
+unplaced parts and purchased passives. It requires evidence for the selected
+MPN; an old datasheet attached to the same reference is insufficient. Fabricated
+test pads and mounting features are counted but do not need purchased-part
+datasheets. The normal datasheet review also checks native schematic components
+when the PCB is empty; its existing passive exemption policy remains in place.
+Neither coverage check verifies the document's pin interpretation, value choice,
+circuit operation or physical fit. Record those checks separately.
+
+For hand-authored local footprints derived from manufacturer drawings, use the
+explicit library description `Manufacturer drawing-derived footprints; see
+libs/footprint-provenance.yaml`. Each footprint requires one version-1 receipt
+in that manifest with its project-relative path, exact SHA256, selected part
+numbers, manufacturer evidence IDs, complete numbered-pad function map, author,
+review date, derivation locations, limitations and `owner_signoff: false`.
+The resolver verifies footprint/source hashes, part identity and pad coverage.
+Changed CAD or evidence invalidates the receipt. This records source lineage;
+physical fit and mandatory human acceptance remain separate. Never label a
+hand-authored footprint as an LCSC import to satisfy provenance.
 
 ### LCSC parts and library import
 
@@ -78,7 +113,7 @@ requests a second schematic for comparison, create a separate editable copy
 from the current CAD and leave the original unchanged.
 
 ```powershell
-uv run pcb-copilot update-schematic PROJECT --candidate C:/work/BOARD/BOARD.kicad_sch
+uv run pcb-copilot update-schematic PROJECT --candidate /path/to/candidate/BOARD.kicad_sch
 uv run pcb-copilot update-schematic PROJECT --intent PROJECT/schematic-intent.yaml
 ```
 
@@ -111,7 +146,7 @@ hierarchy-qualified net renames only when pad membership and native rules agree.
 For a circuit change, supply its matching, routed PCB with the new intent:
 
 ```powershell
-uv run pcb-copilot update-schematic PROJECT --intent C:/designs/new-intent.yaml --pcb C:/designs/new-board.kicad_pcb --apply
+uv run pcb-copilot update-schematic PROJECT --intent /path/to/new-intent.yaml --pcb /path/to/new-board.kicad_pcb --apply
 ```
 
 This checks the PCB against the generated schematic, refills zones, runs DRC and
@@ -132,7 +167,7 @@ identities needs an explicitly reconciled native schematic/PCB candidate.
 
 ```powershell
 uv run pcb-copilot update-layout PROJECT --intent PROJECT/layout-intent.yaml
-uv run pcb-copilot update-layout PROJECT --candidate C:/designs/BOARD.kicad_pcb
+uv run pcb-copilot update-layout PROJECT --candidate /path/to/candidate/BOARD.kicad_pcb
 ```
 
 An intent produces placement/routing candidates. Default `human` routing does not
@@ -171,6 +206,7 @@ Applying is a working-design update and invalidates prior release state.
 uv run pcb-copilot review PROJECT
 uv run pcb-copilot review PROJECT --format json
 uv run pcb-copilot prepare-signoff PROJECT
+uv run pcb-copilot views PROJECT
 ```
 
 Review runs fourteen checks against a disposable copy: research, datasheets, ERC,
@@ -189,6 +225,12 @@ The shared policy always adds `shared.schematic-readability` and
 of every sheet and current layout views; record the reviewed sheets and
 remaining issues in the decision note or referenced review record. Local YAML
 cannot omit or override them.
+
+The views command freshly exports assembly/front/back SVGs with exact source
+and output hashes under output/review. Bottom is mirrored for underside
+inspection. It preserves native CAD and restores old outputs after failure.
+Inspect the schematic preview PDF and current PCB views; old PDFs are dated
+snapshots.
 
 The responsible human completes each profile item with a reviewer, ISO date,
 `accepted`/`rejected` decision and note after actual inspection or measurement.

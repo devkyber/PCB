@@ -6,6 +6,7 @@ from pcb_copilot.project import load_project
 from pcb_copilot.review.fingerprint import schematic_digest
 from pcb_copilot.review.models import CheckResult, CheckScope, FindingKind
 from pcb_copilot.review.registry import run_checks
+from tests.board_fixtures import board_source
 
 SCOPE = CheckScope(
     proves='the fixture condition', does_not_prove='electrical suitability',
@@ -90,7 +91,7 @@ def test_report_hashes_identify_input_design_even_if_check_mutates_copy(project_
 
 
 def test_schematic_fingerprint_changes_when_hierarchical_child_changes(tmp_path):
-    source = Path('projects/tms-v3')
+    source = board_source(Path(__file__).resolve().parents[2], 'tms-v3')
     for schematic in source.glob('*.kicad_sch'):
         copy2(schematic, tmp_path / schematic.name)
     root = tmp_path / 'tms-v3.kicad_sch'

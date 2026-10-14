@@ -1,0 +1,15 @@
+Item,Quantity,Purpose,Remaining verification
+BCA-100L,1,Confirmed external load cell; not a board-mounted component,"Verify actual model/capacity, conductors, calibration and 5 V excitation performance."
+IPSU-GP1K5-6,1,Confirmed external pressure sensor,"Verify actual unit, DIN mating cable, supply/return/signal and loading."
+A 24-HASM-450,1,Confirmed external antenna,"Verify RP-SMA mate, mounting and enclosure clearance; extension optional."
+microSD card,1,Inserted into U1 module SD socket,Select exact card; verify write-latency/peak-current/endurance and sustained logging.
+Teensy female socket rows,2 x 24 contacts,Physical carrier sockets represented by U1 footprint,"Select exact 2.54 mm sockets, height, retention and current/contact ratings."
+XBee female socket rows,2 x 10 contacts,Physical sockets represented by U8 footprint,Select exact 2 mm sockets and correct 22 mm row separation/height.
+JP1 shunt,1,Removable VIN link,Select exact mating shunt/current rating and define USB procedure.
+Battery packs,1 x 4S and 1 x 2S,Separate electronics and ignition supplies,Select packs/protection from actual loads; capacities and peak ratings unresolved.
+External fuses/holders,TBD per supply/harness,Not present on PCB,"Select from measured current, wire ratings, battery fault current and clearing characteristics."
+Physical ARM switch,1,External series switch throughJ5,Current/voltage/pulse and environmental ratings unresolved.
+Nichrome/load assembly,1 test assembly,External ignition load,"Cold/hot resistance, construction, pulse energy and duration unresolved."
+Harness/mating connectors,"1 mate per J1-J6, where applicable","XT30 x 2, XT60 x 1, XH5 x 1, XH3 x 1; J5 switch wiring","Verify actual connector gender, crimp contacts, wire size/length, strain relief and shield termination."
+XBee USB adapter,1 ground-station unit assumed,Owner stated 3.3 V supply,Exact adapter/current capacity/install location unresolved; do not parallel supply outputs.
+Enclosure/mounting/antenna extension,TBD; extension 0 or 1,Not established by schematic,Resolve 100x80 versus 100x100 mm envelope and mounting conflict before PCB placement.

@@ -1,0 +1,10 @@
+{
+  "headline": "120 physical schematic parts; 110 require selected-part evidence",
+  "machine_failures": [],
+  "facts": [],
+  "review_required": [
+    "Coverage and archive identity do not verify pin interpretation, component values, circuit performance or physical fit."
+  ],
+  "conflicts": [],
+  "proposed_rows": []
+}

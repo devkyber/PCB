@@ -11,6 +11,7 @@ from pcb_copilot.schematic import parity
 from pcb_copilot.schematic.io import load_schematic_intent
 from pcb_copilot.schematic.render import render_schematic_draft
 from pcb_copilot.toolchain import discover_toolchain
+from tests.board_fixtures import board_source
 
 
 def test_net_renames_follow_exact_pad_membership():
@@ -39,7 +40,7 @@ def test_board_net_rename_changes_only_net_fields():
 
 
 def test_project_net_classes_follow_renamed_nets_without_changing_rules(repo_root):
-    source = (repo_root / 'projects/tms-v3/tms-v3.kicad_pro').read_bytes()
+    source = (board_source(repo_root, 'tms-v3') / 'tms-v3.kicad_pro').read_bytes()
     names = {
         'VBAT_PROT': 'Power/VBAT_PROT',
         'IGN_GND': 'Connectors and test/IGN_GND',
@@ -64,7 +65,7 @@ def test_project_net_classes_follow_renamed_nets_without_changing_rules(repo_roo
 
 
 def test_kicad_board_membership_reads_real_tms_pads(repo_root):
-    board = repo_root / 'projects/tms-v3/tms-v3.kicad_pcb'
+    board = board_source(repo_root, 'tms-v3') / 'tms-v3.kicad_pcb'
 
     groups = parity.read_board_net_groups(board)
 
@@ -75,7 +76,7 @@ def test_kicad_board_membership_reads_real_tms_pads(repo_root):
 @pytest.mark.slow
 def test_tms_reconciles_names_without_changing_current_copper(repo_root, tmp_path):
     root = tmp_path / 'tms-v3'
-    shutil.copytree(repo_root / 'projects/tms-v3', root,
+    shutil.copytree(board_source(repo_root, 'tms-v3'), root,
                     ignore=shutil.ignore_patterns('.pcb-copilot'))
     project = load_project(root)
     current = project.pcb_path.read_bytes()

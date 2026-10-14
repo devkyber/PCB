@@ -12,10 +12,10 @@ from pcb_copilot import deviations
 from pcb_copilot.copper_features import copper_feature_type
 from pcb_copilot.evidence.checks import Part, check_evidence
 from pcb_copilot.evidence.inventory import MODULE_HINTS, _blocks, _prop, inventory
+from pcb_copilot.jlcpcb import check_jlcpcb_review
 from pcb_copilot.layout.render import board_pin_nets, native_board, schematic_inventory
 from pcb_copilot.layout.schematic_links import compare_schematic_links
 from pcb_copilot.models import Project
-from pcb_copilot.jlcpcb import check_jlcpcb_review
 from pcb_copilot.review.models import CheckResult, CheckScope
 from pcb_copilot.review.routing_settings import RoutingSettingsCheck
 from pcb_copilot.review.routing_topology import RoutingTopologyCheck
@@ -164,10 +164,15 @@ def _parts(project: Project, *, datasheets=False):
 
 
 def check_datasheets(project: Project) -> tuple[bool, str]:
-    findings = check_evidence(project, tuple(_parts(project, datasheets=True)))
+    from pcb_copilot.evidence.schematic_inventory import schematic_parts
+
+    native_parts = schematic_parts(project)
+    findings = check_evidence(project, (*native_parts, *_parts(project, datasheets=True)))
     relevant = [item for item in findings if item.code.startswith(('archive.', 'index.'))
                 or item.code in {'part.missing_datasheet', 'part.missing_module_document'}]
-    return not relevant, '\n'.join(item.message for item in relevant) or 'required datasheet bytes verified'
+    return not relevant, '\n'.join(dict.fromkeys(item.message for item in relevant)) or (
+        f'required datasheet bytes verified; {len(native_parts)} physical schematic parts inspected '
+        '(shared passive exemptions apply)')
 
 
 def check_research(project: Project) -> tuple[bool, str]:

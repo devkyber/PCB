@@ -3,4 +3,5 @@
 
 # Evidence hashes describe downloaded bytes, including original line endings.
 # Do not apply core.autocrlf or text normalization to the exact-source archive.
-projects/*/evidence/files/** -text
+**/evidence/** -text
+**/evidence/files/** -diff

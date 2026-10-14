@@ -1,0 +1,565 @@
+{
+  "nets": {
+    "C1": {
+      "1": "VBAT",
+      "2": "GND"
+    },
+    "C10": {
+      "1": "Teensy controller/TEENSY_VIN",
+      "2": "GND"
+    },
+    "C11": {
+      "1": "VBAT",
+      "2": "GND"
+    },
+    "C12": {
+      "1": "VBAT",
+      "2": "GND"
+    },
+    "C13": {
+      "1": "+5V",
+      "2": "GND"
+    },
+    "C14": {
+      "1": "+5V",
+      "2": "GND"
+    },
+    "C15": {
+      "1": "+5V",
+      "2": "GND"
+    },
+    "C16": {
+      "1": "+5V",
+      "2": "GND"
+    },
+    "C17": {
+      "1": "+5V",
+      "2": "GND"
+    },
+    "C18": {
+      "1": "+5V",
+      "2": "GND"
+    },
+    "C19": {
+      "1": "+5V",
+      "2": "GND"
+    },
+    "C2": {
+      "1": "VBAT",
+      "2": "GND"
+    },
+    "C20": {
+      "1": "Net-(C20-Pad1)",
+      "2": "Net-(C20-Pad2)"
+    },
+    "C21": {
+      "1": "+5VA",
+      "2": "GND"
+    },
+    "C22": {
+      "1": "Net-(U5-AIN0)",
+      "2": "Net-(U5-AIN1)"
+    },
+    "C23": {
+      "1": "+5VA",
+      "2": "GND"
+    },
+    "C24": {
+      "1": "+3V3",
+      "2": "GND"
+    },
+    "C25": {
+      "1": "Net-(U5-XTAL1_{slash}_CLKIN)",
+      "2": "GND"
+    },
+    "C26": {
+      "1": "Net-(U5-XTAL2)",
+      "2": "GND"
+    },
+    "C27": {
+      "1": "+5VA",
+      "2": "GND"
+    },
+    "C28": {
+      "1": "+3V3",
+      "2": "GND"
+    },
+    "C29": {
+      "1": "+5V",
+      "2": "GND"
+    },
+    "C3": {
+      "1": "Net-(U2-CB)",
+      "2": "Net-(U2-SW)"
+    },
+    "C30": {
+      "1": "Net-(U6-+)",
+      "2": "GND"
+    },
+    "C31": {
+      "1": "+5VA",
+      "2": "GND"
+    },
+    "C32": {
+      "1": "Ratiometric reference/LC_VREF",
+      "2": "GND"
+    },
+    "C33": {
+      "1": "Ratiometric reference/LC_VREF",
+      "2": "GND"
+    },
+    "C34": {
+      "1": "Ratiometric reference/LC_VREF",
+      "2": "GND"
+    },
+    "C4": {
+      "1": "+5V",
+      "2": "GND"
+    },
+    "C40": {
+      "1": "Net-(U10-+)",
+      "2": "GND"
+    },
+    "C41": {
+      "1": "+5VA",
+      "2": "GND"
+    },
+    "C42": {
+      "1": "+3V3",
+      "2": "GND"
+    },
+    "C43": {
+      "1": "+5VA",
+      "2": "GND"
+    },
+    "C44": {
+      "1": "Net-(U7-AIN0_{slash}_REFP1)",
+      "2": "GND"
+    },
+    "C5": {
+      "1": "+5V",
+      "2": "GND"
+    },
+    "C50": {
+      "1": "+3V3_RF",
+      "2": "GND"
+    },
+    "C51": {
+      "1": "+3V3_RF",
+      "2": "GND"
+    },
+    "C52": {
+      "1": "+3V3_RF",
+      "2": "GND"
+    },
+    "C53": {
+      "1": "+3V3",
+      "2": "GND"
+    },
+    "C54": {
+      "1": "+3V3_RF",
+      "2": "GND"
+    },
+    "C6": {
+      "1": "+5VA",
+      "2": "GND"
+    },
+    "C7": {
+      "1": "+5V",
+      "2": "GND"
+    },
+    "C8": {
+      "1": "+3V3_RF",
+      "2": "GND"
+    },
+    "D1": {
+      "1": "VBAT",
+      "2": "Net-(D1-A)"
+    },
+    "D10": {
+      "1": "GND",
+      "2": "Net-(D10-A)"
+    },
+    "D11": {
+      "1": "GND",
+      "2": "Net-(D11-A)"
+    },
+    "D12": {
+      "1": "GND",
+      "2": "Net-(D12-A)"
+    },
+    "D2": {
+      "1": "VBAT",
+      "2": "GND"
+    },
+    "D20": {
+      "1": "Thrust acquisition/LC_RAW_0",
+      "2": "Thrust acquisition/LC_RAW_1",
+      "3": "GND"
+    },
+    "D21": {
+      "1": "GND",
+      "2": "+5VA",
+      "3": "Net-(C20-Pad1)"
+    },
+    "D22": {
+      "1": "GND",
+      "2": "+5VA",
+      "3": "Net-(C20-Pad2)"
+    },
+    "D40": {
+      "1": "GND",
+      "2": "+5VA",
+      "3": "Net-(U10-+)"
+    },
+    "D41": {
+      "1": "Net-(D41-IO1)",
+      "3": "GND"
+    },
+    "D60": {
+      "1": "+5V",
+      "2": "Net-(D60-A)"
+    },
+    "FB1": {
+      "1": "+5V",
+      "2": "+5VA"
+    },
+    "J1": {
+      "1": "GND",
+      "2": "Net-(D1-A)"
+    },
+    "J2": {
+      "1": "+5VA",
+      "2": "GND",
+      "3": "Thrust acquisition/LC_RAW_0",
+      "4": "Thrust acquisition/LC_RAW_1",
+      "5": "GND"
+    },
+    "J3": {
+      "1": "VBAT",
+      "2": "Net-(D41-IO1)",
+      "3": "GND"
+    },
+    "J4": {
+      "1": "Ignition interface/IGN_GND",
+      "2": "Net-(J4-+)"
+    },
+    "J5": {
+      "1": "Net-(J4-+)",
+      "2": "Net-(J5-ARM_RETURN)"
+    },
+    "J6": {
+      "1": "Ignition interface/IGN_GND",
+      "2": "Net-(J6-+)"
+    },
+    "JP1": {
+      "1": "+5V",
+      "2": "Teensy controller/TEENSY_VIN"
+    },
+    "K1": {
+      "1": "+5V",
+      "2": "Net-(J5-ARM_RETURN)",
+      "3": "Net-(J6-+)",
+      "6": "Net-(D60-A)"
+    },
+    "L1": {
+      "1": "Net-(U2-SW)",
+      "2": "+5V"
+    },
+    "Q1": {
+      "1": "Net-(Q1-G)",
+      "2": "GND",
+      "3": "Net-(D60-A)"
+    },
+    "R1": {
+      "1": "VBAT",
+      "2": "Net-(U2-EN)"
+    },
+    "R10": {
+      "1": "Net-(U1-D4_{slash}_STATUS)",
+      "2": "Net-(D10-A)"
+    },
+    "R11": {
+      "1": "Net-(U1-D5_{slash}_COMMAND)",
+      "2": "Net-(D11-A)"
+    },
+    "R12": {
+      "1": "Net-(U1-D6_{slash}_TX_LED)",
+      "2": "Net-(D12-A)"
+    },
+    "R2": {
+      "1": "Net-(U2-EN)",
+      "2": "GND"
+    },
+    "R20": {
+      "1": "Thrust acquisition/LC_RAW_0",
+      "2": "Net-(C20-Pad1)"
+    },
+    "R21": {
+      "1": "Thrust acquisition/LC_RAW_1",
+      "2": "Net-(C20-Pad2)"
+    },
+    "R22": {
+      "1": "Net-(U4-OUT_A)",
+      "2": "Net-(U5-AIN0)"
+    },
+    "R23": {
+      "1": "Net-(U4-OUT_B)",
+      "2": "Net-(U5-AIN1)"
+    },
+    "R24": {
+      "1": "Net-(U5-SCLK)",
+      "2": "LC_SCK"
+    },
+    "R25": {
+      "1": "Net-(U5-DIN)",
+      "2": "LC_MOSI"
+    },
+    "R26": {
+      "1": "Net-(U5-DOUT)",
+      "2": "LC_MISO"
+    },
+    "R27": {
+      "1": "+3V3",
+      "2": "LC_CS_N"
+    },
+    "R3": {
+      "1": "Net-(R3-Pad1)",
+      "2": "Net-(U2-FB)"
+    },
+    "R30": {
+      "1": "+5VA",
+      "2": "Net-(R30-Pad2)"
+    },
+    "R31": {
+      "1": "Net-(R30-Pad2)",
+      "2": "GND"
+    },
+    "R32": {
+      "1": "Net-(R30-Pad2)",
+      "2": "Net-(U6-+)"
+    },
+    "R4": {
+      "1": "Net-(U2-FB)",
+      "2": "GND"
+    },
+    "R40": {
+      "1": "Net-(D41-IO1)",
+      "2": "Net-(U10-+)"
+    },
+    "R41": {
+      "1": "Net-(U10-+)",
+      "2": "GND"
+    },
+    "R42": {
+      "1": "Net-(U7-SCLK)",
+      "2": "P_SCK"
+    },
+    "R43": {
+      "1": "Net-(U7-DIN)",
+      "2": "P_MOSI"
+    },
+    "R44": {
+      "1": "Net-(U7-DOUT_{slash}_~{DRDY})",
+      "2": "P_MISO"
+    },
+    "R45": {
+      "1": "+3V3",
+      "2": "P_CS_N"
+    },
+    "R46": {
+      "1": "Net-(U10--)",
+      "2": "Net-(U7-AIN0_{slash}_REFP1)"
+    },
+    "R5": {
+      "1": "+5V",
+      "2": "Net-(R3-Pad1)"
+    },
+    "R50": {
+      "1": "+3V3_RF",
+      "2": "Net-(U8-~{RESET})"
+    },
+    "R51": {
+      "1": "Net-(U8-DTR_{slash}_SLEEP_RQ)",
+      "2": "GND"
+    },
+    "R52": {
+      "1": "+3V3",
+      "2": "XB_TX"
+    },
+    "R53": {
+      "1": "+3V3",
+      "2": "XB_RTS_N"
+    },
+    "R54": {
+      "1": "+3V3",
+      "2": "XB_CTS_N"
+    },
+    "R55": {
+      "1": "+3V3",
+      "2": "XB_RX"
+    },
+    "R60": {
+      "1": "FIRE_CMD",
+      "2": "Net-(Q1-G)"
+    },
+    "R61": {
+      "1": "Net-(Q1-G)",
+      "2": "GND"
+    },
+    "TP1": {
+      "1": "VBAT"
+    },
+    "TP10": {
+      "1": "Net-(D60-A)"
+    },
+    "TP2": {
+      "1": "+5V"
+    },
+    "TP3": {
+      "1": "+3V3"
+    },
+    "TP4": {
+      "1": "LC_DRDY_N"
+    },
+    "TP5": {
+      "1": "Ratiometric reference/LC_VREF"
+    },
+    "TP6": {
+      "1": "Net-(U10-+)"
+    },
+    "TP7": {
+      "1": "P_DRDY_N"
+    },
+    "TP8": {
+      "1": "Net-(U8-~{RESET})"
+    },
+    "TP9": {
+      "1": "Net-(U8-DTR_{slash}_SLEEP_RQ)"
+    },
+    "U1": {
+      "3V3L": "+3V3",
+      "3V3R": "+3V3",
+      "D0": "P_CS_N",
+      "D1": "P_MISO",
+      "D10": "LC_CS_N",
+      "D11": "LC_MOSI",
+      "D12": "LC_MISO",
+      "D13": "LC_SCK",
+      "D14": "XB_TX",
+      "D15": "XB_RX",
+      "D18": "XB_RTS_N",
+      "D19": "XB_CTS_N",
+      "D2": "P_DRDY_N",
+      "D26": "P_MOSI",
+      "D27": "P_SCK",
+      "D3": "FIRE_CMD",
+      "D4": "Net-(U1-D4_{slash}_STATUS)",
+      "D5": "Net-(U1-D5_{slash}_COMMAND)",
+      "D6": "Net-(U1-D6_{slash}_TX_LED)",
+      "D9": "LC_DRDY_N",
+      "GNDA": "GND",
+      "GNDL": "GND",
+      "GNDR": "GND",
+      "VIN": "Teensy controller/TEENSY_VIN"
+    },
+    "U10": {
+      "1": "Net-(U10--)",
+      "2": "GND",
+      "3": "Net-(U10-+)",
+      "4": "Net-(U10--)",
+      "5": "+5VA"
+    },
+    "U2": {
+      "1": "GND",
+      "2": "Net-(U2-SW)",
+      "3": "VBAT",
+      "4": "Net-(U2-FB)",
+      "5": "Net-(U2-EN)",
+      "6": "Net-(U2-CB)"
+    },
+    "U3": {
+      "1": "+5V",
+      "2": "GND",
+      "3": "+5V",
+      "5": "+3V3_RF"
+    },
+    "U4": {
+      "1": "Net-(U4-OUT_A)",
+      "2": "Net-(U4-OUT_A)",
+      "3": "Net-(C20-Pad1)",
+      "4": "GND",
+      "5": "Net-(C20-Pad2)",
+      "6": "Net-(U4-OUT_B)",
+      "7": "Net-(U4-OUT_B)",
+      "8": "+5VA"
+    },
+    "U5": {
+      "1": "+5VA",
+      "14": "+3V3",
+      "15": "+3V3",
+      "16": "+3V3",
+      "17": "GND",
+      "18": "Net-(U5-XTAL2)",
+      "19": "Net-(U5-XTAL1_{slash}_CLKIN)",
+      "2": "GND",
+      "20": "LC_CS_N",
+      "21": "LC_DRDY_N",
+      "22": "Net-(U5-DOUT)",
+      "23": "Net-(U5-DIN)",
+      "24": "Net-(U5-SCLK)",
+      "3": "GND",
+      "4": "Ratiometric reference/LC_VREF",
+      "6": "Net-(U5-AIN0)",
+      "7": "Net-(U5-AIN1)"
+    },
+    "U6": {
+      "2": "Ratiometric reference/LC_VREF",
+      "3": "Net-(U6-+)",
+      "4": "GND",
+      "6": "Ratiometric reference/LC_VREF",
+      "7": "+5VA"
+    },
+    "U7": {
+      "1": "Net-(U7-SCLK)",
+      "11": "Net-(U7-AIN0_{slash}_REFP1)",
+      "12": "+5VA",
+      "13": "+3V3",
+      "14": "P_DRDY_N",
+      "15": "Net-(U7-DOUT_{slash}_~{DRDY})",
+      "16": "Net-(U7-DIN)",
+      "2": "P_CS_N",
+      "3": "GND",
+      "4": "GND",
+      "5": "GND"
+    },
+    "U8": {
+      "1": "+3V3_RF",
+      "10": "GND",
+      "12": "XBee telemetry/RF_CTS_N",
+      "16": "XBee telemetry/RF_RTS_N",
+      "2": "XBee telemetry/RF_DOUT",
+      "3": "XBee telemetry/RF_DIN",
+      "5": "Net-(U8-~{RESET})",
+      "9": "Net-(U8-DTR_{slash}_SLEEP_RQ)"
+    },
+    "U9": {
+      "1": "+3V3",
+      "10": "XBee telemetry/RF_CTS_N",
+      "11": "XBee telemetry/RF_DOUT",
+      "12": "XBee telemetry/RF_RTS_N",
+      "13": "XBee telemetry/RF_DIN",
+      "14": "+3V3_RF",
+      "2": "XB_TX",
+      "3": "XB_RTS_N",
+      "4": "XB_RX",
+      "5": "XB_CTS_N",
+      "7": "GND",
+      "8": "+3V3"
+    },
+    "Y1": {
+      "1": "Net-(U5-XTAL1_{slash}_CLKIN)",
+      "2": "Net-(U5-XTAL2)"
+    }
+  }
+}

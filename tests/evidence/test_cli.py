@@ -17,6 +17,17 @@ def test_research_verify_is_read_only(project_copy, tree_hash, capsys):
     assert f"{count} evidence record(s) verified" in output
 
 
+def test_full_schematic_part_audit_is_read_only_and_counts_native_parts(
+    project_copy, tree_hash, capsys
+):
+    before = tree_hash(project_copy)
+    result = main(["research", str(project_copy), "--verify-schematic-parts"])
+    output = capsys.readouterr().out
+    assert result in (0, 1)
+    assert 'physical schematic parts' in output
+    assert tree_hash(project_copy) == before
+
+
 def test_reference_search_plan_is_explicitly_not_live_search(project_copy, tree_hash, capsys):
     before = tree_hash(project_copy)
     assert main(["research", str(project_copy), "--search-plan", "BMP390"]) == 0

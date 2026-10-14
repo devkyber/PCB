@@ -1,0 +1,15 @@
+schema_version: 1
+name: tms
+lifecycle: DRAFT
+design:
+  schematic: tms.kicad_sch
+  pcb: tms.kicad_pcb
+  netmap: netmap.json
+evidence:
+  index: evidence/index.yaml
+manufacturing:
+  profile: jlcpcb_2layer_default
+safety_tags:
+- ignition
+- analog
+- power

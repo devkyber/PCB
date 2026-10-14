@@ -10,7 +10,12 @@ replace owner edits. Start with the [working workflow](docs/WORKFLOW.md).
 | Project | Role | Open in KiCad |
 | --- | --- | --- |
 | [Rover PDB](projects/rover-pdb/README.md) | Completed owner work; sole retained Rover board | [Project](projects/rover-pdb/rover-pdb.kicad_pro) |
-| [TMS V3](projects/tms-v3/README.md) | Active rework; begin with the current-CAD audit | [Project](projects/tms-v3/tms-v3.kicad_pro) |
+| [TMS A2](projects/tms/README.md) | Installed schematic and component verification; PCB and qualification pending | [Project](projects/tms/tms.kicad_pro) |
+
+TMS was recreated from [recorded decisions and exact research](design-bases/tms/README.md).
+Its [component guide](projects/tms/docs/design/COMPONENT_VERIFICATION.md) explains
+all 120 parts and remaining qualifications. Retired TMS CAD is a frozen regression
+input under `tests/fixtures/boards/tms-v3`, never an active project.
 
 CAD checks are scoped checks, not fabrication approval. Each project's
 requirements, design basis, deviations and review profile state what remains.

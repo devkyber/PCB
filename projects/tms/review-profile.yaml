@@ -1,0 +1,96 @@
+schema_version: 1
+items:
+- id: ignition-current
+  prompt: Measure cold nichrome resistance, pulse current, duration, and energy using
+    a controlled dummy load.
+  rationale: The circuit cannot be approved from unmeasured load assumptions.
+  evidence_refs:
+  - REQUIREMENTS.md
+  - DESIGN_BASIS.md
+  safety_tags:
+  - ignition
+  - high_current
+- id: safe-state
+  prompt: Verify reset, brownout, power sequencing, interlock, and single-fault behavior
+    keep ignition off.
+  rationale: ERC and DRC do not establish fail-safe behavior.
+  evidence_refs:
+  - REQUIREMENTS.md
+  - DESIGN_BASIS.md
+  safety_tags:
+  - ignition
+  - safety
+- id: current-path
+  prompt: Check relay and connector ratings, real XT60 footprints, copper width, return
+    path, and retention against measured current.
+  rationale: Current-path suitability depends on physical parts and measured load.
+  evidence_refs:
+  - REQUIREMENTS.md
+  - DESIGN_BASIS.md
+  safety_tags:
+  - ignition
+  - high_current
+  - connector
+- id: controller-sockets
+  prompt: Verify both Teensy 4.1 socket rows and pin 1 against the physical module
+    and vendor card.
+  rationale: A consistent netlist can still place power on an I/O pin.
+  evidence_refs:
+  - DESIGN_BASIS.md
+  safety_tags:
+  - connector
+  - safety
+- id: xbee-fit
+  prompt: Check the XBee pinout and hand-authored footprint against the physical module
+    or a 1:1 print.
+  rationale: CAD connectivity does not prove package fit.
+  evidence_refs:
+  - DESIGN_BASIS.md
+  safety_tags:
+  - connector
+  - assembly
+- id: adc-reference
+  prompt: Validate buffered ratiometric reference, divider ratio/settling, ADC loading
+    and complete-chain error budget; confirm ADS1256 AVDD1/DVDD16/RESET15.
+  rationale: An unresolved reference choice can invalidate measurement accuracy.
+  evidence_refs:
+  - DESIGN_BASIS.md
+  - DEVIATIONS.md
+  safety_tags:
+  - analog
+  - safety
+- id: thermal
+  prompt: Measure or calculate regulator and relay thermal margin at worst-case supply
+    and ambient conditions.
+  rationale: DRC cannot establish thermal limits.
+  evidence_refs:
+  - DESIGN_BASIS.md
+  safety_tags:
+  - power
+  - safety
+- id: isolated-return
+  prompt: Verify isolated-return intent, clearance, and actual ground/current paths
+    on the PCB.
+  rationale: Net names and DRC do not prove isolation behavior.
+  evidence_refs:
+  - DESIGN_BASIS.md
+  safety_tags:
+  - power
+  - safety
+- id: mechanical
+  prompt: Inspect outline, sockets, mounting, silkscreen, and 3D fit against the enclosure
+    and cables.
+  rationale: Placement geometry does not include the complete assembly.
+  evidence_refs:
+  - REQUIREMENTS.md
+  safety_tags:
+  - mechanical
+- id: sourcing
+  prompt: Verify selected exact passive orders, choose/verify socket orders, and check electrolytic ESR/packages, crystal,
+    ferrite, WJ500V drawing/fit, stock, assembly eligibility and current deviations.
+  rationale: Archived evidence does not prove a buildable exact parts list.
+  evidence_refs:
+  - DEVIATIONS.md
+  - DESIGN_BASIS.md
+  safety_tags:
+  - sourcing

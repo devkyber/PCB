@@ -1,0 +1,149 @@
+schema_version: 1
+records:
+- path: libs/TMS.pretty/Teensy41_Socket.kicad_mod
+  sha256: dfc4a5749c0a9e1fdcdf4e32d0acc29b14fc0b60f603fa7dd7dfbcbb946ad3d8
+  part_numbers:
+  - TEENSY41
+  evidence_ids:
+  - sha256:d8e8f77658a43eddd3254fcf7c248e200f8a83a398b990382ee1f71f500debf0
+  pad_functions:
+    D16: D16
+    D17: D17
+    D8: D8
+    D7: D7
+    D20: D20
+    D21: D21
+    D22: D22
+    D23: D23
+    D24: D24
+    D25: D25
+    D28: D28
+    D29: D29
+    D30: D30
+    D31: D31
+    D32: D32
+    D33: D33
+    D34: D34
+    D35: D35
+    D36: D36
+    D37: D37
+    D38: D38
+    D39: D39
+    D40: D40
+    D41: D41
+    D11: D11 / MOSI0
+    D12: D12 / MISO0
+    D13: D13 / SCK0
+    D10: D10 / CS0
+    D9: D9 / DRDY0
+    D26: D26 / MOSI1
+    D1: D1 / MISO1
+    D27: D27 / SCK1
+    D0: D0 / CS1
+    D2: D2 / DRDY1
+    D14: D14 / TX3
+    D15: D15 / RX3
+    D19: D19 / CTS3 IN
+    D18: D18 / RTS OUT
+    D3: D3 / FIRE
+    D4: D4 / STATUS
+    D5: D5 / COMMAND
+    D6: D6 / TX LED
+    VIN: VIN
+    3V3L: 3V3 OUT
+    3V3R: 3V3 OUT
+    GNDL: GND
+    GNDR: GND
+    GNDA: GND
+  author: Codex
+  reviewed_on: '2026-10-14'
+  derived_from: PJRC front/rear cards; 2x24 contacts at2.54mm,15.24mm rows. USB-left
+    row map documented in libs/README.md.
+  limitations: Author source/geometry check only. Purchased-part fit, socket/mating/polarity/enclosure
+    and assembly qualification remain open. No human engineering sign-off.
+  owner_signoff: false
+- path: libs/TMS.pretty/XBee3_RPSMA_Socket.kicad_mod
+  sha256: 7166d642a6aea0b2ae3933ad49756d2b06a8d75eecdbd10a263a8f70d6db0a6d
+  part_numbers:
+  - XB3-24AST-J
+  evidence_ids:
+  - sha256:a02aee173feaec9b7504a1794d94e579ae62ca01ae868217befb62b1638efcfa
+  pad_functions:
+    '3': DIN
+    '16': ~{RTS}
+    '9': DTR / SLEEP_RQ
+    '5': ~{RESET}
+    '2': DOUT
+    '12': ~{CTS}
+    '13': ON / SLEEP
+    '15': ASSOCIATE
+    '6': RSSI / PWM
+    '4': DIO12
+    '7': DIO11
+    '8': RESERVED
+    '11': DIO4
+    '14': RESERVED
+    '17': AD3
+    '18': AD2
+    '19': AD1
+    '20': AD0
+    '1': VCC
+    '10': GND
+  author: Codex
+  reviewed_on: '2026-10-14'
+  derived_from: Digi90001543W RP-SMA drawing/pin table:20contacts,2mm pitch,22mm rows;
+    courtyard includes RP-SMA projection.
+  limitations: Author source/geometry check only. Purchased-part fit, socket/mating/polarity/enclosure
+    and assembly qualification remain open. No human engineering sign-off.
+  owner_signoff: false
+- path: libs/TMS.pretty/HF46F_Type1.kicad_mod
+  sha256: a7dd9bff458122e0c25514971f14c5f3c8a60c000857e24b4ea957b772094a11
+  part_numbers:
+  - HF46F-G/5-HS1T
+  evidence_ids:
+  - sha256:7b0def367684a55227bdc7f85fb88da930e788c6cf661b77e273cdd0e1d624a6
+  pad_functions:
+    '2': NO contact
+    '3': NO contact
+    '1': coil
+    '6': coil
+  author: Codex
+  reviewed_on: '2026-10-14'
+  derived_from: Hongfa type1 unlabeled bottom-view drawing, reflected to PCBtop:coil
+    local1/6 spacing4.7mm; contacts local2/3 at11.5/18.5mm fromcoil1; holes1.1mm.
+    IDs are local conventions, not manufacturer terminal numbering.
+  limitations: Author source/geometry check only. Purchased-part fit, socket/mating/polarity/enclosure
+    and assembly qualification remain open. No human engineering sign-off.
+  owner_signoff: false
+- path: libs/TMS.pretty/L_SRP1038A.kicad_mod
+  sha256: 1744f8ee0614c3c32898aca8edd7748bd6136a259eb86c6408d835267e512d14
+  part_numbers:
+  - SRP1038A-3R3M
+  evidence_ids:
+  - sha256:92c761c358a1e5a3915a936f6f0795096bb6b965617bb5c408bd8be30ad285af
+  pad_functions:
+    '1': '1'
+    '2': '2'
+  author: Codex
+  reviewed_on: '2026-10-14'
+  derived_from: Bourns lead-frame recommended lands:two3.5x5.4mm pads,13.6mm outerspan,10.1mm
+    centers. -3R3M uses lead-frame terminals.
+  limitations: Author source/geometry check only. Purchased-part fit, socket/mating/polarity/enclosure
+    and assembly qualification remain open. No human engineering sign-off.
+  owner_signoff: false
+- path: libs/TMS.pretty/WJ500V_5.08_2P_14_00A.kicad_mod
+  sha256: f2d3f9731d0506409fd8067f4f0b7217f65064ce62ba2059b74792d6226a50f4
+  part_numbers:
+  - WJ500V-5.08-2P-14-00A
+  evidence_ids:
+  - sha256:e3c3cbd8e0f7cf4979ffd6a524501dd4dbd0f24556c4761922adcbd973e3ccda
+  pad_functions:
+    '1': BAT+ TO ARM
+    '2': ARM RETURN
+  author: Codex
+  reviewed_on: '2026-10-14'
+  derived_from: Kangnex drawingA2024-03-10:5.08mm pitch,1.50mm holes; body10.16x10x14.07mm;3mm
+    pads give0.75mm nominal annular ring.
+  limitations: Author source/geometry check only. Purchased-part fit, socket/mating/polarity/enclosure
+    and assembly qualification remain open. No human engineering sign-off.
+  owner_signoff: false

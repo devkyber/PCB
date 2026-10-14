@@ -1,0 +1,1045 @@
+schema_version: 1
+records:
+- id: sha256:06809c8c1335a3581d08cc29f73f9cbd5d76d59f864283c90997d73321750691
+  manufacturer: ProtoCentral
+  part_numbers:
+  - ADS1220
+  title: ProtoCentral ADS1220 breakout sch extracted verbatim from pinned ZIP
+  revision: 3db37824948f75e60ca93cc8aacef5c5abad9a48
+  source_url: https://raw.githubusercontent.com/Protocentral/Protocentral_ADS1220/3db37824948f75e60ca93cc8aacef5c5abad9a48/hardware/pc_ads1220_brk.zip#pc_ads1220_brk/pc_ads1220_brk.sch
+  retrieved_on: '2026-09-17'
+  path: files/ADS1220_pc_ads1220_brk_06809c8c1335.sch
+  sha256: 06809c8c1335a3581d08cc29f73f9cbd5d76d59f864283c90997d73321750691
+  media_type: application/vnd.eagle+xml
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs: []
+- id: sha256:090aabb47c14c4e0c9f5d850dbe78164e19b5fc53dc2fc3a9e7837b0f0d53bea
+  manufacturer: null
+  part_numbers:
+  - XT30PW-F
+  title: XT30PW-F.pdf
+  revision: null
+  source_url: https://www.tme.eu/Document/f383737e340bfdab1f665284174b4ea2/XT30PW-F.pdf
+  retrieved_on: '2026-10-13'
+  path: files/XT30PW-F_XT30PW-F_090aabb47c14.pdf
+  sha256: 090aabb47c14c4e0c9f5d850dbe78164e19b5fc53dc2fc3a9e7837b0f0d53bea
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - J1
+  - J4
+- id: sha256:1632b388d1ba3a46c8e8f090ddfec2114c0f538cfb8364ddcda583fee3fdbdc5
+  manufacturer: null
+  part_numbers:
+  - TPS54302DDCR
+  title: tps54302.pdf
+  revision: SLVSDG6C, March 2026
+  source_url: https://www.ti.com/lit/ds/symlink/tps54302.pdf
+  retrieved_on: '2026-10-13'
+  path: files/TPS54302DDCR_tps54302_1632b388d1ba.pdf
+  sha256: 1632b388d1ba3a46c8e8f090ddfec2114c0f538cfb8364ddcda583fee3fdbdc5
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - U2
+- id: sha256:185293ca6674dd181d9934b5806d5a36e99e03caa1fe140b0bf24cccdc07c24d
+  manufacturer: null
+  part_numbers:
+  - OPA350UA
+  title: opa350.pdf
+  revision: SBOS099D, December 2015
+  source_url: https://www.ti.com/lit/ds/symlink/opa350.pdf
+  retrieved_on: '2026-10-13'
+  path: files/OPA350UA_opa350_185293ca6674.pdf
+  sha256: 185293ca6674dd181d9934b5806d5a36e99e03caa1fe140b0bf24cccdc07c24d
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - U6
+- id: sha256:1d5a17540e48f0739cb56687babc7b62d1e2d5058bcbd7ce4cba4268a51385df
+  manufacturer: null
+  part_numbers:
+  - ADS1256
+  - ADS1256IDBR
+  title: U2__ADS1256__ADS1256IDBR_sbau090e
+  revision: null
+  source_url: https://www.ti.com/lit/ug/sbau090e/sbau090e.pdf
+  retrieved_on: '2026-08-26'
+  path: files/U2__ADS1256__ADS1256IDBR_sbau090e.pdf
+  sha256: 1d5a17540e48f0739cb56687babc7b62d1e2d5058bcbd7ce4cba4268a51385df
+  media_type: application/pdf
+  roles:
+  - reference_design
+  trust_tier: manufacturer_evm
+  component_refs:
+  - U5
+- id: sha256:2aec7bcd338fd68d60badcedd7fcb9b40e5124a04954e714e1dabc50f278868d
+  manufacturer: null
+  part_numbers:
+  - LM7805
+  title: LM7805_C22467097
+  revision: null
+  source_url: https://www.lcsc.com/product-detail/C22467097.html
+  retrieved_on: '2026-08-25'
+  path: files/LM7805_C22467097.pdf
+  sha256: 2aec7bcd338fd68d60badcedd7fcb9b40e5124a04954e714e1dabc50f278868d
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:30c7978775749e9178d67311229ada682460f87f777642532a6a854d5d07b790
+  manufacturer: ProtoCentral
+  part_numbers:
+  - ADS1220
+  title: ProtoCentral ADS1220 breakout brd extracted verbatim from pinned ZIP
+  revision: 3db37824948f75e60ca93cc8aacef5c5abad9a48
+  source_url: https://raw.githubusercontent.com/Protocentral/Protocentral_ADS1220/3db37824948f75e60ca93cc8aacef5c5abad9a48/hardware/pc_ads1220_brk.zip#pc_ads1220_brk/pc_ads1220_brk.brd
+  retrieved_on: '2026-09-17'
+  path: files/ADS1220_pc_ads1220_brk_30c797877574.brd
+  sha256: 30c7978775749e9178d67311229ada682460f87f777642532a6a854d5d07b790
+  media_type: application/vnd.eagle+xml
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs: []
+- id: sha256:329a8a5fa56dd44d356d90e14e11a33b6936ee1ab193b6eb568df17e2443c54a
+  manufacturer: null
+  part_numbers:
+  - HF46F-G/5-HS1T
+  title: HF46F_C5274026
+  revision: null
+  source_url: https://www.lcsc.com/product-detail/C5274026.html
+  retrieved_on: '2026-08-25'
+  path: files/HF46F_C5274026.pdf
+  sha256: 329a8a5fa56dd44d356d90e14e11a33b6936ee1ab193b6eb568df17e2443c54a
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - K1
+- id: sha256:3305a485d13b5135a2be83af66cc42f00504915802e444a0fa44ea4259c3c1bb
+  manufacturer: null
+  part_numbers:
+  - 1N4148WS
+  title: 1N4148WS_C57759
+  revision: 16 March 2015 Rev. 03
+  source_url: https://www.lcsc.com/product-detail/C57759.html
+  retrieved_on: '2026-08-25'
+  path: files/1N4148WS_C57759.pdf
+  sha256: 3305a485d13b5135a2be83af66cc42f00504915802e444a0fa44ea4259c3c1bb
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - D60
+- id: sha256:3a5770b11668f4e5a11ba9ceeb4817a23f467b8507e3592f55fb6bd8f96e71bc
+  manufacturer: Samtec
+  part_numbers:
+  - TSW-102-07-L-S
+  title: tsw_th.pdf
+  revision: null
+  source_url: https://suddendocs.samtec.com/catalog_english/tsw_th.pdf
+  retrieved_on: '2026-10-14'
+  path: files/TSW-102-07-L-S_tsw_th_3a5770b11668.pdf
+  sha256: 3a5770b11668f4e5a11ba9ceeb4817a23f467b8507e3592f55fb6bd8f96e71bc
+  media_type: application/pdf
+  roles:
+  - datasheet
+  - footprint_drawing
+  trust_tier: manufacturer
+  component_refs:
+  - JP1
+- id: sha256:3dfa7d4ff7182ccb3e7303a13f06324d11dd232a575d29cf20c7edf5673650b6
+  manufacturer: null
+  part_numbers:
+  - PESD5V0S2BT
+  title: PESD5V0S2BT_C49338
+  revision: null
+  source_url: https://www.lcsc.com/product-detail/C49338.html
+  retrieved_on: '2026-08-25'
+  path: files/PESD5V0S2BT_C49338.pdf
+  sha256: 3dfa7d4ff7182ccb3e7303a13f06324d11dd232a575d29cf20c7edf5673650b6
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:483b3351badfa960fcc9bbea1fab18e3ccfd21e0cb282c192950d26452feafc4
+  manufacturer: null
+  part_numbers:
+  - ADS1220
+  - ADS1220IPWR
+  title: U3__ADS1220__ADS1220IPWR_sbau203
+  revision: null
+  source_url: https://www.ti.com/lit/pdf/sbau203
+  retrieved_on: '2026-08-26'
+  path: files/U3__ADS1220__ADS1220IPWR_sbau203.pdf
+  sha256: 483b3351badfa960fcc9bbea1fab18e3ccfd21e0cb282c192950d26452feafc4
+  media_type: application/pdf
+  roles:
+  - reference_design
+  trust_tier: manufacturer_evm
+  component_refs:
+  - U7
+- id: sha256:4cce90bdd41ad918ef739824ec88c2f3787947c9888ac2160b511a096a47f0c6
+  manufacturer: KEMET / YAGEO
+  part_numbers:
+  - C0603C224K4RACTU
+  title: C0603C224K4RACTU
+  revision: Part specification generated 14-Oct-2026; simulation curves are typical,
+    not limits
+  source_url: https://search.kemet.com/download/specsheet/C0603C224K4RACTU
+  retrieved_on: '2026-10-14'
+  path: files/C0603C224K4RACTU_C0603C224K4RACTU_4cce90bdd41a.pdf
+  sha256: 4cce90bdd41ad918ef739824ec88c2f3787947c9888ac2160b511a096a47f0c6
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - C20
+- id: sha256:51d2b880f18f6611726cb9c3dfd2df3def564cdf92eebcd658a2961e527fd14e
+  manufacturer: KEMET / YAGEO
+  part_numbers:
+  - C1210C106K5RACTU
+  title: C1210C106K5RACTU
+  revision: Part specification generated 14-Oct-2026; simulation curves are typical,
+    not limits
+  source_url: https://search.kemet.com/download/specsheet/C1210C106K5RACTU
+  retrieved_on: '2026-10-14'
+  path: files/C1210C106K5RACTU_C1210C106K5RACTU_51d2b880f18f.pdf
+  sha256: 51d2b880f18f6611726cb9c3dfd2df3def564cdf92eebcd658a2961e527fd14e
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - C1
+  - C11
+  - C12
+  - C13
+  - C14
+  - C15
+  - C16
+  - C17
+  - C18
+  - C19
+  - C29
+  - C4
+  - C5
+- id: sha256:5914137a344044434474ec115fd0ef93595a07a05faddffa1608a57e1b09fc4a
+  manufacturer: null
+  part_numbers:
+  - IPSU-GP1K5-6
+  title: 4da886fe05e2bf87f204aeba6d317782.pdf
+  revision: null
+  source_url: https://datasheet.lcsc.com/datasheet/pdf/4da886fe05e2bf87f204aeba6d317782.pdf
+  retrieved_on: '2026-10-13'
+  path: files/IPSU-GP1K5-6_4da886fe05e2bf87f204aeba6d317782_5914137a3440.pdf
+  sha256: 5914137a344044434474ec115fd0ef93595a07a05faddffa1608a57e1b09fc4a
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:5d9495ef6e83499360fec9b489977c4c8fb63f5a21b5f7e1b1cde7045beb65d7
+  manufacturer: AMASS; manufacturer drawing mirrored by BTO
+  part_numbers:
+  - XT60PW-F
+  title: XT60PW-F.pdf
+  revision: V1.2; installation-hole drawing; catalog dimensional differences require
+    ordered-part fit check
+  source_url: https://www.bto.pl/pdf/08039/XT60PW-F.pdf
+  retrieved_on: '2026-10-14'
+  path: files/XT60PW-F_XT60PW-F_5d9495ef6e83.pdf
+  sha256: 5d9495ef6e83499360fec9b489977c4c8fb63f5a21b5f7e1b1cde7045beb65d7
+  media_type: application/pdf
+  roles:
+  - datasheet
+  - footprint_drawing
+  trust_tier: manufacturer
+  component_refs:
+  - J6
+- id: sha256:649cda5a6e08b2e5a044efc5d1405588ff85cf5428b4e9fe12aae3d1d0c7203e
+  manufacturer: null
+  part_numbers:
+  - ABLS-7.680MHZ-D-4-Y-T
+  title: ABLS.pdf
+  revision: null
+  source_url: https://abracon.com/Resonators/ABLS.pdf
+  retrieved_on: '2026-10-13'
+  path: files/ABLS-7.680MHZ-D-4-Y-T_ABLS_649cda5a6e08.pdf
+  sha256: 649cda5a6e08b2e5a044efc5d1405588ff85cf5428b4e9fe12aae3d1d0c7203e
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - Y1
+- id: sha256:680288213668d77f36346aede01f9b24f3b3b7a32cc6dd2c70a08c25f53ec1c6
+  manufacturer: AMASS; manufacturer catalog mirrored by LCSC
+  part_numbers:
+  - XT60-F
+  title: 6574e17e7f8147e7af5908efe97368a9.pdf
+  revision: Undated 31-page catalog; not authority to merge inconsistent installation-hole
+    revisions
+  source_url: https://datasheet.lcsc.com/datasheet/pdf/6574e17e7f8147e7af5908efe97368a9.pdf?productCode=C98734
+  retrieved_on: '2026-10-14'
+  path: files/XT60-F_6574e17e7f8147e7af5908efe97368a9_680288213668.pdf
+  sha256: 680288213668d77f36346aede01f9b24f3b3b7a32cc6dd2c70a08c25f53ec1c6
+  media_type: application/pdf
+  roles:
+  - datasheet
+  - footprint_drawing
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:6c19cd75c9bb5934e35bcf919341d1cba3933e91ae4ffbda55ec2f3201faae6f
+  manufacturer: KEMET / YAGEO
+  part_numbers:
+  - C1206C473J5GACTU
+  title: C1206C473J5GACTU
+  revision: Part specification generated 14-Oct-2026; simulation curves are typical,
+    not limits
+  source_url: https://search.kemet.com/download/specsheet/C1206C473J5GACTU
+  retrieved_on: '2026-10-14'
+  path: files/C1206C473J5GACTU_C1206C473J5GACTU_6c19cd75c9bb.pdf
+  sha256: 6c19cd75c9bb5934e35bcf919341d1cba3933e91ae4ffbda55ec2f3201faae6f
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - C40
+- id: sha256:6c2034cb0bd0d85be51c9c4f82aad838a688aa70c20de1a71681be8ec02b659b
+  manufacturer: null
+  part_numbers:
+  - MMBT3904
+  title: MMBT3904_C20526
+  revision: null
+  source_url: https://www.lcsc.com/product-detail/C20526.html
+  retrieved_on: '2026-08-25'
+  path: files/MMBT3904_C20526.pdf
+  sha256: 6c2034cb0bd0d85be51c9c4f82aad838a688aa70c20de1a71681be8ec02b659b
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:6c25f3e72085f0760edcff7c3f6840ac35d43a65a4b0d71b8f6da4b5554daad5
+  manufacturer: null
+  part_numbers:
+  - REF5025ID
+  title: ref50.pdf
+  revision: null
+  source_url: https://www.ti.com/lit/ds/symlink/ref50.pdf
+  retrieved_on: '2026-10-13'
+  path: files/REF5025ID_ref50_6c25f3e72085.pdf
+  sha256: 6c25f3e72085f0760edcff7c3f6840ac35d43a65a4b0d71b8f6da4b5554daad5
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:6f0508c568cb355aaf2accdd33fe3a780d3ea5ef207c4c9a71839a8acadc33a5
+  manufacturer: Vishay
+  part_numbers:
+  - TNPW0603100KBEEA
+  - TNPW060313K7BEEA
+  - TNPW060333K2BEEA
+  title: tnpw_e3.pdf
+  revision: null
+  source_url: https://www.vishay.com/docs/28758/tnpw_e3.pdf
+  retrieved_on: '2026-10-14'
+  path: files/TNPW0603100KBEEA_tnpw_e3_6f0508c568cb.pdf
+  sha256: 6f0508c568cb355aaf2accdd33fe3a780d3ea5ef207c4c9a71839a8acadc33a5
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - R3
+  - R4
+  - R40
+  - R41
+- id: sha256:752945fa3acaf46947c4f9ffdca98027af4ffb4845c5250713f0b608a547d97f
+  manufacturer: Diodes Incorporated
+  part_numbers:
+  - SMBJ18A-13-F
+  title: SMBJ5.0(C)A-SMBJ170(C)A.pdf
+  revision: DS19002 Rev20-2, May2017
+  source_url: https://www.diodes.com/datasheet/download/SMBJ5.0(C)A-SMBJ170(C)A.pdf
+  retrieved_on: '2026-10-14'
+  path: files/SMBJ18A-13-F_SMBJ5.0_C_A-SMBJ170_C_A_752945fa3aca.pdf
+  sha256: 752945fa3acaf46947c4f9ffdca98027af4ffb4845c5250713f0b608a547d97f
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - D2
+- id: sha256:757d89d0506d51683d00d16ea3477578f0dd1a280f3427a10515aa561fd1e7ad
+  manufacturer: Vishay
+  part_numbers:
+  - VJ0603A103JXACW1BC
+  - VJ0603A470JXACW1BC
+  title: vjw1bcbascomseries.pdf
+  revision: 28548, 12-Aug-2026
+  source_url: https://www.vishay.com/docs/28548/vjw1bcbascomseries.pdf
+  retrieved_on: '2026-10-14'
+  path: files/VJ0603A470JXACW1BC_vjw1bcbascomseries_757d89d0506d.pdf
+  sha256: 757d89d0506d51683d00d16ea3477578f0dd1a280f3427a10515aa561fd1e7ad
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - C22
+  - C44
+  - C52
+- id: sha256:777610659dc101e5903051a95a2f8e203a6046126151ffc76a77a0ce8524ef5a
+  manufacturer: KEMET / YAGEO
+  part_numbers:
+  - C0603C105K4RACTU
+  title: C0603C105K4RACTU
+  revision: Part specification generated 14-Oct-2026; simulation curves are typical,
+    not limits
+  source_url: https://search.kemet.com/download/specsheet/C0603C105K4RACTU
+  retrieved_on: '2026-10-14'
+  path: files/C0603C105K4RACTU_C0603C105K4RACTU_777610659dc1.pdf
+  sha256: 777610659dc101e5903051a95a2f8e203a6046126151ffc76a77a0ce8524ef5a
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - C28
+  - C30
+  - C50
+- id: sha256:7b0def367684a55227bdc7f85fb88da930e788c6cf661b77e273cdd0e1d624a6
+  manufacturer: null
+  part_numbers:
+  - HF46F-G/5-HS1T
+  title: HF46F_hongfa_en
+  revision: 2025 Rev. 2.00
+  source_url: http://www.hongfaamerica.com/hq/PDF/HF46F_en.pdf
+  retrieved_on: '2026-08-25'
+  path: files/HF46F_hongfa_en.pdf
+  sha256: 7b0def367684a55227bdc7f85fb88da930e788c6cf661b77e273cdd0e1d624a6
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - K1
+- id: sha256:7bb244fd771d4b3fa77df6ee1d24dff84b4bda56cfc55e28ce9cce4beda56c8b
+  manufacturer: null
+  part_numbers:
+  - APTD1608LCGCK
+  title: APTD1608LCGCK.pdf
+  revision: null
+  source_url: https://www.kingbrightusa.com/images/catalog/SPEC/APTD1608LCGCK.pdf
+  retrieved_on: '2026-10-13'
+  path: files/APTD1608LCGCK_APTD1608LCGCK_7bb244fd771d.pdf
+  sha256: 7bb244fd771d4b3fa77df6ee1d24dff84b4bda56cfc55e28ce9cce4beda56c8b
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - D10
+- id: sha256:83c75b67b2f7d4c6f46f65f6b7bfc7647ddf0220fb10479eeedf8d0f6f659a5e
+  manufacturer: ProtoCentral
+  part_numbers:
+  - ADS1220
+  title: ProtoCentral ADS1220 breakout native Eagle pair archive
+  revision: 3db37824948f75e60ca93cc8aacef5c5abad9a48
+  source_url: https://raw.githubusercontent.com/Protocentral/Protocentral_ADS1220/3db37824948f75e60ca93cc8aacef5c5abad9a48/hardware/pc_ads1220_brk.zip
+  retrieved_on: '2026-09-17'
+  path: files/ADS1220_pc_ads1220_brk_83c75b67b2f7.zip
+  sha256: 83c75b67b2f7d4c6f46f65f6b7bfc7647ddf0220fb10479eeedf8d0f6f659a5e
+  media_type: application/zip
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs: []
+- id: sha256:891a4b71a749d574a93fa67d03564ae00f6d13abf8c555b03d877303707cfa3b
+  manufacturer: ProtoCentral
+  part_numbers:
+  - ADS1220
+  title: ProtoCentral ADS1220 breakout schematic PDF
+  revision: 3db37824948f75e60ca93cc8aacef5c5abad9a48
+  source_url: https://raw.githubusercontent.com/Protocentral/Protocentral_ADS1220/3db37824948f75e60ca93cc8aacef5c5abad9a48/hardware/pc_ads1220_brk.pdf
+  retrieved_on: '2026-09-17'
+  path: files/ADS1220_pc_ads1220_brk_891a4b71a749.pdf
+  sha256: 891a4b71a749d574a93fa67d03564ae00f6d13abf8c555b03d877303707cfa3b
+  media_type: application/pdf
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs: []
+- id: sha256:8c4ae4d0cb2cb9c243b6590250d76933ace91d20c86683a6f1d713c93b0e1865
+  manufacturer: null
+  part_numbers:
+  - APTD1608LSURCK
+  title: APTD1608LSURCK.pdf
+  revision: null
+  source_url: https://www.kingbrightusa.com/images/catalog/SPEC/APTD1608LSURCK.pdf
+  retrieved_on: '2026-10-13'
+  path: files/APTD1608LSURCK_APTD1608LSURCK_8c4ae4d0cb2c.pdf
+  sha256: 8c4ae4d0cb2cb9c243b6590250d76933ace91d20c86683a6f1d713c93b0e1865
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - D11
+- id: sha256:92c761c358a1e5a3915a936f6f0795096bb6b965617bb5c408bd8be30ad285af
+  manufacturer: null
+  part_numbers:
+  - SRP1038A-100M
+  - SRP1038A-3R3M
+  title: srp1038a.pdf
+  revision: null
+  source_url: https://www.bourns.com/docs/product-datasheets/srp1038a.pdf
+  retrieved_on: '2026-10-13'
+  path: files/SRP1038A-100M_srp1038a_92c761c358a1.pdf
+  sha256: 92c761c358a1e5a3915a936f6f0795096bb6b965617bb5c408bd8be30ad285af
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - L1
+- id: sha256:9426b136902f11900825077535e5c65032b7fbc31ffb59c5e9e1f463bb20fb90
+  manufacturer: null
+  part_numbers:
+  - B3B-XH-A
+  - B5B-XH-A
+  title: eXH.pdf
+  revision: null
+  source_url: https://www.jst-mfg.com/product/pdf/eng/eXH.pdf
+  retrieved_on: '2026-10-13'
+  path: files/B5B-XH-A_eXH_9426b136902f.pdf
+  sha256: 9426b136902f11900825077535e5c65032b7fbc31ffb59c5e9e1f463bb20fb90
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - J2
+  - J3
+- id: sha256:9b258db98f6ef2a4afe21af4820fb599f1362adc1f600536955c3cd4f283c273
+  manufacturer: null
+  part_numbers:
+  - TEENSY-BACK
+  title: card11b_rev4_web
+  revision: null
+  source_url: https://www.pjrc.com/teensy/card11b_rev4_web.pdf
+  retrieved_on: '2026-08-25'
+  path: files/card11b_rev4_web.pdf
+  sha256: 9b258db98f6ef2a4afe21af4820fb599f1362adc1f600536955c3cd4f283c273
+  media_type: application/pdf
+  roles:
+  - datasheet
+  - module_pinout
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:9c60d0b6c1ddc7609a4b788a91181468d8ffe6c3e9ba425c3d8ffc5ba88c5033
+  manufacturer: null
+  part_numbers:
+  - AO3400A
+  title: AO3400A.pdf
+  revision: null
+  source_url: https://www.aosmd.com/sites/default/files/res/datasheets/AO3400A.pdf
+  retrieved_on: '2026-10-13'
+  path: files/AO3400A_AO3400A_9c60d0b6c1dd.pdf
+  sha256: 9c60d0b6c1ddc7609a4b788a91181468d8ffe6c3e9ba425c3d8ffc5ba88c5033
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - Q1
+- id: sha256:9da3323db162b59329ec1a865829441ff1605279cd802fe879649b6f54e100e6
+  manufacturer: null
+  part_numbers:
+  - ADS1256IDBR
+  title: ADS1256_ti
+  revision: SBAS288K, September 2013
+  source_url: https://www.ti.com/lit/ds/symlink/ads1256.pdf
+  retrieved_on: '2026-08-25'
+  path: files/ADS1256_ti.pdf
+  sha256: 9da3323db162b59329ec1a865829441ff1605279cd802fe879649b6f54e100e6
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - U5
+- id: sha256:9fe32571563b01358ea2c85ce392879cae46ed2b6dd0cd90c2754bb820d3a319
+  manufacturer: null
+  part_numbers:
+  - APTD1608LSYCK
+  title: APTD1608LSYCK.pdf
+  revision: null
+  source_url: https://www.kingbrightusa.com/images/catalog/SPEC/APTD1608LSYCK.pdf
+  retrieved_on: '2026-10-13'
+  path: files/APTD1608LSYCK_APTD1608LSYCK_9fe32571563b.pdf
+  sha256: 9fe32571563b01358ea2c85ce392879cae46ed2b6dd0cd90c2754bb820d3a319
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - D12
+- id: sha256:a02aee173feaec9b7504a1794d94e579ae62ca01ae868217befb62b1638efcfa
+  manufacturer: null
+  part_numbers:
+  - XB3-24AST-J
+  - XBee
+  - XBEE3
+  - XBee_THT_20pin
+  title: xbee3_hardware_ref
+  revision: 90001543 W, June 2026
+  source_url: https://www.digi.com/resources/documentation/digidocs/pdfs/90001543.pdf
+  retrieved_on: '2026-08-25'
+  path: files/xbee3_hardware_ref.pdf
+  sha256: a02aee173feaec9b7504a1794d94e579ae62ca01ae868217befb62b1638efcfa
+  media_type: application/pdf
+  roles:
+  - datasheet
+  - module_pinout
+  - reference_design
+  trust_tier: manufacturer
+  component_refs:
+  - U8
+- id: sha256:a133b86ea3d3c3d34667339b92d3b5e98d541d10e9775d63e7cdfa153794f4ed
+  manufacturer: null
+  part_numbers:
+  - TPD2E2U06DCKR
+  title: TPD2E2U06 TI datasheet (DCK 3-pin package selected)
+  revision: null
+  source_url: https://www.ti.com/lit/ds/symlink/tpd2e2u06.pdf
+  retrieved_on: '2026-10-13'
+  path: files/TPD2E2U06DBZR_tpd2e2u06_a133b86ea3d3.pdf
+  sha256: a133b86ea3d3c3d34667339b92d3b5e98d541d10e9775d63e7cdfa153794f4ed
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - D20
+  - D41
+- id: sha256:a9f50f5e53e4f304523d9330f56af9956da40a2246fdff757532efddbd652279
+  manufacturer: KEMET / YAGEO
+  part_numbers:
+  - C0805C106K4PACTU
+  title: C0805C106K4PACTU
+  revision: Part specification generated 14-Oct-2026; simulation curves are typical,
+    not limits
+  source_url: https://search.kemet.com/download/specsheet/C0805C106K4PACTU
+  retrieved_on: '2026-10-14'
+  path: files/C0805C106K4PACTU_C0805C106K4PACTU_a9f50f5e53e4.pdf
+  sha256: a9f50f5e53e4f304523d9330f56af9956da40a2246fdff757532efddbd652279
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - C10
+  - C27
+  - C51
+  - C6
+  - C7
+  - C8
+- id: sha256:ab2f26d003e3c1d8f7e4e7ac674ae055849970bf7b392a7d5d31eca443aab9e2
+  manufacturer: null
+  part_numbers:
+  - BAV199
+  title: BAV199.pdf
+  revision: 1 April 2023
+  source_url: https://assets.nexperia.com/documents/data-sheet/BAV199.pdf
+  retrieved_on: '2026-10-13'
+  path: files/BAV199_BAV199_ab2f26d003e3.pdf
+  sha256: ab2f26d003e3c1d8f7e4e7ac674ae055849970bf7b392a7d5d31eca443aab9e2
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - D21
+  - D22
+  - D40
+- id: sha256:affbdbc3402d5d78e683944e78f5a641ae7f22906a4e77e24978388e491b41e2
+  manufacturer: Panasonic
+  part_numbers:
+  - EEEFT1C101AR
+  - EEEFT1C470AR
+  title: ABA0000C1240.pdf
+  revision: null
+  source_url: https://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1240.pdf
+  retrieved_on: '2026-10-14'
+  path: files/EEEFT1C101AR_ABA0000C1240_affbdbc3402d.pdf
+  sha256: affbdbc3402d5d78e683944e78f5a641ae7f22906a4e77e24978388e491b41e2
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - C32
+  - C34
+- id: sha256:b1e2952d0aa7a498b031da1736f2d0c5eb0d90c0a005f07bdb40c691e87219bb
+  manufacturer: KEMET / YAGEO
+  part_numbers:
+  - C0603C300J5GACTU
+  title: C0603C300J5GACTU
+  revision: Part specification generated 14-Oct-2026; simulation curves are typical,
+    not limits
+  source_url: https://search.kemet.com/download/specsheet/C0603C300J5GACTU
+  retrieved_on: '2026-10-14'
+  path: files/C0603C300J5GACTU_C0603C300J5GACTU_b1e2952d0aa7.pdf
+  sha256: b1e2952d0aa7a498b031da1736f2d0c5eb0d90c0a005f07bdb40c691e87219bb
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - C25
+  - C26
+- id: sha256:b7855a5002cd46f2c3c50ae4abfd6244824f073a96ffe6303a030a0192033bff
+  manufacturer: null
+  part_numbers:
+  - BCA-100L
+  title: BCA.pdf
+  revision: null
+  source_url: https://www.cas-usa.com/cdn/shop/files/BCA.pdf?v=10610127605685568819
+  retrieved_on: '2026-10-13'
+  path: files/BCA-100L_BCA_b7855a5002cd.pdf
+  sha256: b7855a5002cd46f2c3c50ae4abfd6244824f073a96ffe6303a030a0192033bff
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:ba264d1644fe9de625c075ddcee61eb4c59cce2780ba416cd831216c40f755cf
+  manufacturer: null
+  part_numbers:
+  - ADS1220IPWR
+  title: ADS1220_ti
+  revision: SBAS501D, May 2026
+  source_url: https://www.ti.com/lit/ds/symlink/ads1220.pdf
+  retrieved_on: '2026-08-25'
+  path: files/ADS1220_ti.pdf
+  sha256: ba264d1644fe9de625c075ddcee61eb4c59cce2780ba416cd831216c40f755cf
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - U7
+- id: sha256:bfaa584834295abba9cab4c66cda702ada12def5d50e49b1beb0d7444f0775e7
+  manufacturer: null
+  part_numbers:
+  - OPA2388IDR
+  - OPA388IDBVR
+  title: opa2388.pdf
+  revision: SBOS777D, July 2020
+  source_url: https://www.ti.com/lit/ds/symlink/opa2388.pdf
+  retrieved_on: '2026-10-13'
+  path: files/OPA2388IDR_opa2388_bfaa58483429.pdf
+  sha256: bfaa584834295abba9cab4c66cda702ada12def5d50e49b1beb0d7444f0775e7
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - U10
+  - U4
+- id: sha256:c3619e37920fd63ad8d879152902d33c72e76f6e85f1075d90ee358ff545d624
+  manufacturer: KANGNEX(康奈克斯电气)
+  part_numbers:
+  - WJ500V-5.08-2P
+  title: C8465 supplier CAD for WJ500V-5.08-2P
+  revision: null
+  source_url: https://easyeda.com/api/products/C8465/components
+  retrieved_on: '2026-10-13'
+  path: files/WJ500V-5.08-2P_components_c3619e37920f.txt
+  sha256: c3619e37920fd63ad8d879152902d33c72e76f6e85f1075d90ee358ff545d624
+  media_type: text/plain
+  roles:
+  - cad_library
+  trust_tier: supplier
+  component_refs:
+  - J5
+- id: sha256:d1f1bfcd0370494ab90164dd8803c993f2426dc80078a35299d48d635bed1413
+  manufacturer: Vishay
+  part_numbers:
+  - TNPU060310K0HWEA00
+  title: tnpue3.pdf
+  revision: null
+  source_url: https://www.vishay.com/docs/28779/tnpue3.pdf
+  retrieved_on: '2026-10-14'
+  path: files/TNPU060310K0HWEA00_tnpue3_d1f1bfcd0370.pdf
+  sha256: d1f1bfcd0370494ab90164dd8803c993f2426dc80078a35299d48d635bed1413
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - R30
+  - R31
+- id: sha256:d54f3853ad68ee6c1b59531b87f09b9e9badbac17b8eb9d90a6033ed7c7403a3
+  manufacturer: Texas Instruments
+  part_numbers:
+  - TXU0204PWR
+  title: txu0204.pdf
+  revision: SCES936A, September 2021; PW14 pin table
+  source_url: https://www.ti.com/lit/ds/symlink/txu0204.pdf
+  retrieved_on: '2026-10-14'
+  path: files/TXU0204PWR_txu0204_d54f3853ad68.pdf
+  sha256: d54f3853ad68ee6c1b59531b87f09b9e9badbac17b8eb9d90a6033ed7c7403a3
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - U9
+- id: sha256:d5d9f30657f27c620b7ef579ade01bbf930344b4e9f963c961b6a60bf02f410b
+  manufacturer: null
+  part_numbers:
+  - TLV75533PDBVR
+  title: tlv755p.pdf
+  revision: SBVS320D, September 2024
+  source_url: https://www.ti.com/lit/ds/symlink/tlv755p.pdf
+  retrieved_on: '2026-10-13'
+  path: files/TLV75533PDBVR_tlv755p_d5d9f30657f2.pdf
+  sha256: d5d9f30657f27c620b7ef579ade01bbf930344b4e9f963c961b6a60bf02f410b
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - U3
+- id: sha256:d8e8f77658a43eddd3254fcf7c248e200f8a83a398b990382ee1f71f500debf0
+  manufacturer: null
+  part_numbers:
+  - TEENSY
+  - TEENSY-L
+  - TEENSY-R
+  - TEENSY41
+  title: card11a_rev4_web
+  revision: null
+  source_url: https://www.pjrc.com/teensy/card11a_rev4_web.pdf
+  retrieved_on: '2026-08-25'
+  path: files/card11a_rev4_web.pdf
+  sha256: d8e8f77658a43eddd3254fcf7c248e200f8a83a398b990382ee1f71f500debf0
+  media_type: application/pdf
+  roles:
+  - datasheet
+  - module_pinout
+  - reference_design
+  trust_tier: manufacturer
+  component_refs:
+  - U1
+- id: sha256:d90558a8db9d6ea0e8712c740ffea6d9c106544653faf724af75f1ab276dee66
+  manufacturer: null
+  part_numbers:
+  - SS54
+  title: SS54_C22452
+  revision: 2024A4
+  source_url: https://www.lcsc.com/product-detail/C22452.html
+  retrieved_on: '2026-08-25'
+  path: files/SS54_C22452.pdf
+  sha256: d90558a8db9d6ea0e8712c740ffea6d9c106544653faf724af75f1ab276dee66
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - D1
+- id: sha256:dd2d82bab2e278cd531da501db9003e37582c17e54a261b992eb6871c240db5c
+  manufacturer: Vishay
+  part_numbers:
+  - CRCW0603100KFKEA
+  - CRCW0603105KFKEA
+  - CRCW060310K0FKEA
+  - CRCW06031K00FKEA
+  - CRCW060333R0FKEA
+  - CRCW060347R0FKEA
+  - CRCW060349R9FKEA
+  - CRCW0603511KFKEA
+  title: dcrcwe3.pdf
+  revision: null
+  source_url: https://www.vishay.com/docs/20035/dcrcwe3.pdf
+  retrieved_on: '2026-10-14'
+  path: files/CRCW06031K00FKEA_dcrcwe3_dd2d82bab2e2.pdf
+  sha256: dd2d82bab2e278cd531da501db9003e37582c17e54a261b992eb6871c240db5c
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - R1
+  - R10
+  - R11
+  - R12
+  - R2
+  - R20
+  - R21
+  - R22
+  - R23
+  - R24
+  - R25
+  - R26
+  - R27
+  - R32
+  - R42
+  - R43
+  - R44
+  - R45
+  - R46
+  - R5
+  - R50
+  - R51
+  - R52
+  - R53
+  - R54
+  - R55
+  - R60
+  - R61
+- id: sha256:e2ce3782550cae554d5eacbb50eb370c15a3498ef3f0da8cb7f827cc49dee890
+  manufacturer: AMASS; mirrored by LCSC
+  part_numbers:
+  - XT60PW-F
+  title: 20ba05e2e8ffaa4dc0ee081e72884460.pdf
+  revision: Undated product specification, two pages
+  source_url: https://datasheet.lcsc.com/datasheet/pdf/20ba05e2e8ffaa4dc0ee081e72884460.pdf?productCode=C428722
+  retrieved_on: '2026-10-14'
+  path: files/XT60PW-F_20ba05e2e8ffaa4dc0ee081e72884460_e2ce3782550c.pdf
+  sha256: e2ce3782550cae554d5eacbb50eb370c15a3498ef3f0da8cb7f827cc49dee890
+  media_type: application/pdf
+  roles:
+  - datasheet
+  - footprint_drawing
+  trust_tier: manufacturer
+  component_refs:
+  - J6
+- id: sha256:e3c3cbd8e0f7cf4979ffd6a524501dd4dbd0f24556c4761922adcbd973e3ccda
+  manufacturer: Ningbo Kangnex Electric; manufacturer drawing mirrored by LCSC
+  part_numbers:
+  - WJ500V-5.08-2P-14-00A
+  title: 5a3d038c44f6e3872ef57456c5bdf975.pdf
+  revision: A, 2024-03-10
+  source_url: https://datasheet.lcsc.com/datasheet/pdf/5a3d038c44f6e3872ef57456c5bdf975.pdf?productCode=C8465
+  retrieved_on: '2026-10-14'
+  path: files/WJ500V-5.08-2P-14-00A_5a3d038c44f6e3872ef57456c5bdf975_e3c3cbd8e0f7.pdf
+  sha256: e3c3cbd8e0f7cf4979ffd6a524501dd4dbd0f24556c4761922adcbd973e3ccda
+  media_type: application/pdf
+  roles:
+  - datasheet
+  - footprint_drawing
+  trust_tier: manufacturer
+  component_refs:
+  - J5
+- id: sha256:e918fe68ca30cdb63db6262941b699c1389f1450a0504e87d5d2db1f8d1135e2
+  manufacturer: KEMET / YAGEO
+  part_numbers:
+  - C0603C104K5RACTU
+  title: C0603C104K5RACTU
+  revision: Part specification generated 14-Oct-2026; simulation curves are typical,
+    not limits
+  source_url: https://search.kemet.com/download/specsheet/C0603C104K5RACTU
+  retrieved_on: '2026-10-14'
+  path: files/C0603C104K5RACTU_C0603C104K5RACTU_e918fe68ca30.pdf
+  sha256: e918fe68ca30cdb63db6262941b699c1389f1450a0504e87d5d2db1f8d1135e2
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - C2
+  - C21
+  - C23
+  - C24
+  - C3
+  - C31
+  - C33
+  - C41
+  - C42
+  - C43
+  - C53
+  - C54
+- id: sha256:f460c56e5346b2033e1f94f11877bfd3d802d869b07693c79489b30be8b797c3
+  manufacturer: null
+  part_numbers:
+  - 7.68MHz
+  title: 7.68MHz_8590903324206051328
+  revision: null
+  source_url: https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8590903324206051328
+  retrieved_on: '2026-08-25'
+  path: files/7.68MHz_8590903324206051328.pdf
+  sha256: f460c56e5346b2033e1f94f11877bfd3d802d869b07693c79489b30be8b797c3
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:f7d8053844fb07ae773844f023373c0c570507ca61603fe28dda15364987296c
+  manufacturer: Texas Instruments
+  part_numbers:
+  - LMR51430YFDDCR
+  title: lmr51430.pdf
+  revision: null
+  source_url: https://www.ti.com/lit/ds/symlink/lmr51430.pdf
+  retrieved_on: '2026-10-14'
+  path: files/LMR51430YFDDCR_lmr51430_f7d8053844fb.pdf
+  sha256: f7d8053844fb07ae773844f023373c0c570507ca61603fe28dda15364987296c
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - U2
+- id: sha256:fe976e62e91341bde0782796a240d4feb804f9a0ed286d9a7d1ddde4c0f47174
+  manufacturer: Handson Technology (generic connector supplier)
+  part_numbers:
+  - XT60
+  title: Generic XT60 connector brochure; not exact AMASS XT60-F manufacturer qualification
+  revision: null
+  source_url: https://www.handsontec.com/dataspecs/connector/XT60.pdf
+  retrieved_on: '2026-08-26'
+  path: files/XT60_XT60.pdf
+  sha256: fe976e62e91341bde0782796a240d4feb804f9a0ed286d9a7d1ddde4c0f47174
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: supplier
+  component_refs: []
+- id: sha256:ffa5cd2dd18c5959158a0b64dbde2a42be7360bef8eac4112e910f09a5d6c62d
+  manufacturer: Murata; mirrored by Avnet
+  part_numbers:
+  - BLM21PG601SN1D
+  title: Murata-BLM21PG601SN1-Series-EN-Datasheet.pdf
+  revision: Murata Product Search Data Sheet, mirrored copy; compare current JENF243A_0005AE-01
+    ratings
+  source_url: https://my.avnet.com/wcm/connect/08e0f7ea-bb4a-4b9a-a867-346f49d03172/Murata-BLM21PG601SN1-Series-EN-Datasheet.pdf?CACHE=NONE&CVID=pfYVfKq&ContentCache=NONE&MOD=AJPERES
+  retrieved_on: '2026-10-14'
+  path: files/BLM21PG601SN1D_Murata-BLM21PG601SN1-Series-EN-Datasheet_ffa5cd2dd18c.pdf
+  sha256: ffa5cd2dd18c5959158a0b64dbde2a42be7360bef8eac4112e910f09a5d6c62d
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - FB1

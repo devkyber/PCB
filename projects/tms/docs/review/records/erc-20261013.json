@@ -1,0 +1,71 @@
+{
+    "$schema": "https://schemas.kicad.org/erc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-10-13T23:20:48",
+    "ignored_checks": [
+        {
+            "description": "Global label only appears once in the schematic",
+            "key": "single_global_label"
+        },
+        {
+            "description": "Four connection points are joined together",
+            "key": "four_way_junction"
+        },
+        {
+            "description": "SPICE model issue",
+            "key": "simulation_model_issue"
+        },
+        {
+            "description": "Assigned footprint doesn't match footprint filters",
+            "key": "footprint_filter"
+        }
+    ],
+    "included_severities": [
+        "error",
+        "warning"
+    ],
+    "kicad_version": "10.0.5",
+    "sheets": [
+        {
+            "path": "/",
+            "uuid_path": "/57c19560-048b-4702-9572-1af530e70d09",
+            "violations": []
+        },
+        {
+            "path": "/Power and protection/",
+            "uuid_path": "/57c19560-048b-4702-9572-1af530e70d09/fa447e0b-524c-4e5d-b27b-cfe85c9e62f6",
+            "violations": []
+        },
+        {
+            "path": "/Teensy controller/",
+            "uuid_path": "/57c19560-048b-4702-9572-1af530e70d09/84bc0956-db3b-4267-8d35-6b9e55c4d652",
+            "violations": []
+        },
+        {
+            "path": "/Thrust acquisition/",
+            "uuid_path": "/57c19560-048b-4702-9572-1af530e70d09/160c8c3f-30e0-4261-927d-3c068e4948ab",
+            "violations": []
+        },
+        {
+            "path": "/Ratiometric reference/",
+            "uuid_path": "/57c19560-048b-4702-9572-1af530e70d09/f00e6c96-6285-4ec9-a9bb-7f1c2df077ff",
+            "violations": []
+        },
+        {
+            "path": "/Pressure acquisition/",
+            "uuid_path": "/57c19560-048b-4702-9572-1af530e70d09/7c409981-d5d3-43ed-99dc-916e6bb5f280",
+            "violations": []
+        },
+        {
+            "path": "/XBee telemetry/",
+            "uuid_path": "/57c19560-048b-4702-9572-1af530e70d09/ce903bf0-b438-4267-a366-0c0a8ad17b14",
+            "violations": []
+        },
+        {
+            "path": "/Ignition interface/",
+            "uuid_path": "/57c19560-048b-4702-9572-1af530e70d09/4eb6096c-6cf7-43a2-a674-8c84b56bb727",
+            "violations": []
+        }
+    ],
+    "source": "tms.kicad_sch"
+}

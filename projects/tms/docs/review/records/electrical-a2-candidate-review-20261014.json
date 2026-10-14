@@ -1,0 +1,243 @@
+{
+  "blocking": true,
+  "findings": [
+    {
+      "blocking": true,
+      "check_id": "netlist_parity",
+      "detail": "check crashed: native PCB operation failed: ./src/common/stdpbase.cpp(59): assert \"\"traits\"\" failed in Get(): create wxApp before calling this\nTraceback (most recent call last):\n  File \"<string>\", line 55, in <module>\nRuntimeError: Cannot obtain native board outline\n",
+      "kind": "machine_failure"
+    },
+    {
+      "blocking": true,
+      "check_id": "placement",
+      "detail": "No routed traces (segments) found â€” board has placement only, no copper connections. Route traces before fabrication.",
+      "kind": "machine_failure"
+    },
+    {
+      "blocking": true,
+      "check_id": "drc",
+      "detail": "check crashed: KiCad failed to produce a valid report (exit -6): ",
+      "kind": "machine_failure"
+    },
+    {
+      "blocking": true,
+      "check_id": "jlcpcb_dfm",
+      "detail": "check crashed: JLCPCB DRC failed: ",
+      "kind": "machine_failure"
+    },
+    {
+      "blocking": true,
+      "check_id": "assembly_contracts",
+      "detail": "board has no orderable BOM parts",
+      "kind": "machine_failure"
+    },
+    {
+      "blocking": true,
+      "check_id": "signoff",
+      "detail": "0/12 current decisions: ignition-current unsigned; safe-state unsigned; current-path unsigned; controller-sockets unsigned; xbee-fit unsigned; adc-reference unsigned; thermal unsigned; isolated-return unsigned; mechanical unsigned; sourcing unsigned; shared.schematic-readability unsigned; shared.layout-handover unsigned",
+      "kind": "human_decision"
+    }
+  ],
+  "pcb_hash": "b310780768c6629d5e36438f411de8b84ccfc0931ddf7e73dd58263ccf389a90",
+  "project": "tms",
+  "results": [
+    {
+      "advisories": [],
+      "check_id": "research",
+      "detail": "requirements, cited basis and archived evidence verified",
+      "duration_ms": 77,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "engineering validity of those choices",
+        "proves": "requirements, cited basis and source integrity",
+        "requires_external_tool": false
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "datasheets",
+      "detail": "required datasheet bytes verified; 120 physical schematic parts inspected (shared passive exemptions apply)",
+      "duration_ms": 276,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "interpretation of electrical limits",
+        "proves": "required datasheets are archived and verified",
+        "requires_external_tool": false
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "erc",
+      "detail": "0 violation(s), 0 unspecified-pin warnings waived",
+      "duration_ms": 3223,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "circuit fitness or safe operation",
+        "proves": "fresh KiCad electrical-rule findings",
+        "requires_external_tool": true
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "schematic_ownership",
+      "detail": "netmap matches the current schematic",
+      "duration_ms": 638,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "circuit correctness",
+        "proves": "netmap matches the current schematic",
+        "requires_external_tool": true
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "netlist_parity",
+      "detail": "check crashed: native PCB operation failed: ./src/common/stdpbase.cpp(59): assert \"\"traits\"\" failed in Get(): create wxApp before calling this\nTraceback (most recent call last):\n  File \"<string>\", line 55, in <module>\nRuntimeError: Cannot obtain native board outline\n",
+      "duration_ms": 1107,
+      "finding_kind": "machine_failure",
+      "passed": false,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "which circuit is correct",
+        "proves": "exact schematic/PCB pin-net agreement and forward-annotation links",
+        "requires_external_tool": true
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "placement",
+      "detail": "No routed traces (segments) found â€” board has placement only, no copper connections. Route traces before fabrication.",
+      "duration_ms": 92,
+      "finding_kind": "machine_failure",
+      "passed": false,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "assembly or enclosure fit",
+        "proves": "implemented placement geometry checks",
+        "requires_external_tool": false
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "design_rules",
+      "detail": "=== docs/DESIGN_RULES.md geometric checks: tms.kicad_pcb ===\n\nRESULT: 0 violation(s), 0 check(s) passed\nSCOPE: geometric rules 1.2, 2.2, 5.1, 6.1 only (4 of 42 numbered subsections in docs/DESIGN_RULES.md). The remainder are not machine-checkable from the board file and are covered by the Phase 5 human review.",
+      "duration_ms": 311,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "all house rules or source applicability",
+        "proves": "geometric rules 1.2, 2.2, 5.1 and 6.1",
+        "requires_external_tool": true
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "drc",
+      "detail": "check crashed: KiCad failed to produce a valid report (exit -6): ",
+      "duration_ms": 3739,
+      "finding_kind": "machine_failure",
+      "passed": false,
+      "scope": {
+        "deterministic": false,
+        "does_not_prove": "RF, thermal or functional behavior",
+        "proves": "two fresh zone-refilled DRC runs and routing completeness",
+        "requires_external_tool": true
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "jlcpcb_dfm",
+      "detail": "check crashed: JLCPCB DRC failed: ",
+      "duration_ms": 3156,
+      "finding_kind": "machine_failure",
+      "passed": false,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "assembly eligibility, current capacity or supplier order acceptance",
+        "proves": "independent dated JLCPCB geometry and declared stackup checks",
+        "requires_external_tool": true
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "assembly_contracts",
+      "detail": "board has no orderable BOM parts",
+      "duration_ms": 3,
+      "finding_kind": "machine_failure",
+      "passed": false,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "supplier preview approval, mechanical fit or model shape correctness",
+        "proves": "exact-part rotation rules, local model files and wire-pad label/net association",
+        "requires_external_tool": false
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "routing_settings",
+      "detail": "Native routing: 0 segments, 0 arcs, 0 vias; 0 locked item(s). Default width: 0.25 mm; 6 positive width preset(s).",
+      "duration_ms": 0,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "ampacity, thermal margin, branch currents, effective custom rules or router UI selection",
+        "proves": "stored native routing widths/locks and project routing-setting coverage",
+        "requires_external_tool": false
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "routing_topology",
+      "detail": "Inspected 0 straight tracks: no findings. Excluded 0 arcs and 0 custom/offset pads. Native DRC remains the connectivity gate; copper was not changed.",
+      "duration_ms": 347,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "electrical connectivity, ampacity, via/zone/arc topology or whether an off-centre entry is intentional",
+        "proves": "covered straight tracks, short segments and off-centre native pad contacts",
+        "requires_external_tool": true
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "schematic_quality",
+      "detail": "8 sheet(s) checked",
+      "duration_ms": 164,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "visual readability, electrical correctness, or page-flow quality",
+        "proves": "all referenced sheets have title/revision and acceptable density",
+        "requires_external_tool": false
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "signoff",
+      "detail": "0/12 current decisions: ignition-current unsigned; safe-state unsigned; current-path unsigned; controller-sockets unsigned; xbee-fit unsigned; adc-reference unsigned; thermal unsigned; isolated-return unsigned; mechanical unsigned; sourcing unsigned; shared.schematic-readability unsigned; shared.layout-handover unsigned",
+      "duration_ms": 428,
+      "finding_kind": "human_decision",
+      "passed": false,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "the reviewer inspected correctly, measured hardware, or made a safe decision",
+        "proves": "named, dated, project-specific decisions match the exact current design and review profile",
+        "requires_external_tool": false
+      }
+    }
+  ],
+  "schema_version": 1,
+  "schematic_hash": "b7680a89af014cfe8b040548bb25823d75e0c7718317e2ac0b89daa320337ca3"
+}
