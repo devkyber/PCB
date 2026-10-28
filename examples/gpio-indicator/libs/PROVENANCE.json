@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "distribution": "Installed official KiCad 10.0.6 libraries",
+  "author_review": "Codex, 2026-10-29; library/pad mapping comparison only; no human signoff",
+  "source": "https://gitlab.com/kicad/libraries",
+  "records": [
+    {
+      "symbol": "Demo:R",
+      "source_symbol": "Device:R",
+      "source_symbol_library_sha256": "e03831d421787531315439a4af4229e5d5d88ee51c7f36ba3f658ddf2978cda9",
+      "footprint": "Demo:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",
+      "source_footprint": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",
+      "upstream_path": "libs/upstream/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.kicad_mod",
+      "upstream_sha256": "1ba096b69c79e588cc54946fb6648699e5b301f67f8df0e0e0be43dcab326436",
+      "local_path": "libs/Demo.pretty/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.kicad_mod",
+      "local_sha256": "bf616ce7d49ae02d5c87d01dd19957ebf3aa66007809680c450de8561f4681a1",
+      "changes": [
+        "Only model URI rewritten to project-local exact model bytes"
+      ],
+      "mpn": "MFR-25FBF52-1K1",
+      "pad_functions": {
+        "1": "nonpolar resistor terminal",
+        "2": "nonpolar resistor terminal"
+      },
+      "models": [
+        {
+          "source": "C:\\Program Files\\KiCad\\10.0\\share\\kicad\\3dmodels\\Resistor_THT.3dshapes\\R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step",
+          "path": "libs/models/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step",
+          "sha256": "85bdadc9190739c38429da06b1d9c76ccf33aef9a0794a2e7a9dd5b58d9d05fe",
+          "upstream_uri": "${KICAD10_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step",
+          "local_uri": "${KIPRJMOD}/libs/models/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step",
+          "upstream_sha256": "85bdadc9190739c38429da06b1d9c76ccf33aef9a0794a2e7a9dd5b58d9d05fe",
+          "upstream_path": "libs/upstream/models/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step"
+        }
+      ],
+      "manufacturer_evidence_ids": [
+        "sha256:b460acdb476469774e0785a8ef85aec79e2d95fe41beaa79c5a414e4e95e3fe0"
+      ],
+      "manufacturer_locations": [
+        "MFR datasheet p2 ordering table",
+        "p3 MFR-25 dimensions 6.3+/-0.5 x2.4+/-0.2, lead0.55+/-0.05mm"
+      ],
+      "physical_fit_qualified": false,
+      "upstream_url": "https://gitlab.com/kicad/libraries/kicad-footprints/-/blob/master/Resistor_THT.pretty/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.kicad_mod",
+      "fabricated_only": false
+    },
+    {
+      "symbol": "Demo:LED",
+      "source_symbol": "Device:LED",
+      "source_symbol_library_sha256": "e03831d421787531315439a4af4229e5d5d88ee51c7f36ba3f658ddf2978cda9",
+      "footprint": "Demo:LED_D3.0mm",
+      "source_footprint": "LED_THT:LED_D3.0mm",
+      "upstream_path": "libs/upstream/LED_D3.0mm.kicad_mod",
+      "upstream_sha256": "d45c606dbf639522eaeae8c6bd2569747ee454daff87ab2db66bdad3200676d0",
+      "local_path": "libs/Demo.pretty/LED_D3.0mm.kicad_mod",
+      "local_sha256": "9928bcc8ef35ea406d56af1480e43c606d8d646ba247b3d453d80386cd0f5b10",
+      "changes": [
+        "Only model URI rewritten to project-local exact model bytes"
+      ],
+      "mpn": "WP710A10ID",
+      "pad_functions": {
+        "1": "K cathode",
+        "2": "A anode"
+      },
+      "models": [
+        {
+          "source": "C:\\Program Files\\KiCad\\10.0\\share\\kicad\\3dmodels\\LED_THT.3dshapes\\LED_D3.0mm.step",
+          "path": "libs/models/LED_D3.0mm.step",
+          "sha256": "e83c2186ad887c36d869f44e28c7b80646ea10cb388697b4380f5a2777268371",
+          "upstream_uri": "${KICAD10_3DMODEL_DIR}/LED_THT.3dshapes/LED_D3.0mm.step",
+          "local_uri": "${KIPRJMOD}/libs/models/LED_D3.0mm.step",
+          "upstream_sha256": "e83c2186ad887c36d869f44e28c7b80646ea10cb388697b4380f5a2777268371",
+          "upstream_path": "libs/upstream/models/LED_D3.0mm.step"
+        }
+      ],
+      "manufacturer_evidence_ids": [
+        "sha256:42d464fbfd8d3ddef65fa6f9226d298547cdb25d5369aff0c47e5f896595c4bd"
+      ],
+      "manufacturer_locations": [
+        "WP710A10ID p1 polarity/package drawing",
+        "p2 electrical/maximum tables"
+      ],
+      "physical_fit_qualified": false,
+      "upstream_url": "https://gitlab.com/kicad/libraries/kicad-footprints/-/blob/master/LED_THT.pretty/LED_D3.0mm.kicad_mod",
+      "fabricated_only": false
+    },
+    {
+      "symbol": "Demo:Conn_01x05_Pin",
+      "source_symbol": "Connector:Conn_01x05_Pin",
+      "source_symbol_library_sha256": "1596718c70ff14cc217a9297dcb48bad23bdffcca0881600e9e66be16953bf59",
+      "footprint": "Demo:PinHeader_1x05_P2.54mm_Vertical",
+      "source_footprint": "Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical",
+      "upstream_path": "libs/upstream/PinHeader_1x05_P2.54mm_Vertical.kicad_mod",
+      "upstream_sha256": "a9beaa5e3bf9f73f4667fd503d8ddc47f81aec7999b51211890c919363099acf",
+      "local_path": "libs/Demo.pretty/PinHeader_1x05_P2.54mm_Vertical.kicad_mod",
+      "local_sha256": "8e494ecb4bbaff9fecbe2b16962684513fae788c9b9c9902172781d64b01c2e3",
+      "changes": [
+        "Only model URI rewritten to project-local exact model bytes"
+      ],
+      "mpn": "61300511121",
+      "pad_functions": {
+        "1": "IN1",
+        "2": "IN2",
+        "3": "IN3",
+        "4": "IN4",
+        "5": "GND"
+      },
+      "models": [
+        {
+          "source": "C:\\Program Files\\KiCad\\10.0\\share\\kicad\\3dmodels\\Connector_PinHeader_2.54mm.3dshapes\\PinHeader_1x05_P2.54mm_Vertical.step",
+          "path": "libs/models/PinHeader_1x05_P2.54mm_Vertical.step",
+          "sha256": "f03b716e453f6d4f2a111a227c671d96f92708e72a5a663cd4889296d021f4c3",
+          "upstream_uri": "${KICAD10_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x05_P2.54mm_Vertical.step",
+          "local_uri": "${KIPRJMOD}/libs/models/PinHeader_1x05_P2.54mm_Vertical.step",
+          "upstream_sha256": "f03b716e453f6d4f2a111a227c671d96f92708e72a5a663cd4889296d021f4c3",
+          "upstream_path": "libs/upstream/models/PinHeader_1x05_P2.54mm_Vertical.step"
+        }
+      ],
+      "manufacturer_evidence_ids": [
+        "sha256:b91171c2b94275ccb3824762a4b77dcd0cd9031e8a818e869a6c9f18c053ad8b"
+      ],
+      "manufacturer_locations": [
+        "61300511121 p1 five-pin 2.54mm drawing and recommended hole pattern"
+      ],
+      "physical_fit_qualified": false,
+      "upstream_url": "https://gitlab.com/kicad/libraries/kicad-footprints/-/blob/master/Connector_PinHeader_2.54mm.pretty/PinHeader_1x05_P2.54mm_Vertical.kicad_mod",
+      "fabricated_only": false
+    },
+    {
+      "symbol": "Demo:MountingHole",
+      "source_symbol": "Mechanical:MountingHole",
+      "source_symbol_library_sha256": "7046e0cfb6bfc84cf614760762ff72547d6b2d9e2d0d94bb3f16b8f6bc18aade",
+      "footprint": "Demo:MountingHole_3.2mm_M3",
+      "source_footprint": "MountingHole:MountingHole_3.2mm_M3",
+      "upstream_path": "libs/upstream/MountingHole_3.2mm_M3.kicad_mod",
+      "upstream_sha256": "3853c52bba27d3e3e3e18db44a20dfb296eb9e6cd16ebf26fe4a96a2ee8add3b",
+      "local_path": "libs/Demo.pretty/MountingHole_3.2mm_M3.kicad_mod",
+      "local_sha256": "3853c52bba27d3e3e3e18db44a20dfb296eb9e6cd16ebf26fe4a96a2ee8add3b",
+      "changes": [
+        "Only model URI rewritten to project-local exact model bytes"
+      ],
+      "mpn": "",
+      "pad_functions": {},
+      "models": [],
+      "manufacturer_evidence_ids": [],
+      "manufacturer_locations": [
+        "Fabricated nonplated hole, not a purchased component"
+      ],
+      "physical_fit_qualified": false,
+      "upstream_url": "https://gitlab.com/kicad/libraries/kicad-footprints/-/blob/master/MountingHole.pretty/MountingHole_3.2mm_M3.kicad_mod",
+      "fabricated_only": true
+    }
+  ],
+  "upstream_version": "10.0.6"
+}

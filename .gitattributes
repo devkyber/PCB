@@ -5,3 +5,13 @@
 # Do not apply core.autocrlf or text normalization to the exact-source archive.
 **/evidence/** -text
 **/evidence/files/** -diff
+
+# The packaged supplier baseline must match the canonical bytes on every OS.
+templates/jlcpcb-2layer-1oz/jlcpcb-2layer-1oz.kicad_pro -text
+templates/jlcpcb-2layer-1oz/jlcpcb-2layer-1oz.kicad_dru -text
+
+# The media manifest identifies exact captured output bytes, including JSON.
+docs/media/** -text
+
+# The self-contained example carries byte-bound CAD/library/source receipts.
+examples/gpio-indicator/** -text

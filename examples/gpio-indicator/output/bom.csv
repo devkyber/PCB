@@ -1,0 +1,4 @@
+Comment,Designator,Footprint,LCSC Part #,Quantity,MPN
+WP710A10ID,"D1,D2,D3,D4",Demo:LED_D3.0mm,,4,WP710A10ID
+61300511121,J1,Demo:PinHeader_1x05_P2.54mm_Vertical,,1,61300511121
+1.1 kOhm 1%,"R1,R2,R3,R4",Demo:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal,,4,MFR-25FBF52-1K1

@@ -1,0 +1,17 @@
+schema_version: 1
+items:
+  - id: gpio-drive
+    prompt: Verify the actual controller's per-pin and aggregate source-current capability and reset behavior.
+    rationale: No controller is selected or qualified by this generic indicator example.
+    evidence_refs: [REQUIREMENTS.md, DESIGN_BASIS.md]
+    safety_tags: [electrical]
+  - id: physical-parts
+    prompt: Check actual parts, LED polarity, header orientation, mounting clearance and hand assembly.
+    rationale: Native CAD parity and generic 3D models do not prove physical fit.
+    evidence_refs: [libs/PROVENANCE.json]
+    safety_tags: [mechanical, assembly]
+  - id: bench
+    prompt: Record low-voltage bench current, independent-channel behavior and useful brightness before use.
+    rationale: This educational example is unbuilt and has no measured performance.
+    evidence_refs: [REQUIREMENTS.md]
+    safety_tags: [qualification]

@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name "Demo")(type "KiCad")(uri "${KIPRJMOD}/libs/Demo.kicad_sym")(options "")(descr "Selected official KiCad symbols; see libs/PROVENANCE.json"))
+)

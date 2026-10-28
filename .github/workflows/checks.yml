@@ -1,0 +1,49 @@
+name: Software and package checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  software:
+    name: Python software checks (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.11'
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          enable-cache: true
+      - name: Install locked workspace and test dependencies
+        run: uv sync --locked
+      # This explicit suite covers software behavior with mocked native/supplier
+      # boundaries. It does not run ERC/DRC or qualify the checked-in boards.
+      - name: Software preservation, evidence, review gates and CLI
+        run: >-
+          uv run --locked pytest -q -m "not slow and not network"
+          tests/test_package_smoke.py tests/test_toolchain.py tests/test_doctor.py
+          tests/test_cli_encoding.py tests/test_demo.py tests/test_demo_change.py tests/test_project.py
+          tests/test_state.py tests/test_status_cli.py tests/test_update_guard.py
+          tests/test_transaction.py tests/test_cleanup.py tests/test_release.py
+          tests/test_stock.py tests/test_sch_io_multiline.py
+          tests/evidence/test_archive.py tests/evidence/test_index.py
+          tests/evidence/test_git_archive.py tests/evidence/test_checks.py
+          tests/review/test_signoff.py tests/review/test_registry.py
+          tests/schematic/test_intent.py tests/layout/test_layout_intent.py
+          tests/layout/test_official_footprint_provenance.py
+      - name: Build both wheels and verify clean external installation
+        run: uv run --locked python tools/check_package.py
+      - name: Landing-page links and captured media identities
+        run: uv run --locked python tools/check_readme.py

@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "source_project": "examples/gpio-indicator",
+  "scope": "Completed native update demonstration and author inspection; no owner signoff or fabrication approval.",
+  "outputs": {
+    "change-proof.md": {
+      "sha256": "34fdaae32c65549b44391cfe57ce2cb5b3206440775c46362c4302ebfbeabbf5",
+      "bytes": 3044
+    },
+    "change-proof.json": {
+      "sha256": "3c3cc8b9dc211d868f2fe7af0f72ff9673d5b615e5865233396299f425a4142f",
+      "bytes": 10876
+    },
+    "REVIEW.md": {
+      "sha256": "a35e69b914c929554f0f6be053bf3b1ca57fec11fa7f6863ca956fae4bc27d5f",
+      "bytes": 2760
+    }
+  }
+}

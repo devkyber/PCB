@@ -1,0 +1,56 @@
+schema_version: 1
+records:
+- id: sha256:42d464fbfd8d3ddef65fa6f9226d298547cdb25d5369aff0c47e5f896595c4bd
+  manufacturer: Kingbright
+  part_numbers:
+  - WP710A10ID
+  title: WP710A10ID T-1 (3mm) Solid State Lamp
+  revision: V.12A, 08/11/2023
+  source_url: https://www.kingbrightusa.com/images/catalog/spec/WP710A10ID.pdf
+  retrieved_on: '2026-10-28'
+  path: files/WP710A10ID_WP710A10ID_42d464fbfd8d.pdf
+  sha256: 42d464fbfd8d3ddef65fa6f9226d298547cdb25d5369aff0c47e5f896595c4bd
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - D1
+  - D2
+  - D3
+  - D4
+- id: sha256:b460acdb476469774e0785a8ef85aec79e2d95fe41beaa79c5a414e4e95e3fe0
+  manufacturer: Yageo
+  part_numbers:
+  - MFR-25FBF52-1K1
+  title: MFR Series General Purpose Metal Film Resistors
+  revision: V.4, April 3 2024
+  source_url: https://yageogroup.com/content/datasheet/asset/file/YAGEO-MFR_DATASHEET
+  retrieved_on: '2026-10-28'
+  path: files/MFR-25FBF52-1K1_YAGEO-MFR_DATASHEET_b460acdb4764.pdf
+  sha256: b460acdb476469774e0785a8ef85aec79e2d95fe41beaa79c5a414e4e95e3fe0
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - R1
+  - R2
+  - R3
+  - R4
+- id: sha256:b91171c2b94275ccb3824762a4b77dcd0cd9031e8a818e869a6c9f18c053ad8b
+  manufacturer: Wuerth Elektronik
+  part_numbers:
+  - '61300511121'
+  title: 61300511121 WR-PHD Pin Header
+  revision: 003.001, 2023-08-15
+  source_url: https://www.we-online.com/components/products/datasheet/61300511121.pdf
+  retrieved_on: '2026-10-28'
+  path: files/61300511121_61300511121_b91171c2b942.pdf
+  sha256: b91171c2b94275ccb3824762a4b77dcd0cd9031e8a818e869a6c9f18c053ad8b
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - J1
