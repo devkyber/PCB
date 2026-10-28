@@ -268,6 +268,12 @@ review. Missing rotation coverage/models or missing/stale supplier review blocks
 release. The file is included in source and sign-off fingerprints. See
 [the assembly workflow](JLCPCB_ASSEMBLY.md) for editing and review instructions.
 
+Publication directories, their ancestors and the operation workspace must be
+ordinary contained paths. Symlinks and Windows junctions are rejected so a
+preview or release cannot redirect replacement into an unrelated owner folder.
+Source hashes are checked before returning a blocked result as well as before
+publication. A concurrent source edit requires rerunning on the saved design.
+
 Review independently runs the dated JLCPCB two-layer / 1 oz / green-mask geometry
 baseline on a disposable copy. It cannot be weakened by project exclusions or
 ignored manufacturing errors. The normal project DRC also runs. Release includes

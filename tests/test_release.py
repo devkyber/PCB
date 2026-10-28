@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 
 import pytest
@@ -8,6 +9,97 @@ from pcb_copilot.models import Lifecycle
 from pcb_copilot.project import load_project
 from pcb_copilot.review.models import CheckResult, CheckScope, ReviewReport
 from pcb_copilot.state import effective_lifecycle
+
+
+@pytest.mark.parametrize('preview,ancestor', [(False, False), (True, False), (True, True)])
+def test_release_rejects_aliased_destination_without_touching_owner_directory(
+    project_copy, monkeypatch, preview, ancestor,
+):
+    project = load_project(project_copy)
+    owner = project.root / 'owner-notes'
+    owner.mkdir()
+    sentinel = owner / 'untracked-owner.txt'
+    sentinel.write_bytes(b'unrelated owner bytes must survive')
+    destination = project.root / ('output/jlcpcb-preview' if preview else 'fabrication')
+    alias = destination.parent if ancestor else destination
+    alias.parent.mkdir(exist_ok=True)
+    try:
+        alias.symlink_to(owner, target_is_directory=True)
+    except OSError as exc:
+        pytest.skip(f'directory symlinks unavailable: {exc}')
+    monkeypatch.setattr(release, 'review_project', lambda *a: pytest.fail('aliased output reached review'))
+    with pytest.raises(ValueError, match='symlink or reparse'):
+        release.release_project(project, preview=preview)
+    assert sentinel.read_bytes() == b'unrelated owner bytes must survive'
+    assert alias.is_symlink()
+    assert list(owner.iterdir()) == [sentinel]
+
+
+def test_alias_created_during_export_cannot_redirect_publication(project_copy, exporter, monkeypatch):
+    project = load_project(project_copy)
+    owner = project.root / 'owner-notes'
+    owner.mkdir()
+    sentinel = owner / 'keep.txt'
+    sentinel.write_bytes(b'owner')
+
+    def redirected(snapshot, output):
+        result = exporter(snapshot, output)
+        (project.root / 'output').mkdir(exist_ok=True)
+        try:
+            os.symlink(owner, project.root / 'output/jlcpcb-preview', target_is_directory=True)
+        except OSError as exc:
+            pytest.skip(f'directory symlinks unavailable: {exc}')
+        return result
+
+    monkeypatch.setattr(release, 'export_manufacturing', redirected)
+    with pytest.raises(ValueError, match='symlink or reparse'):
+        release.release_project(project, preview=True)
+    assert sentinel.read_bytes() == b'owner'
+    assert list(owner.iterdir()) == [sentinel]
+
+
+def test_blocked_review_cannot_return_stale_owner_results(project_copy, monkeypatch):
+    project = load_project(project_copy)
+
+    def edited(snapshot):
+        result = report(snapshot, True)
+        (project.root / 'DEVIATIONS.md').write_bytes(b'new owner decision')
+        return result
+
+    monkeypatch.setattr(release, 'review_project', edited)
+    with pytest.raises(RuntimeError, match='inputs changed'):
+        release.release_project(project)
+    assert (project.root / 'DEVIATIONS.md').read_bytes() == b'new owner decision'
+    assert not (project.root / 'fabrication').exists()
+
+
+def test_blocked_manufacturing_cannot_return_stale_owner_results(project_copy, exporter, monkeypatch):
+    project = load_project(project_copy)
+
+    def edited(*args, **kwargs):
+        (project.root / 'DEVIATIONS.md').write_bytes(b'changed during supplier checks')
+        return {'passed': False}
+
+    monkeypatch.setattr(release, 'check_stock', edited)
+    with pytest.raises(RuntimeError, match='inputs changed'):
+        release.release_project(project)
+    assert (project.root / 'DEVIATIONS.md').read_bytes() == b'changed during supplier checks'
+
+
+def test_release_state_alias_never_overwrites_owner_file(project_copy, exporter):
+    project = load_project(project_copy)
+    workspace = project.root / '.pcb-copilot'
+    workspace.mkdir(exist_ok=True)
+    owner = project.root / 'owner-note.json'
+    owner.write_bytes(b'unrelated owner note')
+    try:
+        (workspace / 'release.json').symlink_to(owner)
+    except OSError as exc:
+        pytest.skip(f'symlinks unavailable: {exc}')
+    with pytest.raises(ValueError, match='symlink or reparse'):
+        release.release_project(project)
+    assert owner.read_bytes() == b'unrelated owner note'
+    assert not (project.root / 'fabrication').exists()
 
 
 def report(project, blocked=False):

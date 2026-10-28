@@ -6,6 +6,7 @@ import hashlib
 import json
 import os
 import shutil
+import stat
 import tempfile
 from contextlib import contextmanager
 from pathlib import Path
@@ -21,10 +22,37 @@ def contained(root: Path, path: Path) -> Path:
     return resolved
 
 
+def unaliased_path(root: Path, path: Path) -> Path:
+    """Keep publication paths lexical and reject links/junctions before writes.
+
+    Resolving a destination first would turn a link to an unrelated owner
+    directory into permission to replace that directory.
+    """
+    root = root.resolve()
+    absolute = path.absolute()
+    try:
+        relative = absolute.relative_to(root)
+    except ValueError as exc:
+        raise ValueError(f'publication path escapes project: {path}') from exc
+    if not relative.parts or any(part in {'.', '..'} for part in relative.parts):
+        raise ValueError(f'publication path must be contained: {path}')
+    current = root
+    for part in relative.parts:
+        current /= part
+        try:
+            info = current.lstat()
+        except FileNotFoundError:
+            continue
+        if stat.S_ISLNK(info.st_mode) or getattr(info, 'st_file_attributes', 0) & 0x400:
+            raise ValueError(f'publication path must not contain a symlink or reparse point: {current}')
+    return absolute
+
+
 def input_hashes(project: Project, *, include_signoff: bool = True) -> dict[str, str | None]:
     """Bind review to CAD, rules, evidence, intent and engineering decisions."""
     paths = set(schematic_files(project.schematic_path))
-    paths.update((project.pcb_path, project.pcb_path.with_suffix('.kicad_pro'),
+    paths.update((project.pcb_path, project.schematic_path.with_suffix('.kicad_pro'),
+                  project.schematic_path.with_suffix('.kicad_dru'), project.pcb_path.with_suffix('.kicad_pro'),
                   project.pcb_path.with_suffix('.kicad_dru'), project.netmap_path,
                   project.manifest_path, project.evidence_index_path))
     paths.update(project.root / name for name in (
@@ -88,7 +116,7 @@ class RecoveryRequired(RuntimeError):
 
 @contextmanager
 def recovery_directory(project: Project, operation: str):
-    workspace = contained(project.root, project.root / '.pcb-copilot')
+    workspace = unaliased_path(project.root, project.root / '.pcb-copilot')
     workspace.mkdir(exist_ok=True)
     directory = Path(tempfile.mkdtemp(prefix=f'recovery-{operation}-', dir=workspace))
     try:
@@ -105,7 +133,7 @@ def recovery_directory(project: Project, operation: str):
 
 @contextmanager
 def project_lock(project: Project):
-    workspace = contained(project.root, project.root / '.pcb-copilot')
+    workspace = unaliased_path(project.root, project.root / '.pcb-copilot')
     workspace.mkdir(exist_ok=True)
     if any(workspace.glob('recovery-*')):
         raise RecoveryRequired(f'Inspect retained recovery files in {workspace} before retrying')
@@ -231,7 +259,7 @@ def apply_files(project: Project, changes: dict[Path, bytes | None], expected: d
                         path.unlink(missing_ok=True)
                     else:
                         replace_bytes(path, before[path])
-                except BaseException as error:
+                except BaseException as error:  # noqa: BLE001 -- Complete other rollbacks even after interruption.
                     failures.append(str(error) or type(error).__name__)
             if failures:
                 raise RecoveryRequired(f'Rollback incomplete; originals and journal: {recovery}; '

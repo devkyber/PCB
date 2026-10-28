@@ -174,3 +174,42 @@ def test_temporary_file_collision_preserves_other_writer_data(tmp_path, publish)
         publish(target, b'candidate')
     assert temporary.read_bytes() == b'another writer owns these bytes'
     assert not target.exists()
+
+
+def test_distinct_schematic_companion_settings_are_snapshotted(project_copy, tmp_path):
+    from dataclasses import replace
+    from shutil import copyfile
+
+    from pcb_copilot.project import load_project
+    from pcb_copilot.transaction import assert_current, copy_inputs, input_hashes
+
+    project = load_project(project_copy)
+    schematic = project.root / 'capture.kicad_sch'
+    copyfile(project.schematic_path, schematic)
+    project = replace(project, schematic_path=schematic)
+    settings = schematic.with_suffix('.kicad_pro')
+    settings.write_bytes(b'{"erc": {"ignored": []}}')
+    expected = input_hashes(project)
+    assert expected['capture.kicad_pro']
+    copy_inputs(project, tmp_path / 'isolated', expected)
+    assert (tmp_path / 'isolated/capture.kicad_pro').read_bytes() == settings.read_bytes()
+    settings.write_bytes(b'{"erc": {"ignored": ["new"]}}')
+    with pytest.raises(RuntimeError, match='inputs changed'):
+        assert_current(project, expected)
+
+
+def test_operation_workspace_alias_is_rejected_before_any_owner_write(project_copy):
+    project = load_project(project_copy)
+    owner = project.root / 'owner-notes'
+    owner.mkdir()
+    note = owner / 'keep.txt'
+    note.write_bytes(b'owner')
+    try:
+        (project.root / '.pcb-copilot').symlink_to(owner, target_is_directory=True)
+    except OSError as exc:
+        pytest.skip(f'directory symlinks unavailable: {exc}')
+    with pytest.raises(ValueError, match='symlink or reparse'), tx.project_lock(project):
+        pytest.fail('aliased workspace acquired')
+    assert list(owner.iterdir()) == [note]
+    assert note.read_bytes() == b'owner'
+
