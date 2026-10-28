@@ -15,6 +15,26 @@ from pcb_copilot.transaction import input_hashes
 from tools import demo_change as change
 
 
+@pytest.mark.parametrize('selection', ['tests/fixtures/boards/frozen-board', '../external-board'])
+def test_cli_rejects_fixtures_and_external_projects_before_creating_output(tmp_path, monkeypatch, capsys, selection):
+    repository = tmp_path / 'repo'
+    repository.mkdir()
+    monkeypatch.setattr(change, '__file__', str(repository / 'tools/demo_change.py'))
+    output = tmp_path / 'external-output'
+    assert change.main(['--project', selection, '--output', str(output)]) == 2
+    assert not output.exists()
+    error = capsys.readouterr().err
+    assert ('inside this checkout' if selection.startswith('..') else 'frozen fixtures') in error
+
+
+def test_prepare_rejects_fixture_source_before_creating_any_snapshot(tmp_path):
+    repository = tmp_path / 'repo'
+    repository.mkdir()
+    with pytest.raises(ValueError, match='frozen fixtures'):
+        change.prepare(repository, repository / 'tests/fixtures/boards/frozen-board', tmp_path / 'output')
+    assert not (tmp_path / 'output').exists()
+
+
 def source_project(repository):
     source = repository / 'examples' / 'gpio-indicator'
     source.mkdir(parents=True)

@@ -11,7 +11,6 @@ import argparse
 import hashlib
 import json
 import math
-import re
 import subprocess
 import tempfile
 from datetime import UTC, datetime
@@ -19,6 +18,8 @@ from pathlib import Path
 
 import imageio_ffmpeg
 import pymupdf as fitz
+from media_evidence import demo_data, repository_binding
+from media_publication import publish_bundle
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 from pcb_copilot.project import load_project
@@ -185,47 +186,6 @@ def sheet_contact(sheets: list) -> Image.Image:
     return canvas
 
 
-def demo_data(path: Path) -> dict:
-    document = json.loads(path.read_text(encoding="utf-8"))
-    if not document.get("source_inputs_unchanged") or not document.get("snapshot_inputs_unchanged"):
-        raise ValueError("media requires a completed demo with unchanged source and snapshot inputs")
-    steps = document["steps"]
-    observed = {step["name"]: step for step in steps}
-    guard = observed["missing-preview"]
-    stderr = (path.parent / guard["stderr"]).read_text(encoding="utf-8")
-    expected = "No successful matching unconsumed preview"
-    if guard["exit_code"] != 2 or expected not in stderr:
-        raise ValueError("media requires the actual missing-preview rejection")
-    evidence = (path.parent / observed["evidence"]["stdout"]).read_text(encoding="utf-8")
-    review = document.get("review")
-    # Export a clearly normalized display copy; original stdout/stderr SHA-256s
-    # remain below. Native review internally creates its own temporary directory.
-    def normalize(value):
-        if isinstance(value, str):
-            return re.sub(r"[A-Za-z]:[\\/][^\n]*?pcb-copilot-review-[^\\/\s]+", "<native-review-snapshot>", value)
-        if isinstance(value, list):
-            return [normalize(item) for item in value]
-        if isinstance(value, dict):
-            return {key: normalize(item) for key, item in value.items()}
-        return value
-    review = normalize(review)
-    return {
-        "captured_utc": document["started_utc"], "source_project": document["source_project"],
-        "mode": document["mode"], "demo_exit_code": document["exit_code"],
-        "source_inputs_unchanged": True, "snapshot_inputs_unchanged": True,
-        "declared_input_count": len(document["source_inputs_before"]),
-        "source_input_hashes": document["source_inputs_before"],
-        "steps": [{"name": s["name"], "command": s["command"], "exit_code": s["exit_code"],
-                   "stdout_sha256": digest(path.parent / s["stdout"]),
-                   "stderr_sha256": digest(path.parent / s["stderr"])} for s in steps],
-        "evidence_excerpt": evidence.splitlines()[:5],
-        "guard_excerpt": next(line for line in stderr.splitlines() if expected in line),
-        "review": review,
-        "scope": "Recorded CLI results with temporary absolute review paths normalized. Original log hashes "
-                 "are retained. Not a screen recording, CAD edit demonstration or fabrication approval.",
-    }
-
-
 def scene(index: int, progress: float, board: Image.Image, sheets: list, demo: dict) -> Image.Image:
     canvas = base(1280, 720)
     draw = ImageDraw.Draw(canvas)
@@ -276,7 +236,7 @@ def scene(index: int, progress: float, board: Image.Image, sheets: list, demo: d
     return canvas
 
 
-def animations(board, sheets, demo):
+def animations(board, sheets, demo, output: Path):
     # Low frame rate keeps the in-README GIF light; the MP4 is the same evidence at 24 fps.
     fps, seconds = 4, 4
     frames = [scene(index, frame / (fps * seconds - 1), board, sheets, demo)
@@ -284,9 +244,9 @@ def animations(board, sheets, demo):
     palette = frames[0].resize((960, 540), Image.Resampling.LANCZOS).quantize(colors=128)
     gif_frames = [frame.resize((960, 540), Image.Resampling.LANCZOS).quantize(palette=palette,
                   dither=Image.Dither.NONE) for frame in frames]
-    gif_frames[0].save(MEDIA / "workflow.gif", save_all=True, append_images=gif_frames[1:],
+    gif_frames[0].save(output / "workflow.gif", save_all=True, append_images=gif_frames[1:],
                        duration=250, loop=0, optimize=True, disposal=1)
-    video = imageio_ffmpeg.write_frames(str(MEDIA / "workflow.mp4"), (1280, 720), fps=24,
+    video = imageio_ffmpeg.write_frames(str(output / "workflow.mp4"), (1280, 720), fps=24,
                                        codec="libx264", quality=8, macro_block_size=16,
                                        ffmpeg_log_level="error", output_params=["-movflags", "+faststart"])
     video.send(None)
@@ -311,31 +271,37 @@ def main():
     commands = []
 
     def render(work):
+        output = work / "assets"
+        output.mkdir()
         board, top, sheets, inputs = capture(project, work, commands)
-        hero(board).save(MEDIA / "hero.png", optimize=True)
-        hero(board, social=True).save(MEDIA / "social-preview.png", optimize=True)
-        gallery(sheets, top).save(MEDIA / "native-cad.png", optimize=True)
+        if inputs != demo["source_input_hashes"]:
+            raise RuntimeError("project changed after the transcript was validated")
+        hero(board).save(output / "hero.png", optimize=True)
+        hero(board, social=True).save(output / "social-preview.png", optimize=True)
+        gallery(sheets, top).save(output / "native-cad.png", optimize=True)
         sheet_contact(sheets).save(work / "all-sheets.png", optimize=True)
-        board.save(MEDIA / "rover-3d.png", optimize=True)
-        animations(board, sheets, demo)
-        (MEDIA / "demo-results.json").write_text(json.dumps(demo, indent=2) + "\n", encoding="utf-8")
+        board.save(output / "rover-3d.png", optimize=True)
+        animations(board, sheets, demo, output)
+        (output / "demo-results.json").write_text(json.dumps(demo, indent=2) + "\n", encoding="utf-8")
         outputs = ["hero.png", "social-preview.png", "native-cad.png", "rover-3d.png",
                    "workflow.gif", "workflow.mp4", "demo-results.json"]
         manifest = {
             "schema_version": 1, "generated_utc": datetime.now(UTC).isoformat(),
             "source_project": "projects/rover-pdb", "source_inputs": inputs,
-            "source_cad_unchanged": input_hashes(project) == inputs,
+            **repository_binding(ROOT, project.root, inputs),
+            "source_cad_unchanged": True,
             "kicad_version": subprocess.check_output([str(discover_toolchain(ROOT).kicad_cli), "version"],
                                                        encoding="utf-8").strip(),
             "schematic_sheets": [name for name, _ in sheets], "native_commands": commands,
             "generator_sha256": digest(Path(__file__)),
             "font_hashes": {path.name: digest(path) for path in sorted((MEDIA / "fonts").glob("*.ttf"))},
-            "outputs": {name: {"sha256": digest(MEDIA / name), "bytes": (MEDIA / name).stat().st_size}
+            "outputs": {name: {"sha256": digest(output / name), "bytes": (output / name).stat().st_size}
                         for name in outputs},
             "scope": "Native 3D renders and animated recorded CLI results. Not manufactured-board photos, "
                      "a screen recording, a successful edit, or fabrication approval.",
         }
-        (MEDIA / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+        (output / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+        publish_bundle(output, MEDIA, "manifest.json", source_check=lambda: assert_current(project, inputs))
         print(json.dumps({"outputs": manifest["outputs"], "review_sheet_contact": str(work / "all-sheets.png")}, indent=2))
 
     if args.work_dir:

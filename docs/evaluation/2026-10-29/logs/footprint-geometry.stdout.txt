@@ -1,0 +1,1 @@
+{"accepted": false, "exception": "ValueError", "message": "local footprint differs from archived KiCad source beyond allowed model URI replacements"}

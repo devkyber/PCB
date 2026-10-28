@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "source_project": "examples/gpio-indicator",
+  "scope": "One recorded Windows software fault evaluation. Raw process output retained; no general accuracy, hardware qualification or fabrication approval claim. Disposable CAD/preview trees remain external.",
+  "record": "evaluation.json",
+  "recorded_utc": "2026-10-28T18:38:25.705763+00:00",
+  "visual_generator_sha256": "5f9ca492ee815eee249e956ade8b50cb86f3e5ac71e8155c7de26d75e1cfd180",
+  "outputs": {
+    "evaluation.json": {
+      "sha256": "12fcc92009affeffc4fe56373e5f3f3981253303e7ba71503a8a409d358204a2",
+      "bytes": 174337
+    },
+    "evaluation.png": {
+      "sha256": "cba13eea6b878613991691590cc5631aec1f250f9f24ca6acac86df74071cb93",
+      "bytes": 110146
+    },
+    "logs/changed-candidate.stderr.txt": {
+      "sha256": "56e7a33413863b60c84f18d4f40a6b530d39b43914c8a24ef91fe39b0c81de3a",
+      "bytes": 290
+    },
+    "logs/changed-candidate.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/control-evidence.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/control-evidence.stdout.txt": {
+      "sha256": "c1dbf338152fbfaa933805df2b5c2847d9e33b1d109d703d102d9a56609474df",
+      "bytes": 242
+    },
+    "logs/control-footprints.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/control-footprints.stdout.txt": {
+      "sha256": "f92f7af1264bfded8d46ab37192637c5662bc8b0eb4d303044d0cba1fb825657",
+      "bytes": 142
+    },
+    "logs/evidence-corruption.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/evidence-corruption.stdout.txt": {
+      "sha256": "32e935e0e56d88f6bece24054ee42eae1805a95e90abcb9f40f80894102e6dce",
+      "bytes": 326
+    },
+    "logs/footprint-geometry.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/footprint-geometry.stdout.txt": {
+      "sha256": "76d502cd9684860678b32ffbc09f8265701e66a657e45487fb473daee16d0a51",
+      "bytes": 151
+    },
+    "logs/missing-preview.stderr.txt": {
+      "sha256": "56e7a33413863b60c84f18d4f40a6b530d39b43914c8a24ef91fe39b0c81de3a",
+      "bytes": 290
+    },
+    "logs/missing-preview.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/model-corruption.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/model-corruption.stdout.txt": {
+      "sha256": "5bd02101f558c497f66cd50d74d6e59bf32824b5b132f8078db251e48bc61040",
+      "bytes": 162
+    },
+    "logs/native-preview-control.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/native-preview-control.stdout.txt": {
+      "sha256": "151c99bfdaecaf3a5b2a30ea9def1ecb110d204c3bcbf3e983785a7d92ced977",
+      "bytes": 6000
+    },
+    "logs/selected-mpn.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/selected-mpn.stdout.txt": {
+      "sha256": "aee6c1e0955478745910a4db75c24f5434fc569ca6767eaeb8e34ddbdc45e116",
+      "bytes": 138
+    },
+    "report.md": {
+      "sha256": "e5057f05d887f635abe8cfab52e4614e916cc4826bab6ba3184df74666981170",
+      "bytes": 2417
+    }
+  }
+}

@@ -14,6 +14,8 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 import imageio_ffmpeg
+from media_evidence import repository_binding
+from media_publication import publish_bundle
 from PIL import Image, ImageDraw
 from render_readme_media import (
     BG,
@@ -34,7 +36,7 @@ from render_readme_media import (
 
 from pcb_copilot.project import load_project
 from pcb_copilot.toolchain import discover_toolchain
-from pcb_copilot.transaction import assert_current, input_hashes
+from pcb_copilot.transaction import assert_current
 
 
 def showcase(board: Image.Image, sheets: list) -> Image.Image:
@@ -67,11 +69,13 @@ def turntable_frame(board: Image.Image, index: int, frames: int) -> Image.Image:
 
 
 def render(work: Path, frames: int):
+    output = work / "assets"
+    output.mkdir()
     project = load_project(ROOT / "examples" / "gpio-indicator")
     commands = []
     board, _, sheets, before = capture(project, work, commands)
-    showcase(board, sheets).save(MEDIA / "gpio-demo.png", optimize=True)
-    board.save(MEDIA / "gpio-3d.png", optimize=True)
+    showcase(board, sheets).save(output / "gpio-demo.png", optimize=True)
+    board.save(output / "gpio-3d.png", optimize=True)
     snapshot = load_project(work / "project")
     cli = discover_toolchain(ROOT).kicad_cli
     orbit = work / "orbit"
@@ -112,9 +116,9 @@ def render(work: Path, frames: int):
         palette_sample.paste(images[index], (column * 960, 0))
     palette = palette_sample.quantize(colors=192)
     gifs = [image.quantize(palette=palette, dither=Image.Dither.NONE) for image in images]
-    gifs[0].save(MEDIA / "gpio-turntable.gif", save_all=True, append_images=gifs[1:],
+    gifs[0].save(output / "gpio-turntable.gif", save_all=True, append_images=gifs[1:],
                  duration=round(4000 / frames), loop=0, optimize=True, disposal=1)
-    writer = imageio_ffmpeg.write_frames(str(MEDIA / "gpio-turntable.mp4"), (960, 720), fps=24,
+    writer = imageio_ffmpeg.write_frames(str(output / "gpio-turntable.mp4"), (960, 720), fps=24,
                                         codec="libx264", quality=8, ffmpeg_log_level="error",
                                         output_params=["-movflags", "+faststart"])
     writer.send(None)
@@ -132,16 +136,18 @@ def render(work: Path, frames: int):
     manifest = {
         "schema_version": 1, "generated_utc": datetime.now(UTC).isoformat(),
         "source_project": "examples/gpio-indicator", "source_inputs": before,
-        "source_cad_unchanged": input_hashes(project) == before,
+        **repository_binding(ROOT, project.root, before),
+        "source_cad_unchanged": True,
         "kicad_version": subprocess.check_output([str(cli), "version"], encoding="utf-8").strip(),
         "generator_sha256": digest(Path(__file__)),
         "shared_renderer_sha256": digest(ROOT / "tools" / "render_readme_media.py"),
         "native_commands": sorted(commands, key=lambda item: str(item["command"])),
-        "outputs": {name: {"sha256": digest(MEDIA / name), "bytes": (MEDIA / name).stat().st_size}
+        "outputs": {name: {"sha256": digest(output / name), "bytes": (output / name).stat().st_size}
                     for name in outputs},
         "scope": "Actual native 3D views of an unbuilt educational PCB. No physical or fabrication approval.",
     }
-    (MEDIA / "example-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    (output / "example-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    publish_bundle(output, MEDIA, "example-manifest.json", source_check=lambda: assert_current(project, before))
     print(json.dumps({"outputs": manifest["outputs"], "visual_review": str(work / "turntable-contact.png")}, indent=2))
 
 

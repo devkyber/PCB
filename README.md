@@ -2,6 +2,8 @@
 
 **AI-assisted PCB engineering. Native KiCad. Evidence you can inspect.**
 
+[![Software and package checks](https://github.com/devkyber/PCB/actions/workflows/checks.yml/badge.svg)](https://github.com/devkyber/PCB/actions/workflows/checks.yml)
+
 ![PCB Copilot beside a native 3D render of the Rover power distribution board](docs/media/hero.png)
 
 Prepare scoped changes to real KiCad projects, check the candidate, inspect the
@@ -45,27 +47,27 @@ Saved KiCad + source evidence
 
 ## Try it on a real board
 
-Use **Python 3.11+**, [uv](https://docs.astral.sh/uv/getting-started/installation/)
-and **KiCad 10**. Native review also needs a Python runtime that can import
-KiCad's `pcbnew`; [setup and troubleshooting](docs/QUICKSTART.md) explain discovery.
+Get a first result with **Git**, **Python 3.11+** and
+[uv](https://docs.astral.sh/uv/getting-started/installation/).
 
 ```sh
 git clone https://github.com/devkyber/PCB.git
 cd PCB
 uv sync
-uv run pcb-copilot doctor
-uv run pcb-copilot status projects/rover-pdb
 uv run python tools/demo.py
 ```
 
-The quick demo copies declared Rover inputs to a new temporary directory, runs
+The quick demo copies the small GPIO indicator to a new temporary directory, runs
 status and archive verification, and exercises the actual missing-preview guard.
 It prints the path to a Markdown report, machine-readable transcript and exact
 command logs. The source board stays untouched. **It does not run native ERC/DRC.**
 
-Add `--full` to run the registered native review checks on that disposable copy:
+To inspect Rover instead, add `--project projects/rover-pdb`.
+For native review, install **KiCad 10** and a Python runtime that can import
+KiCad's `pcbnew`; [setup and troubleshooting](docs/QUICKSTART.md) explain discovery.
 
 ```sh
+uv run pcb-copilot doctor
 uv run python tools/demo.py --full
 ```
 
@@ -95,6 +97,27 @@ It stops at the fresh preview and prints the rendered PDF and exact hash. Inspec
 every page, then use the printed resume command to apply that exact candidate to
 the disposable copy. This author inspection is separate from owner fabrication
 sign-off. [Recorded proof](docs/media/change-proof.md) shows a completed run.
+
+## Test the rejection behavior
+
+[![Recorded Windows software evaluation: three valid controls passed and six invalid requests were rejected](docs/evaluation/2026-10-29/evaluation.png)](docs/EVALUATION.md#recorded-windows-run)
+
+Run a declared set of valid controls and deliberately broken inputs against
+disposable copies of the example:
+
+```sh
+uv run python tools/evaluate.py
+# With KiCad installed, also test a real preview followed by a changed candidate:
+uv run python tools/evaluate.py --native
+```
+
+The harness tests archive corruption, altered footprint geometry, model bytes,
+part identity and preview binding. Each case records its actual interface,
+diagnostic, exit code and source-preservation hashes. Native cases are explicitly
+skipped in quick mode. See [the procedure and scope](docs/EVALUATION.md).
+The [recorded Windows run](docs/evaluation/2026-10-29/report.md) observed all nine
+declared expectations in 14.72 seconds; raw logs and exact input hashes are
+published beside it. This small fault set does not measure general detection accuracy.
 
 ## Inspect the native design
 
@@ -150,6 +173,7 @@ supplier assembly checks, sign-off and interrupted-operation recovery.
 | [Design rules](docs/DESIGN_RULES.md) | Schematic readability, physical layout and review conventions |
 | [Limitations](docs/LIMITATIONS.md) | What checks establish and what needs engineering judgment |
 | [Roadmap](docs/ROADMAP.md) | Next capabilities and the evidence needed to claim them |
+| [Fault evaluation](docs/EVALUATION.md) | Reproduce controls and injected faults; inspect the measured scope |
 | [Media sources](docs/media/README.md) | Reproduce the images and video; inspect captured results |
 
 The shared CLI lives in `src/pcb_copilot`. The retained KiCad adapter lives in

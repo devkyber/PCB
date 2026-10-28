@@ -147,7 +147,7 @@ def write_report(output: Path, transcript: dict) -> None:
 
 
 def prepare(repository: Path, source: Path, output: Path) -> dict:
-    project = load_project(source)
+    project, _relative = demo.select_project(repository, source)
     transcript = {'schema_version': 1, 'started_utc': datetime.now(UTC).isoformat(),
                   'source_root': str(project.root), 'status': 'failed', 'exit_code': 2,
                   'source_inputs_before': input_hashes(project), 'steps': [], 'applied': False}
@@ -273,8 +273,8 @@ def main(argv: list[str] | None = None) -> int:
                 raise ValueError('resumed proof directory must be outside the repository')
             result = apply_reviewed(output, reviewed_sha256=args.reviewed_render_sha256, reviewer=args.reviewer)
         else:
-            source = (repository / args.project).resolve()
-            load_project(source)
+            project, _relative = demo.select_project(repository, args.project)
+            source = project.root
             if args.output and args.output.expanduser().resolve().is_relative_to(source):
                 raise ValueError('proof output must also be outside the source project')
             if args.output is None and Path(tempfile.gettempdir()).resolve().is_relative_to(source):
