@@ -123,7 +123,8 @@ def review_document(text: str, project_name: str, exit_code: int) -> dict:
     if len({item['check_id'] for item in results}) != len(results):
         raise ValueError('native review returned duplicate check identifiers')
     findings = review.get('findings', [])
-    if not isinstance(findings, list) or any(not isinstance(item, dict) for item in findings):
+    if not isinstance(findings, list) or any(not isinstance(item, dict)
+                                          or type(item.get('blocking')) is not bool for item in findings):
         raise ValueError('native review returned invalid findings')
     blocked = any(not item['passed'] for item in results) or any(item.get('blocking') is True for item in findings)
     if review['blocking'] != blocked or exit_code != int(blocked):

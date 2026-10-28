@@ -247,6 +247,8 @@ def test_archive_blockers_keep_exit_one_and_exact_logs(tmp_path, monkeypatch):
     ({'project': 'gpio-indicator', 'blocking': True, 'results': [{'check_id': 'erc', 'passed': False}]}, 0),
     ({'project': 'gpio-indicator', 'blocking': False, 'results': [
         {'check_id': 'erc', 'passed': True}, {'check_id': 'erc', 'passed': True}]}, 0),
+    ({'project': 'gpio-indicator', 'blocking': False, 'results': [{'check_id': 'erc', 'passed': True}],
+      'findings': [{'blocking': 'true'}]}, 0),
 ])
 def test_incomplete_or_contradictory_native_results_are_rejected(report, code):
     with pytest.raises(ValueError):

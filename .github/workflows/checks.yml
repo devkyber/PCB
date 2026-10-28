@@ -35,6 +35,7 @@ jobs:
           uv run --locked pytest -q -m "not slow and not network"
           tests/test_package_smoke.py tests/test_toolchain.py tests/test_doctor.py
           tests/test_cli_encoding.py tests/test_demo.py tests/test_demo_change.py tests/test_project.py
+          tests/test_evaluate.py tests/test_media_evidence.py tests/test_media_publication.py tests/test_check_readme.py
           tests/test_state.py tests/test_status_cli.py tests/test_update_guard.py
           tests/test_transaction.py tests/test_cleanup.py tests/test_release.py
           tests/test_stock.py tests/test_sch_io_multiline.py
@@ -47,3 +48,7 @@ jobs:
         run: uv run --locked python tools/check_package.py
       - name: Landing-page links and captured media identities
         run: uv run --locked python tools/check_readme.py
+      - name: Disposable fault evaluation without native tools
+        run: uv run --locked python tools/evaluate.py
+      - name: Media encoding failure and source-change recovery
+        run: uv run --locked --group media pytest -q tests/test_media_renderers.py
