@@ -5,11 +5,11 @@
 Not reliably or autonomously. The current pipeline can give an engineer a
 connected, sourced, editable starting point with functional grouping and
 checks; it cannot infer missing requirements, select every topology, settle
-conflicting sources, judge failure modes, or certify the design. The working
-schematics remain `DRAFT` designs awaiting
-human page-by-page review. TMS's controller and connector sheets still rely
-heavily on labels. ERC and schematic/PCB parity do not measure readability or
-correctness of the engineering choices.
+conflicting sources, judge failure modes, or certify the design. A generated or
+updated schematic still needs page-by-page visual and engineering review.
+Each project's README records its current stage and unresolved work. ERC and
+schematic/PCB parity do not measure readability or correctness of the
+engineering choices.
 
 The intended value is to save repetitive time: find and preserve sources,
 transcribe verifiable pin/value facts, begin a schematic, flag mismatches,
@@ -44,8 +44,8 @@ Whether this saves time in a real owner-led design session remains unmeasured.
   separate inspection. Native DRC determines electrical connectivity.
 - The design-rule checker covers only 4 of 42 historical numbered sections.
   Current `review` aggregates fourteen packaged checks; even its per-sheet title/density check does not judge
-  visual flow. Board-specific hash-bound sign-off is now checked, but no human
-  decisions have been migrated or recorded for the current revisions.
+  visual flow. Board-specific hash-bound sign-off checks whether named decisions
+  match the current inputs; it cannot establish the quality of the review.
   Release reruns all checks and requires current human decisions. An
   isolated green result is insufficient.
 - Assembly contracts check exact part/footprint/pad geometry before applying a
@@ -63,12 +63,14 @@ Whether this saves time in a real owner-led design session remains unmeasured.
   The comparison projects and older teaching guide are archived outside the
   repo. The owner closed development on 2026-10-07; use `projects/rover-pdb` and
   its README and design basis for the current owner-edited board.
-- **TMS V3:** ADS1256 external reference is absent from the present circuit;
-  the historical U2.15 deviation misidentifies RESET as DVDD. The owner must
-  measure actual nichrome cold resistance/current and pulse duration, verify
-  connector/relay/copper margin, regulator thermal budget, isolated return,
-  reset/brownout safety, XBee physical fit, and dummy-load behavior. Do not
-  fabricate or energize the ignition output while these remain unresolved.
+- **TMS:** the recreated schematic lives under `projects/tms`; its
+  [project README](../projects/tms/README.md) and current design/review records
+  describe the installed revision. The PCB is still empty. Outline/enclosure,
+  placement/routing, physical fit, rail/reference behavior, thermal margins,
+  input faults, calibration, firmware and actual harness/load behavior remain
+  qualification work. The retired V3 circuit is a frozen test fixture, not the
+  current design; its old missing-reference and pin-map findings must not be
+  presented as findings about the recreated circuit.
 
 Each board's `REQUIREMENTS.md`, `DESIGN_BASIS.md`, `REFERENCE_REVIEW.md`,
 `DEVIATIONS.md`, and `review-profile.yaml` provide the specific sources and
@@ -84,5 +86,8 @@ unrouted candidate cannot replace a routed PCB. Source discovery and many visual
 RF, thermal and mechanical judgments still require an engineer.
 
 The engineer remains responsible for visual inspection, critical calculations,
-physical fit, staged bench validation, and the release decision. For TMS V3,
-energetic testing is outside the authority of this pipeline.
+physical fit, staged bench validation, and the release decision. Energetic
+testing of TMS is outside the authority of this pipeline.
+
+The [roadmap](ROADMAP.md) lists the next software priorities. It does not resolve
+these board-specific engineering decisions.

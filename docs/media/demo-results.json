@@ -1,0 +1,1056 @@
+{
+  "captured_utc": "2026-10-28T17:36:08.591453+00:00",
+  "source_project": "projects/rover-pdb",
+  "mode": "full",
+  "demo_exit_code": 1,
+  "source_inputs_unchanged": true,
+  "snapshot_inputs_unchanged": true,
+  "declared_input_count": 119,
+  "source_input_hashes": {
+    "buck-12v.kicad_sch": "6b8f24294eb223856c9230fe237386220eef2572b08ef34fcccbf2efda82a003",
+    "buck-5v.kicad_sch": "575bf6a99b3375b1a54ce3809281d06d6eca80bf242d3a6254d2499e3253b049",
+    "buck-motor.kicad_sch": "2ecd62becf9d151b10a42760f780f80e4c75b7b70591d1abd1788ce1fc36a73f",
+    "DESIGN_BASIS.md": "90ca1b043f8ab43cf8cf2db10b937997431477608b4c9f2ff3bd459cf4fa036e",
+    "DEVIATIONS.md": "3450bab5bdd4bf43ceef1180714760568b35317c8b0ffd5bf787454f09ab02b6",
+    "dxl-enable.kicad_sch": "322e6d8f3ef2a130673e50619ec4ff4dd7b6f62d9ac2c79f1f9f6cc4c4682973",
+    "evidence/assembly/C54431777-components-2026-10-06.json": "2e5c07eb9432f630b1c0fbaf02bcf601e7e9ddd0d3df5008254d90298764c1f2",
+    "evidence/assembly/orientation-preview-2026-10-06.png": "1d33af553ef092a0453bc28f149b4657ea2d99d1489f5734b8fe7514d631e7ba",
+    "evidence/characterization/CL32B226KAJNNN-curves.json": "f7b3bf18c15a11a04265812f19a7d06a1bb5da9061a8022d02a7f881c000ac11",
+    "evidence/characterization/CL32B226KAJNNN-manufacturer.html": "30b5f732cf8145dac6162e54ef8b2ec1aa93d47092eab73f5048bcacd6685972",
+    "evidence/characterization/CL32B226KAJNNN-provenance.json": "af899f97ae6bc0596339d8c849aa724ee84163bd1e3f5d61b7f96a0f4922ef03",
+    "evidence/characterization/GRM32ER71H106KA12-ADI-provenance.json": "13ddd5a1bc1a2c1a477b4a603fab6b09913086deb6da02311c136ef3b6ac6290",
+    "evidence/characterization/GRM32ER71H106KA12-ADI-web-extract.json": "45c955ccb9074cd4dacba292f6023c51c9e19aa45ea1f2376a0e93c50453d503",
+    "evidence/characterization/GRM32ER71H106KA12-DC-bias.png": "32dcc30eedbb9a5670923faa511aa14ab76da17d426a62cf52fdbf5c763eb01e",
+    "evidence/characterization/GRM32ER71H106KA12-Murata-provenance.json": "3834fc47e33b2953320d3f08c04714fa3b5146129835a8d007dfbdb94e9825f6",
+    "evidence/files/01530008Z_5dd658d7c0c120ed4252709c4e00b44b_dd28a686cd10.pdf": "dd28a686cd106b2228fb3e0ef107b580a8f58177765c71c08a16ebbac66415af",
+    "evidence/files/01530008Z_components_038492248339.txt": "03849224833909976715d61c81a63e22a81bae159978d19f1043732f6d1470a1",
+    "evidence/files/0297010.WXNV_6640fa58723348e000da25e795536560_cfd43f753274.pdf": "cfd43f753274bc97a027685b0a8a2867969272113cc8d41980242a1a949c2e9f",
+    "evidence/files/0805W8F1001T5E_components_fcc6d3130eae.txt": "fcc6d3130eae3bfb44c7b9c0486f3ad1a87557cc636a8d55a50acb1fed2219db",
+    "evidence/files/0805W8F1912T5E_components_79fd6539982f.txt": "79fd6539982f1d79ed3018e0a12171ace376531618d9b3be292fa6c34316ea3d",
+    "evidence/files/0805W8F2202T5E_components_b881e8433fdd.txt": "b881e8433fdd135185516817550c693872ca46933563aeccfb8cab05a871fa90",
+    "evidence/files/0805W8F3741T5E_components_f6e9d7b40fa5.txt": "f6e9d7b40fa5e096c6c8cf85ba055347bcdd4d4d8e096ca566b7c155293348c1",
+    "evidence/files/0805W8F7151T5E_0a975aaa49b7c97f38a963127be4a823_11cd644d5d8a.pdf": "11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef",
+    "evidence/files/0805W8F7151T5E_components_4c0fa2ed98d0.txt": "4c0fa2ed98d0f580651d003b779f36fb39b62cc28ddc014f50cc1a852b811674",
+    "evidence/files/2.54-1x6P_cb0770a379b121177c8c7d26dfb00406_013649a580c9.pdf": "013649a580c9ee0d2a54502601713be2b1811ff6d44e21887c8077307a7c2dea",
+    "evidence/files/2.54-1x6P_components_47044365dfa6.txt": "47044365dfa67edea30c22b574f71b2fdfd0bde188952771ba9b01d5a469c88b",
+    "evidence/files/254PM-1x20P-V_f0f6c3d8697d24302649e706e8fbe0d7_5778f815e84c.pdf": "5778f815e84ca5a0e1d490c5be5db4f228194b3df5b59abb1346ace54a11685d",
+    "evidence/files/APS1365M3R3DW_68d4a03c5920925210785d7848183ed4_a794e72576cd.pdf": "a794e72576cd6433b8b51d01831ba1f10941c8e2b2878077b7597d3c20c94de2",
+    "evidence/files/B4B-EH-A_LF_SN_eEH_9e35874bf275.pdf": "9e35874bf27505bab79d6af783118fa926ceef7a91b7cb8421f108ff69a1b7f2",
+    "evidence/files/CL10C330JB8NNNC_02336ea48ea44ca18c72517dd3cb7b47_96baebe4bd0c.pdf": "96baebe4bd0ce363e87be28b5b003f511f1502e084a6fc4f02333ded56c808f6",
+    "evidence/files/CL10C330JB8NNNC_CL10C330JB8NNNC_Spec_b3b5f1a6680a.pdf": "b3b5f1a6680a5f083fb5913555c82821d0cb2d1e540dcf250f9e5f0de071922e",
+    "evidence/files/CL10C330JB8NNNC_components_3afd8ebb8b5f.txt": "3afd8ebb8b5f42332bc6726820af872cd657dd6c85e14e82c99c5ec66e44556e",
+    "evidence/files/CSS2H-2512_b11b79a9d324.stp": "b11b79a9d3245b4634fd4a02dc9062700c637b0e0a8e435f60456296413ee491",
+    "evidence/files/CSS2H-2512K-2L00F_css2h-2512_7e32b223f4b0.pdf": "7e32b223f4b0f086d9e08cd5a4fb42e9935cf119db3dd9cf3ea7969bdd643909",
+    "evidence/files/DMG2305UX-7_components_a9248858bbeb.txt": "a9248858bbeb08d798204569f4cc794263e395d1a35717d850248020bf886626",
+    "evidence/files/DMG2305UX-7_DMG2305UX_7421a75157a2.pdf": "7421a75157a2e700a217d1a20d075216abed29e81192bf7609d3df6dbb08eb2d",
+    "evidence/files/EEU-FR1H221B_d9089262f7a6df5ba99d8a966a03ede0_bf99d179b367.pdf": "bf99d179b36759edbd615725840c0fb0c87640b0800ba9ecd967ed3172b2198c",
+    "evidence/files/GRM32ER71H106KA12_Murata_characteristics_20141111_9281c34a22b3.pdf": "9281c34a22b351bb841a7a23d0aaa1c58b4d633f6bf1a9c03d15475ac5d11f2e",
+    "evidence/files/INA226AIDGSR_ina226_c9b67f886d4a.pdf": "c9b67f886d4a5241a5e070723f7b61867409eeb27eed768b9cdd9cb17e03ca2d",
+    "evidence/files/INA226AIDGSR_sbou276_e5dc5b492908.pdf": "e5dc5b492908c656b6be0dd2ef0f8c829fd445a918a0839889fc1e3046a021ec",
+    "evidence/files/Jetson-Orin-Nano-Carrier_jetson_orin_nano_devkit_carrier_board_specification_sp_4a0f7ba948bc.pdf": "4a0f7ba948bce4881e176f0f8636ef3dbd40e3df9dd33134e6a7433359d18c02",
+    "evidence/files/KT-0805G_de342fde3322df0797012cd7a04e2194_853e6752f600.pdf": "853e6752f600e247475ba548092207fa4fc707a3f8a0b1562a834bc9a901a8d9",
+    "evidence/files/LM73606RNPR_components_84dd5258bfcf.txt": "84dd5258bfcf4e2fc532a38a03f5384d4e5a3dbb39213213438466c9d3850cc7",
+    "evidence/files/LM73606RNPR_lm73606_98c77e8b42dd.pdf": "98c77e8b42ddc52021083dae660e5277705cc82a2c469ae16a4ad4660d904a3c",
+    "evidence/files/LM73606RNPR_snvu579_0988f0efa67e.pdf": "0988f0efa67eeda38478578e8fb8b30e3adbbd73b6f5c15cbb79269ece0c8eb8",
+    "evidence/files/LMR51450SDRRR_components_5009d4a2ce02.txt": "5009d4a2ce026741df9d81ce6d1f1dc5d399daa2816fe21778862eb2377b9aa5",
+    "evidence/files/LMR51450SDRRR_lmr51450_7f80073eb777.pdf": "7f80073eb7773dddd87df44808e8e78f5b83520b20e815cbb0a17018d1cae413",
+    "evidence/files/LMR51450SDRRR_SNVMCB2_e1fd811f3bcb.zip": "e1fd811f3bcb494bf528772421a5af4dd37b37f50461caaa5e834d3256ac1a40",
+    "evidence/files/LMR51450SDRRR_snvu838a_6086805dfb70.pdf": "6086805dfb7070abce87077d95aa4ec9b2e2a7fd25af52ddeb7d0e457de655de",
+    "evidence/files/OS102011MA1QN1_9e68893bade4341f8dc17b91bf8fc979_96f8f741dec9.pdf": "96f8f741dec9336a05c73ffc78116f4aefba9c876e170b26f01505c80eb3cbc7",
+    "evidence/files/OS102011MA1QN1_components_b07e077150de.txt": "b07e077150dea4db0a7d7ce5023c7de60dfd49444675640f9c4bd2c0e262f974",
+    "evidence/files/PCB-width-screen_snva766_89d111dd96c8.pdf": "89d111dd96c8fe53c01451d52e60a3bca226ccc998ae1967e323dfca005b3267",
+    "evidence/files/Pico_2_pico-2-datasheet_cbcfaf881018.pdf": "cbcfaf881018c686495a2e53c7bd281e7e0a8217d79447d73eda7c8f74b7f675",
+    "evidence/files/PowerPAD-assembly_slma002h_cdab5db91631.pdf": "cdab5db916315b40c6b445a30ccff90de3d391d39231c3f519533113a8cb1f22",
+    "evidence/files/Raspberry_Pi_Pico_hardware-design-with-rp2040_51c4f430153f.pdf": "51c4f430153fcdbf3209d9b3b41662c8527ff0150bc25777e3fcd6f5221a1c19",
+    "evidence/files/RC0805FR-07100KL_components_6ac1220cb8d4.txt": "6ac1220cb8d45c5d1453642c051c48f8bc146b1aaa30f9323d9ec358c77b3b91",
+    "evidence/files/RC0805FR-07100KL_RC0805FR-07100KL_ce1449c65535.pdf": "ce1449c655356f5c0415d6b3aa72d28be6d26b08e45a0050fdae16d08c592120",
+    "evidence/files/RC0805FR-0710KL_Yageo_specsheet_a12caa1d29a9.pdf": "a12caa1d29a94167f5c5526d5e608f7ebfae5761f169e790543246d48d0dbc02",
+    "evidence/files/RC1206FR-073K9L_components_7f63ec628a0a.txt": "7f63ec628a0ac346ff8d1176e02ccd5293d802e88275bad9098787f03d1c782e",
+    "evidence/files/RC1206FR-073K9L_RC1206FR-073K9L_496bcb915f16.pdf": "496bcb915f1683dbad13314e506756eacb78e9792e2655403987b36eaef22f88",
+    "evidence/files/SRP1265A-3R3M_components_be7c4a1aad13.txt": "be7c4a1aad13d106277a386070850a01f4c436eb1811e8d2c32405460b6b6820",
+    "evidence/files/SRP1265A-4R7M_components_9a3de3ffe216.txt": "9a3de3ffe216c5ee56e0458b90602c35f93c94712adec490c3ec2d52357444df",
+    "evidence/files/SRP1265A-6R8M_components_9dda4654fb4d.txt": "9dda4654fb4d363ef71e786eab994e32c9ebd65ea02222a47daace02bd249781",
+    "evidence/files/SRP1265A-6R8M_srp1265a_30b470999b73.pdf": "30b470999b737a6350ce5b09a917a5f12090c2e0895a78ddc15285e3d44ec649",
+    "evidence/files/Sunlord_MWSA-S_55a6f5de0d34.pdf": "55a6f5de0d3424730210584c2a732f5209bba52cffa5c226885944f3d9e1be9a",
+    "evidence/files/TSW-103-07-G-S_tsw_th_3a5770b11668.pdf": "3a5770b11668f4e5a11ba9ceeb4817a23f467b8507e3592f55fb6bd8f96e71bc",
+    "evidence/index.yaml": "07aeb09f91cd50aec553a7737ff38964291025b18ab23ec0ba7162fad6d01818",
+    "evidence/PDB_Design_Handover.md": "0115fda198001c86e08545682cc86de63730aadfbdcb9721cb9fbe8218a75a3c",
+    "footprints/rover.pretty/AGND_Tie_LMR51450.kicad_mod": "3a7f92c9441e3201a5b3a7dec917c707454bad07a226270193ee6cfa5233dfc0",
+    "footprints/rover.pretty/APS1365DW_13.8x12.6_P11.5.kicad_mod": "89f28693d36d1e35996b11db5ea93be30102cc3f30241942834213ff5c42f443",
+    "footprints/rover.pretty/CSS2H_2512_6.35x3.05.kicad_mod": "6754b94db83c9c57acdbb9cda82513eb5e6e0e075e0c63d9e9b2384ff8532a35",
+    "footprints/rover.pretty/Fuseholder_Littelfuse_01530008Z.kicad_mod": "3382ca81831b0d6861b5cbbf345b17fe38ca10eb30b442d79118a72eba533fe5",
+    "footprints/rover.pretty/KT0805G_0805_A1_K2.kicad_mod": "a4a8eec0020bcbc57b4990845f92cf94acf8a73c91d3df9b5cb814cce1baab97",
+    "footprints/rover.pretty/LMR51450_DRR_WSON12_3x3.kicad_mod": "fe744a74dc0837332a219ac9884d82bc79fda6140a562e9ea9f7972c75193c32",
+    "footprints/rover.pretty/Pico2_Sockets_LXWCONN_254PM_1x20.kicad_mod": "b2fbef9df833fae32f1871a901c0071eb582500657aa2102ef84b1c65764db54",
+    "footprints/rover.pretty/SRP1265A_LeadFrame_13.5x12.5_P11.1.kicad_mod": "37b4c019f8cc305dcb51f174e186271730df9554563dd418e178ee087cb945a0",
+    "footprints/rover.pretty/WirePads_2_5x6_P9.kicad_mod": "1f4f49598bf38ba3610f62c8d9c251118009b3b15c9a0ecdcd84532ba5ee80be",
+    "footprints/rover.pretty/WirePads_2_6x8_P12.kicad_mod": "fb9970d5eb38727d0abc4247245286aa6e85ac1573fbb3e7cd217bc280cef1ee",
+    "fp-lib-table": "1b81fdc2a81a6dfb349ca73b1485ef2be2251bbccc5111c6a01d32b7180a9ea8",
+    "input-monitor.kicad_sch": "9d63d40b39166f5be4357dd47d19ec4fcb747403bff46a2ef7bbc71cae630ab5",
+    "jlcpcb-assembly.yaml": "e2473290afcc1352b2deb90c8cb835625ddffa19d00a8bfd35e9698ffdca4d98",
+    "layout-intent.yaml": null,
+    "libs/Coilank_APS1365DW.3dshapes/APS1365DW-envelope.step": "3478c6172c157f88ef3312bf0c3150066a4d97b4e4ae5901fec7bcc08dc7f3e9",
+    "libs/Coilank_APS1365DW.3dshapes/build_model.py": "3d66e0fc596545f71f1cc7849b75f09a69c0e16cc8889a2467ab578a6cbd4e0b",
+    "libs/Coilank_APS1365DW.3dshapes/README.md": "52fc3a5b20c2ba30634457e9105dc07ff646449da7a985390d95e7ef6ac90a40",
+    "libs/lcsc_C2041326.3dshapes/IND-SMD_L12.6-W12.5-SRP1265A-220M.step": "9fcc8131b76980ef4d5f5ad6d2f4d6cc377c0fe930908bffa9156fec87654afe",
+    "libs/lcsc_C2041326.3dshapes/IND-SMD_L12.6-W12.5-SRP1265A-220M.wrl": "51319c13fa77db3d34d5501342e274fbfa960380977663df7a175e290f08f78b",
+    "libs/lcsc_C2041326.kicad_sym": "63d75d4c6d4ec450276d37d7d9bfba75dd6e9be3a746394523b1678c3c6abec7",
+    "libs/lcsc_C2041326.pretty/IND-SMD_L12.6-W12.5-SRP1265A-220M.kicad_mod": "6bc44b8110a1418f863420cfef8f76d2142f12d01457462650ee4f61a9cf8730",
+    "libs/lcsc_C206907.3dshapes/FUSE-TH_L17.2-W7.62-H12.9-P7.62-S3.45.step": "924631b81bfc9eb7359d4a0910472813bfbab86e92194ea8000de099989cba94",
+    "libs/lcsc_C206907.3dshapes/FUSE-TH_L17.2-W7.62-H12.9-P7.62-S3.45.wrl": "7940e01b96dfe077f28cee56bd432d23e4ed9fed254620955caab0802d6d5f7c",
+    "libs/lcsc_C206907.kicad_sym": "5c8774cf4c71c9790bb60d9630ad78f76730f349ddb63ac72cbcf17705bb26aa",
+    "libs/lcsc_C206907.pretty/01530008Z.kicad_mod": "59e42cb6247bb7d2500ed8b4c7c9da80034e9d3be3f822d83e255974bcd59145",
+    "libs/lcsc_C226259.3dshapes/SW-TH_OS102011MA1QN1.step": "87e65083cd2b7dc67399bb2740bde744bb1093ea7403d2d4669190891ff643a7",
+    "libs/lcsc_C226259.3dshapes/SW-TH_OS102011MA1QN1.wrl": "672993ab33dc72a8d0ff61afe89fb53f8d037947829347125eab2675fee1ba60",
+    "libs/lcsc_C226259.kicad_sym": "941a59af2d0666ccd2ef402214c9e508f734d8d5732d59aca2ab848ddcc54481",
+    "libs/lcsc_C226259.pretty/SW-TH_OS102011MA1QN1.kicad_mod": "6f70ce8097e8903630bff95b83b38c699038840219804a1f6c958bdcd31b374a",
+    "libs/lcsc_C544826.3dshapes/WQFN-30_L6.0-W4.0-H0.8-P0.50-BL-EP.step": "24ef6c81a36fb643b1a9ffe812db4a7d19cd5959b05882444cbfa7b68456bc2f",
+    "libs/lcsc_C544826.3dshapes/WQFN-30_L6.0-W4.0-H0.8-P0.50-BL-EP.wrl": "dd02423ace6107c9f51eb72f1199f7b155d53fa18dfa6ac15410a19a6a9f423c",
+    "libs/lcsc_C544826.kicad_sym": "18a4dbba46364268b735b2282e99e71a6593153c431d2bc9405c727c57489bb9",
+    "libs/lcsc_C544826.pretty/WQFN-30_L6.0-W4.0-P0.50-BL-EP.kicad_mod": "aa3427d9ab0ddc3233ff1fa8c4677a8f8a75b729325dd1238b942d7fa9bbfbce",
+    "libs/lcsc_C6890985.3dshapes/WSON-12_L3.0-W3.0-P0.50-TL-EP-2.step": "97a012cf3099189d0d1316ab03fb15ecd9af42033026b789bd384d113f00eee8",
+    "libs/lcsc_C6890985.3dshapes/WSON-12_L3.0-W3.0-P0.50-TL-EP-2.wrl": "041020fbf623c55586205517bee4a15bdf6b15752363823cea5a9d8e8034b507",
+    "libs/lcsc_C6890985.kicad_sym": "ad260d4363db2d457f4e6d7bbd75d317e1e3318d27025f856496860ac95689f3",
+    "libs/lcsc_C6890985.pretty/WSON-12_L3.0-W3.0-P0.50-TL-EP-2.kicad_mod": "0d62e02695bff9be1b480b6139e5f3ce7a2c3b9322804bacba92b44f24e9b14f",
+    "netmap.json": "eb68c69d34d122e59d42e954b034984ab1360077dd553a7b22c4f68fe0ab2d58",
+    "pico-servos.kicad_sch": "5b8c3cdcc55d8e142976dd011222af2d7073b67bdf667c6a83e7ccce30ccdee6",
+    "project.yaml": "bcbfca4ba6343d58c53f8400d4891eecca44406c1b7b12136bf7169b4d82581d",
+    "REFERENCE_REVIEW.md": "2ad7cc19b506168847a6e65142fde981198a821ae8c7521d4401fc882c01e40a",
+    "REQUIREMENTS.md": "a65389900a7e1e2920e22f0e0c26d748bcb82e3504525cbdd712d0f2c64805f2",
+    "review-profile.yaml": "956c6f4421abd362f3db8835a6e30f5a167c06e08d875d8b86a5060220e6f0e0",
+    "review-signoff.yaml": null,
+    "rover-pdb.kicad_dru": "fd6ec6cfd46f091c61ee7fa09ab3e1c5e29cb9b187e5045bcf055666f0239643",
+    "rover-pdb.kicad_pcb": "9a4bcc77eb7786d7ee3356549f47a3d0c5a198fa8b2b474b5c6961d14509d457",
+    "rover-pdb.kicad_pro": "dcdcab785e3988ee8eeb84f040a368da62630ae6fd3b2af99134c206c43c95d4",
+    "rover-pdb.kicad_sch": "a27d68afeb305e780511914bdb3465616290096b2acffb7bcd85512275b0b7f2",
+    "schematic-intent.yaml": "8a9d442b9698b8bed7ed02c0630b40e8c50f89f94bb1650786cf9497ca016167",
+    "sym-lib-table": "809f1c8e1cca14f7c60d867aa18d84972f766a3e5620b1309fb8f52188b0b287",
+    "symbols/rover.kicad_sym": "5139018f6427a9e16a28e1b3838847c538b8cbb08e654a8d41a5be8bb2700a31"
+  },
+  "steps": [
+    {
+      "name": "status",
+      "command": [
+        "pcb-copilot",
+        "status",
+        "workspace/rover-pdb"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "a75036158243b2c8773250f1836e6ce61c722ccddff1eba269f33f58c8f31d9b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "evidence",
+      "command": [
+        "pcb-copilot",
+        "research",
+        "workspace/rover-pdb",
+        "--verify"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "9ffffcf0f09f788897d78ea07eacf6f112e7fdc31e5377d4ba69ad25ca89a719",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "missing-preview",
+      "command": [
+        "pcb-copilot",
+        "update-schematic",
+        "workspace/rover-pdb",
+        "--candidate",
+        "workspace/rover-pdb/rover-pdb.kicad_sch",
+        "--apply"
+      ],
+      "exit_code": 2,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "56e7a33413863b60c84f18d4f40a6b530d39b43914c8a24ef91fe39b0c81de3a"
+    },
+    {
+      "name": "review",
+      "command": [
+        "pcb-copilot",
+        "review",
+        "workspace/rover-pdb",
+        "--format",
+        "json"
+      ],
+      "exit_code": 1,
+      "stdout_sha256": "267d665c9e08cdad28b64592c78d5157248a8159b1797cf66bb41121633f872a",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "evidence_excerpt": [
+    "51 evidence record(s) verified",
+    "",
+    "MACHINE FAILURES: none",
+    "",
+    "EXTRACTED FACTS: none"
+  ],
+  "guard_excerpt": "pcb-copilot: error: No successful matching unconsumed preview; run preview again against saved current CAD before applying",
+  "review": {
+    "blocking": true,
+    "findings": [
+      {
+        "blocking": true,
+        "check_id": "datasheets",
+        "detail": "NT1 (AGND tie) has no datasheet evidence\nNT2 (AGND tie) has no datasheet evidence\nNT3 (AGND tie) has no datasheet evidence\nP1 (BATTERY IN) has no datasheet evidence\nP2 (JETSON / BARREL) has no datasheet evidence\nP3 (12V EXP / UNWIRED) has no datasheet evidence\nP4 (5V EXP / UNWIRED) has no datasheet evidence",
+        "kind": "machine_failure"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_settings",
+        "detail": "+12V: existing tracks span 0.25\u20133 mm, but no stored non-Default class assignment provides a 3 mm routing width. Review the intended main-route default; smaller low-current branches on this net can be legitimate. This does not impose a net-wide minimum or assess ampacity.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_settings",
+        "detail": "+12V: existing 3 mm route width is absent from the saved width presets and assigned class widths; consider a matching preset for future manual routing. Custom rules and connected-track mode may still determine the actual router width.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_settings",
+        "detail": "+5V: existing tracks span 0.25\u20133 mm, but no stored non-Default class assignment provides a 3 mm routing width. Review the intended main-route default; smaller low-current branches on this net can be legitimate. This does not impose a net-wide minimum or assess ampacity.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_settings",
+        "detail": "+5V: existing 3 mm route width is absent from the saved width presets and assigned class widths; consider a matching preset for future manual routing. Custom rules and connected-track mode may still determine the actual router width.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track fa24d415-4af9-45e4-9939-a3c5b1acf02e: short track; /12 V Jetson supply/FB_2 on F.Cu at (135.7125, 92.1125) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 6f8b6c4f-62a7-489a-ba76-f54f5a0753bf is fully covered by same-net track f96b58ad-7281-486c-8120-36bbe8084a0a; /22.19 V motor supply/VMOTOR on F.Cu at (143.2000, 148.2348) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 8d263511-6f37-49b6-952b-5692796deab2: short track; /22.19 V motor supply/VMOTOR on F.Cu at (136.3000, 140.5303) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 9d2ac779-6f45-4d5d-8a81-31191b1c2db3: short track; /22.19 V motor supply/VMOTOR on F.Cu at (145.8152, 61.3848) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 0268b8de-e372-4d0b-88e8-e839732738af is fully covered by same-net track 699bed47-0682-424f-8f34-3df5468a2bc7; /VBAT on F.Cu at (133.8500, 109.2500) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 09160481-9e64-48b2-859c-766c8135d0f6 is fully covered by same-net track 21ae6831-ff40-4436-bbfd-4a0531216ea2; /VBAT on F.Cu at (134.1500, 131.2500) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 0ac66c82-5605-4f5a-84f3-3de6e37fc537 is fully covered by same-net track 699bed47-0682-424f-8f34-3df5468a2bc7; /VBAT on F.Cu at (133.9000, 109.2000) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 1fb2a74c-18ee-4ebc-8595-f8aaef8a2bcb: short track; /VBAT on F.Cu at (153.5000, 67.6000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 2c00c819-55bf-4332-8608-e86e21653f90 is fully covered by same-net track 651ffa79-ca62-49e8-8d61-9cc9e3042b07; /VBAT on F.Cu at (141.1152, 131.0750) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 4971b0e6-8282-4a2e-8ea9-2b936abcde60 is fully covered by same-net track d3f9550e-be4b-4087-bfe7-bb4721a6ac64; /VBAT on F.Cu at (155.2848, 63.4152) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 54a487ed-ee4d-4291-ba25-3510b1ac4b9b is fully covered by same-net track 1645db53-6a00-425b-9aa9-f2501d2649a8; /VBAT on F.Cu at (158.6652, 65.6500) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 55fd5b4f-e056-48d7-bd1e-ad1f40b7e25f is fully covered by same-net track dd9ec8f9-f6f1-4e76-a1b9-ad2069539851; /VBAT on F.Cu at (136.9902, 87.2000) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 63156b56-6150-4a1c-b8ad-487563f2b1a1 is fully covered by same-net track 4b76ae86-52ef-403f-9f8d-6154c93e7153; /VBAT on F.Cu at (141.1152, 109.0750) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 6c2cb1ef-96bb-404d-b96d-8a22a14dea92: short track; /VBAT on F.Cu at (134.0000, 109.2500) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 77b1cff6-2266-4cc7-a21f-053981230c7e: short track; /VBAT on F.Cu at (134.5652, 109.2000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 9369387c-fee8-496f-8282-5cf71422cfd9: short track; /VBAT on F.Cu at (133.9500, 109.2500) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track a50ab749-359b-4965-b8f5-a2f9d00e7442 is fully covered by same-net track 21ae6831-ff40-4436-bbfd-4a0531216ea2; /VBAT on F.Cu at (134.2152, 131.2848) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track aa7d6083-255f-454d-8739-21dfbccd7fbe is fully covered by same-net track db7c116b-5bea-4691-8c18-e7bb532aaa19; /VBAT on F.Cu at (133.7052, 86.7500) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track ab587c1d-8ac2-410c-8052-a0dbc9904b8d is fully covered by same-net track 1645db53-6a00-425b-9aa9-f2501d2649a8; /VBAT on F.Cu at (157.8152, 66.5000) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track b43a97ad-bcac-423b-8611-490434ed12cb: short track; /VBAT on F.Cu at (153.6000, 68.0000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track b7805cfe-e185-4b3b-a268-fb89ace41804 is fully covered by same-net track 21ae6831-ff40-4436-bbfd-4a0531216ea2; /VBAT on F.Cu at (134.2000, 131.0652) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track c68d75f1-f65f-414b-bbb1-100260c43ee1 is fully covered by same-net track 3ed2ed61-ddbf-439e-b7ef-184f817b1b2f; /VBAT on F.Cu at (141.1152, 87.0750) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track e8223027-73b0-4d0b-be02-32fa7c284160: short track; /VBAT on F.Cu at (134.5152, 108.7500) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track eb599dcf-dd92-43dc-a709-2635ed453f19: short track; /VBAT on F.Cu at (140.9902, 87.2000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track ee96951d-89da-417a-aed9-fb9eab1a2eb8: short track; /VBAT on F.Cu at (137.1152, 87.0750) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track efcbd9ce-3b08-4e24-92d8-5e88924dfb42 is fully covered by same-net track 1645db53-6a00-425b-9aa9-f2501d2649a8; /VBAT on F.Cu at (158.6652, 64.0348) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track f961f9de-8c29-4fd4-a7a0-fd109248f443 is fully covered by same-net track 21ae6831-ff40-4436-bbfd-4a0531216ea2; /VBAT on F.Cu at (134.2000, 131.3000) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 03ee72ae-f268-4864-8229-3b425d5231d9: short track; /VBAT on B.Cu at (146.3152, 71.0000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 7b0a11bf-f450-4318-9308-5a38a89f0aa2: short track; /VBAT on B.Cu at (146.2000, 82.3848) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 0466f304-bf38-42e0-892b-32fe1d4c5843 is fully covered by same-net track e521dd57-d309-40f5-9cc3-1363baeea351; +3V3 on F.Cu at (166.8125, 67.8000) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 057e9b0e-d3cb-4bac-8d76-eff9cd0c05f7: short track; +3V3 on F.Cu at (172.0152, 107.3000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 68c45bea-0a56-4bc7-bc8d-295c2f7a4b6f: short track; +3V3 on F.Cu at (152.5500, 69.2500) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 7c1a0091-8400-4361-aee5-ce6199f39d96: short track; +3V3 on F.Cu at (168.7125, 69.7000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track b098863b-a127-4562-bae8-82ebb56eed5e: short track; +3V3 on F.Cu at (172.1152, 107.3000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 78562197-136f-4efa-a6b8-e2ed3d96b6b1: short track; /Pico 2 and hobby servos/GP18 on F.Cu at (170.8000, 112.3000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track cc4f0cd2-556c-4877-9794-196c848bd904: short track; /Pico 2 and hobby servos/GP21 on B.Cu at (172.4826, 99.2126) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 2bf5d138-95dc-438c-868b-d6c80dece29b: short track; /22.19 V motor supply/SW_SUPPLY on F.Cu at (142.3000, 133.4000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 33dd735c-cfe0-4c4c-b726-a203465953bf: short track; /22.19 V motor supply/SW_SUPPLY on F.Cu at (142.2000, 124.9152) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track be90145b-79a1-409d-9270-62902f452310: short track; /22.19 V motor supply/SW_SUPPLY on B.Cu at (142.2000, 125.6872) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track e1477b1e-5acc-4c6a-b196-eec635a93bdb: short track; /22.19 V motor supply/SW_SUPPLY on B.Cu at (142.3000, 133.4000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track ec322d0f-21e5-4e56-b937-cad29365a8ba: short track; /22.19 V motor supply/SW_SUPPLY on B.Cu at (142.3000, 133.3000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 0c8e5ead-571b-45ee-962e-b6495c3e5da7: short track; /22.19 V motor supply/AGND_4 on F.Cu at (138.0065, 134.5587) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 51afa25a-3935-430b-8fc7-867bc196755f is fully covered by same-net track 14da725c-9e4b-4247-9547-020035622520; +5V on F.Cu at (149.9000, 132.7000) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 6ae24f0a-be91-4d0c-acfc-dbf319d9d7b6 is fully covered by same-net track f28453ff-e598-454d-8c6d-cb35b4e0460b; +5V on F.Cu at (149.9000, 131.9000) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track b25dd8bc-37c7-4060-859e-d16eb62ca476: short track; +5V on F.Cu at (135.6000, 119.6000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track e3b058ab-93c0-4393-b8b2-b19c390885b5: short track; +5V on F.Cu at (169.3448, 143.2000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 35c43523-9824-42f6-900a-874f824a9507 is fully covered by same-net track 90860d5a-c355-4ab5-93be-7a96182195d8; +5V on B.Cu at (149.9000, 132.7000) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 80ce4d4b-7d0a-4f8c-93d1-dcf90a821dd1 is fully covered by same-net track f93cf7a2-563a-4823-9bbe-6ef2e2c58707; +5V on B.Cu at (149.9000, 131.9000) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 074b2e85-f2b6-4dc6-b07d-6d263a66cadb: short track; /5 V servo supply/EN_3 on F.Cu at (137.1500, 110.2500) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 18026270-47c4-418b-9a9c-dc3765a12dbd: short track; /5 V servo supply/EN_3 on F.Cu at (137.2000, 110.3000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track c1c9b1ca-f04b-4c56-91be-5e5ef17f3976: short track; /Battery input and INA226/I2C_SDA on B.Cu at (168.0350, 120.0350) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 4f96076b-f09d-4f15-a79d-4ec3f9b0e55d is fully covered by same-net track 077d9068-abb8-4747-86aa-b9a891213f09; /22.19 V motor supply/FB_4 on F.Cu at (137.1000, 136.1125) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 11e0f56e-1809-4ca2-86f9-79f51e09f35c: short track; /Battery input and INA226/BAT_SWITCHED on F.Cu at (149.9000, 61.3000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 6ae2add5-1df2-48cc-87b3-10f6a2373861: short track; /Battery input and INA226/BAT_SWITCHED on F.Cu at (148.6000, 62.7152) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 036e3493-62d9-4d0b-b5c1-e6d64fe609ba: short track; /DYNAMIXEL distribution/DXL_D_PLUS on B.Cu at (145.6000, 152.4000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track 43edcf33-c13e-47f9-b2a8-07168f62fe60: short track; /DYNAMIXEL distribution/DXL_D_PLUS on B.Cu at (130.8000, 152.4000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track c3fe7dfd-f45f-4d54-b0d7-f5e761ce1942 is fully covered by same-net track 43edcf33-c13e-47f9-b2a8-07168f62fe60; /DYNAMIXEL distribution/DXL_D_PLUS on B.Cu at (130.8152, 152.3848) mm. Inspect redundant/overlaid routing before cleanup.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track cda3ead8-b5d8-4e77-99c4-eedfef0bc9f5: short track; /DYNAMIXEL distribution/DXL_D_PLUS on B.Cu at (145.5000, 152.3000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track a2e25c3f-deb1-44e2-94e8-e8a60a38c27a: short track; /DYNAMIXEL distribution/DXL_D_MINUS on F.Cu at (162.9000, 148.8000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "Track a17247b9-660a-4a26-8099-2367c12bcc0e: short track; /22.19 V motor supply/MOTOR_EN on F.Cu at (146.9000, 132.6000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "J9.2: track copper contacts the pad, but its centreline misses the pad anchor by 0.185 mm; /Pico 2 and hobby servos/GP18 on B.Cu at (173.3152, 106.0000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "C41.2: track copper contacts the pad, but its centreline misses the pad anchor by 0.200 mm; /22.19 V motor supply/FF_4 on F.Cu at (139.8152, 139.0250) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "L3.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.247 mm; /22.19 V motor supply/VMOTOR on F.Cu at (114.9152, 131.2500) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "U3.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.530 mm; /5 V servo supply/SW_3 on F.Cu at (130.9252, 108.7500) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "U3.2: track copper contacts the pad, but its centreline misses the pad anchor by 0.175 mm; /5 V servo supply/SW_3 on F.Cu at (130.9252, 109.2500) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "U3.11: track copper contacts the pad, but its centreline misses the pad anchor by 0.145 mm; /VBAT on F.Cu at (133.7052, 109.2500) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "SKT1.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.420 mm; /Pico 2 and hobby servos/PWM_LIFT_A on F.Cu at (151.5200, 73.0000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "SKT1.2: track copper contacts the pad, but its centreline misses the pad anchor by 0.120 mm; /Pico 2 and hobby servos/PWM_LIFT_B on F.Cu at (151.5200, 75.5400) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "SKT1.24: track copper contacts the pad, but its centreline misses the pad anchor by 0.360 mm; /Pico 2 and hobby servos/GP18 on F.Cu at (169.3000, 113.6400) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "TP1.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.141 mm; /VBAT on F.Cu at (160.9000, 58.5000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "U2.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.596 mm; /12 V Jetson supply/SW_2 on F.Cu at (130.9252, 86.7500) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "U2.2: track copper contacts the pad, but its centreline misses the pad anchor by 0.325 mm; /12 V Jetson supply/SW_2 on F.Cu at (130.9252, 87.2500) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "U2.11: track copper contacts the pad, but its centreline misses the pad anchor by 0.299 mm; /VBAT on F.Cu at (133.7052, 87.2500) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "J6.2: track copper contacts the pad, but its centreline misses the pad anchor by 0.092 mm; /22.19 V motor supply/VMOTOR on F.Cu at (158.0000, 150.2000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "J6.3: track copper contacts the pad, but its centreline misses the pad anchor by 0.092 mm; /DYNAMIXEL distribution/DXL_D_PLUS on B.Cu at (160.5000, 150.2000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "TP3.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.153 mm; +12V on F.Cu at (108.6000, 100.5000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "L2.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.050 mm; +5V on F.Cu at (115.2652, 109.2500) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "P2.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.283 mm; +12V on F.Cu at (104.6000, 94.6000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "SW1.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.234 mm; /22.19 V motor supply/SW_SUPPLY on B.Cu at (139.9000, 61.4000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "J1.3: track copper contacts the pad, but its centreline misses the pad anchor by 0.703 mm; /DYNAMIXEL distribution/DXL_D_PLUS on B.Cu at (115.5000, 150.3000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "J1.4: track copper contacts the pad, but its centreline misses the pad anchor by 0.074 mm; /DYNAMIXEL distribution/DXL_D_MINUS on F.Cu at (118.0000, 150.3000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "C34.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.215 mm; /5 V servo supply/BOOT_3 on F.Cu at (129.3152, 111.7000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "J3.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.849 mm; /Pico 2 and hobby servos/PWM_LIFT_B on F.Cu at (166.8048, 132.6000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "P4.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.100 mm; +5V on F.Cu at (104.8000, 137.6000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "R1.2: track copper contacts the pad, but its centreline misses the pad anchor by 0.124 mm; /Battery input and INA226/I2C_SDA on F.Cu at (160.4875, 66.3000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "C33.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.415 mm; /12 V Jetson supply/BOOT_2 on F.Cu at (129.3152, 89.7000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "J4.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.141 mm; /Pico 2 and hobby servos/PWM_PAN on F.Cu at (166.8048, 138.0000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": false,
+        "check_id": "routing_topology",
+        "detail": "P3.2: track copper contacts the pad, but its centreline misses the pad anchor by 0.566 mm; +12V on F.Cu at (104.7000, 107.4000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+        "kind": "engineering_warning"
+      },
+      {
+        "blocking": true,
+        "check_id": "signoff",
+        "detail": "0/7 current decisions: schematic-owner-review unsigned; motor-energy unsigned; parts-and-mechanics unsigned; power-and-protection unsigned; pcb-layout-and-assembly unsigned; shared.schematic-readability unsigned; shared.layout-handover unsigned",
+        "kind": "human_decision"
+      }
+    ],
+    "pcb_hash": "9a4bcc77eb7786d7ee3356549f47a3d0c5a198fa8b2b474b5c6961d14509d457",
+    "project": "rover-pdb",
+    "results": [
+      {
+        "advisories": [],
+        "check_id": "research",
+        "detail": "requirements, cited basis and archived evidence verified",
+        "duration_ms": 206,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "engineering validity of those choices",
+          "proves": "requirements, cited basis and source integrity",
+          "requires_external_tool": false
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "datasheets",
+        "detail": "NT1 (AGND tie) has no datasheet evidence\nNT2 (AGND tie) has no datasheet evidence\nNT3 (AGND tie) has no datasheet evidence\nP1 (BATTERY IN) has no datasheet evidence\nP2 (JETSON / BARREL) has no datasheet evidence\nP3 (12V EXP / UNWIRED) has no datasheet evidence\nP4 (5V EXP / UNWIRED) has no datasheet evidence",
+        "duration_ms": 374,
+        "finding_kind": "machine_failure",
+        "passed": false,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "interpretation of electrical limits",
+          "proves": "required datasheets are archived and verified",
+          "requires_external_tool": false
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "erc",
+        "detail": "0 violation(s), 0 unspecified-pin warnings waived",
+        "duration_ms": 19703,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "circuit fitness or safe operation",
+          "proves": "fresh KiCad electrical-rule findings",
+          "requires_external_tool": true
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "schematic_ownership",
+        "detail": "netmap matches the current schematic",
+        "duration_ms": 618,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "circuit correctness",
+          "proves": "netmap matches the current schematic",
+          "requires_external_tool": true
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "netlist_parity",
+        "detail": "exact schematic/PCB pin-net parity and schematic links",
+        "duration_ms": 1126,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "which circuit is correct",
+          "proves": "exact schematic/PCB pin-net agreement and forward-annotation links",
+          "requires_external_tool": true
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "placement",
+        "detail": "implemented placement checks pass",
+        "duration_ms": 310,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "assembly or enclosure fit",
+          "proves": "implemented placement geometry checks",
+          "requires_external_tool": false
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "design_rules",
+        "detail": "=== docs/DESIGN_RULES.md geometric checks: <native-review-snapshot>\\rover-pdb\\rover-pdb.kicad_pcb ===\n\npassing:\n  [2.2 decoupling <=2mm]  1 ok\n\nRESULT: 0 violation(s), 1 check(s) passed\nSCOPE: geometric rules 1.2, 2.2, 5.1, 6.1 only (4 of 42 numbered subsections in docs/DESIGN_RULES.md). The remainder are not machine-checkable from the board file and are covered by the Phase 5 human review.",
+        "duration_ms": 715,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "all house rules or source applicability",
+          "proves": "geometric rules 1.2, 2.2, 5.1 and 6.1",
+          "requires_external_tool": true
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "drc",
+        "detail": "0 error(s), 0 warning(s), 0 unconnected; two refilled runs",
+        "duration_ms": 30873,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": false,
+          "does_not_prove": "RF, thermal or functional behavior",
+          "proves": "two fresh zone-refilled DRC runs and routing completeness",
+          "requires_external_tool": true
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "jlcpcb_dfm",
+        "detail": "jlcpcb-2layer-1oz-green-2026-10-05: 0 error(s), 0 unconnected. ",
+        "duration_ms": 2717,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "assembly eligibility, current capacity or supplier order acceptance",
+          "proves": "independent dated JLCPCB geometry and declared stackup checks",
+          "requires_external_tool": true
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "assembly_contracts",
+        "detail": "71 assembly components: rule, local model and wire-label checks pass",
+        "duration_ms": 709,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "supplier preview approval, mechanical fit or model shape correctness",
+          "proves": "exact-part rotation rules, local model files and wire-pad label/net association",
+          "requires_external_tool": false
+        }
+      },
+      {
+        "advisories": [
+          "+12V: existing tracks span 0.25\u20133 mm, but no stored non-Default class assignment provides a 3 mm routing width. Review the intended main-route default; smaller low-current branches on this net can be legitimate. This does not impose a net-wide minimum or assess ampacity.",
+          "+12V: existing 3 mm route width is absent from the saved width presets and assigned class widths; consider a matching preset for future manual routing. Custom rules and connected-track mode may still determine the actual router width.",
+          "+5V: existing tracks span 0.25\u20133 mm, but no stored non-Default class assignment provides a 3 mm routing width. Review the intended main-route default; smaller low-current branches on this net can be legitimate. This does not impose a net-wide minimum or assess ampacity.",
+          "+5V: existing 3 mm route width is absent from the saved width presets and assigned class widths; consider a matching preset for future manual routing. Custom rules and connected-track mode may still determine the actual router width."
+        ],
+        "check_id": "routing_settings",
+        "detail": "Native routing: 449 segments, 0 arcs, 168 vias; 0 locked item(s). Default width: 0.25 mm; 24 positive width preset(s).",
+        "duration_ms": 204,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "ampacity, thermal margin, branch currents, effective custom rules or router UI selection",
+          "proves": "stored native routing widths/locks and project routing-setting coverage",
+          "requires_external_tool": false
+        }
+      },
+      {
+        "advisories": [
+          "Track fa24d415-4af9-45e4-9939-a3c5b1acf02e: short track; /12 V Jetson supply/FB_2 on F.Cu at (135.7125, 92.1125) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track 6f8b6c4f-62a7-489a-ba76-f54f5a0753bf is fully covered by same-net track f96b58ad-7281-486c-8120-36bbe8084a0a; /22.19 V motor supply/VMOTOR on F.Cu at (143.2000, 148.2348) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track 8d263511-6f37-49b6-952b-5692796deab2: short track; /22.19 V motor supply/VMOTOR on F.Cu at (136.3000, 140.5303) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track 9d2ac779-6f45-4d5d-8a81-31191b1c2db3: short track; /22.19 V motor supply/VMOTOR on F.Cu at (145.8152, 61.3848) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track 0268b8de-e372-4d0b-88e8-e839732738af is fully covered by same-net track 699bed47-0682-424f-8f34-3df5468a2bc7; /VBAT on F.Cu at (133.8500, 109.2500) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track 09160481-9e64-48b2-859c-766c8135d0f6 is fully covered by same-net track 21ae6831-ff40-4436-bbfd-4a0531216ea2; /VBAT on F.Cu at (134.1500, 131.2500) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track 0ac66c82-5605-4f5a-84f3-3de6e37fc537 is fully covered by same-net track 699bed47-0682-424f-8f34-3df5468a2bc7; /VBAT on F.Cu at (133.9000, 109.2000) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track 1fb2a74c-18ee-4ebc-8595-f8aaef8a2bcb: short track; /VBAT on F.Cu at (153.5000, 67.6000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track 2c00c819-55bf-4332-8608-e86e21653f90 is fully covered by same-net track 651ffa79-ca62-49e8-8d61-9cc9e3042b07; /VBAT on F.Cu at (141.1152, 131.0750) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track 4971b0e6-8282-4a2e-8ea9-2b936abcde60 is fully covered by same-net track d3f9550e-be4b-4087-bfe7-bb4721a6ac64; /VBAT on F.Cu at (155.2848, 63.4152) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track 54a487ed-ee4d-4291-ba25-3510b1ac4b9b is fully covered by same-net track 1645db53-6a00-425b-9aa9-f2501d2649a8; /VBAT on F.Cu at (158.6652, 65.6500) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track 55fd5b4f-e056-48d7-bd1e-ad1f40b7e25f is fully covered by same-net track dd9ec8f9-f6f1-4e76-a1b9-ad2069539851; /VBAT on F.Cu at (136.9902, 87.2000) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track 63156b56-6150-4a1c-b8ad-487563f2b1a1 is fully covered by same-net track 4b76ae86-52ef-403f-9f8d-6154c93e7153; /VBAT on F.Cu at (141.1152, 109.0750) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track 6c2cb1ef-96bb-404d-b96d-8a22a14dea92: short track; /VBAT on F.Cu at (134.0000, 109.2500) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track 77b1cff6-2266-4cc7-a21f-053981230c7e: short track; /VBAT on F.Cu at (134.5652, 109.2000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track 9369387c-fee8-496f-8282-5cf71422cfd9: short track; /VBAT on F.Cu at (133.9500, 109.2500) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track a50ab749-359b-4965-b8f5-a2f9d00e7442 is fully covered by same-net track 21ae6831-ff40-4436-bbfd-4a0531216ea2; /VBAT on F.Cu at (134.2152, 131.2848) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track aa7d6083-255f-454d-8739-21dfbccd7fbe is fully covered by same-net track db7c116b-5bea-4691-8c18-e7bb532aaa19; /VBAT on F.Cu at (133.7052, 86.7500) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track ab587c1d-8ac2-410c-8052-a0dbc9904b8d is fully covered by same-net track 1645db53-6a00-425b-9aa9-f2501d2649a8; /VBAT on F.Cu at (157.8152, 66.5000) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track b43a97ad-bcac-423b-8611-490434ed12cb: short track; /VBAT on F.Cu at (153.6000, 68.0000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track b7805cfe-e185-4b3b-a268-fb89ace41804 is fully covered by same-net track 21ae6831-ff40-4436-bbfd-4a0531216ea2; /VBAT on F.Cu at (134.2000, 131.0652) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track c68d75f1-f65f-414b-bbb1-100260c43ee1 is fully covered by same-net track 3ed2ed61-ddbf-439e-b7ef-184f817b1b2f; /VBAT on F.Cu at (141.1152, 87.0750) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track e8223027-73b0-4d0b-be02-32fa7c284160: short track; /VBAT on F.Cu at (134.5152, 108.7500) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track eb599dcf-dd92-43dc-a709-2635ed453f19: short track; /VBAT on F.Cu at (140.9902, 87.2000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track ee96951d-89da-417a-aed9-fb9eab1a2eb8: short track; /VBAT on F.Cu at (137.1152, 87.0750) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track efcbd9ce-3b08-4e24-92d8-5e88924dfb42 is fully covered by same-net track 1645db53-6a00-425b-9aa9-f2501d2649a8; /VBAT on F.Cu at (158.6652, 64.0348) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track f961f9de-8c29-4fd4-a7a0-fd109248f443 is fully covered by same-net track 21ae6831-ff40-4436-bbfd-4a0531216ea2; /VBAT on F.Cu at (134.2000, 131.3000) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track 03ee72ae-f268-4864-8229-3b425d5231d9: short track; /VBAT on B.Cu at (146.3152, 71.0000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track 7b0a11bf-f450-4318-9308-5a38a89f0aa2: short track; /VBAT on B.Cu at (146.2000, 82.3848) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track 0466f304-bf38-42e0-892b-32fe1d4c5843 is fully covered by same-net track e521dd57-d309-40f5-9cc3-1363baeea351; +3V3 on F.Cu at (166.8125, 67.8000) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track 057e9b0e-d3cb-4bac-8d76-eff9cd0c05f7: short track; +3V3 on F.Cu at (172.0152, 107.3000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track 68c45bea-0a56-4bc7-bc8d-295c2f7a4b6f: short track; +3V3 on F.Cu at (152.5500, 69.2500) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track 7c1a0091-8400-4361-aee5-ce6199f39d96: short track; +3V3 on F.Cu at (168.7125, 69.7000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track b098863b-a127-4562-bae8-82ebb56eed5e: short track; +3V3 on F.Cu at (172.1152, 107.3000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track 78562197-136f-4efa-a6b8-e2ed3d96b6b1: short track; /Pico 2 and hobby servos/GP18 on F.Cu at (170.8000, 112.3000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track cc4f0cd2-556c-4877-9794-196c848bd904: short track; /Pico 2 and hobby servos/GP21 on B.Cu at (172.4826, 99.2126) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track 2bf5d138-95dc-438c-868b-d6c80dece29b: short track; /22.19 V motor supply/SW_SUPPLY on F.Cu at (142.3000, 133.4000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track 33dd735c-cfe0-4c4c-b726-a203465953bf: short track; /22.19 V motor supply/SW_SUPPLY on F.Cu at (142.2000, 124.9152) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track be90145b-79a1-409d-9270-62902f452310: short track; /22.19 V motor supply/SW_SUPPLY on B.Cu at (142.2000, 125.6872) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track e1477b1e-5acc-4c6a-b196-eec635a93bdb: short track; /22.19 V motor supply/SW_SUPPLY on B.Cu at (142.3000, 133.4000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track ec322d0f-21e5-4e56-b937-cad29365a8ba: short track; /22.19 V motor supply/SW_SUPPLY on B.Cu at (142.3000, 133.3000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track 0c8e5ead-571b-45ee-962e-b6495c3e5da7: short track; /22.19 V motor supply/AGND_4 on F.Cu at (138.0065, 134.5587) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track 51afa25a-3935-430b-8fc7-867bc196755f is fully covered by same-net track 14da725c-9e4b-4247-9547-020035622520; +5V on F.Cu at (149.9000, 132.7000) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track 6ae24f0a-be91-4d0c-acfc-dbf319d9d7b6 is fully covered by same-net track f28453ff-e598-454d-8c6d-cb35b4e0460b; +5V on F.Cu at (149.9000, 131.9000) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track b25dd8bc-37c7-4060-859e-d16eb62ca476: short track; +5V on F.Cu at (135.6000, 119.6000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track e3b058ab-93c0-4393-b8b2-b19c390885b5: short track; +5V on F.Cu at (169.3448, 143.2000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track 35c43523-9824-42f6-900a-874f824a9507 is fully covered by same-net track 90860d5a-c355-4ab5-93be-7a96182195d8; +5V on B.Cu at (149.9000, 132.7000) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track 80ce4d4b-7d0a-4f8c-93d1-dcf90a821dd1 is fully covered by same-net track f93cf7a2-563a-4823-9bbe-6ef2e2c58707; +5V on B.Cu at (149.9000, 131.9000) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track 074b2e85-f2b6-4dc6-b07d-6d263a66cadb: short track; /5 V servo supply/EN_3 on F.Cu at (137.1500, 110.2500) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track 18026270-47c4-418b-9a9c-dc3765a12dbd: short track; /5 V servo supply/EN_3 on F.Cu at (137.2000, 110.3000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track c1c9b1ca-f04b-4c56-91be-5e5ef17f3976: short track; /Battery input and INA226/I2C_SDA on B.Cu at (168.0350, 120.0350) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track 4f96076b-f09d-4f15-a79d-4ec3f9b0e55d is fully covered by same-net track 077d9068-abb8-4747-86aa-b9a891213f09; /22.19 V motor supply/FB_4 on F.Cu at (137.1000, 136.1125) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track 11e0f56e-1809-4ca2-86f9-79f51e09f35c: short track; /Battery input and INA226/BAT_SWITCHED on F.Cu at (149.9000, 61.3000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track 6ae2add5-1df2-48cc-87b3-10f6a2373861: short track; /Battery input and INA226/BAT_SWITCHED on F.Cu at (148.6000, 62.7152) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track 036e3493-62d9-4d0b-b5c1-e6d64fe609ba: short track; /DYNAMIXEL distribution/DXL_D_PLUS on B.Cu at (145.6000, 152.4000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track 43edcf33-c13e-47f9-b2a8-07168f62fe60: short track; /DYNAMIXEL distribution/DXL_D_PLUS on B.Cu at (130.8000, 152.4000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track c3fe7dfd-f45f-4d54-b0d7-f5e761ce1942 is fully covered by same-net track 43edcf33-c13e-47f9-b2a8-07168f62fe60; /DYNAMIXEL distribution/DXL_D_PLUS on B.Cu at (130.8152, 152.3848) mm. Inspect redundant/overlaid routing before cleanup.",
+          "Track cda3ead8-b5d8-4e77-99c4-eedfef0bc9f5: short track; /DYNAMIXEL distribution/DXL_D_PLUS on B.Cu at (145.5000, 152.3000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track a2e25c3f-deb1-44e2-94e8-e8a60a38c27a: short track; /DYNAMIXEL distribution/DXL_D_MINUS on F.Cu at (162.9000, 148.8000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "Track a17247b9-660a-4a26-8099-2367c12bcc0e: short track; /22.19 V motor supply/MOTOR_EN on F.Cu at (146.9000, 132.6000) mm. Inspect for a patched join; short pad escapes can be intentional.",
+          "J9.2: track copper contacts the pad, but its centreline misses the pad anchor by 0.185 mm; /Pico 2 and hobby servos/GP18 on B.Cu at (173.3152, 106.0000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "C41.2: track copper contacts the pad, but its centreline misses the pad anchor by 0.200 mm; /22.19 V motor supply/FF_4 on F.Cu at (139.8152, 139.0250) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "L3.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.247 mm; /22.19 V motor supply/VMOTOR on F.Cu at (114.9152, 131.2500) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "U3.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.530 mm; /5 V servo supply/SW_3 on F.Cu at (130.9252, 108.7500) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "U3.2: track copper contacts the pad, but its centreline misses the pad anchor by 0.175 mm; /5 V servo supply/SW_3 on F.Cu at (130.9252, 109.2500) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "U3.11: track copper contacts the pad, but its centreline misses the pad anchor by 0.145 mm; /VBAT on F.Cu at (133.7052, 109.2500) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "SKT1.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.420 mm; /Pico 2 and hobby servos/PWM_LIFT_A on F.Cu at (151.5200, 73.0000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "SKT1.2: track copper contacts the pad, but its centreline misses the pad anchor by 0.120 mm; /Pico 2 and hobby servos/PWM_LIFT_B on F.Cu at (151.5200, 75.5400) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "SKT1.24: track copper contacts the pad, but its centreline misses the pad anchor by 0.360 mm; /Pico 2 and hobby servos/GP18 on F.Cu at (169.3000, 113.6400) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "TP1.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.141 mm; /VBAT on F.Cu at (160.9000, 58.5000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "U2.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.596 mm; /12 V Jetson supply/SW_2 on F.Cu at (130.9252, 86.7500) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "U2.2: track copper contacts the pad, but its centreline misses the pad anchor by 0.325 mm; /12 V Jetson supply/SW_2 on F.Cu at (130.9252, 87.2500) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "U2.11: track copper contacts the pad, but its centreline misses the pad anchor by 0.299 mm; /VBAT on F.Cu at (133.7052, 87.2500) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "J6.2: track copper contacts the pad, but its centreline misses the pad anchor by 0.092 mm; /22.19 V motor supply/VMOTOR on F.Cu at (158.0000, 150.2000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "J6.3: track copper contacts the pad, but its centreline misses the pad anchor by 0.092 mm; /DYNAMIXEL distribution/DXL_D_PLUS on B.Cu at (160.5000, 150.2000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "TP3.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.153 mm; +12V on F.Cu at (108.6000, 100.5000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "L2.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.050 mm; +5V on F.Cu at (115.2652, 109.2500) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "P2.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.283 mm; +12V on F.Cu at (104.6000, 94.6000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "SW1.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.234 mm; /22.19 V motor supply/SW_SUPPLY on B.Cu at (139.9000, 61.4000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "J1.3: track copper contacts the pad, but its centreline misses the pad anchor by 0.703 mm; /DYNAMIXEL distribution/DXL_D_PLUS on B.Cu at (115.5000, 150.3000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "J1.4: track copper contacts the pad, but its centreline misses the pad anchor by 0.074 mm; /DYNAMIXEL distribution/DXL_D_MINUS on F.Cu at (118.0000, 150.3000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "C34.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.215 mm; /5 V servo supply/BOOT_3 on F.Cu at (129.3152, 111.7000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "J3.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.849 mm; /Pico 2 and hobby servos/PWM_LIFT_B on F.Cu at (166.8048, 132.6000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "P4.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.100 mm; +5V on F.Cu at (104.8000, 137.6000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "R1.2: track copper contacts the pad, but its centreline misses the pad anchor by 0.124 mm; /Battery input and INA226/I2C_SDA on F.Cu at (160.4875, 66.3000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "C33.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.415 mm; /12 V Jetson supply/BOOT_2 on F.Cu at (129.3152, 89.7000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "J4.1: track copper contacts the pad, but its centreline misses the pad anchor by 0.141 mm; /Pico 2 and hobby servos/PWM_PAN on F.Cu at (166.8048, 138.0000) mm. Inspect the intended pad entry; this is not an electrical-open finding.",
+          "P3.2: track copper contacts the pad, but its centreline misses the pad anchor by 0.566 mm; +12V on F.Cu at (104.7000, 107.4000) mm. Inspect the intended pad entry; this is not an electrical-open finding."
+        ],
+        "check_id": "routing_topology",
+        "detail": "Inspected 449 straight tracks: {'short_track': 37, 'covered_track': 23, 'off_center_pad_contact': 28}. Excluded 0 arcs and 0 custom/offset pads. Native DRC remains the connectivity gate; copper was not changed.",
+        "duration_ms": 642,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "electrical connectivity, ampacity, via/zone/arc topology or whether an off-centre entry is intentional",
+          "proves": "covered straight tracks, short segments and off-centre native pad contacts",
+          "requires_external_tool": true
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "schematic_quality",
+        "detail": "7 sheet(s) checked",
+        "duration_ms": 87,
+        "finding_kind": "machine_failure",
+        "passed": true,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "visual readability, electrical correctness, or page-flow quality",
+          "proves": "all referenced sheets have title/revision and acceptable density",
+          "requires_external_tool": false
+        }
+      },
+      {
+        "advisories": [],
+        "check_id": "signoff",
+        "detail": "0/7 current decisions: schematic-owner-review unsigned; motor-energy unsigned; parts-and-mechanics unsigned; power-and-protection unsigned; pcb-layout-and-assembly unsigned; shared.schematic-readability unsigned; shared.layout-handover unsigned",
+        "duration_ms": 260,
+        "finding_kind": "human_decision",
+        "passed": false,
+        "scope": {
+          "deterministic": true,
+          "does_not_prove": "the reviewer inspected correctly, measured hardware, or made a safe decision",
+          "proves": "named, dated, project-specific decisions match the exact current design and review profile",
+          "requires_external_tool": false
+        }
+      }
+    ],
+    "schema_version": 1,
+    "schematic_hash": "b9d2fe436ab1c492c11fbe5f4d9ccdcb55d40cdd69231655cef87982681322a9"
+  },
+  "scope": "Recorded CLI results with temporary absolute review paths normalized. Original log hashes are retained. Not a screen recording, CAD edit demonstration or fabrication approval."
+}

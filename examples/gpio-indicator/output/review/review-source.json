@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "source_hashes": {
+    "gpio-indicator.kicad_pcb": "aa4811a06c27b7d529da161f004cf5e5c1d192e04515ebd6aa9e8716a8536c71",
+    "gpio-indicator.kicad_pro": "b53a9bec0882a7dbd622aba8401f6616c067972c9d85dbffc407c407f9365fe2",
+    "gpio-indicator.kicad_dru": "fd6ec6cfd46f091c61ee7fa09ab3e1c5e29cb9b187e5045bcf055666f0239643"
+  },
+  "svg_hashes": {
+    "assembly.svg": "cbb470915cf35d07430a11dfd06a82c783633830d17fc0a205439c6af344288a",
+    "top-copper.svg": "7f49e1e2d24fa888d605553fc5f11875fca1d3511ca337d66753a5985e66d414",
+    "bottom-copper.svg": "c731a5dbc7c5d271281b34150c5e2d8b63605f7472876879b6a8d725b0a26b5a"
+  },
+  "kicad_version": "10.0.6",
+  "view_orientation": {
+    "assembly.svg": "top",
+    "top-copper.svg": "top",
+    "bottom-copper.svg": "underside; mirrored relative to top"
+  },
+  "scope": "Fresh native review views; not a DRC, parity or fabrication approval"
+}

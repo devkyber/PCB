@@ -1,0 +1,12 @@
+schema_version: 1
+name: gpio-indicator
+lifecycle: DRAFT
+design:
+  schematic: gpio-indicator.kicad_sch
+  pcb: gpio-indicator.kicad_pcb
+  netmap: netmap.json
+evidence:
+  index: evidence/index.yaml
+manufacturing:
+  profile: jlcpcb_2layer_default
+safety_tags: [educational, low-voltage, unbuilt]

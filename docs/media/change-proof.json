@@ -1,0 +1,234 @@
+{
+  "schema_version": 1,
+  "record_kind": "published-summary-of-real-scoped-native-change",
+  "capture_started_utc": "2026-10-28T17:59:48.444678+00:00",
+  "source_root": "examples/gpio-indicator",
+  "capture_status": "applied-to-disposable-snapshot",
+  "exit_code": 0,
+  "scope": "Title-block revision only, applied to a disposable snapshot; original source inputs preserved.",
+  "publication": {
+    "original_transcript_sha256": "bbc92d5000087ecc3b0f7641697718dd2e335c46cf9513886c2fb9c768d5d9d1",
+    "source_root_normalized": true,
+    "original_logs_included": false,
+    "note": "This public summary removes the machine-local source path. Original transcript and exact stdout/stderr bytes are identified by SHA-256; their byte content is not rewritten or embedded. Capture paths identify artifacts in the original run, not files bundled with this summary."
+  },
+  "steps": [
+    {
+      "name": "preview-initial",
+      "command": [
+        "pcb-copilot",
+        "update-schematic",
+        "workspace/gpio-indicator",
+        "--candidate",
+        "candidate/gpio-indicator.kicad_sch"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 6.981,
+      "error": null,
+      "original_logs": {
+        "stdout": {
+          "capture_path": "logs/preview-initial.stdout.txt",
+          "sha256": "1e18385a0d46bed103c359b8d88a3b214a84bdb90feb77cc9cd0b4245e932391",
+          "bytes": 5822
+        },
+        "stderr": {
+          "capture_path": "logs/preview-initial.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      }
+    },
+    {
+      "name": "apply-stale",
+      "command": [
+        "pcb-copilot",
+        "update-schematic",
+        "workspace/gpio-indicator",
+        "--candidate",
+        "candidate/gpio-indicator.kicad_sch",
+        "--apply"
+      ],
+      "exit_code": 2,
+      "duration_seconds": 0.709,
+      "error": null,
+      "original_logs": {
+        "stdout": {
+          "capture_path": "logs/apply-stale.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "stderr": {
+          "capture_path": "logs/apply-stale.stderr.txt",
+          "sha256": "56e7a33413863b60c84f18d4f40a6b530d39b43914c8a24ef91fe39b0c81de3a",
+          "bytes": 290
+        }
+      }
+    },
+    {
+      "name": "preview-current",
+      "command": [
+        "pcb-copilot",
+        "update-schematic",
+        "workspace/gpio-indicator",
+        "--candidate",
+        "candidate/gpio-indicator.kicad_sch"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 9.582,
+      "error": null,
+      "original_logs": {
+        "stdout": {
+          "capture_path": "logs/preview-current.stdout.txt",
+          "sha256": "42263c6b08e9cc12f50a39d4b75aa56d77e0d60ef5b8bef1b82cdffae2baedb3",
+          "bytes": 5822
+        },
+        "stderr": {
+          "capture_path": "logs/preview-current.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      }
+    },
+    {
+      "name": "apply-reviewed",
+      "command": [
+        "pcb-copilot",
+        "update-schematic",
+        "workspace/gpio-indicator",
+        "--candidate",
+        "candidate/gpio-indicator.kicad_sch",
+        "--apply"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 6.648,
+      "error": null,
+      "original_logs": {
+        "stdout": {
+          "capture_path": "logs/apply-reviewed.stdout.txt",
+          "sha256": "d0e4b2a49de7d190bd7aa02a93cb583a8d9d18c4e4ab9c11454849298ac92aca",
+          "bytes": 5846
+        },
+        "stderr": {
+          "capture_path": "logs/apply-reviewed.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      }
+    }
+  ],
+  "initial_change": {
+    "file": "gpio-indicator.kicad_sch",
+    "before": "A1 DRAFT",
+    "after": "DEMO-P1",
+    "scope": "Only the existing title-block revision string; all other bytes preserved."
+  },
+  "final_change": {
+    "file": "gpio-indicator.kicad_sch",
+    "before": "DEMO-P1",
+    "after": "DEMO-P2",
+    "scope": "Only the existing title-block revision string; all other bytes preserved."
+  },
+  "source_inputs_sha256": {
+    "DESIGN_BASIS.md": "77119e5d1ab6ea43a385a17adec1874ffc9b6c20e35eb44d783278710b9f239f",
+    "DEVIATIONS.md": "324f110ce0816864290f2b28a6ecdbe8006457f305852762837590ae0eb99563",
+    "evidence/files/61300511121_61300511121_b91171c2b942.pdf": "b91171c2b94275ccb3824762a4b77dcd0cd9031e8a818e869a6c9f18c053ad8b",
+    "evidence/files/MFR-25FBF52-1K1_YAGEO-MFR_DATASHEET_b460acdb4764.pdf": "b460acdb476469774e0785a8ef85aec79e2d95fe41beaa79c5a414e4e95e3fe0",
+    "evidence/files/WP710A10ID_WP710A10ID_42d464fbfd8d.pdf": "42d464fbfd8d3ddef65fa6f9226d298547cdb25d5369aff0c47e5f896595c4bd",
+    "evidence/index.yaml": "cece06b86df6f692fbfe52ceabf858e7996eb0721db00232d79f54c1c3c82149",
+    "fp-lib-table": "65851d1c9080d2cf944dcf740f2b9ad66fd62e6550f0feb7635f9dab55e1c329",
+    "gpio-indicator.kicad_dru": "fd6ec6cfd46f091c61ee7fa09ab3e1c5e29cb9b187e5045bcf055666f0239643",
+    "gpio-indicator.kicad_pcb": "aa4811a06c27b7d529da161f004cf5e5c1d192e04515ebd6aa9e8716a8536c71",
+    "gpio-indicator.kicad_pro": "b53a9bec0882a7dbd622aba8401f6616c067972c9d85dbffc407c407f9365fe2",
+    "gpio-indicator.kicad_sch": "bcf4b33bda22faff9d68be7498e96e7a83a40dc403b5fe2f4ffd79bf2f265ab4",
+    "jlcpcb-assembly.yaml": null,
+    "layout-intent.yaml": null,
+    "libs/Demo.kicad_sym": "c5e68806f7af78dceae8bff16e23446288e7247b32aa1a31d64f58da7e70a403",
+    "libs/Demo.pretty/LED_D3.0mm.kicad_mod": "9928bcc8ef35ea406d56af1480e43c606d8d646ba247b3d453d80386cd0f5b10",
+    "libs/Demo.pretty/MountingHole_3.2mm_M3.kicad_mod": "3853c52bba27d3e3e3e18db44a20dfb296eb9e6cd16ebf26fe4a96a2ee8add3b",
+    "libs/Demo.pretty/PinHeader_1x05_P2.54mm_Vertical.kicad_mod": "8e494ecb4bbaff9fecbe2b16962684513fae788c9b9c9902172781d64b01c2e3",
+    "libs/Demo.pretty/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.kicad_mod": "bf616ce7d49ae02d5c87d01dd19957ebf3aa66007809680c450de8561f4681a1",
+    "libs/LICENSE-kicad-footprints.md": "285b027a721577d0bc0198f36e948c6c282ddaa4b58fef8ed826749576eb0aef",
+    "libs/LICENSE-kicad-packages3D.md": "285b027a721577d0bc0198f36e948c6c282ddaa4b58fef8ed826749576eb0aef",
+    "libs/LICENSE-kicad-symbols.md": "285b027a721577d0bc0198f36e948c6c282ddaa4b58fef8ed826749576eb0aef",
+    "libs/LICENSE_PROVENANCE.json": "8fb14cbd87bbb53c2e381fa614336026b1ef1a6b69d252e40b5de8dafa7f9c66",
+    "libs/models/LED_D3.0mm.step": "e83c2186ad887c36d869f44e28c7b80646ea10cb388697b4380f5a2777268371",
+    "libs/models/PinHeader_1x05_P2.54mm_Vertical.step": "f03b716e453f6d4f2a111a227c671d96f92708e72a5a663cd4889296d021f4c3",
+    "libs/models/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step": "85bdadc9190739c38429da06b1d9c76ccf33aef9a0794a2e7a9dd5b58d9d05fe",
+    "libs/PROVENANCE.json": "30cb553d1c3ac24055e98ae9dc41e45d3eaa876cad6a8894dee4959aef2f6314",
+    "libs/README.md": "c09361039bd440ad0aa9038cf81a652abfbbe1e2803ca0dbd3471ce576a2e2d0",
+    "libs/upstream/LED_D3.0mm.kicad_mod": "d45c606dbf639522eaeae8c6bd2569747ee454daff87ab2db66bdad3200676d0",
+    "libs/upstream/models/LED_D3.0mm.step": "e83c2186ad887c36d869f44e28c7b80646ea10cb388697b4380f5a2777268371",
+    "libs/upstream/models/PinHeader_1x05_P2.54mm_Vertical.step": "f03b716e453f6d4f2a111a227c671d96f92708e72a5a663cd4889296d021f4c3",
+    "libs/upstream/models/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step": "85bdadc9190739c38429da06b1d9c76ccf33aef9a0794a2e7a9dd5b58d9d05fe",
+    "libs/upstream/MountingHole_3.2mm_M3.kicad_mod": "3853c52bba27d3e3e3e18db44a20dfb296eb9e6cd16ebf26fe4a96a2ee8add3b",
+    "libs/upstream/PinHeader_1x05_P2.54mm_Vertical.kicad_mod": "a9beaa5e3bf9f73f4667fd503d8ddc47f81aec7999b51211890c919363099acf",
+    "libs/upstream/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.kicad_mod": "1ba096b69c79e588cc54946fb6648699e5b301f67f8df0e0e0be43dcab326436",
+    "netmap.json": "8049b76e10dfec2faea46331a99f75b34a22956aa7c81a685046c1389f1f64cd",
+    "project.yaml": "aa7e36a756e811ac38745c30d60499eec18049f8ae8e1affcac57b4613a51f14",
+    "REFERENCE_REVIEW.md": "7ddb00764a476d5b8e30e9ad125b103b815c7352dbdec4906016349a96b04d00",
+    "REQUIREMENTS.md": "5752f874ffded6f7ad28952d14a08c1764db07e818f156fb1a99399c4a3c7efa",
+    "review-profile.yaml": "c6b7725c0945ace7546a27fb0ef93c313a09af05e6ae974c0ca8e75ecd9a0af2",
+    "review-signoff.yaml": null,
+    "schematic-intent.yaml": null,
+    "sym-lib-table": "accdd625891ba71beb5e534de13e680099f47f98dff64ca95182060d2072213c"
+  },
+  "source_inputs_unchanged": true,
+  "candidate_inputs_sha256": {
+    "gpio-indicator.kicad_sch": "3932a952e4cb5a46324e454d7e400582572297341e07caabb7f857e465703fb0"
+  },
+  "review_artifacts": {
+    "review/schematic.pdf": {
+      "capture_path": "review/schematic.pdf",
+      "sha256": "c851d75a6a605b8058d269924d2c9db5ff0cdacb90f9818b316d349690fdd473",
+      "bytes": 113885
+    },
+    "review/erc.json": {
+      "capture_path": "review/erc.json",
+      "sha256": "5e116721df0db340c4694270d30ea15a7944121f4b8c236710c292300d32f394",
+      "bytes": 1023
+    },
+    "review/metrics.json": {
+      "capture_path": "review/metrics.json",
+      "sha256": "2b4788e1a76e8b4859cd53c10b4a71f625802760d467b730827beb15832f1f6a",
+      "bytes": 487
+    }
+  },
+  "native_inventories": {
+    "equal": true,
+    "parts": 11,
+    "nets": 9,
+    "before": {
+      "capture_path": "electrical-before.json",
+      "sha256": "7ed29469f297d709ed55516aaa04a53c2f1e94a36283cf00f751f7f33cd8f102",
+      "bytes": 4139
+    },
+    "candidate": {
+      "capture_path": "electrical-candidate.json",
+      "sha256": "7ed29469f297d709ed55516aaa04a53c2f1e94a36283cf00f751f7f33cd8f102",
+      "bytes": 4139
+    }
+  },
+  "author_visual_review": {
+    "reviewer": "Codex author visual review",
+    "recorded_utc": "2026-10-28T18:01:50.263845+00:00",
+    "render_sha256": "c851d75a6a605b8058d269924d2c9db5ff0cdacb90f9818b316d349690fdd473",
+    "sheets": [
+      "gpio-indicator.kicad_sch"
+    ],
+    "scope": "Operator attests every rendered sheet was inspected; author review only, not owner sign-off."
+  },
+  "snapshot_changes": {
+    "gpio-indicator.kicad_sch": {
+      "before_sha256": "bcf4b33bda22faff9d68be7498e96e7a83a40dc403b5fe2f4ffd79bf2f265ab4",
+      "after_sha256": "3932a952e4cb5a46324e454d7e400582572297341e07caabb7f857e465703fb0"
+    }
+  },
+  "snapshot_board_unchanged": true,
+  "applied_to_disposable_snapshot": true,
+  "owner_signoff": false,
+  "fabrication_release": false,
+  "limits": [
+    "This demonstration does not qualify electrical behavior, mechanical fit, thermal performance, assembly or manufacturing.",
+    "The example remains an unbuilt educational DRAFT with assembly-contract and human-review blockers."
+  ]
+}

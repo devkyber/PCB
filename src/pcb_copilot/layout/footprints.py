@@ -19,6 +19,10 @@ from pcb_copilot.layout.footprint_provenance import (
     drawing_receipt,
 )
 from pcb_copilot.layout.lib_ids import split_footprint_lib_id
+from pcb_copilot.layout.official_footprint_provenance import (
+    OFFICIAL_COPY_DESCRIPTION,
+    official_copy_receipt,
+)
 from pcb_copilot.models import FootprintCandidate, Project
 
 _REAL_LOCAL_DESCRIPTIONS = {
@@ -309,7 +313,7 @@ def _footprint_data(path: Path) -> tuple[list[Any], tuple[float, float, float, f
     return _footprint_text_data(text, path)
 
 
-def _fidelity(project: Project, path: Path, description: str) -> str:
+def _fidelity(project: Project, path: Path, description: str, *, ref: str, lib_id: str) -> str:
     try:
         path.relative_to(project.root)
     except ValueError:
@@ -321,6 +325,9 @@ def _fidelity(project: Project, path: Path, description: str) -> str:
         return "real"
     if provenance == DRAWING_DERIVED_DESCRIPTION:
         drawing_receipt(project, path)
+        return "real"
+    if provenance == OFFICIAL_COPY_DESCRIPTION:
+        official_copy_receipt(project, path, ref, lib_id)
         return "real"
     raise ValueError(
         f"project-local footprint {path} has no declared provenance; "
@@ -341,13 +348,18 @@ def resolve_footprint(project: Project, ref: str, lib_id: str) -> FootprintCandi
     _, extents = _footprint_data(path)
     receipt = (drawing_receipt(project, path)
                if ' '.join(description.casefold().split()) == DRAWING_DERIVED_DESCRIPTION else None)
+    official = (official_copy_receipt(project, path, ref, lib_id)
+                if ' '.join(description.casefold().split()) == OFFICIAL_COPY_DESCRIPTION else None)
+    source_note = ('; hash-bound author derivation, physical fit unqualified' if receipt else
+                   '; hash-bound official footprint copy, physical fit unqualified' if official else '')
     return FootprintCandidate(
         lib_id=lib_id,
         path=path,
-        source=(source + '; hash-bound author derivation, physical fit unqualified' if receipt else source),
-        fidelity=_fidelity(project, path, description),
+        source=source + source_note,
+        fidelity=_fidelity(project, path, description, ref=ref, lib_id=lib_id),
         extents_mm=extents,
-        evidence_id=receipt['evidence_ids'][0] if receipt else None,
+        evidence_id=(receipt['evidence_ids'][0] if receipt else
+                     next(iter(official['manufacturer_evidence_ids']), None) if official else None),
     )
 
 

@@ -7,6 +7,7 @@ import json
 import shutil
 import subprocess
 import tempfile
+from importlib.resources import files
 from pathlib import Path
 
 from kicad_claude.adapters import sch_io
@@ -15,13 +16,26 @@ from pcb_copilot.toolchain import discover_toolchain
 
 PROFILE = 'jlcpcb-2layer-1oz-green-2026-10-05'
 SOURCE = 'https://jlcpcb.com/capabilities/pcb-capabilities'
+BASELINE_STEM = 'jlcpcb-2layer-1oz'
+
+
+def baseline_bytes() -> tuple[bytes, bytes]:
+    """Read exact baseline sources from a wheel or the canonical checkout template.
+
+    The wheel copies these two files at build time; there is no separately
+    maintained package baseline. Editable checkouts use the original template.
+    """
+    template = files('pcb_copilot').joinpath('resources', BASELINE_STEM)
+    if not template.is_dir():
+        template = Path(__file__).resolve().parents[2] / 'templates' / BASELINE_STEM
+    return (template.joinpath(BASELINE_STEM + '.kicad_pro').read_bytes(),
+            template.joinpath(BASELINE_STEM + '.kicad_dru').read_bytes())
 
 
 def check_jlcpcb(project) -> dict:
     """Run on isolated CAD; never alter the owner's rules, exclusions or copper."""
-    template = Path(__file__).resolve().parents[2] / 'templates/jlcpcb-2layer-1oz'
-    baseline = json.loads((template / 'jlcpcb-2layer-1oz.kicad_pro').read_text())
-    rules = (template / 'jlcpcb-2layer-1oz.kicad_dru').read_bytes()
+    settings_bytes, rules = baseline_bytes()
+    baseline = json.loads(settings_bytes)
     board = sch_io.parse_file(project.pcb_path)
     setup = sch_io.find_child(board, 'setup') or []
     stack = sch_io.find_child(setup, 'stackup') or []

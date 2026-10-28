@@ -30,6 +30,8 @@ def main(
     parser = argparse.ArgumentParser(prog="pcb-copilot")
     parser.add_argument("--version", action="store_true")
     subparsers = parser.add_subparsers(dest="command")
+    doctor_parser = subparsers.add_parser('doctor', help='probe required and optional tools without opening a project')
+    doctor_parser.add_argument('--format', choices=('text', 'json'), default='text')
     status_parser = subparsers.add_parser("status", help="show read-only project status")
     status_parser.add_argument("project_path", type=Path)
     clean_parser = subparsers.add_parser(
@@ -96,6 +98,12 @@ def main(
 
     if args.version:
         print(f"pcb-copilot {__version__}")
+    elif args.command == 'doctor':
+        from pcb_copilot.doctor import collect_doctor, render_doctor
+
+        report = collect_doctor()
+        print(json.dumps(report, indent=2) if args.format == 'json' else render_doctor(report))
+        return int(not report['ready'])
     elif args.command == 'parts':
         from pcb_copilot.parts import import_part, lookup_part
 

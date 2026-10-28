@@ -1,6 +1,8 @@
 [project]
 name = "pcb-copilot"
 version = "0.1.0"
+description = "Reviewable KiCad PCB changes with evidence, checked previews, and reproducible release gates."
+readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
   "easyeda2kicad>=1.0.1,<2",
@@ -13,8 +15,14 @@ dependencies = [
 [project.scripts]
 pcb-copilot = "pcb_copilot.cli:entrypoint"
 
+[project.urls]
+Repository = "https://github.com/devkyber/PCB"
+Documentation = "https://github.com/devkyber/PCB/blob/main/docs/WORKFLOW.md"
+Issues = "https://github.com/devkyber/PCB/issues"
+
 [dependency-groups]
 dev = ["pytest>=8", "ruff>=0.6"]
+media = ["pillow>=11,<13", "imageio-ffmpeg>=0.6,<0.7"]
 
 [tool.uv.workspace]
 members = ["packages/kicad-claude-mcp"]
@@ -28,6 +36,10 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/pcb_copilot"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"templates/jlcpcb-2layer-1oz/jlcpcb-2layer-1oz.kicad_pro" = "pcb_copilot/resources/jlcpcb-2layer-1oz/jlcpcb-2layer-1oz.kicad_pro"
+"templates/jlcpcb-2layer-1oz/jlcpcb-2layer-1oz.kicad_dru" = "pcb_copilot/resources/jlcpcb-2layer-1oz/jlcpcb-2layer-1oz.kicad_dru"
 
 [tool.pytest.ini_options]
 testpaths = ["tests", "packages/kicad-claude-mcp/tests"]

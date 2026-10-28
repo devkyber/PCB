@@ -80,6 +80,21 @@ Changed CAD or evidence invalidates the receipt. This records source lineage;
 physical fit and mandatory human acceptance remain separate. Never label a
 hand-authored footprint as an LCSC import to satisfy provenance.
 
+For project-local copies of official KiCad footprints, the strict receipt path
+is triggered by the library description
+`Official KiCad footprint copies; see libs/PROVENANCE.json`. The version-1
+`libs/PROVENANCE.json` receipt must pin distinct archived upstream and local
+files, official footprint identity/URL, selected native MPN, complete numbered
+pad functions and exact-part manufacturer evidence. Local footprint bytes may
+differ only by declared model-URI substitutions; every model needs separate,
+hash-matching upstream/local bytes and a contained project-local URI. The narrow
+fabricated-only exception covers unnumbered NPTH mounting features. See the
+[GPIO example receipt](../examples/gpio-indicator/libs/PROVENANCE.json) and
+[library notes](../examples/gpio-indicator/libs/README.md). This verifies local
+footprint lineage and pad coverage, not upstream-download authenticity, symbol
+provenance, datasheet interpretation or physical fit. `physical_fit_qualified`
+must remain `false`; the human review gates still apply.
+
 ### LCSC parts and library import
 
 ```powershell
