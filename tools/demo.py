@@ -1,6 +1,6 @@
-"""Run real first-use commands on an external copy of the saved Rover inputs.
+"""Try PCB Copilot on an external copy of the small GPIO indicator example.
 
-Usage: uv run python tools/demo.py [--full] [--output NEW_DIRECTORY]
+Usage: uv run python tools/demo.py [--project PROJECT] [--full] [--output NEW_DIRECTORY]
 The quick demo needs Python dependencies, but does not require KiCad. Full
 review needs the native toolchain. No fabrication package or approval is made.
 """
@@ -19,6 +19,22 @@ from pathlib import Path
 
 CLI_ENTRYPOINT = "from pcb_copilot.cli import entrypoint; entrypoint()"
 GUARD_MESSAGE = "No successful matching unconsumed preview"
+DEFAULT_PROJECT = Path('examples/gpio-indicator')
+
+
+def select_project(repository: Path, requested: Path):
+    """Select active repository inputs; fixtures never become demo projects."""
+    from pcb_copilot.project import load_project
+
+    repository = repository.resolve()
+    source = (repository / requested).resolve()
+    try:
+        relative = source.relative_to(repository)
+    except ValueError as exc:
+        raise ValueError('demo project must be inside this checkout under examples/ or projects/') from exc
+    if len(relative.parts) < 2 or relative.parts[0] not in {'examples', 'projects'}:
+        raise ValueError('select a project under examples/ or projects/; tests and frozen fixtures are not demo projects')
+    return load_project(source), relative.as_posix()
 
 
 def new_output_directory(requested: Path | None, repository: Path) -> Path:
@@ -93,6 +109,28 @@ def step_output(output: Path, step: dict, stream: str) -> str:
     return (output / step[stream]).read_text(encoding="utf-8")
 
 
+def review_document(text: str, project_name: str, exit_code: int) -> dict:
+    """Reject incomplete or contradictory results instead of calling them a review."""
+    review = json.loads(text)
+    if (not isinstance(review, dict) or review.get('project') != project_name
+            or type(review.get('blocking')) is not bool
+            or not isinstance(review.get('results'), list) or not review['results']):
+        raise ValueError('native review returned an incomplete result for the selected project')
+    results = review['results']
+    if any(not isinstance(item, dict) or not isinstance(item.get('check_id'), str)
+           or not item['check_id'] or type(item.get('passed')) is not bool for item in results):
+        raise ValueError('native review returned an invalid check result')
+    if len({item['check_id'] for item in results}) != len(results):
+        raise ValueError('native review returned duplicate check identifiers')
+    findings = review.get('findings', [])
+    if not isinstance(findings, list) or any(not isinstance(item, dict) for item in findings):
+        raise ValueError('native review returned invalid findings')
+    blocked = any(not item['passed'] for item in results) or any(item.get('blocking') is True for item in findings)
+    if review['blocking'] != blocked or exit_code != int(blocked):
+        raise ValueError('native review blockers and process exit code disagree')
+    return review
+
+
 def write_report(output: Path, transcript: dict) -> None:
     (output / "transcript.json").write_text(
         json.dumps(transcript, indent=2, ensure_ascii=False) + "\n", encoding="utf-8",
@@ -100,8 +138,9 @@ def write_report(output: Path, transcript: dict) -> None:
     lines = [
         "# PCB Copilot first-use demo", "",
         f"Source: `{transcript['source_project']}` · mode: `{transcript['mode']}`", "",
-        ("Commands ran on the disposable [workspace](workspace/rover-pdb/). "
-         "Command paths below are relative to this report. Logs retain the exact process output."), "",
+        (f"Commands ran on the disposable [workspace]({transcript['snapshot_project']}/). "
+         if transcript.get('snapshot_project') else 'Disposable workspace creation did not complete. ')
+        + "Command paths below are relative to this report. Logs retain the exact process output.", "",
         "| Step | Actual exit code | Result | Logs |",
         "| --- | ---: | --- | --- |",
     ]
@@ -140,23 +179,26 @@ def write_report(output: Path, transcript: dict) -> None:
     (output / "report.md").write_text("\n".join(lines), encoding="utf-8")
 
 
-def execute_demo(repository: Path, output: Path, *, full: bool) -> dict:
+def execute_demo(repository: Path, output: Path, *, full: bool,
+                 project_path: Path = DEFAULT_PROJECT) -> dict:
     from pcb_copilot import __version__
-    from pcb_copilot.project import load_project
     from pcb_copilot.toolchain import ToolchainDiscoveryError, discover_toolchain
     from pcb_copilot.transaction import input_hashes
 
-    project = load_project(repository / "projects" / "rover-pdb")
+    project, relative_source = select_project(repository, project_path)
     transcript = {
         "schema_version": 1, "started_utc": datetime.now(UTC).isoformat(),
-        "pcb_copilot_version": __version__, "source_project": "projects/rover-pdb",
+        "pcb_copilot_version": __version__, "source_project": relative_source,
         "mode": "full" if full else "quick", "steps": [], "exit_code": 2,
     }
     snapshot = None
     before = input_hashes(project)
     try:
-        snapshot, before = snapshot_project(project, output)
+        snapshot, captured = snapshot_project(project, output)
+        if captured != before:
+            raise RuntimeError('source inputs changed before the disposable snapshot was captured')
         relative = snapshot.root.relative_to(output).as_posix()
+        transcript['snapshot_project'] = relative
         print(f"Disposable project: {snapshot.root}", flush=True)
         for name, arguments in (
             ("status", ["status", relative]),
@@ -171,6 +213,13 @@ def execute_demo(repository: Path, output: Path, *, full: bool) -> dict:
                 raise RuntimeError(step["error"])
             if name == "status" and step["exit_code"] != 0:
                 raise RuntimeError("status could not run; inspect its logs")
+            if name == 'evidence':
+                if (step['exit_code'] not in {0, 1}
+                        or 'evidence record(s) verified' not in step_output(output, step, 'stdout')
+                        or 'MACHINE FAILURES:' not in step_output(output, step, 'stdout')):
+                    raise RuntimeError('archive verification did not complete; inspect its exact logs')
+                step['interpretation'] = ('archive bytes verified' if step['exit_code'] == 0
+                                          else 'archive verification reported blockers')
             if name == "missing-preview":
                 if step["exit_code"] != 2 or GUARD_MESSAGE not in step_output(output, step, "stderr"):
                     raise RuntimeError("expected missing-preview rejection was not observed")
@@ -186,9 +235,8 @@ def execute_demo(repository: Path, output: Path, *, full: bool) -> dict:
             transcript["steps"].append(step)
             if step["error"] or step["exit_code"] not in {0, 1}:
                 raise RuntimeError(step["error"] or "native review could not run; inspect its logs")
-            transcript["review"] = json.loads(step_output(output, step, "stdout"))
-            if not isinstance(transcript["review"].get("blocking"), bool):
-                raise RuntimeError("native review did not return a valid blocking result")
+            transcript["review"] = review_document(step_output(output, step, "stdout"),
+                                                    snapshot.manifest.name, step['exit_code'])
             step["interpretation"] = "review blocked" if transcript["review"]["blocking"] else "no registered blocker"
             transcript["exit_code"] = max(transcript["exit_code"], step["exit_code"])
     except (OSError, ValueError, RuntimeError) as exc:
@@ -210,14 +258,19 @@ def execute_demo(repository: Path, output: Path, *, full: bool) -> dict:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(description=__doc__, epilog=(
+        'Exit codes: 0 = demo completed; 1 = archive/full-review blockers; '
+        '2 = runtime failure or changed saved inputs. Quick mode does not run ERC/DRC.'))
+    parser.add_argument('--project', type=Path, default=DEFAULT_PROJECT,
+                        help='project under examples/ or projects/ (default: examples/gpio-indicator; Rover: projects/rover-pdb)')
     parser.add_argument("--output", type=Path, help="new output directory outside the repository (default: temporary directory)")
     parser.add_argument("--full", action="store_true", help="also run native KiCad review; preserve its actual blockers")
     args = parser.parse_args(argv)
     repository = Path(__file__).resolve().parents[1]
     try:
+        select_project(repository, args.project)
         output = new_output_directory(args.output, repository)
-        transcript = execute_demo(repository, output, full=args.full)
+        transcript = execute_demo(repository, output, full=args.full, project_path=args.project)
     except ImportError as exc:
         print(f"Demo dependencies unavailable: {exc}. Run `uv sync`, then `uv run python tools/demo.py`.", file=sys.stderr)
         return 2
