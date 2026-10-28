@@ -1,0 +1,1 @@
+{"accepted": true, "footprints": 11, "fidelities": ["real", "real", "real", "real", "real", "real", "real", "real", "real", "real", "real"]}

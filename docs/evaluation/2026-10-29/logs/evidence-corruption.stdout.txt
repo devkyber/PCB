@@ -1,0 +1,13 @@
+0 evidence record(s) verified
+
+MACHINE FAILURES:
+- archive.hash_mismatch: hash mismatch for files/WP710A10ID_WP710A10ID_42d464fbfd8d.pdf
+
+EXTRACTED FACTS: none
+
+REVIEW REQUIRED:
+- Archive integrity does not prove circuit completeness or engineering correctness.
+
+CONFLICTS: none
+
+PROPOSED DESIGN_BASIS ROWS: none

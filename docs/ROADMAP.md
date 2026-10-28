@@ -11,9 +11,11 @@ condition to decide when to advance.
 
 ## 1. Make first use reproducible
 
-Keep the [quickstart](QUICKSTART.md), environment diagnostics and temporary-copy
-demo runnable from a fresh clone. The first result should show the actual
-schematic/board, machine findings and unsigned human decisions together.
+Implemented: the [quickstart](QUICKSTART.md) defaults to the small GPIO board.
+Its Python-only demo and explicit Rover selection were reproduced from a fresh
+public-source archive with Python 3.11 on Windows. Native GPIO review separately
+reported its current assembly and sign-off blockers. Software CI exercises the
+demo on Windows and Linux; native qualification on those hosts is a separate step.
 
 Next work:
 
@@ -52,8 +54,12 @@ Extend checks from a concrete failure case rather than adding broad claims.
 For each new check, state the source, supported geometry or circuit pattern,
 known exceptions and what remains for a reviewer to decide.
 
-Build a focused evaluation set of valid candidates and injected faults. Report
-detected faults, missed faults, false positives, runtime and the environment.
+Implemented: a [reproducible fault evaluation](EVALUATION.md) exercises valid
+evidence/footprint controls, corrupted inputs, identity checks and optional real
+native preview invalidation. It records diagnostics, exit codes, runtime,
+environment and source/implementation hashes. This hand-selected set is an
+initial regression exercise; broader held-out designs are still needed to
+measure missed faults and false positives over a defined population.
 Separately measure engineer time for a defined task with and without the
 pipeline. Archive the procedure and inputs before claiming a speedup.
 

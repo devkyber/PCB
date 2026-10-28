@@ -1,0 +1,1 @@
+{"accepted": false, "exception": "ValueError", "message": "official footprint provenance hash mismatch: R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step"}

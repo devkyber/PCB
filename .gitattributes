@@ -11,7 +11,17 @@ templates/jlcpcb-2layer-1oz/jlcpcb-2layer-1oz.kicad_pro -text
 templates/jlcpcb-2layer-1oz/jlcpcb-2layer-1oz.kicad_dru -text
 
 # The media manifest identifies exact captured output bytes, including JSON.
-docs/media/** -text
+docs/media/** -text whitespace=cr-at-eol
+docs/evaluation/** -text whitespace=cr-at-eol
 
 # The self-contained example carries byte-bound CAD/library/source receipts.
 examples/gpio-indicator/** -text
+# These captured Rover inputs are already LF in Git. Keep their checkout bytes
+# stable on Windows without rewriting existing CAD or archived source content.
+projects/rover-pdb/buck-motor.kicad_sch text eol=lf
+projects/rover-pdb/libs/Coilank_APS1365DW.3dshapes/APS1365DW-envelope.step text eol=lf
+projects/rover-pdb/libs/Coilank_APS1365DW.3dshapes/build_model.py text eol=lf
+projects/rover-pdb/libs/Coilank_APS1365DW.3dshapes/README.md text eol=lf
+projects/rover-pdb/project.yaml text eol=lf
+projects/rover-pdb/rover-pdb.kicad_dru text eol=lf
+projects/rover-pdb/rover-pdb.kicad_pro text eol=lf
