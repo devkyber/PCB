@@ -1,0 +1,1 @@
+(fp_lib_table (lib (name "RS485") (type "KiCad") (uri "${KIPRJMOD}/libs/RS485.pretty") (options "") (descr "Official KiCad footprint copies; see libs/PROVENANCE.json")))

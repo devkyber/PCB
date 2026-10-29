@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "source": "Installed official KiCad 10.0.6 symbols",
+  "records": [
+    {
+      "symbol": "Sensor:R",
+      "source_symbol": "Device:R",
+      "upstream_path": "libs/upstream/Device.kicad_sym",
+      "upstream_sha256": "e03831d421787531315439a4af4229e5d5d88ee51c7f36ba3f658ddf2978cda9",
+      "changes": [
+        "Unchanged symbol geometry and pin map; local qualified identifier only"
+      ]
+    },
+    {
+      "symbol": "Sensor:C",
+      "source_symbol": "Device:C",
+      "upstream_path": "libs/upstream/Device.kicad_sym",
+      "upstream_sha256": "e03831d421787531315439a4af4229e5d5d88ee51c7f36ba3f658ddf2978cda9",
+      "changes": [
+        "Unchanged symbol geometry and pin map; local qualified identifier only"
+      ]
+    },
+    {
+      "symbol": "Sensor:Conn_01x04_Pin",
+      "source_symbol": "Connector:Conn_01x04_Pin",
+      "upstream_path": "libs/upstream/Connector.kicad_sym",
+      "upstream_sha256": "1596718c70ff14cc217a9297dcb48bad23bdffcca0881600e9e66be16953bf59",
+      "changes": [
+        "Unchanged symbol geometry and pin map; local qualified identifier only"
+      ]
+    },
+    {
+      "symbol": "Sensor:Conn_01x02_Pin",
+      "source_symbol": "Connector:Conn_01x02_Pin",
+      "upstream_path": "libs/upstream/Connector.kicad_sym",
+      "upstream_sha256": "1596718c70ff14cc217a9297dcb48bad23bdffcca0881600e9e66be16953bf59",
+      "changes": [
+        "Unchanged symbol geometry and pin map; local qualified identifier only"
+      ]
+    },
+    {
+      "symbol": "Sensor:MountingHole",
+      "source_symbol": "Mechanical:MountingHole",
+      "upstream_path": "libs/upstream/Mechanical.kicad_sym",
+      "upstream_sha256": "7046e0cfb6bfc84cf614760762ff72547d6b2d9e2d0d94bb3f16b8f6bc18aade",
+      "changes": [
+        "Unchanged symbol geometry and pin map; local qualified identifier only"
+      ]
+    },
+    {
+      "symbol": "Sensor:MCP9808_MSOP",
+      "source_symbol": "Sensor_Temperature:MCP9808_MSOP",
+      "upstream_path": "libs/upstream/Sensor_Temperature.kicad_sym",
+      "upstream_sha256": "46f1cbd260f4494f0022664b68ba748bd33cd63f8ae2badc5849091214012d99",
+      "changes": [
+        "Flattened MCP9804_MSOP inheritance into MCP9808_MSOP; overlaid official derived properties; corrected instance datasheet URL to DS20005095B; pin 3 electrical type output -> open_collector per datasheet section 3.3"
+      ]
+    }
+  ]
+}

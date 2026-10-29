@@ -25,6 +25,8 @@ from pathlib import Path
 import kicad_claude
 import pcb_copilot
 from pcb_copilot.jlcpcb import BASELINE_STEM, baseline_bytes
+from pcb_copilot.review.report import verify_report
+from pcb_copilot.review.report_html import render_report
 
 installed = Path(sys.prefix).resolve()
 for module in (pcb_copilot, kicad_claude):
@@ -40,6 +42,7 @@ actual = {
 assert actual == expected, (actual, expected)
 assert json.loads(settings)["board"]["design_settings"]["rules"]
 assert b"(version 1)" in rules
+assert callable(verify_report) and callable(render_report)
 print("Both installed workspace packages and exact JLCPCB baseline resources verified.")
 '''
 

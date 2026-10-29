@@ -1,0 +1,219 @@
+{
+  "blocking": true,
+  "findings": [
+    {
+      "blocking": true,
+      "check_id": "assembly_contracts",
+      "detail": "C1: missing exact-part rotation rule\nC2: missing exact-part rotation rule\nJ1: missing exact-part rotation rule\nJ2: missing exact-part rotation rule\nJP1: missing exact-part rotation rule\nR1: missing exact-part rotation rule\nR2: missing exact-part rotation rule\nR3: missing exact-part rotation rule\nU1: missing exact-part rotation rule",
+      "kind": "machine_failure"
+    },
+    {
+      "blocking": true,
+      "check_id": "signoff",
+      "detail": "0/5 current decisions: host-startup unsigned; bus-and-assembly unsigned; bench-link unsigned; shared.schematic-readability unsigned; shared.layout-handover unsigned",
+      "kind": "human_decision"
+    }
+  ],
+  "pcb_hash": "b3acbb4d10d75123af839ffc7425bd275bf98dfadd77b154a3957ccbe8545e9a",
+  "project": "rs485-interface",
+  "results": [
+    {
+      "advisories": [],
+      "check_id": "research",
+      "detail": "requirements, cited basis and archived evidence verified",
+      "duration_ms": 24,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "engineering validity of those choices",
+        "proves": "requirements, cited basis and source integrity",
+        "requires_external_tool": false
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "datasheets",
+      "detail": "required datasheet bytes verified; 13 physical schematic parts inspected (shared passive exemptions apply)",
+      "duration_ms": 52,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "interpretation of electrical limits",
+        "proves": "required datasheets are archived and verified",
+        "requires_external_tool": false
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "erc",
+      "detail": "0 violation(s), 0 unspecified-pin warnings waived",
+      "duration_ms": 2783,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "circuit fitness or safe operation",
+        "proves": "fresh KiCad electrical-rule findings",
+        "requires_external_tool": true
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "schematic_ownership",
+      "detail": "netmap matches the current schematic",
+      "duration_ms": 744,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "circuit correctness",
+        "proves": "netmap matches the current schematic",
+        "requires_external_tool": true
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "netlist_parity",
+      "detail": "exact schematic/PCB pin-net parity and schematic links",
+      "duration_ms": 1030,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "which circuit is correct",
+        "proves": "exact schematic/PCB pin-net agreement and forward-annotation links",
+        "requires_external_tool": true
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "placement",
+      "detail": "implemented placement checks pass",
+      "duration_ms": 33,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "assembly or enclosure fit",
+        "proves": "implemented placement geometry checks",
+        "requires_external_tool": false
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "design_rules",
+      "detail": "=== docs/DESIGN_RULES.md geometric checks: C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-copilot-review-0md680mi\\rs485-interface\\rs485-interface.kicad_pcb ===\n\npassing:\n  [2.2 decoupling <=2mm]  1 ok\n\nRESULT: 0 violation(s), 1 check(s) passed\nSCOPE: geometric rules 1.2, 2.2, 5.1, 6.1 only (4 of 42 numbered subsections in docs/DESIGN_RULES.md). The remainder are not machine-checkable from the board file and are covered by the Phase 5 human review.",
+      "duration_ms": 641,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "all house rules or source applicability",
+        "proves": "geometric rules 1.2, 2.2, 5.1 and 6.1",
+        "requires_external_tool": true
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "drc",
+      "detail": "0 error(s), 0 warning(s), 0 unconnected; two refilled runs",
+      "duration_ms": 8881,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": false,
+        "does_not_prove": "RF, thermal or functional behavior",
+        "proves": "two fresh zone-refilled DRC runs and routing completeness",
+        "requires_external_tool": true
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "jlcpcb_dfm",
+      "detail": "jlcpcb-2layer-1oz-green-2026-10-05: 0 error(s), 0 unconnected. ",
+      "duration_ms": 3709,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "assembly eligibility, current capacity or supplier order acceptance",
+        "proves": "independent dated JLCPCB geometry and declared stackup checks",
+        "requires_external_tool": true
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "assembly_contracts",
+      "detail": "C1: missing exact-part rotation rule\nC2: missing exact-part rotation rule\nJ1: missing exact-part rotation rule\nJ2: missing exact-part rotation rule\nJP1: missing exact-part rotation rule\nR1: missing exact-part rotation rule\nR2: missing exact-part rotation rule\nR3: missing exact-part rotation rule\nU1: missing exact-part rotation rule",
+      "duration_ms": 37,
+      "finding_kind": "machine_failure",
+      "passed": false,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "supplier preview approval, mechanical fit or model shape correctness",
+        "proves": "exact-part rotation rules, local model files and wire-pad label/net association",
+        "requires_external_tool": false
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "routing_settings",
+      "detail": "Native routing: 52 segments, 0 arcs, 12 vias; 0 locked item(s). Default width: 0.35 mm; 6 positive width preset(s).",
+      "duration_ms": 16,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "ampacity, thermal margin, branch currents, effective custom rules or router UI selection",
+        "proves": "stored native routing widths/locks and project routing-setting coverage",
+        "requires_external_tool": false
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "routing_topology",
+      "detail": "Inspected 52 straight tracks: no findings. Excluded 0 arcs and 0 custom/offset pads. Native DRC remains the connectivity gate; copper was not changed.",
+      "duration_ms": 638,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "electrical connectivity, ampacity, via/zone/arc topology or whether an off-centre entry is intentional",
+        "proves": "covered straight tracks, short segments and off-centre native pad contacts",
+        "requires_external_tool": true
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "schematic_quality",
+      "detail": "1 sheet(s) checked",
+      "duration_ms": 14,
+      "finding_kind": "machine_failure",
+      "passed": true,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "visual readability, electrical correctness, or page-flow quality",
+        "proves": "all referenced sheets have title/revision and acceptable density",
+        "requires_external_tool": false
+      }
+    },
+    {
+      "advisories": [],
+      "check_id": "signoff",
+      "detail": "0/5 current decisions: host-startup unsigned; bus-and-assembly unsigned; bench-link unsigned; shared.schematic-readability unsigned; shared.layout-handover unsigned",
+      "duration_ms": 102,
+      "finding_kind": "human_decision",
+      "passed": false,
+      "scope": {
+        "deterministic": true,
+        "does_not_prove": "the reviewer inspected correctly, measured hardware, or made a safe decision",
+        "proves": "named, dated, project-specific decisions match the exact current design and review profile",
+        "requires_external_tool": false
+      }
+    }
+  ],
+  "schema_version": 1,
+  "schematic_hash": "7b10487b49d02d913aba1b7de3447b08ebbd5a96cb1faae9a844fb2a057b9f9f"
+}

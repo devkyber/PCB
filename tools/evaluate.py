@@ -34,6 +34,12 @@ except ValueError as error:
 print(json.dumps({'accepted': True, 'footprints': len(results), 'fidelities': [r.fidelity for r in results]}))
 '''
 GUARD_MESSAGE = 'No successful matching unconsumed preview'
+NATIVE_SCENARIOS = (
+    ('native-preview-control', 'changed-candidate', 'candidate-bytes'),
+    ('native-source-preview-control', 'changed-source-schematic', 'source-schematic'),
+    ('native-rules-preview-control', 'changed-source-rules', 'source-rules'),
+)
+NATIVE_CASE_NAMES = tuple(name for control, fault, _kind in NATIVE_SCENARIOS for name in (control, fault))
 
 
 def new_output_directory(requested: Path | None, repository: Path) -> Path:
@@ -99,6 +105,15 @@ def inject_fault(project, kind: str) -> dict:
     from pcb_copilot.schematic.preview import schematic_files
     from pcb_copilot.transaction import contained
 
+    if kind in {'candidate-bytes', 'source-schematic', 'source-rules'}:
+        path = project.pcb_path.with_suffix('.kicad_dru') if kind == 'source-rules' else project.schematic_path
+        if not path.is_file():
+            raise ValueError(f'evaluation requires an existing fault target: {path.name}')
+        before = _hash(path)
+        path.write_bytes(path.read_bytes() + b'\n')
+        return {'kind': kind, 'target': path.relative_to(project.root).as_posix(),
+                'before_sha256': before, 'after_sha256': _hash(path),
+                'detail': 'One trailing newline was added after a real preview; circuit/rule semantics were not changed.'}
     _, record, selected = _targets(project)
     if kind == 'evidence-corruption':
         source = load_evidence_index(project.evidence_index_path).records[0]
@@ -187,19 +202,39 @@ def classify_result(actual: dict, stdout: str, stderr: str, expected_code: int, 
                 return 'mismatch'
     if actual['exit_code'] != expected_code or diagnostic not in stdout + stderr:
         return 'mismatch'
+    if actual['interface'] == 'native-cli' and expected_code == 0:
+        try:
+            payload = json.loads(stdout)
+            if (not isinstance(payload, dict) or type(payload.get('exit_code')) is not int
+                    or payload['exit_code'] != 0 or payload.get('applied') is not False
+                    or payload.get('source_mode') != 'native'
+                    or not isinstance(payload.get('findings'), list)
+                    or any(not isinstance(item, dict) or item.get('severity') != 'review'
+                           for item in payload['findings'])):
+                return 'harness_error'
+        except (ValueError, TypeError):
+            return 'harness_error'
     return 'met_expectation'
 
 
 def _case(source, output: Path, name: str, expected: dict, *, interface: str,
           expected_code: int, diagnostic: str, fault: str | None = None,
-          project=None, arguments: list[str] | None = None, timeout: int = 60) -> tuple[dict, object]:
+          project=None, candidate=None, arguments: list[str] | None = None,
+          timeout: int = 60) -> tuple[dict, object]:
     from pcb_copilot.transaction import input_hashes
 
     project = project or snapshot_project(source, output, name, expected)
     before = input_hashes(project)
-    injection = inject_fault(project, fault) if fault else None
+    candidate_before = input_hashes(candidate) if candidate else None
+    if fault == 'candidate-bytes' and candidate is None:
+        raise ValueError('candidate-byte fault requires a separate candidate project')
+    fault_project = candidate if fault == 'candidate-bytes' else project
+    injection = inject_fault(fault_project, fault) if fault else None
+    if injection:
+        injection['workspace'] = fault_project.root.relative_to(output).as_posix()
     injected = input_hashes(project)
-    if fault and injected == before:
+    candidate_injected = input_hashes(candidate) if candidate else None
+    if fault and injected == before and candidate_injected == candidate_before:
         raise RuntimeError('fault injection did not change any declared input')
     targets, _, _ = _targets(project)
     relative = project.root.relative_to(output).as_posix()
@@ -217,17 +252,49 @@ def _case(source, output: Path, name: str, expected: dict, *, interface: str,
     stderr = (output / actual['stderr']).read_text(encoding='utf-8', errors='replace')
     outcome = classify_result(actual, stdout, stderr, expected_code, diagnostic)
     after = input_hashes(project)
-    if after != injected:
+    candidate_after = input_hashes(candidate) if candidate else None
+    if after != injected or candidate_after != candidate_injected:
         outcome = 'harness_error'
-        actual['error'] = 'checks changed declared snapshot inputs'
-    return {'name': name, 'workspace': relative, 'injection': injection,
-            'expected': {'exit_code': expected_code, 'diagnostic_contains': diagnostic},
-            'actual': actual, 'outcome': outcome, 'inputs_before': before,
-            'inputs_after_injection': injected, 'inputs_after_checks': after,
-            'checks_preserved_inputs': after == injected}, project
+        actual['error'] = 'checks changed declared snapshot or candidate inputs'
+    result = {'name': name, 'workspace': relative, 'injection': injection,
+              'expected': {'exit_code': expected_code, 'diagnostic_contains': diagnostic},
+              'actual': actual, 'outcome': outcome, 'inputs_before': before,
+              'inputs_after_injection': injected, 'inputs_after_checks': after,
+              'checks_preserved_inputs': after == injected}
+    if candidate:
+        result.update(candidate=candidate.root.relative_to(output).as_posix(),
+                      candidate_inputs_before=candidate_before, candidate_inputs_after_injection=candidate_injected,
+                      candidate_inputs_after_checks=candidate_after,
+                      checks_preserved_candidate=candidate_after == candidate_injected)
+    if injection and 'after_sha256' in injection:
+        injection['after_check_sha256'] = _hash(fault_project.root / injection['target'])
+    return result, project
+
+
+def _check_native_control(control: dict, output: Path, expected: dict, project, candidate) -> None:
+    """A matching exit/diagnostic alone is insufficient to establish the preview."""
+    from pcb_copilot.schematic.preview import schematic_files
+
+    if control['outcome'] != 'met_expectation':
+        return
+    try:
+        preview = json.loads((output / control['actual']['stdout']).read_bytes())
+        binding = preview.get('preview_binding') if isinstance(preview, dict) else None
+        sources = {'schematic/' + path.relative_to(candidate.schematic_path.parent).as_posix():
+                   {'path': str(path.resolve()), 'sha256': _hash(path)}
+                   for path in schematic_files(candidate.schematic_path)}
+        if (not isinstance(binding, dict) or type(binding.get('version')) is not int or binding['version'] != 1
+                or binding.get('inputs') != expected or binding.get('project') != str(project.root.resolve())
+                or binding.get('options') != {'mode': 'native', 'paired_pcb': False}
+                or binding.get('sources') != sources):
+            raise ValueError('native preview did not bind the exact saved snapshot, candidate and options')
+    except (OSError, ValueError, TypeError) as exc:
+        control['outcome'] = 'harness_error'
+        control['actual']['error'] = str(exc)
 
 
 def _native_cases(source, output: Path, expected: dict) -> list[dict]:
+    from pcb_copilot.project import load_project
     from pcb_copilot.toolchain import discover_toolchain
     from pcb_copilot.transaction import copy_inputs
 
@@ -243,39 +310,31 @@ def _native_cases(source, output: Path, expected: dict) -> list[dict]:
                            capture_output=True, check=False, timeout=10)
     if pcbnew.returncode:
         raise RuntimeError('native evaluation could not import pcbnew; run pcb-copilot doctor')
-    project = snapshot_project(source, output, 'native-preview-control', expected)
-    candidate = output / 'candidates' / source.root.name
-    copy_inputs(source, candidate, expected)
-    candidate_root = candidate / source.schematic_path.relative_to(source.root)
-    arguments = ['update-schematic', project.root.relative_to(output).as_posix(), '--candidate',
-                 candidate_root.relative_to(output).as_posix()]
-    control, _ = _case(source, output, 'native-preview-control', expected, interface='native-cli',
-                       expected_code=0, diagnostic='"source_mode": "native"', project=project,
-                       arguments=arguments, timeout=300)
-    control['native_tool_version'] = version.stdout.decode('utf-8', errors='replace').strip()
-    control['native_pcbnew_version'] = pcbnew.stdout.decode('utf-8', errors='replace').strip()
-    if control['outcome'] != 'met_expectation':
-        return [control, {'name': 'changed-candidate', 'outcome': 'skipped',
-                          'reason': 'a real successful native preview was not obtained'}]
-    preview = json.loads((output / control['actual']['stdout']).read_bytes())
-    if (preview.get('exit_code') != 0 or preview.get('applied') is not False
-            or not isinstance(preview.get('preview_binding'), dict)
-            or preview['preview_binding'].get('inputs') != expected):
-        raise RuntimeError('native command did not return a successful unapplied preview binding')
-    before = _hash(candidate_root)
-    candidate_root.write_bytes(candidate_root.read_bytes() + b'\n')
-    changed = _hash(candidate_root)
-    stale, _ = _case(source, output, 'changed-candidate', expected, interface='native-cli',
-                     expected_code=2, diagnostic=GUARD_MESSAGE, project=project,
-                     arguments=[*arguments, '--apply'])
-    stale.update(depends_on='native-preview-control', injection={
-        'kind': 'candidate-bytes-changed-after-real-preview',
-        'target': candidate_root.relative_to(output).as_posix(),
-        'before_sha256': before, 'after_sha256': changed,
-        'after_check_sha256': _hash(candidate_root),
-        'detail': 'One trailing newline was added; circuit connectivity was not changed.',
-    })
-    return [control, stale]
+    cases = []
+    for control_name, fault_name, kind in NATIVE_SCENARIOS:
+        project = snapshot_project(source, output, control_name, expected)
+        candidate_root = output / 'candidates' / fault_name / source.root.name
+        copy_inputs(source, candidate_root, expected)
+        candidate = load_project(candidate_root)
+        arguments = ['update-schematic', project.root.relative_to(output).as_posix(), '--candidate',
+                     candidate.schematic_path.relative_to(output).as_posix()]
+        control, _ = _case(source, output, control_name, expected, interface='native-cli',
+                           expected_code=0, diagnostic='"source_mode": "native"', project=project,
+                           candidate=candidate, arguments=arguments, timeout=300)
+        control['native_tool_version'] = version.stdout.decode('utf-8', errors='replace').strip()
+        control['native_pcbnew_version'] = pcbnew.stdout.decode('utf-8', errors='replace').strip()
+        _check_native_control(control, output, expected, project, candidate)
+        cases.append(control)
+        if control['outcome'] != 'met_expectation':
+            cases.append({'name': fault_name, 'outcome': 'skipped', 'depends_on': control_name,
+                          'reason': 'a real successful matching native preview was not obtained'})
+            continue
+        stale, _ = _case(source, output, fault_name, expected, interface='native-cli',
+                         expected_code=2, diagnostic=GUARD_MESSAGE, fault=kind, project=project,
+                         candidate=candidate, arguments=[*arguments, '--apply'])
+        stale['depends_on'] = control_name
+        cases.append(stale)
+    return cases
 
 
 def write_report(output: Path, report: dict) -> None:
@@ -301,7 +360,9 @@ def write_report(output: Path, report: dict) -> None:
                    'raw logs and executed argv retain their actual paths.'), '',
                   ('The API cases call `pcb_copilot.layout.footprints.resolve_footprint` directly. '
                    'They do not claim the whole CLI review or release ran. Native preview is optional; '
-                   'its successful creation is not human visual review, approval, or fabrication release.'), '',
+                   'each stale-input case requires its own real successful preview. Candidate and '
+                   'snapshot input bytes must survive every check, including rejected applies. '
+                   'Preview creation is not human visual review, approval, or fabrication release.'), '',
                   (f"Harness exit: `{report['exit_code']}` (0: enabled expectations met; "
                    '1: observed behavior differs; 2: execution/preservation error).'), ''])
     if report.get('error'):
@@ -343,15 +404,16 @@ def evaluate(repository: Path, output: Path, *, native: bool = False) -> dict:
             report['cases'].extend(_native_cases(source, output, expected))
         else:
             report['cases'].extend({'name': name, 'outcome': 'skipped', 'reason': '--native not requested'}
-                                   for name in ('native-preview-control', 'changed-candidate'))
+                                   for name in NATIVE_CASE_NAMES)
         outcomes = {case['outcome'] for case in report['cases']}
         report['exit_code'] = 2 if 'harness_error' in outcomes else int('mismatch' in outcomes)
     except (OSError, ValueError, RuntimeError, subprocess.TimeoutExpired) as exc:
         report.update(error=str(exc), exit_code=2)
-        if native and not any(case['name'] == 'native-preview-control' for case in report['cases']):
+        if native:
+            present = {case['name'] for case in report['cases']}
             report['cases'].extend({'name': name, 'outcome': 'skipped',
                                     'reason': 'native evaluation could not complete; see run error'}
-                                   for name in ('native-preview-control', 'changed-candidate'))
+                                   for name in NATIVE_CASE_NAMES if name not in present)
     finally:
         after, current_implementation = input_hashes(source), _implementation(repository)
         report.update(source_inputs_after=after, source_inputs_unchanged=expected == after,
@@ -367,7 +429,8 @@ def evaluate(repository: Path, output: Path, *, native: bool = False) -> dict:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, help='new external run directory; default: retained OS temporary directory')
-    parser.add_argument('--native', action='store_true', help='also obtain a real KiCad preview and test candidate invalidation')
+    parser.add_argument('--native', action='store_true',
+                        help='also test candidate, saved-schematic and saved-rule drift after independent real previews')
     args = parser.parse_args(argv)
     repository = Path(__file__).resolve().parents[1]
     try:

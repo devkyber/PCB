@@ -1,0 +1,18 @@
+{
+  "fidelities": {
+    "U1": "real",
+    "J1": "real",
+    "J2": "real",
+    "JP1": "real",
+    "C1": "real",
+    "C2": "real",
+    "R1": "real",
+    "R2": "real",
+    "R3": "real",
+    "H1": "real",
+    "H2": "real",
+    "H3": "real",
+    "H4": "real"
+  },
+  "physical_fit_qualified": false
+}

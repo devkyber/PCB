@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "records": [
+    {
+      "upstream_url": "https://raw.githubusercontent.com/KiCad/kicad-footprints/master/LICENSE.md",
+      "retrieved_on": "2026-10-29",
+      "path": "libs/LICENSE-kicad-footprints.md",
+      "sha256": "285b027a721577d0bc0198f36e948c6c282ddaa4b58fef8ed826749576eb0aef",
+      "copied_bytes_unchanged": true
+    },
+    {
+      "upstream_url": "https://raw.githubusercontent.com/KiCad/kicad-symbols/master/LICENSE.md",
+      "retrieved_on": "2026-10-29",
+      "path": "libs/LICENSE-kicad-symbols.md",
+      "sha256": "285b027a721577d0bc0198f36e948c6c282ddaa4b58fef8ed826749576eb0aef",
+      "copied_bytes_unchanged": true
+    },
+    {
+      "upstream_url": "https://raw.githubusercontent.com/KiCad/kicad-packages3D/master/LICENSE.md",
+      "retrieved_on": "2026-10-29",
+      "path": "libs/LICENSE-kicad-packages3D.md",
+      "sha256": "285b027a721577d0bc0198f36e948c6c282ddaa4b58fef8ed826749576eb0aef",
+      "copied_bytes_unchanged": true
+    }
+  ]
+}

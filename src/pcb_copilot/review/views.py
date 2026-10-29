@@ -84,6 +84,8 @@ def _export(project: Project, bundle: Path) -> None:
     _run([tools.kipython, '-I', '-c', '''import pcbnew,sys
 b=pcbnew.LoadBoard(sys.argv[1])
 for fp in b.GetFootprints():
+    if fp.Value().GetLayer()==pcbnew.F_Fab:
+        fp.Value().SetLayer(pcbnew.Dwgs_User)
     for item in fp.GraphicalItems():
         if isinstance(item,pcbnew.PCB_TEXT) and item.GetLayer()==pcbnew.F_Fab:
             item.SetLayer(pcbnew.Dwgs_User)

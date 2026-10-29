@@ -1,0 +1,5 @@
+{
+  "passed": true,
+  "scope": "exact schematic/PCB pin-net parity and schematic links",
+  "interface": "shared check_parity software API using native KiCad netlist/PCB readers"
+}

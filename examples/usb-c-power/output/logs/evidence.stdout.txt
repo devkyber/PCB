@@ -1,0 +1,12 @@
+12 evidence record(s) verified
+
+MACHINE FAILURES: none
+
+EXTRACTED FACTS: none
+
+REVIEW REQUIRED:
+- Archive integrity does not prove circuit completeness or engineering correctness.
+
+CONFLICTS: none
+
+PROPOSED DESIGN_BASIS ROWS: none

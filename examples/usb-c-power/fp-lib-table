@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name "USBC")(type "KiCad")(uri "${KIPRJMOD}/libs/USBC.pretty")(options "")(descr "Official KiCad footprint copies; see libs/PROVENANCE.json"))
+  (lib (name "BournsDerived")(type "KiCad")(uri "${KIPRJMOD}/libs/BournsDerived.pretty")(options "")(descr "Manufacturer drawing-derived footprints; see libs/footprint-provenance.yaml"))
+)

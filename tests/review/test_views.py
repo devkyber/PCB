@@ -2,9 +2,25 @@
 import json
 
 import pytest
+from kicad_claude.adapters import sch_io
 
 from pcb_copilot.project import load_project
 from pcb_copilot.review import views as review
+
+
+@pytest.mark.slow
+def test_native_assembly_plot_hides_fab_values_only_on_its_disposable_copy(project_copy):
+    project = load_project(project_copy)
+    before = review.source_hashes(project)
+    with review.fresh_review_views(project) as bundle:
+        assembly = bundle / 'native/assembly-plot.kicad_pcb'
+        tree = sch_io.parse_file(assembly)
+        values = [field for footprint in sch_io.find_children(tree, 'footprint')
+                  for field in sch_io.find_children(footprint, 'property') if field[1] == 'Value']
+        assert values
+        assert all(sch_io.find_child(field, 'layer')[1] != 'F.Fab' for field in values)
+        assert (bundle / 'assembly.svg').is_file()
+    assert review.source_hashes(project) == before
 
 
 @pytest.fixture

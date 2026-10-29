@@ -1,0 +1,3 @@
+(sym_lib_table
+ (lib (name "Sensor")(type "KiCad")(uri "${KIPRJMOD}/libs/Sensor.kicad_sym")(options "")(descr "Local official-symbol derivatives; see libs/SYMBOL_PROVENANCE.json"))
+)

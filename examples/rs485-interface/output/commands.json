@@ -1,0 +1,150 @@
+{
+  "commands": [
+    {
+      "name": "erc",
+      "argv": [
+        "C:\\Program Files\\KiCad\\10.0\\bin\\kicad-cli.exe",
+        "sch",
+        "erc",
+        "-o",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\rs485-interface\\output\\erc.json",
+        "--format",
+        "json",
+        "--exit-code-violations",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\rs485-interface\\rs485-interface.kicad_sch"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "drc",
+      "argv": [
+        "C:\\Program Files\\KiCad\\10.0\\bin\\kicad-cli.exe",
+        "pcb",
+        "drc",
+        "-o",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\rs485-interface\\output\\drc.json",
+        "--format",
+        "json",
+        "--exit-code-violations",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\rs485-interface\\rs485-interface.kicad_pcb"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "schematic",
+      "argv": [
+        "C:\\Program Files\\KiCad\\10.0\\bin\\kicad-cli.exe",
+        "sch",
+        "export",
+        "pdf",
+        "-o",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\rs485-interface\\output\\schematic.pdf",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\rs485-interface\\rs485-interface.kicad_sch"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "assembly",
+      "argv": [
+        "C:\\Program Files\\KiCad\\10.0\\bin\\kicad-cli.exe",
+        "pcb",
+        "export",
+        "svg",
+        "--mode-single",
+        "--page-size-mode",
+        "2",
+        "--exclude-drawing-sheet",
+        "--layers",
+        "F.Fab,F.SilkS,Edge.Cuts",
+        "-o",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\rs485-interface\\output\\assembly.svg",
+        "--sketch-pads-on-fab-layers",
+        "--black-and-white",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\rs485-interface\\rs485-interface.kicad_pcb"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "front",
+      "argv": [
+        "C:\\Program Files\\KiCad\\10.0\\bin\\kicad-cli.exe",
+        "pcb",
+        "export",
+        "svg",
+        "--mode-single",
+        "--page-size-mode",
+        "2",
+        "--exclude-drawing-sheet",
+        "--layers",
+        "F.Cu,F.SilkS,Edge.Cuts",
+        "-o",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\rs485-interface\\output\\front.svg",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\rs485-interface\\rs485-interface.kicad_pcb"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "back",
+      "argv": [
+        "C:\\Program Files\\KiCad\\10.0\\bin\\kicad-cli.exe",
+        "pcb",
+        "export",
+        "svg",
+        "--mode-single",
+        "--page-size-mode",
+        "2",
+        "--exclude-drawing-sheet",
+        "--layers",
+        "B.Cu,B.SilkS,Edge.Cuts",
+        "-o",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\rs485-interface\\output\\back.svg",
+        "--mirror",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\rs485-interface\\rs485-interface.kicad_pcb"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "board-3d",
+      "argv": [
+        "C:\\Program Files\\KiCad\\10.0\\bin\\kicad-cli.exe",
+        "pcb",
+        "render",
+        "--width",
+        "1600",
+        "--height",
+        "1100",
+        "--quality",
+        "high",
+        "--background",
+        "transparent",
+        "--rotate",
+        "-30,0,25",
+        "--zoom",
+        "0.85",
+        "-o",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\rs485-interface\\output\\board-3d.png",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\rs485-interface\\rs485-interface.kicad_pcb"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "glb",
+      "argv": [
+        "C:\\Program Files\\KiCad\\10.0\\bin\\kicad-cli.exe",
+        "pcb",
+        "export",
+        "glb",
+        "--force",
+        "--include-tracks",
+        "--include-pads",
+        "--include-zones",
+        "--include-silkscreen",
+        "-o",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\rs485-interface\\output\\rs485-interface.glb",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\rs485-interface\\rs485-interface.kicad_pcb"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "source_inputs_unchanged": true
+}

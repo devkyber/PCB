@@ -13,10 +13,15 @@ from pcb_copilot.transaction import input_hashes
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCUMENTS = ["README.md", "docs/QUICKSTART.md", "docs/ROADMAP.md", "docs/EVALUATION.md", "docs/media/README.md",
-             "docs/evaluation/2026-10-29/report.md"]
-MEDIA_MANIFESTS = ('manifest.json', 'example-manifest.json', 'proof-manifest.json')
+             "docs/evaluation/2026-10-29/report.md", "docs/HANDOVER.md",
+             "examples/README.md", "examples/usb-c-power/README.md", "examples/i2c-sensor/README.md", "examples/rs485-interface/README.md"]
+EXAMPLES_MANIFEST = 'examples-manifest.json'
+MEDIA_MANIFESTS = ('manifest.json', 'example-manifest.json', 'proof-manifest.json', EXAMPLES_MANIFEST)
 CAD_MANIFESTS = frozenset(MEDIA_MANIFESTS[:2])
 EVALUATION_MANIFESTS = ('docs/evaluation/2026-10-29/manifest.json',)
+EXAMPLE_PROJECTS = frozenset(('examples/usb-c-power', 'examples/i2c-sensor', 'examples/rs485-interface'))
+EXAMPLE_ARTIFACTS = ('output/SOURCE.json', 'output/board-3d.png', 'output/schematic.png',
+                     'output/erc.json', 'output/drc.json')
 
 
 def contained_path(root: Path, name: str) -> Path:
@@ -81,8 +86,49 @@ def check_capture(manifest: dict, repository: Path) -> None:
         raise ValueError('current project input hashes differ from captured/repository bytes: ' + ', '.join(sorted(stale)))
 
 
+def check_examples_capture(manifest: dict, repository: Path) -> None:
+    """Bind the gallery to all three current projects and their native captures."""
+    if manifest.get('source_cad_unchanged') is not True:
+        raise ValueError('source_cad_unchanged must be exactly true')
+    projects = manifest.get('source_projects')
+    if not isinstance(projects, dict) or set(projects) != EXAMPLE_PROJECTS:
+        raise ValueError('source_projects must contain exactly the three gallery example projects')
+    roots = {}
+    for name in sorted(EXAMPLE_PROJECTS):
+        check_capture({'source_project': name, 'source_inputs': projects[name],
+                       'source_cad_unchanged': manifest['source_cad_unchanged']}, repository)
+        root = contained_path(repository, name)
+        if root.relative_to(repository.resolve()).as_posix() != name:
+            raise ValueError(f'gallery project aliases a different repository path: {name}')
+        roots[name] = root
+    artifacts = manifest.get('source_artifacts')
+    if not isinstance(artifacts, dict) or not artifacts:
+        raise ValueError('source_artifacts must be a nonempty SHA-256 mapping')
+    required = {f'{project}/{name}' for project in EXAMPLE_PROJECTS for name in EXAMPLE_ARTIFACTS}
+    if not required.issubset(artifacts):
+        raise ValueError('source_artifacts missing required native captures: '
+                         + ', '.join(sorted(required - artifacts.keys())))
+    for name, expected in artifacts.items():
+        if not digest(expected):
+            raise ValueError(f'invalid source artifact SHA-256: {name}')
+        contained_path(repository, name)
+        project = next((project for project in EXAMPLE_PROJECTS
+                        if name.startswith(project + '/')), None)
+        if project is None:
+            raise ValueError(f'source artifact must be inside a gallery example project: {name}')
+        source = contained_path(roots[project], name[len(project) + 1:])
+        if not source.is_file():
+            raise ValueError(f'missing source artifact {name}')
+        if hashlib.sha256(source.read_bytes()).hexdigest() != expected:
+            raise ValueError(f'source artifact hash mismatch {name}')
+    for name in manifest['outputs']:
+        relative = PurePosixPath(name)
+        if len(relative.parts) != 1 or relative.suffix.lower() not in {'.png', '.gif', '.mp4'}:
+            raise ValueError(f'gallery output must be a flat PNG/GIF/MP4 file: {name}')
+
+
 def check_manifest(path: Path, media: Path, repository: Path, *, capture: bool,
-                   complete_bundle: bool = False) -> int:
+                   complete_bundle: bool = False, examples: bool = False) -> int:
     manifest = json.loads(path.read_bytes(), object_pairs_hook=unique_object)
     if not isinstance(manifest, dict) or type(manifest.get('schema_version')) is not int or manifest['schema_version'] != 1:
         raise ValueError('media manifest needs schema_version 1')
@@ -108,6 +154,8 @@ def check_manifest(path: Path, media: Path, repository: Path, *, capture: bool,
             raise ValueError('retained evaluation artifacts differ from the complete manifest output list')
     if capture:
         check_capture(manifest, repository)
+    if examples:
+        check_examples_capture(manifest, repository)
     return len(outputs)
 
 
@@ -150,7 +198,8 @@ def main() -> int:
         for name in MEDIA_MANIFESTS:
             try:
                 manifest_path = contained_path(media, name)
-                output_count += check_manifest(manifest_path, media, repository, capture=name in CAD_MANIFESTS)
+                output_count += check_manifest(manifest_path, media, repository, capture=name in CAD_MANIFESTS,
+                                               examples=name == EXAMPLES_MANIFEST)
             except (OSError, ValueError, UnicodeError) as exc:
                 failures.append(f'{name}: {exc}')
     for name in EVALUATION_MANIFESTS:

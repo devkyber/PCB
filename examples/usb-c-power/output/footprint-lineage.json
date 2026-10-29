@@ -1,0 +1,45 @@
+{
+  "interface": "shared resolve_footprint software API; lineage and pad coverage only; physical fit unqualified",
+  "parts": {
+    "D1": {
+      "footprint": "USBC:D_SMA",
+      "source": "project fp-lib-table (KIPRJMOD): Official KiCad footprint copies; see libs/PROVENANCE.json; hash-bound official footprint copy, physical fit unqualified"
+    },
+    "D2": {
+      "footprint": "USBC:LED_D3.0mm",
+      "source": "project fp-lib-table (KIPRJMOD): Official KiCad footprint copies; see libs/PROVENANCE.json; hash-bound official footprint copy, physical fit unqualified"
+    },
+    "F1": {
+      "footprint": "BournsDerived:MF-MSMF075_1812_Style1",
+      "source": "project fp-lib-table (KIPRJMOD): Manufacturer drawing-derived footprints; see libs/footprint-provenance.yaml; hash-bound author derivation, physical fit unqualified"
+    },
+    "H1": {
+      "footprint": "USBC:MountingHole_3.2mm_M3",
+      "source": "project fp-lib-table (KIPRJMOD): Official KiCad footprint copies; see libs/PROVENANCE.json; hash-bound official footprint copy, physical fit unqualified"
+    },
+    "H2": {
+      "footprint": "USBC:MountingHole_3.2mm_M3",
+      "source": "project fp-lib-table (KIPRJMOD): Official KiCad footprint copies; see libs/PROVENANCE.json; hash-bound official footprint copy, physical fit unqualified"
+    },
+    "J1": {
+      "footprint": "USBC:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal",
+      "source": "project fp-lib-table (KIPRJMOD): Official KiCad footprint copies; see libs/PROVENANCE.json; hash-bound official footprint copy, physical fit unqualified"
+    },
+    "J2": {
+      "footprint": "USBC:PinHeader_1x02_P2.54mm_Vertical",
+      "source": "project fp-lib-table (KIPRJMOD): Official KiCad footprint copies; see libs/PROVENANCE.json; hash-bound official footprint copy, physical fit unqualified"
+    },
+    "R1": {
+      "footprint": "USBC:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",
+      "source": "project fp-lib-table (KIPRJMOD): Official KiCad footprint copies; see libs/PROVENANCE.json; hash-bound official footprint copy, physical fit unqualified"
+    },
+    "R2": {
+      "footprint": "USBC:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",
+      "source": "project fp-lib-table (KIPRJMOD): Official KiCad footprint copies; see libs/PROVENANCE.json; hash-bound official footprint copy, physical fit unqualified"
+    },
+    "R3": {
+      "footprint": "USBC:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",
+      "source": "project fp-lib-table (KIPRJMOD): Official KiCad footprint copies; see libs/PROVENANCE.json; hash-bound official footprint copy, physical fit unqualified"
+    }
+  }
+}

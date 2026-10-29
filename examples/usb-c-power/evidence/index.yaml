@@ -1,0 +1,197 @@
+schema_version: 1
+records:
+- id: sha256:075dad5e5fc96c27014fabc269f4f5732909cffd178a486f546d982b6cf86b74
+  manufacturer: Adafruit
+  part_numbers:
+  - Adafruit-4090
+  title: Adafruit USB-C downstream breakout rev B license.txt; comparison reference,
+    different connector
+  revision: 1484ecb56b369e177848e69de4b7b7e513399590
+  source_url: https://raw.githubusercontent.com/adafruit/Adafruit-USB-C-Downstream-Breakout/1484ecb56b369e177848e69de4b7b7e513399590/license.txt
+  retrieved_on: '2026-10-29'
+  path: files/Adafruit-4090_license.txt_075dad5e5fc9.txt
+  sha256: 075dad5e5fc96c27014fabc269f4f5732909cffd178a486f546d982b6cf86b74
+  media_type: text/plain
+  roles:
+  - application_note
+  trust_tier: teaching_reference
+  component_refs: []
+- id: sha256:07970b0ad3243684bdf59c0ced537b8b9a8e8b67f7e9032b9464600da21b04e0
+  manufacturer: Adafruit
+  part_numbers:
+  - Adafruit-4090
+  title: Adafruit USB-C downstream breakout rev B Adafruit USB Type C Downstream Breakout
+    rev B.brd; comparison reference, different connector
+  revision: 1484ecb56b369e177848e69de4b7b7e513399590
+  source_url: https://raw.githubusercontent.com/adafruit/Adafruit-USB-C-Downstream-Breakout/1484ecb56b369e177848e69de4b7b7e513399590/Adafruit%20USB%20Type%20C%20Downstream%20Breakout%20rev%20B.brd
+  retrieved_on: '2026-10-29'
+  path: files/Adafruit-4090_Adafruit_USB_Type_C_Downstream_Breakout_rev_B_07970b0ad324.brd
+  sha256: 07970b0ad3243684bdf59c0ced537b8b9a8e8b67f7e9032b9464600da21b04e0
+  media_type: application/vnd.eagle+xml
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs:
+  - J1
+- id: sha256:3a5770b11668f4e5a11ba9ceeb4817a23f467b8507e3592f55fb6bd8f96e71bc
+  manufacturer: Samtec
+  part_numbers:
+  - HTSW-102-07-G-S
+  title: tsw_th.pdf
+  revision: null
+  source_url: https://suddendocs.samtec.com/catalog_english/tsw_th.pdf
+  retrieved_on: '2026-10-29'
+  path: files/TSW-102-07-G-S_tsw_th_3a5770b11668.pdf
+  sha256: 3a5770b11668f4e5a11ba9ceeb4817a23f467b8507e3592f55fb6bd8f96e71bc
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - J2
+- id: sha256:42d464fbfd8d3ddef65fa6f9226d298547cdb25d5369aff0c47e5f896595c4bd
+  manufacturer: Kingbright
+  part_numbers:
+  - WP710A10ID
+  title: WP710A10ID.pdf
+  revision: null
+  source_url: https://www.kingbrightusa.com/images/catalog/spec/WP710A10ID.pdf
+  retrieved_on: '2026-10-29'
+  path: files/WP710A10ID_WP710A10ID_42d464fbfd8d.pdf
+  sha256: 42d464fbfd8d3ddef65fa6f9226d298547cdb25d5369aff0c47e5f896595c4bd
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - D2
+- id: sha256:50d80228581842471d563e28ba0f1b67ab095ee95dfac4079f4a49f7f7bbf3c8
+  manufacturer: Bourns
+  part_numbers:
+  - MF-MSMF075-2
+  title: mf-msmf.pdf
+  revision: null
+  source_url: https://www.bourns.com/docs/product-datasheets/mf-msmf.pdf
+  retrieved_on: '2026-10-29'
+  path: files/MF-MSMF075-2_mf-msmf_50d802285818.pdf
+  sha256: 50d80228581842471d563e28ba0f1b67ab095ee95dfac4079f4a49f7f7bbf3c8
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - F1
+- id: sha256:6c97cdad48475dcc3e5f9afc503fc9f8f0c39b69408462fcb088ef3159336193
+  manufacturer: Adafruit
+  part_numbers:
+  - Adafruit-4090
+  title: Adafruit USB-C downstream breakout rev B README.md; comparison reference,
+    different connector
+  revision: 1484ecb56b369e177848e69de4b7b7e513399590
+  source_url: https://raw.githubusercontent.com/adafruit/Adafruit-USB-C-Downstream-Breakout/1484ecb56b369e177848e69de4b7b7e513399590/README.md
+  retrieved_on: '2026-10-29'
+  path: files/Adafruit-4090_README.md_6c97cdad4847.txt
+  sha256: 6c97cdad48475dcc3e5f9afc503fc9f8f0c39b69408462fcb088ef3159336193
+  media_type: text/plain
+  roles:
+  - application_note
+  trust_tier: teaching_reference
+  component_refs: []
+- id: sha256:6d594832648bfe9a8b0aa69ee21ce2c72f696170fcd3c21b82c3284174cd2c19
+  manufacturer: Adafruit
+  part_numbers:
+  - Adafruit-4090
+  title: Adafruit USB-C downstream breakout rev B LICENSE; comparison reference, different
+    connector
+  revision: 1484ecb56b369e177848e69de4b7b7e513399590
+  source_url: https://raw.githubusercontent.com/adafruit/Adafruit-USB-C-Downstream-Breakout/1484ecb56b369e177848e69de4b7b7e513399590/LICENSE
+  retrieved_on: '2026-10-29'
+  path: files/Adafruit-4090_LICENSE_6d594832648b.txt
+  sha256: 6d594832648bfe9a8b0aa69ee21ce2c72f696170fcd3c21b82c3284174cd2c19
+  media_type: text/plain
+  roles:
+  - application_note
+  trust_tier: teaching_reference
+  component_refs: []
+- id: sha256:87d15160bf8bd25129b27e0b7c5e261ed0b1806b3b0d3a7b5d8b1eb783dc9981
+  manufacturer: null
+  part_numbers:
+  - USB-TYPE-C-R2.0
+  title: USB Type-C Spec R2.0 - August 2019.pdf
+  revision: null
+  source_url: https://www.usb.org/sites/default/files/USB%20Type-C%20Spec%20R2.0%20-%20August%202019.pdf
+  retrieved_on: '2026-10-29'
+  path: files/USB-TYPE-C-R2.0_USB_Type-C_Spec_R2.0_-_August_2019_87d15160bf8b.pdf
+  sha256: 87d15160bf8bd25129b27e0b7c5e261ed0b1806b3b0d3a7b5d8b1eb783dc9981
+  media_type: application/pdf
+  roles:
+  - integration_manual
+  trust_tier: teaching_reference
+  component_refs: []
+- id: sha256:b460acdb476469774e0785a8ef85aec79e2d95fe41beaa79c5a414e4e95e3fe0
+  manufacturer: Yageo
+  part_numbers:
+  - MFR-25FBF52-5K1
+  title: YAGEO-MFR_DATASHEET
+  revision: null
+  source_url: https://yageogroup.com/content/datasheet/asset/file/YAGEO-MFR_DATASHEET
+  retrieved_on: '2026-10-29'
+  path: files/MFR-25FBF52-5K1_YAGEO-MFR_DATASHEET_b460acdb4764.pdf
+  sha256: b460acdb476469774e0785a8ef85aec79e2d95fe41beaa79c5a414e4e95e3fe0
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - R1
+  - R2
+  - R3
+- id: sha256:b8617e715805bb3293892c4636279eac57c1ef18e8c87a481cec1b802731b72d
+  manufacturer: Vishay
+  part_numbers:
+  - SMAJ6.0A
+  title: doc
+  revision: null
+  source_url: https://www.vishay.com/doc?88390=
+  retrieved_on: '2026-10-29'
+  path: files/SMAJ6.0A_doc_b8617e715805.pdf
+  sha256: b8617e715805bb3293892c4636279eac57c1ef18e8c87a481cec1b802731b72d
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - D1
+- id: sha256:ec14aee06c7a24546fcc6f6b1687ae85a13cadff955a721f458b125b70954330
+  manufacturer: Adafruit
+  part_numbers:
+  - Adafruit-4090
+  title: Adafruit USB-C downstream breakout rev B Adafruit USB Type C Downstream Breakout
+    rev B.sch; comparison reference, different connector
+  revision: 1484ecb56b369e177848e69de4b7b7e513399590
+  source_url: https://raw.githubusercontent.com/adafruit/Adafruit-USB-C-Downstream-Breakout/1484ecb56b369e177848e69de4b7b7e513399590/Adafruit%20USB%20Type%20C%20Downstream%20Breakout%20rev%20B.sch
+  retrieved_on: '2026-10-29'
+  path: files/Adafruit-4090_Adafruit_USB_Type_C_Downstream_Breakout_rev_B_ec14aee06c7a.sch
+  sha256: ec14aee06c7a24546fcc6f6b1687ae85a13cadff955a721f458b125b70954330
+  media_type: application/vnd.eagle+xml
+  roles:
+  - reference_design
+  trust_tier: proven_open_hardware
+  component_refs:
+  - J1
+- id: sha256:fb331fbabee8392ed2937ed757c1610cb0f174b84625147c0b580a18eea8c0e5
+  manufacturer: GCT
+  part_numbers:
+  - USB4105-GF-A
+  title: usb4105.pdf
+  revision: null
+  source_url: https://gct.co/files/drawings/usb4105.pdf
+  retrieved_on: '2026-10-29'
+  path: files/USB4105-GF-A_usb4105_fb331fbabee8.pdf
+  sha256: fb331fbabee8392ed2937ed757c1610cb0f174b84625147c0b580a18eea8c0e5
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - J1

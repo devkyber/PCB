@@ -19,7 +19,10 @@ results, not a screen recording or proof of autonomous circuit design.
 | `gpio-3d.png` | Transparent native GPIO board render |
 | `example-manifest.json` | Exact example CAD inputs and turntable outputs |
 | `change-proof.md` / `.json` | Completed preview, stale rejection and inspected apply |
-| [Evaluation graphic](../evaluation/2026-10-29/evaluation.png) | Three valid controls and six expected rejections from one recorded Windows run |
+| [Evaluation graphic](../evaluation/2026-10-29/evaluation.png) | Five valid controls and eight expected rejections from one recorded Windows run |
+| `examples-gallery.png` | Three new boards from their verified native 3D captures |
+| `examples-gallery.gif` / `.mp4` | Twelve-second tour of those boards and their actual schematic pages |
+| `examples-manifest.json` | All three source ledgers, fifteen native capture identities and gallery output hashes |
 
 ## Reproduce
 
@@ -32,6 +35,7 @@ uv run python tools/demo.py --project projects/rover-pdb --full
 # A blocked review returns 1. The demo still prints its external transcript path.
 uv run --group media python tools/render_readme_media.py --demo /path/to/transcript.json
 uv run --group media python tools/render_example_media.py
+uv run --group media python tools/render_examples_gallery.py
 ```
 
 The generator requires a real full-mode transcript for current Rover inputs,
@@ -74,6 +78,17 @@ The graphic embeds the record, raw-log, generator and font hashes in its PNG
 metadata. It verifies the declared case outcomes and rechecks evidence bytes
 before creating the new file. Its [bundle manifest](../evaluation/2026-10-29/manifest.json)
 binds the published graphic, report, JSON and raw logs together.
+
+The three-board gallery composes already exported native renders and schematics.
+It first verifies each project's archived evidence, selected-part coverage,
+footprint lineage and `output/SOURCE.json` identities. It preserves all recorded
+ERC/DRC counts, including the eight USB-C connector findings, and rechecks the
+complete source/capture binding before and after publication. Its movie is a
+guided tour of three held native captures, rather than a screen recording.
+
+The [offline handover packets](../HANDOVER.md) are separate inspectable HTML
+artifacts. They retain original native images, vector PDF and full review data;
+GitHub displays their source, so download the HTML to use the local controls.
 
 ## Visual direction: measured space
 

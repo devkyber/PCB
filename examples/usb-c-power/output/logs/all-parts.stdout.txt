@@ -1,0 +1,12 @@
+10 physical schematic parts; 8 require selected-part evidence
+
+MACHINE FAILURES: none
+
+EXTRACTED FACTS: none
+
+REVIEW REQUIRED:
+- Coverage and archive identity do not verify pin interpretation, component values, circuit performance or physical fit.
+
+CONFLICTS: none
+
+PROPOSED DESIGN_BASIS ROWS: none

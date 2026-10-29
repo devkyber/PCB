@@ -1,17 +1,17 @@
 {
   "applied": false,
-  "schematic": "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-copilot-evaluation-i3cyja7m\\workspaces\\native-preview-control\\gpio-indicator\\gpio-indicator.kicad_sch",
+  "schematic": "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-copilot-evaluation-7n8osxkd\\workspaces\\native-preview-control\\gpio-indicator\\gpio-indicator.kicad_sch",
   "source_mode": "native",
   "intent_status": "historical; unchanged and not used to redraw CAD",
   "human_review": "pending",
-  "preview": "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-copilot-evaluation-i3cyja7m\\workspaces\\native-preview-control\\gpio-indicator\\.pcb-copilot\\preview\\schematic.pdf",
-  "erc_report": "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-copilot-evaluation-i3cyja7m\\workspaces\\native-preview-control\\gpio-indicator\\.pcb-copilot\\preview\\schematic-erc.json",
-  "metrics": "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-copilot-evaluation-i3cyja7m\\workspaces\\native-preview-control\\gpio-indicator\\.pcb-copilot\\preview\\schematic-metrics.json",
+  "preview": "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-copilot-evaluation-7n8osxkd\\workspaces\\native-preview-control\\gpio-indicator\\.pcb-copilot\\preview\\schematic.pdf",
+  "erc_report": "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-copilot-evaluation-7n8osxkd\\workspaces\\native-preview-control\\gpio-indicator\\.pcb-copilot\\preview\\schematic-erc.json",
+  "metrics": "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-copilot-evaluation-7n8osxkd\\workspaces\\native-preview-control\\gpio-indicator\\.pcb-copilot\\preview\\schematic-metrics.json",
   "findings": [],
   "exit_code": 0,
   "preview_binding": {
     "version": 1,
-    "project": "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-copilot-evaluation-i3cyja7m\\workspaces\\native-preview-control\\gpio-indicator",
+    "project": "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-copilot-evaluation-7n8osxkd\\workspaces\\native-preview-control\\gpio-indicator",
     "inputs": {
       "DESIGN_BASIS.md": "77119e5d1ab6ea43a385a17adec1874ffc9b6c20e35eb44d783278710b9f239f",
       "DEVIATIONS.md": "324f110ce0816864290f2b28a6ecdbe8006457f305852762837590ae0eb99563",
@@ -62,7 +62,7 @@
     },
     "sources": {
       "schematic/gpio-indicator.kicad_sch": {
-        "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-copilot-evaluation-i3cyja7m\\candidates\\gpio-indicator\\gpio-indicator.kicad_sch",
+        "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-copilot-evaluation-7n8osxkd\\candidates\\changed-candidate\\gpio-indicator\\gpio-indicator.kicad_sch",
         "sha256": "bcf4b33bda22faff9d68be7498e96e7a83a40dc403b5fe2f4ffd79bf2f265ab4"
       }
     }

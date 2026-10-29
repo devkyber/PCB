@@ -1,0 +1,114 @@
+schema_version: 1
+records:
+- id: sha256:2081c71247a960a0f4b8225459bc6b234cab979d0bac480bb6e884202d9f5488
+  manufacturer: Texas Instruments
+  part_numbers:
+  - THVD1450DR
+  title: RS-485 Half-Duplex Evaluation Module SLLU173C
+  revision: C, September 2021
+  source_url: https://www.ti.com/lit/pdf/SLLU173
+  retrieved_on: '2026-10-29'
+  path: files/THVD1450DR_SLLU173_2081c71247a9.pdf
+  sha256: 2081c71247a960a0f4b8225459bc6b234cab979d0bac480bb6e884202d9f5488
+  media_type: application/pdf
+  roles:
+  - reference_design
+  trust_tier: manufacturer_evm
+  component_refs: []
+- id: sha256:3a5770b11668f4e5a11ba9ceeb4817a23f467b8507e3592f55fb6bd8f96e71bc
+  manufacturer: Samtec
+  part_numbers:
+  - HTSW-102-07-G-S
+  - HTSW-103-07-G-S
+  - HTSW-106-07-G-S
+  - TSW-102-07-G-S
+  - TSW-103-07-G-S
+  - TSW-106-07-G-S
+  title: tsw_th.pdf
+  revision: null
+  source_url: https://suddendocs.samtec.com/catalog_english/tsw_th.pdf
+  retrieved_on: '2026-10-29'
+  path: files/TSW-106-07-G-S_tsw_th_3a5770b11668.pdf
+  sha256: 3a5770b11668f4e5a11ba9ceeb4817a23f467b8507e3592f55fb6bd8f96e71bc
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:3e595b731fa5916bcdce5b28cd76b5eb0b0b3cdd7da474c677173264748cdf5f
+  manufacturer: Vishay
+  part_numbers:
+  - CRCW080510K0FKEA
+  - CRCW1206120RFKEA
+  title: dcrcwe3.pdf
+  revision: null
+  source_url: https://www.vishay.com/docs/20035/dcrcwe3.pdf
+  retrieved_on: '2026-10-29'
+  path: files/CRCW080510K0FKEA_dcrcwe3_3e595b731fa5.pdf
+  sha256: 3e595b731fa5916bcdce5b28cd76b5eb0b0b3cdd7da474c677173264748cdf5f
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:41dec9fe44ff5b7d4445fced2a851f40debd1e232fb9f1e07bf2ec3dfaf7e77a
+  manufacturer: Yageo
+  part_numbers:
+  - CC0805KKX7R7BB105
+  title: CC0805KKX7R7BB105
+  revision: null
+  source_url: https://yageogroup.com/download/specsheet/CC0805KKX7R7BB105
+  retrieved_on: '2026-10-29'
+  path: files/CC0805KKX7R7BB105_CC0805KKX7R7BB105_41dec9fe44ff.pdf
+  sha256: 41dec9fe44ff5b7d4445fced2a851f40debd1e232fb9f1e07bf2ec3dfaf7e77a
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:58ecc4cc07dd1d3206c2e67ffa734ad21a6d3a9e3c8c307068e6385bd79ee897
+  manufacturer: Texas Instruments
+  part_numbers:
+  - THVD1450DR
+  title: thvd1450.pdf
+  revision: null
+  source_url: https://www.ti.com/lit/ds/symlink/thvd1450.pdf
+  retrieved_on: '2026-10-29'
+  path: files/THVD1450DR_thvd1450_58ecc4cc07dd.pdf
+  sha256: 58ecc4cc07dd1d3206c2e67ffa734ad21a6d3a9e3c8c307068e6385bd79ee897
+  media_type: application/pdf
+  roles:
+  - datasheet
+  - reference_design
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:74433addf30d918ec852f41236aaa23a8de0fa647a638237e51dd64236590595
+  manufacturer: Samtec
+  part_numbers:
+  - SNT-100-BK-G
+  title: snt.pdf
+  revision: null
+  source_url: https://suddendocs.samtec.com/catalog_english/snt.pdf
+  retrieved_on: '2026-10-29'
+  path: files/SNT-100-BK-G_snt_74433addf30d.pdf
+  sha256: 74433addf30d918ec852f41236aaa23a8de0fa647a638237e51dd64236590595
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []
+- id: sha256:91302bfe493ab4f89071266b6fc1d01974391345b4047fe16655c39f9f39ae37
+  manufacturer: Yageo
+  part_numbers:
+  - CC0805KRX7R9BB104
+  title: CC0805KRX7R9BB104
+  revision: null
+  source_url: https://yageogroup.com/download/specsheet/CC0805KRX7R9BB104
+  retrieved_on: '2026-10-29'
+  path: files/CC0805KRX7R9BB104_CC0805KRX7R9BB104_91302bfe493a.pdf
+  sha256: 91302bfe493ab4f89071266b6fc1d01974391345b4047fe16655c39f9f39ae37
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs: []

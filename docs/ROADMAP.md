@@ -28,7 +28,7 @@ Next work:
 Done when a fresh environment can follow one documented path to current review
 artifacts, with expected review blockers distinguished from environment failures.
 
-## 2. Qualify the small reference project
+## 2. Qualify the reference projects
 
 Implemented: [the four-channel GPIO indicator](../examples/gpio-indicator/README.md)
 has its own requirements, exact source evidence, editable native schematic and
@@ -42,6 +42,14 @@ fit, actual controller drive limits, LED current/brightness and bench behavior.
 Resolve assembly rotation contracts and the project's human decisions against
 the exact design being reviewed. Add a clean-environment reproduction of the
 documented change proof.
+
+Implemented next examples: [USB-C power](../examples/usb-c-power/README.md),
+[I²C temperature](../examples/i2c-sensor/README.md) and
+[RS-485](../examples/rs485-interface/README.md) each retain native CAD, exact
+part evidence, routed copper, full-page visual review and hashed native outputs.
+The USB-C footprint exposes eight unresolved manufacturing-geometry findings;
+the other two have clean native ERC/DRC and parity. These are still unbuilt
+prototypes with open supplier assembly and human decisions.
 
 Done when the procedure reproduces offline from the archived inputs and the
 remaining engineering results have measured evidence. Owner boards and frozen
@@ -67,6 +75,11 @@ Done when another engineer can rerun the evaluation and assess its limits from
 the published inputs, procedure and results.
 
 ## 4. Make agent-assisted changes easier to inspect
+
+Implemented: [portable offline handovers](HANDOVER.md) keep every native sheet
+and board view together with scoped findings and the captured source ledger.
+The verifier checks packet bytes, embedded native images/review consistency,
+and optional current-project identity without requiring KiCad.
 
 Use the existing CLI and native-candidate workflow as the integration boundary.
 Document one complete agent-assisted task: read requirements and source

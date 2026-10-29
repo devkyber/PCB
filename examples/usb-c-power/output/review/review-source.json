@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "source_hashes": {
+    "usb-c-power.kicad_pcb": "71d6b1659f79148681ebec554cf21e4928dc3ae8abc23684e8cbfdac6b490317",
+    "usb-c-power.kicad_pro": "0b8ea2009c63a097259838c9eec11d04970f1a6cdb8e2370b8de118c4113e5fd",
+    "usb-c-power.kicad_dru": "fd6ec6cfd46f091c61ee7fa09ab3e1c5e29cb9b187e5045bcf055666f0239643"
+  },
+  "svg_hashes": {
+    "assembly.svg": "dc2e663174efd6f0e134af3d5199a51f49e77541f7a4c41b3092df76764cd15d",
+    "top-copper.svg": "064a83a08354a8ce369261599b17d79ac5f6b9e920ed467084dd5e9088474acb",
+    "bottom-copper.svg": "3911e26f2e046736c130508dfa0fb60416c3daef3b8344488666db63813f08df"
+  },
+  "kicad_version": "10.0.6",
+  "view_orientation": {
+    "assembly.svg": "top",
+    "top-copper.svg": "top",
+    "bottom-copper.svg": "underside; mirrored relative to top"
+  },
+  "scope": "Fresh native review views; not a DRC, parity or fabrication approval"
+}
