@@ -1,10 +1,11 @@
 # USB-C 5 V bench power entry
 
 An **unbuilt educational DRAFT** with independent CC pull-downs, a resettable
-fuse, a unidirectional TVS, a power LED and a two-pin output. The fresh
-60 × 40 mm two-layer board is fully routed, but **eight connector manufacturing
-findings remain unresolved**. It is a useful example of the pipeline reporting
-a real blocker instead of treating an official footprint as fabrication approval.
+fuse, a unidirectional TVS, a power LED and a two-pin output. The
+60 × 40 mm two-layer board is fully routed. Revision B replaces the original
+connector with the six-contact, power-only GCT USB4125-GF-A: native ERC and
+refilled DRC now report zero findings under the unchanged manufacturing rules.
+Actual assembly, physical fit and hardware behavior remain unqualified.
 
 ![Native KiCad 3D view](output/board-3d.png)
 
@@ -24,13 +25,13 @@ uv run pcb-copilot research examples/usb-c-power --verify-schematic-parts
 uv run pcb-copilot review examples/usb-c-power --format json
 ```
 
-The review returns **exit 1**. The dated [actual review](output/review-a.json)
-reports clean native ERC, exact schematic/PCB part/pin-net/UUID parity and zero
-unrouted connections. It retains four J1 shell annular-ring errors and four
-GND-pad/peg-hole clearance errors under the unchanged workspace rules. The
-supplier assembly contracts, F1 body model and all six human decisions are also
-unresolved. No rule was relaxed, finding
-excluded, reference waiver added, or human approval invented.
+The review returns **exit 1**. The dated [actual review](output/review-b.json)
+reports clean native ERC/refilled DRC, exact schematic/PCB part/pin-net/UUID
+parity and zero unrouted connections. The former eight connector errors were
+resolved by selecting compatible manufacturer geometry: 0.25 mm shell rings
+and no locating-peg holes. No rule was relaxed, finding excluded, contact land
+trimmed, reference waiver added, or human approval invented. Supplier assembly
+contracts, the F1 body model and all six human decisions remain unresolved.
 
 Use only a separately qualified **4.75–5.25 V bench source and at most 500 mA
 total board-plus-load budget near 23 °C**. Passive 5.1 kOhm CC pull-downs do not
@@ -52,13 +53,15 @@ schematic/board pair for comparison. The [reference review](REFERENCE_REVIEW.md)
 states the adopted pattern and differences. The [official-copy receipt](libs/PROVENANCE.json)
 and separate [Bourns drawing receipt](libs/footprint-provenance.yaml) pass their
 scoped lineage checks. Bourns' recommended PPTC lands differ from generic
-1812 pads, so F1 uses an explicitly derived footprint. The connector's required
-contact lands were preserved, leaving its manufacturing conflict visible.
+1812 pads, so F1 uses an explicitly derived footprint. The replacement USB4125
+uses exact official footprint/model copies. All other footprints, every existing
+via and unrelated tracks are preserved; J1's local escapes are routed to its
+actual six contact positions.
 
 [SOURCE.json](output/SOURCE.json) binds the retained outputs, exact saved
 inputs, native version and raw command logs. Checks and renders ran on an
 external disposable copy, with source and snapshot input hashes unchanged.
-The [author review](docs/review/A_REVIEW.md) records actual page and layout
+The [author review](docs/review/B_REVIEW.md) records actual page and layout
 inspection; it is not an owner sign-off or a hardware qualification.
 
 Saved native CAD is authoritative. Use a separate copy for experiments and

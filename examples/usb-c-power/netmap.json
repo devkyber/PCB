@@ -13,14 +13,10 @@
       "2": "VOUT"
     },
     "J1": {
-      "A1": "GND",
       "A12": "GND",
-      "A4": "VBUS",
       "A5": "CC1",
       "A9": "VBUS",
-      "B1": "GND",
       "B12": "GND",
-      "B4": "VBUS",
       "B5": "CC2",
       "B9": "VBUS",
       "SH": "GND"

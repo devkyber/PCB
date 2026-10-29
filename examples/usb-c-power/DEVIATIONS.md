@@ -3,13 +3,12 @@
 No ERC or DRC waiver is requested. No exclusion, reduced-clearance rule or
 fabrication sign-off is supplied.
 
-The unchanged official USB4105 footprint has eight native DRC errors under the
-unmodified workspace geometry baseline: four 0.20 mm shell annular rings
-(0.25 mm recommendation) and four 0.1944 mm GND-pad/NPTH clearances (0.25 mm
-baseline). The latter also falls below the fabricator's cited 0.20 mm spacing.
-See DESIGN_BASIS.md for the exact drawing comparison and the reason the
-manufacturer's contact lands were preserved. This is an unresolved physical
-manufacturing constraint, not a clean-DRC example.
+Revision B replaces USB4105-GF-A with the six-contact power-only USB4125-GF-A.
+Its exact official footprint has 0.25 mm shell annular rings and no locating
+NPTH. This resolves the former eight native DRC findings through compatible
+connector geometry, without changing the rules or trimming manufacturer lands.
+Native ERC/refilled DRC and exact schematic/PCB parity are clean under their
+stated scope. Actual physical fit and manufacturing acceptance remain unsigned.
 
 F1 uses an explicitly manufacturer-drawing-derived footprint with the Bourns
 recommended style-1 lands, rather than claiming generic 1812 pads are identical.

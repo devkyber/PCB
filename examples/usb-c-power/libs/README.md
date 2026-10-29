@@ -14,8 +14,11 @@ and limitations. No F1 body model is provided; none was invented.
 
 The saved PCB instances widen silkscreen graphic strokes to 0.15 mm and place
 reference text for readability. Electrical pads are not changed. Exact J1
-geometry retains eight DRC findings documented in DESIGN_BASIS.md; there is no
-claim that an official library file automatically satisfies a fabricator.
+USB4125 geometry passes the unchanged native baseline; actual fit and assembly
+still need review. The manufacturer-recommended lands are intact, and no rule
+was relaxed to obtain that result. The superseded USB4105 library/model copies
+were removed after a verified external backup; its cited drawing remains as
+the before/after engineering comparison in DESIGN_BASIS.md.
 
 Upstream [symbol](LICENSE-kicad-symbols.md), [footprint](LICENSE-kicad-footprints.md)
 and [package-model](LICENSE-kicad-packages3D.md) license notices are retained.

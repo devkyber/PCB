@@ -1,4 +1,4 @@
-12 evidence record(s) verified
+14 evidence record(s) verified
 
 MACHINE FAILURES: none
 

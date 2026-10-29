@@ -2,8 +2,8 @@
   "schema_version": 1,
   "source_project": "examples/usb-c-power",
   "source_inputs": {
-    "DESIGN_BASIS.md": "7c4f818335714cf49dd8668aba9c24dd2c7cb9b91303ab9588b20885cd3b7da1",
-    "DEVIATIONS.md": "e0999af7527fecb67ed262406c20201ccb3ad60342f418fe71bc743835b760af",
+    "DESIGN_BASIS.md": "709244824ef6c042f717dab863e3feb48c9ef4caa635414b0ee3143abbad6017",
+    "DEVIATIONS.md": "b1d4d35c82e7aa276876cefde9f932cbcc55650bcbac73db7e61875b006c33ad",
     "evidence/files/Adafruit-4090_Adafruit_USB_Type_C_Downstream_Breakout_rev_B_07970b0ad324.brd": "07970b0ad3243684bdf59c0ced537b8b9a8e8b67f7e9032b9464600da21b04e0",
     "evidence/files/Adafruit-4090_Adafruit_USB_Type_C_Downstream_Breakout_rev_B_ec14aee06c7a.sch": "ec14aee06c7a24546fcc6f6b1687ae85a13cadff955a721f458b125b70954330",
     "evidence/files/Adafruit-4090_license.txt_075dad5e5fc9.txt": "075dad5e5fc96c27014fabc269f4f5732909cffd178a486f546d982b6cf86b74",
@@ -15,8 +15,10 @@
     "evidence/files/TSW-102-07-G-S_tsw_th_3a5770b11668.pdf": "3a5770b11668f4e5a11ba9ceeb4817a23f467b8507e3592f55fb6bd8f96e71bc",
     "evidence/files/USB-TYPE-C-R2.0_USB_Type-C_Spec_R2.0_-_August_2019_87d15160bf8b.pdf": "87d15160bf8bd25129b27e0b7c5e261ed0b1806b3b0d3a7b5d8b1eb783dc9981",
     "evidence/files/USB4105-GF-A_usb4105_fb331fbabee8.pdf": "fb331fbabee8392ed2937ed757c1610cb0f174b84625147c0b580a18eea8c0e5",
+    "evidence/files/USB4125-GF-A_usb4125-spec_adeaf1f264b8.pdf": "adeaf1f264b8999c4b40bfd7fd202543201a60246297be6906a83e08a59259a2",
+    "evidence/files/USB4125-GF-A_usb4125_ea33e0b40545.pdf": "ea33e0b40545e545bf698cbac3bb1c0f5a3fc7ca6b5b7fda83a63134d4affaa7",
     "evidence/files/WP710A10ID_WP710A10ID_42d464fbfd8d.pdf": "42d464fbfd8d3ddef65fa6f9226d298547cdb25d5369aff0c47e5f896595c4bd",
-    "evidence/index.yaml": "7eef57780de9e59eb889b994d6d70db8b2f9c40c22eba06944e25b79408e6e07",
+    "evidence/index.yaml": "dba12b5af45b4a4cc18821299f0b5e14f60d1bf0314671f71939194eb52aaa05",
     "fp-lib-table": "0b5e3b96ab837b2cb0dee92b3db61d730754821e2cf68de09e00417e95a60868",
     "jlcpcb-assembly.yaml": null,
     "layout-intent.yaml": null,
@@ -30,47 +32,47 @@
     "libs/models/LED_D3.0mm.step": "e83c2186ad887c36d869f44e28c7b80646ea10cb388697b4380f5a2777268371",
     "libs/models/PinHeader_1x02_P2.54mm_Vertical.step": "ea4d0799007ebdd3945072bf255d673d2fe87eb05fda85fd8d7993ad9397da41",
     "libs/models/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step": "85bdadc9190739c38429da06b1d9c76ccf33aef9a0794a2e7a9dd5b58d9d05fe",
-    "libs/models/USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.step": "6338ce740fa231c2d3dcc6384e0576994a47240a312a21413cb85d76990a69a0",
-    "libs/PROVENANCE.json": "90b90b0bfeb34b8307e95d918df95646778dff418c7d3a635c7e54404d79a557",
-    "libs/README.md": "0de5749f5b5a234357a9a15eb2f8bcfa30016191738e361ca766b315fde7fd48",
+    "libs/models/USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal.step": "090b9119a6ff678f028cbd5aa52c28373fae6a76823c5b8bf7fcd1a8db2f99d5",
+    "libs/PROVENANCE.json": "919fe15cd363cee1fc7d4cada17cf6e6e93604d33ef86cb59952d145ae162eff",
+    "libs/README.md": "196f740df9eeb9dee5e7aab79828851ee315a1d0e5aed0a90d78bd9ffbae7df1",
     "libs/upstream/D_SMA.kicad_mod": "e2d049a54ef961e231eb8e7e769078a3c44feb8475a7bdafba01c6646a5144f3",
     "libs/upstream/LED_D3.0mm.kicad_mod": "d45c606dbf639522eaeae8c6bd2569747ee454daff87ab2db66bdad3200676d0",
     "libs/upstream/models/D_SMA.step": "1cfddd4e3b1bf22b8fc6ee3258c2aade882ed7b85b528e23b9db42437775a1db",
     "libs/upstream/models/LED_D3.0mm.step": "e83c2186ad887c36d869f44e28c7b80646ea10cb388697b4380f5a2777268371",
     "libs/upstream/models/PinHeader_1x02_P2.54mm_Vertical.step": "ea4d0799007ebdd3945072bf255d673d2fe87eb05fda85fd8d7993ad9397da41",
     "libs/upstream/models/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step": "85bdadc9190739c38429da06b1d9c76ccf33aef9a0794a2e7a9dd5b58d9d05fe",
-    "libs/upstream/models/USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.step": "6338ce740fa231c2d3dcc6384e0576994a47240a312a21413cb85d76990a69a0",
+    "libs/upstream/models/USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal.step": "090b9119a6ff678f028cbd5aa52c28373fae6a76823c5b8bf7fcd1a8db2f99d5",
     "libs/upstream/MountingHole_3.2mm_M3.kicad_mod": "3853c52bba27d3e3e3e18db44a20dfb296eb9e6cd16ebf26fe4a96a2ee8add3b",
     "libs/upstream/PinHeader_1x02_P2.54mm_Vertical.kicad_mod": "e5c0d699660a4479fa2414cc5be1835c6f52a38630dd85a2d18aab4dcd3ff8e5",
     "libs/upstream/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.kicad_mod": "1ba096b69c79e588cc54946fb6648699e5b301f67f8df0e0e0be43dcab326436",
-    "libs/upstream/USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.kicad_mod": "012da5bac71f8e9d4f59d0f7041c3cd8e1e5af3a3d297354b974f61ab24e8691",
-    "libs/USBC.kicad_sym": "e18dbe8d08c163f0fad0bdbbe2f3abab542c895df8cf86492b4a6ac952f3b110",
+    "libs/upstream/USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal.kicad_mod": "5f11b280b9c01298165a9682d54837ba8062c0b6ac8872a3b7276734c2cf0eef",
+    "libs/USBC.kicad_sym": "2ece02129902825ee5ce643fcd8b5a3e142c5b19b95b9b52963dc9916dc41e2d",
     "libs/USBC.pretty/D_SMA.kicad_mod": "bc5361e7a259264ed4ad5b0da3ade2134d250c081f0e8ce53d6fcee0fac9b5c1",
     "libs/USBC.pretty/LED_D3.0mm.kicad_mod": "9928bcc8ef35ea406d56af1480e43c606d8d646ba247b3d453d80386cd0f5b10",
     "libs/USBC.pretty/MountingHole_3.2mm_M3.kicad_mod": "3853c52bba27d3e3e3e18db44a20dfb296eb9e6cd16ebf26fe4a96a2ee8add3b",
     "libs/USBC.pretty/PinHeader_1x02_P2.54mm_Vertical.kicad_mod": "237cf8088cdcca6025a9cfc493511c000fa3cdb04c4382a0115b3f90dccb26b9",
     "libs/USBC.pretty/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.kicad_mod": "bf616ce7d49ae02d5c87d01dd19957ebf3aa66007809680c450de8561f4681a1",
-    "libs/USBC.pretty/USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.kicad_mod": "02174dd38faa55a40ae193e4f556e21c5c064be926cc33cb4df8704e2eae2e77",
-    "netmap.json": "bdfe4835d48b1a05df9f43e6544f065838c9fafbe0b0ea2037546dd29432018a",
+    "libs/USBC.pretty/USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal.kicad_mod": "301333008dbdb106a09e28f86ad5c9d637b8201a6c275f1ff06eb19b53e733ba",
+    "netmap.json": "9cf452fe7054949e8b1a75fb705df228bbea60c664988e4806b5922a5036fb8c",
     "project.yaml": "2efd5dbe91af637030e3dded07a367f7e4d142a40c995edb9eaead9e5d4ad0cc",
-    "REFERENCE_REVIEW.md": "80cb4796481c0b998329229fec6dbdc54a344bbdebbf20699c04a08fff905156",
-    "REQUIREMENTS.md": "92e6700ff16390d8ee17bfa6e45f81b9dd6d62f18c60b28c8306f29d887ba202",
-    "review-profile.yaml": "d38fc628778af1beea8b830ec346ccbe9fd362704e40bd9f5f241b0e53680118",
+    "REFERENCE_REVIEW.md": "c7d6e78f0cf5a0217f2e7465646e7c09018795cfa2a99b52eda812bda464e811",
+    "REQUIREMENTS.md": "1f58078ae480b4cf95abf1354003324b1a7d45e8d76fc1fa6c6581b04171aab4",
+    "review-profile.yaml": "830d0b62c775aaad9b35d5a3b3a0e1f2d1bede2831f4137177db092cff55476b",
     "review-signoff.yaml": null,
     "schematic-intent.yaml": null,
     "sym-lib-table": "74d3dc37a2f3d607d33f69b362ed7fb0cde7adb393ad09e96c28da14e583c168",
     "usb-c-power.kicad_dru": "fd6ec6cfd46f091c61ee7fa09ab3e1c5e29cb9b187e5045bcf055666f0239643",
-    "usb-c-power.kicad_pcb": "71d6b1659f79148681ebec554cf21e4928dc3ae8abc23684e8cbfdac6b490317",
+    "usb-c-power.kicad_pcb": "1413eddd499e8ea862f11bcb7aba1e57d0d0a8afd60b20927eb8ab7c30750042",
     "usb-c-power.kicad_pro": "0b8ea2009c63a097259838c9eec11d04970f1a6cdb8e2370b8de118c4113e5fd",
-    "usb-c-power.kicad_sch": "589782a38c9a64c8abc4991247b8f9589eaf7c2677428addd5f4e8ea88ce1221"
+    "usb-c-power.kicad_sch": "5fdd93eb0e2a4b63cecae367a2a9ead2ddc4c76833e77760aa0564d349fe76b3"
   },
   "source_inputs_unchanged": true,
   "source_cad_unchanged": true,
   "snapshot_inputs_unchanged": true,
   "kicad_version": "10.0.6",
-  "run_directory": "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-u6yp3zi4",
+  "run_directory": "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-y6u5ukcu",
   "date": "2026-10-29",
-  "scope": "Unbuilt educational DRAFT; eight unresolved J1 native DRC errors; no rule relaxation, waiver or human signoff",
+  "scope": "Unbuilt educational DRAFT; revisionB connector geometry resolves former8findings under unchanged rules; no rule relaxation, waiver or human signoff",
   "commands": [
     {
       "name": "version",
@@ -79,7 +81,7 @@
         "--version"
       ],
       "exit_code": 0,
-      "duration_seconds": 0.195,
+      "duration_seconds": 0.187,
       "stdout": "logs/version.stdout.txt",
       "stderr": "logs/version.stderr.txt"
     },
@@ -93,11 +95,11 @@
         "json",
         "--exit-code-violations",
         "-o",
-        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-u6yp3zi4\\workspace\\usb-c-power\\output\\erc.json",
-        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-u6yp3zi4\\workspace\\usb-c-power\\usb-c-power.kicad_sch"
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-y6u5ukcu\\workspace\\usb-c-power\\output\\erc.json",
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-y6u5ukcu\\workspace\\usb-c-power\\usb-c-power.kicad_sch"
       ],
       "exit_code": 0,
-      "duration_seconds": 1.231,
+      "duration_seconds": 1.34,
       "stdout": "logs/erc.stdout.txt",
       "stderr": "logs/erc.stderr.txt"
     },
@@ -112,11 +114,11 @@
         "--refill-zones",
         "--exit-code-violations",
         "-o",
-        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-u6yp3zi4\\workspace\\usb-c-power\\output\\drc.json",
-        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-u6yp3zi4\\workspace\\usb-c-power\\usb-c-power.kicad_pcb"
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-y6u5ukcu\\workspace\\usb-c-power\\output\\drc.json",
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-y6u5ukcu\\workspace\\usb-c-power\\usb-c-power.kicad_pcb"
       ],
-      "exit_code": 5,
-      "duration_seconds": 2.14,
+      "exit_code": 0,
+      "duration_seconds": 1.836,
       "stdout": "logs/drc.stdout.txt",
       "stderr": "logs/drc.stderr.txt"
     },
@@ -128,11 +130,11 @@
         "export",
         "pdf",
         "-o",
-        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-u6yp3zi4\\workspace\\usb-c-power\\output\\schematic.pdf",
-        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-u6yp3zi4\\workspace\\usb-c-power\\usb-c-power.kicad_sch"
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-y6u5ukcu\\workspace\\usb-c-power\\output\\schematic.pdf",
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-y6u5ukcu\\workspace\\usb-c-power\\usb-c-power.kicad_sch"
       ],
       "exit_code": 0,
-      "duration_seconds": 0.409,
+      "duration_seconds": 0.497,
       "stdout": "logs/schematic-pdf.stdout.txt",
       "stderr": "logs/schematic-pdf.stderr.txt"
     },
@@ -143,7 +145,7 @@
         "pcb",
         "render",
         "--output",
-        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-u6yp3zi4\\workspace\\usb-c-power\\output\\board-3d.png",
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-y6u5ukcu\\workspace\\usb-c-power\\output\\board-3d.png",
         "--width",
         "1600",
         "--height",
@@ -154,10 +156,10 @@
         "330,0,0",
         "--quality",
         "high",
-        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-u6yp3zi4\\workspace\\usb-c-power\\usb-c-power.kicad_pcb"
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-y6u5ukcu\\workspace\\usb-c-power\\usb-c-power.kicad_pcb"
       ],
       "exit_code": 0,
-      "duration_seconds": 4.937,
+      "duration_seconds": 5.451,
       "stdout": "logs/native-3d.stdout.txt",
       "stderr": "logs/native-3d.stderr.txt"
     },
@@ -169,16 +171,16 @@
         "export",
         "glb",
         "-o",
-        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-u6yp3zi4\\workspace\\usb-c-power\\output\\usb-c-power.glb",
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-y6u5ukcu\\workspace\\usb-c-power\\output\\usb-c-power.glb",
         "--include-tracks",
         "--include-pads",
         "--include-zones",
         "--include-silkscreen",
         "--include-soldermask",
-        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-u6yp3zi4\\workspace\\usb-c-power\\usb-c-power.kicad_pcb"
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-y6u5ukcu\\workspace\\usb-c-power\\usb-c-power.kicad_pcb"
       ],
       "exit_code": 0,
-      "duration_seconds": 1.122,
+      "duration_seconds": 1.074,
       "stdout": "logs/native-glb.stdout.txt",
       "stderr": "logs/native-glb.stderr.txt"
     },
@@ -189,10 +191,10 @@
         "-c",
         "from pcb_copilot.cli import entrypoint;entrypoint()",
         "views",
-        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-u6yp3zi4\\workspace\\usb-c-power"
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-y6u5ukcu\\workspace\\usb-c-power"
       ],
       "exit_code": 0,
-      "duration_seconds": 2.215,
+      "duration_seconds": 2.314,
       "stdout": "logs/views.stdout.txt",
       "stderr": "logs/views.stderr.txt"
     },
@@ -203,11 +205,11 @@
         "-c",
         "from pcb_copilot.cli import entrypoint;entrypoint()",
         "research",
-        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-u6yp3zi4\\workspace\\usb-c-power",
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-y6u5ukcu\\workspace\\usb-c-power",
         "--verify"
       ],
       "exit_code": 0,
-      "duration_seconds": 0.325,
+      "duration_seconds": 0.383,
       "stdout": "logs/evidence.stdout.txt",
       "stderr": "logs/evidence.stderr.txt"
     },
@@ -218,11 +220,11 @@
         "-c",
         "from pcb_copilot.cli import entrypoint;entrypoint()",
         "research",
-        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-u6yp3zi4\\workspace\\usb-c-power",
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-y6u5ukcu\\workspace\\usb-c-power",
         "--verify-schematic-parts"
       ],
       "exit_code": 0,
-      "duration_seconds": 0.366,
+      "duration_seconds": 0.35,
       "stdout": "logs/all-parts.stdout.txt",
       "stderr": "logs/all-parts.stderr.txt"
     },
@@ -233,13 +235,13 @@
         "-c",
         "from pcb_copilot.cli import entrypoint;entrypoint()",
         "research",
-        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-u6yp3zi4\\workspace\\usb-c-power",
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-y6u5ukcu\\workspace\\usb-c-power",
         "--inspect-reference",
         "sha256:ec14aee06c7a24546fcc6f6b1687ae85a13cadff955a721f458b125b70954330",
         "sha256:07970b0ad3243684bdf59c0ced537b8b9a8e8b67f7e9032b9464600da21b04e0"
       ],
       "exit_code": 0,
-      "duration_seconds": 0.31,
+      "duration_seconds": 0.355,
       "stdout": "logs/reference-pair.stdout.txt",
       "stderr": "logs/reference-pair.stderr.txt"
     },
@@ -250,40 +252,40 @@
         "-c",
         "from pcb_copilot.cli import entrypoint;entrypoint()",
         "review",
-        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-u6yp3zi4\\workspace\\usb-c-power",
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-y6u5ukcu\\workspace\\usb-c-power",
         "--format",
         "json"
       ],
       "exit_code": 1,
-      "duration_seconds": 14.073,
+      "duration_seconds": 13.735,
       "stdout": "logs/review.stdout.txt",
       "stderr": "logs/review.stderr.txt"
     }
   ],
   "outputs": {
     "assembly.png": {
-      "sha256": "2a803199187af016600b27d024323cdf27595524622291366bfde32ea1076331",
-      "bytes": 42695
+      "sha256": "9e6ff83bd949f2be4730afbbd6041aae8ae14ec957f6513838a75726ac10999b",
+      "bytes": 41579
     },
     "board-3d.png": {
-      "sha256": "a81397da061a9a1fad6a4709e8cef9c17284ba91e489e5e84fda9ae80f397c98",
-      "bytes": 184594
+      "sha256": "5482fef3b9a3bf4b82f069d52698190849c80deb7284a99e0cc9ce5459b10a0c",
+      "bytes": 184802
     },
     "bottom-copper.png": {
-      "sha256": "762965f529a469c4e7d65a9505c36ae3d9376d77c002d784fb2839f9a237e695",
-      "bytes": 19948
+      "sha256": "7d6400a6efd5651c59f9a8cfdf39f028376842e64ff99908971f8506925710c9",
+      "bytes": 19356
     },
     "drc.json": {
-      "sha256": "de9b07e3741b6457fb7b26cfca271f11552a5d41bfc1d2a653e017ed481d3d76",
-      "bytes": 6787
+      "sha256": "dcff277cdae7b2220522972fabc0b42a686e483b2f6a44031f57ca674186c5ca",
+      "bytes": 1104
     },
     "erc.json": {
-      "sha256": "4533d3ad03419d374f8dac9de561b0271f986fc5330ef27ef8cf5a8f870da7a7",
+      "sha256": "1e8d3a614cb6fef1d9c9af18bc6013f1115bf76e4b942996ae87a8532cfff321",
       "bytes": 1020
     },
     "footprint-lineage.json": {
-      "sha256": "230eeefb756565545f1bd55b3aeef44fe63a7c75513555dd780a9014467c5d75",
-      "bytes": 2691
+      "sha256": "bac45deed0088abc2dbbab508760601e7112f442cd9b4bfafaee4727b2fd8106",
+      "bytes": 2690
     },
     "logs/all-parts.stderr.txt": {
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -298,7 +300,7 @@
       "bytes": 0
     },
     "logs/drc.stdout.txt": {
-      "sha256": "2d6cd5b94a6c554954d11e56f44085a797b01537e0c84767e8e8071b58ec69b2",
+      "sha256": "c03c7c1258215b367faa39ae14656b75833664e540aaee2455b7821e870ff072",
       "bytes": 164
     },
     "logs/erc.stderr.txt": {
@@ -306,7 +308,7 @@
       "bytes": 0
     },
     "logs/erc.stdout.txt": {
-      "sha256": "868b0bd8408f3077da513e37d957910376ef1fbc40f729006e8c5866fe0bb591",
+      "sha256": "50111c332d36c84c52d386db73b6f3117af69d663231441e313a70dde3dacfb2",
       "bytes": 137
     },
     "logs/evidence.stderr.txt": {
@@ -314,7 +316,7 @@
       "bytes": 0
     },
     "logs/evidence.stdout.txt": {
-      "sha256": "66e5d5b58bf12014986366b4f08226831fd8750946b4b745d68ca87b566ca2d8",
+      "sha256": "0f57fe25dfd444a52d8961f5eef46c8e3e2bc4be0d6bbbdc6d82e954064bed05",
       "bytes": 243
     },
     "logs/native-3d.stderr.txt": {
@@ -322,15 +324,15 @@
       "bytes": 0
     },
     "logs/native-3d.stdout.txt": {
-      "sha256": "18524f1ca12f8772d2fabd2e928caf33f7cb2c8f994c19308828b6ecda99aded",
-      "bytes": 1796
+      "sha256": "6f8b963afdf08299eb07764484b0499434765fbf23f64eb4d8485c6d77e52a4e",
+      "bytes": 1811
     },
     "logs/native-glb.stderr.txt": {
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "bytes": 0
     },
     "logs/native-glb.stdout.txt": {
-      "sha256": "a008952e85b70ae5be8da6aa4099ce1bd643bda57ee79f2ee6c1db4a0c470fba",
+      "sha256": "405348e89f6544b027c7d2aac21ee8373db3852c4e53f3781af898babc1ea98a",
       "bytes": 155
     },
     "logs/reference-pair.stderr.txt": {
@@ -338,7 +340,7 @@
       "bytes": 0
     },
     "logs/reference-pair.stdout.txt": {
-      "sha256": "d0bb2a3c949b99292b7b2b9b15d8fc37fe0145ff968bd22d9d6df90b60c5f50b",
+      "sha256": "87748a65fdeeb6cc5852e348404ed1e4e23dd8739f3a7e8e379a727e17fbb7be",
       "bytes": 8199
     },
     "logs/review.stderr.txt": {
@@ -346,15 +348,15 @@
       "bytes": 0
     },
     "logs/review.stdout.txt": {
-      "sha256": "f9210e5d3c28da55c17183d423efbd60ed14fd0435a2b14451670b75e13b87ed",
-      "bytes": 11109
+      "sha256": "2462ea513a733394a914aa2c51019734345eed27a829215c7f24f4b80fea9a76",
+      "bytes": 9088
     },
     "logs/schematic-pdf.stderr.txt": {
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "bytes": 0
     },
     "logs/schematic-pdf.stdout.txt": {
-      "sha256": "e3671b10f84c1e0a3d2ed3f3b534b781d063ca5d53dc7cecdad85d1cda55d02d",
+      "sha256": "7218ce12204725d3654b0856d0348790bc2e1a57ef14e1e0151ea55e09767321",
       "bytes": 123
     },
     "logs/version.stderr.txt": {
@@ -370,7 +372,7 @@
       "bytes": 0
     },
     "logs/views.stdout.txt": {
-      "sha256": "0fe7ff9f903a9f124b3736bd6f8cf8a478f16d068232bd5e9d958401023c24ef",
+      "sha256": "449f67ccf1e2e280561a774eb124bc8b5028e577468a69f2b9fd521e7050c16e",
       "bytes": 114
     },
     "parity.json": {
@@ -378,64 +380,72 @@
       "bytes": 185
     },
     "reference-pair.json": {
-      "sha256": "d0bb2a3c949b99292b7b2b9b15d8fc37fe0145ff968bd22d9d6df90b60c5f50b",
+      "sha256": "87748a65fdeeb6cc5852e348404ed1e4e23dd8739f3a7e8e379a727e17fbb7be",
       "bytes": 8199
     },
     "review/assembly.svg": {
-      "sha256": "dc2e663174efd6f0e134af3d5199a51f49e77541f7a4c41b3092df76764cd15d",
-      "bytes": 97239
+      "sha256": "8fcb47ebb7b66e9917eca10844fc796975c710536e399aa9231441b6c625e41e",
+      "bytes": 77194
     },
     "review/bottom-copper.svg": {
-      "sha256": "3911e26f2e046736c130508dfa0fb60416c3daef3b8344488666db63813f08df",
-      "bytes": 28266
+      "sha256": "81887e83307587774344f18fda1cf5bdfe0499c258157d707f8af8a99484c372",
+      "bytes": 26629
     },
     "review/review-source.json": {
-      "sha256": "57067957d9920fa7df37c654a6df1fd3ef22516201121e48d8106b63d74af7ec",
+      "sha256": "ab1b68f37e97d3ba28bc55a5a4d5ecb191eb2bc771d66c64fda7eb4f0ed84903",
       "bytes": 915
     },
     "review/top-copper.svg": {
-      "sha256": "064a83a08354a8ce369261599b17d79ac5f6b9e920ed467084dd5e9088474acb",
-      "bytes": 53798
+      "sha256": "aaa5215ccc15eaea11128403056582fcfc37062271da7c9662b3ad911389e495",
+      "bytes": 50027
     },
-    "review-a.json": {
-      "sha256": "f9210e5d3c28da55c17183d423efbd60ed14fd0435a2b14451670b75e13b87ed",
-      "bytes": 11109
+    "review-b.json": {
+      "sha256": "2462ea513a733394a914aa2c51019734345eed27a829215c7f24f4b80fea9a76",
+      "bytes": 9088
     },
     "revision/apply.stderr.txt": {
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "bytes": 0
     },
     "revision/apply.stdout.json": {
-      "sha256": "89e6e02cf5b0070159dc5e0992511f554cf94a466a5279283bd740e3e61dfbd0",
-      "bytes": 8206
+      "sha256": "9a809aa2cc4fd60413cfc351271c612fcef9caef5274b689f5be90042a0574f5",
+      "bytes": 9541
+    },
+    "revision/copper-preservation.json": {
+      "sha256": "0df2a6a51f3c47ef90375846770737cc92adfd418c1c9e00d3f9d6cb3d778f48",
+      "bytes": 2063
+    },
+    "revision/preservation-verified.json": {
+      "sha256": "b84ef36b2ffd58a3fd1c3becf01b17a3f87931354382618ec7d06171b54883a5",
+      "bytes": 804
     },
     "revision/preview.stderr.txt": {
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "bytes": 0
     },
     "revision/preview.stdout.json": {
-      "sha256": "6b40e3ddc18c8880bd70ed9867e634987906a3325c19126cbf40aa5ffa73fa55",
-      "bytes": 8182
+      "sha256": "c9b5ce64817f3ebc43ba8a49cb0192fd3588f7f4301581fc3ae758d763b4a238",
+      "bytes": 9517
     },
     "revision/revision.json": {
-      "sha256": "c34dfaba182c91a402c683ec2d3f03deb7cc650812abd051d55cb7dc273ff07c",
-      "bytes": 7751
+      "sha256": "3ec0f7ecd3e673f1b59ee7227d4a60075804536ebaedbfd0f971619523ee02cf",
+      "bytes": 7618
     },
     "schematic.pdf": {
-      "sha256": "b78b0d26a5378f83809dfc7a86597d7b7d0c44215a9894d2185a86d4ff5752df",
-      "bytes": 88136
+      "sha256": "78da31ef87559497e5b59d49431d70268864437cec65233823b11c45fa09ba9b",
+      "bytes": 87843
     },
     "schematic.png": {
-      "sha256": "7c01bce333bbe591716c7c1ac88f39f286016fd04e002393b9a6ce6a5a10ebd8",
-      "bytes": 123247
+      "sha256": "a1f3236ed0f60213bbf2b59bbd6c91f400b8acbc7e5571224529c7aa3a5262fc",
+      "bytes": 119693
     },
     "top-copper.png": {
-      "sha256": "90221da23543624dac10f302c7c48e3153963959ce4f9eeb02ff63f72f523b9e",
-      "bytes": 33815
+      "sha256": "b68af31098614f2bf246b6aa5c6f4fa53651e16d1d4da997fc7f16b1c7119af8",
+      "bytes": 33855
     },
     "usb-c-power.glb": {
-      "sha256": "f065cc76dd0dc9df57b9e047a6eaf6bbf9838d8493d96b51ba414f66173657df",
-      "bytes": 1837432
+      "sha256": "4814a29b6272e030567085d6ccf46de703116eda61c234a2e83a354a509766c5",
+      "bytes": 1656700
     }
   }
 }

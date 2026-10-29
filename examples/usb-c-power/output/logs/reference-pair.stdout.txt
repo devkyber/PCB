@@ -1,10 +1,10 @@
 {
   "schematic_source": {
-    "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-u6yp3zi4\\workspace\\usb-c-power\\evidence\\files\\Adafruit-4090_Adafruit_USB_Type_C_Downstream_Breakout_rev_B_ec14aee06c7a.sch",
+    "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-y6u5ukcu\\workspace\\usb-c-power\\evidence\\files\\Adafruit-4090_Adafruit_USB_Type_C_Downstream_Breakout_rev_B_ec14aee06c7a.sch",
     "sha256": "ec14aee06c7a24546fcc6f6b1687ae85a13cadff955a721f458b125b70954330"
   },
   "board_source": {
-    "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-u6yp3zi4\\workspace\\usb-c-power\\evidence\\files\\Adafruit-4090_Adafruit_USB_Type_C_Downstream_Breakout_rev_B_07970b0ad324.brd",
+    "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-y6u5ukcu\\workspace\\usb-c-power\\evidence\\files\\Adafruit-4090_Adafruit_USB_Type_C_Downstream_Breakout_rev_B_07970b0ad324.brd",
     "sha256": "07970b0ad3243684bdf59c0ced537b8b9a8e8b67f7e9032b9464600da21b04e0"
   },
   "compared_pad_count": 24,

@@ -22,7 +22,7 @@
       "source": "project fp-lib-table (KIPRJMOD): Official KiCad footprint copies; see libs/PROVENANCE.json; hash-bound official footprint copy, physical fit unqualified"
     },
     "J1": {
-      "footprint": "USBC:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal",
+      "footprint": "USBC:USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal",
       "source": "project fp-lib-table (KIPRJMOD): Official KiCad footprint copies; see libs/PROVENANCE.json; hash-bound official footprint copy, physical fit unqualified"
     },
     "J2": {
