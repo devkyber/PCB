@@ -1,0 +1,70 @@
+{
+  "changed_footprint": "J1",
+  "replaced_local_track_uuids": [
+    "ec1bb774-8189-4c17-a255-f1c45afb7179",
+    "70b65845-ff75-44b3-a075-98168ff01cea",
+    "b6e6b66c-c5db-40da-84f0-c7f1ccd0f5c5",
+    "e6b9714e-f1b2-4a10-8a3a-07d163edb403",
+    "2c5c67ef-78d7-4aaa-ae94-98b8bc666bed",
+    "6a442f71-3e40-4283-ae5b-42d1989e60f1",
+    "72ca47e5-78cf-4b47-8e74-1c7a0a003445",
+    "76182eab-21d2-4a9c-8ec1-3182c1408164"
+  ],
+  "preserved_track_and_via_uuids": [
+    "0aab8042-b982-4e82-b5c5-0d1ae19bd085",
+    "0b263edd-0496-4c9b-93f3-83abdc7f825a",
+    "2e3a34a4-9ca5-4a2b-9c8a-3550ff320e68",
+    "33ee5961-6798-4cb1-b447-def14e7a1a47",
+    "38824828-ab40-4aee-9dc5-f050ed73c043",
+    "5ff146d4-44b5-4780-8d1b-f172ee9603a1",
+    "68cef87e-ced2-4bba-ac3e-5c3f13db6393",
+    "6c8427a4-4179-489d-91e0-3d74921e4d35",
+    "76eedf95-ee17-4a63-b74d-1f222d1bb0c2",
+    "7c4613f5-4e01-4143-9123-56613da4ff6c",
+    "8671ab41-535c-4258-ab23-3bae120089f9",
+    "ae6448fa-fdf6-4640-ab52-293132d8f07d",
+    "b1721b23-8e55-4d3a-8e71-deea692c92a8",
+    "cff4208a-2f1f-45ae-a447-af4b619f2e76",
+    "d08f23a8-087c-4f49-a4cc-1fd9fb4eadbb",
+    "d28e2427-4330-4389-a200-6fa749128d94",
+    "e0c45625-9654-4772-9a22-93db2960c37e",
+    "e9a3257d-9719-4e65-aa81-2deb090b0225",
+    "e9e8f3d4-bc42-432b-9ab3-1c02b1f1d790",
+    "eab71b4b-08fc-45b1-80b6-8d07703429d2",
+    "ec550e79-0b7d-47ee-8334-cedeb5b93396",
+    "ee22f461-eba8-4b8b-9ab4-4584fa6ed4da"
+  ],
+  "unrelated_footprint_identity_position_orientation_paths_preserved": true,
+  "all_existing_vias_preserved": true,
+  "baseline_rules_sha256": "fd6ec6cfd46f091c61ee7fa09ab3e1c5e29cb9b187e5045bcf055666f0239643",
+  "native_contact_positions": {
+    "A5": [
+      63.5,
+      55.905
+    ],
+    "A9": [
+      61.48,
+      55.905
+    ],
+    "A12": [
+      60.25,
+      55.905
+    ],
+    "B5": [
+      62.5,
+      55.905
+    ],
+    "B9": [
+      64.52,
+      55.905
+    ],
+    "B12": [
+      65.75,
+      55.905
+    ],
+    "SH": [
+      58.68,
+      52.025
+    ]
+  }
+}

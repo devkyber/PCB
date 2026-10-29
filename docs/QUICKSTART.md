@@ -1,5 +1,10 @@
 # Quickstart
 
+To inspect the examples before installing tools, open the
+[interactive browser workbench](https://devkyber.github.io/PCB/). Search native
+parts and pins, trace saved nets, and inspect the schematic/copper/3D views beside
+their source evidence. It also works as a [downloaded offline file](EXPLORER.md).
+
 Start with the small four-channel GPIO indicator, then try a checked schematic
 change in a disposable copy. The example is an unbuilt educational `DRAFT`;
 the demo records no owner approval or fabrication release.

@@ -8,16 +8,24 @@ routed PCB, machine findings and unresolved engineering decisions.
 
 | Board | What to learn | Inspect |
 | --- | --- | --- |
-| [USB-C power entry](usb-c-power/README.md) | Independent CC terminations, PPTC/TVS limitations, and an actual connector land-pattern conflict with the manufacturing baseline | [Schematic](usb-c-power/output/schematic.pdf), [native 3D](usb-c-power/output/usb-c-power.glb), [review packet](../docs/demos/usb-c-review/index.html) |
+| [USB-C power entry](usb-c-power/README.md) | Independent CC terminations, PPTC/TVS limitations, and resolving connector land-pattern conflicts through a compatible power-only part | [Schematic](usb-c-power/output/schematic.pdf), [native 3D](usb-c-power/output/usb-c-power.glb), [review packet](../docs/demos/usb-c-review/index.html) |
 | [I²C temperature sensor](i2c-sensor/README.md) | MCP9808 pin/package verification, address straps, open-drain ALERT, pull-up current and local bypass | [Schematic](i2c-sensor/output/schematic.pdf), [native 3D](i2c-sensor/output/i2c-sensor.glb), [review packet](../docs/demos/i2c-review/index.html) |
 | [RS-485 interface](rs485-interface/README.md) | THVD1450 pin/package verification, control defaults, removable endpoint termination and clear host/bus labeling | [Schematic](rs485-interface/output/schematic.pdf), [native 3D](rs485-interface/output/rs485-interface.glb), [review packet](../docs/demos/rs485-review/index.html) |
 | [GPIO indicator](gpio-indicator/README.md) | Small through-hole first run, conservative LED-current calculation and a scoped native-change demonstration | [Schematic](gpio-indicator/output/schematic.pdf), [native 3D](gpio-indicator/output/gpio-indicator.glb), [review packet](../docs/demos/gpio-review/index.html) |
 
 Each project README describes its supply assumptions, connector pin directions,
-qualification work and recorded findings. The USB-C board retains eight known
-connector annular-ring/NPTH-clearance findings and lacks a PPTC body model;
-it is a manufacturing-review case. The sensor and RS-485 boards have clean
-recorded native ERC/DRC and parity. All retain open assembly/human decisions.
+qualification work and recorded findings. All three new boards have clean
+recorded native ERC/DRC and parity. The USB-C revision replaces the incompatible
+connector with a six-contact power-only USB4125; manufacturer lands and workspace
+rules are preserved. Its PPTC body model remains absent. All retain open
+assembly, physical and human release decisions.
+
+[Open the interactive workbench](https://devkyber.github.io/PCB/) to follow a
+saved pin/net, search parts and inspect native views beside source evidence.
+The [sensor bring-up guide](i2c-sensor/BRINGUP.md) and
+[RS-485 bring-up guide](rs485-interface/BRINGUP.md) include executable offline
+register/timing/calculation demos. No hardware communication or bench results
+are implied.
 
 From the repository root:
 

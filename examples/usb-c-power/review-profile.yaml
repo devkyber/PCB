@@ -6,8 +6,8 @@ items:
     evidence_refs: [REQUIREMENTS.md, DESIGN_BASIS.md]
     safety_tags: [electrical, usb]
   - id: connector-manufacturing
-    prompt: Resolve the eight J1 native DRC findings against the exact connector lands and selected fabricator before fabrication.
-    rationale: The unchanged official footprint has 0.1944 mm NPTH spacing and 0.20 mm shell rings; no waived acceptance is supplied.
+    prompt: Verify actual USB4125-GF-A fit, 1.00 mm stake selection, assembly process, cable-force support and fabricator acceptance.
+    rationale: Clean native geometry with the replacement six-contact footprint does not qualify actual mechanical fit or manufacturing.
     evidence_refs: [DESIGN_BASIS.md, DEVIATIONS.md, libs/PROVENANCE.json]
     safety_tags: [manufacturing, mechanical]
   - id: protection-coordination

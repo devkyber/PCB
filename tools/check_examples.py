@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import stat
 from pathlib import Path, PurePosixPath
@@ -38,13 +39,15 @@ def _object(pairs):
 def _path(root: Path, relative: str) -> Path:
     if (not isinstance(relative, str) or not relative or ':' in relative or '\\' in relative
             or PurePosixPath(relative).is_absolute() or '..' in PurePosixPath(relative).parts
-            or PurePosixPath(relative).as_posix() != relative):
+            or PurePosixPath(relative).as_posix() != relative or relative == '.'
+            or any(ord(char) < 32 for char in relative)):
         raise ValueError('artifact path must be canonical and contained')
-    path = root
-    for part in PurePosixPath(relative).parts:
-        path /= part
+    path = root.absolute() / relative
+    # Include the root and its ancestors: load_project resolves paths, which
+    # otherwise hides a redirected examples/BOARD directory before validation.
+    for component in (*reversed(path.parents), path):
         try:
-            info = path.lstat()
+            info = component.lstat()
         except FileNotFoundError:
             continue
         if stat.S_ISLNK(info.st_mode) or getattr(info, 'st_file_attributes', 0) & 0x400:
@@ -52,6 +55,31 @@ def _path(root: Path, relative: str) -> Path:
     if not path.resolve().is_relative_to(root.resolve()):
         raise ValueError('artifact path escapes example')
     return path
+
+
+def _version(info) -> tuple:
+    # Windows path stat and descriptor fstat disagree about st_ctime's legacy
+    # creation/change-time meaning. Identity, length and modification time are
+    # comparable on both paths; the payload hash is checked independently.
+    return info.st_dev, info.st_ino, info.st_size, info.st_mtime_ns
+
+
+def _capture(root: Path, relative: str) -> tuple[Path, bytes, tuple]:
+    """Read one plain file without accepting a concurrent replacement or alias."""
+    path = _path(root, relative)
+    initial = path.stat()
+    if not stat.S_ISREG(initial.st_mode) or initial.st_nlink != 1:
+        raise ValueError(f'captured output missing or aliased: {relative}')
+    with path.open('rb') as stream:
+        opened = os.fstat(stream.fileno())
+        payload = stream.read()
+        read = os.fstat(stream.fileno())
+    current = _path(root, relative).stat()
+    if (opened.st_nlink != 1 or read.st_nlink != 1 or current.st_nlink != 1
+            or not _version(initial) == _version(opened) == _version(read) == _version(current)
+            or len(payload) != current.st_size):
+        raise RuntimeError(f'example capture changed during verification: {relative}')
+    return path, payload, _version(current)
 
 
 def _footprints(project) -> int:
@@ -81,19 +109,19 @@ def _footprints(project) -> int:
 def check_example(repository: Path, name: str) -> dict:
     if name not in EXAMPLES:
         raise ValueError('select a documented active example')
-    project = load_project(repository / 'examples' / name)
+    project = load_project(_path(repository, 'examples/' + name))
     before = input_hashes(project)
     for result in (verify_evidence(project), verify_schematic_evidence(project)):
         if result.exit_code:
             raise ValueError('; '.join((*result.machine_failures, *result.conflicts)))
     count = _footprints(project)
-    manifest_path = _path(project.root, 'output/SOURCE.json')
-    manifest = json.loads(manifest_path.read_bytes(), object_pairs_hook=_object)
+    manifest_path, manifest_bytes, manifest_version = _capture(project.root, 'output/SOURCE.json')
+    manifest = json.loads(manifest_bytes, object_pairs_hook=_object)
     if not isinstance(manifest, dict):
         raise ValueError('example capture manifest must be an object')  # noqa: TRY004 -- Invalid artifact schema, not an API argument type.
     legacy = name == 'gpio-indicator'
     captured = manifest.get('inputs') if legacy else manifest.get('source_inputs')
-    if (manifest.get('schema_version') != 1 or captured != before
+    if (type(manifest.get('schema_version')) is not int or manifest['schema_version'] != 1 or captured != before
             or (not legacy and manifest.get('source_cad_unchanged') is not True)):
         raise ValueError('published artifact capture is stale or has no preserved source identity')
     if not legacy and manifest.get('source_project') != 'examples/' + name:
@@ -101,29 +129,46 @@ def check_example(repository: Path, name: str) -> dict:
     outputs = manifest.get('outputs')
     if not isinstance(outputs, dict) or not outputs:
         raise ValueError('example capture has no output inventory')
-    verified = set()
+    verified, observed, names = set(), {}, set()
     for relative, record in outputs.items():
-        path = _path(project.root if legacy else manifest_path.parent, relative)
-        if not path.is_file() or path == manifest_path or path.stat().st_nlink != 1:
+        if not isinstance(relative, str) or relative.casefold() in names:
+            raise ValueError('capture output names must not alias the same portable path')
+        names.add(relative.casefold())
+        path, payload, version = _capture(project.root if legacy else manifest_path.parent, relative)
+        if path == manifest_path:
             raise ValueError(f'captured output missing or aliased: {relative}')
         digest = record if legacy else record.get('sha256') if isinstance(record, dict) else None
         if not isinstance(digest, str) or not re.fullmatch(r'[0-9a-f]{64}', digest):
             raise ValueError(f'invalid output digest: {relative}')
-        payload = path.read_bytes()
         if hashlib.sha256(payload).hexdigest() != digest:
             raise ValueError(f'captured output hash mismatch: {relative}')
         if not legacy and (type(record.get('bytes')) is not int or record['bytes'] != len(payload)):
             raise ValueError(f'captured output byte count mismatch: {relative}')
         verified.add(path.relative_to(manifest_path.parent).as_posix())
+        observed[path.relative_to(project.root).as_posix()] = (digest, len(payload), version)
     required = {'schematic.pdf', 'schematic.png', 'assembly.png'}
     if (not required <= verified or not {'top-copper.png', 'board-front.png', 'front.png'}.intersection(verified)
             or not {'bottom-copper.png', 'board-back.png', 'back.png'}.intersection(verified)):
         raise ValueError('example capture omits required native review views')
     if input_hashes(project) != before:
         raise RuntimeError('example source inputs changed during verification')
+    # The final source check may overlap a renderer publishing new files. Do
+    # not report cached hashes as the identity of a now-mixed capture. Recheck
+    # the manifest last so its exact original bytes still describe this read.
+    observed['output/SOURCE.json'] = (hashlib.sha256(manifest_bytes).hexdigest(),
+                                      len(manifest_bytes), manifest_version)
+    for relative, (expected_hash, expected_bytes, expected_version) in observed.items():
+        try:
+            _path_now, payload, version = _capture(project.root, relative)
+        except (OSError, ValueError, RuntimeError) as exc:
+            raise RuntimeError(f'example capture changed during verification: {relative}') from exc
+        if (version != expected_version or len(payload) != expected_bytes
+                or hashlib.sha256(payload).hexdigest() != expected_hash):
+            raise RuntimeError(f'example capture changed during verification: {relative}')
     return {'example': name, 'archive_and_selected_part_coverage': True,
             'physical_footprints_verified': count, 'source_input_entries': len(before),
-            'captured_artifacts_verified': len(verified), 'native_review_rerun': False,
+            'captured_artifacts_verified': len(verified), 'capture_unchanged_during_verification': True,
+            'native_review_rerun': False,
             'scope': 'Offline source/artifact and footprint lineage checks; recorded native findings remain unresolved.'}
 
 

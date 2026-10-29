@@ -235,6 +235,10 @@
     "schematic.png": {
       "sha256": "2285e69f31847af06cff9c0371e961c5e3acef28ddb2fef702607c3022f408e0",
       "bytes": 189985
+    },
+    "bringup-demo.json": {
+      "sha256": "e66493d3393f26c6d3841a05c98ece47a130fe9106ea2ef594e3e51964428d2d",
+      "bytes": 11614
     }
   },
   "scope": "Fresh native KiCad exports and read-only software checks; unbuilt DRAFT, no owner signoff or fabrication release."

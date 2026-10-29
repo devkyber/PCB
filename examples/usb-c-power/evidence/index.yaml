@@ -128,6 +128,22 @@ records:
   - integration_manual
   trust_tier: teaching_reference
   component_refs: []
+- id: sha256:adeaf1f264b8999c4b40bfd7fd202543201a60246297be6906a83e08a59259a2
+  manufacturer: GCT
+  part_numbers:
+  - USB4125-GF-A
+  title: GCT USB4125 product specification
+  revision: A3
+  source_url: https://gct.co/files/specs/usb4125-spec.pdf
+  retrieved_on: '2026-10-29'
+  path: files/USB4125-GF-A_usb4125-spec_adeaf1f264b8.pdf
+  sha256: adeaf1f264b8999c4b40bfd7fd202543201a60246297be6906a83e08a59259a2
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - J1
 - id: sha256:b460acdb476469774e0785a8ef85aec79e2d95fe41beaa79c5a414e4e95e3fe0
   manufacturer: Yageo
   part_numbers:
@@ -162,6 +178,23 @@ records:
   trust_tier: manufacturer
   component_refs:
   - D1
+- id: sha256:ea33e0b40545e545bf698cbac3bb1c0f5a3fc7ca6b5b7fda83a63134d4affaa7
+  manufacturer: GCT
+  part_numbers:
+  - USB4125-GF-A
+  title: GCT USB4125 drawing
+  revision: A6
+  source_url: https://gct.co/files/drawings/usb4125.pdf
+  retrieved_on: '2026-10-29'
+  path: files/USB4125-GF-A_usb4125_ea33e0b40545.pdf
+  sha256: ea33e0b40545e545bf698cbac3bb1c0f5a3fc7ca6b5b7fda83a63134d4affaa7
+  media_type: application/pdf
+  roles:
+  - datasheet
+  - footprint_drawing
+  trust_tier: manufacturer
+  component_refs:
+  - J1
 - id: sha256:ec14aee06c7a24546fcc6f6b1687ae85a13cadff955a721f458b125b70954330
   manufacturer: Adafruit
   part_numbers:
@@ -183,7 +216,7 @@ records:
   manufacturer: GCT
   part_numbers:
   - USB4105-GF-A
-  title: usb4105.pdf
+  title: Superseded USB4105 drawing; revisionB connector comparison only
   revision: null
   source_url: https://gct.co/files/drawings/usb4105.pdf
   retrieved_on: '2026-10-29'
@@ -193,5 +226,4 @@ records:
   roles:
   - datasheet
   trust_tier: manufacturer
-  component_refs:
-  - J1
+  component_refs: []

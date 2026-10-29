@@ -5,57 +5,47 @@
   "source": "https://gitlab.com/kicad/libraries",
   "records": [
     {
-      "symbol": "USBC:USB_C_Receptacle_USB2.0_16P",
-      "source_symbol": "Connector:USB_C_Receptacle_USB2.0_16P",
+      "symbol": "USBC:USB_C_Receptacle_PowerOnly_6P",
+      "source_symbol": "Connector:USB_C_Receptacle_PowerOnly_6P",
       "source_symbol_library_sha256": "1596718c70ff14cc217a9297dcb48bad23bdffcca0881600e9e66be16953bf59",
-      "footprint": "USBC:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal",
-      "source_footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal",
-      "upstream_path": "libs/upstream/USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.kicad_mod",
-      "upstream_sha256": "012da5bac71f8e9d4f59d0f7041c3cd8e1e5af3a3d297354b974f61ab24e8691",
-      "local_path": "libs/USBC.pretty/USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.kicad_mod",
-      "local_sha256": "02174dd38faa55a40ae193e4f556e21c5c064be926cc33cb4df8704e2eae2e77",
+      "footprint": "USBC:USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal",
+      "source_footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal",
+      "upstream_path": "libs/upstream/USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal.kicad_mod",
+      "upstream_sha256": "5f11b280b9c01298165a9682d54837ba8062c0b6ac8872a3b7276734c2cf0eef",
+      "local_path": "libs/USBC.pretty/USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal.kicad_mod",
+      "local_sha256": "301333008dbdb106a09e28f86ad5c9d637b8201a6c275f1ff06eb19b53e733ba",
       "changes": [
         "Only model URI rewritten to project-local exact model bytes"
       ],
-      "mpn": "USB4105-GF-A",
+      "mpn": "USB4125-GF-A",
       "pad_functions": {
-        "A1": "GND",
-        "A4": "VBUS",
-        "A5": "CC1",
-        "A6": "D+ unused",
-        "A7": "D- unused",
-        "A8": "SBU1 unused",
+        "A5": "CC1 independent Rd",
+        "B5": "CC2 independent Rd",
         "A9": "VBUS",
-        "A12": "GND",
-        "B1": "GND",
-        "B4": "VBUS",
-        "B5": "CC2",
-        "B6": "D+ unused",
-        "B7": "D- unused",
-        "B8": "SBU2 unused",
         "B9": "VBUS",
+        "A12": "GND",
         "B12": "GND",
         "SH": "shield bonded to GND"
       },
       "models": [
         {
-          "source": "C:\\Program Files\\KiCad\\10.0\\share\\kicad\\3dmodels\\Connector_USB.3dshapes\\USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.step",
-          "path": "libs/models/USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.step",
-          "sha256": "6338ce740fa231c2d3dcc6384e0576994a47240a312a21413cb85d76990a69a0",
-          "upstream_uri": "${KICAD10_3DMODEL_DIR}/Connector_USB.3dshapes/USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.step",
-          "local_uri": "${KIPRJMOD}/libs/models/USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.step",
-          "upstream_sha256": "6338ce740fa231c2d3dcc6384e0576994a47240a312a21413cb85d76990a69a0",
-          "upstream_path": "libs/upstream/models/USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.step"
+          "source": "C:\\Program Files\\KiCad\\10.0\\share\\kicad\\3dmodels\\Connector_USB.3dshapes\\USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal.step",
+          "path": "libs/models/USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal.step",
+          "sha256": "090b9119a6ff678f028cbd5aa52c28373fae6a76823c5b8bf7fcd1a8db2f99d5",
+          "upstream_uri": "${KICAD10_3DMODEL_DIR}/Connector_USB.3dshapes/USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal.step",
+          "local_uri": "${KIPRJMOD}/libs/models/USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal.step",
+          "upstream_sha256": "090b9119a6ff678f028cbd5aa52c28373fae6a76823c5b8bf7fcd1a8db2f99d5",
+          "upstream_path": "libs/upstream/models/USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal.step"
         }
       ],
       "manufacturer_evidence_ids": [
-        "sha256:fb331fbabee8392ed2937ed757c1610cb0f174b84625147c0b580a18eea8c0e5"
+        "sha256:ea33e0b40545e545bf698cbac3bb1c0f5a3fc7ca6b5b7fda83a63134d4affaa7"
       ],
       "manufacturer_locations": [
-        "GCT USB4105 drawing pp1-2 pin allocation, 0.95 mm stake option and suggested PCB layout"
+        "GCT USB4125 drawing A6 p1: six contact allocations, blank1.00mmstake, recommended solderlands and four0.60x1.20mm platedslots with1.10x1.70mm copper; no locatingpegs"
       ],
       "physical_fit_qualified": false,
-      "upstream_url": "https://gitlab.com/kicad/libraries/kicad-footprints/-/blob/master/Connector_USB.pretty/USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.kicad_mod",
+      "upstream_url": "https://gitlab.com/kicad/libraries/kicad-footprints/-/blob/master/Connector_USB.pretty/USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal.kicad_mod",
       "fabricated_only": false
     },
     {

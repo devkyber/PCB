@@ -24,8 +24,8 @@ Fit, enclosure clearance and mounting hardware remain physically unqualified.
 
 ## Interfaces
 
-J1 is the sole power input. J2 pin 1 is fused VOUT and pin 2 is GND. USB data
-and SBU contacts are intentionally unused. Shield and ground are bonded on
+J1 is the sole power input. J2 pin 1 is fused VOUT and pin 2 is GND. The selected
+six-contact power-only receptacle has no USB data or SBU contacts. Shield and ground are bonded on
 this bench example; this does not establish EMC or system-level ESD behavior.
 
 ## Environment

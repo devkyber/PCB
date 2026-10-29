@@ -1,0 +1,28 @@
+{
+  "unrelated_footprints_preserved_except_native_hidden_field_default_serialization": 9,
+  "native_hidden_field_default_thickness_made_explicit": [
+    "F1.MPN",
+    "F1.Manufacturer",
+    "R3.MPN",
+    "R3.Manufacturer",
+    "R2.MPN",
+    "R2.Manufacturer",
+    "D1.MPN",
+    "D1.Manufacturer",
+    "D2.MPN",
+    "D2.Manufacturer",
+    "R1.MPN",
+    "R1.Manufacturer",
+    "J2.MPN",
+    "J2.Manufacturer"
+  ],
+  "existing_ASTs_preserved": {
+    "segment": 15,
+    "via": 7,
+    "gr_line": 4
+  },
+  "unrelated_schematic_symbols_preserved": 15,
+  "J1_symbol_UUID_preserved": true,
+  "geometry_project_and_rule_bytes_preserved": true,
+  "scope": "Only J1 and local escaped copper changed; zone fill recomputed. KiCad made existing0.15mm hidden-field font defaults explicit."
+}

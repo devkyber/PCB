@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_utc": "2026-10-29T00:25:31.508346+00:00",
+  "generated_utc": "2026-10-29T03:11:05.927738+00:00",
   "source_projects": {
     "examples/usb-c-power": {
-      "DESIGN_BASIS.md": "7c4f818335714cf49dd8668aba9c24dd2c7cb9b91303ab9588b20885cd3b7da1",
-      "DEVIATIONS.md": "e0999af7527fecb67ed262406c20201ccb3ad60342f418fe71bc743835b760af",
+      "DESIGN_BASIS.md": "709244824ef6c042f717dab863e3feb48c9ef4caa635414b0ee3143abbad6017",
+      "DEVIATIONS.md": "b1d4d35c82e7aa276876cefde9f932cbcc55650bcbac73db7e61875b006c33ad",
       "evidence/files/Adafruit-4090_Adafruit_USB_Type_C_Downstream_Breakout_rev_B_07970b0ad324.brd": "07970b0ad3243684bdf59c0ced537b8b9a8e8b67f7e9032b9464600da21b04e0",
       "evidence/files/Adafruit-4090_Adafruit_USB_Type_C_Downstream_Breakout_rev_B_ec14aee06c7a.sch": "ec14aee06c7a24546fcc6f6b1687ae85a13cadff955a721f458b125b70954330",
       "evidence/files/Adafruit-4090_license.txt_075dad5e5fc9.txt": "075dad5e5fc96c27014fabc269f4f5732909cffd178a486f546d982b6cf86b74",
@@ -16,8 +16,10 @@
       "evidence/files/TSW-102-07-G-S_tsw_th_3a5770b11668.pdf": "3a5770b11668f4e5a11ba9ceeb4817a23f467b8507e3592f55fb6bd8f96e71bc",
       "evidence/files/USB-TYPE-C-R2.0_USB_Type-C_Spec_R2.0_-_August_2019_87d15160bf8b.pdf": "87d15160bf8bd25129b27e0b7c5e261ed0b1806b3b0d3a7b5d8b1eb783dc9981",
       "evidence/files/USB4105-GF-A_usb4105_fb331fbabee8.pdf": "fb331fbabee8392ed2937ed757c1610cb0f174b84625147c0b580a18eea8c0e5",
+      "evidence/files/USB4125-GF-A_usb4125-spec_adeaf1f264b8.pdf": "adeaf1f264b8999c4b40bfd7fd202543201a60246297be6906a83e08a59259a2",
+      "evidence/files/USB4125-GF-A_usb4125_ea33e0b40545.pdf": "ea33e0b40545e545bf698cbac3bb1c0f5a3fc7ca6b5b7fda83a63134d4affaa7",
       "evidence/files/WP710A10ID_WP710A10ID_42d464fbfd8d.pdf": "42d464fbfd8d3ddef65fa6f9226d298547cdb25d5369aff0c47e5f896595c4bd",
-      "evidence/index.yaml": "7eef57780de9e59eb889b994d6d70db8b2f9c40c22eba06944e25b79408e6e07",
+      "evidence/index.yaml": "dba12b5af45b4a4cc18821299f0b5e14f60d1bf0314671f71939194eb52aaa05",
       "fp-lib-table": "0b5e3b96ab837b2cb0dee92b3db61d730754821e2cf68de09e00417e95a60868",
       "jlcpcb-assembly.yaml": null,
       "layout-intent.yaml": null,
@@ -31,39 +33,39 @@
       "libs/models/LED_D3.0mm.step": "e83c2186ad887c36d869f44e28c7b80646ea10cb388697b4380f5a2777268371",
       "libs/models/PinHeader_1x02_P2.54mm_Vertical.step": "ea4d0799007ebdd3945072bf255d673d2fe87eb05fda85fd8d7993ad9397da41",
       "libs/models/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step": "85bdadc9190739c38429da06b1d9c76ccf33aef9a0794a2e7a9dd5b58d9d05fe",
-      "libs/models/USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.step": "6338ce740fa231c2d3dcc6384e0576994a47240a312a21413cb85d76990a69a0",
-      "libs/PROVENANCE.json": "90b90b0bfeb34b8307e95d918df95646778dff418c7d3a635c7e54404d79a557",
-      "libs/README.md": "0de5749f5b5a234357a9a15eb2f8bcfa30016191738e361ca766b315fde7fd48",
+      "libs/models/USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal.step": "090b9119a6ff678f028cbd5aa52c28373fae6a76823c5b8bf7fcd1a8db2f99d5",
+      "libs/PROVENANCE.json": "919fe15cd363cee1fc7d4cada17cf6e6e93604d33ef86cb59952d145ae162eff",
+      "libs/README.md": "196f740df9eeb9dee5e7aab79828851ee315a1d0e5aed0a90d78bd9ffbae7df1",
       "libs/upstream/D_SMA.kicad_mod": "e2d049a54ef961e231eb8e7e769078a3c44feb8475a7bdafba01c6646a5144f3",
       "libs/upstream/LED_D3.0mm.kicad_mod": "d45c606dbf639522eaeae8c6bd2569747ee454daff87ab2db66bdad3200676d0",
       "libs/upstream/models/D_SMA.step": "1cfddd4e3b1bf22b8fc6ee3258c2aade882ed7b85b528e23b9db42437775a1db",
       "libs/upstream/models/LED_D3.0mm.step": "e83c2186ad887c36d869f44e28c7b80646ea10cb388697b4380f5a2777268371",
       "libs/upstream/models/PinHeader_1x02_P2.54mm_Vertical.step": "ea4d0799007ebdd3945072bf255d673d2fe87eb05fda85fd8d7993ad9397da41",
       "libs/upstream/models/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step": "85bdadc9190739c38429da06b1d9c76ccf33aef9a0794a2e7a9dd5b58d9d05fe",
-      "libs/upstream/models/USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.step": "6338ce740fa231c2d3dcc6384e0576994a47240a312a21413cb85d76990a69a0",
+      "libs/upstream/models/USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal.step": "090b9119a6ff678f028cbd5aa52c28373fae6a76823c5b8bf7fcd1a8db2f99d5",
       "libs/upstream/MountingHole_3.2mm_M3.kicad_mod": "3853c52bba27d3e3e3e18db44a20dfb296eb9e6cd16ebf26fe4a96a2ee8add3b",
       "libs/upstream/PinHeader_1x02_P2.54mm_Vertical.kicad_mod": "e5c0d699660a4479fa2414cc5be1835c6f52a38630dd85a2d18aab4dcd3ff8e5",
       "libs/upstream/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.kicad_mod": "1ba096b69c79e588cc54946fb6648699e5b301f67f8df0e0e0be43dcab326436",
-      "libs/upstream/USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.kicad_mod": "012da5bac71f8e9d4f59d0f7041c3cd8e1e5af3a3d297354b974f61ab24e8691",
-      "libs/USBC.kicad_sym": "e18dbe8d08c163f0fad0bdbbe2f3abab542c895df8cf86492b4a6ac952f3b110",
+      "libs/upstream/USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal.kicad_mod": "5f11b280b9c01298165a9682d54837ba8062c0b6ac8872a3b7276734c2cf0eef",
+      "libs/USBC.kicad_sym": "2ece02129902825ee5ce643fcd8b5a3e142c5b19b95b9b52963dc9916dc41e2d",
       "libs/USBC.pretty/D_SMA.kicad_mod": "bc5361e7a259264ed4ad5b0da3ade2134d250c081f0e8ce53d6fcee0fac9b5c1",
       "libs/USBC.pretty/LED_D3.0mm.kicad_mod": "9928bcc8ef35ea406d56af1480e43c606d8d646ba247b3d453d80386cd0f5b10",
       "libs/USBC.pretty/MountingHole_3.2mm_M3.kicad_mod": "3853c52bba27d3e3e3e18db44a20dfb296eb9e6cd16ebf26fe4a96a2ee8add3b",
       "libs/USBC.pretty/PinHeader_1x02_P2.54mm_Vertical.kicad_mod": "237cf8088cdcca6025a9cfc493511c000fa3cdb04c4382a0115b3f90dccb26b9",
       "libs/USBC.pretty/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.kicad_mod": "bf616ce7d49ae02d5c87d01dd19957ebf3aa66007809680c450de8561f4681a1",
-      "libs/USBC.pretty/USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.kicad_mod": "02174dd38faa55a40ae193e4f556e21c5c064be926cc33cb4df8704e2eae2e77",
-      "netmap.json": "bdfe4835d48b1a05df9f43e6544f065838c9fafbe0b0ea2037546dd29432018a",
+      "libs/USBC.pretty/USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal.kicad_mod": "301333008dbdb106a09e28f86ad5c9d637b8201a6c275f1ff06eb19b53e733ba",
+      "netmap.json": "9cf452fe7054949e8b1a75fb705df228bbea60c664988e4806b5922a5036fb8c",
       "project.yaml": "2efd5dbe91af637030e3dded07a367f7e4d142a40c995edb9eaead9e5d4ad0cc",
-      "REFERENCE_REVIEW.md": "80cb4796481c0b998329229fec6dbdc54a344bbdebbf20699c04a08fff905156",
-      "REQUIREMENTS.md": "92e6700ff16390d8ee17bfa6e45f81b9dd6d62f18c60b28c8306f29d887ba202",
-      "review-profile.yaml": "d38fc628778af1beea8b830ec346ccbe9fd362704e40bd9f5f241b0e53680118",
+      "REFERENCE_REVIEW.md": "c7d6e78f0cf5a0217f2e7465646e7c09018795cfa2a99b52eda812bda464e811",
+      "REQUIREMENTS.md": "1f58078ae480b4cf95abf1354003324b1a7d45e8d76fc1fa6c6581b04171aab4",
+      "review-profile.yaml": "830d0b62c775aaad9b35d5a3b3a0e1f2d1bede2831f4137177db092cff55476b",
       "review-signoff.yaml": null,
       "schematic-intent.yaml": null,
       "sym-lib-table": "74d3dc37a2f3d607d33f69b362ed7fb0cde7adb393ad09e96c28da14e583c168",
       "usb-c-power.kicad_dru": "fd6ec6cfd46f091c61ee7fa09ab3e1c5e29cb9b187e5045bcf055666f0239643",
-      "usb-c-power.kicad_pcb": "71d6b1659f79148681ebec554cf21e4928dc3ae8abc23684e8cbfdac6b490317",
+      "usb-c-power.kicad_pcb": "1413eddd499e8ea862f11bcb7aba1e57d0d0a8afd60b20927eb8ab7c30750042",
       "usb-c-power.kicad_pro": "0b8ea2009c63a097259838c9eec11d04970f1a6cdb8e2370b8de118c4113e5fd",
-      "usb-c-power.kicad_sch": "589782a38c9a64c8abc4991247b8f9589eaf7c2677428addd5f4e8ea88ce1221"
+      "usb-c-power.kicad_sch": "5fdd93eb0e2a4b63cecae367a2a9ead2ddc4c76833e77760aa0564d349fe76b3"
     },
     "examples/i2c-sensor": {
       "DESIGN_BASIS.md": "3d72746933ffb91877ac6d75a00df2ea71629a32a3e24d2a5b0c9a1f248eb68a",
@@ -199,17 +201,17 @@
     }
   },
   "source_artifacts": {
-    "examples/usb-c-power/output/SOURCE.json": "78e515184a87947a0e9dba0bb39d8df79f4aaa1e0c2dfc6dce7a6ab5f74931ad",
-    "examples/usb-c-power/output/board-3d.png": "a81397da061a9a1fad6a4709e8cef9c17284ba91e489e5e84fda9ae80f397c98",
-    "examples/usb-c-power/output/schematic.png": "7c01bce333bbe591716c7c1ac88f39f286016fd04e002393b9a6ce6a5a10ebd8",
-    "examples/usb-c-power/output/erc.json": "4533d3ad03419d374f8dac9de561b0271f986fc5330ef27ef8cf5a8f870da7a7",
-    "examples/usb-c-power/output/drc.json": "de9b07e3741b6457fb7b26cfca271f11552a5d41bfc1d2a653e017ed481d3d76",
-    "examples/i2c-sensor/output/SOURCE.json": "7102a9cf052fb0356a941a60186794b2740f698695489a28c77702043aeb18a9",
+    "examples/usb-c-power/output/SOURCE.json": "1016ad00a39f14ae64d8f00701500d3ce099fb8c7edef8f0e21cf28834daf381",
+    "examples/usb-c-power/output/board-3d.png": "5482fef3b9a3bf4b82f069d52698190849c80deb7284a99e0cc9ce5459b10a0c",
+    "examples/usb-c-power/output/schematic.png": "a1f3236ed0f60213bbf2b59bbd6c91f400b8acbc7e5571224529c7aa3a5262fc",
+    "examples/usb-c-power/output/erc.json": "1e8d3a614cb6fef1d9c9af18bc6013f1115bf76e4b942996ae87a8532cfff321",
+    "examples/usb-c-power/output/drc.json": "dcff277cdae7b2220522972fabc0b42a686e483b2f6a44031f57ca674186c5ca",
+    "examples/i2c-sensor/output/SOURCE.json": "32c3326fffcb6a430f6a2d2251a8ed93fac9e69cfffe175077b90bb03797e0a9",
     "examples/i2c-sensor/output/board-3d.png": "b8e2c9fcad2639286ddb55d4231a01fa2808fb6307d698c9a252afab0fee7e3e",
     "examples/i2c-sensor/output/schematic.png": "9b7a4943209eb013a55bbcd2bbc3107e00f7eb8f9b11bea1eca91f5d2adf30b7",
     "examples/i2c-sensor/output/erc.json": "4d2647e10c38e2ebfb610311b9147cfeca19f6f458740ffd9f58389b7eecf84e",
     "examples/i2c-sensor/output/drc.json": "598091a63c02a9fad711b99e4667ac6730c862dd64856416148bcec29b14decd",
-    "examples/rs485-interface/output/SOURCE.json": "f0195477e00d4b235ed747374f94731e0559ae3527a92950e9b45f1e014abada",
+    "examples/rs485-interface/output/SOURCE.json": "132bce579a4a0538ef9ce48dc487336df48d976010777074fa4e6e7ef5390dfb",
     "examples/rs485-interface/output/board-3d.png": "93c705c99f5c4c915aaea8c7d68922525ca156160a8a8de4f187837bd13b4f44",
     "examples/rs485-interface/output/schematic.png": "2285e69f31847af06cff9c0371e961c5e3acef28ddb2fef702607c3022f408e0",
     "examples/rs485-interface/output/erc.json": "ec155980ebf05e493520f7b9d16aa2c579fb252211660001ea3ccc2e690e7d8a",
@@ -219,7 +221,7 @@
   "native_findings": {
     "examples/usb-c-power": {
       "erc": 0,
-      "drc": 8,
+      "drc": 0,
       "unconnected": 0
     },
     "examples/i2c-sensor": {
@@ -241,16 +243,16 @@
   },
   "outputs": {
     "examples-gallery.png": {
-      "sha256": "31fd3ffdc0e6cf8d4f16fdb4f21313b8078f430d5972f120a580de1944b663f5",
-      "bytes": 354585
+      "sha256": "f7d3448cb100e3db506fde0d57042f53f03c7f7e9a813115fcaa998d745d7984",
+      "bytes": 351540
     },
     "examples-gallery.gif": {
-      "sha256": "25d069ba02ece7c25dd05797c125b10f47a7f4fa16e165313895e059ecbf8df9",
-      "bytes": 231869
+      "sha256": "f0ecc0dce8dc226979c15ad00457e0ffd063a5eceb2dcd92cf71e3f1f8023c8b",
+      "bytes": 231456
     },
     "examples-gallery.mp4": {
-      "sha256": "01661887ce9e7bf403938043200113d1962a1eb96ce8ee4448311f7888ffd84e",
-      "bytes": 325909
+      "sha256": "42fb9d0fb4d8bf73ddba18ce8e3a80c9c73803f7e69cc0fd1ef935b29c565bc8",
+      "bytes": 321755
     }
   },
   "scope": "Recorded native 3D/schematic captures of unbuilt prototypes; not photographs, a screen recording or engineering approval. Native finding counts are retained above; engineering and supplier assembly decisions remain in each board review."

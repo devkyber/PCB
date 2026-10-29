@@ -1,5 +1,8 @@
 {
-  "source_inputs": {
+  "schema_version": 1,
+  "revision": "B",
+  "scope": "Replace only J1 connector and local copper escapes; retain power-only independent CC sink and unchanged geometry rules",
+  "before_input_hashes": {
     "DESIGN_BASIS.md": "7c4f818335714cf49dd8668aba9c24dd2c7cb9b91303ab9588b20885cd3b7da1",
     "DEVIATIONS.md": "e0999af7527fecb67ed262406c20201ccb3ad60342f418fe71bc743835b760af",
     "evidence/files/Adafruit-4090_Adafruit_USB_Type_C_Downstream_Breakout_rev_B_07970b0ad324.brd": "07970b0ad3243684bdf59c0ced537b8b9a8e8b67f7e9032b9464600da21b04e0",
@@ -60,22 +63,17 @@
     "usb-c-power.kicad_dru": "fd6ec6cfd46f091c61ee7fa09ab3e1c5e29cb9b187e5045bcf055666f0239643",
     "usb-c-power.kicad_pcb": "71d6b1659f79148681ebec554cf21e4928dc3ae8abc23684e8cbfdac6b490317",
     "usb-c-power.kicad_pro": "0b8ea2009c63a097259838c9eec11d04970f1a6cdb8e2370b8de118c4113e5fd",
-    "usb-c-power.kicad_sch": "38fbb5c6020b1c8dd5ae4de53728523259ee87f5e638d96d083010a7d7d0ed44"
+    "usb-c-power.kicad_sch": "589782a38c9a64c8abc4991247b8f9589eaf7c2677428addd5f4e8ea88ce1221"
   },
-  "source_schematic_sha256": "38fbb5c6020b1c8dd5ae4de53728523259ee87f5e638d96d083010a7d7d0ed44",
-  "pcb_sha256": "71d6b1659f79148681ebec554cf21e4928dc3ae8abc23684e8cbfdac6b490317",
-  "candidate": "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-visible-junctions-jdhrp9r6\\usb-c-power.kicad_sch",
-  "changed_existing_junctions": 10,
-  "diameter_mm": 0.9144,
-  "interface": "public native-candidate schematic preview then matching apply; no paired PCB, no new circuit",
-  "steps": [],
+  "backup_file_count": 110,
+  "backup_verified": true,
+  "root": "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-connector-B-13xmjpu_",
   "preview_exit": 0,
   "apply_exit": 0,
   "applied": true,
   "preview_visually_inspected": true,
-  "only_changed_inputs": [
-    "usb-c-power.kicad_sch"
-  ],
-  "pcb_bytes_preserved": true,
-  "final_schematic_sha256": "589782a38c9a64c8abc4991247b8f9589eaf7c2677428addd5f4e8ea88ce1221"
+  "final_cad_sha256": {
+    "usb-c-power.kicad_sch": "5fdd93eb0e2a4b63cecae367a2a9ead2ddc4c76833e77760aa0564d349fe76b3",
+    "usb-c-power.kicad_pcb": "1413eddd499e8ea862f11bcb7aba1e57d0d0a8afd60b20927eb8ab7c30750042"
+  }
 }

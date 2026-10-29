@@ -30,8 +30,8 @@ unchanged; this project makes no endorsement or blanket relicensing claim.
 | --- | --- | --- |
 | CC1 / CC2 | Source X1 CC1 connects R2 pin2; CC2 connects R1 pin2. Each 5.1K resistor pin1 joins GND. | Same independent pull-down pattern. Our resistor references and pin1/2 orientation differ, with equivalent nonpolar function. |
 | VBUS / GND | Source X1 VBUS/GND join a breakout header and common returns. | Common connector power/ground groups, with our fuse/TVS/LED output circuit added independently. |
-| Reference connector | Source package is CUSB31-CFM2AX-01-X, rather than GCT USB4105-GF-A. | Do not adopt its footprint, mounting geometry or mechanical conclusion. Our exact GCT drawing controls. |
-| Data / sideband | Source brings D+/D-/SBU and CC pins to its header. | Our power-only design intentionally leaves data/SBU unused and does not export CC. |
+| Reference connector | Source package is CUSB31-CFM2AX-01-X, rather than GCT USB4125-GF-A. | Do not adopt its footprint, mounting geometry or mechanical conclusion. Our exact GCT A6 drawing controls. |
+| Data / sideband | Source brings D+/D-/SBU and CC pins to its header. | Our six-contact power-only connector has no data/SBU contacts and does not export CC. |
 | Board/schematic comparison | Shared Eagle inspector compared24 numbered pad memberships with no mismatches; source board has84 routed wire records and4 vias on layers1/16. | Confirms the reference pair's explicit membership only. It does not run reference-board DRC, judge its copper, or validate this board. |
 | Current claim | Source README gives a simplified higher-current description. | That marketing shorthand is not adopted. This board has no advertisement detector; the actual source must independently allow its stated budget. |
 

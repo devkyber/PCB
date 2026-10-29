@@ -1,4 +1,4 @@
-# USB-C 5 V bench power entry — revision A
+# USB-C 5 V bench power entry — revision B
 
 This is an **unbuilt educational DRAFT**, authored 2026-10-29. It accepts a
 separately qualified 4.75–5.25 V bench source and a total board-plus-load budget
@@ -9,7 +9,7 @@ power, physical fit, fault protection for a system, or permission to fabricate.
 
 | Function | Selected part / source | Adopted facts and interpretation |
 | --- | --- | --- |
-| J1 USB-C input | GCT USB4105-GF-A, drawing B4, pp1–2 | The blank stake option is 0.95 mm. A4/A9/B4/B9 are VBUS; A1/A12/B1/B12 and shell are GND; A5 is CC1 and B5 CC2. Contact positions and unused data/SBU pins follow the drawing. Connector current ratings do not grant a USB load budget. |
+| J1 USB-C input | GCT USB4125-GF-A, drawing A6 pp1–2; product specification A3 pp1–2 | The blank stake option is 1.00 mm. A9/B9 are VBUS; A12/B12 and shell are GND; A5 is CC1 and B5 CC2. This six-contact power-only part has no data/SBU contacts. Four plated shell slots are 0.60 × 1.20 mm inside 1.10 × 1.70 mm copper, giving 0.25 mm annular rings; there are no locating-peg holes. Connector ratings do not grant a USB load budget. |
 | R1/R2 attachment | Yageo MFR-25FBF52-5K1, MFR datasheet pp2–3; USB Type-C R2.0 (August 2019), §§4.5–4.6 | Separate 5.1 kOhm, 1% pull-downs connect CC1 and CC2 to GND. This passive sink has no PD controller or Rp-current detector. Its application budget must be guaranteed outside the board; attachment alone does not authorize 500 mA from every host. The archived 2019 specification is a dated design reference, not a current certification assessment. |
 | F1 resettable fuse | Bourns MF-MSMF075-2, MF-MSMF pp1,5,7,13 | At 23 °C: hold 0.75 A, trip 1.50 A, rated voltage 13.2 V; R1 maximum 0.45 Ohm. The 500 mA application budget is below hold current, but F1 is not a 500 mA current limiter. At 500 mA, the stated resistance bound gives 0.225 V drop and 0.1125 W dissipation before routing losses; no thermal performance is measured. Reflow is required by the selected assembly plan; the manufacturer discourages hand soldering this PPTC. |
 | D1 transient shunt | Vishay SMAJ6.0A, document 88390, pp1–2 | Unidirectional: pin1 cathode to VOUT, pin2 anode to GND. Standoff 6.0 V; breakdown 6.67–7.37 V at 10 mA; maximum listed leakage 800 uA at 6.0 V; listed maximum clamp 10.3 V at 38.8 A for the specified 10/1000 us pulse. These are component pulse conditions, not a board surge/ESD rating. A downstream part with a 5.5 V maximum can still be damaged. This is not sustained 5 V overvoltage protection. |
@@ -30,7 +30,7 @@ No reference waiver is recorded.
 
 | Ref | Topic | Source fact | Board choice | Verification boundary | Source | Decision |
 | --- | --- | --- | --- | --- | --- | --- |
-| J1 | Pin allocation / power attachment | GCT p1 CC1=A5, CC2=B5, VBUS/GND groups; USB R2.0 sink attachment; Adafruit4090 revB independent 5.1k CC resistors | Independent 5.1 kOhm Rd; unused data/SBU; externally guaranteed 5 V / 500 mA total budget | Different reference connector; electrical pattern comparison only; USB source compatibility and manufacturing open | GCT USB4105 drawing B4 p1; USB Type-C R2.0 sections 4.5–4.6; Adafruit4090 commit1484ecb56b369e177848e69de4b7b7e513399590 | Match pin allocation and passive sink pattern; no PD/current sensing or compliance claim |
+| J1 | Pin allocation / power attachment | USB4125 p1 CC1=A5, CC2=B5, VBUS=A9/B9, GND=A12/B12/shell; USB R2.0 sink attachment; Adafruit4090 revB independent 5.1k CC resistors | Independent 5.1 kOhm Rd; six-contact power-only connector; externally guaranteed 5 V / 500 mA total budget | Different reference connector; electrical pattern comparison only; USB source compatibility and physical qualification open | GCT USB4125 drawing A6 p1; USB Type-C R2.0 sections 4.5–4.6; Adafruit4090 commit1484ecb56b369e177848e69de4b7b7e513399590 | Match pin allocation and passive sink pattern; no PD/current sensing or compliance claim |
 
 ## Power and protection boundaries
 
@@ -54,13 +54,20 @@ their own qualified test conditions.
 
 ## Layout and library decisions
 
-The fresh 60 × 40 mm board has two copper layers. USB fine-pitch escapes use
+The existing 60 × 40 mm board has two copper layers. USB contact escapes use
 0.20 mm CC and 0.40 mm VBUS/GND stubs; most power routing is 0.80 mm. Those are
 editable routing choices for the declared bench budget, not measured ampacity
 or a thermal qualification. The bottom layer carries a continuous GND pour and
 the short VBUS bridge. R1 and R2 remain independent. All native schematic paths
 are retained for forward annotation. Useful Power/CC netclasses, track widths,
 and via presets are saved in the project.
+
+Revision B replaces only J1 and eight local escape tracks. All seven existing
+vias, the fifteen remaining tracks and the other nine footprints retain their
+identities and geometry. The J1 schematic/footprint UUID and forward-annotation
+path are preserved. Its contact pads and local routes change to the selected
+six-contact connector; the independent CC branches and external load budget do
+not change. Source and candidate project/rule files remain byte-identical.
 
 Most local footprints are exact official KiCad 10.0.6 library copies, changing
 only model URIs. [PROVENANCE.json](libs/PROVENANCE.json) pins separate upstream
@@ -77,23 +84,24 @@ the maximum 4.73 × 3.41 mm body outline, and a declared assembly courtyard.
 Its [drawing receipt](libs/footprint-provenance.yaml) records the derivation.
 There is **no F1 3D body**; no substitute or invented package geometry is used.
 
-## Unresolved connector manufacturing findings
+## Connector geometry resolved in revision B
 
-Native DRC deliberately retains eight errors in the unchanged official J1
-footprint: four shell-pad annular rings are 0.20 mm against the workspace's
-0.25 mm recommendation; four GND-pad/peg-hole clearances are 0.1944 mm against
-the 0.25 mm baseline. No rule was relaxed and no finding was excluded.
+The original USB4105-GF-A had four 0.20 mm shell annular rings and four
+0.1944 mm GND-pad/peg-hole clearances under the 0.25 mm workspace baseline.
+Its drawing required the contact lands and peg positions; trimming those lands
+to hide the findings was rejected. That superseded drawing remains archived
+only for this comparison. Superseded local footprint/model copies are removed;
+the previous design is retained in Git and a verified external backup.
 
-The GCT p1 drawing explicitly specifies the 0.60 × 1.15 mm GND solder lands,
-0.65 mm peg holes and their fixed centers. Increasing the clearance to 0.25 mm
-would remove specified solder land or change the holes/centers. That change
-was rejected during author review. The [JLCPCB capability page](https://jlcpcb.com/capabilities/pcb-capabilities/),
-checked 2026-10-29, lists 0.20 mm NPTH-to-copper spacing and a recommended
-0.25 mm PTH annular ring (0.18 mm absolute minimum for the stated 1 oz two-layer
-case). The existing 0.1944 mm clearance therefore needs an explicit fabrication
-resolution, rather than an unsupported claim that the official footprint is
-manufacturable under this profile. Select and qualify another connector or
-obtain a documented fabrication/connector land decision before release.
+The replacement USB4125-GF-A uses exact official KiCad geometry matching the
+GCT A6 recommended layout: 0.70 × 1.20 mm CC lands, 0.76 × 1.20 mm VBUS lands,
+0.80 × 1.20 mm GND lands, and 0.60 × 1.20 mm plated shell slots within
+1.10 × 1.70 mm copper. Contact center spacings are 1.00, 3.04 and 5.50 mm;
+shell columns are 8.64 mm apart. There are no locating pegs. The footprint's
+1.00 mm stake model is pinned to separate exact upstream/local bytes.
 
-Native ERC, exact pin-net/part/link parity and routing completeness are separate
-checks. They can pass while this manufacturing gate correctly remains blocked.
+Native refilled DRC now reports zero errors, warnings and unrouted items with
+the original rules and project settings. No rule was relaxed, exclusion added,
+land trimmed or human decision supplied. These geometry results do not qualify
+actual connector fit, soldering, cable forces, assembly, current capacity or USB
+behavior. The project remains an unbuilt DRAFT with unsigned review decisions.

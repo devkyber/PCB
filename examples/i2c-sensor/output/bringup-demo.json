@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "scope": "offline software vectors only; no I2C or physical temperature capture",
+  "reproduce": "python examples/i2c-sensor/bringup.py demo",
+  "software_inputs": {
+    "examples/i2c-sensor/bringup.py": "c192134f9477a799fd7f7b7b06011d401b86bae2008eddc56322b5ffaecf603b",
+    "examples/i2c-sensor/BRINGUP.md": "60e48aee1802352f510d933ec3ba408a96deec6b70558b6714094fbcdd6326fa",
+    "examples/i2c-sensor/README.md": "bf0277129853811415ea0fc4aeeb943485c4a2f4b2a1cc5202643999a86c8b80",
+    "examples/i2c-sensor/evidence/files/mcp9808-e7b6502f744c.pdf": "e7b6502f744c3e605a424d7b784a23baa471a41f8bc6d51f6321027b0c43972f",
+    "tests/examples/test_bringup.py": "f99f5fb32b08c48bddb2531caa3b296bd0c7e007878ba24a30552859b05e9c11"
+  },
+  "temperature_vectors": [
+    {
+      "input_hex": "0194",
+      "result": {
+        "raw_hex": "0x0194",
+        "temperature_c": 25.25,
+        "at_or_above_critical": false,
+        "above_upper": false,
+        "below_lower": false,
+        "within_device_operating_range": true
+      }
+    },
+    {
+      "input_hex": "1E6C",
+      "result": {
+        "raw_hex": "0x1E6C",
+        "temperature_c": -25.25,
+        "at_or_above_critical": false,
+        "above_upper": false,
+        "below_lower": false,
+        "within_device_operating_range": true
+      }
+    },
+    {
+      "input_hex": "E194",
+      "result": {
+        "raw_hex": "0xE194",
+        "temperature_c": 25.25,
+        "at_or_above_critical": true,
+        "above_upper": true,
+        "below_lower": true,
+        "within_device_operating_range": true
+      }
+    },
+    {
+      "input_hex": "9401",
+      "result": {
+        "raw_hex": "0x9401",
+        "temperature_c": -191.9375,
+        "at_or_above_critical": true,
+        "above_upper": false,
+        "below_lower": false,
+        "within_device_operating_range": false
+      }
+    }
+  ],
+  "addresses": [
+    {
+      "a0": 0,
+      "a1": 0,
+      "a2": 0,
+      "address": "0x18"
+    },
+    {
+      "a0": 1,
+      "a1": 0,
+      "a2": 0,
+      "address": "0x19"
+    },
+    {
+      "a0": 0,
+      "a1": 1,
+      "a2": 0,
+      "address": "0x1A"
+    },
+    {
+      "a0": 1,
+      "a1": 1,
+      "a2": 0,
+      "address": "0x1B"
+    },
+    {
+      "a0": 0,
+      "a1": 0,
+      "a2": 1,
+      "address": "0x1C"
+    },
+    {
+      "a0": 1,
+      "a1": 0,
+      "a2": 1,
+      "address": "0x1D"
+    },
+    {
+      "a0": 0,
+      "a1": 1,
+      "a2": 1,
+      "address": "0x1E"
+    },
+    {
+      "a0": 1,
+      "a1": 1,
+      "a2": 1,
+      "address": "0x1F"
+    }
+  ],
+  "alert_recipe_inputs": {
+    "lower_c": 10,
+    "upper_c": 30,
+    "critical_c": 90,
+    "current_config": 0,
+    "hysteresis_c": 3
+  },
+  "alert_recipe": [
+    {
+      "register": "0x01",
+      "data_hex": "0000",
+      "purpose": "keep ALERT disabled while setting limits"
+    },
+    {
+      "register": "0x03",
+      "data_hex": "00A0",
+      "purpose": "lower limit"
+    },
+    {
+      "register": "0x02",
+      "data_hex": "01E0",
+      "purpose": "upper limit"
+    },
+    {
+      "register": "0x04",
+      "data_hex": "05A0",
+      "purpose": "critical limit"
+    },
+    {
+      "register": "0x08",
+      "data_hex": "03",
+      "purpose": "explicit 0.0625 C resolution; this register is ONE byte"
+    },
+    {
+      "register": "0x01",
+      "data_hex": "0408",
+      "purpose": "continuous conversion; active-low comparator ALERT enabled; no locks"
+    }
+  ]
+}
