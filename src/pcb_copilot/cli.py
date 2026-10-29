@@ -53,6 +53,12 @@ def main(
     current_review_parser.add_argument('project_path', type=Path)
     current_review_parser.add_argument('--format', choices=('text', 'json', 'markdown'), default='text')
     current_review_parser.add_argument('--output', type=Path)
+    report_parser = subparsers.add_parser('report', help='create a portable offline native review handover')
+    report_parser.add_argument('project_path', type=Path)
+    report_parser.add_argument('--output', type=Path, required=True, help='new directory outside the source project')
+    verify_parser = subparsers.add_parser('verify-report', help='verify a saved handover without running native tools')
+    verify_parser.add_argument('report_path', type=Path)
+    verify_parser.add_argument('--project', type=Path, help='also compare current saved source input hashes')
     signoff_parser = subparsers.add_parser('prepare-signoff', help='create an unsigned current-design review worksheet')
     signoff_parser.add_argument('project_path', type=Path)
     layout_parser = subparsers.add_parser('update-layout', help='preview or apply a checked current layout')
@@ -192,6 +198,18 @@ def main(
         else:
             print(rendered)
         return int(report.blocking)
+    elif args.command in {'report', 'verify-report'}:
+        from pcb_copilot.review.report import create_report, verify_report
+
+        try:
+            if args.command == 'report':
+                result = create_report(load_project(args.project_path), args.output)
+            else:
+                result = verify_report(args.report_path, load_project(args.project) if args.project else None)
+        except (ValueError, OSError, RuntimeError) as exc:
+            parser.error(str(exc))
+        print(json.dumps(result, indent=2))
+        return result['exit_code']
     elif args.command == 'prepare-signoff':
         from pcb_copilot.review.signoff import prepare_signoff
 

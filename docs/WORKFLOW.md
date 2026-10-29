@@ -234,6 +234,13 @@ Each result names its scope. A failed check does not hide later results.
 Optional `--output` creates a new JSON/Markdown report
 under `.pcb-copilot/reports/` without overwriting earlier reports.
 
+For a portable visual handover, `pcb-copilot report PROJECT --output NEW_DIRECTORY`
+runs current review and captures native schematic/assembly/copper views on
+isolated copies. The self-contained `index.html` keeps findings, check scopes
+and source hashes together. `verify-report DIRECTORY --project PROJECT`
+checks both packet integrity and whether the current saved inputs still match.
+See [the handover guide](HANDOVER.md). Viewing a packet records no approval.
+
 `prepare-signoff` creates an unsigned `review-signoff.yaml` only when absent.
 The shared policy always adds `shared.schematic-readability` and
 `shared.layout-handover` to the local profile. These require actual inspection

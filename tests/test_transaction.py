@@ -212,4 +212,3 @@ def test_operation_workspace_alias_is_rejected_before_any_owner_write(project_co
         pytest.fail('aliased workspace acquired')
     assert list(owner.iterdir()) == [note]
     assert note.read_bytes() == b'owner'
-

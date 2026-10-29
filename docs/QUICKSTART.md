@@ -55,6 +55,12 @@ a Python interpreter that can import KiCad's `pcbnew` bindings. `uv sync`
 installs this repository's Python dependencies; it does not install KiCad or
 its Python bindings.
 
+For an offline visual handover after setup, run
+`uv run pcb-copilot report examples/gpio-indicator --output NEW_EXTERNAL_DIRECTORY`.
+Open its `index.html` to inspect native views and filter actual review findings.
+The [handover guide](HANDOVER.md) explains generation, blocked results and
+verification without KiCad.
+
 The current development environment is Windows with KiCad 10. Linux and macOS
 tool discovery exists, but an end-to-end platform test matrix is still pending.
 
