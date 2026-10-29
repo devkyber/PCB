@@ -5,6 +5,21 @@ with a TI THVD1450DR, independent driver/receiver controls and removable end
 termination. No isolation, industrial ESD/surge/EMC, physical-fit or link-speed
 qualification is claimed. Nothing here is approval to fabricate or energize.
 
+[Follow the bring-up guide](BRINGUP.md) for connector wiring, removable
+termination, default receive, local echo and the exact DE/nRE sequence around the
+last UART stop bit. Run these offline tools from the repository root; they access
+no serial port or GPIO:
+
+```sh
+python examples/rs485-interface/bringup.py budget --supply 3.3 --terminations 2
+python examples/rs485-interface/bringup.py sequence --bytes 4 --suppress-echo
+```
+
+The termination-only model exposes missing/excess termination and the conservative
+current boundary at 3.6 V. Its serialization estimate never replaces the actual
+controller's hardware TX-complete flag. Tests and retained demo output contain no
+measured hardware result.
+
 ![Native KiCad board render](output/board-3d.png)
 
 | Property | Design |

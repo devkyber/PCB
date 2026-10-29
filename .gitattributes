@@ -18,6 +18,8 @@ docs/evaluation/** -text whitespace=cr-at-eol
 examples/gpio-indicator/** -text
 examples/** -text whitespace=cr-at-eol
 docs/demos/** -text whitespace=cr-at-eol
+# The recorded bring-up demos bind this test file's exact source bytes.
+tests/examples/test_bringup.py text eol=lf
 # These captured Rover inputs are already LF in Git. Keep their checkout bytes
 # stable on Windows without rewriting existing CAD or archived source content.
 projects/rover-pdb/buck-motor.kicad_sch text eol=lf

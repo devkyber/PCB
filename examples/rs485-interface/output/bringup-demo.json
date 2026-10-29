@@ -1,0 +1,242 @@
+{
+  "schema_version": 1,
+  "scope": "offline DC estimates and ordering recipes; no serial/GPIO/hardware capture",
+  "reproduce": "python examples/rs485-interface/bringup.py demo",
+  "software_inputs": {
+    "examples/rs485-interface/bringup.py": "48ecfed70e95b3d76b0e4783031ea94285f259fc70a7f2e861be2497c91bcae2",
+    "examples/rs485-interface/BRINGUP.md": "afd35c13e0b872e01d566e2a2c3c745f783606853110802b9076bc2c697ca3e5",
+    "examples/rs485-interface/README.md": "77b2e6ec65022582e1495b5f0499ca26122a3372d8729ee6fb5acbe52b8e581b",
+    "examples/rs485-interface/evidence/files/THVD1450DR_thvd1450_58ecc4cc07dd.pdf": "58ecc4cc07dd1d3206c2e67ffa734ad21a6d3a9e3c8c307068e6385bd79ee897",
+    "tests/examples/test_bringup.py": "f99f5fb32b08c48bddb2531caa3b296bd0c7e007878ba24a30552859b05e9c11"
+  },
+  "termination_cases": [
+    {
+      "scope": "offline DC termination-only estimate; unbuilt board",
+      "supply_v": 3.3,
+      "terminations": 2,
+      "resistor_min_ohm": 118.8,
+      "equivalent_termination_min_ohm": 59.4,
+      "full_supply_differential_current_bound_ma": 55.55555555555555,
+      "each_resistor_power_bound_mw": 91.66666666666666,
+      "dc_transmit_supply_estimate_ma": 58.888888888888886,
+      "budget_terms": "termination bound + 3 mA no-load quiescent bound + high enable-pin 10k pulldowns",
+      "checks": {
+        "two_physical_end_terminations": true,
+        "termination_only_load_at_least_54_ohm": true,
+        "each_resistor_bound_within_0_25_w_reference_rating": true,
+        "full_supply_current_bound_within_60_ma_recommendation": true
+      },
+      "within_this_model": true,
+      "notes": [
+        "Only the two physical cable ends receive termination; a middle node leaves JP1 open.",
+        "R3 is 120 ohm / 1% / 0.25 W; JP1 shunt is a separate accessory.",
+        "The full-supply differential current is a conservative bound, not a measured current or actual fault.",
+        "Receiver/bias/cable loading, dynamic current and temperature derating need separate assessment.",
+        "Supply estimate omits switching/internal loaded-current effects and is not a supply-sizing guarantee.",
+        "A positive result does not qualify a cable, bus speed, supply or hardware."
+      ]
+    },
+    {
+      "scope": "offline DC termination-only estimate; unbuilt board",
+      "supply_v": 3.6,
+      "terminations": 2,
+      "resistor_min_ohm": 118.8,
+      "equivalent_termination_min_ohm": 59.4,
+      "full_supply_differential_current_bound_ma": 60.60606060606061,
+      "each_resistor_power_bound_mw": 109.0909090909091,
+      "dc_transmit_supply_estimate_ma": 63.96969696969697,
+      "budget_terms": "termination bound + 3 mA no-load quiescent bound + high enable-pin 10k pulldowns",
+      "checks": {
+        "two_physical_end_terminations": true,
+        "termination_only_load_at_least_54_ohm": true,
+        "each_resistor_bound_within_0_25_w_reference_rating": true,
+        "full_supply_current_bound_within_60_ma_recommendation": false
+      },
+      "within_this_model": false,
+      "notes": [
+        "Only the two physical cable ends receive termination; a middle node leaves JP1 open.",
+        "R3 is 120 ohm / 1% / 0.25 W; JP1 shunt is a separate accessory.",
+        "The full-supply differential current is a conservative bound, not a measured current or actual fault.",
+        "Receiver/bias/cable loading, dynamic current and temperature derating need separate assessment.",
+        "Supply estimate omits switching/internal loaded-current effects and is not a supply-sizing guarantee.",
+        "A positive result does not qualify a cable, bus speed, supply or hardware.",
+        "The bound exceeds TI's 60 mA recommendation; measure actual VAB/current and assess the driver. This calculation alone does not establish a real overcurrent."
+      ]
+    },
+    {
+      "scope": "offline DC termination-only estimate; unbuilt board",
+      "supply_v": 3.3,
+      "terminations": 3,
+      "resistor_min_ohm": 118.8,
+      "equivalent_termination_min_ohm": 39.6,
+      "full_supply_differential_current_bound_ma": 83.33333333333333,
+      "each_resistor_power_bound_mw": 91.66666666666666,
+      "dc_transmit_supply_estimate_ma": 86.66666666666667,
+      "budget_terms": "termination bound + 3 mA no-load quiescent bound + high enable-pin 10k pulldowns",
+      "checks": {
+        "two_physical_end_terminations": false,
+        "termination_only_load_at_least_54_ohm": false,
+        "each_resistor_bound_within_0_25_w_reference_rating": true,
+        "full_supply_current_bound_within_60_ma_recommendation": false
+      },
+      "within_this_model": false,
+      "notes": [
+        "Only the two physical cable ends receive termination; a middle node leaves JP1 open.",
+        "R3 is 120 ohm / 1% / 0.25 W; JP1 shunt is a separate accessory.",
+        "The full-supply differential current is a conservative bound, not a measured current or actual fault.",
+        "Receiver/bias/cable loading, dynamic current and temperature derating need separate assessment.",
+        "Supply estimate omits switching/internal loaded-current effects and is not a supply-sizing guarantee.",
+        "A positive result does not qualify a cable, bus speed, supply or hardware.",
+        "The bound exceeds TI's 60 mA recommendation; measure actual VAB/current and assess the driver. This calculation alone does not establish a real overcurrent."
+      ]
+    },
+    {
+      "scope": "offline DC termination-only estimate; unbuilt board",
+      "supply_v": 3.3,
+      "terminations": 0,
+      "resistor_min_ohm": 118.8,
+      "equivalent_termination_min_ohm": null,
+      "full_supply_differential_current_bound_ma": 0,
+      "each_resistor_power_bound_mw": 0,
+      "dc_transmit_supply_estimate_ma": 3.3333333333333335,
+      "budget_terms": "termination bound + 3 mA no-load quiescent bound + high enable-pin 10k pulldowns",
+      "checks": {
+        "two_physical_end_terminations": false,
+        "termination_only_load_at_least_54_ohm": false,
+        "each_resistor_bound_within_0_25_w_reference_rating": true,
+        "full_supply_current_bound_within_60_ma_recommendation": true
+      },
+      "within_this_model": false,
+      "notes": [
+        "Only the two physical cable ends receive termination; a middle node leaves JP1 open.",
+        "R3 is 120 ohm / 1% / 0.25 W; JP1 shunt is a separate accessory.",
+        "The full-supply differential current is a conservative bound, not a measured current or actual fault.",
+        "Receiver/bias/cable loading, dynamic current and temperature derating need separate assessment.",
+        "Supply estimate omits switching/internal loaded-current effects and is not a supply-sizing guarantee.",
+        "A positive result does not qualify a cable, bus speed, supply or hardware."
+      ]
+    }
+  ],
+  "direction_cases": [
+    {
+      "scope": "offline ordering recipe; timing margin is a host assumption, not a measured guarantee",
+      "uart": {
+        "baud": 115200,
+        "data_bits": 8,
+        "parity": "none",
+        "stop_bits": 1
+      },
+      "payload_bytes": 4,
+      "minimum_serial_duration_us": 347.22222222222223,
+      "duration_is_not_a_de_release_timer": true,
+      "steps": [
+        {
+          "action": "After stable supply, set DE=0, nRE=0 and UART TX idle high",
+          "de": 0,
+          "nre": 0,
+          "wait_at_least_us": 15,
+          "reason": "receiver enable from disabled state: 14 us max with DE=0; host margin added"
+        },
+        {
+          "action": "Acquire exclusive bus ownership; set DE=1 while nRE remains 0",
+          "de": 1,
+          "nre": 0,
+          "wait_at_least_us": 2,
+          "reason": "driver enable: 50 ns max when nRE=0; receiver stays active"
+        },
+        {
+          "action": "Write the UART frame; wait for the HARDWARE TX-COMPLETE flag after the final stop bit",
+          "de": 1,
+          "nre": 0,
+          "reason": "write()/DMA complete/FIFO empty may precede the last shifted bit; do not release DE yet"
+        },
+        {
+          "action": "Keep DE high after hardware TX complete",
+          "de": 1,
+          "nre": 0,
+          "wait_at_least_us": 2,
+          "reason": "20 ns max driver data propagation plus host margin; protocol may require more"
+        },
+        {
+          "action": "Set DE=0; keep nRE=0 for receive",
+          "de": 0,
+          "nre": 0,
+          "wait_at_least_us": 2,
+          "reason": "driver disable: 25 ns max plus host margin, then obey peer/protocol turnaround"
+        }
+      ],
+      "notes": [
+        "No GPIO/serial calls are performed. Confirm TX-COMPLETE semantics on the actual controller.",
+        "With nRE=0 during transmit, RX sees local echo; separate it from peer responses.",
+        "No protocol arbitration, collision recovery, cable propagation or remote timing is implemented."
+      ]
+    },
+    {
+      "scope": "offline ordering recipe; timing margin is a host assumption, not a measured guarantee",
+      "uart": {
+        "baud": 115200,
+        "data_bits": 8,
+        "parity": "none",
+        "stop_bits": 1
+      },
+      "payload_bytes": 4,
+      "minimum_serial_duration_us": 347.22222222222223,
+      "duration_is_not_a_de_release_timer": true,
+      "steps": [
+        {
+          "action": "After stable supply, set DE=0, nRE=0 and UART TX idle high",
+          "de": 0,
+          "nre": 0,
+          "wait_at_least_us": 15,
+          "reason": "receiver enable from disabled state: 14 us max with DE=0; host margin added"
+        },
+        {
+          "action": "Acquire exclusive bus ownership; set DE=1 while nRE remains 0",
+          "de": 1,
+          "nre": 0,
+          "wait_at_least_us": 2,
+          "reason": "driver enable: 50 ns max when nRE=0; receiver stays active"
+        },
+        {
+          "action": "Set nRE=1 only after DE=1 is established",
+          "de": 1,
+          "nre": 1,
+          "wait_at_least_us": 2,
+          "reason": "receiver disable: 28 ns max; driver stays active"
+        },
+        {
+          "action": "Write the UART frame; wait for the HARDWARE TX-COMPLETE flag after the final stop bit",
+          "de": 1,
+          "nre": 1,
+          "reason": "write()/DMA complete/FIFO empty may precede the last shifted bit; do not release DE yet"
+        },
+        {
+          "action": "Keep DE high after hardware TX complete",
+          "de": 1,
+          "nre": 1,
+          "wait_at_least_us": 2,
+          "reason": "20 ns max driver data propagation plus host margin; protocol may require more"
+        },
+        {
+          "action": "Set nRE=0 while DE is still 1",
+          "de": 1,
+          "nre": 0,
+          "wait_at_least_us": 2,
+          "reason": "receiver enable: 110 ns max with DE=1; avoid entering shutdown"
+        },
+        {
+          "action": "Set DE=0; keep nRE=0 for receive",
+          "de": 0,
+          "nre": 0,
+          "wait_at_least_us": 2,
+          "reason": "driver disable: 25 ns max plus host margin, then obey peer/protocol turnaround"
+        }
+      ],
+      "notes": [
+        "No GPIO/serial calls are performed. Confirm TX-COMPLETE semantics on the actual controller.",
+        "With nRE=0 during transmit, RX sees local echo; separate it from peer responses.",
+        "No protocol arbitration, collision recovery, cable propagation or remote timing is implemented."
+      ]
+    }
+  ]
+}

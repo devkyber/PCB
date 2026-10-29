@@ -2,6 +2,20 @@
 
 An editable 3.3 V MCP9808 MSOP breakout: eight selectable I2C addresses, a local ceramic bypass, fixed bus pullups and a separate open-drain ALERT header. Unbuilt DRAFT; no owner or fabrication approval.
 
+[Start with the register bring-up guide](BRINGUP.md): decode MSB-first signed
+temperature words, verify identity/address, and produce a checked ALERT write
+recipe. Run the CLI from the repository root; it works offline with no hardware dependency:
+
+```sh
+python examples/i2c-sensor/bringup.py decode 0194
+python examples/i2c-sensor/bringup.py address --a0 1 --a2 1
+```
+
+The example bytes decode to +25.25 C and address 0x1D. These are software
+examples, not readings from this unbuilt board. A small read-only bus adapter is
+provided for an explicitly configured host; locked settings and malformed reads
+are rejected rather than silently accepted.
+
 J1 is 3V3 / GND / SCL / SDA. JP1..3 select A0..A2; no shunts gives 0x18. Power off before changing address shunts. Start at 100 kHz and assess the real host's voltage, combined pullups and measured bus rise time. ALERT requires firmware configuration after reset.
 
 The root KiCad files are the editable design. REQUIREMENTS.md defines the operating assumptions; DESIGN_BASIS.md records exact source decisions and calculations. evidence/index.yaml binds archived primary manufacturer bytes. Local official KiCad library copies, models and license/source receipts are in libs/. Generic mechanical models and a clean native check do not qualify physical fit, temperature accuracy or assembly.

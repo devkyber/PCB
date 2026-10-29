@@ -132,6 +132,10 @@
     "schematic.png": {
       "sha256": "9b7a4943209eb013a55bbcd2bbc3107e00f7eb8f9b11bea1eca91f5d2adf30b7",
       "bytes": 120173
+    },
+    "bringup-demo.json": {
+      "sha256": "a0d01a41f7ceccc30f18c0cd6aab4700ec280e5db7edd9c90405e568601c0918",
+      "bytes": 3571
     }
   }
 }
