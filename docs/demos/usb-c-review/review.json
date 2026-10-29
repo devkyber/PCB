@@ -3,18 +3,6 @@
   "findings": [
     {
       "blocking": true,
-      "check_id": "drc",
-      "detail": "8 error(s), 0 warning(s), 0 unconnected; two refilled runs",
-      "kind": "machine_failure"
-    },
-    {
-      "blocking": true,
-      "check_id": "jlcpcb_dfm",
-      "detail": "jlcpcb-2layer-1oz-green-2026-10-05: 8 error(s), 0 unconnected. Annular width (rule 'JLCPCB recommended component annular ring' min annular width 0.2500 mm; actual 0.2000 mm); Annular width (rule 'JLCPCB recommended component annular ring' min annular width 0.2500 mm; actual 0.2000 mm); Annular width (rule 'JLCPCB recommended component annular ring' min annular width 0.2500 mm; actual 0.2000 mm); Annular width (rule 'JLCPCB recommended component annular ring' min annular width 0.2500 mm; actual 0.2000 mm); Hole clearance violation (board setup constraints hole clearance 0.2500 mm; actual 0.1944 mm); Hole clearance violation (board setup constraints hole clearance 0.2500 mm; actual 0.1944 mm); Hole clearance violation (board setup constraints hole clearance 0.2500 mm; actual 0.1944 mm); Hole clearance violation (board setup constraints hole clearance 0.2500 mm; actual 0.1944 mm)",
-      "kind": "machine_failure"
-    },
-    {
-      "blocking": true,
       "check_id": "assembly_contracts",
       "detail": "D1: missing exact-part rotation rule\nD2: missing exact-part rotation rule\nF1: missing exact-part rotation rule\nJ1: missing exact-part rotation rule\nJ2: missing exact-part rotation rule\nR1: missing exact-part rotation rule\nR2: missing exact-part rotation rule\nR3: missing exact-part rotation rule\nF1: missing enabled local 3D model",
       "kind": "machine_failure"
@@ -26,14 +14,14 @@
       "kind": "human_decision"
     }
   ],
-  "pcb_hash": "71d6b1659f79148681ebec554cf21e4928dc3ae8abc23684e8cbfdac6b490317",
+  "pcb_hash": "1413eddd499e8ea862f11bcb7aba1e57d0d0a8afd60b20927eb8ab7c30750042",
   "project": "usb-c-power",
   "results": [
     {
       "advisories": [],
       "check_id": "research",
       "detail": "requirements, cited basis and archived evidence verified",
-      "duration_ms": 38,
+      "duration_ms": 29,
       "finding_kind": "machine_failure",
       "passed": true,
       "scope": {
@@ -47,7 +35,7 @@
       "advisories": [],
       "check_id": "datasheets",
       "detail": "required datasheet bytes verified; 10 physical schematic parts inspected (shared passive exemptions apply)",
-      "duration_ms": 55,
+      "duration_ms": 46,
       "finding_kind": "machine_failure",
       "passed": true,
       "scope": {
@@ -61,7 +49,7 @@
       "advisories": [],
       "check_id": "erc",
       "detail": "0 violation(s), 0 unspecified-pin warnings waived",
-      "duration_ms": 2874,
+      "duration_ms": 1975,
       "finding_kind": "machine_failure",
       "passed": true,
       "scope": {
@@ -75,7 +63,7 @@
       "advisories": [],
       "check_id": "schematic_ownership",
       "detail": "netmap matches the current schematic",
-      "duration_ms": 705,
+      "duration_ms": 765,
       "finding_kind": "machine_failure",
       "passed": true,
       "scope": {
@@ -89,7 +77,7 @@
       "advisories": [],
       "check_id": "netlist_parity",
       "detail": "exact schematic/PCB pin-net parity and schematic links",
-      "duration_ms": 992,
+      "duration_ms": 1059,
       "finding_kind": "machine_failure",
       "passed": true,
       "scope": {
@@ -103,7 +91,7 @@
       "advisories": [],
       "check_id": "placement",
       "detail": "implemented placement checks pass",
-      "duration_ms": 27,
+      "duration_ms": 43,
       "finding_kind": "machine_failure",
       "passed": true,
       "scope": {
@@ -116,8 +104,8 @@
     {
       "advisories": [],
       "check_id": "design_rules",
-      "detail": "=== docs/DESIGN_RULES.md geometric checks: C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-copilot-review-8bxoggv2\\usb-c-power\\usb-c-power.kicad_pcb ===\n\nRESULT: 0 violation(s), 0 check(s) passed\nSCOPE: geometric rules 1.2, 2.2, 5.1, 6.1 only (4 of 42 numbered subsections in docs/DESIGN_RULES.md). The remainder are not machine-checkable from the board file and are covered by the Phase 5 human review.",
-      "duration_ms": 642,
+      "detail": "=== docs/DESIGN_RULES.md geometric checks: C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-copilot-review-32qvjnp8\\usb-c-power\\usb-c-power.kicad_pcb ===\n\nRESULT: 0 violation(s), 0 check(s) passed\nSCOPE: geometric rules 1.2, 2.2, 5.1, 6.1 only (4 of 42 numbered subsections in docs/DESIGN_RULES.md). The remainder are not machine-checkable from the board file and are covered by the Phase 5 human review.",
+      "duration_ms": 720,
       "finding_kind": "machine_failure",
       "passed": true,
       "scope": {
@@ -130,10 +118,10 @@
     {
       "advisories": [],
       "check_id": "drc",
-      "detail": "8 error(s), 0 warning(s), 0 unconnected; two refilled runs",
-      "duration_ms": 8707,
+      "detail": "0 error(s), 0 warning(s), 0 unconnected; two refilled runs",
+      "duration_ms": 3905,
       "finding_kind": "machine_failure",
-      "passed": false,
+      "passed": true,
       "scope": {
         "deterministic": false,
         "does_not_prove": "RF, thermal or functional behavior",
@@ -144,10 +132,10 @@
     {
       "advisories": [],
       "check_id": "jlcpcb_dfm",
-      "detail": "jlcpcb-2layer-1oz-green-2026-10-05: 8 error(s), 0 unconnected. Annular width (rule 'JLCPCB recommended component annular ring' min annular width 0.2500 mm; actual 0.2000 mm); Annular width (rule 'JLCPCB recommended component annular ring' min annular width 0.2500 mm; actual 0.2000 mm); Annular width (rule 'JLCPCB recommended component annular ring' min annular width 0.2500 mm; actual 0.2000 mm); Annular width (rule 'JLCPCB recommended component annular ring' min annular width 0.2500 mm; actual 0.2000 mm); Hole clearance violation (board setup constraints hole clearance 0.2500 mm; actual 0.1944 mm); Hole clearance violation (board setup constraints hole clearance 0.2500 mm; actual 0.1944 mm); Hole clearance violation (board setup constraints hole clearance 0.2500 mm; actual 0.1944 mm); Hole clearance violation (board setup constraints hole clearance 0.2500 mm; actual 0.1944 mm)",
-      "duration_ms": 3721,
+      "detail": "jlcpcb-2layer-1oz-green-2026-10-05: 0 error(s), 0 unconnected. ",
+      "duration_ms": 1999,
       "finding_kind": "machine_failure",
-      "passed": false,
+      "passed": true,
       "scope": {
         "deterministic": true,
         "does_not_prove": "assembly eligibility, current capacity or supplier order acceptance",
@@ -159,7 +147,7 @@
       "advisories": [],
       "check_id": "assembly_contracts",
       "detail": "D1: missing exact-part rotation rule\nD2: missing exact-part rotation rule\nF1: missing exact-part rotation rule\nJ1: missing exact-part rotation rule\nJ2: missing exact-part rotation rule\nR1: missing exact-part rotation rule\nR2: missing exact-part rotation rule\nR3: missing exact-part rotation rule\nF1: missing enabled local 3D model",
-      "duration_ms": 35,
+      "duration_ms": 37,
       "finding_kind": "machine_failure",
       "passed": false,
       "scope": {
@@ -172,8 +160,8 @@
     {
       "advisories": [],
       "check_id": "routing_settings",
-      "detail": "Native routing: 23 segments, 0 arcs, 7 vias; 0 locked item(s). Default width: 0.25 mm; 7 positive width preset(s).",
-      "duration_ms": 13,
+      "detail": "Native routing: 28 segments, 0 arcs, 7 vias; 0 locked item(s). Default width: 0.25 mm; 7 positive width preset(s).",
+      "duration_ms": 12,
       "finding_kind": "machine_failure",
       "passed": true,
       "scope": {
@@ -186,8 +174,8 @@
     {
       "advisories": [],
       "check_id": "routing_topology",
-      "detail": "Inspected 23 straight tracks: no findings. Excluded 0 arcs and 0 custom/offset pads. Native DRC remains the connectivity gate; copper was not changed.",
-      "duration_ms": 632,
+      "detail": "Inspected 28 straight tracks: no findings. Excluded 0 arcs and 0 custom/offset pads. Native DRC remains the connectivity gate; copper was not changed.",
+      "duration_ms": 604,
       "finding_kind": "machine_failure",
       "passed": true,
       "scope": {
@@ -201,7 +189,7 @@
       "advisories": [],
       "check_id": "schematic_quality",
       "detail": "1 sheet(s) checked",
-      "duration_ms": 12,
+      "duration_ms": 11,
       "finding_kind": "machine_failure",
       "passed": true,
       "scope": {
@@ -215,7 +203,7 @@
       "advisories": [],
       "check_id": "signoff",
       "detail": "0/6 current decisions: usb-source-budget unsigned; connector-manufacturing unsigned; protection-coordination unsigned; physical-assembly unsigned; shared.schematic-readability unsigned; shared.layout-handover unsigned",
-      "duration_ms": 65,
+      "duration_ms": 68,
       "finding_kind": "human_decision",
       "passed": false,
       "scope": {
@@ -227,5 +215,5 @@
     }
   ],
   "schema_version": 1,
-  "schematic_hash": "ecb3cd1617043afc3d72c18c67a44ea6a47e700e9d6c2d071a095747494680bb"
+  "schematic_hash": "0a9b293a92f4e4488caf1693a0d867dc96afd385352affc1c651cf8209a6db70"
 }

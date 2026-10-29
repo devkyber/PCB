@@ -13,8 +13,8 @@ from pcb_copilot.transaction import input_hashes
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCUMENTS = ["README.md", "docs/QUICKSTART.md", "docs/ROADMAP.md", "docs/EVALUATION.md", "docs/media/README.md",
-             "docs/evaluation/2026-10-29/report.md", "docs/HANDOVER.md",
-             "examples/README.md", "examples/usb-c-power/README.md", "examples/i2c-sensor/README.md", "examples/rs485-interface/README.md"]
+             "docs/evaluation/2026-10-29/report.md", "docs/HANDOVER.md", "docs/EXPLORER.md",
+             "examples/i2c-sensor/BRINGUP.md", "examples/rs485-interface/BRINGUP.md", "examples/README.md", "examples/usb-c-power/README.md", "examples/i2c-sensor/README.md", "examples/rs485-interface/README.md"]
 EXAMPLES_MANIFEST = 'examples-manifest.json'
 MEDIA_MANIFESTS = ('manifest.json', 'example-manifest.json', 'proof-manifest.json', EXAMPLES_MANIFEST)
 CAD_MANIFESTS = frozenset(MEDIA_MANIFESTS[:2])

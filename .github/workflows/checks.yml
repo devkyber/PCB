@@ -36,7 +36,7 @@ jobs:
           tests/test_package_smoke.py tests/test_toolchain.py tests/test_doctor.py
           tests/test_cli_encoding.py tests/test_demo.py tests/test_demo_change.py tests/test_project.py
           tests/test_evaluate.py tests/test_media_evidence.py tests/test_media_publication.py tests/test_check_readme.py
-          tests/test_check_examples.py
+          tests/test_check_examples.py tests/test_example_explorer.py tests/examples
           tests/test_state.py tests/test_status_cli.py tests/test_update_guard.py
           tests/test_transaction.py tests/test_cleanup.py tests/test_release.py
           tests/test_stock.py tests/test_sch_io_multiline.py
@@ -55,6 +55,8 @@ jobs:
         run: uv run --locked python tools/evaluate.py
       - name: Example sources, exact-part coverage and recorded native artifacts
         run: uv run --locked python tools/check_examples.py
+      - name: Native views, pins, evidence and identities in the offline explorer
+        run: uv run --locked python tools/build_example_explorer.py --verify
       - name: Verify all four offline handovers against saved sources
         run: |
           uv run --locked pcb-copilot verify-report docs/demos/gpio-review --project examples/gpio-indicator

@@ -47,9 +47,11 @@ Implemented next examples: [USB-C power](../examples/usb-c-power/README.md),
 [I²C temperature](../examples/i2c-sensor/README.md) and
 [RS-485](../examples/rs485-interface/README.md) each retain native CAD, exact
 part evidence, routed copper, full-page visual review and hashed native outputs.
-The USB-C footprint exposes eight unresolved manufacturing-geometry findings;
-the other two have clean native ERC/DRC and parity. These are still unbuilt
-prototypes with open supplier assembly and human decisions.
+USB-C revision B resolves the original connector conflict with an official
+six-contact power-only footprint, retaining manufacturer lands and the existing
+geometry rules. All three have clean native ERC/DRC and parity. The sensor and
+RS-485 guides include tested, source-backed offline bring-up tools. These remain
+unbuilt prototypes with open supplier assembly, physical and human decisions.
 
 Done when the procedure reproduces offline from the archived inputs and the
 remaining engineering results have measured evidence. Owner boards and frozen
@@ -80,6 +82,11 @@ Implemented: [portable offline handovers](HANDOVER.md) keep every native sheet
 and board view together with scoped findings and the captured source ledger.
 The verifier checks packet bytes, embedded native images/review consistency,
 and optional current-project identity without requiring KiCad.
+
+The [interactive example explorer](EXPLORER.md) also exposes current native
+pad/net membership, selected-part identities, evidence and board views in one
+standalone browser workbench. Its verifier rejects substituted embedded media,
+misstated component facts and stale source ledgers.
 
 Use the existing CLI and native-candidate workflow as the integration boundary.
 Document one complete agent-assisted task: read requirements and source

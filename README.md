@@ -4,7 +4,7 @@
 
 [![Software and package checks](https://github.com/devkyber/PCB/actions/workflows/checks.yml/badge.svg)](https://github.com/devkyber/PCB/actions/workflows/checks.yml)
 
-![Three native KiCad examples: USB-C power entry, an I2C temperature sensor and an RS-485 interface](docs/media/examples-gallery.png)
+[![Three native KiCad examples: USB-C power entry, an I2C temperature sensor and an RS-485 interface](docs/media/examples-gallery.png)](https://devkyber.github.io/PCB/)
 
 Prepare scoped changes, check the candidate, inspect the native views, and apply
 it explicitly. Keep manufacturer evidence and engineering decisions with the
@@ -13,18 +13,18 @@ design through to a gated manufacturing package.
 **[Get started](docs/QUICKSTART.md)** · **[Explore the examples](examples/README.md)** ·
 **[Make an offline handover](docs/HANDOVER.md)** · **[Read the workflow](docs/WORKFLOW.md)**
 
-## Three new boards, with their working exposed
+## Follow a signal through three native boards
 
 [![A twelve-second walkthrough of the three new boards and their actual native schematics](docs/media/examples-gallery.gif)](docs/media/examples-gallery.mp4)
 
 *Recorded native CAD renders and schematic captures of unbuilt prototypes.
-The USB-C example retains eight connector manufacturing findings and has no
-PPTC body model. [Source and artifact hashes](docs/media/examples-manifest.json)
+All three report zero native ERC/DRC violations and zero unconnected items.
+The USB-C PPTC body is not modeled. [Source and artifact hashes](docs/media/examples-manifest.json)
 bind this gallery to the exact saved designs.*
 
 | Example | Circuit and files | Current engineering boundary |
 | --- | --- | --- |
-| [USB-C power entry](examples/usb-c-power/README.md) | Independent CC resistors, PPTC, transient shunt and indicator. [Schematic](examples/usb-c-power/output/schematic.pdf) · [3D model](examples/usb-c-power/output/usb-c-power.glb) | Routed; ERC and pin-net parity pass. Eight connector annular-ring/NPTH-clearance findings block manufacturing review. No PD or current-advertisement detection. |
+| [USB-C power entry](examples/usb-c-power/README.md) | Six-contact USB4125 power-only connector, independent CC resistors, PPTC and transient shunt. [Schematic](examples/usb-c-power/output/schematic.pdf) · [3D model](examples/usb-c-power/output/usb-c-power.glb) | Native ERC/DRC and parity pass. Manufacturer lands meet the unchanged geometry baseline. Physical fit, protection behavior, assembly and human decisions remain open; no PD or current sensing. |
 | [I²C temperature sensor](examples/i2c-sensor/README.md) | MCP9808 MSOP, eight selectable addresses and ALERT. [Schematic](examples/i2c-sensor/output/schematic.pdf) · [3D model](examples/i2c-sensor/output/i2c-sensor.glb) | Native ERC/DRC and parity pass. Bus behavior, physical fit, supplier assembly and human decisions remain open. |
 | [RS-485 interface](examples/rs485-interface/README.md) | THVD1450, explicit control defaults and removable termination. [Schematic](examples/rs485-interface/output/schematic.pdf) · [3D model](examples/rs485-interface/output/rs485-interface.glb) | Native ERC/DRC and parity pass. Short bench-link prototype; isolation, surge/EMC and hardware behavior are unqualified. |
 
@@ -32,6 +32,26 @@ Each includes requirements, design basis, local libraries, exact manufacturer
 archives, routed copper, native review views and a source-bound artifact
 inventory. All remain **unbuilt DRAFTs**. The smaller
 [GPIO indicator](examples/gpio-indicator/README.md) remains the first-run example.
+
+The **[browser workbench](https://devkyber.github.io/PCB/)** needs no KiCad or
+hardware connection. Search by reference or MPN, choose a numbered pin and
+highlight its actual saved net. Inspect native copper, schematic and 3D views
+beside the matching source evidence. The simplified net map omits pours and
+exact pad shapes; the native copper views retain complete geometry.
+[Download it for offline use or rebuild it](docs/EXPLORER.md).
+
+Try the source-backed bring-up tools without hardware:
+
+```sh
+python examples/i2c-sensor/bringup.py demo
+python examples/rs485-interface/bringup.py demo
+```
+
+The [sensor guide](examples/i2c-sensor/BRINGUP.md) covers identity, signed
+big-endian temperature decoding, address shunts and ALERT configuration. The
+[RS-485 guide](examples/rs485-interface/BRINGUP.md) covers termination load/power
+bounds and explicit driver timing around the last UART stop bit. These are
+checked calculations and transaction recipes, not recorded bench results.
 
 ## Get a first result
 
@@ -167,6 +187,7 @@ remain separate from the educational examples. Frozen boards under
 | --- | --- |
 | [Quickstart](docs/QUICKSTART.md) | Setup and first useful result |
 | [Example catalog](examples/README.md) | Circuits, assumptions and native artifacts |
+| [Interactive explorer](docs/EXPLORER.md) | Follow native pads/nets, inspect views and source evidence |
 | [Handover](docs/HANDOVER.md) | Generate and verify offline review packets |
 | [Workflow](docs/WORKFLOW.md) | Preview, apply, review and release |
 | [Architecture](docs/ARCHITECTURE.md) | Ownership and implementation boundaries |

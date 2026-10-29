@@ -82,9 +82,15 @@ binds the published graphic, report, JSON and raw logs together.
 The three-board gallery composes already exported native renders and schematics.
 It first verifies each project's archived evidence, selected-part coverage,
 footprint lineage and `output/SOURCE.json` identities. It preserves all recorded
-ERC/DRC counts, including the eight USB-C connector findings, and rechecks the
+ERC/DRC counts from each current source-bound native report, and rechecks the
 complete source/capture binding before and after publication. Its movie is a
 guided tour of three held native captures, rather than a screen recording.
+
+The [interactive explorer](../EXPLORER.md) adds native pin/net highlighting,
+component search and manufacturer evidence. It is a self-contained HTML bundle
+that can be served locally or opened as a downloaded file. Rebuild with
+`uv run python tools/build_example_explorer.py`; check it without KiCad using
+`uv run python tools/build_example_explorer.py --verify`.
 
 The [offline handover packets](../HANDOVER.md) are separate inspectable HTML
 artifacts. They retain original native images, vector PDF and full review data;
