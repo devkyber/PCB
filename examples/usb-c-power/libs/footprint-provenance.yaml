@@ -1,0 +1,19 @@
+schema_version: 1
+records:
+- path: libs/BournsDerived.pretty/MF-MSMF075_1812_Style1.kicad_mod
+  sha256: 35fed6e5564b59b01de515711bb82fabb9bdb28b855e1717ae993c54026e8463
+  part_numbers:
+  - MF-MSMF075-2
+  evidence_ids:
+  - sha256:50d80228581842471d563e28ba0f1b67ab095ee95dfac4079f4a49f7f7bbf3c8
+  pad_functions:
+    '1': nonpolar PPTC terminal from VBUS
+    '2': nonpolar PPTC terminal to VOUT
+  author: Codex
+  reviewed_on: '2026-10-29'
+  derived_from: Bourns MF-MSMF PDF p5 MF-MSMF075 style1; p7 style1 recommended pads1.50x3.20mm,
+    innergap2.70mm, centers4.20mm. Body maximum4.73x3.41mm on F.Fab; courtyard adds
+    assembly margin.
+  limitations: Author land/pad mapping only; thermal expansion, reflow process, solderability
+    and physical fit unqualified. No exact3D model available; no model fabricated.
+  owner_signoff: false

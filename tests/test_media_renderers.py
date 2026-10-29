@@ -123,7 +123,8 @@ def test_source_check_runs_after_encoding_and_rolls_back(renderers, tmp_path, mo
     assert {p.name: p.read_bytes() for p in media.iterdir()} == {target: original}
 
 
-@pytest.mark.parametrize('fault', ['preservation', 'log-content', 'interface', 'exit'])
+@pytest.mark.parametrize('fault', ['preservation', 'log-content', 'interface', 'exit',
+                                 'candidate-preservation', 'candidate-map', 'control-binding'])
 def test_evaluation_graphic_rejects_unsupported_claims(tmp_path, monkeypatch, fault):
     tools_path = Path(__file__).resolve().parents[1] / 'tools'
     monkeypatch.syspath_prepend(str(tools_path))
@@ -135,16 +136,72 @@ def test_evaluation_graphic_rejects_unsupported_claims(tmp_path, monkeypatch, fa
     shutil.copytree(source / 'logs', packet / 'logs')
     path = packet / 'evaluation.json'
     record = json.loads(path.read_bytes())
-    assert len(renderer.read_record(path)[1]) == 19
+    assert len(renderer.read_record(path)[1]) == 1 + 2 * len(record['cases'])
     if fault == 'preservation':
         record['source_inputs_unchanged'] = False
     elif fault == 'log-content':
         (packet / record['cases'][0]['actual']['stdout']).write_bytes(b'no recorded diagnostic')
     elif fault == 'interface':
         record['cases'][0]['actual']['interface'] = 'validator-api'
-    else:
+    elif fault == 'exit':
         case = next(c for c in record['cases'] if c['name'] == 'evidence-corruption')
         case['actual']['exit_code'] = case['expected']['exit_code'] = 0
+    elif fault == 'candidate-preservation':
+        case = next(c for c in record['cases'] if c['name'] == 'changed-candidate')
+        case['checks_preserved_candidate'] = False
+    elif fault == 'candidate-map':
+        case = next(c for c in record['cases'] if c['name'] == 'changed-source-rules')
+        case['candidate_inputs_after_checks'] = {'rewritten-candidate': 'f' * 64}
+    else:
+        case = next(c for c in record['cases'] if c['name'] == 'native-source-preview-control')
+        stdout = packet / case['actual']['stdout']
+        preview = json.loads(stdout.read_bytes())
+        preview['applied'] = True
+        stdout.write_bytes(json.dumps(preview).encode())
     path.write_bytes(json.dumps(record).encode())
     with pytest.raises(ValueError):
         renderer.read_record(path)
+
+
+def test_evaluation_graphic_embeds_every_log_hash_and_fits_expanded_native_rows(tmp_path, monkeypatch):
+    tools_path = Path(__file__).resolve().parents[1] / 'tools'
+    monkeypatch.syspath_prepend(str(tools_path))
+    renderer = importlib.import_module('render_evaluation_media')
+    record_path = tools_path.parent / 'docs/evaluation/2026-10-29/evaluation.json'
+    output = tmp_path / 'evaluation.png'
+    assert renderer.main(['--record', str(record_path), '--output', str(output)]) == 0
+    with Image.open(output) as image:
+        assert image.size == (1600, 1280)
+        metadata = json.loads(image.info['evaluation_provenance'])
+    record = json.loads(record_path.read_bytes())
+    expected = {record_path.name: renderer.digest(record_path)}
+    expected.update({case['actual'][stream]: renderer.digest(record_path.parent / case['actual'][stream])
+                     for case in record['cases'] for stream in ('stdout', 'stderr')})
+    assert metadata['record_and_raw_logs'] == expected
+    assert len(expected) == 1 + 2 * len(record['cases'])
+
+
+def test_gallery_encoder_failure_preserves_the_previous_public_bundle(tmp_path, monkeypatch):
+    monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[1] / 'tools'))
+    gallery = importlib.import_module('render_examples_gallery')
+    media = tmp_path / 'published'
+    media.mkdir()
+    originals = {'examples-gallery.png': b'previous PNG', 'examples-gallery.gif': b'previous GIF',
+                 'examples-gallery.mp4': b'previous MP4', 'examples-manifest.json': b'previous manifest'}
+    for name, payload in originals.items():
+        (media / name).write_bytes(payload)
+    image = Image.new('RGB', (32, 32), 'white')
+    monkeypatch.setattr(gallery, 'MEDIA', media)
+    monkeypatch.setattr(gallery, '_capture', lambda name: {'project': 'examples/' + name,
+                        'source_inputs': {'board': 'a' * 64}, 'source_artifacts': {},
+                        'erc': 0, 'drc': 0, 'unconnected': 0})
+    monkeypatch.setattr(gallery, 'poster', lambda *a: image)
+    monkeypatch.setattr(gallery, 'scene', lambda *a: image)
+
+    def failed(*args, **kwargs):
+        raise RuntimeError('injected gallery encoder failure')
+
+    monkeypatch.setattr(gallery.imageio_ffmpeg, 'write_frames', failed)
+    with pytest.raises(RuntimeError, match='injected gallery encoder failure'):
+        gallery.main()
+    assert {p.name: p.read_bytes() for p in media.iterdir()} == originals

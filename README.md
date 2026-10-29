@@ -4,51 +4,39 @@
 
 [![Software and package checks](https://github.com/devkyber/PCB/actions/workflows/checks.yml/badge.svg)](https://github.com/devkyber/PCB/actions/workflows/checks.yml)
 
-![PCB Copilot beside a native 3D render of the Rover power distribution board](docs/media/hero.png)
+![Three native KiCad examples: USB-C power entry, an I2C temperature sensor and an RS-485 interface](docs/media/examples-gallery.png)
 
-Prepare scoped changes to real KiCad projects, check the candidate, inspect the
-results, and apply it explicitly. Keep source evidence and engineering decisions
-with the design, through to a gated manufacturing package.
+Prepare scoped changes, check the candidate, inspect the native views, and apply
+it explicitly. Keep manufacturer evidence and engineering decisions with the
+design through to a gated manufacturing package.
 
-**[Get started](docs/QUICKSTART.md)** · **[Watch the walkthrough](docs/media/workflow.mp4)** ·
-**[Read the workflow](docs/WORKFLOW.md)** · **[See the roadmap](docs/ROADMAP.md)**
+**[Get started](docs/QUICKSTART.md)** · **[Explore the examples](examples/README.md)** ·
+**[Make an offline handover](docs/HANDOVER.md)** · **[Read the workflow](docs/WORKFLOW.md)**
 
-## See what it actually does
+## Three new boards, with their working exposed
 
-[![Animated walkthrough: native CAD, evidence verification, a rejected apply without a preview, and a blocked review](docs/media/workflow.gif)](docs/media/workflow.mp4)
+[![A twelve-second walkthrough of the three new boards and their actual native schematics](docs/media/examples-gallery.gif)](docs/media/examples-gallery.mp4)
 
-*16-second animated walkthrough of recorded CLI results and native CAD renders.
-This is a guided tour, not a screen recording or a successful-edit demonstration.
-The full Rover run reported 12/14 checks passing; datasheet coverage and unsigned
-human decisions blocked release. [Recorded results](docs/media/demo-results.json)
-and [source/output hashes](docs/media/manifest.json) make the scope inspectable.*
+*Recorded native CAD renders and schematic captures of unbuilt prototypes.
+The USB-C example retains eight connector manufacturing findings and has no
+PPTC body model. [Source and artifact hashes](docs/media/examples-manifest.json)
+bind this gallery to the exact saved designs.*
 
-## Why this pipeline
+| Example | Circuit and files | Current engineering boundary |
+| --- | --- | --- |
+| [USB-C power entry](examples/usb-c-power/README.md) | Independent CC resistors, PPTC, transient shunt and indicator. [Schematic](examples/usb-c-power/output/schematic.pdf) · [3D model](examples/usb-c-power/output/usb-c-power.glb) | Routed; ERC and pin-net parity pass. Eight connector annular-ring/NPTH-clearance findings block manufacturing review. No PD or current-advertisement detection. |
+| [I²C temperature sensor](examples/i2c-sensor/README.md) | MCP9808 MSOP, eight selectable addresses and ALERT. [Schematic](examples/i2c-sensor/output/schematic.pdf) · [3D model](examples/i2c-sensor/output/i2c-sensor.glb) | Native ERC/DRC and parity pass. Bus behavior, physical fit, supplier assembly and human decisions remain open. |
+| [RS-485 interface](examples/rs485-interface/README.md) | THVD1450, explicit control defaults and removable termination. [Schematic](examples/rs485-interface/output/schematic.pdf) · [3D model](examples/rs485-interface/output/rs485-interface.glb) | Native ERC/DRC and parity pass. Short bench-link prototype; isolation, surge/EMC and hardware behavior are unqualified. |
 
-| What you need | What PCB Copilot does |
-| --- | --- |
-| Keep an existing engineer-edited design | Start from saved native CAD. Scoped candidates preserve the rest of the design; old generation recipes do not override owner edits. |
-| Know where a part or decision came from | Archive exact source bytes and provenance; verify selected part identities and local footprint receipts. |
-| Inspect a change before installing it | Preview candidates with connectivity, geometry and native-tool checks. Apply must match the current successful preview. |
-| Keep approval tied to the current revision | Bind human decisions to CAD, requirements, rules and evidence. Changed inputs invalidate old decisions. |
-| Publish a complete fabrication package | Rerun review and export Gerbers, drills, BOM, positions and provenance together; preserve the previous package if publication fails. |
+Each includes requirements, design basis, local libraries, exact manufacturer
+archives, routed copper, native review views and a source-bound artifact
+inventory. All remain **unbuilt DRAFTs**. The smaller
+[GPIO indicator](examples/gpio-indicator/README.md) remains the first-run example.
 
-```text
-Saved KiCad + source evidence
-            ↓
-     Scoped candidate
-            ↓
- Checks + rendered inspection
-            ↓
-       Explicit apply
-            ↓
- Current human decisions → gated release
-```
+## Get a first result
 
-## Try it on a real board
-
-Get a first result with **Git**, **Python 3.11+** and
-[uv](https://docs.astral.sh/uv/getting-started/installation/).
+Use Git, **Python 3.11+** and
+[uv](https://docs.astral.sh/uv/getting-started/installation/):
 
 ```sh
 git clone https://github.com/devkyber/PCB.git
@@ -57,128 +45,134 @@ uv sync
 uv run python tools/demo.py
 ```
 
-The quick demo copies the small GPIO indicator to a new temporary directory, runs
-status and archive verification, and exercises the actual missing-preview guard.
-It prints the path to a Markdown report, machine-readable transcript and exact
-command logs. The source board stays untouched. **It does not run native ERC/DRC.**
+The Python-only demo copies GPIO inputs into a new temporary directory, checks
+status and archived bytes, and exercises the actual missing-preview rejection.
+It prints an inspectable report, transcript and exact command logs while
+preserving the saved source. Native ERC/DRC is separate.
 
-To inspect Rover instead, add `--project projects/rover-pdb`.
-For native review, install **KiCad 10** and a Python runtime that can import
-KiCad's `pcbnew`; [setup and troubleshooting](docs/QUICKSTART.md) explain discovery.
+Try a larger example with `--project examples/rs485-interface`. With **KiCad 10**
+and its `pcbnew` Python bindings installed:
 
 ```sh
 uv run pcb-copilot doctor
-uv run python tools/demo.py --full
+uv run python tools/demo.py --project examples/rs485-interface --full
 ```
 
-A blocked review returns exit code **1**, with its findings preserved. This is
-expected when evidence or current human decisions are incomplete. Demo completion
-and a clean individual check do not grant fabrication approval.
+A completed review with blockers returns **1** and preserves its findings.
+[Quickstart](docs/QUICKSTART.md) covers setup, exit meanings and discovery.
 
-## Start with a small, complete example
+## Hand an engineer an inspectable review
 
-[![A native KiCad turntable of the four-channel GPIO indicator example](docs/media/gpio-turntable.gif)](docs/media/gpio-turntable.mp4)
+```sh
+uv run pcb-copilot report examples/i2c-sensor --output NEW_EXTERNAL_DIRECTORY
+uv run pcb-copilot verify-report NEW_EXTERNAL_DIRECTORY --project examples/i2c-sensor
+```
 
-The [GPIO indicator](examples/gpio-indicator/README.md) is a new **45 × 35 mm,
-two-layer educational board** with four independent 3.3 V LED channels. It has
-one readable sheet, routed copper, project-local libraries, archived manufacturer
-sources and a [native 3D model](examples/gpio-indicator/output/gpio-indicator.glb).
-It is an **unbuilt DRAFT**; physical fit and bench behavior remain unqualified.
+Open the generated `index.html` offline. It includes every native schematic
+page, assembly and mirrored copper views, the full review, check scopes and
+source hashes. Filter findings, enlarge a view, and download the embedded vector
+PDF. The packet's manifest also binds the original artifacts.
 
-The scoped-change demo runs a real **successful preview → stale-apply rejection →
-fresh preview → reviewed apply** in an external copy. Only a title-block revision
-changes; native electrical inventories and PCB bytes are compared.
+Verification runs without KiCad and distinguishes intact packet bytes from
+whether the current project still matches. Viewing or verifying creates no
+approval. See [the handover guide](docs/HANDOVER.md) and the recorded
+[GPIO](docs/demos/gpio-review/index.html),
+[sensor](docs/demos/i2c-review/index.html),
+[RS-485](docs/demos/rs485-review/index.html) and
+[USB-C](docs/demos/usb-c-review/index.html) packets.
+Download the HTML to run it; GitHub displays its source.
+
+## Inspect a successful change and a rejected stale apply
 
 ```sh
 uv run python tools/demo_change.py
 ```
 
-It stops at the fresh preview and prints the rendered PDF and exact hash. Inspect
-every page, then use the printed resume command to apply that exact candidate to
-the disposable copy. This author inspection is separate from owner fabrication
-sign-off. [Recorded proof](docs/media/change-proof.md) shows a completed run.
+This prepares a real successful preview, changes the external candidate to
+exercise stale-apply rejection, then creates a fresh preview. Inspect every
+printed PDF page and use its exact hash-bound resume command to apply the
+title-block revision to the disposable copy. Native electrical inventories,
+PCB bytes and original source hashes are compared.
+[The completed proof](docs/media/change-proof.md) records the actual
+preview → stale rejection → fresh preview → reviewed apply sequence.
 
-## Test the rejection behavior
-
-[![Recorded Windows software evaluation: three valid controls passed and six invalid requests were rejected](docs/evaluation/2026-10-29/evaluation.png)](docs/EVALUATION.md#recorded-windows-run)
-
-Run a declared set of valid controls and deliberately broken inputs against
-disposable copies of the example:
+The [fault evaluation](docs/EVALUATION.md) tests corrupted evidence, changed
+footprint geometry/model bytes, part identity, and independent candidate/source/
+rule changes after genuine native previews:
 
 ```sh
 uv run python tools/evaluate.py
-# With KiCad installed, also test a real preview followed by a changed candidate:
 uv run python tools/evaluate.py --native
+uv run python tools/check_examples.py
 ```
 
-The harness tests archive corruption, altered footprint geometry, model bytes,
-part identity and preview binding. Each case records its actual interface,
-diagnostic, exit code and source-preservation hashes. Native cases are explicitly
-skipped in quick mode. See [the procedure and scope](docs/EVALUATION.md).
-The [recorded Windows run](docs/evaluation/2026-10-29/report.md) observed all nine
-declared expectations in 14.72 seconds; raw logs and exact input hashes are
-published beside it. This small fault set does not measure general detection accuracy.
+Each case records its actual interface, diagnostic, exit and preservation
+hashes. Native cases are explicitly skipped in quick mode. The example checker
+verifies archives, selected-part coverage, footprint lineage and recorded
+artifact identities; it does not rerun native qualification.
 
-## Inspect the native design
+## Why this pipeline
 
-![Fresh native KiCad exports: a Rover schematic sheet and the PCB top copper and silkscreen](docs/media/native-cad.png)
-
-The design remains an editable schematic hierarchy and PCB. The images above are
-native exports, and the hero uses a **3D render**. Physical fit, thermal performance
-and bench qualification remain separate engineering work.
-
-| Example | What to inspect | Current scope |
-| --- | --- | --- |
-| [GPIO indicator](examples/gpio-indicator/README.md) | [Native project](examples/gpio-indicator/gpio-indicator.kicad_pro), [schematic](examples/gpio-indicator/output/schematic.pdf), [review](examples/gpio-indicator/docs/review/A1_REVIEW.md) | Small routed educational example. Native checks pass; assembly qualification and human release decisions remain open. |
-| [Rover PDB](projects/rover-pdb/README.md) | [Native project](projects/rover-pdb/rover-pdb.kicad_pro), [schematic](projects/rover-pdb/rover-pdb.kicad_sch), [PCB](projects/rover-pdb/rover-pdb.kicad_pcb), [pipeline audit](projects/rover-pdb/docs/review/PIPELINE_AUDIT.md) | Owner-edited, routed two-layer power board. Development is closed; engineering qualification and fabrication approval remain separate. |
-| [TMS](projects/tms/README.md) | [Native project](projects/tms/tms.kicad_pro), [source evidence](projects/tms/evidence/index.yaml), [design basis](projects/tms/DESIGN_BASIS.md) | Recreated schematic; PCB and qualification pending. Its project README is the revision/status authority. |
-
-## What works today
-
-| Capability | Status and boundary |
+| Engineering need | Implemented behavior |
 | --- | --- |
-| Native schematic and PCB candidates | Implemented: checked preview/apply, parity and stale-input protection. Visual inspection remains required. |
-| Evidence and exact supplier-part lookup/import | Implemented: archived bytes, provenance, C-number/MPN identity. Coverage does not prove interpretation or suitability. |
-| Current review and transactional release | Implemented: fourteen registered checks plus current named human decisions. Each check reports its own scope. |
-| Toolchain diagnostics and disposable demo | Implemented: `doctor`, recorded command results and input-preservation hashes. |
-| Intent-based schematic/placement generation | Available as a proposal/redraw path. It does not merge later manual CAD edits or establish engineering correctness. |
-| Optional autorouting | Requires Freerouting and compatible Java. A route remains a candidate for review. |
-| Agent integration | Agents can operate the CLI. A packaged interactive copilot/MCP service is future work. |
-| Autonomous engineering and measured time savings | Unproven. See [limitations](docs/LIMITATIONS.md) and the [evaluation roadmap](docs/ROADMAP.md). |
+| Preserve engineer-edited CAD | Start with saved native files. Scoped candidates preserve unrelated objects, UUIDs and routed copper. |
+| Check where a part came from | Archive exact source bytes and verify selected MPNs, pad maps and local footprint/model receipts. |
+| Inspect before installing | Preview with native-tool checks. Apply must match the current successful preview and all bound inputs. |
+| Make review portable | Generate an offline handover with native views, complete findings and explicit check limits. |
+| Keep decisions current | Bind named human decisions to CAD, requirements, rules and evidence; changed inputs invalidate them. |
+| Preserve output during publication | Recheck sources and publish complete packages transactionally. Reject linked publication paths and retain recovery data when rollback cannot finish. |
 
-The geometric house-rule checker covers portions of **4 of 42** historical rule
-sections. ERC, DRC, archive verification and parity are useful scoped checks;
-they cannot decide every circuit choice, return path, RF, thermal, mechanical or
-failure-mode question.
+```text
+Saved KiCad + source evidence
+             ↓
+      Scoped candidate
+             ↓
+ Checks + native visual inspection
+             ↓
+       Explicit apply
+             ↓
+ Current human decisions → gated release
+```
 
-## Bring your KiCad project
+## Scope today
+
+Native candidate preview/apply, evidence archive verification, exact supplier
+part import, fourteen registered review checks, portable handovers and gated
+manufacturing export are implemented. Optional autorouting needs Freerouting
+and compatible Java; a route remains a candidate for review.
+
+Agents can operate the CLI. A packaged interactive copilot/MCP service is future
+work. Intent generation proposes a redraw and does not merge later manual CAD
+edits. Autonomous engineering and measured time savings remain unproven.
+
+The geometric house-rule checker covers portions of **4 of 42** historical
+rule sections. ERC, DRC, parity and source hashes establish their stated scope;
+circuit choices, thermal/RF/mechanical behavior, bench work and release decisions
+still require engineering review. See [limitations](docs/LIMITATIONS.md).
+
+## Use it with your project
 
 Start with [the new-board workflow](docs/WORKFLOW.md#start-a-new-board) and
-`templates/project/`. Declare the saved CAD, requirements, evidence and review
-profile. Use [the native JLCPCB geometry template](templates/jlcpcb-2layer-1oz/meta/info.html)
-when its dated process assumptions fit your board.
+`templates/project/`. For an existing design, save and close KiCad, prepare a
+separate native candidate and preview before using the identical command with
+`--apply`. The [complete workflow](docs/WORKFLOW.md) covers layout, supplier
+assembly, sign-off and recovery.
 
-For an existing design, save and close KiCad before external application, prepare
-a separate native candidate, and preview before using the identical command with
-`--apply`. The [complete workflow](docs/WORKFLOW.md) covers hierarchy, layout,
-supplier assembly checks, sign-off and interrupted-operation recovery.
+Read [Rover PDB](projects/rover-pdb/README.md) and [TMS](projects/tms/README.md)
+for those owner projects' recorded status. Their saved CAD and requested scope
+remain separate from the educational examples. Frozen boards under
+`tests/fixtures/boards` are regression inputs.
 
-## Go deeper
-
-| Read | For |
+| Read | Purpose |
 | --- | --- |
-| [Quickstart](docs/QUICKSTART.md) | Setup, first useful result and troubleshooting |
-| [Workflow](docs/WORKFLOW.md) | Supported commands and the preview/apply/release lifecycle |
-| [Architecture](docs/ARCHITECTURE.md) | Implementation boundaries, ownership and retention |
-| [Design rules](docs/DESIGN_RULES.md) | Schematic readability, physical layout and review conventions |
-| [Limitations](docs/LIMITATIONS.md) | What checks establish and what needs engineering judgment |
-| [Roadmap](docs/ROADMAP.md) | Next capabilities and the evidence needed to claim them |
-| [Fault evaluation](docs/EVALUATION.md) | Reproduce controls and injected faults; inspect the measured scope |
-| [Media sources](docs/media/README.md) | Reproduce the images and video; inspect captured results |
+| [Quickstart](docs/QUICKSTART.md) | Setup and first useful result |
+| [Example catalog](examples/README.md) | Circuits, assumptions and native artifacts |
+| [Handover](docs/HANDOVER.md) | Generate and verify offline review packets |
+| [Workflow](docs/WORKFLOW.md) | Preview, apply, review and release |
+| [Architecture](docs/ARCHITECTURE.md) | Ownership and implementation boundaries |
+| [Design rules](docs/DESIGN_RULES.md) | Drawing, layout and review conventions |
+| [Fault evaluation](docs/EVALUATION.md) | Reproduce the declared regression cases |
+| [Roadmap](docs/ROADMAP.md) | Next capabilities and acceptance evidence |
+| [Media sources](docs/media/README.md) | Reproduce the images and video |
 
-The shared CLI lives in `src/pcb_copilot`. The retained KiCad adapter lives in
-`packages/kicad-claude-mcp`; its historical name does not imply a running MCP
-server. Frozen boards under `tests/fixtures/boards` are regression inputs, never
-active projects to develop or restore.
-
-If the workflow is useful to you, a star helps other engineers discover it.
+If the workflow is useful, a star helps other engineers discover it.

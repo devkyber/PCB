@@ -1,0 +1,17 @@
+schema_version: 1
+items:
+  - id: bus-and-host
+    prompt: Verify actual host voltage, combined pullups, sink currents, measured rise time, cable and selected bus speed.
+    rationale: Fixed board pullups and the IC bus rating do not qualify the connected system.
+    evidence_refs: [REQUIREMENTS.md, DESIGN_BASIS.md]
+    safety_tags: [electrical, interface]
+  - id: physical-and-thermal
+    prompt: Inspect exact MSOP/0805/header parts, soldering, mating orientation, mounting clearance and thermal coupling.
+    rationale: Official generic CAD and native checks do not establish physical fit or ambient temperature accuracy.
+    evidence_refs: [libs/PROVENANCE.json, DESIGN_BASIS.md]
+    safety_tags: [mechanical, assembly, thermal]
+  - id: bench-and-firmware
+    prompt: Record identity/address reads, all address selections, measured current, reference temperature comparison and configured ALERT behavior.
+    rationale: This board is unbuilt; no firmware or measured performance is qualified.
+    evidence_refs: [REQUIREMENTS.md]
+    safety_tags: [qualification]

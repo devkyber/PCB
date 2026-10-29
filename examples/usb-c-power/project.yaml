@@ -1,0 +1,12 @@
+schema_version: 1
+name: usb-c-power
+lifecycle: DRAFT
+design:
+  schematic: usb-c-power.kicad_sch
+  pcb: usb-c-power.kicad_pcb
+  netmap: netmap.json
+evidence:
+  index: evidence/index.yaml
+manufacturing:
+  profile: jlcpcb_2layer_default
+safety_tags: [educational, usb-c-power-only, no-pd, unbuilt, human-review-required]

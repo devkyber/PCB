@@ -1,0 +1,17 @@
+schema_version: 1
+items:
+  - id: host-startup
+    prompt: Verify actual host supply sequencing, logic thresholds, leakage, DE/nRE reset states and UART direction control.
+    rationale: The generic example selects no controller or power source; nominal logic compatibility is not measured startup behavior.
+    evidence_refs: [REQUIREMENTS.md, DESIGN_BASIS.md]
+    safety_tags: [electrical]
+  - id: bus-and-assembly
+    prompt: Inspect actual part fit, pin 1, shunt mating, termination placement, twisted-pair harness, common ground and mechanical clearance.
+    rationale: Generic official library geometry and native parity do not qualify real assembly or a remote bus.
+    evidence_refs: [libs/PROVENANCE.json, REFERENCE_REVIEW.md]
+    safety_tags: [mechanical, assembly, interface]
+  - id: bench-link
+    prompt: Record current-limited 3.3 V bench operation, default receive, deliberate transmit, both termination states and scope captures on the selected cable.
+    rationale: There is no measured link rate, cable length, EMC, surge or hardware qualification.
+    evidence_refs: [REQUIREMENTS.md, DESIGN_BASIS.md]
+    safety_tags: [qualification]

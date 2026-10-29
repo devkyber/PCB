@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "source_project": "examples/rs485-interface",
+  "captured_utc": "2026-10-29T00:06:19.248908+00:00",
+  "source_inputs": {
+    "DESIGN_BASIS.md": "6d762bdfe883d9201a9beaccbe10a914b2684a17a62033d1e66682dfa627c112",
+    "DEVIATIONS.md": "de83ce0240c141c9f874b138c047f308cd314142cba4003341be4d49a840d0a7",
+    "evidence/files/CC0805KKX7R7BB105_CC0805KKX7R7BB105_41dec9fe44ff.pdf": "41dec9fe44ff5b7d4445fced2a851f40debd1e232fb9f1e07bf2ec3dfaf7e77a",
+    "evidence/files/CC0805KRX7R9BB104_CC0805KRX7R9BB104_91302bfe493a.pdf": "91302bfe493ab4f89071266b6fc1d01974391345b4047fe16655c39f9f39ae37",
+    "evidence/files/CRCW080510K0FKEA_dcrcwe3_3e595b731fa5.pdf": "3e595b731fa5916bcdce5b28cd76b5eb0b0b3cdd7da474c677173264748cdf5f",
+    "evidence/files/SNT-100-BK-G_snt_74433addf30d.pdf": "74433addf30d918ec852f41236aaa23a8de0fa647a638237e51dd64236590595",
+    "evidence/files/THVD1450DR_SLLU173_2081c71247a9.pdf": "2081c71247a960a0f4b8225459bc6b234cab979d0bac480bb6e884202d9f5488",
+    "evidence/files/THVD1450DR_thvd1450_58ecc4cc07dd.pdf": "58ecc4cc07dd1d3206c2e67ffa734ad21a6d3a9e3c8c307068e6385bd79ee897",
+    "evidence/files/TSW-106-07-G-S_tsw_th_3a5770b11668.pdf": "3a5770b11668f4e5a11ba9ceeb4817a23f467b8507e3592f55fb6bd8f96e71bc",
+    "evidence/index.yaml": "00a6ba98f025dd75da62c5c9e1017af049adff92b82caa24d6769c312216d706",
+    "fp-lib-table": "0188b35deac5698ca2c871e4a7a2d242c9c716d5de9fd69b456d2515c0e9bb1a",
+    "jlcpcb-assembly.yaml": null,
+    "layout-intent.yaml": null,
+    "libs/LICENSE-kicad-footprints.md": "285b027a721577d0bc0198f36e948c6c282ddaa4b58fef8ed826749576eb0aef",
+    "libs/LICENSE-kicad-packages3D.md": "285b027a721577d0bc0198f36e948c6c282ddaa4b58fef8ed826749576eb0aef",
+    "libs/LICENSE-kicad-symbols.md": "285b027a721577d0bc0198f36e948c6c282ddaa4b58fef8ed826749576eb0aef",
+    "libs/LICENSE_PROVENANCE.json": "8fb14cbd87bbb53c2e381fa614336026b1ef1a6b69d252e40b5de8dafa7f9c66",
+    "libs/models/C_0805_2012Metric.step": "9a669c1a2f1ea25b88b401acef6efeaa80a067bd7da9db6993de719a7fbe155c",
+    "libs/models/PinHeader_1x02_P2.54mm_Vertical.step": "ea4d0799007ebdd3945072bf255d673d2fe87eb05fda85fd8d7993ad9397da41",
+    "libs/models/PinHeader_1x03_P2.54mm_Vertical.step": "b91b4ac5acf1a0d28a676703db972d17b8f11ef26a85b58d60786a69246b921b",
+    "libs/models/PinHeader_1x06_P2.54mm_Vertical.step": "d6113af109a14a67c50dcefd1cfc7b43b59b59afa85d808b2319e2452da91318",
+    "libs/models/R_0805_2012Metric.step": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+    "libs/models/R_1206_3216Metric.step": "f5d1ea5c47935091292bd1c6c698e0df88d3d4bbf92bf66b4c97e49df5be9ebc",
+    "libs/models/SOIC-8_3.9x4.9mm_P1.27mm.step": "07f46cff378d30e6c27dfd5a03092c795323f86d91c71fc7e743f4f418dc553a",
+    "libs/PROVENANCE.json": "dd632e879d8415b7975b3c97a818c4731f1a7c24c665e26c2d0d501e85e43b8d",
+    "libs/README.md": "ddbd026bca630240dacbe5aef9d3d5fed0638658528e05cb3ff187e52776b701",
+    "libs/RS485.kicad_sym": "0d2faff987cb313f3dab786219f84b56313a69cc4e021afc3bcac524437973b2",
+    "libs/RS485.pretty/BUS_HTSW103.kicad_mod": "23b30471426dcaf8052b827ec7fd42ace5ea230f2d2a1b910bc3ff922e2f0dfd",
+    "libs/RS485.pretty/C0805_100nF.kicad_mod": "8a25bb3b8a5a3bfbcc8516026f52a0d81a738e99ec4fbc8fab13d411aa268d23",
+    "libs/RS485.pretty/C0805_1uF.kicad_mod": "8a25bb3b8a5a3bfbcc8516026f52a0d81a738e99ec4fbc8fab13d411aa268d23",
+    "libs/RS485.pretty/MountingHole_3.2mm_M3.kicad_mod": "3853c52bba27d3e3e3e18db44a20dfb296eb9e6cd16ebf26fe4a96a2ee8add3b",
+    "libs/RS485.pretty/R0805_10k.kicad_mod": "ec8e0afc145afbb836137c146b5bd65c99c1b4d9183e1e6295841c640746fe18",
+    "libs/RS485.pretty/R1206_120R.kicad_mod": "7a89b33d587d4003b993ebfa847f7f7a39dd0d27d384a21c925042bf40ebf129",
+    "libs/RS485.pretty/SOIC8_THVD1450DR.kicad_mod": "7e1a63659a9cbe0b088ad490611c5a8276d5f9626d6e5cb7d62e5642e51d017c",
+    "libs/RS485.pretty/TERM_HTSW102.kicad_mod": "237cf8088cdcca6025a9cfc493511c000fa3cdb04c4382a0115b3f90dccb26b9",
+    "libs/RS485.pretty/UART_HTSW106.kicad_mod": "89499e28bb17204bf22048112d5cc086753b07197389c7266bbb61f14afd4f27",
+    "libs/upstream/C_0805_2012Metric.kicad_mod": "e890bdf55fa18fc6df6878eb1b5251a991e1b93985509175eb269d3d002880b4",
+    "libs/upstream/models/C_0805_2012Metric.step": "9a669c1a2f1ea25b88b401acef6efeaa80a067bd7da9db6993de719a7fbe155c",
+    "libs/upstream/models/PinHeader_1x02_P2.54mm_Vertical.step": "ea4d0799007ebdd3945072bf255d673d2fe87eb05fda85fd8d7993ad9397da41",
+    "libs/upstream/models/PinHeader_1x03_P2.54mm_Vertical.step": "b91b4ac5acf1a0d28a676703db972d17b8f11ef26a85b58d60786a69246b921b",
+    "libs/upstream/models/PinHeader_1x06_P2.54mm_Vertical.step": "d6113af109a14a67c50dcefd1cfc7b43b59b59afa85d808b2319e2452da91318",
+    "libs/upstream/models/R_0805_2012Metric.step": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+    "libs/upstream/models/R_1206_3216Metric.step": "f5d1ea5c47935091292bd1c6c698e0df88d3d4bbf92bf66b4c97e49df5be9ebc",
+    "libs/upstream/models/SOIC-8_3.9x4.9mm_P1.27mm.step": "07f46cff378d30e6c27dfd5a03092c795323f86d91c71fc7e743f4f418dc553a",
+    "libs/upstream/MountingHole_3.2mm_M3.kicad_mod": "3853c52bba27d3e3e3e18db44a20dfb296eb9e6cd16ebf26fe4a96a2ee8add3b",
+    "libs/upstream/PinHeader_1x02_P2.54mm_Vertical.kicad_mod": "e5c0d699660a4479fa2414cc5be1835c6f52a38630dd85a2d18aab4dcd3ff8e5",
+    "libs/upstream/PinHeader_1x03_P2.54mm_Vertical.kicad_mod": "6a7dba97d6e733fd9d5f12d2d57f2cde29e8393e15b08d8b3e41bf2b430d83ed",
+    "libs/upstream/PinHeader_1x06_P2.54mm_Vertical.kicad_mod": "e3c3501f520fc1fc39eeb5d72137e680e509c0df2348ca77fef1b9db6ab974f0",
+    "libs/upstream/R_0805_2012Metric.kicad_mod": "949bbbe025b509557866ddd9fcb0403244571f3ceb4f954c9766ee622d18421c",
+    "libs/upstream/R_1206_3216Metric.kicad_mod": "f45a0f7c60b15463e1126a75a9ff484349ecd1861de62f1cbff41574e03b7643",
+    "libs/upstream/SOIC-8_3.9x4.9mm_P1.27mm.kicad_mod": "3c9b63198dd4dbf5e6c28c84702c29fad46a35103b821a19306c4ac888ad8e76",
+    "libs/upstream/symbols/Connector.kicad_sym": "1596718c70ff14cc217a9297dcb48bad23bdffcca0881600e9e66be16953bf59",
+    "libs/upstream/symbols/Connector_Generic.kicad_sym": "1ae3b346fe1c4e874fecb72abc7df4e94a253780db183439dbfefc4e2ff3a0be",
+    "libs/upstream/symbols/Device.kicad_sym": "e03831d421787531315439a4af4229e5d5d88ee51c7f36ba3f658ddf2978cda9",
+    "libs/upstream/symbols/Interface_UART.kicad_sym": "fb576f5f5f2592ed0fb3a8a7828a86273226a7a33d656fddbf62a494480ed57b",
+    "libs/upstream/symbols/Jumper.kicad_sym": "11e54f09b36f0cad5556b280a8b6cfd356fe01ca959d2cb64f017c06a16a5090",
+    "libs/upstream/symbols/Mechanical.kicad_sym": "7046e0cfb6bfc84cf614760762ff72547d6b2d9e2d0d94bb3f16b8f6bc18aade",
+    "netmap.json": "4690d5598b20b8ba2f2a7f263ea28c3a91148c0f0db2d759d617e3d0aa1d45ec",
+    "project.yaml": "2b07edbf83a39730fab46e9e7c6ee6f884a86b4b38b2e432d73d128ec9d1e56b",
+    "REFERENCE_REVIEW.md": "69fb8d2bf9946eeb231a44e6faac23b4e4aa2fc4ae4f6d788c2436806ec59dee",
+    "REQUIREMENTS.md": "989d177d55110ad8ee051de2e267e786b170c0adb5954327c737fcf354c8a7e8",
+    "review-profile.yaml": "91ff5ea422b00e352e3c0a332c3ef5b9407324e558a3a3b7d98eccb55e9e0305",
+    "review-signoff.yaml": null,
+    "rs485-interface.kicad_dru": "fd6ec6cfd46f091c61ee7fa09ab3e1c5e29cb9b187e5045bcf055666f0239643",
+    "rs485-interface.kicad_pcb": "b3acbb4d10d75123af839ffc7425bd275bf98dfadd77b154a3957ccbe8545e9a",
+    "rs485-interface.kicad_pro": "bf3396c14d810072fe2751e6c36b20fe90b93d688452a99cf61c6e0eff021b15",
+    "rs485-interface.kicad_sch": "636691f6c4392eda59336ff4a4376f41239df3e57dc97f3a0ca86818c679e569",
+    "schematic-intent.yaml": null,
+    "sym-lib-table": "116178969ef63db6b574689c35e92144375ad58fb5caf6444af620ccfab85ef0"
+  },
+  "source_cad_unchanged": true,
+  "kicad_version": "10.0.6",
+  "outputs": {
+    "accessories.csv": {
+      "sha256": "13fb0571b6a4e2d56a322f74dd8e39f163d35c703575b4d7419e255bb6c69283",
+      "bytes": 156
+    },
+    "assembly.png": {
+      "sha256": "e4a2e3b42964898eab23b94df18e7a28080178da5429bb3ade0c23e9c1f5e7d0",
+      "bytes": 111790
+    },
+    "assembly.svg": {
+      "sha256": "cc6f3f0cec0bdab42132725e5d8e9a4c5a80474c66db7c45a1879571bd7b9000",
+      "bytes": 115813
+    },
+    "back.png": {
+      "sha256": "4d1880e5d35d7aaa7024f14355d16211c5cfe25772ed1f7886db2a1705a6b739",
+      "bytes": 63769
+    },
+    "back.svg": {
+      "sha256": "c017ea874727a8f87dd95d38be539178fe17efcef3433b2169ad96057a1f4e5b",
+      "bytes": 40490
+    },
+    "board-3d.png": {
+      "sha256": "93c705c99f5c4c915aaea8c7d68922525ca156160a8a8de4f187837bd13b4f44",
+      "bytes": 701310
+    },
+    "bom.csv": {
+      "sha256": "28ce974da05a7eaa1bf2cfb26c7e048c3e2f5a2940e76e2d7e718547e026b4c9",
+      "bytes": 472
+    },
+    "commands.json": {
+      "sha256": "669ecfc26fbaeac5dafb9493964c5e1b0b7135ea5519eddeac49b3a2ec21c18a",
+      "bytes": 4296
+    },
+    "drc.json": {
+      "sha256": "c4a11af1139b76efb2d71455b733b98212033b311fc827051399a9fade38f44c",
+      "bytes": 1108
+    },
+    "erc.json": {
+      "sha256": "ec155980ebf05e493520f7b9d16aa2c579fb252211660001ea3ccc2e690e7d8a",
+      "bytes": 1024
+    },
+    "front.png": {
+      "sha256": "646fcf50302948221b05ef084afe0033c8f0f07a13fdb1b9b3df89b67e131214",
+      "bytes": 92315
+    },
+    "front.svg": {
+      "sha256": "6719b4a63ef14cff7ae81742e798cb10357b2a830a42a039c6b25447a798e8eb",
+      "bytes": 76458
+    },
+    "library-check.json": {
+      "sha256": "3b2d39eced20152dea9884b3ebe985a259d983846189e252b5b4613472bd2464",
+      "bytes": 313
+    },
+    "logs/assembly.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/assembly.stdout.txt": {
+      "sha256": "ff1f3ba978da22e5875b177ac182054fe53e20b23f684fd51c7ea66d840eaf1a",
+      "bytes": 91
+    },
+    "logs/back.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/back.stdout.txt": {
+      "sha256": "4bd0ed44fe53d5fb60f9be338cfa76d08ac1d84d6beb0dc40bc2bb5f4e5e4693",
+      "bytes": 87
+    },
+    "logs/board-3d.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/board-3d.stdout.txt": {
+      "sha256": "f9638835267b9bc8df4c0884eec12af8af492c255f473c8da0460d27c1d8d6b9",
+      "bytes": 1953
+    },
+    "logs/drc.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/drc.stdout.txt": {
+      "sha256": "2231b8022017fba89a0d2a7122e35d82b47f40167bd3a936d31e70cf33007375",
+      "bytes": 133
+    },
+    "logs/erc.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/erc.stdout.txt": {
+      "sha256": "77faae5c9b7e6dec24c8ae088fa422d641955cf78f96a876b75bb2a172a86baa",
+      "bytes": 106
+    },
+    "logs/front.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/front.stdout.txt": {
+      "sha256": "8c46313655a9e230307a744eb0d0d117e6b2af003d4e91470c014ecb610fea7f",
+      "bytes": 88
+    },
+    "logs/glb.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/glb.stdout.txt": {
+      "sha256": "1f64c56c06c87fcdcb922aa4e4561174a7d4f75f209120b170c1efe48a1255d3",
+      "bytes": 128
+    },
+    "logs/native-preview.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/native-preview.stdout.txt": {
+      "sha256": "ab5a333c1552332e09586332913aad6683c15052ce663428537734c95624bbf8",
+      "bytes": 8996
+    },
+    "logs/review.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/schematic.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/schematic.stdout.txt": {
+      "sha256": "a29867012ad3ca4d85281b7813c42215a7e89e3c702a30d0d736c093b4ea00ae",
+      "bytes": 92
+    },
+    "native-preview-proof.json": {
+      "sha256": "12c90fc2ddc88c7e4d31b162d9c3d2da338ca26516b0ba682ddc1e99c2ba7905",
+      "bytes": 16668
+    },
+    "parity.json": {
+      "sha256": "b3a48cb010d915639cbf96cace08dd559e3bd99d6d1a9136173b0083145f1703",
+      "bytes": 95
+    },
+    "placement-check.json": {
+      "sha256": "68edd8d5825d5d299c963dece914dbe931410400dfd893f179ea4e127b986505",
+      "bytes": 1851
+    },
+    "review.json": {
+      "sha256": "9dad74060948698b0b020c06039cdf45c4e637701e617983f2572c0e2d98ccc9",
+      "bytes": 9044
+    },
+    "rs485-interface.glb": {
+      "sha256": "38cfc7ca4e7e92860c43dee9170403e5ce4a7abec87f5bae2b865e421a17d0d6",
+      "bytes": 1696772
+    },
+    "schematic-circuit.png": {
+      "sha256": "48e40b65e7f24e88e519fab41b13c74b3688bb777c1c0174dd5502df64c5fec3",
+      "bytes": 162860
+    },
+    "schematic.pdf": {
+      "sha256": "1f1e4d5a70dc5d275f1fef645ebff038703ac8cb4ae4b9d116afe19bdc697f73",
+      "bytes": 152257
+    },
+    "schematic.png": {
+      "sha256": "2285e69f31847af06cff9c0371e961c5e3acef28ddb2fef702607c3022f408e0",
+      "bytes": 189985
+    }
+  },
+  "scope": "Fresh native KiCad exports and read-only software checks; unbuilt DRAFT, no owner signoff or fabrication release."
+}

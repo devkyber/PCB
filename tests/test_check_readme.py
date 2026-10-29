@@ -30,11 +30,26 @@ def landing(tmp_path, monkeypatch):
         'design:\n  schematic: board.kicad_sch\n  pcb: board.kicad_pcb\n  netmap: netmap.json\n'
         'evidence:\n  index: evidence/index.yaml\nmanufacturing:\n  profile: test\n', encoding='utf-8')
     current = {'board.kicad_sch': sha(b'current CAD\r\n'), 'review-signoff.yaml': None}
-    monkeypatch.setattr(checker, 'input_hashes', lambda _project: current.copy())
+    examples_current = {}
+    source_artifacts = {}
+    for project in checker.EXAMPLE_PROJECTS:
+        example = root / project
+        example.mkdir(parents=True, exist_ok=True)
+        (example / 'project.yaml').write_text((source / 'project.yaml').read_text(), encoding='utf-8')
+        examples_current[example] = {'board.kicad_sch': sha(f'{project} current CAD'.encode()),
+                                     'review-signoff.yaml': None}
+        for name in checker.EXAMPLE_ARTIFACTS:
+            artifact = example / name
+            artifact.parent.mkdir(parents=True, exist_ok=True)
+            payload = f'{project} native capture {name}'.encode()
+            artifact.write_bytes(payload)
+            source_artifacts[f'{project}/{name}'] = sha(payload)
+    monkeypatch.setattr(checker, 'input_hashes', lambda project:
+                        (current if project.root == source else examples_current[project.root]).copy())
     media = root / 'docs/media'
     manifests = {}
     for index, name in enumerate(checker.MEDIA_MANIFESTS):
-        output_name = f'capture-{index}.bin'
+        output_name = f'capture-{index}.png' if name == checker.EXAMPLES_MANIFEST else f'capture-{index}.bin'
         payload = f'published bytes {index}'.encode()
         (media / output_name).write_bytes(payload)
         manifest = {'schema_version': 1,
@@ -42,6 +57,11 @@ def landing(tmp_path, monkeypatch):
         if name in checker.CAD_MANIFESTS:
             manifest.update(source_project='examples/board', source_cad_unchanged=True,
                             source_inputs=current.copy())
+        if name == checker.EXAMPLES_MANIFEST:
+            manifest.update(source_cad_unchanged=True,
+                            source_projects={project: examples_current[root / project].copy()
+                                             for project in checker.EXAMPLE_PROJECTS},
+                            source_artifacts=source_artifacts.copy())
         manifests[name] = manifest
         (media / name).write_text(json.dumps(manifest), encoding='utf-8')
     evaluation = root / Path(checker.EVALUATION_MANIFESTS[0]).parent
@@ -59,9 +79,9 @@ def save(media: Path, name: str, manifest: dict) -> None:
     (media / name).write_text(json.dumps(manifest), encoding='utf-8')
 
 
-def test_exact_inputs_and_all_three_named_manifests_pass_without_git_or_native_tools(landing, capsys):
+def test_exact_inputs_and_all_named_manifests_pass_without_git_or_native_tools(landing, capsys):
     assert checker.main() == 0
-    assert '4 required evidence manifests' in capsys.readouterr().out
+    assert '5 required evidence manifests' in capsys.readouterr().out
 
 
 @pytest.mark.parametrize('name', checker.MEDIA_MANIFESTS)
@@ -295,3 +315,154 @@ def test_empty_raw_evaluation_stream_is_valid_when_exact_empty_bytes_are_recorde
     manifest['outputs']['logs/run.stdout.txt'] = {'sha256': sha(b''), 'bytes': 0}
     path.write_text(json.dumps(manifest))
     assert checker.main() == 0
+
+
+def test_gallery_is_required_but_is_not_a_single_project_cad_manifest():
+    assert checker.EXAMPLES_MANIFEST in checker.MEDIA_MANIFESTS
+    assert checker.CAD_MANIFESTS == {'manifest.json', 'example-manifest.json'}
+    assert checker.EXAMPLES_MANIFEST not in checker.CAD_MANIFESTS
+
+
+@pytest.mark.parametrize('fault', ['missing', 'extra', 'empty', 'not_mapping'])
+def test_gallery_requires_exactly_the_three_declared_source_projects(landing, fault, capsys):
+    _root, media, manifests, _current = landing
+    manifest = manifests[checker.EXAMPLES_MANIFEST]
+    projects = manifest['source_projects']
+    if fault == 'missing': del projects['examples/usb-c-power']
+    if fault == 'extra': projects['examples/other'] = next(iter(projects.values())).copy()
+    if fault == 'empty': manifest['source_projects'] = {}
+    if fault == 'not_mapping': manifest['source_projects'] = list(projects)
+    save(media, checker.EXAMPLES_MANIFEST, manifest)
+    assert checker.main() == 1
+    assert 'exactly the three gallery example projects' in capsys.readouterr().out
+
+
+@pytest.mark.parametrize('project', sorted(checker.EXAMPLE_PROJECTS))
+@pytest.mark.parametrize('value', [{}, None, [], {'board.kicad_sch': 'bad'}])
+def test_every_gallery_project_needs_a_valid_nonempty_input_map(landing, project, value):
+    _root, media, manifests, _current = landing
+    manifest = manifests[checker.EXAMPLES_MANIFEST]
+    manifest['source_projects'][project] = value
+    save(media, checker.EXAMPLES_MANIFEST, manifest)
+    assert checker.main() == 1
+
+
+@pytest.mark.parametrize('project', sorted(checker.EXAMPLE_PROJECTS))
+def test_gallery_rejects_a_stale_project_input_even_when_all_images_match(landing, project, capsys):
+    _root, media, manifests, _current = landing
+    manifest = manifests[checker.EXAMPLES_MANIFEST]
+    manifest['source_projects'][project]['board.kicad_sch'] = sha(b'previous circuit')
+    save(media, checker.EXAMPLES_MANIFEST, manifest)
+    assert checker.main() == 1
+    assert 'current project input hashes differ' in capsys.readouterr().out
+
+
+@pytest.mark.parametrize('value', [False, 1, 'true', None])
+def test_gallery_requires_literal_cad_preservation_true(landing, value, capsys):
+    _root, media, manifests, _current = landing
+    manifest = manifests[checker.EXAMPLES_MANIFEST]
+    manifest['source_cad_unchanged'] = value
+    save(media, checker.EXAMPLES_MANIFEST, manifest)
+    assert checker.main() == 1
+    assert 'source_cad_unchanged must be exactly true' in capsys.readouterr().out
+
+
+@pytest.mark.parametrize('project', sorted(checker.EXAMPLE_PROJECTS))
+@pytest.mark.parametrize('artifact', checker.EXAMPLE_ARTIFACTS)
+def test_gallery_must_bind_each_projects_five_native_artifacts(landing, project, artifact, capsys):
+    _root, media, manifests, _current = landing
+    manifest = manifests[checker.EXAMPLES_MANIFEST]
+    name = f'{project}/{artifact}'
+    del manifest['source_artifacts'][name]
+    save(media, checker.EXAMPLES_MANIFEST, manifest)
+    assert checker.main() == 1
+    assert name in capsys.readouterr().out
+
+
+@pytest.mark.parametrize('project', sorted(checker.EXAMPLE_PROJECTS))
+@pytest.mark.parametrize('artifact', checker.EXAMPLE_ARTIFACTS)
+def test_gallery_detects_tampered_source_captures_independently_of_gallery_bytes(landing, project, artifact, capsys):
+    root, _media, _manifests, _current = landing
+    path = root / project / artifact
+    path.write_bytes(path.read_bytes() + b'changed')
+    assert checker.main() == 1
+    assert f'source artifact hash mismatch {project}/{artifact}' in capsys.readouterr().out
+
+
+@pytest.mark.parametrize('value', [{}, None, []])
+def test_gallery_requires_a_nonempty_source_artifact_map(landing, value):
+    _root, media, manifests, _current = landing
+    manifest = manifests[checker.EXAMPLES_MANIFEST]
+    manifest['source_artifacts'] = value
+    save(media, checker.EXAMPLES_MANIFEST, manifest)
+    assert checker.main() == 1
+
+
+@pytest.mark.parametrize('value', ['bad', 'F' * 64, None, {'sha256': 'a' * 64}])
+def test_gallery_source_artifacts_require_plain_lowercase_sha256_values(landing, value):
+    _root, media, manifests, _current = landing
+    manifest = manifests[checker.EXAMPLES_MANIFEST]
+    name = 'examples/usb-c-power/output/SOURCE.json'
+    manifest['source_artifacts'][name] = value
+    save(media, checker.EXAMPLES_MANIFEST, manifest)
+    assert checker.main() == 1
+
+
+@pytest.mark.parametrize('name', ['README.md', 'examples/other/output/SOURCE.json',
+                                  '../outside', 'C:/outside',
+                                  'examples/usb-c-power/output/../../outside'])
+def test_gallery_source_artifacts_cannot_leave_the_three_project_roots(landing, name):
+    _root, media, manifests, _current = landing
+    manifest = manifests[checker.EXAMPLES_MANIFEST]
+    manifest['source_artifacts'][name] = sha(b'outside capture')
+    save(media, checker.EXAMPLES_MANIFEST, manifest)
+    assert checker.main() == 1
+
+
+def test_an_intact_existing_file_outside_the_gallery_projects_is_still_rejected(landing, capsys):
+    root, media, manifests, _current = landing
+    manifest = manifests[checker.EXAMPLES_MANIFEST]
+    manifest['source_artifacts']['README.md'] = sha((root / 'README.md').read_bytes())
+    save(media, checker.EXAMPLES_MANIFEST, manifest)
+    assert checker.main() == 1
+    assert 'source artifact must be inside a gallery example project: README.md' in capsys.readouterr().out
+
+
+@pytest.mark.parametrize('project', sorted(checker.EXAMPLE_PROJECTS))
+def test_gallery_rejects_a_missing_native_capture_file(landing, project, capsys):
+    root, _media, _manifests, _current = landing
+    name = f'{project}/output/SOURCE.json'
+    (root / name).unlink()
+    assert checker.main() == 1
+    assert f'missing source artifact {name}' in capsys.readouterr().out
+
+
+def test_gallery_source_artifact_alias_cannot_borrow_another_projects_capture(landing):
+    root, media, manifests, _current = landing
+    manifest = manifests[checker.EXAMPLES_MANIFEST]
+    name = 'examples/usb-c-power/output/erc.json'
+    source = root / name
+    alternate = root / 'examples/i2c-sensor/output/erc.json'
+    source.unlink()
+    try:
+        source.symlink_to(alternate)
+    except OSError:
+        pytest.skip('symlinks unavailable on this host')
+    manifest['source_artifacts'][name] = sha(alternate.read_bytes())
+    save(media, checker.EXAMPLES_MANIFEST, manifest)
+    assert checker.main() == 1
+
+
+@pytest.mark.parametrize('name', ['nested/gallery.png', 'gallery.pdf', 'gallery.bin'])
+def test_gallery_outputs_are_flat_png_gif_or_mp4_files(landing, name, capsys):
+    _root, media, manifests, _current = landing
+    manifest = manifests[checker.EXAMPLES_MANIFEST]
+    record = next(iter(manifest['outputs'].values()))
+    original = media / next(iter(manifest['outputs']))
+    destination = media / name
+    destination.parent.mkdir(exist_ok=True)
+    destination.write_bytes(original.read_bytes())
+    manifest['outputs'] = {name: record}
+    save(media, checker.EXAMPLES_MANIFEST, manifest)
+    assert checker.main() == 1
+    assert 'flat PNG/GIF/MP4' in capsys.readouterr().out

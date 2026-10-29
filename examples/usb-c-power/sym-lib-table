@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name "USBC")(type "KiCad")(uri "${KIPRJMOD}/libs/USBC.kicad_sym")(options "")(descr "Project-local official KiCad symbol copies"))
+)

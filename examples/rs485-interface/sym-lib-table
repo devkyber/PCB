@@ -1,0 +1,1 @@
+(sym_lib_table (lib (name "RS485") (type "KiCad") (uri "${KIPRJMOD}/libs/RS485.kicad_sym") (options "") (descr "Project-local resolved official KiCad symbols; see libs/README.md")))

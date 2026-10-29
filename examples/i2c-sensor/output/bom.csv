@@ -1,0 +1,7 @@
+References,Quantity,MPN,Value,Footprint,Population
+"J2,JP1,JP2,JP3",4,61300211121,A0 SHUNT; A1 SHUNT; A2 SHUNT; ALERT / GND,Sensor:Header2_61300211121,populated; no address shunts
+J1,1,61300411121,POWER / I2C,Sensor:Header4_61300411121,populated; no address shunts
+C1,1,C0805C104K5RACTU,100n,Sensor:C0805_100N,populated; no address shunts
+U1,1,MCP9808T-E/MS,MCP9808T-E/MS,Sensor:MSOP8_MCP9808,populated; no address shunts
+"R3,R4,R5,R6",4,RC0805FR-0710KL,10k,Sensor:R0805_10K,populated; no address shunts
+"R1,R2",2,RC0805FR-074K7L,4.7k,Sensor:R0805_4K7,populated; no address shunts

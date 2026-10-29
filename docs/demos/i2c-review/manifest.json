@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "purpose": "human-review-handover",
+  "project": "i2c-sensor",
+  "generated_utc": "2026-10-29T00:16:50.248899+00:00",
+  "source_inputs": {
+    "DESIGN_BASIS.md": "3d72746933ffb91877ac6d75a00df2ea71629a32a3e24d2a5b0c9a1f248eb68a",
+    "DEVIATIONS.md": "1747b6d9e69271fca2bad172c9da034189f7100db8b13e28668e7a1d7ff77045",
+    "evidence/files/c100n-c52d31e37c30.pdf": "c52d31e37c30868b2fb69e091d30a2d668848aa41a1bf99777fc1e036804c8d6",
+    "evidence/files/header2-a054dde42f94.pdf": "a054dde42f94b42e1f34117df97a37071aa9e57febcb8375058a3fb7dbae6dbe",
+    "evidence/files/header4-ce759fb8caee.pdf": "ce759fb8caee2fd0c3167f6925010f6703aa4f939ded51aae7ead334c38c0d7d",
+    "evidence/files/mcp9808-e7b6502f744c.pdf": "e7b6502f744c3e605a424d7b784a23baa471a41f8bc6d51f6321027b0c43972f",
+    "evidence/files/r10k-ba822223e72d.pdf": "ba822223e72ddc4b9f7466f4abbf031df91028e60975b18f0f6b2c7f4bb61981",
+    "evidence/files/r4k7-67601f653ef3.pdf": "67601f653ef38f5ef3df0c9108c811fdda84df41575c928da51c467ad94f9d56",
+    "evidence/files/reference-2504a86440fa.pdf": "2504a86440fa3a71036ca2ad3d84306f4fba5d255acba7c2c68f72e976418be9",
+    "evidence/index.yaml": "133f71490075231ce220656fde2e9f7da58b838c4a9bec1e4a91932da4a2f82a",
+    "fp-lib-table": "837d63cb825b70abc0b1c8e1380a9daa09ccdc2a6d9d74b66b82829b7e0b145d",
+    "i2c-sensor.kicad_dru": "fd6ec6cfd46f091c61ee7fa09ab3e1c5e29cb9b187e5045bcf055666f0239643",
+    "i2c-sensor.kicad_pcb": "fbed39097a557e25b114a9c3879b5c3ef3939cbfbb1339062074e7dbecbcc567",
+    "i2c-sensor.kicad_pro": "3cff9742f95c0a188c4d9a526356432d4f86e44d0b7067198551b93f86814b00",
+    "i2c-sensor.kicad_sch": "f9aee65fbd7d97c9a47abe5e21fdb97910441530096a44a5d31d96984620b3db",
+    "jlcpcb-assembly.yaml": null,
+    "layout-intent.yaml": null,
+    "libs/LICENSE-kicad-footprints.md": "285b027a721577d0bc0198f36e948c6c282ddaa4b58fef8ed826749576eb0aef",
+    "libs/LICENSE-kicad-packages3D.md": "285b027a721577d0bc0198f36e948c6c282ddaa4b58fef8ed826749576eb0aef",
+    "libs/LICENSE-kicad-symbols.md": "285b027a721577d0bc0198f36e948c6c282ddaa4b58fef8ed826749576eb0aef",
+    "libs/LICENSE_PROVENANCE.json": "8fb14cbd87bbb53c2e381fa614336026b1ef1a6b69d252e40b5de8dafa7f9c66",
+    "libs/models/C_0805_2012Metric.step": "9a669c1a2f1ea25b88b401acef6efeaa80a067bd7da9db6993de719a7fbe155c",
+    "libs/models/MSOP-8_3x3mm_P0.65mm.step": "847c4c5023fe1603fbd36900a5dcc4bd3901ba473f71d42c9a469f0236eaadf3",
+    "libs/models/PinHeader_1x02_P2.54mm_Vertical.step": "ea4d0799007ebdd3945072bf255d673d2fe87eb05fda85fd8d7993ad9397da41",
+    "libs/models/PinHeader_1x04_P2.54mm_Vertical.step": "a74079b8d06bda78847623b39ee1855ffd1d9a8c1e896b349e4f1dc2056d44d9",
+    "libs/models/R_0805_2012Metric.step": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+    "libs/PROVENANCE.json": "c37540b07afdc25530747c1f7bc6181e3eabb57ef0d21aa03251a835804f6c86",
+    "libs/Sensor.kicad_sym": "7fe457448354c1ec611190c3f9983e76af1863aa5cf241e9a56b47d86f39ea0a",
+    "libs/Sensor.pretty/C0805_100N.kicad_mod": "8a25bb3b8a5a3bfbcc8516026f52a0d81a738e99ec4fbc8fab13d411aa268d23",
+    "libs/Sensor.pretty/Header2_61300211121.kicad_mod": "237cf8088cdcca6025a9cfc493511c000fa3cdb04c4382a0115b3f90dccb26b9",
+    "libs/Sensor.pretty/Header4_61300411121.kicad_mod": "6ad921854896ca97d3881eea8f5c2513ffe4f8916fb80ee474de940f85ff079c",
+    "libs/Sensor.pretty/MountingHole_3.2mm_M3.kicad_mod": "3853c52bba27d3e3e3e18db44a20dfb296eb9e6cd16ebf26fe4a96a2ee8add3b",
+    "libs/Sensor.pretty/MSOP8_MCP9808.kicad_mod": "f30d62613dc360bc82051ba098d3de4cfa674cb4407c5a555825e8c613be168e",
+    "libs/Sensor.pretty/R0805_10K.kicad_mod": "ec8e0afc145afbb836137c146b5bd65c99c1b4d9183e1e6295841c640746fe18",
+    "libs/Sensor.pretty/R0805_4K7.kicad_mod": "ec8e0afc145afbb836137c146b5bd65c99c1b4d9183e1e6295841c640746fe18",
+    "libs/SYMBOL_PROVENANCE.json": "139cf61a89036017616ab5a9cdaf1226c1259d1069e5ea651152c0eed9713bd8",
+    "libs/upstream/C_0805_2012Metric.kicad_mod": "e890bdf55fa18fc6df6878eb1b5251a991e1b93985509175eb269d3d002880b4",
+    "libs/upstream/Connector.kicad_sym": "1596718c70ff14cc217a9297dcb48bad23bdffcca0881600e9e66be16953bf59",
+    "libs/upstream/Device.kicad_sym": "e03831d421787531315439a4af4229e5d5d88ee51c7f36ba3f658ddf2978cda9",
+    "libs/upstream/Mechanical.kicad_sym": "7046e0cfb6bfc84cf614760762ff72547d6b2d9e2d0d94bb3f16b8f6bc18aade",
+    "libs/upstream/models/C_0805_2012Metric.step": "9a669c1a2f1ea25b88b401acef6efeaa80a067bd7da9db6993de719a7fbe155c",
+    "libs/upstream/models/MSOP-8_3x3mm_P0.65mm.step": "847c4c5023fe1603fbd36900a5dcc4bd3901ba473f71d42c9a469f0236eaadf3",
+    "libs/upstream/models/PinHeader_1x02_P2.54mm_Vertical.step": "ea4d0799007ebdd3945072bf255d673d2fe87eb05fda85fd8d7993ad9397da41",
+    "libs/upstream/models/PinHeader_1x04_P2.54mm_Vertical.step": "a74079b8d06bda78847623b39ee1855ffd1d9a8c1e896b349e4f1dc2056d44d9",
+    "libs/upstream/models/R_0805_2012Metric.step": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+    "libs/upstream/MountingHole_3.2mm_M3.kicad_mod": "3853c52bba27d3e3e3e18db44a20dfb296eb9e6cd16ebf26fe4a96a2ee8add3b",
+    "libs/upstream/MSOP-8_3x3mm_P0.65mm.kicad_mod": "528a13b478896636a0e8f3a1b7e48371377728d226cd180ec3ddc20d81e66d41",
+    "libs/upstream/PinHeader_1x02_P2.54mm_Vertical.kicad_mod": "e5c0d699660a4479fa2414cc5be1835c6f52a38630dd85a2d18aab4dcd3ff8e5",
+    "libs/upstream/PinHeader_1x04_P2.54mm_Vertical.kicad_mod": "8952158347d7b7cc13924c62dccb0c48911af892bb009a0de27cb4d3c25cc1bb",
+    "libs/upstream/R_0805_2012Metric.kicad_mod": "949bbbe025b509557866ddd9fcb0403244571f3ceb4f954c9766ee622d18421c",
+    "libs/upstream/Sensor_Temperature.kicad_sym": "46f1cbd260f4494f0022664b68ba748bd33cd63f8ae2badc5849091214012d99",
+    "netmap.json": "cacf58e9bb450816bd5437744d748149602bd2aaee7d82fbbf36d5f67fa89966",
+    "project.yaml": "8dfde8597a8b71fb9e4e6bf0a7f1adbfcb06ad26dda3d10cc0278128829c41c6",
+    "REFERENCE_REVIEW.md": "7f89d71bb22392a1e19cc80d2c851263bf7b85e94dc04eb3c284a672cd79118f",
+    "REQUIREMENTS.md": "b34c075790bbef0dc96f8403d7e9b5cb9c00759d229fb4962746c29f3bde28c9",
+    "review-profile.yaml": "dd235c08990cb454a77d9609b0b89659fad21cb2682938aadebe829903cbae5d",
+    "review-signoff.yaml": null,
+    "schematic-intent.yaml": null,
+    "sym-lib-table": "2e04eff4c485d546ee36c8683dcf9dc66d31219b68eae543c86b171277803157"
+  },
+  "source_inputs_unchanged": true,
+  "review_blocking": true,
+  "outputs": {
+    "schematic.pdf": {
+      "sha256": "c649525f93b96585189e6dd07f6325e56cba40b706b5d97301dcc2cf724dba2d",
+      "bytes": 108225
+    },
+    "schematic-001.png": {
+      "sha256": "c8d5e88046cf63f3882104ab5f029fdd708d3db5b1b58155825d6ca0c3a14b18",
+      "bytes": 175454
+    },
+    "assembly.png": {
+      "sha256": "e393156302f1d1b3c4c10cf7c3a0aec48c66ab28cf396b0eca10a86d1aefff77",
+      "bytes": 189695
+    },
+    "top-copper.png": {
+      "sha256": "84ec7e8ca8e64ff9f40aa0d0151eddd91aa7f31e48903df294dbc8e27539cfc4",
+      "bytes": 166197
+    },
+    "bottom-copper.png": {
+      "sha256": "db95a0e13e1c932840fec04457328e0c94e5f9940f40e46f9161ad35ecf44b3e",
+      "bytes": 99509
+    },
+    "review.json": {
+      "sha256": "087a5cf6b8d3b337df7fc80bf46b0b4c104b007c646b4f0b6e4e93fe17fea7b3",
+      "bytes": 9141
+    },
+    "source.json": {
+      "sha256": "69412bdb0d7e834a70b53f2b270c875c0941c1e0de035f855d1d80bd0f66df96",
+      "bytes": 160615
+    },
+    "index.html": {
+      "sha256": "3a64508744a9abd482ea28a3870d7808863d478fcdd35b2ca9aa0ffd46942f26",
+      "bytes": 1181134
+    }
+  },
+  "scope": "Source-bound native views and scoped review findings for inspection. An offline snapshot, not an approval, a fabrication package, or proof of hardware behavior."
+}

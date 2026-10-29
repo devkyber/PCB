@@ -1,0 +1,236 @@
+{
+  "schematic_source": {
+    "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-u6yp3zi4\\workspace\\usb-c-power\\evidence\\files\\Adafruit-4090_Adafruit_USB_Type_C_Downstream_Breakout_rev_B_ec14aee06c7a.sch",
+    "sha256": "ec14aee06c7a24546fcc6f6b1687ae85a13cadff955a721f458b125b70954330"
+  },
+  "board_source": {
+    "path": "C:\\Users\\tae06\\AppData\\Local\\Temp\\pcb-usbc-final-u6yp3zi4\\workspace\\usb-c-power\\evidence\\files\\Adafruit-4090_Adafruit_USB_Type_C_Downstream_Breakout_rev_B_07970b0ad324.brd",
+    "sha256": "07970b0ad3243684bdf59c0ced537b8b9a8e8b67f7e9032b9464600da21b04e0"
+  },
+  "compared_pad_count": 24,
+  "mismatches": [],
+  "board": {
+    "elements": {
+      "FID1": {
+        "name": "FID1",
+        "library": "microbuilder",
+        "package": "FIDUCIAL_1MM",
+        "value": "FIDUCIAL_1MM",
+        "x": "12.7",
+        "y": "9.398",
+        "rot": "R180"
+      },
+      "FID2": {
+        "name": "FID2",
+        "library": "microbuilder",
+        "package": "FIDUCIAL_1MM",
+        "value": "FIDUCIAL_1MM",
+        "x": "7.62",
+        "y": "12.573",
+        "rot": "R180"
+      },
+      "U$1": {
+        "name": "U$1",
+        "library": "microbuilder",
+        "package": "MOUNTINGHOLE_2.5_PLATED",
+        "value": "MOUNTINGHOLE2.5",
+        "x": "17.78",
+        "y": "11.43",
+        "rot": "R180"
+      },
+      "U$2": {
+        "name": "U$2",
+        "library": "microbuilder",
+        "package": "MOUNTINGHOLE_2.5_PLATED",
+        "value": "MOUNTINGHOLE2.5",
+        "x": "2.54",
+        "y": "11.43",
+        "rot": "R180"
+      },
+      "X1": {
+        "name": "X1",
+        "library": "microbuilder",
+        "package": "USB_C_CUSB31-CFM2AX-01-X",
+        "value": "",
+        "x": "10.16",
+        "y": "13.97",
+        "rot": "R180"
+      },
+      "U$3": {
+        "name": "U$3",
+        "library": "microbuilder",
+        "package": "ADAFRUIT_2.5MM",
+        "value": "",
+        "x": "18.796",
+        "y": "9.144",
+        "rot": "R180"
+      },
+      "JP1": {
+        "name": "JP1",
+        "library": "microbuilder",
+        "package": "1X08_ROUND_76",
+        "value": "",
+        "x": "10.16",
+        "y": "2.54",
+        "rot": "R180"
+      },
+      "R1": {
+        "name": "R1",
+        "library": "microbuilder",
+        "package": "0603-NO",
+        "value": "5.1K",
+        "x": "2.032",
+        "y": "5.842"
+      },
+      "R2": {
+        "name": "R2",
+        "library": "microbuilder",
+        "package": "0603-NO",
+        "value": "5.1K",
+        "x": "2.032",
+        "y": "7.62"
+      },
+      "U$8": {
+        "name": "U$8",
+        "library": "microbuilder",
+        "package": "PCBFEAT-REV-040",
+        "value": "",
+        "x": "1.6256",
+        "y": "4.8768",
+        "rot": "MR180"
+      }
+    },
+    "copper_layers": [
+      1,
+      16
+    ],
+    "routed_wire_count": 84,
+    "via_count": 4,
+    "polygons": [],
+    "design_rules": {
+      "layerSetup": "(1*16)",
+      "mtCopper": "0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm",
+      "mtIsolate": "1.5mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm",
+      "mdWireWire": "8mil",
+      "mdWirePad": "8mil",
+      "mdWireVia": "8mil",
+      "mdPadPad": "8mil",
+      "mdPadVia": "8mil",
+      "mdViaVia": "8mil",
+      "mdSmdPad": "8mil",
+      "mdSmdVia": "8mil",
+      "mdSmdSmd": "8mil",
+      "mdViaViaSameLayer": "8mil",
+      "mnLayersViaInSmd": "2",
+      "mdCopperDimension": "10mil",
+      "mdDrill": "8mil",
+      "mdSmdStop": "0mil",
+      "msWidth": "8mil",
+      "msDrill": "15.5mil",
+      "msMicroVia": "9.99mm",
+      "msBlindViaRatio": "0.5",
+      "rvPadTop": "0.25",
+      "rvPadInner": "0.25",
+      "rvPadBottom": "0.25",
+      "rvViaOuter": "0.25",
+      "rvViaInner": "0.25",
+      "rvMicroViaOuter": "0.25",
+      "rvMicroViaInner": "0.25",
+      "rlMinPadTop": "10mil",
+      "rlMaxPadTop": "20mil",
+      "rlMinPadInner": "10mil",
+      "rlMaxPadInner": "20mil",
+      "rlMinPadBottom": "10mil",
+      "rlMaxPadBottom": "20mil",
+      "rlMinViaOuter": "8mil",
+      "rlMaxViaOuter": "20mil",
+      "rlMinViaInner": "8mil",
+      "rlMaxViaInner": "20mil",
+      "rlMinMicroViaOuter": "4mil",
+      "rlMaxMicroViaOuter": "20mil",
+      "rlMinMicroViaInner": "4mil",
+      "rlMaxMicroViaInner": "20mil",
+      "psTop": "-1",
+      "psBottom": "-1",
+      "psFirst": "-1",
+      "psElongationLong": "100",
+      "psElongationOffset": "100",
+      "mvStopFrame": "1",
+      "mvCreamFrame": "0",
+      "mlMinStopFrame": "2mil",
+      "mlMaxStopFrame": "2mil",
+      "mlMinCreamFrame": "0mil",
+      "mlMaxCreamFrame": "0mil",
+      "mlViaStopLimit": "20mil",
+      "srRoundness": "0",
+      "srMinRoundness": "0mil",
+      "srMaxRoundness": "0mil",
+      "slThermalIsolate": "10mil",
+      "slThermalsForVias": "0",
+      "dpMaxLengthDifference": "10mm",
+      "dpGapFactor": "2.5",
+      "checkAngle": "0",
+      "checkFont": "1",
+      "checkRestrict": "1",
+      "checkStop": "0",
+      "checkValues": "0",
+      "checkNames": "1",
+      "checkWireStubs": "1",
+      "checkPolygonWidth": "0",
+      "useDiameter": "13",
+      "maxErrors": "50"
+    }
+  },
+  "review_required": [
+    "Confirm exact device variant, source revision and license; filenames are not proof.",
+    "Inherited/default schematic values are not compared; only explicit part values are checked.",
+    "Compare supply, interfaces, passive values and protection with the device datasheet and our requirements.",
+    "Inspect actual copper views: decoupling, return paths, pours, routing, keepouts and mechanical constraints.",
+    "Pad membership is not routing completion, DRC, stackup validation, or electrical approval.",
+    "Record adopted choices and justified differences in DESIGN_BASIS.md before using this reference."
+  ],
+  "provenance": [
+    {
+      "id": "sha256:ec14aee06c7a24546fcc6f6b1687ae85a13cadff955a721f458b125b70954330",
+      "manufacturer": "Adafruit",
+      "part_numbers": [
+        "Adafruit-4090"
+      ],
+      "title": "Adafruit USB-C downstream breakout rev B Adafruit USB Type C Downstream Breakout rev B.sch; comparison reference, different connector",
+      "revision": "1484ecb56b369e177848e69de4b7b7e513399590",
+      "source_url": "https://raw.githubusercontent.com/adafruit/Adafruit-USB-C-Downstream-Breakout/1484ecb56b369e177848e69de4b7b7e513399590/Adafruit%20USB%20Type%20C%20Downstream%20Breakout%20rev%20B.sch",
+      "retrieved_on": "2026-10-29",
+      "path": "files/Adafruit-4090_Adafruit_USB_Type_C_Downstream_Breakout_rev_B_ec14aee06c7a.sch",
+      "sha256": "ec14aee06c7a24546fcc6f6b1687ae85a13cadff955a721f458b125b70954330",
+      "media_type": "application/vnd.eagle+xml",
+      "roles": [
+        "reference_design"
+      ],
+      "trust_tier": "proven_open_hardware",
+      "component_refs": [
+        "J1"
+      ]
+    },
+    {
+      "id": "sha256:07970b0ad3243684bdf59c0ced537b8b9a8e8b67f7e9032b9464600da21b04e0",
+      "manufacturer": "Adafruit",
+      "part_numbers": [
+        "Adafruit-4090"
+      ],
+      "title": "Adafruit USB-C downstream breakout rev B Adafruit USB Type C Downstream Breakout rev B.brd; comparison reference, different connector",
+      "revision": "1484ecb56b369e177848e69de4b7b7e513399590",
+      "source_url": "https://raw.githubusercontent.com/adafruit/Adafruit-USB-C-Downstream-Breakout/1484ecb56b369e177848e69de4b7b7e513399590/Adafruit%20USB%20Type%20C%20Downstream%20Breakout%20rev%20B.brd",
+      "retrieved_on": "2026-10-29",
+      "path": "files/Adafruit-4090_Adafruit_USB_Type_C_Downstream_Breakout_rev_B_07970b0ad324.brd",
+      "sha256": "07970b0ad3243684bdf59c0ced537b8b9a8e8b67f7e9032b9464600da21b04e0",
+      "media_type": "application/vnd.eagle+xml",
+      "roles": [
+        "reference_design"
+      ],
+      "trust_tier": "proven_open_hardware",
+      "component_refs": [
+        "J1"
+      ]
+    }
+  ]
+}

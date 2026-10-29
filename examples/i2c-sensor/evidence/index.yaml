@@ -1,0 +1,121 @@
+schema_version: 1
+records:
+- id: sha256:e7b6502f744c3e605a424d7b784a23baa471a41f8bc6d51f6321027b0c43972f
+  manufacturer: Microchip
+  part_numbers:
+  - MCP9808T-E/MS
+  title: MCP9808 maximum accuracy digital temperature sensor
+  revision: DS20005095B
+  source_url: https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/MCP9808-0.5C-Maximum-Accuracy-Digital-Temperature-Sensor-Data-Sheet-DS20005095B.pdf
+  retrieved_on: '2026-10-29'
+  path: files/mcp9808-e7b6502f744c.pdf
+  sha256: e7b6502f744c3e605a424d7b784a23baa471a41f8bc6d51f6321027b0c43972f
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - U1
+- id: sha256:2504a86440fa3a71036ca2ad3d84306f4fba5d255acba7c2c68f72e976418be9
+  manufacturer: Microchip
+  part_numbers:
+  - MCP9808T-E/MS
+  title: MCP2221 I2C Demonstration Board user guide
+  revision: DS50002480A, 2016
+  source_url: https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/UserGuides/50002480A.pdf
+  retrieved_on: '2026-10-29'
+  path: files/reference-2504a86440fa.pdf
+  sha256: 2504a86440fa3a71036ca2ad3d84306f4fba5d255acba7c2c68f72e976418be9
+  media_type: application/pdf
+  roles:
+  - reference_design
+  trust_tier: manufacturer_evm
+  component_refs:
+  - U1
+- id: sha256:67601f653ef38f5ef3df0c9108c811fdda84df41575c928da51c467ad94f9d56
+  manufacturer: Yageo
+  part_numbers:
+  - RC0805FR-074K7L
+  title: RC0805FR-074K7L exact part specification
+  revision: Generated 2026-10-28
+  source_url: https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-074K7L
+  retrieved_on: '2026-10-29'
+  path: files/r4k7-67601f653ef3.pdf
+  sha256: 67601f653ef38f5ef3df0c9108c811fdda84df41575c928da51c467ad94f9d56
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - R1
+  - R2
+- id: sha256:ba822223e72ddc4b9f7466f4abbf031df91028e60975b18f0f6b2c7f4bb61981
+  manufacturer: Yageo
+  part_numbers:
+  - RC0805FR-0710KL
+  title: RC0805FR-0710KL exact part specification
+  revision: Generated source date retained
+  source_url: https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL
+  retrieved_on: '2026-10-29'
+  path: files/r10k-ba822223e72d.pdf
+  sha256: ba822223e72ddc4b9f7466f4abbf031df91028e60975b18f0f6b2c7f4bb61981
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - R3
+  - R4
+  - R5
+  - R6
+- id: sha256:c52d31e37c30868b2fb69e091d30a2d668848aa41a1bf99777fc1e036804c8d6
+  manufacturer: KEMET
+  part_numbers:
+  - C0805C104K5RACTU
+  title: C0805C104K5RACTU exact part specification
+  revision: Generated source date retained
+  source_url: https://search.kemet.com/download/specsheet/C0805C104K5RACTU
+  retrieved_on: '2026-10-29'
+  path: files/c100n-c52d31e37c30.pdf
+  sha256: c52d31e37c30868b2fb69e091d30a2d668848aa41a1bf99777fc1e036804c8d6
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - C1
+- id: sha256:ce759fb8caee2fd0c3167f6925010f6703aa4f939ded51aae7ead334c38c0d7d
+  manufacturer: Wuerth Elektronik
+  part_numbers:
+  - '61300411121'
+  title: 61300411121 WR-PHD header drawing
+  revision: 003.000, 2023-01-08
+  source_url: https://www.we-online.com/components/products/datasheet/61300411121.pdf
+  retrieved_on: '2026-10-29'
+  path: files/header4-ce759fb8caee.pdf
+  sha256: ce759fb8caee2fd0c3167f6925010f6703aa4f939ded51aae7ead334c38c0d7d
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - J1
+- id: sha256:a054dde42f94b42e1f34117df97a37071aa9e57febcb8375058a3fb7dbae6dbe
+  manufacturer: Wuerth Elektronik
+  part_numbers:
+  - '61300211121'
+  title: 61300211121 WR-PHD header drawing
+  revision: 003.000, 2023-01-08
+  source_url: https://www.we-online.com/components/products/datasheet/61300211121.pdf
+  retrieved_on: '2026-10-29'
+  path: files/header2-a054dde42f94.pdf
+  sha256: a054dde42f94b42e1f34117df97a37071aa9e57febcb8375058a3fb7dbae6dbe
+  media_type: application/pdf
+  roles:
+  - datasheet
+  trust_tier: manufacturer
+  component_refs:
+  - J2
+  - JP1
+  - JP2
+  - JP3

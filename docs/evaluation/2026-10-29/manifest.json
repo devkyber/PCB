@@ -1,24 +1,40 @@
 {
   "schema_version": 1,
   "source_project": "examples/gpio-indicator",
-  "scope": "One recorded Windows software fault evaluation. Raw process output retained; no general accuracy, hardware qualification or fabrication approval claim. Disposable CAD/preview trees remain external.",
+  "scope": "One recorded Windows software fault evaluation. Five valid controls and eight expected rejections; exact raw process streams retained. No general accuracy, hardware qualification or fabrication approval claim. Disposable CAD/preview trees remain external.",
   "record": "evaluation.json",
-  "recorded_utc": "2026-10-28T18:38:25.705763+00:00",
-  "visual_generator_sha256": "5f9ca492ee815eee249e956ade8b50cb86f3e5ac71e8155c7de26d75e1cfd180",
+  "recorded_utc": "2026-10-29T00:22:30.593839+00:00",
+  "visual_generator_sha256": "7c92d471e8481ecd95e3a7d173bbff1964ae75afa66fc0e610810048e036e8ff",
   "outputs": {
     "evaluation.json": {
-      "sha256": "12fcc92009affeffc4fe56373e5f3f3981253303e7ba71503a8a409d358204a2",
-      "bytes": 174337
+      "sha256": "ac012f80637f79c75e3d8bf7732e70477f52d7c072ca129f27e267e4a70c0f35",
+      "bytes": 320722
     },
     "evaluation.png": {
-      "sha256": "cba13eea6b878613991691590cc5631aec1f250f9f24ca6acac86df74071cb93",
-      "bytes": 110146
+      "sha256": "c50426d70ed743e113d02fbd527c216ff528f68da03d3b35508849782973e990",
+      "bytes": 126136
     },
     "logs/changed-candidate.stderr.txt": {
-      "sha256": "56e7a33413863b60c84f18d4f40a6b530d39b43914c8a24ef91fe39b0c81de3a",
-      "bytes": 290
+      "sha256": "c28052378ec7d7e612d2009ebf4c37f6e7a362ba114f520da0dbd91170cd2934",
+      "bytes": 311
     },
     "logs/changed-candidate.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/changed-source-rules.stderr.txt": {
+      "sha256": "c28052378ec7d7e612d2009ebf4c37f6e7a362ba114f520da0dbd91170cd2934",
+      "bytes": 311
+    },
+    "logs/changed-source-rules.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/changed-source-schematic.stderr.txt": {
+      "sha256": "c28052378ec7d7e612d2009ebf4c37f6e7a362ba114f520da0dbd91170cd2934",
+      "bytes": 311
+    },
+    "logs/changed-source-schematic.stdout.txt": {
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "bytes": 0
     },
@@ -55,8 +71,8 @@
       "bytes": 151
     },
     "logs/missing-preview.stderr.txt": {
-      "sha256": "56e7a33413863b60c84f18d4f40a6b530d39b43914c8a24ef91fe39b0c81de3a",
-      "bytes": 290
+      "sha256": "c28052378ec7d7e612d2009ebf4c37f6e7a362ba114f520da0dbd91170cd2934",
+      "bytes": 311
     },
     "logs/missing-preview.stdout.txt": {
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -75,8 +91,24 @@
       "bytes": 0
     },
     "logs/native-preview-control.stdout.txt": {
-      "sha256": "151c99bfdaecaf3a5b2a30ea9def1ecb110d204c3bcbf3e983785a7d92ced977",
-      "bytes": 6000
+      "sha256": "0ca9fd5f058177be1b2c136bbcd6b61a4d64689d498ae66b2789d3417d9897aa",
+      "bytes": 6019
+    },
+    "logs/native-rules-preview-control.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/native-rules-preview-control.stdout.txt": {
+      "sha256": "e5296877718f992e644b25767882096877b889b0356c3902bb39a9d4e23200e7",
+      "bytes": 6052
+    },
+    "logs/native-source-preview-control.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "logs/native-source-preview-control.stdout.txt": {
+      "sha256": "f646f20f3e07f168b2301bddf0f2ea30d50039f106eff50041df0d76f3d6329a",
+      "bytes": 6061
     },
     "logs/selected-mpn.stderr.txt": {
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -87,8 +119,8 @@
       "bytes": 138
     },
     "report.md": {
-      "sha256": "e5057f05d887f635abe8cfab52e4614e916cc4826bab6ba3184df74666981170",
-      "bytes": 2417
+      "sha256": "4a1be1fbc5e19379be61ca62c786ae8d39222b93ee8bc497714524d915364579",
+      "bytes": 3282
     }
   }
 }

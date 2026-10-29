@@ -16,7 +16,7 @@ docs/evaluation/** -text whitespace=cr-at-eol
 
 # The self-contained example carries byte-bound CAD/library/source receipts.
 examples/gpio-indicator/** -text
-examples/** -text
+examples/** -text whitespace=cr-at-eol
 docs/demos/** -text whitespace=cr-at-eol
 # These captured Rover inputs are already LF in Git. Keep their checkout bytes
 # stable on Windows without rewriting existing CAD or archived source content.

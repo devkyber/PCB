@@ -1,0 +1,273 @@
+{
+  "schema_version": 1,
+  "distribution": "Installed official KiCad 10.0.6 libraries",
+  "upstream_version": "KiCad 10.0.6 installed distribution; source URLs identify upstream family, not a remote byte attestation",
+  "author_review": "Codex, 2026-10-29; source/pad map comparison only; no human signoff",
+  "source": "https://gitlab.com/kicad/libraries",
+  "records": [
+    {
+      "symbol": "Sensor:MCP9808_MSOP",
+      "source_symbol": "Sensor_Temperature:MCP9808_MSOP",
+      "source_symbol_library_sha256": "46f1cbd260f4494f0022664b68ba748bd33cd63f8ae2badc5849091214012d99",
+      "footprint": "Sensor:MSOP8_MCP9808",
+      "source_footprint": "Package_SO:MSOP-8_3x3mm_P0.65mm",
+      "upstream_path": "libs/upstream/MSOP-8_3x3mm_P0.65mm.kicad_mod",
+      "upstream_sha256": "528a13b478896636a0e8f3a1b7e48371377728d226cd180ec3ddc20d81e66d41",
+      "upstream_url": "https://gitlab.com/kicad/libraries/kicad-footprints/-/blob/master/Package_SO.pretty/MSOP-8_3x3mm_P0.65mm.kicad_mod",
+      "local_path": "libs/Sensor.pretty/MSOP8_MCP9808.kicad_mod",
+      "local_sha256": "f30d62613dc360bc82051ba098d3de4cfa674cb4407c5a555825e8c613be168e",
+      "changes": [
+        "Only model URI rewritten to project-local exact model bytes"
+      ],
+      "mpn": "MCP9808T-E/MS",
+      "pad_functions": {
+        "1": "SDA bidirectional open drain",
+        "2": "SCL clock input",
+        "3": "ALERT open-drain output",
+        "4": "GND",
+        "5": "A2 address bit",
+        "6": "A1 address bit",
+        "7": "A0 address bit",
+        "8": "VDD"
+      },
+      "models": [
+        {
+          "source": "C:\\Program Files\\KiCad\\10.0\\share\\kicad\\3dmodels\\Package_SO.3dshapes\\MSOP-8_3x3mm_P0.65mm.step",
+          "path": "libs/models/MSOP-8_3x3mm_P0.65mm.step",
+          "sha256": "847c4c5023fe1603fbd36900a5dcc4bd3901ba473f71d42c9a469f0236eaadf3",
+          "upstream_path": "libs/upstream/models/MSOP-8_3x3mm_P0.65mm.step",
+          "upstream_sha256": "847c4c5023fe1603fbd36900a5dcc4bd3901ba473f71d42c9a469f0236eaadf3",
+          "upstream_uri": "${KICAD10_3DMODEL_DIR}/Package_SO.3dshapes/MSOP-8_3x3mm_P0.65mm.step",
+          "local_uri": "${KIPRJMOD}/libs/models/MSOP-8_3x3mm_P0.65mm.step"
+        }
+      ],
+      "manufacturer_evidence_ids": [
+        "sha256:e7b6502f744c3e605a424d7b784a23baa471a41f8bc6d51f6321027b0c43972f"
+      ],
+      "manufacturer_locations": [
+        "DS20005095B Table 3-1 pins; p40-42 MSOP package and land-pattern drawing"
+      ],
+      "physical_fit_qualified": false,
+      "fabricated_only": false
+    },
+    {
+      "symbol": "Sensor:R",
+      "source_symbol": "Device:R",
+      "source_symbol_library_sha256": "e03831d421787531315439a4af4229e5d5d88ee51c7f36ba3f658ddf2978cda9",
+      "footprint": "Sensor:R0805_4K7",
+      "source_footprint": "Resistor_SMD:R_0805_2012Metric",
+      "upstream_path": "libs/upstream/R_0805_2012Metric.kicad_mod",
+      "upstream_sha256": "949bbbe025b509557866ddd9fcb0403244571f3ceb4f954c9766ee622d18421c",
+      "upstream_url": "https://gitlab.com/kicad/libraries/kicad-footprints/-/blob/master/Resistor_SMD.pretty/R_0805_2012Metric.kicad_mod",
+      "local_path": "libs/Sensor.pretty/R0805_4K7.kicad_mod",
+      "local_sha256": "ec8e0afc145afbb836137c146b5bd65c99c1b4d9183e1e6295841c640746fe18",
+      "changes": [
+        "Only model URI rewritten to project-local exact model bytes"
+      ],
+      "mpn": "RC0805FR-074K7L",
+      "pad_functions": {
+        "1": "nonpolar resistor terminal",
+        "2": "nonpolar resistor terminal"
+      },
+      "models": [
+        {
+          "source": "C:\\Program Files\\KiCad\\10.0\\share\\kicad\\3dmodels\\Resistor_SMD.3dshapes\\R_0805_2012Metric.step",
+          "path": "libs/models/R_0805_2012Metric.step",
+          "sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+          "upstream_path": "libs/upstream/models/R_0805_2012Metric.step",
+          "upstream_sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+          "upstream_uri": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step",
+          "local_uri": "${KIPRJMOD}/libs/models/R_0805_2012Metric.step"
+        }
+      ],
+      "manufacturer_evidence_ids": [
+        "sha256:67601f653ef38f5ef3df0c9108c811fdda84df41575c928da51c467ad94f9d56"
+      ],
+      "manufacturer_locations": [
+        "Exact part specification p1 dimensions 2.0 x 1.25 mm"
+      ],
+      "physical_fit_qualified": false,
+      "fabricated_only": false
+    },
+    {
+      "symbol": "Sensor:R",
+      "source_symbol": "Device:R",
+      "source_symbol_library_sha256": "e03831d421787531315439a4af4229e5d5d88ee51c7f36ba3f658ddf2978cda9",
+      "footprint": "Sensor:R0805_10K",
+      "source_footprint": "Resistor_SMD:R_0805_2012Metric",
+      "upstream_path": "libs/upstream/R_0805_2012Metric.kicad_mod",
+      "upstream_sha256": "949bbbe025b509557866ddd9fcb0403244571f3ceb4f954c9766ee622d18421c",
+      "upstream_url": "https://gitlab.com/kicad/libraries/kicad-footprints/-/blob/master/Resistor_SMD.pretty/R_0805_2012Metric.kicad_mod",
+      "local_path": "libs/Sensor.pretty/R0805_10K.kicad_mod",
+      "local_sha256": "ec8e0afc145afbb836137c146b5bd65c99c1b4d9183e1e6295841c640746fe18",
+      "changes": [
+        "Only model URI rewritten to project-local exact model bytes"
+      ],
+      "mpn": "RC0805FR-0710KL",
+      "pad_functions": {
+        "1": "nonpolar resistor terminal",
+        "2": "nonpolar resistor terminal"
+      },
+      "models": [
+        {
+          "source": "C:\\Program Files\\KiCad\\10.0\\share\\kicad\\3dmodels\\Resistor_SMD.3dshapes\\R_0805_2012Metric.step",
+          "path": "libs/models/R_0805_2012Metric.step",
+          "sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+          "upstream_path": "libs/upstream/models/R_0805_2012Metric.step",
+          "upstream_sha256": "ded342cdb394fb45395227beaaa75cc390613cf2581b29cd6d22c12abd6103b2",
+          "upstream_uri": "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step",
+          "local_uri": "${KIPRJMOD}/libs/models/R_0805_2012Metric.step"
+        }
+      ],
+      "manufacturer_evidence_ids": [
+        "sha256:ba822223e72ddc4b9f7466f4abbf031df91028e60975b18f0f6b2c7f4bb61981"
+      ],
+      "manufacturer_locations": [
+        "Exact part specification p1 dimensions 2.0 x 1.25 mm"
+      ],
+      "physical_fit_qualified": false,
+      "fabricated_only": false
+    },
+    {
+      "symbol": "Sensor:C",
+      "source_symbol": "Device:C",
+      "source_symbol_library_sha256": "e03831d421787531315439a4af4229e5d5d88ee51c7f36ba3f658ddf2978cda9",
+      "footprint": "Sensor:C0805_100N",
+      "source_footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "upstream_path": "libs/upstream/C_0805_2012Metric.kicad_mod",
+      "upstream_sha256": "e890bdf55fa18fc6df6878eb1b5251a991e1b93985509175eb269d3d002880b4",
+      "upstream_url": "https://gitlab.com/kicad/libraries/kicad-footprints/-/blob/master/Capacitor_SMD.pretty/C_0805_2012Metric.kicad_mod",
+      "local_path": "libs/Sensor.pretty/C0805_100N.kicad_mod",
+      "local_sha256": "8a25bb3b8a5a3bfbcc8516026f52a0d81a738e99ec4fbc8fab13d411aa268d23",
+      "changes": [
+        "Only model URI rewritten to project-local exact model bytes"
+      ],
+      "mpn": "C0805C104K5RACTU",
+      "pad_functions": {
+        "1": "nonpolar ceramic capacitor terminal",
+        "2": "nonpolar ceramic capacitor terminal"
+      },
+      "models": [
+        {
+          "source": "C:\\Program Files\\KiCad\\10.0\\share\\kicad\\3dmodels\\Capacitor_SMD.3dshapes\\C_0805_2012Metric.step",
+          "path": "libs/models/C_0805_2012Metric.step",
+          "sha256": "9a669c1a2f1ea25b88b401acef6efeaa80a067bd7da9db6993de719a7fbe155c",
+          "upstream_path": "libs/upstream/models/C_0805_2012Metric.step",
+          "upstream_sha256": "9a669c1a2f1ea25b88b401acef6efeaa80a067bd7da9db6993de719a7fbe155c",
+          "upstream_uri": "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0805_2012Metric.step",
+          "local_uri": "${KIPRJMOD}/libs/models/C_0805_2012Metric.step"
+        }
+      ],
+      "manufacturer_evidence_ids": [
+        "sha256:c52d31e37c30868b2fb69e091d30a2d668848aa41a1bf99777fc1e036804c8d6"
+      ],
+      "manufacturer_locations": [
+        "Exact part specification p1 dimensions 2.0 x 1.25 mm"
+      ],
+      "physical_fit_qualified": false,
+      "fabricated_only": false
+    },
+    {
+      "symbol": "Sensor:Conn_01x04_Pin",
+      "source_symbol": "Connector:Conn_01x04_Pin",
+      "source_symbol_library_sha256": "1596718c70ff14cc217a9297dcb48bad23bdffcca0881600e9e66be16953bf59",
+      "footprint": "Sensor:Header4_61300411121",
+      "source_footprint": "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical",
+      "upstream_path": "libs/upstream/PinHeader_1x04_P2.54mm_Vertical.kicad_mod",
+      "upstream_sha256": "8952158347d7b7cc13924c62dccb0c48911af892bb009a0de27cb4d3c25cc1bb",
+      "upstream_url": "https://gitlab.com/kicad/libraries/kicad-footprints/-/blob/master/Connector_PinHeader_2.54mm.pretty/PinHeader_1x04_P2.54mm_Vertical.kicad_mod",
+      "local_path": "libs/Sensor.pretty/Header4_61300411121.kicad_mod",
+      "local_sha256": "6ad921854896ca97d3881eea8f5c2513ffe4f8916fb80ee474de940f85ff079c",
+      "changes": [
+        "Only model URI rewritten to project-local exact model bytes"
+      ],
+      "mpn": "61300411121",
+      "pad_functions": {
+        "1": "numbered connector contact 1; net per native schematic",
+        "2": "numbered connector contact 2; net per native schematic",
+        "3": "numbered connector contact 3; net per native schematic",
+        "4": "numbered connector contact 4; net per native schematic"
+      },
+      "models": [
+        {
+          "source": "C:\\Program Files\\KiCad\\10.0\\share\\kicad\\3dmodels\\Connector_PinHeader_2.54mm.3dshapes\\PinHeader_1x04_P2.54mm_Vertical.step",
+          "path": "libs/models/PinHeader_1x04_P2.54mm_Vertical.step",
+          "sha256": "a74079b8d06bda78847623b39ee1855ffd1d9a8c1e896b349e4f1dc2056d44d9",
+          "upstream_path": "libs/upstream/models/PinHeader_1x04_P2.54mm_Vertical.step",
+          "upstream_sha256": "a74079b8d06bda78847623b39ee1855ffd1d9a8c1e896b349e4f1dc2056d44d9",
+          "upstream_uri": "${KICAD10_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x04_P2.54mm_Vertical.step",
+          "local_uri": "${KIPRJMOD}/libs/models/PinHeader_1x04_P2.54mm_Vertical.step"
+        }
+      ],
+      "manufacturer_evidence_ids": [
+        "sha256:ce759fb8caee2fd0c3167f6925010f6703aa4f939ded51aae7ead334c38c0d7d"
+      ],
+      "manufacturer_locations": [
+        "61300411121 p1 dimensional/pin/pitch/PCB hole drawing"
+      ],
+      "physical_fit_qualified": false,
+      "fabricated_only": false
+    },
+    {
+      "symbol": "Sensor:Conn_01x02_Pin",
+      "source_symbol": "Connector:Conn_01x02_Pin",
+      "source_symbol_library_sha256": "1596718c70ff14cc217a9297dcb48bad23bdffcca0881600e9e66be16953bf59",
+      "footprint": "Sensor:Header2_61300211121",
+      "source_footprint": "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
+      "upstream_path": "libs/upstream/PinHeader_1x02_P2.54mm_Vertical.kicad_mod",
+      "upstream_sha256": "e5c0d699660a4479fa2414cc5be1835c6f52a38630dd85a2d18aab4dcd3ff8e5",
+      "upstream_url": "https://gitlab.com/kicad/libraries/kicad-footprints/-/blob/master/Connector_PinHeader_2.54mm.pretty/PinHeader_1x02_P2.54mm_Vertical.kicad_mod",
+      "local_path": "libs/Sensor.pretty/Header2_61300211121.kicad_mod",
+      "local_sha256": "237cf8088cdcca6025a9cfc493511c000fa3cdb04c4382a0115b3f90dccb26b9",
+      "changes": [
+        "Only model URI rewritten to project-local exact model bytes"
+      ],
+      "mpn": "61300211121",
+      "pad_functions": {
+        "1": "numbered connector contact 1; net per native schematic",
+        "2": "numbered connector contact 2; net per native schematic"
+      },
+      "models": [
+        {
+          "source": "C:\\Program Files\\KiCad\\10.0\\share\\kicad\\3dmodels\\Connector_PinHeader_2.54mm.3dshapes\\PinHeader_1x02_P2.54mm_Vertical.step",
+          "path": "libs/models/PinHeader_1x02_P2.54mm_Vertical.step",
+          "sha256": "ea4d0799007ebdd3945072bf255d673d2fe87eb05fda85fd8d7993ad9397da41",
+          "upstream_path": "libs/upstream/models/PinHeader_1x02_P2.54mm_Vertical.step",
+          "upstream_sha256": "ea4d0799007ebdd3945072bf255d673d2fe87eb05fda85fd8d7993ad9397da41",
+          "upstream_uri": "${KICAD10_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x02_P2.54mm_Vertical.step",
+          "local_uri": "${KIPRJMOD}/libs/models/PinHeader_1x02_P2.54mm_Vertical.step"
+        }
+      ],
+      "manufacturer_evidence_ids": [
+        "sha256:a054dde42f94b42e1f34117df97a37071aa9e57febcb8375058a3fb7dbae6dbe"
+      ],
+      "manufacturer_locations": [
+        "61300211121 p1 dimensional/pin/pitch/PCB hole drawing"
+      ],
+      "physical_fit_qualified": false,
+      "fabricated_only": false
+    },
+    {
+      "symbol": "Sensor:MountingHole",
+      "source_symbol": "Mechanical:MountingHole",
+      "source_symbol_library_sha256": "7046e0cfb6bfc84cf614760762ff72547d6b2d9e2d0d94bb3f16b8f6bc18aade",
+      "footprint": "Sensor:MountingHole_3.2mm_M3",
+      "source_footprint": "MountingHole:MountingHole_3.2mm_M3",
+      "upstream_path": "libs/upstream/MountingHole_3.2mm_M3.kicad_mod",
+      "upstream_sha256": "3853c52bba27d3e3e3e18db44a20dfb296eb9e6cd16ebf26fe4a96a2ee8add3b",
+      "upstream_url": "https://gitlab.com/kicad/libraries/kicad-footprints/-/blob/master/MountingHole.pretty/MountingHole_3.2mm_M3.kicad_mod",
+      "local_path": "libs/Sensor.pretty/MountingHole_3.2mm_M3.kicad_mod",
+      "local_sha256": "3853c52bba27d3e3e3e18db44a20dfb296eb9e6cd16ebf26fe4a96a2ee8add3b",
+      "changes": [],
+      "mpn": "",
+      "pad_functions": {},
+      "models": [],
+      "manufacturer_evidence_ids": [],
+      "manufacturer_locations": [
+        "Fabricated nonplated mounting feature only; no purchased part"
+      ],
+      "physical_fit_qualified": false,
+      "fabricated_only": true
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+schema_version: 1
+items:
+  - id: usb-source-budget
+    prompt: Verify actual USB source advertisement, cable, permitted load budget and startup/inrush behavior.
+    rationale: Passive Rd attachment does not negotiate PD or establish 500 mA permission from every port.
+    evidence_refs: [REQUIREMENTS.md, DESIGN_BASIS.md]
+    safety_tags: [electrical, usb]
+  - id: connector-manufacturing
+    prompt: Resolve the eight J1 native DRC findings against the exact connector lands and selected fabricator before fabrication.
+    rationale: The unchanged official footprint has 0.1944 mm NPTH spacing and 0.20 mm shell rings; no waived acceptance is supplied.
+    evidence_refs: [DESIGN_BASIS.md, DEVIATIONS.md, libs/PROVENANCE.json]
+    safety_tags: [manufacturing, mechanical]
+  - id: protection-coordination
+    prompt: Qualify PPTC derating and fault behavior, TVS pulse/sustained-fault limits and downstream voltage tolerance on the actual source/load.
+    rationale: The 0.75 A hold PPTC is not a 500 mA limiter and 10.3 V TVS clamp is not 5 V overvoltage protection.
+    evidence_refs: [DESIGN_BASIS.md, evidence/index.yaml]
+    safety_tags: [electrical, thermal]
+  - id: physical-assembly
+    prompt: Check exact parts, connector/header orientation, LED/TVS polarity, Bourns land fit, reflow process and mounting clearance.
+    rationale: Library lineage and generic package models do not qualify physical assembly; F1 has no body model.
+    evidence_refs: [libs/PROVENANCE.json, libs/footprint-provenance.yaml]
+    safety_tags: [assembly, mechanical]

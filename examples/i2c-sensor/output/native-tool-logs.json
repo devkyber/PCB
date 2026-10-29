@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "commands": [
+    {
+      "command": [
+        "C:/Program Files/KiCad/10.0/bin/kicad-cli.exe",
+        "sch",
+        "export",
+        "pdf",
+        "-o",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\i2c-sensor\\output\\schematic.pdf",
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\i2c-final-2mowkudu\\i2c-sensor\\i2c-sensor.kicad_sch"
+      ],
+      "returncode": 0,
+      "stdout": "Plotted to 'C:\\Users\\tae06\\CODE\\PCB\\examples\\i2c-sensor\\output\\schematic.pdf'.\nDone.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:/Program Files/KiCad/10.0/bin/kicad-cli.exe",
+        "sch",
+        "erc",
+        "--format",
+        "json",
+        "--severity-all",
+        "--exit-code-violations",
+        "-o",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\i2c-sensor\\output\\erc.json",
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\i2c-final-2mowkudu\\i2c-sensor\\i2c-sensor.kicad_sch"
+      ],
+      "returncode": 0,
+      "stdout": "Found 0 violations\nSaved ERC Report to C:/Users/tae06/CODE/PCB/examples/i2c-sensor/output/erc.json\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:/Program Files/KiCad/10.0/bin/kicad-cli.exe",
+        "pcb",
+        "drc",
+        "--format",
+        "json",
+        "--severity-all",
+        "--exit-code-violations",
+        "--refill-zones",
+        "-o",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\i2c-sensor\\output\\drc.json",
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\i2c-final-2mowkudu\\i2c-sensor\\i2c-sensor.kicad_pcb"
+      ],
+      "returncode": 0,
+      "stdout": "Found 0 violations\nFound 0 unconnected items\nSaved DRC Report to C:/Users/tae06/CODE/PCB/examples/i2c-sensor/output/drc.json\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:/Program Files/KiCad/10.0/bin/kicad-cli.exe",
+        "pcb",
+        "export",
+        "svg",
+        "--layers",
+        "F.Cu,F.Silkscreen,Edge.Cuts",
+        "--mode-single",
+        "--page-size-mode",
+        "2",
+        "--exclude-drawing-sheet",
+        "--output",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\i2c-sensor\\output\\board-front.svg",
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\i2c-final-2mowkudu\\i2c-sensor\\i2c-sensor.kicad_pcb"
+      ],
+      "returncode": 0,
+      "stdout": "Plotted to 'C:\\Users\\tae06\\CODE\\PCB\\examples\\i2c-sensor\\output\\board-front.svg'.\nDone.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:/Program Files/KiCad/10.0/bin/kicad-cli.exe",
+        "pcb",
+        "export",
+        "svg",
+        "--layers",
+        "B.Cu,B.Silkscreen,Edge.Cuts",
+        "--mode-single",
+        "--page-size-mode",
+        "2",
+        "--exclude-drawing-sheet",
+        "--output",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\i2c-sensor\\output\\board-back.svg",
+        "--mirror",
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\i2c-final-2mowkudu\\i2c-sensor\\i2c-sensor.kicad_pcb"
+      ],
+      "returncode": 0,
+      "stdout": "Plotted to 'C:\\Users\\tae06\\CODE\\PCB\\examples\\i2c-sensor\\output\\board-back.svg'.\nDone.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:/Program Files/KiCad/10.0/bin/kicad-cli.exe",
+        "pcb",
+        "export",
+        "svg",
+        "--layers",
+        "F.Fab,F.Silkscreen,Edge.Cuts",
+        "--mode-single",
+        "--page-size-mode",
+        "2",
+        "--exclude-drawing-sheet",
+        "--output",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\i2c-sensor\\output\\assembly.svg",
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\i2c-final-2mowkudu\\i2c-sensor\\i2c-sensor.kicad_pcb"
+      ],
+      "returncode": 0,
+      "stdout": "Plotted to 'C:\\Users\\tae06\\CODE\\PCB\\examples\\i2c-sensor\\output\\assembly.svg'.\nDone.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:/Program Files/KiCad/10.0/bin/kicad-cli.exe",
+        "pcb",
+        "render",
+        "--width",
+        "1600",
+        "--height",
+        "1200",
+        "--quality",
+        "high",
+        "--background",
+        "transparent",
+        "--use-board-stackup-colors",
+        "--floor",
+        "--perspective",
+        "--rotate",
+        "30,0,25",
+        "--zoom",
+        ".82",
+        "-o",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\i2c-sensor\\output\\board-3d.png",
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\i2c-final-2mowkudu\\i2c-sensor\\i2c-sensor.kicad_pcb"
+      ],
+      "returncode": 0,
+      "stdout": "Loading\ufffd\nBuild board outline\n\nCreate layers\nCreate tracks and vias\nCreate zones\nBuild Tech layers\nBuild Tech layer 11\nBuild Tech layer 9\nBuild Tech layer 15\nBuild Tech layer 13\nBuild Tech layer 7\nBuild Tech layer 5\nBuild Tech layer 3\nBuild Tech layer 1\nBuild Tech layer 17\nBuild Tech layer 19\nBuild Tech layer 21\nBuild Tech layer 23\nBuild Tech layer 39\nBuild Tech layer 41\nBuild Tech layer 43\nBuild Tech layer 45\nBuild Tech layer 47\nBuild Tech layer 49\nBuild Tech layer 51\nBuild Tech layer 53\nBuild Tech layer 55\nBuild Tech layer 57\nBuild Tech layer 59\nBuild Tech layer 61\nBuild Tech layer 63\nBuild Tech layer 65\nBuild Tech layer 67\nBuild Tech layer 69\nBuild Tech layer 71\nBuild Tech layer 73\nBuild Tech layer 75\nBuild Tech layer 77\nBuild Tech layer 79\nBuild Tech layer 81\nBuild Tech layer 83\nBuild Tech layer 85\nBuild Tech layer 87\nBuild Tech layer 89\nBuild Tech layer 91\nBuild Tech layer 93\nBuild Tech layer 95\nBuild Tech layer 97\nBuild Tech layer 99\nBuild Tech layer 101\nBuild Tech layer 103\nBuild Tech layer 105\nBuild Tech layer 107\nBuild Tech layer 109\nBuild Tech layer 111\nBuild Tech layer 113\nBuild Tech layer 115\nBuild Tech layer 117\nBuild Tech layer 119\nBuild Tech layer 121\nBuild Tech layer 123\nBuild Tech layer 125\nBuild Tech layer 127\nSimplifying copper layer polygons\nCalculating plated copper\nSimplify holes contours\nBuild BVH for holes and vias\nLoad Raytracing: board\nLoad Raytracing: layers\nLoading 3D models...\nReload time 0.075 s\nRendering: 8 \nRendering: 17 \nRendering: 26 \nRendering: 36 \nRendering: 45 \nRendering: 53 \nRendering: 62 \nRendering: 69 \nRendering: 78 \nRendering: 87 \nRendering: 95 \nRendering: 100 \nRendering: Post processing shader\nRendering time 4.922 s\nSuccessfully created 3D render image\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:/Program Files/KiCad/10.0/bin/kicad-cli.exe",
+        "pcb",
+        "export",
+        "glb",
+        "--force",
+        "--subst-models",
+        "--include-tracks",
+        "--include-pads",
+        "--include-zones",
+        "--include-silkscreen",
+        "--include-soldermask",
+        "-o",
+        "C:\\Users\\tae06\\CODE\\PCB\\examples\\i2c-sensor\\output\\i2c-sensor.glb",
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\i2c-final-2mowkudu\\i2c-sensor\\i2c-sensor.kicad_pcb"
+      ],
+      "returncode": 0,
+      "stdout": "Binary GLTF file 'C:/Users/tae06/CODE/PCB/examples/i2c-sensor/output/i2c-sensor.glb' created.\n\nExport time 0.685 s\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:/Program Files/KiCad/10.0/bin/kicad-cli.exe",
+        "sch",
+        "export",
+        "netlist",
+        "--format",
+        "kicadxml",
+        "-o",
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\i2c-final-2mowkudu\\native.xml",
+        "C:\\Users\\tae06\\AppData\\Local\\Temp\\i2c-final-2mowkudu\\i2c-sensor\\i2c-sensor.kicad_sch"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}
